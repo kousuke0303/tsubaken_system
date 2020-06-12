@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-
+  
   # Adminログイン関係
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
@@ -33,11 +32,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions:      'users/sessions',
     passwords:     'users/passwords',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'omniauth_callbacks'
   }
-  
-  root 'static_page#login_index'
-  get 'static_page/show'
   
   namespace :admin do
     resources :admins, only: [:show, :edit, :update] do
@@ -109,7 +106,9 @@ Rails.application.routes.draw do
   end
 
   # ################################################################
-    
+  
+  root 'static_page#login_index'
+  get 'static_page/show'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

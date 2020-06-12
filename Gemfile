@@ -21,6 +21,8 @@ gem 'mechanize'
 gem 'devise'
 # decorator
 gem 'active_decorator'
+# line_login
+gem 'omniauth-line'
 
 
 group :development, :test do

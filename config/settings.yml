@@ -1,0 +1,10 @@
+production: &production
+  line:
+    key: 1654338772
+    secret: 85a96476bdc6de8a47cd15da4e996b3a
+development: &development
+  line:
+    key: 1654338772
+    secret: 85a96476bdc6de8a47cd15da4e996b3a
+test:
+  <<: *development
