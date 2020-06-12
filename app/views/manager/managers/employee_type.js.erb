@@ -1,0 +1,7 @@
+var type = '<%= @employee_type %>'
+if( type == 'submanager'){
+  $('.employee_type_form').html('<%= escape_javascript(render partial: './manager/managers/employee_forms/submanager_form', locals: { manager: @manager, submanager: @manager.submanagers.build, resource: @manager.submanagers.build }) %>');
+};
+if( type == 'staff'){
+  $('.employee_type_form').html('<%= escape_javascript(render partial: './manager/managers/employee_forms/staff_form', locals: { manager: @manager, staff: Staff.new, resource: Staff.new }) %>');
+};

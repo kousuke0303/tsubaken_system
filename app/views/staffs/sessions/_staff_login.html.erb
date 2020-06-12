@@ -1,0 +1,21 @@
+<div class="grid_staff">
+  <div id="staff_login">
+    <h2><span class="fontawesome-lock"></span>Staff / Sign in</h2>
+
+    <fieldset>
+      <%= form_for(Staff.new, as: :staff, url: session_path(:staff), local: true) do |f| %>
+
+          <p><%= f.label :email %></p>
+          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,　id: "email" %></p>
+
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
+
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン状態を維持する" %>
+
+          <%= f.submit "ログイン" %>
+      <% end %>
+    </fieldset>
+  </div>
+</div>

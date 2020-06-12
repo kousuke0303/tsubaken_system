@@ -1,0 +1,11 @@
+<% current_manager.manager_staffs.each do |manager_staff| %>
+  <tr>
+    <td>Staff</td>
+    <td><%= manager_staff.staff.name %></td>
+    <td><%= manager_staff.staff.email %></td>
+    <td>
+      <%= link_to "編集", edit_manager_staff_path(current_manager,manager_staff.staff), class: "btn btn-dark btn-sm" %>
+      <%= link_to "削除", manager_staff_path(current_manager,manager_staff.staff), data: {confirm: "#{manager_staff.staff.name}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+    </td>
+  </tr>
+<% end %>

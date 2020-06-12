@@ -1,0 +1,31 @@
+<div class="modal-dialog">
+  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+  <div class="modal-content">
+    <div class="modal-body pa-2e">
+    <!-- &timesは「×ボタン」の表示-->
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 id="hoge">新規作成</h4>
+      
+      <label>Type</label>
+      <select name="employee_type" class="custom-select employee_type">
+        <option value="">--- タイプを選択してください ---</option>
+        <option value="submanager">SubManager</option>
+        <option value="staff">Staff</option>
+      </select>
+      
+      <div class="employee_type_form"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.employee_type').on('change', function(){
+    var val = $('.employee_type').val();
+    $.ajax({
+      type: "GET",
+      url: "<%= employee_type_manager_path(current_manager) %>",
+      cache: false,
+      data: { employee_type: val, remote: true }
+    });
+  })
+</script>

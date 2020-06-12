@@ -1,0 +1,41 @@
+<div class="manager_after_signup_backgroud">
+  <div class="manager_after_signup_container">
+    
+    <div>
+      <p>以下の内容でアカウント申請を受け付けました。</p>
+      <p>承認まで今しばらくお待ちください。</p>
+    </div>
+
+    <div class="container-fuild">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Account情報</h2>
+        </div>
+        <div class="col-md-6">
+          <%= link_to edit_manager_registration_path(current_manager), class: "btn btn-dark float-r mt-0 mb-1e" do %>
+            <i class="fas fa-user-edit"></i> 編集
+          <% end %>
+        </div>
+      </div>
+      
+      <table class="table table-borderd manager_account_show">
+        <tr>
+          <th class="active">会社名</th>
+          <td><%= @manager.company %></td>
+        </tr>
+  
+        <tr>
+          <th class="active">代表者</th>
+          <td><%= @manager.name %></td>
+        </tr>
+  
+        <tr>
+          <th class="active">Mail</th>
+          <td><%= @manager.email %></td>
+        </tr>
+      </table>
+      
+      <%= link_to "戻る", destroy_manager_session_path, method: :delete, class: "btn btn-dark float-r mb-1e" %>
+    </div>
+  </div>
+</div>

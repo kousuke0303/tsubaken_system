@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <h2>Admin情報</h2>
+  <div class-"table-responsive">
+    <table class="table table-bordered text-nowrap admin_show_table">
+      <tr>
+        <th>アカウント数</th>
+        <td><%= @account_number %></td>
+      </tr>
+    </table>
+  </div>
+  
+  <h2>Admin/Account情報</h2>
+  <div class-"table-responsive">
+    <table class="table table-bordered text-nowrap admin_show_table">
+      <% @admins.each do |admin| %>
+        <tr>
+          <th>Mail</th>
+          <td><%= admin.email %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+

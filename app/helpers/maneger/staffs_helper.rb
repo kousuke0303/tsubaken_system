@@ -1,0 +1,2 @@
+module Maneger::StaffsHelper
+end

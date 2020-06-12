@@ -1,0 +1,93 @@
+// Place all the styles related to the StaticPage controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login_index_container {
+  text-align: center;
+  padding-top: 20Vh;
+}
+
+.manager_staff_login_container {
+  display: none;
+}
+
+.user_login_btn {
+  display: inline-block;
+	position: relative;
+	width: 160px;
+	padding: 0.8em;
+	text-align: center;
+	text-decoration: none;
+	color: #1B1B1B;
+	background: #fff;
+  border-radius: 30px;
+	border:2px solid #1B1B1B;
+	-webkit-backface-visibility: hidden; 
+	-moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.user_login_btn:hover {
+  cursor: pointer;
+  color: black;
+	text-decoration: none;
+	-webkit-animation: simple_square_btn6 0.5s both;
+	-moz-animation: simple_square_btn6 0.5s both;
+	animation: simple_square_btn6 0.5s both;
+}
+
+@-webkit-keyframes user_login_btn {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@-moz-keyframes simple_square_btn6 {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@keyframes simple_square_btn6 {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media screen and (max-width: 896px) {
+
+  .login_index_container {
+    text-align: center;
+    padding-top: 40Vh;
+  }
+}
+
+
+@media screen and (max-width: 480px) { 
+  
+  /* ログインボタンの位置変更 */
+  .manager_staff_login_container {
+    display: block;
+    padding-top: 3em;
+  }
+  
+  .login_index_container{
+    padding-top: 11em;
+  }
+}

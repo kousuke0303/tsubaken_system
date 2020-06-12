@@ -1,0 +1,23 @@
+<div class="mt-1e">
+  <div class="card mb-3">
+    <div class="card-header text-white bg-purple">Staff/<%= @staff.name %> 編集</div>
+    <div class="card-body">
+      <%= form_with(model: [:manager, @staff], url: manager_staff_path(current_manager, @staff), method: :patch) do |f| %>
+
+        <%= render "devise/shared/error_messages", resource: @staff %>
+
+        <div class="form-group">
+          <%= f.label :name, "名前" %>
+          <%= f.text_field :name, required: true, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control" %>
+        </div>
+
+        <%= f.submit "編集", class: "btn btn-dark" %>
+      <% end %>
+   </div>
+  </div>
+</div>

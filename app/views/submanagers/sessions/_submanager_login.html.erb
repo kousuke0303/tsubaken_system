@@ -1,0 +1,21 @@
+<div class="grid_submanager">
+  <div id="submanager_login">
+    <h2 class="smp_size"><span class="fontawesome-lock"></span>SubManager / Sign in</h2>
+        
+    <fieldset>
+      <%= form_for(Submanager.new, as: :submanager, url: session_path(:submanager)) do |f| %>
+              
+          <p><%= f.label :email %></p>
+          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", id: "email" %></p>
+          
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "current-password", id: "password" %></p>
+          
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン状態を維持する" %>
+          
+          <%= f.submit "ログイン" %>
+      <% end %>
+      </fieldset>
+  </div>
+</div>

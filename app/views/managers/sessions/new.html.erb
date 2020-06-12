@@ -1,0 +1,28 @@
+<div class="manager_session_background">
+  <div class="manager_session_grid">
+    <div id="manager_login">
+      <h2><span class="fontawesome-lock"></span>manager / Sign in</h2>
+      
+      <fieldset>
+        <%= form_for(Manager.new, as: :manager, url: session_path(:manager)) do |f| %>
+        
+          <p><%= f.label :email %></p>
+          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", id: "email" %></p>
+          
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "current-password", id: "password" %></p>
+          
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン状態を維持する" %>
+          
+          <%= f.submit "ログイン" %>
+          
+          <div class="sign_in_link">
+            <p><%= link_to "パスワードを忘れた場合", new_password_path(:manager) %></p>
+            <p><%= link_to "アカウント新規作成", new_manager_registration_path(:manager) %></p>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+</div>

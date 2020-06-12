@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Staff一覧</h2>
+  <button class="employee_new_btn btn btn-purple mt-0 mb-1e float-r" data-toggle="modal" data-target="#employee_new"><i class="fas fa-staff-plus"></i> 新規作成</button>
+  
+  <table class="table tabale-borderd employee_index">
+    <tr>
+      <th>type</th>
+      <th>名前</th>
+      <th>email</th>
+      <th></th>
+    </tr>
+    <% current_submanager.manager.manager_staffs.each do |manager_staff| %>
+      <tr>
+        <td>Staff</td>
+        <td><%= manager_staff.staff.name %></td>
+        <td><%= manager_staff.staff.email %></td>
+        <td>
+          <%= link_to "編集", edit_submanager_staff_path(current_submanager,manager_staff.staff), class: "btn btn-dark btn-sm" %>
+          <%= link_to "削除", submanager_staff_path(current_submanager,manager_staff.staff), data: {confirm: "#{manager_staff.staff.name}を削除しますか？"}, method: :delete,class: "btn btn-destroy btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+
+

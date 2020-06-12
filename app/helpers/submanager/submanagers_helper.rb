@@ -1,0 +1,2 @@
+module Submanager::SubmanagersHelper
+end

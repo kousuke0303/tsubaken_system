@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Account情報</h2>
+    </div>
+    <div class="col-md-6">
+      <%= link_to edit_submanager_path(current_submanager_public_uid, current_submanager), class: "btn btn-dark float-r mt-0 mb-1e" do %>
+        <i class="fas fa-user-edit"></i> 編集
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="table-responsive"> 
+    <table class="table table-borderd text-nowrap manager_account_show">
+      
+      <tr>
+        <th class="active">名前</th>
+        <td><%= current_submanager.name %></td>
+      </tr>
+      
+      <tr>
+        <th class="active">Mail</th>
+        <td><%= current_submanager.email %></td>
+      </tr>
+      
+    </table>
+  </div>
+</div>
