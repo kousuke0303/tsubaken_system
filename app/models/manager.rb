@@ -15,6 +15,9 @@ class Manager < ApplicationRecord
   has_many :staffs, through: :manager_staffs
   has_many :manager_staffs
   
+  has_many :matters, through: :matter_managers
+  has_many :matter_managers
+  
   # パラメーター変更
   def to_param
     public_uid ? public_uid : super()

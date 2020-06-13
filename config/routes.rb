@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
   
-  # ##########--MANAGER:CONTROLLER--###############################
+  # ###--MANAGER:CONTROLLER--###############################
   
   scope module: :manager do
     resources :managers, path: '/', only: [:show] do
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   
   # ################################################################
   
-  # ######--SUBMANAGER:CONTROLLER--################################
+  # ###--SUBMANAGER:CONTROLLER--################################
   
   scope "(:manager_public_uid)" do
     scope module: :submanager do
@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   
   # ################################################################
 
-  # ######--USER:CONTROLLER--################################
+  # ###--USER:CONTROLLER--################################
   
   scope module: :user do
     resources :users, only: [:show, :edit, :update] do
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   
   # ################################################################
     
-  # ######--STAFF:CONTROLLER--################################
+  # ###--STAFF:CONTROLLER--################################
   scope module: :staff do
     resources :staffs, only: [:show, :edit, :update] do
       get :top, on: :member
@@ -107,8 +107,17 @@ Rails.application.routes.draw do
 
   # ################################################################
   
+  # ###--MATTER関連--################################
+  scope "(:manager_public_uid)" do
+    namespace :matter do
+      resources :matters, path: '/'
+    end
+  end
+  # ################################################################
+  
   root 'static_page#login_index'
-  get 'static_page/show'
+  
+  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
