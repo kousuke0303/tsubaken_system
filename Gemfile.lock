@@ -73,6 +73,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.9.0)
     execjs (2.7.0)
+    faker (2.12.0)
+      i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
@@ -257,6 +259,7 @@ DEPENDENCIES
   byebug (= 9.0.6)
   coffee-rails (~> 4.2)
   devise
+  faker
   font-awesome-rails
   font-awesome-sass
   jbuilder (~> 2.5)
