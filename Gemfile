@@ -21,6 +21,10 @@ gem 'mechanize'
 gem 'devise'
 # decorator
 gem 'active_decorator'
+# line_login
+gem 'omniauth-line'
+# line_login時の偽mail作成
+gem 'faker'
 
 
 group :development, :test do
