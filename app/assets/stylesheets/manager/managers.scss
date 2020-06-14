@@ -57,7 +57,7 @@
 
 
 /* ---------------------------------------------------
-    employee
+    EMPLOYEE
 ----------------------------------------------------- */
 
 .employee_index {
@@ -69,20 +69,21 @@
 
 .employee_select_btn {
   height: 2.5em;
-  width: 8em;
+  width: 8.5em;
   background-color: white;
-  color: #0f79e2ba;
-  border-color: #0f79e2ba;
+  color: #0f79e2ba!important;
+  border-color: #0f79e2ba!important;
   border-radius: 5%;
+  border-width: 2px!important;
   &:hover {
-    background-color: #457eb7ba;
-    color: white;
+    background-color: #c0dcf7ba!important;
   }
 }
 
-.active {
-  background-color: #457eb7ba;
-  color: white;
+.employee_select {
+  .active {
+    background-color: #c0dcf7ba!important;
+  }
 }
 
 /////* submanager_create_form *////////
