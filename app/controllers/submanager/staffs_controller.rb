@@ -31,7 +31,9 @@ class Submanager::StaffsController < ApplicationController
       flash[:success] = "#{@staff.name}の情報を更新しました"
       redirect_to employee_submanager_url(current_submanager)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
