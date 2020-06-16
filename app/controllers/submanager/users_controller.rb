@@ -24,6 +24,10 @@ class Submanager::UsersController < ApplicationController
       if submanager_signed_in?
         redirect_to enduser_submanager_url(current_submanager)
       end
+    else
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
