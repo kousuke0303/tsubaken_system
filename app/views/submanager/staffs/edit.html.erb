@@ -4,7 +4,7 @@
     <div class="card-body">
       <%= form_with(model: [:submanager, @staff], url: submanager_staff_path(current_submanager, @staff), method: :patch) do |f| %>
 
-        <%= render "devise/shared/error_messages", resource: @staff %>
+        <div class="staff_update_error"></div>
 
         <div class="form-group">
           <%= f.label :name, "名前" %>
