@@ -94,7 +94,7 @@
               <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-alt"></i> <%= current_submanager.name %>
               </a>
-              <div class="dropdown-menu dropdown-position" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
                 <%= link_to submanager_path(current_submanager_public_uid, current_submanager), class: "dropdown-item item-link" do %>
                   <i class="fas fa-user-edit"></i> アカウント情報
                 <% end %>

@@ -91,7 +91,7 @@
               <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-alt"></i> <%= current_staff.name %>
               </a>
-              <div class="dropdown-menu dropdown-position" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
                 <%= link_to staff_path(current_staff), class: "dropdown-item item-link" do %>
                   <i class="fas fa-user-edit"></i> アカウント情報
                 <% end %>
