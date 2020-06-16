@@ -225,9 +225,18 @@ ul ul a {
   background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-  color: #fff;
+#sidebar ul li.active > a {
+  color: #343a40;
   background: #6c757d;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #343a40!important;
+  background: #6c757d;
+}
+
+ul ul a {
+  font-size: 1em!important;
 }
 
 ul.CTAs {

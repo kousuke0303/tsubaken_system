@@ -24,6 +24,10 @@ class Manager::StaffsController < ApplicationController
       if manager_signed_in?
         redirect_to employee_manager_url(current_manager)
       end
+    else
+      respond_to do |format|
+        format.js
+      end
     end
   end
   

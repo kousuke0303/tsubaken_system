@@ -8,28 +8,22 @@
 
     <ul class="list-unstyled components">
       <p>管理者専用PAGE</p>
+      
       <li>
-        <%= link_to "Employee", employee_manager_path(current_manager) %>
+        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
+        <ul class="collapse list-unstyled" id="homeSubmenu">
+          <li>
+            <%= link_to "Employee", employee_manager_path(current_manager) %>
+          </li>
+          <li>
+            <%= link_to "EndUser", enduser_manager_path(current_manager) %>
+          </li>
+        </ul>
       </li>
       <li>
-        <%= link_to "EndUser", enduser_manager_path(current_manager) %>
-      </li>
-      <li class="">
-        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
-          <ul class="collapse list-unstyled" id="homeSubmenu">
-            <li>
-              <a href="#">action1</a>
-            </li>
-            <li>
-              <a href="#">action2</a>
-            </li>
-            <li>
-              <a href="#">action3</a>
-            </li>
-          </ul>
+        <%= link_to "Matter", matter_matters_path(current_manager) %>
       </li>
       <li>
-        <a href="#">Matter</a>
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Calender</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>

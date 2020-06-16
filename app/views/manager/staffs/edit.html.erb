@@ -2,9 +2,9 @@
   <div class="card mb-3">
     <div class="card-header text-white bg-purple">Staff/<%= @staff.name %> 編集</div>
     <div class="card-body">
-      <%= form_with(model: [:manager, @staff], url: manager_staff_path(current_manager, @staff), method: :patch) do |f| %>
+      <%= form_with(model: [:manager, @staff], url: manager_staff_path(current_manager, @staff), remote: true, method: :patch) do |f| %>
 
-        <%= render "devise/shared/error_messages", resource: @staff %>
+        <div class="staff_update_error"></div>
 
         <div class="form-group">
           <%= f.label :name, "名前" %>

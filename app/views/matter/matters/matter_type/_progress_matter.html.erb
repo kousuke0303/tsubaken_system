@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table tabale-borderd text-nowrap">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>場所</th>
+        <th>依頼人名</th>
+        <th>状況</th>
+      </tr>
+    </thead>
+    
+    <% Matter.all.each do |matter| %>
+    <tr>
+      <td><%= matter.title %></td>
+      <td><%= matter.actual_spot %></td>
+      <td><%= matter.status %></td>
+      <td>
+        <%= link_to "編集", "#", class: "btn btn-dark btn-sm" %>
+        <%= link_to "削除", "#", data: {confirm: "を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
