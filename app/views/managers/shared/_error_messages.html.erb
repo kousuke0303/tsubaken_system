@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="custom_error">
     <h5>
       <%= I18n.t("errors.messages.not_saved",
                  count: resource.errors.count,
@@ -8,7 +8,7 @@
     </h5>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="error_message"><%= message %></li>
       <% end %>
     </ul>
   </div>
