@@ -1,0 +1,7 @@
+$('.staff_update_error').html('<%= escape_javascript(render partial: './staffs/shared/error_messages', locals: { resource: @staff }) %>');
+<% @staff.errors.messages.keys.each do |key_attribute| %>
+  var add_div = $('<div class="field_with_errors">');
+  var add_label = $('input[name="staff[<%= key_attribute.intern.to_s %>]"]').prev();
+  $('input[name="staff[<%= key_attribute.intern.to_s %>]"]').wrap(add_div);
+  add_label.wrap(add_div);
+<% end %>
