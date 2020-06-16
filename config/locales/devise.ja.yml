@@ -58,6 +58,6 @@ ja:
       not_found: 'は見つかりませんでした。'
       not_locked: 'は凍結されていません。'
       not_saved:
-        one: "エラーが発生したため %{resource} は保存されませんでした:"
-        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした:"
+        one: "エラーが発生したため %{resource} は保存されませんでした"
+        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした"
       does_not_match_password: "とパスワードが一致しません。"
