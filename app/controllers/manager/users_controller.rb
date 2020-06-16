@@ -24,6 +24,10 @@ class Manager::UsersController < ApplicationController
       if manager_signed_in?
         redirect_to enduser_manager_url(current_manager)
       end
+    else
+      respond_to do |format|
+        format.js
+      end
     end
   end
   
