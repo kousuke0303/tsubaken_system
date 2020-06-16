@@ -3,7 +3,7 @@
     <div class="card-header text-white bg-purple">User/<%= @user.name %> 編集</div>
     <div class="card-body">
       <%= form_with(model: [:user, @user], url: user_path(current_user), local: true, method: :patch) do |f| %>
-        <%= render "devise/shared/error_messages", resource: @user %>
+        <%= render "users/shared/error_messages", resource: @user %>
 
         <div class="form-group">
           <%= f.label :name, "名前" %>
