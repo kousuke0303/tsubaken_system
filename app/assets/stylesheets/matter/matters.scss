@@ -11,3 +11,31 @@
     color: white;
   }
 }
+
+.matter_table {
+  th {
+    text-align: left;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+.client_form {
+  border: 1px solid #dfdfdf;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+/* ---------------------------------------------------
+    SHOW
+----------------------------------------------------- */
+
+.matter_show_table {
+  th {
+    text-align: left;
+  }
+  td {
+    text-align: left;
+  }
+}

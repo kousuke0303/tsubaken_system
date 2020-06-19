@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table table-bordered matter_show_table">
+    <tr>
+      <th>タイトル</th>
+      <td><%= current_matter.title %></td>
+    </tr>
+    <tr>
+      <th>現場住所</th>
+      <td><%= current_matter.actual_spot %></td>
+    </tr>
+    <tr>
+      <th>着工予定日</th>
+      <td><%= matter_day(current_matter.scheduled_start_at) %></td>
+    </tr>
+    <tr>
+      <th>完了予定日</th>
+      <td><%= matter_day(current_matter.scheduled_finish_at) %></td>
+    </tr>
+  </table>
+</div>

@@ -9,7 +9,7 @@
     <div class="col-sm-12">
       
       <div class="card text-center matter_index">
-        <div class="card-header bg-info">
+        <div class="card-header bg-purple">
           <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" href="#progress_matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">進行案件</a>
@@ -27,11 +27,14 @@
           <div class="tab-content" id="myTabContent">
             
             <div class="tab-pane fade show active bg-white" id="progress_matters" role="tabpanel" aria-labelledby="home-tab">
-              <h5 class="card-title">Special title treatment</h5>
+              <h5 class="card-title">進行中案件</h5></h5>
                 <%= render 'matter/matters/matter_type/progress_matter' %>
             </div>
           
-            <div class="tab-pane fade bg-white" id="finished_matters" role="tabpanel" aria-labelledby="profile-tab">完了</div>
+            <div class="tab-pane fade bg-white" id="finished_matters" role="tabpanel" aria-labelledby="profile-tab">
+              <h5 class="card-title">完了案件</h5></h5>
+                <%= render 'matter/matters/matter_type/finished_matter' %>
+            </div>
           
             <div class="tab-pane fade bg-white" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
