@@ -1,0 +1,44 @@
+<div class="form-group">
+  <% if current_manager.users.exists? %>
+    <select class="form-control" id="select_user_name">
+      <option disabled selected value>選択してください</option>
+      <% current_manager.users.each do |user| %>
+        <option value="<%= user.id %>"><%= user.name %></option>
+      <% end %>
+    </select>
+  <% else %>
+    <label>User一覧</label>
+    <p>Userの登録がありません</p>
+  <% end %>
+</div>
+  
+<div style="display: none;" id="selected_user">
+  <div class="client_form">
+    <%= f.fields_for :clients, @client do |fi| %>
+      <div class="mt-1e">
+        <%= fi.label :name, "名前" %>
+        <%= fi.text_field :name, class: "form-control", id: "user_name" %>
+      </div>
+      <div class="mt-1e">
+        <%= fi.label :phone, "連絡先" %>
+        <%= fi.phone_field :phone, class: "form-control", id: "user_phone", value:"" %>
+      </div>
+      <div class="mt-1e">
+        <%= fi.label :email, "EMAIL" %>
+        <%= fi.text_field :email, class: "form-control", id: "user_email" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $('#select_user_name').on('change', function(){
+    var select_user_id = $('#select_user_name').val();
+    $.ajax({
+      type: "GET",
+      url: "<%= selected_user_matter_matters_path(current_manager) %>",
+      cache: false,
+      data: { select_user_id: select_user_id, remote: true }
+    }); 
+  });
+</script>

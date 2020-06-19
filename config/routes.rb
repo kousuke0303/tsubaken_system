@@ -110,7 +110,9 @@ Rails.application.routes.draw do
   # ###--MATTER関連--################################
   scope "(:manager_public_uid)" do
     namespace :matter do
-      resources :matters, path: '/'
+      resources :matters, path: '/' do
+        get :selected_user, on: :collection
+      end
     end
   end
   # ################################################################

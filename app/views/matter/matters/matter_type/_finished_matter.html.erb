@@ -9,14 +9,14 @@
       </tr>
     </thead>
     
-    <% @progress_matters.each do |matter| %>
+    <% @finished_matters.each do |matter| %>
     <tr>
       <td><%= matter.title %></td>
       <td><%= matter.actual_spot %></td>
-      <td><%= matter.clients.first.name %></td>
+      <td><%= matter.status %></td>
       <td>
-        <%= link_to "詳細", matter_matter_path(current_manager, matter.matter_uid), class: "btn btn-dark btn-sm" %>
-        <%= link_to "削除", matter_matter_path(matter.id), data: {confirm: "#{matter.title}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+        <%= link_to "編集", "#", class: "btn btn-dark btn-sm" %>
+        <%= link_to "削除", "#", data: {confirm: "を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
       </td>
     </tr>
     <% end %>
