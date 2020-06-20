@@ -1,4 +1,5 @@
 class Matter::MattersController < ApplicationController
+  before_action :matter_authenticate!, except: [:index, :show]
   
   def index
     @progress_matters = current_manager.matters.where.not(status: "finish")

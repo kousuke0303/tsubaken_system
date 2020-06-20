@@ -33,6 +33,16 @@ class ApplicationController < ActionController::Base
     Matter.find_by(matter_uid: params[:id])
   end
   
+  def matter_authenticate!
+    if current_manager && current_manager.public_uid == params[:manager_public_uid]
+      return true
+    elsif current_submanager && current_submanager.manager.public_uid == params[:manager_public_uid]
+      return true
+    else
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_url
+    end
+  end
 
   private
   
