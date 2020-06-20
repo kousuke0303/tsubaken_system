@@ -43,7 +43,17 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end
-
+  
+  def only_show_authenticate!
+    if current_manager && current_manager.public_uid == params[:manager_public_uid]
+      @matters = current_manager.matters
+    elsif current_submanager && current_submanager.manager.public_uid == params[:manager_public_uid]
+      @matters = current_submanager.manager.matters
+    elsif current_staff
+      @matters = current_staff.matters
+    end
+  end
+    
   private
   
   # ログイン後のリダイレクト先
