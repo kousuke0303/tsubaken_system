@@ -1,14 +1,18 @@
-# ----管理者権限----------------------------------------
+#------------------------------------------------------
+    # 権限
+# ----------------------------------------------------
+
+# 1.管理者権限---------------
 
 Admin.create!(email: "test12345@email.com",
               password: "password12345",
               password_confirmation: "password12345")
 puts "CREATE! ADMIN"
 
-# ------------------------------------------------------
+# -------------------------------------------------
 
 
-# ----MANAGER権限---------------------------------------
+# 2.MANAGER権限--------------
 
 # 未承認------------------
 Manager.create!(company: "株式会社Tokkun",
@@ -43,7 +47,7 @@ puts "CREATE! APPROVAL_MANAGER2"
 
 # ------------------------------------------------------
 
-# ----SUBMANAGER権限------------------------------------
+# 3.SUBMANAGER権限------------------
 
 Submanager.create!(name: "サブマネA",
                    email: "submanagerA@email.com",
@@ -55,7 +59,7 @@ puts "CREATE! SUBMANAGER-A"
 
 # ------------------------------------------------------
 
-# ----USER権限------------------------------------
+# 4.USER権限------------------------------------
 
 User.create!(name: "ユーザーA",
                    email: "userA@email.com",
@@ -77,7 +81,7 @@ puts "CREATE! USER-B"
 
 # ------------------------------------------------------
 
-# ----STAFF権限------------------------------------
+# 5.STAFF権限----------------------
 
 Staff.create!(name: "スタッフA",
     email: "staffA@email.com",
@@ -96,3 +100,30 @@ Staff.create!(name: "スタッフB",
 ManagerStaff.create!(manager_id: 3, staff_id: 2)
 
 puts "CREATE! STAFF-B"
+
+# ----------------
+    # 権限END
+# ------------------------------------------------------
+
+# -----------------------------------------------------
+      # MATTER
+# ---------------------------------------------
+
+# 1.Matter-----------------
+
+SeedMatter = Matter.create!(title: "案件１",
+               actual_spot: "東京都渋谷区神宮町１−１−１",
+               scheduled_start_at: "2020-07-01",
+               scheduled_finish_at: "2020-7-30",
+               matter_uid: "aa00000001",
+               )
+SeedMatter.matter_managers.create!(manager_id: 3)
+SeedMatter.clients.create!(name: "３匹のこぶた",
+                           phone: "09000000000",
+                           email: "client@email.com"
+                           )
+puts "CREATE MATTER"
+
+
+
+
