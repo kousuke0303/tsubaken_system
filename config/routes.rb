@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   # ################################################################
     
   # ###--STAFF:CONTROLLER--################################
+  
   scope module: :staff do
     resources :staffs, only: [:show, :edit, :update] do
       get :top, on: :member
@@ -108,13 +109,17 @@ Rails.application.routes.draw do
   # ################################################################
   
   # ###--MATTER関連--################################
+  
   scope "(:manager_public_uid)" do
     namespace :matter do
       resources :matters, path: '/' do
+        patch :title_update, on: :member
+        patch :client_update, on: :member
         get :selected_user, on: :collection
       end
     end
   end
+  
   # ################################################################
   
   root 'static_page#login_index'

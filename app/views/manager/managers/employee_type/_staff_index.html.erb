@@ -1,11 +1,16 @@
-<% current_manager.manager_staffs.each do |manager_staff| %>
+<% dependent_manager.staffs.each do |staff| %>
   <tr>
     <td>Staff</td>
-    <td><%= manager_staff.staff.name %></td>
-    <td><%= manager_staff.staff.email %></td>
+    <td><%= staff.name %></td>
+    <td><%= staff.email %></td>
     <td>
-      <%= link_to "編集", edit_manager_staff_path(current_manager,manager_staff.staff), class: "btn btn-dark btn-sm" %>
-      <%= link_to "削除", manager_staff_path(current_manager,manager_staff.staff), data: {confirm: "#{manager_staff.staff.name}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+      <% if manager_signed_in? %>
+        <%= link_to "編集", edit_manager_staff_path(current_manager, staff), class: "btn btn-dark btn-sm" %>
+        <%= link_to "削除", manager_staff_path(current_manager, staff), data: {confirm: "#{staff.name}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+      <% elsif submanager_signed_in? %>
+        <%= link_to "編集", edit_submanager_staff_path(dependent_manager, current_submanager, staff), class: "btn btn-dark btn-sm" %>
+        <%= link_to "削除", submanager_staff_path(dependent_manager, current_submanager, staff), data: {confirm: "#{staff.name}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+      <% end %>
     </td>
   </tr>
 <% end %>

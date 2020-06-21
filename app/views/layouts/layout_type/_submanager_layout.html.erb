@@ -8,12 +8,22 @@
 
       <ul class="list-unstyled components">
         <p>Submanager/PAGE</p>
+        
         <li>
-          <%= link_to "Employee", employee_submanager_path(current_submanager) %>
+          <a href="#AccountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
+          <ul class="collapse list-unstyled" id="AccountSubmenu">
+            <li>
+              <%= link_to "Employee", employee_submanager_path(dependent_manager) %>
+            </li>
+            <li>
+              <%= link_to "EndUser", enduser_manager_path(current_submanager.manager) %>
+            </li>
+          </ul>
         </li>
         <li>
-          <%= link_to "EndUser", enduser_submanager_path(current_submanager) %>
+          <%= link_to "Matter", matter_matters_path(current_submanager.manager) %>
         </li>
+        
         <li class="">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -29,7 +39,6 @@
           </ul>
         </li>
         <li>
-          <a href="#">Matter</a>
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Calender</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
           <li>
@@ -111,7 +120,9 @@
     
     <!-- Main-content -->
       
-      <%= render 'layouts/flash' %>
+      <div class="flash_container">
+        <%= render 'layouts/flash' %>
+      </div> 
       <div class="submanager_contaioner">
         <%= yield %>
       </div>

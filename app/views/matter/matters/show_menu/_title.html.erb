@@ -1,20 +1,60 @@
-<div class="table-responsive">
-  <table class="table table-bordered matter_show_table">
-    <tr>
-      <th>タイトル</th>
-      <td><%= current_matter.title %></td>
-    </tr>
-    <tr>
-      <th>現場住所</th>
-      <td><%= current_matter.actual_spot %></td>
-    </tr>
-    <tr>
-      <th>着工予定日</th>
-      <td><%= matter_day(current_matter.scheduled_start_at) %></td>
-    </tr>
-    <tr>
-      <th>完了予定日</th>
-      <td><%= matter_day(current_matter.scheduled_finish_at) %></td>
-    </tr>
-  </table>
+<div class="table-responsive" id="edit_change">
+  <div id="matter_title_show">
+    <table class="table table-bordered matter_show_table">
+      <tr>
+        <th>タイトル</th>
+        <td><%= current_matter.title %></td>
+      </tr>
+      <tr>
+        <th>現場住所</th>
+        <td><%= current_matter.actual_spot %></td>
+      </tr>
+      <tr>
+        <th>着工予定日</th>
+        <td><%= matter_day(current_matter.scheduled_start_at) %></td>
+      </tr>
+      <tr>
+        <th>完了予定日</th>
+        <td><%= matter_day(current_matter.scheduled_finish_at) %></td>
+      </tr>
+    </table>
+    <button class="btn btn-dark float-l mb-1e" id="title_edit_btn">編集</button>
+  </div>
+  
+  <div id="matter_title_edit" style="display: none;">
+    <%= form_with(model: current_matter, url: title_update_matter_matter_path(@manager, current_matter), method: :patch, local: true) do |f| %>
+      <table class="table table-bordered matter_show_table">
+        <tr>
+          <th>タイトル</th>
+          <td><%= f.text_field :title, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>現場住所</th>
+          <td><%= f.text_field :actual_spot, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>着工予定日</th>
+          <td><%= f.date_field :scheduled_start_at, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>完了予定日</th>
+          <td><%= f.date_field :scheduled_finish_at, class: "form-control" %></td>
+        </tr>
+      </table>
+      <%= f.submit "更新", class: "btn btn-dark float-l" %>
+      <button type="button" class="btn float-r" id="return_btn"><i class="fas fa-angle-left"></i> 戻る</button>
+    <% end %>
+  </div>
 </div>
+
+<script>
+  $('#title_edit_btn').on('click', function(){
+    $('#matter_title_edit').show();
+    $('#matter_title_show').hide();
+  });
+  
+  $('#return_btn').on('click', function(){
+    $('#matter_title_show').show();
+    $('#matter_title_edit').hide();
+  });
+</script>

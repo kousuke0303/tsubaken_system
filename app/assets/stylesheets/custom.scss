@@ -457,11 +457,23 @@ a.article, a.article:hover {
   background-color: #d686bd;
 }
 
+.bg-brown {
+  background-color: #8a7a74;
+}
+
 
 //* 位置 *//
 
 .float-r {
-    float: right;
+  float: right;
+}
+
+.float-l {
+  float: left;
+}
+
+.text-left {
+  text-align: left;
 }
 
 //* 余白 *//

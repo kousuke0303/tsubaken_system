@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with(model: @matter, url: matter_matter_path(current_manager, current_matter), method: :patch, local: true) do |f| %>
+  <%= form_with(model: @matter, url: matter_matter_path(@manager, current_matter), method: :patch, local: true) do |f| %>
   
   <!--STEP1-->
     <div class="card">
