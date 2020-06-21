@@ -57,6 +57,14 @@ Submanager.create!(name: "サブマネA",
 
 puts "CREATE! SUBMANAGER-A"
 
+Submanager.create!(name: "サブマネB",
+                   email: "submanagerb@email.com",
+                   password: "password",
+                   password_confirmation: "password",
+                   manager_id: 3)
+
+puts "CREATE! SUBMANAGER-B"
+
 # ------------------------------------------------------
 
 # 4.USER権限------------------------------------

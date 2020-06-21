@@ -1,45 +1,51 @@
 <div class="container">
-  <h2>受託案件一覧</h2>
+  <h2><i class="fas fa-clipboard"></i> MATTER一覧</h2>
   
-  <div class="row">
-    <div class="col-sm-12">
-      <%= link_to "受託案件新規作成", new_matter_matter_path(current_manager), class: "btn btn-dark mb-1e float-r" %>
+  <div class="row mt-1e matter_select">
+    <div class="col-sm-8">
+      <button class="btn matter_select_btn" id="select_progerss">進行案件</button>
+      <button class="btn matter_select_btn" id="select_finished">完了案件</button>
     </div>
-    
-    <div class="col-sm-12">
-      
-      <div class="card text-center matter_index">
-        <div class="card-header bg-purple">
-          <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" href="#progress_matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">進行案件</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#finished_matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">完了案件</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">未入金案件</a>
-            </li>
-          </ul>
-        </div>
-        
-        <div class="card-body">
-          <div class="tab-content" id="myTabContent">
-            
-            <div class="tab-pane fade show active bg-white" id="progress_matters" role="tabpanel" aria-labelledby="home-tab">
-              <h5 class="card-title">進行中案件</h5></h5>
-                <%= render 'matter/matters/matter_type/progress_matter' %>
-            </div>
-          
-            <div class="tab-pane fade bg-white" id="finished_matters" role="tabpanel" aria-labelledby="profile-tab">
-              <h5 class="card-title">完了案件</h5></h5>
-                <%= render 'matter/matters/matter_type/finished_matter' %>
-            </div>
-          
-            <div class="tab-pane fade bg-white" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-        </div>
-      </div>
+    <div class="col-sm-4">
+      <%= link_to new_matter_matter_path(current_manager), class: "btn btn-dark mt-1e mb-1e float-r" do %>
+         <i class="fas fa-plus"></i> 新規案件作成
+      <% end %>
     </div>
   </div>
+  
+  <div class="table-responsive">
+    <table class="table tabale-borderd text-nowrap employee_index">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>場所</th>
+          <th>依頼人</th>
+          <th>情報</th>
+        </tr>
+      </thead>
+      <tbody id="progress_index" style="display: none;">
+        <%= render 'matter/matters/matter_type/progress_matter' %>
+      </tbody>
+      <tbody id="finished_index" style="display: none;">
+        <%= render 'matter/matters/matter_type/finished_matter' %>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<script>
+  $('#select_progerss').on('click', function(){
+    $('#select_progerss').addClass('active');
+    $('#select_finished').removeClass("active");
+    $('#progress_index').show();
+    $('#finished_index').hide();
+  });
+  
+  $('#select_finished').on('click', function(){
+    $('#select_progerss').removeClass('active');
+    $('#select_finished').addClass("active");
+    $('#progress_index').hide();
+    $('#finished_index').show();
+  });
+</script>
   

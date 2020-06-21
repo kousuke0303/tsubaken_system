@@ -1,24 +1,12 @@
-<div class="table-responsive">
-  <table class="table tabale-borderd text-nowrap matter_table">
-    <thead>
-      <tr>
-        <th>タイトル</th>
-        <th>場所</th>
-        <th>依頼人名</th>
-        <th>状況</th>
-      </tr>
-    </thead>
-    
-    <% @progress_matters.each do |matter| %>
-    <tr>
-      <td><%= matter.title %></td>
-      <td><%= matter.actual_spot %></td>
-      <td><%= matter.clients.first.name %></td>
-      <td>
-        <%= link_to "詳細", matter_matter_path(current_manager, matter.matter_uid), class: "btn btn-dark btn-sm" %>
-        <%= link_to "削除", matter_matter_path(matter.id), data: {confirm: "#{matter.title}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
-      </td>
-    </tr>
-    <% end %>
-  </table>
-</div>
+<% @progress_matters.each do |matter| %>
+  <tr>
+    <td><%= matter.title %></td>
+    <td><%= matter.actual_spot %></td>
+    <td><%= matter.clients.first.name %></td>
+    <td>
+      <%= link_to "詳細", matter_matter_path(current_manager, matter.matter_uid), class: "btn btn-dark btn-sm" %>
+      <%= link_to "削除", matter_matter_path(matter.id), data: {confirm: "#{matter.title}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>
+    </td>
+  </tr>
+<% end %>
+  

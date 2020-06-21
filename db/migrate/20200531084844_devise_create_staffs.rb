@@ -5,6 +5,7 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
     create_table :staffs do |t|
       ## Database authenticatable
       t.string :name
+      t.string :phone
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 

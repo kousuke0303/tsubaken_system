@@ -115,6 +115,7 @@ Rails.application.routes.draw do
       resources :matters, path: '/' do
         patch :title_update, on: :member
         patch :client_update, on: :member
+        patch :person_in_charge_update, on: :member
         get :selected_user, on: :collection
       end
     end

@@ -4,6 +4,7 @@ class DeviseCreateSubmanagers < ActiveRecord::Migration[5.1]
   def change
     create_table :submanagers do |t|
       t.string :name
+      t.string :phone
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

@@ -1,0 +1,2 @@
+$('.flash_container').html('<%= escape_javascript(render partial: './layouts/flash') %>');
+$('#person_in_charge_index').html('<%= escape_javascript(render partial: './matter/matters/show_menu/person_in_charge/index', locals: { current_matter: current_matter }) %>');

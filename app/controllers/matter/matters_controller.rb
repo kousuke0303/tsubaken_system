@@ -46,6 +46,15 @@ class Matter::MattersController < ApplicationController
     end
   end
   
+  def person_in_charge_update
+    if current_matter.update(matter_submanager_params)
+      flash[:success] = "担当者の登録をしました"
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+  
   def destroy
     @matter = dependent_manager.matters.find(params[:id])
     @matter.destroy
@@ -64,5 +73,9 @@ class Matter::MattersController < ApplicationController
     def matter_params
       params.require(:matter).permit(:title, :actual_spot, :scheduled_start_at, :scheduled_finish_at,
                                     clients_attributes: [:name, :phone, :fax, :email, :id])
+    end
+    
+    def matter_submanager_params
+      params.require(:matter).permit(submanager_ids: [], staff_ids: [])
     end
 end

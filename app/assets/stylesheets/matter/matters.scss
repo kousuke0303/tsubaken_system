@@ -6,6 +6,30 @@
     INDEX
 ----------------------------------------------------- */
 
+.matter_select {
+  .active {
+    background-color: #e8eae9!important;
+  }
+}
+
+.matter_select_btn {
+  height: 2.5em;
+  width: 8.5em;
+  background-color: white;
+  color: #767b77!important;
+  border-color: #767b77!important;
+  border-radius: 5%;
+  border-width: 2px!important;
+  &:hover {
+    background-color: #e8eae9!important;
+    font-weight: bold;
+  }
+  &:focus {
+    box-shadow :none!important;
+    font-weight: bold;
+  }
+}
+
 .matter_index {
   ul li a {
     color: white;

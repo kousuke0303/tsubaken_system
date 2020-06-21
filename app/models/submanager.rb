@@ -5,4 +5,7 @@ class Submanager < ApplicationRecord
          :recoverable, :rememberable, :validatable
   # アソシエーション
   belongs_to :manager
+  
+  has_many :matter_submanagers, dependent: :destroy
+  has_many :matters, through: :matter_submanagers
 end
