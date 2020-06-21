@@ -53,7 +53,7 @@ Submanager.create!(name: "サブマネA",
                    email: "submanagerA@email.com",
                    password: "password",
                    password_confirmation: "password",
-                   manager_id: 2)
+                   manager_id: 3)
 
 puts "CREATE! SUBMANAGER-A"
 
@@ -122,7 +122,7 @@ SeedMatter.clients.create!(name: "３匹のこぶた",
                            phone: "09000000000",
                            email: "client@email.com"
                            )
-puts "CREATE MATTER"
+puts "CREATE! MATTER"
 
 
 

@@ -22,6 +22,9 @@ class Submanager::SubmanagersController < ApplicationController
       render :edit
     end
   end
+  
+  def employee
+  end
 
   def enduser
     @submanager = Submanager.find(params[:id])

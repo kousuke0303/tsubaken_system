@@ -2,13 +2,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_submanager_public_uid
   helper_method :current_matter
+  helper_method :dependent_manager
+  
+  # ---------------------------------------------------------
+        # FORMAT関係
+  # ---------------------------------------------------------
   
   # login画面等のデザインformat指定
   def non_approval_layout
     @type = "log_in"
   end
   
-  # ---------------ADMIN関係----------------------------------
+  
+  # ---------------------------------------------------------
+        # ADMIN関係
+  # ---------------------------------------------------------
   
   # 管理者権限者が一人に以上の場合、管理者画面お表示で知らせる。
   def admin_limit_1
@@ -27,38 +35,74 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # ---------------MATTER関係----------------------------------
+  # ---------------------------------------------------------
+        # MANAGER関係
+  # ---------------------------------------------------------
+  
+  def dependent_manager
+    if manager_signed_in?
+      @dependent_manager = current_manager
+    else submanager_signed_in?
+      @dependent_manager = current_submanager.manager
+    end
+  end
+  
+  
+  # --------------------------------------------------------
+        # MATTER関係
+  # --------------------------------------------------------
   
   def current_matter
     Matter.find_by(matter_uid: params[:id])
   end
   
-  def matter_authenticate!
-    if current_manager && current_manager.public_uid == params[:manager_public_uid]
-      return true
-    elsif current_submanager && current_submanager.manager.public_uid == params[:manager_public_uid]
-      return true
+  def matter_edit_authenticate!
+    if current_manager && current_manager.matters.where(matter_uid: params[:id])
+      @manager = current_manager
+    elsif current_submanager && current_submanager.manager.matters.where(matter_uid: params[:id])
+      @manager = current_submanager.manager
     else
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_url
     end
   end
   
-  def only_show_authenticate!
+  def matter_index_authenticate!
     if current_manager && current_manager.public_uid == params[:manager_public_uid]
       @matters = current_manager.matters
-    elsif current_submanager && current_submanager.manager.public_uid == params[:manager_public_uid]
-      @matters = current_submanager.manager.matters
+    elsif current_submanager && dependent_manager.public_uid == params[:manager_public_uid]
+      @matters = dependent_manager.matters
     elsif current_staff
       @matters = current_staff.matters
+    else
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to matter_matters_url(dependent_manager)
+    end
+  end
+  
+  def matter_show_authenticate!
+    if Matter.find_by(matter_uid: params[:id])
+      if current_manager && current_manager.matters.where(matter_uid: params[:id])
+        return true
+      elsif current_submanager && current_submanager.manager.matters.where(matter_uid: params[:id])
+        return true
+      end
+    else
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_url
     end
   end
     
   private
   
+  # --------------------------------------------------------
+        # DEVISE関係
+  # --------------------------------------------------------
+  
+  
   # ログイン後のリダイレクト先
     def current_submanager_public_uid
-      current_submanager.manager.public_uid
+      dependent_manager.public_uid
     end
    
   

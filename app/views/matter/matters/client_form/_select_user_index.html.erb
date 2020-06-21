@@ -1,8 +1,8 @@
 <div class="form-group">
-  <% if current_manager.users.exists? %>
+  <% if dependent_manager.users.exists? %>
     <select class="form-control" id="select_user_name">
       <option disabled selected value>選択してください</option>
-      <% current_manager.users.each do |user| %>
+      <% dependent_manager.users.each do |user| %>
         <option value="<%= user.id %>"><%= user.name %></option>
       <% end %>
     </select>
