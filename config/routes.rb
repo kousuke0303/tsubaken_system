@@ -103,6 +103,8 @@ Rails.application.routes.draw do
       get :top, on: :member
       # submanager CRUD
       resources :staffs, path: '/employee/staffs'
+      # matter
+      resources :matters
     end
   end
 

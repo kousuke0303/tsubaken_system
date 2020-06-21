@@ -48,7 +48,7 @@ class Matter::MattersController < ApplicationController
   
   def person_in_charge_update
     if current_matter.update(matter_submanager_params)
-      flash[:success] = "担当者の登録をしました"
+      flash.now[:success] = "担当者の登録をしました"
       respond_to do |format|
         format.js
       end

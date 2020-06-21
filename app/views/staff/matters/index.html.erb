@@ -19,16 +19,37 @@
         <tr>
           <th>タイトル</th>
           <th>場所</th>
+          <th>元請</th>
           <th>依頼人</th>
           <th>情報</th>
         </tr>
       </thead>
       
       <tbody id="progress_index" style="display: none;">
-        <%= render 'matter/matters/matter_type/progress_matter' %>
+        <% @progress_matters.each do |matter| %>
+          <tr>
+            <td><%= matter.title %></td>
+            <td><%= matter.actual_spot %></td>
+            <td><%= matter.managers.first.company %></td>
+            <td><%= matter.clients.first.name %></td>
+            <td>
+              <%= link_to "詳細", staff_matter_path(current_staff, matter), class: "btn btn-dark btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
       <tbody id="finished_index" style="display: none;">
-        <%= render 'matter/matters/matter_type/finished_matter' %>
+        <% @finished_matters.each do |matter| %>
+          <tr>
+            <td><%= matter.title %></td>
+            <td><%= matter.actual_spot %></td>
+            <td><%= matter.managers.first.company %></td>
+            <td><%= matter.clients.first.name %></td>
+            <td>
+              <%= link_to "詳細", staff_matter_path(current_staff, matter), class: "btn btn-dark btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

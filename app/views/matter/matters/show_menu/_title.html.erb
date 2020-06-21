@@ -1,6 +1,6 @@
 <div class="table-responsive" id="edit_change">
   <div id="matter_title_show">
-    <table class="table table-bordered matter_show_table">
+    <table class="table table-bordered text-nowrap matter_show_table">
       <tr>
         <th>タイトル</th>
         <td><%= current_matter.title %></td>
@@ -23,7 +23,7 @@
   
   <div id="matter_title_edit" style="display: none;">
     <%= form_with(model: current_matter, url: title_update_matter_matter_path(@manager, current_matter), method: :patch, local: true) do |f| %>
-      <table class="table table-bordered matter_show_table">
+      <table class="table table-bordered text-nowrap matter_show_table">
         <tr>
           <th>タイトル</th>
           <td><%= f.text_field :title, class: "form-control" %></td>
