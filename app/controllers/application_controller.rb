@@ -41,9 +41,9 @@ class ApplicationController < ActionController::Base
   
   def dependent_manager
     if manager_signed_in?
-      @dependent_manager = current_manager
+      current_manager
     else submanager_signed_in?
-      @dependent_manager = current_submanager.manager
+      current_submanager.manager
     end
   end
   
@@ -59,8 +59,8 @@ class ApplicationController < ActionController::Base
   def matter_edit_authenticate!
     if current_manager && current_manager.matters.where(matter_uid: params[:id])
       @manager = current_manager
-    elsif current_submanager && current_submanager.manager.matters.where(matter_uid: params[:id])
-      @manager = current_submanager.manager
+    elsif current_submanager && dependent_manager.matters.where(matter_uid: params[:id])
+      @manager = dependent_manager
     else
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_url
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
     if Matter.find_by(matter_uid: params[:id])
       if current_manager && current_manager.matters.where(matter_uid: params[:id])
         return true
-      elsif current_submanager && current_submanager.manager.matters.where(matter_uid: params[:id])
+      elsif current_submanager && dependent_manager.matters.where(matter_uid: params[:id])
         return true
       end
     else
