@@ -91,6 +91,9 @@ Rails.application.routes.draw do
   scope module: :user do
     resources :users, only: [:show, :edit, :update] do
       get :top, on: :member
+      resources :matters, only: :show do
+        post :matter_connect, on: :collection
+      end
     end
   end
   
@@ -104,7 +107,7 @@ Rails.application.routes.draw do
       # submanager CRUD
       resources :staffs, path: '/employee/staffs'
       # matter
-      resources :matters
+      resources :matters, only: [:index, :show]
     end
   end
 
