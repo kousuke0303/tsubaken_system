@@ -7,7 +7,11 @@ class User < ApplicationRecord
   has_many :managers, through: :manager_users
   has_many :manager_users, dependent: :delete_all
   accepts_nested_attributes_for :manager_users
+  
   has_many :user_social_profiles, dependent: :destroy
+  
+  has_many :matter_users, dependent: :destroy
+  has_many :matters, through: :matter_users
   
   def user_social_profile(provider)
     user_social_profiles.select{ |sp| sp.provider == provider.to_s }.first

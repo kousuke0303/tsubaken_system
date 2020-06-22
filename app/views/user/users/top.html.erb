@@ -3,4 +3,27 @@
     <h1>User::Users#top</h1>
     <p>Find me in app/views/user/users/top.html.erb</p>
   </div>
+  
+  <div id="connected_matter">
+    <% if current_user.matters.exists? %>
+      <h5>依頼案件</h5>
+      <% current_user.matters.each do |matter| %>
+        <%= link_to user_matter_path(current_user, matter) do %>
+          <%= matter.title %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>連結コードを入力してください</p>
+    <% end %>
+  </div>
+  
+  <%= form_with(url: matter_connect_user_matters_path(current_user), method: :post, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :copnnected_id, "連結コード" %>
+      <div class="col-md-6 col-sm-12">
+        <%= f.text_field :connencted_id, class: "form-control " %>
+      </div>
+    </div>
+    <%= f.submit "送信" %>
+  <% end %>
 </div>

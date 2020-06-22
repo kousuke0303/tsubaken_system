@@ -8,6 +8,9 @@ class Matter < ApplicationRecord
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
   
+  has_many :matter_users, dependent: :destroy
+  has_many :users, through: :matter_users
+  
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
   
