@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20200622005731) do
 
   create_table "managers", force: :cascade do |t|
     t.string "name", null: false
+    t.string "mobile_phone"
     t.string "company"
     t.string "public_uid"
     t.boolean "approval", default: false
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 20200622005731) do
   end
 
   create_table "matter_submanagers", force: :cascade do |t|
+    t.boolean "manage_authority", default: false
     t.integer "matter_id"
     t.integer "submanager_id"
     t.datetime "created_at", null: false

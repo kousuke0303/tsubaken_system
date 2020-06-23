@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+  <div class="modal-content">
+    <div class="modal-body pa-2e">
+    <!-- &timesは「×ボタン」の表示-->
+      <div class="row">
+        <div class="col-sm-12 mb-1e">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <h5 class="card-header user_form_color">窓口担当者変更</h5>
+        <div class="card-body">
+          <p>全てのチェックを外すと、窓口担当者がMANAGERになります</p>
+          <%= form_with(model: current_matter, url: update_manage_authority_matter_matter_path(dependent_manager, current_matter), method: :patch, remote: true) do |f| %>
+            <div class="form-check text-left">
+              <% current_matter.submanagers.each do |submanager| %>
+                <label>
+                  <%= check_box_tag 'submanager[]', submanager.id, false, class: "authority_submanager" %>
+                  <%= submanager.name %>
+                </label>
+              <% end %>
+            </div>
+            <%= f.submit "更新", class: "btn btn-dark float-r mt-1e" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".authority_submanager").on("click", function(){
+    $('.authority_submanager').prop('checked', false);  //  全部のチェックを外す
+    $(this).prop('checked', true);  //  押したやつだけチェックつける
+  });
+</script>

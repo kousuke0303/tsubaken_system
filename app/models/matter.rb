@@ -14,7 +14,19 @@ class Matter < ApplicationRecord
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
   
+  scope :manager_matter_connect, -> (manager) do
+  end
+  
   def to_param
     matter_uid ? matter_uid : super()
   end
+  
+  # user_matter_managerの連結
+  def connected_matter(user)
+    self.matter_users.create(user_id: user.id)
+    self.managers.each do |manager|
+      manager.manager_users.create!(user_id: user.id)
+    end
+  end
+  
 end

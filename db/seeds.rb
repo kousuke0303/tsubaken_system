@@ -128,9 +128,22 @@ SeedMatter = Matter.create!(title: "案件１",
 SeedMatter.matter_managers.create!(manager_id: 3)
 SeedMatter.clients.create!(name: "３匹のこぶた",
                            phone: "09000000000",
-                           email: "client@email.com"
+                           email: "clientA@email.com"
                            )
-puts "CREATE! MATTER"
+puts "CREATE! MATTER1"
+
+SeedMatterB = Matter.create!(title: "案件２",
+               actual_spot: "東京都渋谷区神宮町１−２−１",
+               scheduled_start_at: "2020-07-01",
+               scheduled_finish_at: "2020-7-30",
+               matter_uid: "aa00000002",
+               )
+SeedMatterB.matter_managers.create!(manager_id: 3)
+SeedMatterB.clients.create!(name: "鬼ちゃん",
+                           phone: "09000000000",
+                           email: "clientB@email.com"
+                           )
+puts "CREATE! MATTER２"
 
 
 

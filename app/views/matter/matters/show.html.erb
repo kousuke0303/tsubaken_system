@@ -21,17 +21,20 @@
             
         <div class="tab-pane fade show active bg-white" id="progress_matters" role="tabpanel" aria-labelledby="home-tab">
           <h5 class="card-title">概要</h5>
-            <%= render 'matter/matters/show_menu/title'%>
+          <%= render 'matter/matters/show_menu/title'%>
         </div>
           
         <div class="tab-pane fade bg-white" id="person_in_charge" role="tabpanel" aria-labelledby="profile-tab">
           <h5 class="card-title">担当者一覧</h5>
-            <%= render 'matter/matters/show_menu/person_in_charge/person_in_charge' %>
+          <%= link_to "#update_manage_authority_form", class: "float-r manage_authority", data: {toggle: "modal"} do %>
+            窓口担当者を変更
+          <% end %>
+          <%= render 'matter/matters/show_menu/person_in_charge/person_in_charge' %>
         </div>
           
         <div class="tab-pane fade bg-white" id="user_information" role="tabpanel" aria-labelledby="contact-tab">
           <h5 class="card-title">依頼人情報</h5>
-            <%= render 'matter/matters/show_menu/client/client' %>
+          <%= render 'matter/matters/show_menu/client/client' %>
         </div>
       </div>
     </div>

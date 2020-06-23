@@ -55,6 +55,21 @@ class Matter::MattersController < ApplicationController
     end
   end
   
+  def update_manage_authority
+    matter_submanager = current_matter.matter_submanagers.where(submanager_id: params[:submanager][0])
+    submanager = Submanager.find(params[:submanager][0])
+    if params[:submanager].present?
+      matter_submanager.update(manage_authority: true)
+      flash[:notice] = "担当窓口を#{submanager.name}に変更しました"
+    else
+      current_matter.matter_submanagers.each do |matter_submanager|
+        matter_submanager.update(manage_authority: false)
+      end
+      flash[:notice] = "担当窓口を#{dependent_manager.name}に変更しました"
+    end
+      redirect_to matter_matter_url(current_matter)
+  end
+  
   def destroy
     @matter = dependent_manager.matters.find(params[:id])
     @matter.destroy
@@ -72,7 +87,8 @@ class Matter::MattersController < ApplicationController
   private
     def matter_params
       params.require(:matter).permit(:title, :actual_spot, :scheduled_start_at, :scheduled_finish_at,
-                                    clients_attributes: [:name, :phone, :fax, :email, :id])
+                                    clients_attributes: [:name, :phone, :fax, :email, :id],
+                                    submanager_ids: [], staff_ids: [])
     end
     
     def matter_submanager_params
