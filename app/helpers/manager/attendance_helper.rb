@@ -1,0 +1,2 @@
+module Manager::AttendanceHelper
+end
