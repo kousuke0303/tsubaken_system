@@ -13,7 +13,10 @@ class Matter < ApplicationRecord
   
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
-  
+
+  has_many :events
+  accepts_nested_attributes_for :events, allow_destroy: true
+
   def to_param
     matter_uid ? matter_uid : super()
   end

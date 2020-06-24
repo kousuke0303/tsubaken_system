@@ -127,6 +127,17 @@ Rails.application.routes.draw do
   end
   
   # ################################################################
+
+  
+  # ###--EVENT関連--################################
+  
+  scope "(:manager_public_uid)" do
+    namespace :manager do
+      resources :events, only: [:index] 
+    end
+  end
+  
+  # ################################################################
   
   root 'static_page#login_index'
   

@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Calendar</h2>
+  <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
+    <%= date %>
+
+    <% events.each do |event| %>
+      <div class="event<%= event.event_type %>">
+        <%= Matter.find(event.matter_id).title%><br>
+        <%= event.event_name %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
