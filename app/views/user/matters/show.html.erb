@@ -6,14 +6,20 @@
   
   <div class="table-responsive">
     <table class="table text-nowrap table-bordered">
+      <% @companies.each do |company| %>
       <tr>
         <th>請負業者</th>
-        <td><%= current_matter.managers.first.company %></td>
+        <td><%= company.company %></td>
       </tr>
       <tr>
         <th>管理者</th>
-        <td><%= current_matter.submanagers.first.name if current_matter.submanagers.exists? %></td>
+        <td><% manage_authority(Manager.find(company.id)) %><%= @name %></td>
       </tr>
+      <tr>
+        <th>連絡先</th>
+        <td><% manage_authority(Manager.find(company.id)) %><%= @telephone %></td>
+      </tr>
+      <% end %>
     </table>
   </div>
 </div>
