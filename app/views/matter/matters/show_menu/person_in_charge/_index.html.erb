@@ -5,15 +5,13 @@
     <% if current_matter.matter_submanagers.exists? %>
       <table class="table table-bordered text-nowrap matter_show_table">
         <tr>
-          <th>役職</th>
           <th>氏名</th>
           <th>TEL</th>
           <th>Email</th>
         </tr>
         <% current_matter.submanagers.each do |submanager| %>
           <tr>
-            <td>Submanager</td>
-            <td><%= submanager.name %></td>
+            <td><%= submanager.name %><%= manage_authority_badge(submanager) %></td>
             <td><%= submanager.phone %></td>
             <td><%= submanager.email %></td>
           </tr>

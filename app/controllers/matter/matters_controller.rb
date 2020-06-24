@@ -56,9 +56,9 @@ class Matter::MattersController < ApplicationController
   end
   
   def update_manage_authority
-    matter_submanager = current_matter.matter_submanagers.where(submanager_id: params[:submanager][0])
-    submanager = Submanager.find(params[:submanager][0])
     if params[:submanager].present?
+      matter_submanager = current_matter.matter_submanagers.where(submanager_id: params[:submanager][0])
+      submanager = Submanager.find(params[:submanager][0])
       matter_submanager.update(manage_authority: true)
       flash[:notice] = "担当窓口を#{submanager.name}に変更しました"
     else

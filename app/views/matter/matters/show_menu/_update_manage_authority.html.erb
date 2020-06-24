@@ -5,10 +5,10 @@
       <div class="card mb-3">
         <h5 class="card-header user_form_color">窓口担当者変更</h5>
         <div class="card-body">
-          <p class="text-left">全てのチェックを外すと、窓口担当者がMANAGERになります</p>
+          <p class="text-left">全てのチェックを外すと、窓口担当者がMANAGER<%= dependent_manager.name %>になります</p>
           <%= form_with(url: update_manage_authority_matter_matter_path(dependent_manager, current_matter), method: :patch, local: true) do |f| %>
             <div class="form-check text-left">
-              <% current_matter.submanagers.each do |submanager| %>
+              <% current_matter.submanagers.each_with_index do |submanager, i| %>
                 <label>
                   <%= check_box_tag 'submanager[]', submanager.id, false, class: "authority_submanager" %>
                   <%= submanager.name %>
