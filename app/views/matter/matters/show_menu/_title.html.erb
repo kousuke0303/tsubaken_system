@@ -11,15 +11,15 @@
       </tr>
       <tr>
         <th>現場住所</th>
-        <td><%= current_matter.actual_spot %></td>
+        <td><%= current_matter.actual_spot.present? ? current_matter.actual_spot : "登録がありません" %></td>
       </tr>
       <tr>
         <th>着工予定日</th>
-        <td><%= matter_day(current_matter.scheduled_start_at) %></td>
+        <td><%= current_matter.scheduled_start_at.present? ? matter_day(current_matter.scheduled_start_at) : "登録がありません" %></td>
       </tr>
       <tr>
         <th>完了予定日</th>
-        <td><%= matter_day(current_matter.scheduled_finish_at) %></td>
+        <td><%= current_matter.scheduled_finish_at.present? ? matter_day(current_matter.scheduled_finish_at) : "登録がありません" %></td>
       </tr>
     </table>
     <button class="btn btn-dark float-l mb-1e" id="title_edit_btn">編集</button>

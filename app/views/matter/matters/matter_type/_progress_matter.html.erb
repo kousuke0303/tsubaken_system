@@ -4,7 +4,7 @@
     <tr>
       <td><%= matter.title %></td>
       <td><%= matter.actual_spot %></td>
-      <td><%= matter.clients.first.name %></td>
+      <td><%= matter.clients.first.name if matter.clients.exists? %></td>
       <td><%= matter.matter_uid %></td>
       <td>
         <%= link_to "詳細", matter_matter_path(current_manager, matter.matter_uid), class: "btn btn-dark btn-sm" %>
