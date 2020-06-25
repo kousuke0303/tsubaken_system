@@ -1,3 +1,75 @@
 // Place all the styles related to the user::users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* ---------------------------------------------------
+    TOP
+----------------------------------------------------- */
+
+.connected_code_form {
+  margin-bottom: 1em!important;/*フォームの下に余白*/	 	
+}
+
+.connected_code_text {
+  float: left;
+  width: 200px;
+  outline: 0;/*クリック時の青い枠線消す*/	
+  height: 45px;/*検索ボックスの高さ*/	
+  padding: 0 10px;/*テキスト位置調整*/	 
+  border-radius: 2px 0 0 2px;/*検索ボックスの角を丸める*/		
+  background: #eee;/*検索ボックスの背景カラー*/		
+}
+
+.connected_code_btn {
+  width: 70px;/*検索ボタンの横幅*/ 
+  height: 45px;/*検索ボタンの縦幅*/ 
+  border-radius: 0 2px 2px 0;/*検索ボタンの角を丸める*/ 
+  background: #7fbfff;/*検索ボタンの背景カラー*/ 
+  border: none;/*検索ボタンの枠線を消す*/ 
+  color: #fff;/*検索ボタンのテキストカラー*/ 
+  font-weight: bold;/*検索ボタンのテキスト太字*/ 
+  font-size: 16px;/*検索ボタンのフォントサイズ*/ 
+}
+
+.connected_matter_index {
+  a {
+    color: #212529;
+  }
+  a:hover {
+    color: #212529;
+  }
+}
+
+ol {
+  counter-reset:number; /*数字をリセット*/
+  list-style-type: none!important; /*数字を一旦消す*/
+  padding:0;
+}
+ol li {
+  position: relative;
+  padding: 0.5em;
+  line-height: 1.5em;
+  background: #f1f8ff;
+  border-left : solid 35px #5c9ee7;
+  margin-bottom: 5px;
+}
+ol li:before{
+  /* 以下数字をつける */
+  position: absolute;
+  counter-increment: number;
+  content: counter(number);
+  /*数字のデザイン変える*/
+  display:inline-block;
+  color: white;
+  font-family: 'Avenir','Arial Black','Arial',sans-serif;
+  font-weight:bold;
+  font-size: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: -35px;
+  width: 35px;
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+}
