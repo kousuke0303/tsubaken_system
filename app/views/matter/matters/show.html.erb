@@ -13,6 +13,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#user_information" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">依頼人情報</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#matter_task" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">作業工程</a>
+        </li>
       </ul>
     </div>
         
@@ -42,6 +45,12 @@
           <h5 class="card-title">依頼人情報</h5>
           <%= render 'matter/matters/show_menu/client/client' %>
         </div>
+        
+        <div class="tab-pane fade bg-white" id="matter_task" role="tabpanel" aria-labelledby="contact-tab">
+          <h5 class="card-title">作業工程</h5>
+          <%= render 'matter/matters/show_menu/matter_task' %>
+        </div>
+        
       </div>
     </div>
   </div>

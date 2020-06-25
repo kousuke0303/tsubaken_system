@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200622005731) do
+ActiveRecord::Schema.define(version: 20200625141825) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20200622005731) do
     t.datetime "updated_at", null: false
     t.index ["manager_id"], name: "index_manager_staffs_on_manager_id"
     t.index ["staff_id"], name: "index_manager_staffs_on_staff_id"
+  end
+
+  create_table "manager_tasks", force: :cascade do |t|
+    t.integer "manager_id"
+    t.integer "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_manager_tasks_on_manager_id"
+    t.index ["task_id"], name: "index_manager_tasks_on_task_id"
   end
 
   create_table "manager_users", force: :cascade do |t|
@@ -102,6 +111,15 @@ ActiveRecord::Schema.define(version: 20200622005731) do
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_matter_submanagers_on_matter_id"
     t.index ["submanager_id"], name: "index_matter_submanagers_on_submanager_id"
+  end
+
+  create_table "matter_tasks", force: :cascade do |t|
+    t.integer "matter_id"
+    t.integer "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_matter_tasks_on_matter_id"
+    t.index ["task_id"], name: "index_matter_tasks_on_task_id"
   end
 
   create_table "matter_users", force: :cascade do |t|
@@ -165,6 +183,17 @@ ActiveRecord::Schema.define(version: 20200622005731) do
     t.index ["email"], name: "index_submanagers_on_email", unique: true
     t.index ["manager_id"], name: "index_submanagers_on_manager_id"
     t.index ["reset_password_token"], name: "index_submanagers_on_reset_password_token", unique: true
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.string "status"
+    t.integer "row_order"
+    t.text "memo"
+    t.datetime "deadline"
+    t.boolean "notification", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_social_profiles", force: :cascade do |t|
