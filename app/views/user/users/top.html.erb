@@ -1,29 +1,27 @@
 <div class="container">
-  <div class="col-sm-12 manager_contaioner">
-    <h1>User::Users#top</h1>
-    <p>Find me in app/views/user/users/top.html.erb</p>
+  <div>
+    <h5>連結コード</h5>
+    <%= form_with(url: matter_connect_user_matters_path(current_user), method: :post, local: true, class: "connected_code_form" ) do |f| %>
+      <div class="display: inline-block">
+        <%= f.text_field :connencted_id, placeholder: "連結コードを入力", class: "connected_code_text"  %>
+        <%= f.submit "送信", class: "connected_code_btn" %>
+      </div>
+    <% end %>
   </div>
-  
-  <div id="connected_matter">
+
+  <div class="connected_matter_index", id="connected_matter">
     <% if current_user.matters.exists? %>
       <h5>依頼案件</h5>
+      <ol>
       <% current_user.matters.each do |matter| %>
         <%= link_to user_matter_path(current_user, matter) do %>
-          <%= matter.title %>
+          <li><span class="ml-1e"><%= matter.title %></span></li>
         <% end %>
       <% end %>
+      </ol>
     <% else %>
       <p>連結コードを入力してください</p>
     <% end %>
   </div>
   
-  <%= form_with(url: matter_connect_user_matters_path(current_user), method: :post, local: true) do |f| %>
-    <div class="form-group">
-      <%= f.label :copnnected_id, "連結コード" %>
-      <div class="col-md-6 col-sm-12">
-        <%= f.text_field :connencted_id, class: "form-control " %>
-      </div>
-    </div>
-    <%= f.submit "送信" %>
-  <% end %>
 </div>
