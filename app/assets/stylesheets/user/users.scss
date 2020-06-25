@@ -12,9 +12,9 @@
 
 .connected_code_text {
   float: left;
-  width: 270px;
+  width: 200px;
   outline: 0;/*クリック時の青い枠線消す*/	
-  height: 50px;/*検索ボックスの高さ*/	
+  height: 45px;/*検索ボックスの高さ*/	
   padding: 0 10px;/*テキスト位置調整*/	 
   border-radius: 2px 0 0 2px;/*検索ボックスの角を丸める*/		
   background: #eee;/*検索ボックスの背景カラー*/		
@@ -22,7 +22,7 @@
 
 .connected_code_btn {
   width: 70px;/*検索ボタンの横幅*/ 
-  height: 50px;/*検索ボタンの縦幅*/ 
+  height: 45px;/*検索ボタンの縦幅*/ 
   border-radius: 0 2px 2px 0;/*検索ボタンの角を丸める*/ 
   background: #7fbfff;/*検索ボタンの背景カラー*/ 
   border: none;/*検索ボタンの枠線を消す*/ 

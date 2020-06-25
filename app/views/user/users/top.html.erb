@@ -3,7 +3,7 @@
     <h5>連結コード</h5>
     <%= form_with(url: matter_connect_user_matters_path(current_user), method: :post, local: true, class: "connected_code_form" ) do |f| %>
       <div class="display: inline-block">
-        <%= f.text_field :connencted_id, placeholder: "連結コードを入力してください", class: "connected_code_text"  %>
+        <%= f.text_field :connencted_id, placeholder: "連結コードを入力", class: "connected_code_text"  %>
         <%= f.submit "送信", class: "connected_code_btn" %>
       </div>
     <% end %>
