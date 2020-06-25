@@ -111,7 +111,7 @@ input {
 
 .modal{
   display: none;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   width: 100%;
@@ -120,7 +120,7 @@ input {
 .modal__bg{
   background: rgba(0,0,0,0.8);
   opacity: 0.5;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   width: 100%;
 }

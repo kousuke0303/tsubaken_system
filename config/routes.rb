@@ -121,6 +121,7 @@ Rails.application.routes.draw do
         patch :title_update, on: :member
         patch :client_update, on: :member
         patch :person_in_charge_update, on: :member
+        patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
       end
     end

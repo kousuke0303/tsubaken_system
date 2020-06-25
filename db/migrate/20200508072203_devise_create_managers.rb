@@ -4,6 +4,7 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
   def change
     create_table :managers do |t|
       t.string :name, null: false
+      t.string :mobile_phone
       t.string :company
       t.string :public_uid
       t.boolean :approval, default: false
