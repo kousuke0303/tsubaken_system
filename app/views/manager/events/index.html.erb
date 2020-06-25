@@ -1,13 +1,54 @@
 <div class="container">
-  <h2>Calendar</h2>
-  <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
-    <%= date %>
+  <h2>Calendar</h2> 
+  <button class="float-l　btn calendar_select_btn" id="switch_month_calender" style="display: none">月表示切替</button>
+  <button class="float-l　btn calendar_select_btn" id="switch_week_calender">週表示切替</button>
+  
+  <div id="month_calendar_disp">
+    <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
+      <%= date %>
 
-    <% events.each do |event| %>
-      <div class="event<%= event.event_type %>">
-        <%= Matter.find(event.matter_id).title%><br>
-        <%= event.event_name %>
-      </div>
+      <% events.each do |event| %>
+        <div class="event<%= event.event_type %>">
+          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+          <%= Matter.find(event.matter_id).title%><br>
+          <%= event.event_name %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
+  <div id="week_calendar_disp" style="display: none">
+    <%= week_calendar(attribute: :date, events: @events) do |date, events| %>
+      <%= date %>
+
+      <% events.each do |event| %>
+        <div>
+          <div class="event<%= event.event_type %>">
+          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+          <%= Matter.find(event.matter_id).title%><br>
+          <%= event.event_name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
 </div>
+
+<!--カレンダー切替-->
+<script>
+  $('#switch_month_calender').on('click', function(){
+    $('#week_calendar_disp').toggle();
+    $('#month_calendar_disp').toggle();
+    $('#switch_month_calender').toggle();
+    $('#switch_week_calender').toggle();
+  });
+</script>
+
+<script>
+   $('#switch_week_calender').on('click', function(){
+    $('#week_calendar_disp').toggle();
+    $('#month_calendar_disp').toggle();
+    $('#switch_month_calender').toggle();
+    $('#switch_week_calender').toggle();
+  });
+</script>

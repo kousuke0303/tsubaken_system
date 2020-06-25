@@ -172,7 +172,7 @@ Event.create!(event_name: "打ち合わせ",
     event_type: "A",
     date: "2020-07-02",
     note: "仮",
-    manager_id: 2,
+    manager_id: 3,
     matter_id: 1)
 
 puts "CREATE! EVENT-A3"
@@ -181,7 +181,7 @@ Event.create!(event_name: "入金予定",
     event_type: "B",
     date: "2020-07-03",
     note: "仮入金",
-    manager_id: 2,
+    manager_id: 3,
     matter_id: 1)
 
 puts "CREATE! EVENT-B"
@@ -190,7 +190,7 @@ Event.create!(event_name: "確定した工事着手日",
     event_type: "C",
     date: "2020-07-03",
     note: "仮",
-    manager_id: 2,
+    manager_id: 3,
     matter_id: 1)
 
 puts "CREATE! EVENT-C"
@@ -199,7 +199,7 @@ Event.create!(event_name: "予定された工事着手日",
     event_type: "D",
     date: "2020-07-03",
     note: "仮",
-    manager_id: 2,
+    manager_id: 3,
     matter_id: 1)
 
 puts "CREATE! EVENT-D1"
