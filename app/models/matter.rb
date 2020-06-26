@@ -16,7 +16,6 @@ class Matter < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
-  
   has_many :matter_tasks, dependent: :destroy
   has_many :tasks, through: :matter_tasks
   

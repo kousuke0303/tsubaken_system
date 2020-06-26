@@ -151,15 +151,20 @@ puts "CREATE! MATTER２"
 
 # 1.Manager_task-----------------
 
-SeedTask = Task.create!(title: "TASK１")
+SeedTask = Task.create!(title: "TASK1")
 SeedTask.manager_tasks.create!(manager_id: 3)
 
 puts "CREATE! TASK1"
 
-SeedTaskB = Task.create!(title: "TASK２")
+SeedTaskB = Task.create!(title: "TASK2")
 SeedTaskB.manager_tasks.create!(manager_id: 3)
 
 puts "CREATE! TASK2"
+
+SeedTaskC = Task.create!(title: "TASK3")
+SeedTaskC.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK3"
 
 
 

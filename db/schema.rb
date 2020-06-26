@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20200625141825) do
-=======
-ActiveRecord::Schema.define(version: 20200622164115) do
->>>>>>> fa1652cc9211019895bf738d22a78b5ac3992408
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false

@@ -123,6 +123,11 @@ Rails.application.routes.draw do
         patch :person_in_charge_update, on: :member
         patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
+        # matter関連タスク
+        resource :matter_tasks do
+          get :create
+          get :move_task
+        end
       end
     end
   end

@@ -11,7 +11,7 @@ $(document).ready( function(){
 //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
-      "id": "task",
+      "id": "manager_tasks",
       "title": "登録済タスク一覧",
       "class": "default",
       "item": [
@@ -27,11 +27,11 @@ $(document).ready( function(){
     },
     
     {
-      "id": "task",
+      "id": "matter_tasks",
       "title": "この案件のタスク",
       "class": "task",
       "item": [
-        <% @manager_tasks.each do |task| %>    
+        <% @matter_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>",
@@ -43,11 +43,11 @@ $(document).ready( function(){
     },
     
     {
-      "id": "running",
+      "id": "progress_tasks",
       "title": "進行中",
       "class": "running",
       "item": [
-        <% @manager_tasks.each do |task| %>    
+        <% @matter_progress_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -61,7 +61,7 @@ $(document).ready( function(){
       "title": "完了",
       "class": "done",
       "item": [
-        <% @manager_tasks.each do |task| %>    
+        <% @matter_complete_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -89,7 +89,7 @@ $(document).ready( function(){
       
       $.ajax({
         type: "GET",
-        url: "<%=  %>",
+        url: "<%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });
@@ -101,14 +101,14 @@ $(document).ready( function(){
     toDoButton.addEventListener('click',function(){
       
       const formItem = document.createElement('form');
-      formItem.innerHTML = '<input type="text">';
-      kanban.addForm('task', formItem);
+      formItem.innerHTML = '<input type="text", id="new_task_form">';
+      kanban.addForm('matter_tasks', formItem);
   
-    $('input').on('change', function(){
-      var title = $('input').val();
+    $('#new_task_form').on('change', function(){
+      var title = $('#new_task_form').val();
       $.ajax({
           type: "GET",
-          url: "<%=  %>",
+          url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });

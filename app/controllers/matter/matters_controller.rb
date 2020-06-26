@@ -26,7 +26,7 @@ class Matter::MattersController < ApplicationController
   end
   
   def show
-    @manager_tasks = dependent_manager.tasks
+    matter_task_type
   end
   
   def edit
