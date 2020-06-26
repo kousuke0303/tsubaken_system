@@ -26,6 +26,7 @@ class Matter::MattersController < ApplicationController
   end
   
   def show
+    matter_task_type
   end
   
   def edit

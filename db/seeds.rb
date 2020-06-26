@@ -145,6 +145,28 @@ SeedMatterB.clients.create!(name: "鬼ちゃん",
                            )
 puts "CREATE! MATTER２"
 
+# -----------------------------------------------------
+      # TASK
+# ---------------------------------------------
+
+# 1.Manager_task-----------------
+
+SeedTask = Task.create!(title: "TASK1")
+SeedTask.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK1"
+
+SeedTaskB = Task.create!(title: "TASK2")
+SeedTaskB.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK2"
+
+SeedTaskC = Task.create!(title: "TASK3")
+SeedTaskC.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK3"
+
+
 
 # -----------------------------------------------------
       # EVENT

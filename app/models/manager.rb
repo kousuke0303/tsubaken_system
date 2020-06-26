@@ -19,6 +19,9 @@ class Manager < ApplicationRecord
 
   has_many :events
   
+  has_many :manager_tasks, dependent: :destroy
+  has_many :tasks, through: :manager_tasks
+  
   # パラメーター変更
   def to_param
     public_uid ? public_uid : super()

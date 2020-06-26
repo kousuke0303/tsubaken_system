@@ -36,10 +36,10 @@
 <script>
   // レイアウト変更
   $(document).ready(function(){
-    var week_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_month_calender" style="display: none">月表示切替</button>';
-    var month_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_week_calender">週表示切替</button>';
-    $('.calendar-heading').append(week_button);
-    $('.calendar-heading').append(month_button);
+    var week_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_week_calender">週表示切替</button>';
+    var month_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_month_calender">月表示切替</button>';
+    $('#week_calendar_disp').find('.calendar-heading').append(month_button);
+    $('#month_calendar_disp').find('.calendar-heading').append(week_button);
     
     $('.calendar-heading a').addClass('calender_head_a');
     
@@ -50,20 +50,23 @@
     $('.calendar-heading a:first').html(font_awesome_icon_1);
     
     $('.prev-month').addClass('custom_prev_month');
-    
-    // クリックアクション
-    $('#switch_month_calender').on('click', function(){
-      $('#week_calendar_disp').toggle();
-      $('#month_calendar_disp').toggle();
-      $('#switch_month_calender').toggle();
-      $('#switch_week_calender').toggle();
-    });
-
-    $('#switch_week_calender').on('click', function(){
-      $('#week_calendar_disp').toggle();
-      $('#month_calendar_disp').toggle();
-      $('#switch_month_calender').toggle();
-      $('#switch_week_calender').toggle();
-    });
   });
 </script>
+<!--クリックアクション-->
+<script>
+$(document).ready(function(){
+  $('#switch_week_calender').on('click', function(){
+    $('#week_calendar_disp').show();
+    $('#month_calendar_disp').hide();
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('#switch_month_calender').on('click', function(){
+    $('#week_calendar_disp').hide();
+    $('#month_calendar_disp').show();
+  });
+});
+</script>
+
