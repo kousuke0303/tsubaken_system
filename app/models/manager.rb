@@ -16,6 +16,8 @@ class Manager < ApplicationRecord
   
   has_many :matter_managers
   has_many :matters, through: :matter_managers
+
+  has_many :events
   
   has_many :manager_tasks, dependent: :destroy
   has_many :tasks, through: :manager_tasks

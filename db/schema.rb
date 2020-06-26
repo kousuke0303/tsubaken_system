@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20200625141825) do
+=======
+ActiveRecord::Schema.define(version: 20200622164115) do
+>>>>>>> fa1652cc9211019895bf738d22a78b5ac3992408
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,6 +37,19 @@ ActiveRecord::Schema.define(version: 20200625141825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_clients_on_matter_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_type"
+    t.datetime "date"
+    t.string "note"
+    t.integer "manager_id"
+    t.integer "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_events_on_manager_id"
+    t.index ["matter_id"], name: "index_events_on_matter_id"
   end
 
   create_table "manager_staffs", force: :cascade do |t|
