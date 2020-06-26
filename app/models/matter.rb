@@ -13,6 +13,9 @@ class Matter < ApplicationRecord
   
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
+
+  has_many :events, dependent: :destroy
+
   
   scope :manager_matter_connect, -> (manager) do
   end

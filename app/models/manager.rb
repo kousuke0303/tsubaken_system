@@ -16,6 +16,8 @@ class Manager < ApplicationRecord
   
   has_many :matter_managers
   has_many :matters, through: :matter_managers
+
+  has_many :events
   
   # パラメーター変更
   def to_param
