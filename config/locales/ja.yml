@@ -77,6 +77,9 @@ ja:
         service: 'サービス'
         service_manager: '講師'
         user: '受講者'
+      attendance:
+        started_at: '出勤時間'
+        finished_at: '退勤時間'
 
   date:
     abbr_day_names:

@@ -146,5 +146,14 @@ SeedMatterB.clients.create!(name: "鬼ちゃん",
 puts "CREATE! MATTER２"
 
 
+# -----------------------------------------------------
+      # Attendance
+# ---------------------------------------------
+Attendance.create!(staff_id: 1,
+                  submanager_id: 1,
+                  started_at: Time.zone.parse("07:30"),
+                  finished_at: Time.zone.parse("07:30"),
+                  )
+puts "CREATE! Attendance"
 
 
