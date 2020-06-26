@@ -1,7 +1,5 @@
 <div class="container">
   <h2>Calendar</h2> 
-  <button class="float-l　btn calendar_select_btn" id="switch_month_calender" style="display: none">月表示切替</button>
-  <button class="float-l　btn calendar_select_btn" id="switch_week_calender">週表示切替</button>
   
   <div id="month_calendar_disp">
     <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
@@ -36,19 +34,36 @@
 
 <!--カレンダー切替-->
 <script>
-  $('#switch_month_calender').on('click', function(){
-    $('#week_calendar_disp').toggle();
-    $('#month_calendar_disp').toggle();
-    $('#switch_month_calender').toggle();
-    $('#switch_week_calender').toggle();
-  });
-</script>
+  // レイアウト変更
+  $(document).ready(function(){
+    var week_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_month_calender" style="display: none">月表示切替</button>';
+    var month_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_week_calender">週表示切替</button>';
+    $('.calendar-heading').append(week_button);
+    $('.calendar-heading').append(month_button);
+    
+    $('.calendar-heading a').addClass('calender_head_a');
+    
+    var font_awesome_icon_1 = '<i class="fas fa-angle-double-left"></i><span class="ml-05e">前月</span>';
+    var font_awesome_icon_2 = '<span class="mr-05e">翌月</span><i class="fas fa-angle-double-right"></i>';
+    
+    $('.calendar-heading a').html(font_awesome_icon_2);
+    $('.calendar-heading a:first').html(font_awesome_icon_1);
+    
+    $('.prev-month').addClass('custom_prev_month');
+    
+    // クリックアクション
+    $('#switch_month_calender').on('click', function(){
+      $('#week_calendar_disp').toggle();
+      $('#month_calendar_disp').toggle();
+      $('#switch_month_calender').toggle();
+      $('#switch_week_calender').toggle();
+    });
 
-<script>
-   $('#switch_week_calender').on('click', function(){
-    $('#week_calendar_disp').toggle();
-    $('#month_calendar_disp').toggle();
-    $('#switch_month_calender').toggle();
-    $('#switch_week_calender').toggle();
+    $('#switch_week_calender').on('click', function(){
+      $('#week_calendar_disp').toggle();
+      $('#month_calendar_disp').toggle();
+      $('#switch_month_calender').toggle();
+      $('#switch_week_calender').toggle();
+    });
   });
 </script>
