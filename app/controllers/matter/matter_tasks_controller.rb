@@ -23,6 +23,33 @@ class Matter::MatterTasksController < ApplicationController
     end
   end
   
+  def update
+    @task = Task.find(params[:id])
+    # manager_taskに登録されているものは編集できない
+    unless dependent_manager.tasks.where(id: @task.id).exists?
+      if @task.update(update_task_params)
+        flash.now[:success] = "#{@task.title}を更新しました"
+        matter_task_type
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+  end
+  
+  def destroy
+    @task = Task.find(params[:id])
+    # manager_taskに登録されているものは削除できない
+    unless dependent_manager.tasks.where(id: @task.id).exists?
+      if @task.destroy
+        matter_task_type
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+  end
+  
   private
     # 文字列から数字のみ取り出す
     def remove_str(str)
@@ -31,6 +58,10 @@ class Matter::MatterTasksController < ApplicationController
     
     def roworder_params
       (params[:item_index].to_i * 100 ) - 1
+    end
+    
+    def update_task_params
+      params.require(:task).permit(:title, :memo)
     end
     
 end

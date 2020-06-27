@@ -30,29 +30,34 @@
   }
 }
 
+
+/* ---------------------------------------------------
+    SHOW
+----------------------------------------------------- */
+
 .matter_index {
   ul li a {
     color: white;
   }
 }
 
-.matter_table {
-  th {
-    text-align: left;
+@media screen and (max-width: 480px) {
+  .matter_show_container {
+    h5 {
+      display: none!important;
+    }
   }
-  td {
-    text-align: left;
+  
+  .matter_index {
+    ul li a {
+      text-align: left!important;
+      font-size: 20px;
+    }
   }
-}
-
-.client_form {
-  border: 1px solid #dfdfdf;
-  padding: 1em;
-  border-radius: 5px;
 }
 
 /* ---------------------------------------------------
-    SHOW
+    SHOW_MENU
 ----------------------------------------------------- */
 
 .matter_show_table {
@@ -62,4 +67,32 @@
   td {
     text-align: left;
   }
+}
+
+/* client */
+.client_form {
+  border: 1px solid #dfdfdf;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+/* matter_task */
+.matter_task_disp {
+  overflow-x: auto;
+  padding-bottom: 1em;
+}
+
+@media screen and (max-width: 480px) { 
+  .comp_all_del_btn {
+    display: none!important;
+  }
+}
+
+
+/*  MATTERTASK:EDIT_MODAL
+----------------------------------------------------- */
+
+.matter_tasks_color {
+  background-color: #dc3545!important;
+  color: white;
 }

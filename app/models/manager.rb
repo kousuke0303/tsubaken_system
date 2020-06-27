@@ -5,7 +5,8 @@ class Manager < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
-  # アソシエーション
+  #### アソシエーション 
+  #---------------------------------------------------------
   has_many :submanagers, dependent: :destroy
 
   has_many :manager_users
@@ -21,6 +22,10 @@ class Manager < ApplicationRecord
   
   has_many :manager_tasks, dependent: :destroy
   has_many :tasks, through: :manager_tasks
+  
+  #### scope 
+  #---------------------------------------------------------
+  
   
   # パラメーター変更
   def to_param

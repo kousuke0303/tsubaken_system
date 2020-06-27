@@ -1,5 +1,6 @@
 module ManagerDecorator
 
+  # adminのmanager認証ボタン
   def approved
     if approval
       content_tag(:a, "未承認にする", href: "#{non_approval_admin_manager_path(self)}", data: {confirm: "#{self.company}を未承認にしますか"}, class: 'btn btn-dark btn-sm')
