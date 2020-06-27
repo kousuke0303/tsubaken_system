@@ -23,6 +23,9 @@
         <li>
           <%= link_to "Matter", matter_matters_path(current_submanager.manager) %>
         </li>
+        <li>
+          <%= link_to "Calendar", submanager_events_path(current_submanager.manager) %>
+        </li>
         
         <li class="">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>

@@ -141,6 +141,9 @@ Rails.application.routes.draw do
     namespace :manager do
       resources :events, only: [:index] 
     end
+    namespace :submanager do
+      resources :events, only: [:index] 
+    end
   end
   
   # ################################################################

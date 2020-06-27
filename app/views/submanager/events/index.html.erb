@@ -1,0 +1,72 @@
+<div class="container">
+  <h2>Calendar</h2> 
+  
+  <div id="month_calendar_disp">
+    <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
+      <%= date %>
+
+      <% events.each do |event| %>
+        <div class="event<%= event.event_type %>">
+          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+          <%= Matter.find(event.matter_id).title%><br>
+          <%= event.event_name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="week_calendar_disp" style="display: none">
+    <%= week_calendar(attribute: :date, events: @events) do |date, events| %>
+      <%= date %>
+
+      <% events.each do |event| %>
+        <div>
+          <div class="event<%= event.event_type %>">
+          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+          <%= Matter.find(event.matter_id).title%><br>
+          <%= event.event_name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+<!--カレンダー切替-->
+<script>
+  // レイアウト変更
+  $(document).ready(function(){
+    var week_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_week_calender">週表示切替</button>';
+    var month_button = '<button class="float-r btn calendar_select_btn mb-1e" id="switch_month_calender">月表示切替</button>';
+    $('#week_calendar_disp').find('.calendar-heading').append(month_button);
+    $('#month_calendar_disp').find('.calendar-heading').append(week_button);
+    
+    $('.calendar-heading a').addClass('calender_head_a');
+    
+    var font_awesome_icon_1 = '<i class="fas fa-angle-double-left"></i><span class="ml-05e">前月</span>';
+    var font_awesome_icon_2 = '<span class="mr-05e">翌月</span><i class="fas fa-angle-double-right"></i>';
+    
+    $('.calendar-heading a').html(font_awesome_icon_2);
+    $('.calendar-heading a:first').html(font_awesome_icon_1);
+    
+    $('.prev-month').addClass('custom_prev_month');
+  });
+</script>
+<!--クリックアクション-->
+<script>
+$(document).ready(function(){
+  $('#switch_week_calender').on('click', function(){
+    $('#week_calendar_disp').show();
+    $('#month_calendar_disp').hide();
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $('#switch_month_calender').on('click', function(){
+    $('#week_calendar_disp').hide();
+    $('#month_calendar_disp').show();
+  });
+});
+</script>
+
