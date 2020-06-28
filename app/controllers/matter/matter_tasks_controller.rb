@@ -2,11 +2,15 @@ class Matter::MatterTasksController < ApplicationController
   
   def move_task
     task = Task.find(remove_str(params[:task]))
-    # 案件タスクにまだ登録されていない場合は紐付け
-    unless current_matter.matter_tasks.where(task_id: task.id).exists?
-      current_matter.matter_tasks.create(task_id: task.id)
+    # manager_taskから移動した場合は、コピー作成
+    if dependent_manager.manager_tasks.where(task_id: task.id).exists?
+      copy_task = task.deep_dup
+      copy_task.save
+      copy_task.matter_tasks.create(matter_id: current_matter.id)
+      copy_task.update(status: params[:status], row_order: roworder_params)
+    else
+      task.update(status: params[:status], row_order: roworder_params)
     end
-    task.update(status: params[:status], row_order: roworder_params)
     matter_task_type
     respond_to do |format|
       format.js
