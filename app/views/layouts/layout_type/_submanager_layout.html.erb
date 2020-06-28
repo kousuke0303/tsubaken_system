@@ -16,7 +16,7 @@
               <%= link_to "Employee", employee_submanager_path(dependent_manager) %>
             </li>
             <li>
-              <%= link_to "EndUser", enduser_manager_path(current_submanager.manager) %>
+              <%= link_to "EndUser", enduser_submanager_path(dependent_manager, current_submanager) %>
             </li>
           </ul>
         </li>
