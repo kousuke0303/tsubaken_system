@@ -4,4 +4,5 @@ class Task < ApplicationRecord
   
   has_many :manager_tasks, dependent: :destroy
   has_many :managers, through: :manager_tasks
+  
 end

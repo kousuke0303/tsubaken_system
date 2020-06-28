@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container matter_show_container">
   <h2><%= current_matter.title %><span>の情報</span></h2>
       
   <div class="card text-center matter_index">
     <div class="card-header bg-gray">
-      <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" href="#progress_matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">概要</a>
         </li>
@@ -14,7 +14,7 @@
           <a class="nav-link" href="#user_information" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">依頼人情報</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#matter_task" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">作業工程</a>
+          <a class="nav-link" id="matter_task_tab", href="#matter_task_index" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">作業工程</a>
         </li>
       </ul>
     </div>
@@ -46,9 +46,11 @@
           <%= render 'matter/matters/show_menu/client/client' %>
         </div>
         
-        <div class="tab-pane fade bg-white" id="matter_task" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel" aria-labelledby="contact-tab">
           <h5 class="card-title">作業工程</h5>
-          <%= render 'matter/matters/show_menu/matter_task' %>
+          <div class="task_index">
+            <%= render 'matter/matters/show_menu/matter_task/index' %>
+          </div>
         </div>
         
       </div>
@@ -58,13 +60,14 @@
 
 <script>
 $(function(){
-    $('.manage_authority').on('click',function(){
-        $('.manage_authority_form').fadeIn();
-        return false;
-    });
-    $('.js-modal-close').on('click',function(){
-        $('.manage_authority_form').fadeOut();
-        return false;
-    });
+  $('.manage_authority').on('click',function(){
+    $('.manage_authority_form').fadeIn();
+    return false;
+  });
+  
+  $('.js-modal-close').on('click',function(){
+    $('.manage_authority_form').fadeOut();
+    return false;
+  });
 });
 </script>

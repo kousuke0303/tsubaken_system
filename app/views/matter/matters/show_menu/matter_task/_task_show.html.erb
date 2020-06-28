@@ -1,0 +1,20 @@
+<div class="modal-dialog">
+  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+  <div class="modal-content">
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <div class="matter_edit_flash"></div>
+        <h5 class="card-header <%= status %>_color">タスク詳細</h5>
+        <div class="card-body">
+          <div class="show_table_<%= task.id %>">
+            <%= render partial: 'matter/matters/show_menu/matter_task/show_table', locals: { task: task} %>
+          </div>
+          
+          <div class="edit_form_<%= task.id %>" style="display: none;">
+            <%= render partial: 'matter/matters/show_menu/matter_task/edit_form', locals: { task: task} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

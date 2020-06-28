@@ -124,9 +124,9 @@ Rails.application.routes.draw do
         patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
         # matter関連タスク
-        resource :matter_tasks do
-          get :create
-          get :move_task
+        resources :matter_tasks, only: [:update, :destroy] do
+          get :create, on: :collection
+          get :move_task, on: :collection
         end
       end
     end

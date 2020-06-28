@@ -1,9 +1,18 @@
 <div class="col-sm-12 text-right mb-1e">
   <button class="btn btn-primary" id="addToDo"><i class="fas fa-plus"></i>タスク追加</button>
-  <button class="btn btn-dark" id="Item_reset">完了タスクを削除</button>
 </div>
 
-<div id="myKanban"></div>
+<div class="matter_task_disp" id="myKanban"></div>
+
+<% current_matter.tasks.all.each do |task| %>
+  <div class="modal" id="matter_task_<%= task.id %>_modal">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render partial: 'matter/matters/show_menu/matter_task/task_show', locals: {task: task, status: task.status} %>
+      </div>
+  </div>
+<% end %>
+
 
 <script>
 $(document).ready( function(){
@@ -18,9 +27,7 @@ $(document).ready( function(){
         <% @manager_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>",
-            "toggle": "modal",
-            "target": "#modal_<%= task.id %>"
+            "id": "item_id_<%= task.id %>"
           },
         <% end %>
       ]
@@ -34,9 +41,7 @@ $(document).ready( function(){
         <% @matter_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>",
-            "toggle": "modal",
-            "target": "#modal_<%= task.id %>"
+            "id": "item_id_<%= task.id %>"
           },
         <% end %>
       ]
@@ -57,7 +62,7 @@ $(document).ready( function(){
     },
 
     {
-      "id": "finished_task",
+      "id": "finished_tasks",
       "title": "完了",
       "class": "done",
       "item": [
@@ -115,6 +120,7 @@ $(document).ready( function(){
     });
   });
   
+  // 現状使用しない
   var removeItem = document.getElementById('Item_reset');
     removeItem.addEventListener('click',function(){
       $('div[data-id="finished_task"] main div').each(function(index, element){
@@ -131,13 +137,19 @@ $(document).ready( function(){
 });
   
 </script>
+
 <script>
-$(function(){
- history.pushState(null, null, null); //ブラウザバック無効化
- //ブラウザバックボタン押下時
- $(window).on("popstate", function (event) {
-   history.pushState(null, null, null);
-   window.alert('ブラウザの戻るボタンは利用できません。');
- });
-});
+<% current_matter.tasks.all.each do |task| %>
+  $(function(){
+    $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeOut();
+      return false;
+    });
+  });
+<% end %>
 </script>
