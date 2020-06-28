@@ -1,5 +1,6 @@
 class Submanager::SubmanagersController < ApplicationController
   before_action :authenticate_submanager!, only: [:top, :show, :edit, :update]
+  before_action :return_login
   helper_method :current_submanager_company
   
   def top
@@ -41,4 +42,11 @@ class Submanager::SubmanagersController < ApplicationController
       { scope: resource_name, recall: "#{controller_path}#failed" }
     end
     
+    # to_paramを変更した事による是正
+    def return_login
+      unless params[:manager_public_uid] == dependent_manager.public_uid
+        flash[:alert] = "アクセス権限がありません"
+        redirect_to root_path
+      end
+    end
 end
