@@ -3,27 +3,42 @@
   <div class="modal-content">
     <div class="modal-body pa-2e">
     <!-- &timesは「×ボタン」の表示-->
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 id="hoge">新規作成</h4>
-      <div class="card mb-3">
-        <h5 class="card-header user_form_color">User/新規作成</h5>
-        <div class="card-body">
-          <%= form_with(model: [:current_manager, current_manager.manager_users.build ], url: manager_users_path(current_manager), method: :post, remote: true) do |f| %>
-
-          <div class="user_create_error"></div>
-        
-            <div class="form-group">
-              <%= f.label :name, "名前" %>
-              <%= f.text_field :name, required: true, class: "form-control" %>
-            </div>
+      <div class="row">
+        <div class="col-sm-12 mb-1e">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="col-sm-12">
+        <div class="card mb-3">
+          <h5 class="card-header user_form_color">User/新規作成</h5>
+            <div class="card-body">
+              <%= form_with(model: [:current_manager, current_manager.manager_users.build ], url: manager_users_path(current_manager), method: :post, remote: true) do |f| %>
+    
+              <div class="user_create_error"></div>
             
-            <div class="form-group">
-              <%= f.label :email, "Mail" %>
-              <%= f.email_field :email, required: true, class: "form-control" %>
+                <div class="form-group">
+                  <%= f.label :name, "名前" %>
+                  <%= f.text_field :name, required: true, class: "form-control" %>
+                </div>
+                
+                <div class="form-group">
+                  <%= f.label :email, "Mail" %>
+                  <%= f.email_field :email, required: true, class: "form-control" %>
+                </div>
+                
+                <div class="form-group">
+                  <%= f.label :phone, "電話番号" %>
+                  <%= f.telephone_field :phone, class: "form-control" %>
+                </div>
+            
+                <div class="form-group">
+                  <%= f.label :fax, "FAX" %>
+                  <%= f.telephone_field :fax, class: "form-control" %>
+                </div>
+              
+                <%= f.submit "作成", class: "btn btn-dark" %>
+              <% end %>
             </div>
-          
-            <%= f.submit "作成", class: "btn btn-dark" %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
