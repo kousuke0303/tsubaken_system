@@ -80,6 +80,8 @@ Rails.application.routes.draw do
         resources :staffs, path: '/employee/staffs'
         # user CRUD
         resources :users, path: '/enduser/users'
+        # attendance
+        resources :attendance, only: [:show, :edit, :update]
       end
     end
   end
@@ -108,6 +110,8 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
       # matter
       resources :matters, only: [:index, :show]
+      # attendance
+      resources :attendance, only: [:show, :edit, :update]
     end
   end
 
