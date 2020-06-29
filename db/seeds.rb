@@ -144,8 +144,6 @@ SeedMatterB.clients.create!(name: "鬼ちゃん",
                            email: "clientB@email.com"
                            )
 puts "CREATE! MATTER２"
-<<<<<<< HEAD
-=======
 
 # -----------------------------------------------------
       # TASK
@@ -236,4 +234,4 @@ Event.create!(event_name: "予定された工事着手日",
     matter_id: 1)
 
 puts "CREATE! EVENT-D2"
->>>>>>> 82a292c0b9c1d689679e7b724116d802e929ebbf
+

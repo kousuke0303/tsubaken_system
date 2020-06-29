@@ -110,13 +110,10 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
       # matter
       resources :matters, only: [:index, :show]
-<<<<<<< HEAD
       # attendance
       resources :attendance, only: [:show, :edit, :update]
-=======
       # event
       resources :events, only: [:index]
->>>>>>> 82a292c0b9c1d689679e7b724116d802e929ebbf
     end
   end
 

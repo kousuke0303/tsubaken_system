@@ -14,14 +14,12 @@ class Matter < ApplicationRecord
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
 
-<<<<<<< HEAD
-  has_many :attendance
-=======
+  has_one :attendance, dependent: :destroy
+  
   has_many :events, dependent: :destroy
 
   has_many :matter_tasks, dependent: :destroy
   has_many :tasks, through: :matter_tasks
->>>>>>> 82a292c0b9c1d689679e7b724116d802e929ebbf
   
   
   def to_param
