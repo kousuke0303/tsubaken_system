@@ -24,6 +24,10 @@ class Staff::AttendanceController < ApplicationController
     redirect_to top_staff_path(current_staff)
   end
 
+  def create
+    
+  end
+
   def edit
 
   end
