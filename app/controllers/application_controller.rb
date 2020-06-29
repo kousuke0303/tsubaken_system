@@ -46,14 +46,6 @@ class ApplicationController < ActionController::Base
       current_submanager.manager
     end
   end
-  
-  def submanager_staff_arrey
-    submanager_arrey = current_manager.submanagers.pluck(:submanager, :id, :name)
-    staff_arrey = current_manager.staffs.pluck(:staff, :id, :name)
-    staff_arrey.each do |staff|
-      @arrey = submanager_arrey.push(staff)
-    end
-  end
     
   
   

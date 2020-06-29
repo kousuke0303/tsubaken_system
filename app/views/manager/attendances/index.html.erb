@@ -1,0 +1,9 @@
+<div class="container">
+  
+  <select class="form-control">
+    <% submanager_staff_arrey.each_with_index do |submanager_staff, i| %>
+      <option value=<%= submanager_staff[0] %>#<%= submanager_staff[1] %>><%= submanager_staff[2] %></option>
+    <% end %>
+  </select>
+      
+</div>

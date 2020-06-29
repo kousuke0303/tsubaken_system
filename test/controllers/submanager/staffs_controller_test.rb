@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Manager::AttendanceControllerTest < ActionDispatch::IntegrationTest
+class Submanager::StaffsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
