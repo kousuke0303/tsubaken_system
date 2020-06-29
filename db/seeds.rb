@@ -234,4 +234,3 @@ Event.create!(event_name: "予定された工事着手日",
     matter_id: 1)
 
 puts "CREATE! EVENT-D2"
-

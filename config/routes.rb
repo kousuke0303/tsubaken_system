@@ -81,7 +81,7 @@ Rails.application.routes.draw do
         # user CRUD
         resources :users, path: '/enduser/users'
         # attendance
-        resources :attendance, only: [:show, :edit, :update]
+        resources :attendance
       end
     end
   end
@@ -112,6 +112,7 @@ Rails.application.routes.draw do
       resources :matters, only: [:index, :show]
       # attendance
       resources :attendance, only: [:show, :edit, :update]
+      resources :attendance
       # event
       resources :events, only: [:index]
     end
