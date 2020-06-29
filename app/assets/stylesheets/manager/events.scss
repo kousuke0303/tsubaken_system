@@ -1,0 +1,162 @@
+// Place all the styles related to the Manager::Events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.eventA {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #ffebe9;
+  border-left: solid 5px hsla(15, 100%, 85%, 1);
+  position: relative;
+  z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventA a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent:-999px;
+  z-index: 2; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventA:hover {
+  filter:alpha(opacity=70);/* IE 6,7*/
+  -ms-filter: "alpha(opacity=70)";/* IE 8,9 */
+  -moz-opacity:0.7;/* FF , Netscape */
+  -khtml-opacity: 0.7;/* Safari 1.x */
+  opacity:0.7;
+  zoom:1;/*IE*/
+}
+
+.eventB {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #fff8e8;
+  border-left: solid 5px rgb(255, 255, 179);
+  position: relative;
+  z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventB a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent:-999px;
+  z-index: 2; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventB:hover {
+  filter:alpha(opacity=70);/* IE 6,7*/
+  -ms-filter: "alpha(opacity=70)";/* IE 8,9 */
+  -moz-opacity:0.7;/* FF , Netscape */
+  -khtml-opacity: 0.7;/* Safari 1.x */
+  opacity:0.7;
+  zoom:1;/*IE*/
+}
+
+.eventC {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #E6FFE9;
+  border-left: solid 5px rgb(204, 255, 179);
+  position: relative;
+  z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventC a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent:-999px;
+  z-index: 2; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventC:hover {
+  filter:alpha(opacity=70);/* IE 6,7*/
+  -ms-filter: "alpha(opacity=70)";/* IE 8,9 */
+  -moz-opacity:0.7;/* FF , Netscape */
+  -khtml-opacity: 0.7;/* Safari 1.x */
+  opacity:0.7;
+  zoom:1;/*IE*/
+}
+
+.eventD {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: whitesmoke;
+  border-left: solid 5px rgb(179, 229, 255);
+  position: relative;
+  z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */
+}
+
+.eventD a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent:-999px;
+  z-index: 2; /* 必要であればリンク要素の��なりのベース順序指定 */
+}
+
+.eventD:hover {
+  filter:alpha(opacity=70);/* IE 6,7*/
+  -ms-filter: "alpha(opacity=70)";/* IE 8,9 */
+  -moz-opacity:0.7;/* FF , Netscape */
+  -khtml-opacity: 0.7;/* Safari 1.x */
+  opacity:0.7;
+  zoom:1;/*IE*/
+}
+
+.prev-month {
+  border: inset 1px!important;
+}
+
+.next-month {
+  border: inset 1px!important;
+}
+
+.sat {
+  color: #0000ff;
+}
+
+.event_index {
+  th {
+    background-color: #969ea5;
+    color: white;
+  }
+}
+
+.calendar_select_btn {
+  height: 2.5em;
+  width: 8.5em;
+  background-color: white;
+  color: #0f79e2ba!important;
+  border-color: #0f79e2ba!important;
+  border-radius: 5%;
+  border-width: 2px!important;
+  &:hover {
+    background-color: #c0dcf7ba!important;
+  }
+}
+
+.calender-heading {
+  height: 40px;
+}
+.calender_head_a {
+  line-height: 40px;
+}
+
+.custom_prev_month {
+  background-color: #e5e6e6!important;
+}

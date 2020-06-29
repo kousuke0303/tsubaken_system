@@ -2,7 +2,8 @@ class Matter::MattersController < ApplicationController
   before_action :matter_index_authenticate!, only: :index
   before_action :matter_show_authenticate!, only: :show
   before_action :matter_edit_authenticate!, only: [:edit, :update, :destroy]
-  
+  include Matter::MattersHelper
+
   def index
     @progress_matters = @matters.where.not(status: "finish")
     @finished_matters = @matters.where(status: "finish")
@@ -19,11 +20,13 @@ class Matter::MattersController < ApplicationController
       @matter.update(matter_uid: Faker::Number.hexadecimal(digits: 10))
       @matter.matter_managers.create(manager_id: dependent_manager.id)
       flash[:success] = "受託案件を新規登録しました"
+      automatic_event_creation(@matter)
       redirect_to matter_matters_url(dependent_manager)
     end
   end
   
   def show
+    matter_task_type
   end
   
   def edit
@@ -33,6 +36,7 @@ class Matter::MattersController < ApplicationController
   def title_update
     if current_matter.update_attributes!(matter_params)
       flash[:success] = "#{current_matter.title}を編集しました"
+      automatic_event_update(current_matter)
       redirect_to matter_matter_url(dependent_manager, current_matter)
     end
   end

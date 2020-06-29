@@ -25,7 +25,8 @@ gem 'active_decorator'
 gem 'omniauth-line'
 # line_login時の偽mail作成
 gem 'faker'
-
+# simple_calendar
+gem 'simple_calendar', '~> 2.0'
 
 group :development, :test do
   gem 'sqlite3',      '1.3.13'

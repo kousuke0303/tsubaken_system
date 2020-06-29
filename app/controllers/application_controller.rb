@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
   
   def current_matter
-    Matter.find_by(matter_uid: params[:id])
+    Matter.find_by(matter_uid: params[:id]) || Matter.find_by(matter_uid: params[:matter_id]) 
   end
   
   def matter_edit_authenticate!
@@ -92,13 +92,32 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end
+  
+  # MATTER_TASK
+  def matter_task_type
+    @manager_tasks = dependent_manager.tasks
+    @matter_tasks = current_matter.tasks.where(status: "matter_tasks").order(:row_order)
+    # row_orderリセット
+    @matter_tasks.each_with_index do |task, i|
+      task.update(row_order: i * 100)
+    end
+    @matter_progress_tasks = current_matter.tasks.where(status: "progress_tasks").order(:row_order)
+    # row_orderリセット
+    @matter_progress_tasks.each_with_index do |task, i|
+      task.update(row_order: i * 100)
+    end
+    @matter_complete_tasks = current_matter.tasks.where(status: "finished_tasks").order(:row_order)
+    # row_orderリセット
+    @matter_complete_tasks.each_with_index do |task, i|
+      task.update(row_order: i * 100)
+    end
+  end
     
   private
   
   # --------------------------------------------------------
         # DEVISE関係
   # --------------------------------------------------------
-  
   
   # ログイン後のリダイレクト先
     def current_submanager_public_uid

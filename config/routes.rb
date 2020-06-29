@@ -110,8 +110,13 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
       # matter
       resources :matters, only: [:index, :show]
+<<<<<<< HEAD
       # attendance
       resources :attendance, only: [:show, :edit, :update]
+=======
+      # event
+      resources :events, only: [:index]
+>>>>>>> 82a292c0b9c1d689679e7b724116d802e929ebbf
     end
   end
 
@@ -127,7 +132,26 @@ Rails.application.routes.draw do
         patch :person_in_charge_update, on: :member
         patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
+        # matter関連タスク
+        resources :matter_tasks, only: [:update, :destroy] do
+          get :create, on: :collection
+          get :move_task, on: :collection
+        end
       end
+    end
+  end
+  
+  # ################################################################
+
+  
+  # ###--EVENT関連--################################
+  
+  scope "(:manager_public_uid)" do
+    namespace :manager do
+      resources :events, only: [:index] 
+    end
+    namespace :submanager do
+      resources :events, only: [:index] 
     end
   end
   
