@@ -40,11 +40,11 @@ class Manager::UsersController < ApplicationController
   
   private
     def manager_user_params
-      params.require(:manager_user).permit(:id, :name, :email)
+      params.require(:manager_user).permit(:id, :name, :email, :phone, :fax)
     end
 
     def user_params
-      params.require(:user).permit(:id, :name, :email)
+      params.require(:user).permit(:id, :name, :email, :phone, :fax)
     end
     
     def set_user

@@ -108,6 +108,8 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
       # matter
       resources :matters, only: [:index, :show]
+      # event
+      resources :events, only: [:index]
     end
   end
 
