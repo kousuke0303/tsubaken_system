@@ -1,6 +1,11 @@
 <div class="container">
   <div class="col-sm-12 manager_contaioner">
-   <h1>Staff::Staffs#top</h1>
-   <p>Find me in app/views/staff/staffs/top.html.erb</p>
+    <% if @attendance.nil? %>
+      <%= link_to "出勤", staff_attendance_path(current_staff), method: :patch, class: "btn btn-primary" %>
+    <% else %>
+      <% if @attendance.finished_at.nil?%>
+        <%= link_to "退勤", staff_attendance_path(current_staff), method: :patch, class: "btn btn-danger" %>
+      <% end %>
+    <% end %>
   </div>
 </div>

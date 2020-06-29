@@ -3,6 +3,7 @@ class Staff::StaffsController < ApplicationController
   
   def top
     @staff = current_staff
+    @attendance = Attendance.where(staff_id:@staff.id).find_by(worked_on: Date.today)
   end
   
   def show
