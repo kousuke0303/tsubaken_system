@@ -25,12 +25,15 @@ ActiveRecord::Schema.define(version: 20200623134314) do
   end
 
   create_table "attendances", force: :cascade do |t|
+    t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
     t.integer "submanager_id"
     t.integer "staff_id"
+    t.integer "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_attendances_on_matter_id"
     t.index ["staff_id"], name: "index_attendances_on_staff_id"
     t.index ["submanager_id"], name: "index_attendances_on_submanager_id"
   end
