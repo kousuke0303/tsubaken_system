@@ -1,5 +1,5 @@
-module Attendance
+module Submanagers
   def self.table_name_prefix
-    'attendance_'
+    'submanagers_'
   end
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AttendanceTest < ActiveSupport::TestCase
+class Submanagers::AttendanceTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

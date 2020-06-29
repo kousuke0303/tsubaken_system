@@ -1,10 +1,19 @@
 <div class="container">
   <div class="col-sm-12 manager_contaioner">
-    <% if @attendance.nil? %>
-      <%= link_to "出勤", submanager_attendance_path(current_submanager), method: :patch, class: "btn btn-primary" %>
+    <% if @today_attendance.nil? %>
+      <%= form_with(model: @attendance, url: going_to_work_submanager_attendances_path(dependent_manager, current_submanager), method: :post, local:true) do |f| %>
+        <div class="form-group">
+          <%= f.label :matter_id, "出勤場所" %>
+          <div class="col-sm-7">
+            <%= f.collection_select :matter_id, current_submanager.matters.all, :id, :title, { prompt: "選択してください" }, class: "form-control" %>
+          </div>
+        </div>
+      <%= f.submit "出勤", class: "btn btn-primary" %>
+      <% end %>
     <% else %>
-      <% if @attendance.finished_at.nil?%>
-        <%= link_to "退勤", submanager_attendance_path(current_submanager), method: :patch, class: "btn btn-danger" %>
+      <P>出勤時間：<%= @today_attendance.started_at %></P>
+      <% if @today_attendance.finished_at.nil?%>
+        <%= link_to "退勤", submanager_attendances_path(dependent_manager, current_submanager), method: :patch, class: "btn btn-danger" %>
       <% end %>
     <% end %>
   </div>

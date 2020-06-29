@@ -130,6 +130,8 @@ SeedMatter.clients.create!(name: "３匹のこぶた",
                            phone: "09000000000",
                            email: "clientA@email.com"
                            )
+SeedMatter.matter_submanagers.create(submanager_id: 1)
+SeedMatter.matter_staffs.create(staff_id: 1)
 puts "CREATE! MATTER1"
 
 SeedMatterB = Matter.create!(title: "案件２",

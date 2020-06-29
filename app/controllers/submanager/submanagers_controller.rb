@@ -4,8 +4,8 @@ class Submanager::SubmanagersController < ApplicationController
   helper_method :current_submanager_company
   
   def top
-    @submanager = current_submanager
-    @attendance = Attendance.where(submanager_id:@submanager.id).find_by(worked_on: Date.today)
+    @attendance = current_submanager.attendances.build
+    @today_attendance = current_submanager.attendances.find_by(worked_on: Date.today)
   end
   
   def show

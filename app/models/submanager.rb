@@ -8,5 +8,6 @@ class Submanager < ApplicationRecord
 
   has_many :matter_submanagers, dependent: :destroy
   has_many :matters, through: :matter_submanagers
-  has_many :attendance, dependent: :destroy
+  
+  has_many :attendances, class_name: "Submanagers::Attendance", dependent: :destroy
 end
