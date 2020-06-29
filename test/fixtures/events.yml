@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_name: MyString
+  event_type: MyString
+  date: 2020-06-23 01:41:15
+  note: MyString
+  manager: one
+  matter: one
+
+two:
+  event_name: MyString
+  event_type: MyString
+  date: 2020-06-23 01:41:15
+  note: MyString
+  manager: two
+  matter: two

@@ -144,3 +144,93 @@ SeedMatterB.clients.create!(name: "鬼ちゃん",
                            email: "clientB@email.com"
                            )
 puts "CREATE! MATTER２"
+
+# -----------------------------------------------------
+      # TASK
+# ---------------------------------------------
+
+# 1.Manager_task-----------------
+
+SeedTask = Task.create!(title: "TASK1")
+SeedTask.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK1"
+
+SeedTaskB = Task.create!(title: "TASK2")
+SeedTaskB.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK2"
+
+SeedTaskC = Task.create!(title: "TASK3")
+SeedTaskC.manager_tasks.create!(manager_id: 3)
+
+puts "CREATE! TASK3"
+
+
+
+# -----------------------------------------------------
+      # EVENT
+# ---------------------------------------------
+
+Event.create!(event_name: "打ち合わせ",
+    event_type: "A",
+    date: "2020-07-01",
+    note: "仮",
+    manager_id: 2,
+    matter_id: 1)
+
+puts "CREATE! EVENT-A1"
+
+Event.create!(event_name: "打ち合わせ",
+    event_type: "A",
+    date: "2020-06-30",
+    note: "仮",
+    manager_id: 2,
+    matter_id: 1)
+
+puts "CREATE! EVENT-A2"
+
+Event.create!(event_name: "打ち合わせ",
+    event_type: "A",
+    date: "2020-07-02",
+    note: "仮",
+    manager_id: 3,
+    matter_id: 1)
+
+puts "CREATE! EVENT-A3"
+
+Event.create!(event_name: "入金予定",
+    event_type: "B",
+    date: "2020-07-03",
+    note: "仮入金",
+    manager_id: 3,
+    matter_id: 1)
+
+puts "CREATE! EVENT-B"
+
+Event.create!(event_name: "確定した工事着手日",
+    event_type: "C",
+    date: "2020-07-03",
+    note: "仮",
+    manager_id: 3,
+    matter_id: 1)
+
+puts "CREATE! EVENT-C"
+
+Event.create!(event_name: "予定された工事着手日",
+    event_type: "D",
+    date: "2020-07-03",
+    note: "仮",
+    manager_id: 3,
+    matter_id: 1)
+
+puts "CREATE! EVENT-D1"
+
+Event.create!(event_name: "予定された工事着手日",
+    event_type: "D",
+    date: "2020-07-01",
+    note: "仮",
+    manager_id: 2,
+    matter_id: 1)
+
+puts "CREATE! EVENT-D2"

@@ -24,10 +24,13 @@
         <%= link_to "Matter", matter_matters_path(current_manager) %>
       </li>
       <li>
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Calender</a>
+        <%= link_to "Calendar", manager_events_path(current_manager) %>
+      </li>
+      <li>
+        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="#">Page 1</a>
+              <a href="#">TASK設定</a>
             </li>
             <li>
               <a href="#">Page 2</a>

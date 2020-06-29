@@ -112,6 +112,8 @@ Rails.application.routes.draw do
       resources :matters, only: [:index, :show]
       # attendance
       resources :attendance
+      # event
+      resources :events, only: [:index]
     end
   end
 
@@ -127,7 +129,26 @@ Rails.application.routes.draw do
         patch :person_in_charge_update, on: :member
         patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
+        # matter関連タスク
+        resources :matter_tasks, only: [:update, :destroy] do
+          get :create, on: :collection
+          get :move_task, on: :collection
+        end
       end
+    end
+  end
+  
+  # ################################################################
+
+  
+  # ###--EVENT関連--################################
+  
+  scope "(:manager_public_uid)" do
+    namespace :manager do
+      resources :events, only: [:index] 
+    end
+    namespace :submanager do
+      resources :events, only: [:index] 
     end
   end
   

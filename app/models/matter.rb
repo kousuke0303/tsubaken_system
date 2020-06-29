@@ -15,9 +15,11 @@ class Matter < ApplicationRecord
   accepts_nested_attributes_for :clients, allow_destroy: true
 
   has_many :attendance
+  has_many :events, dependent: :destroy
+
+  has_many :matter_tasks, dependent: :destroy
+  has_many :tasks, through: :matter_tasks
   
-  scope :manager_matter_connect, -> (manager) do
-  end
   
   def to_param
     matter_uid ? matter_uid : super()

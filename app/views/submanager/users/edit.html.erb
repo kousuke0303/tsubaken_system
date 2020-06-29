@@ -15,6 +15,16 @@
           <%= f.label :email %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control" %>
         </div>
+        
+        <div class="form-group">
+          <%= f.label :phone, "電話番号" %>
+          <%= f.telephone_field :phone, class: "form-control" %>
+        </div>
+            
+        <div class="form-group">
+          <%= f.label :fax, "FAX" %>
+          <%= f.telephone_field :fax, class: "form-control" %>
+        </div>
               
         <%= f.submit "編集", class: "btn btn-dark" %>
       <% end %>
