@@ -57,12 +57,14 @@ Rails.application.routes.draw do
       get :employee, on: :member
       get :employee_type, on: :member
       get :enduser, on: :member
-      # submanager CRUD
+    # submanager CRUD
       resources :submanagers, path: '/employee/submanagers'
-      # staff CRUD
+    # staff CRUD
       resources :staffs, path: '/employee/staffs'
-      # user CRUD
+    # user CRUD
       resources :users, path: '/enduser/users'
+    # setting
+      get '/settings/matter_task_new', to: 'settings#matter_task_new'
     end
   end
   
