@@ -1,12 +1,13 @@
-class Manager::SettingsController < ApplicationController
+class Manager::Settings::TasksController < ApplicationController
+  
   before_action :authenticate_manager!
   
-  def matter_task_new
+  def new
     @default_matter_tasks = current_manager.tasks
     @matter_task = current_manager.tasks
   end
   
-  def default_matter_task_create
+  def create
     if current_manager.tasks.create(default_task_params)
       @default_matter_tasks = current_manager.tasks
       respond_to do |format|
@@ -16,7 +17,7 @@ class Manager::SettingsController < ApplicationController
     end
   end
   
-  def default_matter_task_update
+  def update
   end
   
   private
