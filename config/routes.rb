@@ -155,7 +155,7 @@ Rails.application.routes.draw do
   scope "(:manager_public_uid)" do
     namespace :manager do
       namespace :settings do
-        resources :tasks, except: [:iondex]
+        resources :tasks, except: [:index]
       end
     end
   end
