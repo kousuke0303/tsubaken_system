@@ -1,0 +1,68 @@
+<% default_matter_tasks.each do |task| %>
+  <div id="default_matter_task_<%= task.id %>_showtable">
+    <table class="table table-bordered default_matter_task_show mt-1e" id="default_matter_task_<%= task.id %>_show" style="display: none;">
+      <tr>
+        <th>タイトル</th>
+      </tr>
+      <tr>
+        <td><%= task.title %></td>
+      </tr>
+      <tr>
+        <th>備考</th>
+      </tr>
+      <tr>
+        <td><%= task.memo %></td>
+      </tr>
+      <tr>
+        <td><button id="default_matter_task_<%= task.id %>_edit_btn">編集</button></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div id="default_matter_task_<%= task.id %>_edit_form">
+    <%= form_with(model: task, url: manager_settings_task_path(current_manager, task), remote: true, method: :patch) do |fi| %>
+      <table class="table table-bordered mt-1e" id="default_matter_task_<%= task.id %>_edit" style="display: none;">     
+        <tr>
+          <th>タイトル</th>
+        </tr>
+        <tr>
+          <td><%= fi.text_field :title, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>備考</th>
+        </tr>
+        <tr>
+          <td><%= fi.text_area :memo, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <td>
+            <%= fi.submit "更新", class: "btn btn-dark" %>
+            <button type="button" class="float-r return_btn">戻る</button>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  
+<% end %>
+
+<script>
+<% default_matter_tasks.each do |task| %>
+  $('#default_matter_task_<%= task.id %>_title').on('click', function(){
+    $('#default_matter_task_<%= task.id %>_show').show();
+    $('.default_matter_task_show:not(#default_matter_task_<%= task.id %>_show)').hide();
+    $('#default_matter_task_<%= task.id %>_title').addClass('active');
+    $('.default_matter_task_title:not(#default_matter_task_<%= task.id %>_title)').removeClass('active');
+  });
+
+  $('#default_matter_task_<%= task.id %>_edit_btn').on('click', function(){
+    $('#default_matter_task_<%= task.id %>_edit').show();
+    $('#default_matter_task_<%= task.id %>_showtable').hide();
+  });
+  
+  $('.return_btn').on('click', function(){
+    $('#default_matter_task_<%= task.id %>_edit').hide();
+    $('#default_matter_task_<%= task.id %>_showtable').show();
+  });
+<% end %>
+</script>

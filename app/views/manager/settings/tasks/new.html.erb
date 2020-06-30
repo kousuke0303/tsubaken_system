@@ -1,0 +1,67 @@
+<div class="container">
+  <h5>デフォルトタスク設定</h5>
+  <div class="row">
+    <div class="col-sm-12">
+    </div>
+    <div class="col-md-4 mt-1e">
+      <div class="text-right">
+        <botton class="btn btn-dark default_matter_task_new_btn">追加</botton>
+      </div>
+      タスクタイトル
+      <div class="ajax_title_area">
+        <%= render partial: 'manager/settings/tasks/ajax_task/title_index', locals: { default_matter_tasks: @default_matter_tasks } %>
+      </div>
+    </div>
+    
+    <div class="col-md-8">
+      詳細
+      <div class="ajax_show_area">
+        <%= render partial: 'manager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks } %>
+      </div>
+      
+      <table class="table default_matter_task_new_form" style="display: none;">
+        <%= form_with(model: @matter_task, url: manager_settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
+        <tr>
+          <th>タイトル</th>
+        </tr>
+        <tr>
+          <td><%= f.text_field :title, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>備考</th>
+        </tr>
+        <tr>
+          <td><%= f.text_area :memo, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.submit "登録", class: "btn btn-dark" %>
+            <button type="button" class="float-r return_btn">戻る</button>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+<% @default_matter_tasks.each do |task| %>
+  $('#default_matter_task_<%= task.id %>_title').on('click', function(){
+    $('#default_matter_task_<%= task.id %>_show').show();
+    $('.default_matter_task_show:not(#default_matter_task_<%= task.id %>_show)').hide();
+    $('#default_matter_task_<%= task.id %>_title').addClass('active');
+    $('.default_matter_task_title:not(#default_matter_task_<%= task.id %>_title)').removeClass('active');
+  });
+<% end %>
+</script>
+
+<script>
+  $('.default_matter_task_new_btn').on('click', function(){
+    $('.default_matter_task_new_form').show();
+  });
+  
+  $('.return_btn').on('click', function(){
+    $('.default_matter_task_new_form').hide();
+  });
+</script>

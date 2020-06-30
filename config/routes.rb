@@ -63,8 +63,6 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
     # user CRUD
       resources :users, path: '/enduser/users'
-    # setting
-      get '/settings/matter_task_new', to: 'settings#matter_task_new'
     end
   end
   
@@ -151,6 +149,20 @@ Rails.application.routes.draw do
   end
   
   # ################################################################
+  
+  # ###--SETTING--##################################
+  
+  scope "(:manager_public_uid)" do
+    namespace :manager do
+      namespace :settings do
+        resources :tasks, except: [:iondex]
+      end
+    end
+  end
+  
+  
+  # ################################################################
+  
   
   root 'static_page#login_index'
   
