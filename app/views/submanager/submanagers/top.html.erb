@@ -13,8 +13,9 @@
     <% else %>
       <P>出勤時間：<%= @today_attendance.started_at %></P>
       <% if @today_attendance.finished_at.nil?%>
-        <%= link_to "退勤", submanager_attendances_path(dependent_manager, current_submanager), method: :patch, class: "btn btn-danger" %>
-      <% end %>
+        <%= link_to "退勤", leaving_work_submanager_attendances_path(dependent_manager, current_submanager), method: :post, class: "btn btn-danger" %>
+    <% end %>
+    <P>退勤時間：<%= @today_attendance.finished_at %></P>
     <% end %>
   </div>
 </div>
