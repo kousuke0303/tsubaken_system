@@ -1,46 +1,52 @@
 <div class="container">
-  <h5>デフォルトタスク設定</h5>
+  <h3><i class="fas fa-cog"></i> デフォルトタスク設定</h3>
   <div class="row">
     <div class="col-sm-12">
     </div>
     <div class="col-md-4 mt-1e">
-      <div class="text-right">
-        <botton class="btn btn-dark default_matter_task_new_btn">追加</botton>
+      <div class="row">
+        <div class="col-sm-8">
+          <h5 class="pt-05e">タスクタイトル</h5>
+        </div>
+        <div class="col-sm-4 text-right">
+          <botton class="btn btn-dark default_matter_task_new_btn mb-1e">追加</botton>
+        </div>
       </div>
-      タスクタイトル
       <div class="ajax_title_area">
         <%= render partial: 'manager/settings/tasks/ajax_task/title_index', locals: { default_matter_tasks: @default_matter_tasks } %>
       </div>
     </div>
     
     <div class="col-md-8">
-      詳細
-      <div class="ajax_show_area">
-        <%= render partial: 'manager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks } %>
+      <h5>詳細</h5>
+      <div class="default_matter_task_showarea">
+        <div class="ajax_show_area">
+          <%= render partial: 'manager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks } %>
+        </div>
+        
+        <table class="table default_matter_task_new_form" style="display: none;">
+          <%= form_with(model: @matter_task, url: manager_settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
+          <tr>
+            <th>タイトル</th>
+          </tr>
+          <tr>
+            <td><%= f.text_field :title, required: true, class: "form-control" %></td>
+          </tr>
+          <tr>
+            <th>備考</th>
+          </tr>
+          <tr>
+            <td><%= f.text_area :memo, class: "form-control" %></td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.submit "登録", class: "btn btn-dark" %>
+              <button type="button" class="float-r return_btn">戻る</button>
+            </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
-      
-      <table class="table default_matter_task_new_form" style="display: none;">
-        <%= form_with(model: @matter_task, url: manager_settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
-        <tr>
-          <th>タイトル</th>
-        </tr>
-        <tr>
-          <td><%= f.text_field :title, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th>備考</th>
-        </tr>
-        <tr>
-          <td><%= f.text_area :memo, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <td>
-            <%= f.submit "登録", class: "btn btn-dark" %>
-            <button type="button" class="float-r return_btn">戻る</button>
-          </td>
-        </tr>
-        <% end %>
-      </table>
     </div>
   </div>
 </div>

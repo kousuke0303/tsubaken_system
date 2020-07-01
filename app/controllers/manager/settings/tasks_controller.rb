@@ -10,6 +10,7 @@ class Manager::Settings::TasksController < ApplicationController
   def create
     if current_manager.tasks.create(default_task_params)
       @default_matter_tasks = current_manager.tasks
+      @task = current_manager.tasks.last
       respond_to do |format|
         format.js
       end
@@ -18,6 +19,19 @@ class Manager::Settings::TasksController < ApplicationController
   end
   
   def update
+    @task = Task.find(params[:id])
+    @task.update(default_task_params)
+    @default_matter_tasks = current_manager.tasks
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    flash[:success] = "タスク：#{@task.title}を削除しました"
+    redirect_to new_manager_settings_task_url(current_manager)
   end
   
   private
