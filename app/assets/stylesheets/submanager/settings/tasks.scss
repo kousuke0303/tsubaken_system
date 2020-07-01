@@ -1,3 +1,35 @@
 // Place all the styles related to the Submanager::Settings::Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* ---------------------------------------------------
+    MATTER_TASK
+----------------------------------------------------- */
+
+.default_matter_task_showarea {
+  padding: 1em;
+  border: solid 5px #dc3545;
+  border-radius: 5px;
+}
+
+.default_matter_task_table {
+  .active {
+    background-color: #e8e6e6;
+  }
+}
+
+.default_matter_task_title {
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f1f1;
+  }
+  &:focus {
+    background-color: #e8e6e6;
+  }
+}
+
+.default_matter_task_show, .default_matter_task_edit {
+  th {
+    background-color: #e8e6e6;
+  }
+}

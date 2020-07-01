@@ -1,0 +1,18 @@
+<table class="table table-bordered default_matter_task_table">
+  <% default_matter_tasks.each do |task| %>
+    <tr>
+      <td id="default_matter_task_<%= task.id %>_title" class="default_matter_task_title"><%= task.title %></td>
+    </tr>
+  <% end %>
+</table>
+
+<script>
+<% default_matter_tasks.each do |task| %>
+  $('#default_matter_task_<%= task.id %>_title').on('click', function(){
+    $('#default_matter_task_<%= task.id %>_show').show();
+    $('.default_matter_task_show:not(#default_matter_task_<%= task.id %>_show)').hide();
+    $('#default_matter_task_<%= task.id %>_title').addClass('active');
+    $('.default_matter_task_title:not(#default_matter_task_<%= task.id %>_title)').removeClass('active');
+  });
+<% end %>
+</script>

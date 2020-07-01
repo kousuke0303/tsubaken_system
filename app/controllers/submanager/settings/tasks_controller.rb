@@ -1,6 +1,6 @@
 class Submanager::Settings::TasksController < ApplicationController
-  
   before_action :authenticate_submanager!
+  before_action :not_current_submanager_return_login
   
   def new
     @default_matter_tasks = dependent_manager.tasks
@@ -31,7 +31,7 @@ class Submanager::Settings::TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:success] = "タスク：#{@task.title}を削除しました"
-    redirect_to new_manager_settings_task_url(current_manager)
+    redirect_to new_submanager_settings_task_url(dependent_manager)
   end
   
   private

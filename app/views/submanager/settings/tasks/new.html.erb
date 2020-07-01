@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="ajax_title_area">
-        <%= render partial: 'manager/settings/tasks/ajax_task/title_index', locals: { default_matter_tasks: @default_matter_tasks } %>
+        <%= render partial: 'submanager/settings/tasks/ajax_task/title_index', locals: { default_matter_tasks: @default_matter_tasks } %>
       </div>
     </div>
     
@@ -21,11 +21,11 @@
       <h5>詳細</h5>
       <div class="default_matter_task_showarea">
         <div class="ajax_show_area">
-          <%= render partial: 'manager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks } %>
+          <%= render partial: 'submanager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks } %>
         </div>
         
         <table class="table default_matter_task_new_form" style="display: none;">
-          <%= form_with(model: @matter_task, url: manager_settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
+          <%= form_with(model: @matter_task, url: submanager_settings_tasks_path(dependent_manager), method: :post, remote: true) do |f| %>
           <tr>
             <th>タイトル</th>
           </tr>
