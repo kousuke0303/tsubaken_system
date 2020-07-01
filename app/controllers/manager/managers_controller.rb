@@ -1,7 +1,7 @@
 class Manager::ManagersController < ApplicationController
   before_action :authenticate_manager!, except: :unapproval_top
   before_action :unapproval_manager_show, except: :unapproval_top
-  before_action :not_current_manager_return_login
+  before_action :not_current_manager_return_login!
   
   def show
     @manager = Manager.find(current_manager.id)

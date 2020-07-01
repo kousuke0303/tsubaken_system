@@ -1,6 +1,6 @@
 class Submanager::Settings::TasksController < ApplicationController
   before_action :authenticate_submanager!
-  before_action :not_current_submanager_return_login
+  before_action :not_current_submanager_return_login!
   
   def new
     @default_matter_tasks = dependent_manager.tasks
