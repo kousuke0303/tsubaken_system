@@ -159,7 +159,7 @@ Rails.application.routes.draw do
       end
     end
     namespace :submanager do
-      namaspace :setting do
+      namespace :setting do
         resources :tasks, except: [:index]
       end
     end
