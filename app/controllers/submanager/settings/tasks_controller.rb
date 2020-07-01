@@ -8,7 +8,7 @@ class Submanager::Settings::TasksController < ApplicationController
   end
   
   def create
-    if dependent_manager.tasks.create(default_task_params)
+    if dependent_manager.tasks.create(default_task_params.merge(default_title: params[:task][:title]))
       @default_matter_tasks = dependent_manager.tasks
       @task = dependent_manager.tasks.last
       respond_to do |format|

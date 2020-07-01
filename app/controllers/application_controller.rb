@@ -144,6 +144,13 @@ class ApplicationController < ActionController::Base
   
   # MATTER_TASK
   
+  def count_matter_task
+    dependent_manager.tasks.each do |task|
+      count = Task.where(default_title: task.default_title).where.not(status: nil).count
+      task.update(count: count)
+    end
+  end
+  
   def reload_row_order(tasks)
     tasks.each_with_index do |task, i|
       task.update(row_order: i * 100)
@@ -152,7 +159,8 @@ class ApplicationController < ActionController::Base
       
   def matter_task_type
     if manager_signed_in? || submanager_signed_in?
-      @manager_tasks = dependent_manager.tasks
+      count_matter_task
+      @manager_tasks = dependent_manager.tasks.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
