@@ -143,23 +143,26 @@ class ApplicationController < ActionController::Base
   end
   
   # MATTER_TASK
+  
+  def reload_row_order(tasks)
+    tasks.each_with_index do |task, i|
+      task.update(row_order: i * 100)
+    end
+  end
+      
   def matter_task_type
-    @manager_tasks = dependent_manager.tasks
-    @matter_tasks = current_matter.tasks.where(status: "matter_tasks").order(:row_order)
-    # row_orderリセット
-    @matter_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
+    if manager_signed_in? || submanager_signed_in?
+      @manager_tasks = dependent_manager.tasks
     end
-    @matter_progress_tasks = current_matter.tasks.where(status: "progress_tasks").order(:row_order)
+    @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
-    @matter_progress_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
-    end
-    @matter_complete_tasks = current_matter.tasks.where(status: "finished_tasks").order(:row_order)
+    reload_row_order(@matter_tasks)
+    @matter_progress_tasks = current_matter.tasks.are_progress_tasks
     # row_orderリセット
-    @matter_complete_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
-    end
+    reload_row_order(@matter_progress_tasks)
+    @matter_complete_tasks = current_matter.tasks.are_finished_tasks
+    # row_orderリセット
+    reload_row_order(@matter_complete_tasks)
   end
     
   private
