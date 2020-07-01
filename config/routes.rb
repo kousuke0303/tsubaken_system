@@ -159,7 +159,7 @@ Rails.application.routes.draw do
       end
     end
     namespace :submanager do
-      namespace :setting do
+      namespace :settings do
         resources :tasks, except: [:index]
       end
     end
