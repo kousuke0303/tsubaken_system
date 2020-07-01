@@ -1,6 +1,6 @@
 class Manager::Settings::TasksController < ApplicationController
   before_action :authenticate_manager!
-  before_action :not_current_manager_return_login
+  before_action :not_current_manager_return_login!
   
   def new
     @default_matter_tasks = current_manager.tasks

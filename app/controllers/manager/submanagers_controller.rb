@@ -1,6 +1,6 @@
 class Manager::SubmanagersController < ApplicationController
   before_action :authenticate_manager!, only: [:create, :destroy]
-  before_action :not_current_manager_return_login
+  before_action :not_current_manager_return_login!
   before_action :set_submanager, only: [:show, :edit, :update, :destroy]
   
   def create
