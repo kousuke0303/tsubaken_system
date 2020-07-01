@@ -84,6 +84,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # ---------------------------------------------------------
+        # USER関係
+  # ---------------------------------------------------------
+  
+  # ログインstaff以外のページ非表示
+  def not_current_user_return_login!
+    unless params[:id].to_i == current_user.id || params[:staff_id].to_i == current_user.id
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
+  
   
   # --------------------------------------------------------
         # MATTER関係
