@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  
   # ---------------------------------------------------------
         # MANAGER関係
   # ---------------------------------------------------------
@@ -44,6 +45,25 @@ class ApplicationController < ActionController::Base
       current_manager
     else submanager_signed_in?
       current_submanager.manager
+    end
+  end
+  
+  # ログインmanager以外のページ非表示
+  def not_current_manager_return_login
+    unless params[:id] == current_manager.public_uid || params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
+  
+  # ---------------------------------------------------------
+        # SUBMANAGER関係
+  # ---------------------------------------------------------
+  
+  def not_current_submanager_return_login
+    unless params[:manager_public_uid] == dependent_manager.public_uid
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
     end
   end
   
