@@ -1,5 +1,6 @@
 class Staff::StaffsController < ApplicationController
   before_action :authenticate_staff!
+  before_action :not_current_staff_return_login!
   
   def top
     @staff = current_staff

@@ -57,11 +57,11 @@ Rails.application.routes.draw do
       get :employee, on: :member
       get :employee_type, on: :member
       get :enduser, on: :member
-      # submanager CRUD
+    # submanager CRUD
       resources :submanagers, path: '/employee/submanagers'
-      # staff CRUD
+    # staff CRUD
       resources :staffs, path: '/employee/staffs'
-      # user CRUD
+    # user CRUD
       resources :users, path: '/enduser/users'
       # attendance
       resources :attendances
@@ -114,9 +114,11 @@ Rails.application.routes.draw do
       # submanager CRUD
       resources :staffs, path: '/employee/staffs'
       # matter
-      resources :matters, only: [:index, :show]
-      # attendance
-      resources :attendance
+      resources :matters, only: [:index, :show] do
+        get :move_task, on: :member
+        # attendance
+        resources :attendance
+      end
       # event
       resources :events, only: [:index]
     end
@@ -158,6 +160,25 @@ Rails.application.routes.draw do
   end
   
   # ################################################################
+  
+  # ###--SETTING--##################################
+  
+  scope "(:manager_public_uid)" do
+    namespace :manager do
+      namespace :settings do
+        resources :tasks, except: [:index]
+      end
+    end
+    namespace :submanager do
+      namespace :settings do
+        resources :tasks, except: [:index]
+      end
+    end
+  end
+  
+  
+  # ################################################################
+  
   
   root 'static_page#login_index'
   

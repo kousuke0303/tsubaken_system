@@ -217,6 +217,8 @@ ActiveRecord::Schema.define(version: 20200629141822) do
     t.string "status"
     t.integer "row_order"
     t.text "memo"
+    t.string "default_title"
+    t.integer "count"
     t.datetime "deadline"
     t.boolean "notification", default: false
     t.datetime "created_at", null: false

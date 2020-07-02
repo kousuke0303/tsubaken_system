@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  
   # ---------------------------------------------------------
         # MANAGER関係
   # ---------------------------------------------------------
@@ -47,6 +48,54 @@ class ApplicationController < ActionController::Base
     end
   end
     
+  
+  # ログインmanager以外のページ非表示
+  def not_current_manager_return_login!
+    unless params[:id] == current_manager.public_uid || params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
+  
+  # ---------------------------------------------------------
+        # SUBMANAGER関係
+  # ---------------------------------------------------------
+  
+  # ログインsubmanager以外のページ非表示
+  def not_current_submanager_return_login!
+    unless params[:manager_public_uid] == dependent_manager.public_uid
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+    unless params[:id].to_i == current_submanager.id || params[:staff_id].to_i == current_submanager.id
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
+  
+  # ---------------------------------------------------------
+        # STAFF関係
+  # ---------------------------------------------------------
+  
+  # ログインstaff以外のページ非表示
+  def not_current_staff_return_login!
+    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
+  
+  # ---------------------------------------------------------
+        # USER関係
+  # ---------------------------------------------------------
+  
+  # ログインstaff以外のページ非表示
+  def not_current_user_return_login!
+    unless params[:id].to_i == current_user.id || params[:staff_id].to_i == current_user.id
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_path
+    end
+  end
   
   
   # --------------------------------------------------------
@@ -95,23 +144,34 @@ class ApplicationController < ActionController::Base
   end
   
   # MATTER_TASK
+  
+  def count_matter_task
+    dependent_manager.tasks.each do |task|
+      count = Task.where(default_title: task.default_title).where.not(status: nil).count
+      task.update(count: count)
+    end
+  end
+  
+  def reload_row_order(tasks)
+    tasks.each_with_index do |task, i|
+      task.update(row_order: i * 100)
+    end
+  end
+      
   def matter_task_type
-    @manager_tasks = dependent_manager.tasks
-    @matter_tasks = current_matter.tasks.where(status: "matter_tasks").order(:row_order)
-    # row_orderリセット
-    @matter_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
+    if manager_signed_in? || submanager_signed_in?
+      count_matter_task
+      @manager_tasks = dependent_manager.tasks.are_matter_tasks_for_commonly_used
     end
-    @matter_progress_tasks = current_matter.tasks.where(status: "progress_tasks").order(:row_order)
+    @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
-    @matter_progress_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
-    end
-    @matter_complete_tasks = current_matter.tasks.where(status: "finished_tasks").order(:row_order)
+    reload_row_order(@matter_tasks)
+    @matter_progress_tasks = current_matter.tasks.are_progress_tasks
     # row_orderリセット
-    @matter_complete_tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
-    end
+    reload_row_order(@matter_progress_tasks)
+    @matter_complete_tasks = current_matter.tasks.are_finished_tasks
+    # row_orderリセット
+    reload_row_order(@matter_complete_tasks)
   end
     
   private
