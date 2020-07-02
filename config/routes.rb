@@ -107,7 +107,9 @@ Rails.application.routes.draw do
       # submanager CRUD
       resources :staffs, path: '/employee/staffs'
       # matter
-      resources :matters, only: [:index, :show]
+      resources :matters, only: [:index, :show] do
+        get :move_task, on: :member
+      end
       # event
       resources :events, only: [:index]
     end
@@ -154,6 +156,11 @@ Rails.application.routes.draw do
   
   scope "(:manager_public_uid)" do
     namespace :manager do
+      namespace :settings do
+        resources :tasks, except: [:index]
+      end
+    end
+    namespace :submanager do
       namespace :settings do
         resources :tasks, except: [:index]
       end

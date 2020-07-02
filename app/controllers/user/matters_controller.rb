@@ -1,5 +1,6 @@
 class User::MattersController < ApplicationController
   before_action :authenticate_user!
+  before_action :not_current_user_return_login!
   
   def matter_connect
     # 連結コードが正しいか
