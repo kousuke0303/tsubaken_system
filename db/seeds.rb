@@ -234,3 +234,29 @@ Event.create!(event_name: "予定された工事着手日",
     matter_id: 1)
 
 puts "CREATE! EVENT-D2"
+
+ManagerEvent.create!(event_name: "マネージャ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    manager_id: 3,)
+
+puts "CREATE! MANAGEREVENT-A"
+
+ManagerEvent.create!(event_name: "マネージャ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    manager_id: 2,)
+
+puts "CREATE! MANAGEREVENT-B"
+
+ManagerEventTitle.create!(event_name: "マネージャ独自イベントA",
+    manager_id: 3,)
+
+puts "CREATE! MANAGEREVENTTITLE-A"
+
+ManagerEventTitle.create!(event_name: "マネージャ独自イベントB",
+    manager_id: 2,)
+
+puts "CREATE! MANAGEREVENTTITLE-B"
