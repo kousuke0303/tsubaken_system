@@ -1,3 +1,40 @@
 // Place all the styles related to the User::Matters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user_task_layout {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #f7f7f7;
+  border-left: solid 6px #343a40;/*左線*/
+  color: #343a40;/*文字色*/
+  font-weight: bold;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+}
+
+.user_task_progress_layout {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #f7f7f7;
+  border-left: solid 6px #17a2b8;/*左線*/
+  color: #17a2b8;/*文字色*/
+  font-weight: bold;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+}
+
+.matter_task_mobile_container {
+  display : none;
+}
+
+@media screen and (max-width: 480px) { 
+  
+  .matter_task_pc_container{
+    display: none;
+  }
+
+  .matter_task_mobile_container {
+    display : block;
+  }
+}

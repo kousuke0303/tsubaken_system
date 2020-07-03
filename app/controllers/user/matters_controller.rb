@@ -23,5 +23,6 @@ class User::MattersController < ApplicationController
   
   def show
     @companies = User.requested_of_company(current_user, current_matter)
+    matter_task_type
   end
 end
