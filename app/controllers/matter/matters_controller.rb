@@ -17,7 +17,8 @@ class Matter::MattersController < ApplicationController
   def create
     @matter = Matter.new(matter_params)
     if @matter.save
-      @matter.update(matter_uid: Faker::Number.hexadecimal(digits: 10))
+      @matter.update(matter_uid: Faker::Number.hexadecimal(digits: 10), 
+                     connected_id: Faker::Number.hexadecimal(digits: 10))
       @matter.matter_managers.create(manager_id: dependent_manager.id)
       flash[:success] = "受託案件を新規登録しました"
       automatic_event_creation(@matter)
@@ -88,6 +89,28 @@ class Matter::MattersController < ApplicationController
     end
   end
   
+  def connected_matter
+    matter = Matter.find_by(connected_id: params[:connected_id])
+    users = matter.matter_users
+    connected_matter = matter.deep_dup
+    connected_matter.matter_uid = Faker::Number.hexadecimal(digits: 10)
+    connected_matter.save
+    # managerとの紐付け
+    connected_matter.matter_managers.create!(manager_id: current_manager.id)
+    # 依頼人コピー
+    matter.clients.each do |client|
+      connected_client = client.deep_dup 
+      connected_client.update!(matter_id: connected_matter.id)
+    end
+    # userとの紐付け
+    users.each do |user|
+      connected_matter.matter_users.create!(user_id: user.id)
+      current_manager.manager_users.create!(user_id: user.id)
+    end
+    flash[:success] = "#{connected_matter.title}を連結しました"
+    redirect_to matter_matters_url(dependent_manager)
+  end
+
   private
     def matter_params
       params.require(:matter).permit(:title, :actual_spot, :scheduled_start_at, :scheduled_finish_at,

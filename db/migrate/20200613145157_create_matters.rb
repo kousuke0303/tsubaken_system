@@ -10,6 +10,7 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.date :scheduled_finish_at, comment: "完了予定日"
       t.date :finished_at, comment: "完了日"
       t.string :matter_uid, comment: "パラメーター"
+      t.string :connected_id, comment: "パラメーター"
 
       t.timestamps
     end

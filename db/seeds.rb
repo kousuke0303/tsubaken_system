@@ -45,6 +45,16 @@ Manager.create!(company: "KIDA株式会社",
 
 puts "CREATE! APPROVAL_MANAGER2"
 
+Manager.create!(company: "MARU株式会社",
+                name: "MARU",
+                email: "maru@email.com",
+                public_uid: "MARU",
+                password: "password",
+                password_confirmation: "password",
+                approval: true)
+
+puts "CREATE! APPROVAL_MANAGER3"
+
 # ------------------------------------------------------
 
 # 3.SUBMANAGER権限------------------
@@ -124,6 +134,7 @@ SeedMatter = Matter.create!(title: "案件１",
                scheduled_start_at: "2020-07-01",
                scheduled_finish_at: "2020-7-30",
                matter_uid: "aa00000001",
+               connected_id: "testtest01"
                )
 SeedMatter.matter_managers.create!(manager_id: 3)
 SeedMatter.clients.create!(name: "３匹のこぶた",
@@ -137,6 +148,7 @@ SeedMatterB = Matter.create!(title: "案件２",
                scheduled_start_at: "2020-07-01",
                scheduled_finish_at: "2020-7-30",
                matter_uid: "aa00000002",
+               connected_id: "testtest02"
                )
 SeedMatterB.matter_managers.create!(manager_id: 3)
 SeedMatterB.clients.create!(name: "鬼ちゃん",
