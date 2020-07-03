@@ -15,8 +15,9 @@
               <%= event.event_name %>
             </div>
           <% else %>
-            <div style="margin: 2em 0;">
-              <button class="event<%= event.event_type %>" data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id><%= event.event_name %></button>
+            <div class="event<%= event.event_type %>">
+              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+              <%= event.event_name %>
             </div>
           <% end %>
       <% end %>
@@ -36,8 +37,9 @@
               <%= event.event_name %>
             </div>
           <% else %>
-            <div style="margin: 2em 0;">
-              <button class="event<%= event.event_type %>" data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id><%= event.event_name %></button>
+            <div class="event<%= event.event_type %>">
+              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+              <%= event.event_name %>
             </div>
           <% end %>
       <% end %>

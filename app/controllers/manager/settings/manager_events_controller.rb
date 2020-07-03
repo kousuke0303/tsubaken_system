@@ -1,6 +1,7 @@
 class Manager::Settings::ManagerEventsController < ApplicationController
   before_action :set_manager_event, only: [:edit, :update, :destroy]
-
+  before_action :manager_event_title
+  
   def create
     @manager_event = ManagerEvent.new(manager_event_params)
     if @manager_event.save

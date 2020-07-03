@@ -2,6 +2,7 @@ class Manager::SubmanagersController < ApplicationController
   before_action :authenticate_manager!, only: [:create, :destroy]
   before_action :not_current_manager_return_login!
   before_action :set_submanager, only: [:show, :edit, :update, :destroy]
+  before_action :manager_event_title
   
   def create
     @submanager = current_manager.submanagers.build(submanager_params.merge(password: "password", password_confirmation: "password"))

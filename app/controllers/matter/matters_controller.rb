@@ -4,6 +4,8 @@ class Matter::MattersController < ApplicationController
   before_action :matter_edit_authenticate!, only: [:edit, :update, :destroy]
   include Matter::MattersHelper
 
+  before_action :manager_event_title
+
   def index
     @progress_matters = @matters.where.not(status: "finish")
     @finished_matters = @matters.where(status: "finish")
