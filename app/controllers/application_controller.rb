@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
   
   # ログインstaff以外のページ非表示
   def not_current_user_return_login!
-    unless params[:id].to_i == current_user.id || params[:staff_id].to_i == current_user.id
+    unless params[:id].to_i == current_user.id || params[:user_id].to_i == current_user.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
@@ -142,8 +142,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # MATTER_TASK
+  # MATTER_TASK______________________________
   
+  # 使用回数を保存
   def count_matter_task
     dependent_manager.tasks.each do |task|
       count = Task.where(default_title: task.default_title).where.not(status: nil).count
