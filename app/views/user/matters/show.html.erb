@@ -1,7 +1,7 @@
 <div class="container">
+  
   <div class="col-sm-12 manager_contaioner">
-    <h1>User::Matters#show</h1>
-    <p>Find me in app/views/user/matters/show.html.erb</p>
+    <h5><i class="fas fa-book-open"></i> 依頼業者詳細</h5>
   </div>
   
   <div class="table-responsive">
@@ -22,4 +22,79 @@
       <% end %>
     </table>
   </div>
+  
+  <div class="col-sm-12 matter_task_pc_container">
+    <h5><i class="fas fa-tasks"></i> 進捗状況</h5>
+    <div class="mt-1e">
+      <% @matter_complete_tasks.each do |complete_task| %>
+        <div class="user_task_layout">
+          <%= complete_task.title %>
+        </div>
+        <div style="display: inline;">
+          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+        </div>
+      <% end %>
+      
+      <% @matter_progress_tasks.each do |progress_task| %>
+        <div class="user_task_progress_layout">
+          <%= progress_task.title %>
+        </div>
+        <div style="display: inline;">
+          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+        </div>
+      <% end %>
+      
+      <% @matter_tasks.each do |matter_task| %>
+        <div class="user_task_layout">
+          <%= matter_task.title %>
+        </div>
+        <div style="display: inline;">
+          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+        </div>
+      <% end %>
+      
+      <div class="user_task_layout">
+        完了      
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="col-sm-12 matter_task_mobile_container">
+    <h5>進捗状況</h5>
+    <div class="mt-1e">
+      <% @matter_complete_tasks.each do |complete_task| %>
+        <div class="user_task_layout">
+          <%= complete_task.title %>
+        </div>
+        <div class="ml-2e mt-05e mb-05e">
+          <i class="fas fa-angle-double-down"></i>
+        </div>
+      <% end %>
+      
+      <% @matter_progress_tasks.each do |progress_task| %>
+        <div class="user_task_progress_layout">
+          <%= progress_task.title %>
+        </div>
+        <div class="ml-2e mt-05e mb-05e">
+          <i class="fas fa-angle-double-down"></i>
+        </div>
+      <% end %>
+      
+      <% @matter_tasks.each do |matter_task| %>
+        <div class="user_task_layout">
+          <%= matter_task.title %>
+        </div>
+        <div class="ml-2e mt-05e mb-05e">
+          <i class="fas fa-angle-double-down"></i>
+        </div>
+      <% end %>
+      
+      <div class="user_task_layout">
+        完了      
+      </div>
+    </div>
+    
+  </div>
+  
 </div>
