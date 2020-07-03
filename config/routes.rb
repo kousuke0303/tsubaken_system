@@ -86,6 +86,7 @@ Rails.application.routes.draw do
         resources :attendances do
           post :going_to_work, on: :collection
           post :leaving_work, on: :collection
+          get :search, on: :collection
         end
       end
     end
