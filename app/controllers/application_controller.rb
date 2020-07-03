@@ -144,6 +144,7 @@ class ApplicationController < ActionController::Base
   
   # MATTER_TASK
   
+  # 使用回数を保存
   def count_matter_task
     dependent_manager.tasks.each do |task|
       count = Task.where(default_title: task.default_title).where.not(status: nil).count
