@@ -28,6 +28,8 @@ class Matter::MattersController < ApplicationController
   
   def show
     matter_task_type
+    connected_id = current_matter.connected_id
+    @connecting_companies_matters = Matter.joins(:managers).where(connected_id: connected_id).merge(Manager.where.not(id: current_manager.id))
   end
   
   def edit
@@ -91,7 +93,7 @@ class Matter::MattersController < ApplicationController
   
   def connected_matter
     matter = Matter.find_by(connected_id: params[:connected_id])
-    users = matter.matter_users
+    users = matter.users
     connected_matter = matter.deep_dup
     connected_matter.matter_uid = Faker::Number.hexadecimal(digits: 10)
     connected_matter.save

@@ -163,20 +163,18 @@ puts "CREATE! MATTER２"
 
 # 1.Manager_task-----------------
 
-SeedTask = Task.create!(title: "TASK1", default_title: "TASK1")
-SeedTask.manager_tasks.create!(manager_id: 3)
+1.upto(9) do |i|
+  Task.create!(title: "TASK#{i}", default_title: "TASK#{i}")
+end
 
-puts "CREATE! TASK1"
-
-SeedTaskB = Task.create!(title: "TASK2", default_title: "TASK2")
-SeedTaskB.manager_tasks.create!(manager_id: 3)
-
-puts "CREATE! TASK2"
-
-SeedTaskC = Task.create!(title: "TASK3", default_title: "TASK3")
-SeedTaskC.manager_tasks.create!(manager_id: 3)
-
-puts "CREATE! TASK3"
+TargetManagers = Manager.where(approval: true)
+TargetManagers.each do |manager|
+  Task.all.each do |task|
+    task.manager_tasks.create!(manager_id: manager.id)
+  end
+end
+  
+puts "CREATE! MANAGERTASK"
 
 
 

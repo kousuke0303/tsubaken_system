@@ -82,6 +82,12 @@
   padding-bottom: 1em;
 }
 
+.connecting_matter_show {
+  p {
+    margin-bottom: 0;
+  }
+}
+
 @media screen and (max-width: 480px) { 
   .comp_all_del_btn {
     display: none!important;
