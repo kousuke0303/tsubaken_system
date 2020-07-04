@@ -1,5 +1,17 @@
 <div class="container">
-  <h2><i class="fas fa-clipboard"></i> MATTER一覧</h2>
+  <div class="row">
+    <h2 class="col-md-6"><i class="fas fa-clipboard"></i> MATTER一覧</h2>
+    <div class="col-md-6">
+      <div class="float-r">
+        <%= form_with(url: matter_matter_connected_matter_path(dependent_manager), method: :post, local: true, class: "connected_code_form" ) do |f| %>
+          <div class="display: inline-block">
+            <%= f.text_field :connected_id, placeholder: "連結コードを入力", class: "connected_code_text"  %>
+            <%= f.submit "送信", class: "connected_code_btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
   
   <div class="row mt-1e matter_select">
     <div class="col-sm-8">

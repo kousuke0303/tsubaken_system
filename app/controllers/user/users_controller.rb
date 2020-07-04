@@ -3,7 +3,7 @@ class User::UsersController < ApplicationController
   before_action :not_current_user_return_login!
   
   def top
-    @user = current_user
+    @requesting_matter = current_user.matters.group(:connected_id)
   end
   
   def show

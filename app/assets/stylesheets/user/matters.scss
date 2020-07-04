@@ -2,6 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* ---------------------------------------------------
+    SHOW
+----------------------------------------------------- */
+
+.requesting_company {
+  border: 1px solid #dee2e6;
+  padding: 1em;
+  background-color: #f1f0f0;
+  table {
+    background-color: white;
+  }
+}
+
+.matter_task_pc_container{
+  p {
+    margin-bottom: 0;
+    margin-top: 1em;
+  }
+}
+
+
 .user_task_layout {
   display: inline-block;
   padding: 0.5em 1em;
@@ -37,4 +58,5 @@
   .matter_task_mobile_container {
     display : block;
   }
+  
 }
