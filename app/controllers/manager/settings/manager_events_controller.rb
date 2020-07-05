@@ -4,7 +4,7 @@ class Manager::Settings::ManagerEventsController < ApplicationController
   def create
     @manager_event = ManagerEvent.new(manager_event_params)
     if @manager_event.save
-      ManagerEventTitle.create!(event_name: @manager_event.event_name, manager_id: current_manager.id)
+      ManagerEventTitle.create!(event_name: @manager_event.event_name, manager_id: current_manager.id, note: params[:manager_event][:note])
       flash[:success] = "#{@manager_event.event_name}を登録しました"
       redirect_to manager_events_url(current_manager)
     else
@@ -18,7 +18,7 @@ class Manager::Settings::ManagerEventsController < ApplicationController
   def update
     ManagerEventTitle.find_by(event_name: @manager_event.event_name, manager_id: current_manager.id).destroy
     if @manager_event.update_attributes(manager_event_params)
-      ManagerEventTitle.create!(event_name: @manager_event.event_name, manager_id: current_manager.id)
+      ManagerEventTitle.create!(event_name: @manager_event.event_name, manager_id: current_manager.id, note: params[:manager_event][:note])
       flash[:success] = "#{@manager_event.event_name}の情報を更新しました"
       if manager_signed_in?
         redirect_to manager_events_url(current_manager)
