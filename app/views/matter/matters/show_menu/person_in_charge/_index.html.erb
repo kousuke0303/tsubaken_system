@@ -1,6 +1,6 @@
 <div id="person_in_charge_show">
   
-  <h5 class="text-left">担当Submanager</h5>
+  <h6 class="text-left">担当Submanager</h6>
   <div class="table-responsive">
     <% if current_matter.matter_submanagers.exists? %>
       <table class="table table-bordered text-nowrap matter_show_table">
@@ -18,12 +18,14 @@
         <% end %>
       </table>
     <% else %>
-      <p>担当Submanagerは登録されておりません。</p>
+      <div class="no_entry_disp">
+        担当Submanagerは登録されておりません
+      </div>
     <% end %>
     <button class="btn btn-dark float-r mb-1e" id="submanager_in_charge_btn">新規登録・編集</button>
   </div>
   
-  <h5 class="text-left">担当Staff</h5>
+  <h6 class="text-left">担当Staff</h6>
   <div class="table-responsive">
     <% if current_matter.matter_staffs.exists? %>
       <table class="table table-bordered text-nowrap matter_show_table">
@@ -41,7 +43,9 @@
         <% end %>
       </table>
     <% else %>
-      <p>Staffは登録されておりません。</p>
+      <div class="no_entry_disp">
+        Staffは登録されておりません
+      </div>
     <% end %>
     <button class="btn btn-dark float-r mb-1e" id="staff_in_charge_btn">新規登録・編集</button>
   </div>
