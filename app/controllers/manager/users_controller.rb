@@ -2,7 +2,6 @@ class Manager::UsersController < ApplicationController
   before_action :authenticate_manager!, only: [:create, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :not_current_manager_return_login!
-  before_action :manager_event_title
   
   def create
     @user = User.new(manager_user_params.merge(password: "user_password", password_confirmation: "user_password"))

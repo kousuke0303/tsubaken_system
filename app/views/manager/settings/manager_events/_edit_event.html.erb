@@ -23,6 +23,11 @@
                   <%= f.date_field :date, required: true, class: "form-control" %>
                 </div>
 
+                <div class="form-group">
+                  <%= f.label :note, "詳細" %>
+                  <%= f.text_area :note, class: "form-control" %>
+                </div>
+
                 <%= f.submit "更新", class: "btn btn-dark" %>
                 <%= link_to "削除", manager_settings_manager_event_path(event), data: {confirm: "#{event.event_name}を削除しますか？"}, method: :delete,class: "btn btn-destroy" %>
               <% end %>          

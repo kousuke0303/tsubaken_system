@@ -46,6 +46,11 @@
                   <%= f.date_field :date, required: true, class: "form-control" %>
                 </div>
 
+                <div class="form-group">
+                  <%= f.label :note, "詳細" %>
+                  <%= f.text_area :note, class: "form-control" %>
+                </div>
+
                 <%= f.hidden_field :manager_id, :value => current_manager.id %>
               
                 <%= f.submit "作成", class: "btn btn-dark" %>
@@ -93,6 +98,20 @@ $(".event_select_form").on("click", function(){
     if ( $('#select_event').prop("checked") == true) {
       $('#new_event_title').remove();
     }
+  });
+
+  $('[name="manager_event[event_name]"]').change(function() {
+    var element = $('[name="manager_event[event_name]"]').val();
+    let base = [];
+    <% ManagerEventTitle.where(manager_id: current_manager.id).each do |event|  %>
+      base.push(["<%= event.event_name%>","<%= event.note%>"]) 
+    <% end %>
+    for (let i = 0; i < base.length; i++) {
+      if( base[i][0] === element ){
+        note = base[i][1]
+      }
+    }
+    $('[name="manager_event[note]"]').val(note);
   });
 
 </script>

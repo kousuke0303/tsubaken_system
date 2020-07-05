@@ -1,6 +1,5 @@
 class Manager::Settings::ManagerEventsController < ApplicationController
   before_action :set_manager_event, only: [:edit, :update, :destroy]
-  before_action :manager_event_title
   
   def create
     @manager_event = ManagerEvent.new(manager_event_params)
@@ -33,7 +32,9 @@ class Manager::Settings::ManagerEventsController < ApplicationController
   
   def destroy
     if @manager_event.destroy
-      ManagerEventTitle.find_by(event_name: @manager_event.event_name, manager_id: current_manager.id).destroy
+      if ManagerEventTitle.find_by(event_name: @manager_event.event_name, manager_id: current_manager.id).present?
+        ManagerEventTitle.find_by(event_name: @manager_event.event_name, manager_id: current_manager.id).destroy
+      end
       flash[:success] = "#{@manager_event.event_name}を削除しました"
       redirect_to manager_events_url(current_manager)
     end

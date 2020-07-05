@@ -1,8 +1,9 @@
 <div class="container">
-  <h2>Calendar</h2> 
+  
   <button class="btn btn-dark mt-1e mb-1e float-r" data-toggle="modal" data-target="#event_new"><i class="fas fa-plus"></i> 新規作成</button>
 
   <div id="month_calendar_disp">
+    <h2>Calendar</h2> 
     <%= month_calendar(attribute: :date, events: @events + @manager_events) do |date, events| %>
       <%= date %>
 
@@ -25,6 +26,7 @@
   </div>
 
   <div id="week_calendar_disp" style="display: none">
+    <h2>Calendar</h2> 
     <%= week_calendar(attribute: :date, events: @events + @manager_events) do |date, events| %>
       <%= date %>
 
