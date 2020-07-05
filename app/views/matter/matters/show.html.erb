@@ -48,9 +48,10 @@
         
         <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel" aria-labelledby="contact-tab">
           <div class="text-left" id="connect_task_container">
-            <button class="btn btn-dark" id="connected_task">連結会社の作業工程</button>
+            <% if @connecting_companies_matters.exists? %>
+              <button class="btn btn-dark" id="connected_task">連結会社の作業工程</button>
+            <% end %>
             <div class="connecting_matter_show" style="display: none">
-              <button class="delete_task_disp float-r">閉じる</button>
               <%= render partial: 'matter/matters/show_menu/matter_task/connected_task', locals: {connected_matters: @connecting_companies_matters} %>
             </div>
           </div>
