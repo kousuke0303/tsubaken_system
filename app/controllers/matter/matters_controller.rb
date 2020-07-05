@@ -29,7 +29,7 @@ class Matter::MattersController < ApplicationController
   def show
     matter_task_type
     connected_id = current_matter.connected_id
-    @connecting_companies_matters = Matter.joins(:managers).where(connected_id: connected_id).merge(Manager.where.not(id: current_manager.id))
+    @connecting_companies_matters = Matter.are_connected_matter_without_own(connected_id, dependent_manager)
   end
   
   def edit
