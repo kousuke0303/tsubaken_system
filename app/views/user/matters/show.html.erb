@@ -1,98 +1,172 @@
 <div class="container">
   
   <div class="col-sm-12 manager_contaioner">
-    <h5><i class="fas fa-book-open"></i> 依頼業者詳細</h5>
+    <h4><i class="fas fa-book-open"></i> 依頼業者詳細</h4>
   </div>
   
-  <div class="table-responsive">
-    <table class="table text-nowrap table-bordered">
-      <% @companies.each do |company| %>
-      <tr>
-        <th>請負業者</th>
-        <td><%= company.company %></td>
-      </tr>
-      <tr>
-        <th>管理者</th>
-        <td><% manage_authority(Manager.find(company.id)) %><%= @name %></td>
-      </tr>
-      <tr>
-        <th>連絡先</th>
-        <td><% manage_authority(Manager.find(company.id)) %><%= @telephone %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+  <ul class="nav nav-tabs mt-1e" id="myTab" role="tablist">
+    <% @companies.each do |company| %>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#tab_<%= company.id %>" role="tab" aria-controls="home" aria-expanded="true"><%= company.company %></a>
+      </li>
+    <% end %>
+  </ul>
   
-  <div class="col-sm-12 matter_task_pc_container">
-    <h5><i class="fas fa-tasks"></i> 進捗状況</h5>
-    <div class="mt-1e">
-      <% @matter_complete_tasks.each do |complete_task| %>
-        <div class="user_task_layout">
-          <%= complete_task.title %>
+  <div class="tab-content" id="myTabContent">
+    <% @companies.each do |company| %> 
+      <div class="tab-pane fade" id="tab_<%= company.id %>" role="tabpanel" aria-labelledby="1-tab">
+        <div class="table-responsive requesting_company">
+          <table class="table text-nowrap table-bordered">
+            <tr>
+              <th>請負業者</th>
+              <td><%= company.company %></td>
+            </tr>
+            <tr>
+              <th>管理者</th>
+              <td><% manage_authority(Manager.find(company.id)) %><%= @name %></td>
+            </tr>
+            <tr>
+              <th>連絡先</th>
+              <td><% manage_authority(Manager.find(company.id)) %><%= @telephone %></td>
+            </tr>
+          </table>
         </div>
-        <div style="display: inline;">
-          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
-        </div>
-      <% end %>
-      
-      <% @matter_progress_tasks.each do |progress_task| %>
-        <div class="user_task_progress_layout">
-          <%= progress_task.title %>
-        </div>
-        <div style="display: inline;">
-          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
-        </div>
-      <% end %>
-      
-      <% @matter_tasks.each do |matter_task| %>
-        <div class="user_task_layout">
-          <%= matter_task.title %>
-        </div>
-        <div style="display: inline;">
-          <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
-        </div>
-      <% end %>
-      
-      <div class="user_task_layout">
-        完了      
       </div>
-    </div>
+    <% end %>
+  </div>
     
+  
+  <div class="col-sm-12 matter_task_pc_container mt-2e">
+    <h4><i class="fas fa-tasks"></i> 進捗状況</h4>
+    <div class="task_progress">
+      
+      <% @requesting_matters.each do |matter| %>
+        
+        <p><%= requesting_company(matter) %>の作業状況</p>
+        
+        <div>
+          <% unless matter_tasks(matter).exists? %>
+            登録がありません
+          
+          <% else %>
+            <% matter_complete_tasks(matter).each do |complete_task| %>
+              <div class="user_task_layout mt-1e">
+                <%= complete_task.title %>
+              </div>
+              <div style="display: inline;">
+                <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+              </div>
+            <% end %>
+            
+            <% unless matter_progress_tasks(matter).exists? %>
+              <div class="user_task_progress_layout mt-1e">
+                未着手      
+              </div>
+              <div style="display: inline;">
+                <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+              </div>
+            
+            <% else %>
+              <% matter_progress_tasks(matter).each do |progress_task| %>
+                <div class="user_task_progress_layout mt-1e">
+                  <%= progress_task.title %>
+                </div>
+                <div style="display: inline;">
+                  <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+                </div>
+              <% end %>
+            
+            <% end %>
+            
+            <% matter_tasks(matter).each do |matter_task| %>
+              <div class="user_task_layout mt-1e">
+                <%= matter_task.title %>
+              </div>
+              <div style="display: inline;">
+                <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+              </div>
+            <% end %>
+            
+            <% if matter_tasks(matter).exists? || matter_progress_tasks(matter).exists %>
+              <div class="user_task_layout mt-1e">
+                完了      
+              </div>
+            <% else %>
+              <div class="user_task_progress_layout mt-1e">
+                完了      
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        
+      <% end %>
+      
+    </div>
   </div>
   
-  <div class="col-sm-12 matter_task_mobile_container">
+  <div class="col-sm-12 matter_task_mobile_container mt-1e">
     <h5>進捗状況</h5>
-    <div class="mt-1e">
-      <% @matter_complete_tasks.each do |complete_task| %>
-        <div class="user_task_layout">
-          <%= complete_task.title %>
-        </div>
-        <div class="ml-2e mt-05e mb-05e">
-          <i class="fas fa-angle-double-down"></i>
-        </div>
-      <% end %>
+    <div class="mt-1e mobile_task_progress">
+      <% @requesting_matters.each do |matter| %>
       
-      <% @matter_progress_tasks.each do |progress_task| %>
-        <div class="user_task_progress_layout">
-          <%= progress_task.title %>
-        </div>
-        <div class="ml-2e mt-05e mb-05e">
-          <i class="fas fa-angle-double-down"></i>
-        </div>
-      <% end %>
-      
-      <% @matter_tasks.each do |matter_task| %>
-        <div class="user_task_layout">
-          <%= matter_task.title %>
-        </div>
-        <div class="ml-2e mt-05e mb-05e">
-          <i class="fas fa-angle-double-down"></i>
-        </div>
-      <% end %>
-      
-      <div class="user_task_layout">
-        完了      
+        <p class="mt-1e"><%= requesting_company(matter) %>の作業状況</p>
+        
+        <div>
+          <% unless matter_tasks(matter).exists? %>
+            登録がありません
+          
+          <% else %>
+
+            <% matter_complete_tasks(matter).each do |complete_task| %>
+              <div class="user_task_layout">
+                <%= complete_task.title %>
+              </div>
+              <div class="ml-2e mt-05e mb-05e">
+                <i class="fas fa-angle-double-down"></i>
+              </div>
+            <% end %>
+            
+            <% unless matter_progress_tasks(matter).exists? %>
+              <div class="user_task_progress_layout">
+                未着手      
+              </div>
+              <div class="ml-2e mt-05e mb-05e">
+                <i class="fas fa-angle-double-down"></i>
+              </div>
+            <% else %>
+              <% matter_progress_tasks(matter).each do |progress_task| %>
+                <div class="user_task_progress_layout">
+                  <%= progress_task.title %>
+                </div>
+                <div class="ml-2e mt-05e mb-05e">
+                  <i class="fas fa-angle-double-down"></i>
+                </div>
+              <% end %>
+            <% end %>
+          
+            <% matter_tasks(matter).each do |matter_task| %>
+              <div class="user_task_layout">
+                <%= matter_task.title %>
+              </div>
+              <div class="ml-2e mt-05e mb-05e">
+                <i class="fas fa-angle-double-down"></i>
+              </div>
+            <% end %>
+            
+            <% if matter_tasks(matter).exists? || matter_progress_tasks(matter).exists %>
+              <div class="user_task_layout">
+                完了      
+              </div>
+            <% else %>
+              <div class="user_task_progress_layout">
+                完了      
+              </div>
+            <% end %>
+            
+          <% end %>
+        <% end %>
       </div>
+      
     </div>
     
   </div>

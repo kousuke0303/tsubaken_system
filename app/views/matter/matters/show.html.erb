@@ -47,7 +47,14 @@
         </div>
         
         <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel" aria-labelledby="contact-tab">
-          <h5 class="card-title">作業工程</h5>
+          <div class="text-left" id="connect_task_container">
+            <% if @connecting_companies_matters.exists? %>
+              <button class="btn btn-dark" id="connected_task">連結会社の作業工程</button>
+            <% end %>
+            <div class="connecting_matter_show" style="display: none">
+              <%= render partial: 'matter/matters/show_menu/matter_task/connected_task', locals: {connected_matters: @connecting_companies_matters} %>
+            </div>
+          </div>
           <div class="task_index">
             <%= render 'matter/matters/show_menu/matter_task/index' %>
           </div>
@@ -70,4 +77,16 @@ $(function(){
     return false;
   });
 });
+</script>
+
+<script>
+  $('#connected_task').on('click', function(){
+    $('.connecting_matter_show').show();
+    $('#connected_task').hide();
+  });
+  
+  $('.delete_task_disp').on('click', function(){
+    $('.connecting_matter_show').hide();
+    $('#connected_task').show();
+  });
 </script>

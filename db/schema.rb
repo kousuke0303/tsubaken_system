@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20200704190138) do
     t.date "scheduled_finish_at"
     t.date "finished_at"
     t.string "matter_uid"
+    t.string "connected_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
