@@ -77,6 +77,7 @@ $(".event_select_form").on("click", function(){
   $('#select_event').click(function(){
     if ( $(this).prop("checked") == true) {
       $('#select_event_title').show();
+      $('[name="manager_event[note]"]').val(note);
       $('#new_event_title').hide();
     }
     else {
@@ -87,6 +88,7 @@ $(".event_select_form").on("click", function(){
   $('#select_new_event').click(function(){
     if ( $(this).prop("checked") == true) {
       $('#new_event_title').show();
+      $('[name="manager_event[note]"]').val("");
       $('#select_event_title').hide();
     }
     else {
