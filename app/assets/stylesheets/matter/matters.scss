@@ -212,19 +212,19 @@
     padding-left: 1em!important;
     width: 5em;
   }
-  .complete {
+  #complete {
     border: 1px solid #28a745;
     height: 1.5em;  
     width: 2em;
     background-color: #28a745;
   }
-  .progerss {
-    border: 1px solid red;
+  #progress {
+    border: 1px solid #dc3545;
     height: 1.5em;  
     width: 2em;
-    background-color: red;
+    background-color: #dc3545;
   }
-  .scheduled {
+  #scheduled {
     border: 1px solid #17a2b8;
     height: 1.5em;  
     width: 2em;

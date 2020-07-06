@@ -85,7 +85,7 @@ module Matter::MattersHelper
     if matter.started_at.present? && matter.finished_at.present?
       @matter_work_day_arrey = [*matter.started_at..matter.finished_at]
       @gantt_type = "complete"
-    elsif matter.started_at.present? && matter.finshed_at.nil?
+    elsif matter.started_at.present? && matter.finished_at.nil?
       @matter_work_day_arrey =[*matter.started_at..matter.scheduled_finish_at]
       @gantt_type = "progress"
     elsif matter.scheduled_start_at.present? && matter.scheduled_finish_at.present?
