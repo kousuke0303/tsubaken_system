@@ -77,6 +77,29 @@ module Matter::MattersHelper
         event_scheduled_finish_at.destroy
       end
     end
-
+  end
+  
+  # ganttchart
+  def ganttchart(matter)
+    # matterの登録状況で場合分
+    if matter.started_at.present? && matter.finished_at.present?
+      @matter_work_day_arrey = [*matter.started_at..matter.finished_at]
+      @gantt_type = "complete"
+    elsif matter.started_at.present? && matter.finished_at.nil?
+      @matter_work_day_arrey =[*matter.started_at..matter.scheduled_finish_at]
+      @gantt_type = "progress"
+    elsif matter.scheduled_start_at.present? && matter.scheduled_finish_at.present?
+      @matter_work_day_arrey = [*matter.scheduled_start_at..matter.scheduled_finish_at]
+      @gantt_type = "scheduled"
+    else
+      return false
+    end
+  end
+  
+  def month_matters(first_day, last_day)
+    dependent_manager.matters.where(started_at: first_day..last_day)
+    .or(dependent_manager.matters.where(finished_at: first_day..last_day))
+    .or(dependent_manager.matters.where(scheduled_start_at: first_day..last_day))
+    .or(dependent_manager.matters.where(scheduled_finish_at: first_day..last_day))
   end
 end

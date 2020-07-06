@@ -462,7 +462,7 @@ a.article, a.article:hover {
 }
 
 .bg-gray {
-  background-color: #908f8f;
+  background-color: #b7b7b7;
 }
 
 
@@ -486,8 +486,20 @@ a.article, a.article:hover {
   margin-top: 0;
 }
 
+.mt-05e {
+  margin-top: 0.5em;
+}
+
 .mt-1e {
   margin-top: 1em;
+}
+
+.mt-2e {
+  margin-top: 2em;
+}
+
+.mb-05e {
+  margin-bottom: 0.5em;  
 }
 
 .mb-1e {
@@ -512,6 +524,10 @@ a.article, a.article:hover {
 
 .ml-1e {
   margin-left: 1em;
+}
+
+.ml-2e {
+  margin-left: 2em;
 }
 
 .pt-05e {

@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
     @type = "log_in"
   end
   
+  # ---------------------------------------------------------
+        # 日付取得関係　matter/ganttchart attendance
+  # ---------------------------------------------------------
+  
+  def set_one_month
+    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
+    @last_day = @first_day.end_of_month
+    @one_month = [*@first_day..@last_day]
+  end
+  
   
   # ---------------------------------------------------------
         # ADMIN関係
@@ -91,7 +101,7 @@ class ApplicationController < ActionController::Base
   
   # ログインstaff以外のページ非表示
   def not_current_user_return_login!
-    unless params[:id].to_i == current_user.id || params[:staff_id].to_i == current_user.id
+    unless params[:id].to_i == current_user.id || params[:user_id].to_i == current_user.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
@@ -143,7 +153,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # MATTER_TASK
+  # MATTER_TASK______________________________
   
   # 使用回数を保存
   def count_matter_task

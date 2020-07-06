@@ -98,6 +98,7 @@ Rails.application.routes.draw do
   scope module: :user do
     resources :users, only: [:show, :edit, :update] do
       get :top, on: :member
+      # matter_controller
       resources :matters, only: :show do
         post :matter_connect, on: :collection
       end
@@ -136,6 +137,7 @@ Rails.application.routes.draw do
         patch :person_in_charge_update, on: :member
         patch :update_manage_authority, on: :member
         get :selected_user, on: :collection
+        post :connected_matter 
         # matter関連タスク
         resources :matter_tasks, only: [:update, :destroy] do
           get :create, on: :collection

@@ -5,7 +5,7 @@
       <td><%= matter.title %></td>
       <td><%= matter.actual_spot %></td>
       <td><%= matter.clients.first.name if matter.clients.exists? %></td>
-      <td><%= matter.matter_uid %></td>
+      <td><%= matter.connected_id %></td>
       <td>
         <%= link_to "詳細", matter_matter_path(current_manager, matter.matter_uid), class: "btn btn-dark btn-sm" %>
         <%= link_to "削除", matter_matter_path(matter.id), data: {confirm: "#{matter.title}を削除しますか？"}, method: :delete, class: "btn btn-destroy btn-sm" %>

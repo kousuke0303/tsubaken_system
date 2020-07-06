@@ -1,0 +1,61 @@
+<button class="delete_task_disp float-r btn btn-dark btn-sm">閉じる</button>
+<div class="connected_matter_task_disp">
+  <% connected_matters.each do |matter| %>
+    
+    <p><%= requesting_company(matter) %>の作業状況</p>
+      <div>
+        <% unless matter_tasks(matter).exists? %>
+          登録がありません
+              
+        <% else %>
+          <% matter_complete_tasks(matter).each do |complete_task| %>
+            <div class="manager_task_layout">
+              <%= complete_task.title %>
+            </div>
+            <div style="display: inline;">
+              <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+            </div>
+          <% end %>
+                
+          <% unless matter_progress_tasks(matter).exists? %>
+            <div class="manager_task_progress_layout">
+              未着手      
+            </div>
+            <div style="display: inline;">
+              <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+            </div>
+                
+          <% else %>
+            <% matter_progress_tasks(matter).each do |progress_task| %>
+              <div class="manager_task_progress_layout">
+                <%= progress_task.title %>
+              </div>
+              <div style="display: inline;">
+                <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+              </div>
+          <% end %>
+                
+        <% end %>
+                
+        <% matter_tasks(matter).each do |matter_task| %>
+          <div class="manager_task_layout">
+            <%= matter_task.title %>
+          </div>
+          <div style="display: inline;">
+            <span class="ml-1e mr-1e"><i class="fas fa-angle-double-right"></i></span>
+          </div>
+        <% end %>
+                
+        <% if matter_tasks(matter).exists? || matter_progress_tasks(matter).exists %>
+          <div class="manager_task_layout mr-1e">
+            完了      
+          </div>
+        <% else %>
+          <div class="manager_task_progress_layout mr-1e">
+            完了      
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
