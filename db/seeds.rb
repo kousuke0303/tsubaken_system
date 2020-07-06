@@ -131,8 +131,8 @@ puts "CREATE! STAFF-B"
 
 SeedMatter = Matter.create!(title: "案件１",
                actual_spot: "東京都渋谷区神宮町１−１−１",
-               scheduled_start_at: "2020-07-01",
-               scheduled_finish_at: "2020-7-30",
+               started_at: "2020-07-01",
+               scheduled_finish_at: "2020-7-15",
                matter_uid: "aa00000001",
                connected_id: "testtest01"
                )
@@ -145,8 +145,8 @@ puts "CREATE! MATTER1"
 
 SeedMatterB = Matter.create!(title: "案件２",
                actual_spot: "東京都渋谷区神宮町１−２−１",
-               scheduled_start_at: "2020-07-01",
-               scheduled_finish_at: "2020-7-30",
+               scheduled_start_at: "2020-07-20",
+               scheduled_finish_at: "2020-08-30",
                matter_uid: "aa00000002",
                connected_id: "testtest02"
                )

@@ -2,6 +2,7 @@ class Manager::ManagersController < ApplicationController
   before_action :authenticate_manager!, except: :unapproval_top
   before_action :unapproval_manager_show, except: :unapproval_top
   before_action :not_current_manager_return_login!
+  before_action :set_one_month, only: :top
   
   def show
     @manager = Manager.find(current_manager.id)
@@ -13,7 +14,7 @@ class Manager::ManagersController < ApplicationController
   end
   
   def top
-     @manager = Manager.find(current_manager.id)
+    @manager = Manager.find(current_manager.id)
   end
   
   def employee
