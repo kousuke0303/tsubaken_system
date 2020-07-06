@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
     @type = "log_in"
   end
   
+  # ---------------------------------------------------------
+        # 日付取得関係　matter/ganttchart attendance
+  # ---------------------------------------------------------
+  
+  def set_one_month
+    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
+    @last_day = @first_day.end_of_month
+    @one_month = [*@first_day..@last_day]
+  end
+  
   
   # ---------------------------------------------------------
         # ADMIN関係

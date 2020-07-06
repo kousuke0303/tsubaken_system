@@ -1,0 +1,56 @@
+<div class="ganttchart">
+  <div class="row">
+  <div class="col-sm-6">
+    <% if manager_signed_in? %>
+      <%= link_to top_manager_path(dependent_manager, date: @first_day.prev_month) do %>
+        <i class="fas fa-angle-double-left"></i><span class="ml-05e mr-1e">前月へ</span>
+      <% end %>
+      <span style="font-size: 25px;"><%= @first_day.strftime("%m").to_i %>月</span>
+      <%= link_to top_manager_path(dependent_manager, date: @first_day.next_month) do %>
+        <span class="mr-05e ml-1e">次月へ</span><i class="fas fa-angle-double-right"></i>
+      <% end %>
+    <% elsif submanager_signed_in? %>
+      <%= link_to top_submanager_path(dependent_manager, date: @first_day.prev_month) do %>
+        <i class="fas fa-angle-double-left"></i><span class="ml-05e mr-1e">前月へ</span>
+      <% end %>
+      <span style="font-size: 25px;"><%= @first_day.strftime("%m").to_i %>月</span>
+      <%= link_to top_submanager_path(dependent_manager, date: @first_day.next_month) do %>
+        <span class="mr-05e ml-1e">次月へ</span><i class="fas fa-angle-double-right"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-sm-6 mb-05e">
+    <div class="float-r">
+    <div class="disp_scheduled"><span class="disp_span">予定</span></div>
+    <div class="disp_progress"><span class="disp_span">着工中</span></div>
+    <div class="disp_complete"><span class="disp_span">完了済</span></div>
+    </div>
+  </div>
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th></th>
+        <% @one_month.each do |day| %>
+          <th class="gantt_day_area"><%= day.strftime("%d").to_i %></th>
+        <% end %>
+      </tr>
+      
+      <% month_matters(@first_day, @last_day).each do |matter| %>
+      <tr>
+        <td class="title_area"><%= matter.title %></td>
+        <% (@one_month).each do |day| %>
+          <td>
+             <div class="gantt_task">
+               <% ganttchart(matter) %>
+                 <% if @matter_work_day_arrey.include?(day) %>
+                   <div class="<%= @gantt_type %>"></div>
+                 <% end %>
+             </div>
+          </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

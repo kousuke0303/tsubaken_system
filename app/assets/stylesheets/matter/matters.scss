@@ -156,3 +156,86 @@
   background-color: #28a745!important;
   color: white;
 }
+
+/* ---------------------------------------------------
+    GANTTCHART
+----------------------------------------------------- */
+
+.disp_scheduled {
+  display: inline-block;
+  border: 1px solid #17a2b8;
+  width: 6em;
+  background-color: #17a2b8;
+  text-align: center;
+}
+
+.disp_progress {
+  display: inline-block;
+  border: 1px solid #dc3545;;
+  width: 6em;
+  background-color: #dc3545;;
+  text-align: center;
+}
+  
+.disp_complete {
+  display: inline-block;
+  border: 1px solid #28a745;
+  width: 6em;
+  background-color: #28a745;
+  text-align: center;
+}
+
+.disp_span {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.ganttchart {
+  table {
+    background-color: #333333;
+    color: white;
+    font-size: 14px;
+  }
+  th {
+    width: 2em;
+    border-right: 1px dashed #5a5a5a;
+    text-align: center;
+    font-weight: normal;
+    padding: 5px 0 5px 0;
+  }
+  td {
+    padding: 10px 0 10px 0;
+    border-right: 1px dashed #5a5a5a;
+  }
+  .title_area {
+    padding-left: 1em!important;
+    width: 5em;
+  }
+  .complete {
+    border: 1px solid #28a745;
+    height: 1.5em;  
+    width: 2em;
+    background-color: #28a745;
+  }
+  .progerss {
+    border: 1px solid red;
+    height: 1.5em;  
+    width: 2em;
+    background-color: red;
+  }
+  .scheduled {
+    border: 1px solid #17a2b8;
+    height: 1.5em;  
+    width: 2em;
+    background-color: #17a2b8;
+  }
+  a {
+    color: #a2a0a0;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+}

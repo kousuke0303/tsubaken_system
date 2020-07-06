@@ -2,6 +2,7 @@ class Submanager::SubmanagersController < ApplicationController
   before_action :authenticate_submanager!, only: [:top, :show, :edit, :update]
   before_action :not_current_submanager_return_login!
   before_action :return_login
+  before_action :set_one_month, only: :top
   helper_method :current_submanager_company
   
   def top
