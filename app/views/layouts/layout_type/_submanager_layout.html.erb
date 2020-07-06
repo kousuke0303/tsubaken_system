@@ -31,7 +31,7 @@
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">
             <li>
-              <a href="#">TASK登録</a>
+              <%= link_to "TASK登録", new_submanager_settings_task_path(dependent_manager) %>
             </li>
             <li>
               <a href="#">action2</a>

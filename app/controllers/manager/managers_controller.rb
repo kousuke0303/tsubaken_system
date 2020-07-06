@@ -1,7 +1,8 @@
 class Manager::ManagersController < ApplicationController
   before_action :authenticate_manager!, except: :unapproval_top
   before_action :unapproval_manager_show, except: :unapproval_top
-  before_action :return_login
+  before_action :not_current_manager_return_login!
+  before_action :set_one_month, only: :top
   
   def show
     @manager = Manager.find(current_manager.id)
@@ -13,7 +14,7 @@ class Manager::ManagersController < ApplicationController
   end
   
   def top
-     @manager = Manager.find(current_manager.id)
+    @manager = Manager.find(current_manager.id)
   end
   
   def employee
@@ -38,14 +39,6 @@ class Manager::ManagersController < ApplicationController
     def unapproval_manager_show
       unless current_manager.approval
         redirect_to manager_signup_manager_manager_url
-      end
-    end
-    
-    # to_paramを変更した事による是正
-    def return_login
-      unless params[:id] == current_manager.public_uid
-        flash[:alert] = "アクセス権限がありません"
-        redirect_to root_path
       end
     end
     

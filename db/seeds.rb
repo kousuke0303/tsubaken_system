@@ -45,6 +45,16 @@ Manager.create!(company: "KIDA株式会社",
 
 puts "CREATE! APPROVAL_MANAGER2"
 
+Manager.create!(company: "MARU株式会社",
+                name: "MARU",
+                email: "maru@email.com",
+                public_uid: "MARU",
+                password: "password",
+                password_confirmation: "password",
+                approval: true)
+
+puts "CREATE! APPROVAL_MANAGER3"
+
 # ------------------------------------------------------
 
 # 3.SUBMANAGER権限------------------
@@ -124,6 +134,7 @@ SeedMatter = Matter.create!(title: "案件１",
                scheduled_start_at: "2020-07-01",
                scheduled_finish_at: "2020-7-30",
                matter_uid: "aa00000001",
+               connected_id: "testtest01"
                )
 SeedMatter.matter_managers.create!(manager_id: 3)
 SeedMatter.clients.create!(name: "３匹のこぶた",
@@ -137,6 +148,7 @@ SeedMatterB = Matter.create!(title: "案件２",
                scheduled_start_at: "2020-07-01",
                scheduled_finish_at: "2020-7-30",
                matter_uid: "aa00000002",
+               connected_id: "testtest02"
                )
 SeedMatterB.matter_managers.create!(manager_id: 3)
 SeedMatterB.clients.create!(name: "鬼ちゃん",
@@ -151,20 +163,18 @@ puts "CREATE! MATTER２"
 
 # 1.Manager_task-----------------
 
-SeedTask = Task.create!(title: "TASK1")
-SeedTask.manager_tasks.create!(manager_id: 3)
+1.upto(9) do |i|
+  Task.create!(title: "TASK#{i}", default_title: "TASK#{i}")
+end
 
-puts "CREATE! TASK1"
-
-SeedTaskB = Task.create!(title: "TASK2")
-SeedTaskB.manager_tasks.create!(manager_id: 3)
-
-puts "CREATE! TASK2"
-
-SeedTaskC = Task.create!(title: "TASK3")
-SeedTaskC.manager_tasks.create!(manager_id: 3)
-
-puts "CREATE! TASK3"
+TargetManagers = Manager.where(approval: true)
+TargetManagers.each do |manager|
+  Task.all.each do |task|
+    task.manager_tasks.create!(manager_id: manager.id)
+  end
+end
+  
+puts "CREATE! MANAGERTASK"
 
 
 

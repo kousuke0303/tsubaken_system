@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20200625141825) do
     t.date "scheduled_finish_at"
     t.date "finished_at"
     t.string "matter_uid"
+    t.string "connected_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -203,6 +204,8 @@ ActiveRecord::Schema.define(version: 20200625141825) do
     t.string "status"
     t.integer "row_order"
     t.text "memo"
+    t.string "default_title"
+    t.integer "count"
     t.datetime "deadline"
     t.boolean "notification", default: false
     t.datetime "created_at", null: false

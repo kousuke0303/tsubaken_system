@@ -8,4 +8,5 @@ module ApplicationHelper
       @telephone = manager.mobile_phone
     end
   end
+  
 end
