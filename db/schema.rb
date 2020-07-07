@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(version: 20200704190138) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "status"
+    t.string "before_status"
+    t.datetime "move_date"
     t.integer "row_order"
     t.text "memo"
     t.string "default_title"

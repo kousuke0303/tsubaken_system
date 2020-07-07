@@ -503,7 +503,7 @@ a.article, a.article:hover {
 }
 
 .mb-1e {
-  margin-bottom: 1em;
+  margin-bottom: 1em!important;
 }
 
 .mr-05e {
@@ -532,6 +532,10 @@ a.article, a.article:hover {
 
 .pt-05e {
   padding-top: 0.5em;
+}
+
+.pb-1e {
+  padding-bottom: 1em!important;
 }
 
 //* BUTTON *//
