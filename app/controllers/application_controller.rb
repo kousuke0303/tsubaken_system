@@ -225,6 +225,16 @@ class ApplicationController < ActionController::Base
     @manager_event_title = @manager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
     return @manager_event_title
   end
+
+  def submanager_event_title
+    ary = SubmanagerEventTitle.where(submanager_id: current_submanager.id).pluck(:event_name)
+    @submanager_event_title = Hash.new(0)
+      ary.each do |elem|
+        @submanager_event_title[elem] += 1
+      end
+    @submanager_event_title = @submanager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @submanager_event_title
+  end
     
   private
   
