@@ -38,9 +38,9 @@
       
       <% month_matters(@first_day, @last_day).each do |matter| %>
       <tr>
-        <td class="title_area"><%= matter.title %></td>
+        <td class="title_area"><%= matter.title.truncate(14) %></td>
         <% (@one_month).each do |day| %>
-          <td>
+          <td class="chart_area">
              <div class="gantt_task">
                <% ganttchart(matter) %>
                  <% if @matter_work_day_arrey.include?(day) %>
@@ -54,3 +54,7 @@
     </table>
   </div>
 </div>
+
+<script>
+  $(".title_area:last").addClass("pb-1e");
+</script>
