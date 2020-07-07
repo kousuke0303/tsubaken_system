@@ -183,6 +183,21 @@ class ApplicationController < ActionController::Base
     # row_orderリセット
     reload_row_order(@matter_complete_tasks)
   end
+
+  # --------------------------------------------------------
+        # EVENT関係
+  # --------------------------------------------------------
+
+  def manager_event_title
+    ary = ManagerEventTitle.where(manager_id: current_manager.id).pluck(:event_name)
+    @manager_event_title = Hash.new(0)
+      ary.each do |elem|
+        @manager_event_title[elem] += 1
+      end
+    @manager_event_title = @manager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @manager_event_title
+  end
+
     
   private
   
