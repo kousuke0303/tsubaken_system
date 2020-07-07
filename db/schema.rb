@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200704190138) do
+ActiveRecord::Schema.define(version: 20200707085755) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -217,6 +217,20 @@ ActiveRecord::Schema.define(version: 20200704190138) do
     t.index ["email"], name: "index_submanagers_on_email", unique: true
     t.index ["manager_id"], name: "index_submanagers_on_manager_id"
     t.index ["reset_password_token"], name: "index_submanagers_on_reset_password_token", unique: true
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "company"
+    t.string "location"
+    t.string "representative_name"
+    t.string "phone"
+    t.string "fax"
+    t.string "mail"
+    t.integer "count"
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_suppliers_on_manager_id"
   end
 
   create_table "tasks", force: :cascade do |t|

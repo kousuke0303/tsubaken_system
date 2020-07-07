@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
     # user CRUD
       resources :users, path: '/enduser/users'
+    # suppliers
+      resources :suppliers
     end
   end
   

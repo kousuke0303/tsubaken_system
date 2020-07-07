@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <h4 class="col-sm-6">取引会社一覧</h4>
+    <div class="col-sm-6">
+      <button class="btn btn-dark mt-0 mb-1e float-r" data-toggle="modal" data-target="#supplier_new"><i class="fas fa-user-plus"></i> 新規作成</button>
+    </div>
+  </div>
+  <div class="table_responsible">
+    <table class="table table-bordered supplier_index_table">
+      <tr>
+        <th>会社名</th>
+        <th>所在地</th>
+        <th>TEL</th>
+        <th>FAX</th>
+        <th></th>
+      </tr>
+        <tbody>
+          <% @suppliers.each do |supplier| %>
+          <tr>
+            <td><%= supplier.company %></td>
+            <td><%= supplier.location %></td>
+            <td><%= supplier.phone %></td>
+            <td><%= supplier.fax %></td>
+            <td>
+              <%= link_to "編集", "#", class: "btn btn-primary btn-sm" %>
+              <%= link_to "削除", "#", class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </tr>
+    </table>
+  </div>
+</div>
