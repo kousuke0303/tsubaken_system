@@ -169,6 +169,8 @@ Rails.application.routes.draw do
     namespace :manager do
       namespace :settings do
         resources :tasks, except: [:index]
+        resources :manager_events
+        resources :manager_event_titles, except: [:index]
       end
     end
     namespace :submanager do

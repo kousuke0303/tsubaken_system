@@ -96,6 +96,7 @@ module Matter::MattersHelper
     end
   end
   
+  # その月に該当するmatterがある
   def month_matters(first_day, last_day)
     dependent_manager.matters.where(started_at: first_day..last_day)
     .or(dependent_manager.matters.where(finished_at: first_day..last_day))

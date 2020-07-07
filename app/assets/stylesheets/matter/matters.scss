@@ -63,6 +63,7 @@
 .matter_show_table {
   th {
     text-align: left;
+    background-color: #f7f7f7;
   }
   td {
     text-align: left;
@@ -73,7 +74,8 @@
 .no_entry_disp {
   border: 1px solid #dfdfdf;
   padding: 1em;
-  color: #999;
+  background-color: #f7f7f7;
+  color: #5f5e5e;
 }
 
 
@@ -210,6 +212,7 @@
   }
   .title_area {
     padding-left: 1em!important;
+    padding-right: 1em!important;
     width: 5em;
   }
   #complete {

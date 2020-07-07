@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200629141822) do
+ActiveRecord::Schema.define(version: 20200704190138) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,6 +46,26 @@ ActiveRecord::Schema.define(version: 20200629141822) do
     t.datetime "updated_at", null: false
     t.index ["manager_id"], name: "index_events_on_manager_id"
     t.index ["matter_id"], name: "index_events_on_matter_id"
+  end
+
+  create_table "manager_event_titles", force: :cascade do |t|
+    t.string "event_name"
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "note"
+    t.index ["manager_id"], name: "index_manager_event_titles_on_manager_id"
+  end
+
+  create_table "manager_events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_type"
+    t.datetime "date"
+    t.string "note"
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_manager_events_on_manager_id"
   end
 
   create_table "manager_staffs", force: :cascade do |t|
@@ -216,6 +236,8 @@ ActiveRecord::Schema.define(version: 20200629141822) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "status"
+    t.string "before_status"
+    t.datetime "move_date"
     t.integer "row_order"
     t.text "memo"
     t.string "default_title"

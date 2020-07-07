@@ -153,6 +153,31 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # 自動開始・終了登録
+  def create_started_at_or_finished_at
+    @tasks = current_matter.tasks
+    if @tasks.where(status: "matter_tasks").exists?
+      if @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
+        progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
+        first_move_task = progress_tasks.first
+        # 既に登録がある場合は、アプデしない
+        unless current_matter.started_at.present?
+          current_matter.update(started_at: first_move_task.move_date)
+        end
+      end
+    else
+      if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
+        complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
+        last_complete_task = complete_tasks.last
+        current_matter.update(finished_at: last_complete_task.move_date)
+      end
+    end 
+  end
+  
+  # --------------------------------------------------------
+        # TASK関係
+  # --------------------------------------------------------
+  
   # MATTER_TASK______________________________
   
   # 使用回数を保存
@@ -163,6 +188,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # 並び順更新_____________________________________________________
   def reload_row_order(tasks)
     tasks.each_with_index do |task, i|
       task.update(row_order: i * 100)
@@ -183,6 +209,22 @@ class ApplicationController < ActionController::Base
     @matter_complete_tasks = current_matter.tasks.are_finished_tasks
     # row_orderリセット
     reload_row_order(@matter_complete_tasks)
+  end
+  
+  # __________________________________________________________________
+
+  # --------------------------------------------------------
+        # EVENT関係
+  # --------------------------------------------------------
+
+  def manager_event_title
+    ary = ManagerEventTitle.where(manager_id: current_manager.id).pluck(:event_name)
+    @manager_event_title = Hash.new(0)
+      ary.each do |elem|
+        @manager_event_title[elem] += 1
+      end
+    @manager_event_title = @manager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @manager_event_title
   end
     
   private
