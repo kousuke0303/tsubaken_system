@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="col-sm-12 manager_contaioner">
+    <%= form_with(model: @attendance, url: submanager_attendances_path(dependent_manager, current_submanager), method: :get, local:true) do |f| %>
+      <div class="form-group">
+          <%= f.label :matter_id, "出勤場所" %>
+          <div class="col-sm-7">
+          <%= f.collection_select :matter_id, current_submanager.matters.all, :id, :title, { prompt: "選択してください" }, class: "form-control" %>
+          </div>
+      </div>
+    <%= f.submit "出勤者一覧", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

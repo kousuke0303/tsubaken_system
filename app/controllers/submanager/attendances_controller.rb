@@ -23,6 +23,11 @@ class Submanager::AttendancesController < ApplicationController
   end
 
 
+  def index
+    # @submanager = Submanager.find(params[:id])
+  end
+
+
   def edit
   end
   
