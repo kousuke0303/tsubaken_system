@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
-    unless params[:id].to_i == current_submanager.id || params[:staff_id].to_i == current_submanager.id
+    unless params[:id].to_i == current_submanager.id || params[:submanager_id].to_i == current_submanager.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end

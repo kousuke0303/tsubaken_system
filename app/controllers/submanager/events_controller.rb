@@ -1,5 +1,5 @@
 class Submanager::EventsController < ApplicationController
-  # before_action :not_current_submanager_return_login!
+  before_action :not_current_submanager_return_login!
   before_action :submanager_event_title
   
   def index

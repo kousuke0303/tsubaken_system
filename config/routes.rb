@@ -80,6 +80,8 @@ Rails.application.routes.draw do
         resources :staffs, path: '/employee/staffs'
         # user CRUD
         resources :users, path: '/enduser/users'
+        # event
+        resources :events, only: [:index] 
       end
     end
   end
@@ -145,9 +147,6 @@ Rails.application.routes.draw do
   
   scope "(:manager_public_uid)" do
     namespace :manager do
-      resources :events, only: [:index] 
-    end
-    namespace :submanager do
       resources :events, only: [:index] 
     end
   end
