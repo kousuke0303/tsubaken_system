@@ -159,6 +159,7 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
         progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
         first_move_task = progress_tasks.first
+        current_matter.update(status: "progress")
         # 既に登録がある場合は、アプデしない
         unless current_matter.started_at.present?
           current_matter.update(started_at: first_move_task.move_date)
@@ -168,7 +169,7 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
         last_complete_task = complete_tasks.last
-        current_matter.update(finished_at: last_complete_task.move_date)
+        current_matter.update(finished_at: last_complete_task.move_date, status: "finished")
       end
     end 
   end
