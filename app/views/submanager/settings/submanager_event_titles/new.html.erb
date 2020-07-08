@@ -25,7 +25,7 @@
         </div>
         
         <table class="table default_submanager_event_title_new_form" style="display: none;">
-          <%= form_with(model: @event_titles, url: submanager_settings_submanager_event_titles_path(current_submanager), method: :post, remote: true) do |f| %>
+          <%= form_with(model: @event_titles, url: submanager_settings_submanager_event_titles_path(dependent_manager, current_submanager), method: :post, remote: true) do |f| %>
           <tr>
             <th>タイトル</th>
           </tr>

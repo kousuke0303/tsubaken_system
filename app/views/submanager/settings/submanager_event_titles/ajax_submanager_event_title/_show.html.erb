@@ -16,14 +16,14 @@
       <tr>
         <td class="text-right">
           <button class="btn btn-primary" id="default_submanager_event_title_<%= event_title.id %>_edit_btn">編集</button>
-          <%= link_to "削除", submanager_settings_submanager_event_title_path(current_submanager, event_title), method: :delete, class: "btn btn-danger" %>
+          <%= link_to "削除", submanager_settings_submanager_event_title_path(dependent_manager, current_submanager, event_title), method: :delete, class: "btn btn-danger" %>
         </td>
       </tr>
     </table>
   </div>
   
   <div id="default_submanager_event_title_<%= event_title.id %>_edit_form">
-    <%= form_with(model: event_title, url: submanager_settings_submanager_event_title_path(current_submanager, event_title), remote: true, method: :patch) do |fi| %>
+    <%= form_with(model: event_title, url: submanager_settings_submanager_event_title_path(dependent_manager, current_submanager, event_title), remote: true, method: :patch) do |fi| %>
       <table class="table table-bordered mt-1e default_submanager_event_title_edit" id="default_submanager_event_title_<%= event_title.id %>_edit" style="display: none;">     
         <tr>
           <th>タイトル</th>

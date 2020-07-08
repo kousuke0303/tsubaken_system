@@ -35,10 +35,10 @@
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">
             <li>
-              <%= link_to "TASK登録", new_submanager_settings_task_path(dependent_manager) %>
+              <%= link_to "TASK登録", new_submanager_settings_task_path(dependent_manager, current_submanager) %>
             </li>
             <li>
-              <li><%= link_to "EVENT登録", new_submanager_settings_submanager_event_title_path(current_submanager) %></li>
+              <li><%= link_to "EVENT登録", new_submanager_settings_submanager_event_title_path(dependent_manager, current_submanager) %></li>
             </li>
             <li>
               <a href="#">action3</a>
