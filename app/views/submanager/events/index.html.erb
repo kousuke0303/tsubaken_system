@@ -10,9 +10,8 @@
       <% events.each do |event| %>
         <% if defined?(event.matter_id) %>
           <div class="event<%= event.event_type %>">
-            <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-            <%= Matter.find(event.matter_id).title%><br>
-            <%= event.event_name %>
+            <%= link_to "#{event.matter.title}", matter_matter_path(dependent_manager, event.matter), :target=>["_blank"] %>
+            / <%= event.event_name.truncate(7)%>
           </div>
         <% else %>
           <div class="event<%= event.event_type %>">

@@ -1,5 +1,6 @@
 class Submanager::Settings::SubmanagerEventsController < ApplicationController
   before_action :set_submanager_event, only: [:edit, :update, :destroy]
+  before_action :not_current_submanager_return_login!
 
   def create
     @submanager_event = SubmanagerEvent.new(submanager_event_params)

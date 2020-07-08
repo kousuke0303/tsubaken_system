@@ -1,6 +1,6 @@
 class Submanager::Settings::SubmanagerEventTitlesController < ApplicationController
   before_action :authenticate_submanager!
-  # before_action :not_current_submanager_return_login!
+  before_action :not_current_submanager_return_login!
 
   def new
     @default_submanager_event_titles = current_submanager.submanager_event_titles.order(:event_name).order(created_at: "DESC")
