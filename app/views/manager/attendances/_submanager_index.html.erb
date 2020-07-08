@@ -1,0 +1,8 @@
+<% @submanagers.each do |submanager| %>
+  <tr>
+    <td>Submanager</td>
+    <td><%= submanager.worked_on %></td>
+    <td><%= submanager.matter.title %></td>
+
+  </tr>
+<% end %>

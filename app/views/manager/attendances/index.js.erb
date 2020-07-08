@@ -1,0 +1,8 @@
+var type = '<%= @employee_name %>'
+if( type == 'submanager'){
+  $('.attendances').html('<%= escape_javascript(render partial: './manager/attendances/submanager_index', locals: { manager: @manager, submanager: @manager.submanagers, resource: @manager.submanagers }) %>');
+};
+console.log("====-")
+if( type == 'staff'){
+  $('.attendances').html('<%= escape_javascript(render partial: './manager/attendances/staff_index', locals: { manager: @manager, staff: Staff.all, resource: Staff.all }) %>');
+};
