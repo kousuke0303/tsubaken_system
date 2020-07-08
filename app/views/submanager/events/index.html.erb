@@ -1,31 +1,47 @@
 <div class="container">
-  <h2>Calendar</h2> 
-  
+
+  <button class="btn btn-dark mt-1e mb-1e float-r" data-toggle="modal" data-target="#event_new"><i class="fas fa-plus"></i> 新規作成</button>
+
   <div id="month_calendar_disp">
-    <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
+    <h2>Calendar</h2> 
+    <%= month_calendar(attribute: :date, events: @events + @submanager_events) do |date, events| %>
       <%= date %>
 
       <% events.each do |event| %>
-        <div class="event<%= event.event_type %>">
-          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-          <%= Matter.find(event.matter_id).title%><br>
-          <%= event.event_name %>
-        </div>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.event_type %>">
+            <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+            <%= Matter.find(event.matter_id).title%><br>
+            <%= event.event_name %>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a data-toggle="modal" data-target="#event_edit_<%=current_submanager.id%>_<%=event.id%>"  submanager_id=current_submanager.id event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
 
-  <div id="week_calendar_disp" style="display: none">
-    <%= week_calendar(attribute: :date, events: @events) do |date, events| %>
+  <div id="week_calendar_disp" style="display: none">]
+    <h2>Calendar</h2> 
+    <%= week_calendar(attribute: :date, events: @events + @submanager_events) do |date, events| %>
       <%= date %>
 
       <% events.each do |event| %>
-        <div>
+        <% if defined?(event.matter_id) %>
           <div class="event<%= event.event_type %>">
-          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-          <%= Matter.find(event.matter_id).title%><br>
-          <%= event.event_name %>
-        </div>
+            <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
+            <%= Matter.find(event.matter_id).title%><br>
+            <%= event.event_name %>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a data-toggle="modal" data-target="#event_edit_<%=current_submanager.id%>_<%=event.id%>"  submanager_id=current_submanager.id event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

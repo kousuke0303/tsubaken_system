@@ -272,3 +272,31 @@ ManagerEventTitle.create!(event_name: "マネージャ独自イベントB",
     note: "testb")
 
 puts "CREATE! MANAGEREVENTTITLE-B"
+
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 1,)
+
+puts "CREATE! SUBMANAGEREVENT-A"
+
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 2,)
+
+puts "CREATE! SUBMANAGEREVENT-B"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントA",
+    submanager_id: 1,
+    note: "testa")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-A"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントB",
+    submanager_id: 2,
+    note: "testb")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-B"
