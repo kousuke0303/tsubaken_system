@@ -11,7 +11,7 @@
         <div class="card mb-3">
           <h5 class="card-header">Event/編集</h5>
             <div class="card-body">
-              <%= form_with(model: [:submanager_event,event ], url: submanager_settings_submanager_event_path(event), method: :patch, remote: true) do |f| %>
+              <%= form_with(model: [:submanager_event,event ], url: submanager_settings_submanager_event_path(dependent_manager, event), method: :patch, remote: true) do |f| %>
 
                 <div class="form-group">
                   <%= f.label :event_name, "イベントタイトル" %>
@@ -29,7 +29,7 @@
                 </div>
 
                 <%= f.submit "更新", class: "btn btn-dark" %>
-                <%= link_to "削除", submanager_settings_submanager_event_path(event), data: {confirm: "#{event.event_name}を削除しますか？"}, method: :delete,class: "btn btn-destroy" %>
+                <%= link_to "削除", submanager_settings_submanager_event_path(dependent_manager, event), data: {confirm: "#{event.event_name}を削除しますか？"}, method: :delete,class: "btn btn-destroy" %>
               <% end %>          
             </div>
           </div>
