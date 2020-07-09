@@ -218,7 +218,7 @@ Event.create!(event_name: "入金予定",
 
 puts "CREATE! EVENT-B"
 
-Event.create!(event_name: "確定した工事着手日",
+Event.create!(event_name: "工事着工日",
     event_type: "C",
     date: "2020-07-03",
     note: "仮",
@@ -227,7 +227,7 @@ Event.create!(event_name: "確定した工事着手日",
 
 puts "CREATE! EVENT-C"
 
-Event.create!(event_name: "予定された工事着手日",
+Event.create!(event_name: "工事着工予定",
     event_type: "D",
     date: "2020-07-03",
     note: "仮",
@@ -236,7 +236,7 @@ Event.create!(event_name: "予定された工事着手日",
 
 puts "CREATE! EVENT-D1"
 
-Event.create!(event_name: "予定された工事着手日",
+Event.create!(event_name: "工事着工予定",
     event_type: "D",
     date: "2020-07-01",
     note: "仮",
@@ -298,3 +298,30 @@ Supplier.create!(company: "取引B",
 puts "CREATE!SUPPLIER"
 
 
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 1,)
+
+puts "CREATE! SUBMANAGEREVENT-A"
+
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 2,)
+
+puts "CREATE! SUBMANAGEREVENT-B"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントA",
+    submanager_id: 1,
+    note: "testa")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-A"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントB",
+    submanager_id: 2,
+    note: "testb")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-B"

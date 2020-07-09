@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
-    unless params[:id].to_i == current_submanager.id || params[:staff_id].to_i == current_submanager.id
+    unless params[:id].to_i == current_submanager.id || params[:submanager_id].to_i == current_submanager.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
@@ -159,6 +159,7 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
         progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
         first_move_task = progress_tasks.first
+        current_matter.update(status: "progress")
         # 既に登録がある場合は、アプデしない
         unless current_matter.started_at.present?
           current_matter.update(started_at: first_move_task.move_date)
@@ -168,7 +169,7 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
         last_complete_task = complete_tasks.last
-        current_matter.update(finished_at: last_complete_task.move_date)
+        current_matter.update(finished_at: last_complete_task.move_date, status: "finished")
       end
     end 
   end
@@ -224,6 +225,16 @@ class ApplicationController < ActionController::Base
       end
     @manager_event_title = @manager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
     return @manager_event_title
+  end
+
+  def submanager_event_title
+    ary = SubmanagerEventTitle.where(submanager_id: current_submanager.id).pluck(:event_name)
+    @submanager_event_title = Hash.new(0)
+      ary.each do |elem|
+        @submanager_event_title[elem] += 1
+      end
+    @submanager_event_title = @submanager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @submanager_event_title
   end
     
   private

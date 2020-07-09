@@ -82,6 +82,14 @@ Rails.application.routes.draw do
         resources :staffs, path: '/employee/staffs'
         # user CRUD
         resources :users, path: '/enduser/users'
+        # event
+        resources :events, only: [:index] 
+        # settings
+        namespace :settings do
+          resources :tasks, except: [:index]
+          resources :submanager_events
+          resources :submanager_event_titles, except: [:index]
+        end
       end
     end
   end
@@ -149,9 +157,6 @@ Rails.application.routes.draw do
     namespace :manager do
       resources :events, only: [:index] 
     end
-    namespace :submanager do
-      resources :events, only: [:index] 
-    end
   end
   
   # ################################################################
@@ -164,11 +169,6 @@ Rails.application.routes.draw do
         resources :tasks, except: [:index]
         resources :manager_events
         resources :manager_event_titles, except: [:index]
-      end
-    end
-    namespace :submanager do
-      namespace :settings do
-        resources :tasks, except: [:index]
       end
     end
   end
