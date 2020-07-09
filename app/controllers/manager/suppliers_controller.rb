@@ -4,6 +4,7 @@ class Manager::SuppliersController < ApplicationController
   
   def index
     @suppliers = current_manager.suppliers.for_order_count
+    @supplier = current_manager.suppliers.build
   end
   
   def create
@@ -16,6 +17,11 @@ class Manager::SuppliersController < ApplicationController
   
   def show
     @supplier = dependent_manager.suppliers.find(params[:id])
+  end
+  
+  def edit
+    @supplier = dependent_manager.suppliers.find(params[:id])
+    @btn_type = "update"
   end
   
   def destroy

@@ -1,0 +1,43 @@
+<%= form_with(model: [:manager, supplier], remote: true) do |f| %>
+    
+  <div class="supplier_error"></div>
+            
+    <div class="form-group">
+      <%= f.label :company, "会社名" %>
+      <%= f.text_field :company, required: true, class: "form-control" %>
+    </div>
+                
+    <div class="form-group">
+      <%= f.label :location, "所在地" %>
+      <%= f.text_field :location, required: true, class: "form-control" %>
+    </div>
+                
+    <div class="form-group">
+      <%= f.label :representative_name, "代表者" %>
+      <%= f.text_field :representative_name, class: "form-control" %>
+    </div>
+                
+    <div class="form-group">
+      <%= f.label :mail, "Mail" %>
+      <%= f.email_field :mail, required: true, class: "form-control", pattern: "/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i"%>
+    </div>
+                
+    <div class="form-group">
+      <%= f.label :phone, "電話番号" %>
+      <%= f.telephone_field :phone, class: "form-control", pattern: "[0-9]{11,}" %>
+      <small class="form-text text-muted">半角数字のみ</small>
+    </div>
+            
+    <div class="form-group">
+      <%= f.label :fax, "FAX" %>
+      <%= f.telephone_field :fax, class: "form-control", pattern: "[0-9]{11,}" %>
+      <small class="form-text text-muted">半角数字のみ</small>
+    </div>
+    
+    <% if @btn_type == "update" %>
+      <%= f.submit "更新", class: "btn btn-dark" %>
+    <% else %>
+      <%= f.submit "作成", class: "btn btn-dark" %>
+    <% end %>
+      
+<% end %>

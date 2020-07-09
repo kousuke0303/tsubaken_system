@@ -2,7 +2,7 @@
   <div class="row">
     <h4 class="col-sm-6">取引会社一覧</h4>
     <div class="col-sm-6">
-      <button class="btn btn-dark mt-0 mb-1e float-r" data-toggle="modal" data-target="#supplier_new"><i class="fas fa-user-plus"></i> 新規作成</button>
+      <button class="btn btn-dark mt-0 mb-1e float-r" id="supplier_new_btn"><i class="fas fa-user-plus"></i> 新規作成</button>
     </div>
   </div>
   <div class="table-responsive">
@@ -30,4 +30,25 @@
       </tbody>
     </table>
   </div>
+  
+  <div class="modal" id="supplier_new">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render 'manager/suppliers/new' %>
+      </div>
+  </div>
 </div>
+
+<script>
+  $(function(){
+    $('#supplier_new_btn').on('click',function(){
+      $('#supplier_new').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#supplier_new').fadeOut();
+      return false;
+    });
+  });
+</script>
