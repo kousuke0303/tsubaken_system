@@ -273,6 +273,31 @@ ManagerEventTitle.create!(event_name: "マネージャ独自イベントB",
 
 puts "CREATE! MANAGEREVENTTITLE-B"
 
+# -----------------------------------------------------
+      # SUPPLIER
+# ---------------------------------------------
+
+Supplier.create!(company: "取引A",
+                 location:  "東京都西新宿１−３−２",
+                 representative_name: "山田太郎",
+                 phone: "09012341234",
+                 fax: "09012351235",
+                 mail: "companya@email.com",
+                 count: 5,
+                 manager_id: 3)
+
+Supplier.create!(company: "取引B",
+                 location:  "東京都西新宿１−９−２",
+                 representative_name: "山田太郎",
+                 phone: "09012361236",
+                 fax: "09012381238",
+                 mail: "companyb@email.com",
+                 count: 3,
+                 manager_id: 3)
+
+puts "CREATE!SUPPLIER"
+
+
 SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントA",
     event_type: "Z",
     date: "2020-07-01",

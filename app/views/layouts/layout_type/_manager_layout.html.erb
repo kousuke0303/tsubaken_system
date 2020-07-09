@@ -14,6 +14,12 @@
       <p>管理者専用PAGE</p>
       
       <li>
+        <%= link_to "Matter", matter_matters_path(current_manager) %>
+      </li>
+      <li>
+        <%= link_to "Calendar", manager_events_path(current_manager) %>
+      </li>
+      <li>
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
           <li>
@@ -25,10 +31,7 @@
         </ul>
       </li>
       <li>
-        <%= link_to "Matter", matter_matters_path(current_manager) %>
-      </li>
-      <li>
-        <%= link_to "Calendar", manager_events_path(current_manager) %>
+        <%= link_to "Suppliers", manager_suppliers_path(current_manager) %>
       </li>
       <li>
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
