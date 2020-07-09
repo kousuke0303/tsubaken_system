@@ -31,17 +31,19 @@
                 
               <div class="form-group">
                 <%= f.label :mail, "Mail" %>
-                <%= f.email_field :mail, required: true, class: "form-control" %>
+                <%= f.email_field :mail, required: true, class: "form-control", pattern: "/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i"%>
               </div>
                 
               <div class="form-group">
                 <%= f.label :phone, "電話番号" %>
-                <%= f.telephone_field :phone, class: "form-control" %>
+                <%= f.telephone_field :phone, class: "form-control", pattern: "[0-9]{11,}" %>
+                <small class="form-text text-muted">半角数字のみ</small>
               </div>
             
               <div class="form-group">
                 <%= f.label :fax, "FAX" %>
-                <%= f.telephone_field :fax, class: "form-control" %>
+                <%= f.telephone_field :fax, class: "form-control", pattern: "[0-9]{11,}" %>
+                <small class="form-text text-muted">半角数字のみ</small>
               </div>
               
               <%= f.submit "作成", class: "btn btn-dark" %>

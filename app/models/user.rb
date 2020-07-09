@@ -1,9 +1,20 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  before_save { self.email = email.downcase }
+  before_save { self.phone = phone.downcase }
+  
+  # validation ############################################
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, length: { maximum: 100 },
+                    format: { with: VALID_EMAIL_REGEX }
+  
+  
   devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :validatable, :omniauthable
-  # アソシエーション
+  
+  # アソシエーション ######################################
   has_many :manager_users, dependent: :delete_all
   has_many :managers, through: :manager_users
  

@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20200707085755) do
-=======
 ActiveRecord::Schema.define(version: 20200707154008) do
->>>>>>> 5b546026a4ec0f557b316184918359c7baee044a
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -243,7 +239,6 @@ ActiveRecord::Schema.define(version: 20200707154008) do
     t.index ["reset_password_token"], name: "index_submanagers_on_reset_password_token", unique: true
   end
 
-<<<<<<< HEAD
   create_table "suppliers", force: :cascade do |t|
     t.string "company"
     t.string "location"
@@ -256,20 +251,6 @@ ActiveRecord::Schema.define(version: 20200707154008) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manager_id"], name: "index_suppliers_on_manager_id"
-=======
-  create_table "submanagers_attendances", force: :cascade do |t|
-    t.date "worked_on"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.string "note"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "submanager_id"
-    t.integer "matter_id"
-    t.index ["matter_id"], name: "index_submanagers_attendances_on_matter_id"
-    t.index ["submanager_id"], name: "index_submanagers_attendances_on_submanager_id"
->>>>>>> 5b546026a4ec0f557b316184918359c7baee044a
   end
 
   create_table "tasks", force: :cascade do |t|
