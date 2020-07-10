@@ -6,7 +6,9 @@
           Supplier/新規作成
         </h5>
         <div class="card-body">
-          <%= render partial: 'manager/suppliers/form', locals: { supplier: @supplier} %>
+          <%= form_with(model: [:manager, @supplier], remote: true) do |f| %>
+            <%= render partial: 'manager/suppliers/form', locals: { f: f } %>
+          <% end %>
         </div>
       </div>
     </div>

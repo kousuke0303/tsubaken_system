@@ -1,4 +1,8 @@
 <div class="container">
   <h5>取引関係者：<%= @supplier.company %>の編集</h5>
-  <%= render partial: 'manager/suppliers/form', locals: { supplier: @supplier } %>
+  <div class="edit_frame">
+    <%= form_with(model: [:manager, @supplier], url: manager_supplier_path(dependent_manager, @supplier), local: true) do |f| %>
+      <%= render partial: 'manager/suppliers/form', locals: { f: f } %>
+    <% end %>
+  </div>
 </div>
