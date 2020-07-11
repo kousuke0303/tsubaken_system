@@ -325,3 +325,31 @@ SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベン�
     note: "testb")
 
 puts "CREATE! SUBMANAGEREVENTTITLE-B"
+
+StaffEvent.create!(event_name: "スタッフ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    staff_id: 1,)
+
+puts "CREATE! STAFFEVENT-A"
+
+StaffEvent.create!(event_name: "スタッフ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    staff_id: 2,)
+
+puts "CREATE! STAFFEVENT-B"
+
+StaffEventTitle.create!(event_name: "スタッフ独自イベントA",
+    staff_id: 1,
+    note: "testa")
+
+puts "CREATE! STAFFEVENTTITLE-A"
+
+StaffEventTitle.create!(event_name: "スタッフ独自イベントB",
+    staff_id: 2,
+    note: "testb")
+
+puts "CREATE! STAFFEVENTTITLE-B"

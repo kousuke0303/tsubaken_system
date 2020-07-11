@@ -12,4 +12,8 @@ class Staff < ApplicationRecord
   has_many :matter_staffs, dependent: :destroy
   has_many :matters, through: :matter_staffs
 
+  has_many :staff_events
+
+  has_many :staff_event_titles
+
 end

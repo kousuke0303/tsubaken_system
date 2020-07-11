@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200707154008) do
+ActiveRecord::Schema.define(version: 20200710165249) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -179,6 +179,26 @@ ActiveRecord::Schema.define(version: 20200707154008) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "staff_event_titles", force: :cascade do |t|
+    t.string "event_name"
+    t.string "note"
+    t.integer "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
+  end
+
+  create_table "staff_events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_type"
+    t.datetime "date"
+    t.string "note"
+    t.integer "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_id"], name: "index_staff_events_on_staff_id"
+  end
+
   create_table "staffs", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -256,8 +276,6 @@ ActiveRecord::Schema.define(version: 20200707154008) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "status"
-    t.string "before_status"
-    t.datetime "move_date"
     t.integer "row_order"
     t.text "memo"
     t.string "default_title"
