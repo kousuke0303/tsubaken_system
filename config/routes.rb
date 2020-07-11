@@ -123,6 +123,10 @@ Rails.application.routes.draw do
       end
       # event
       resources :events, only: [:index]
+      namespace :settings do
+        resources :staff_events
+        resources :staff_event_titles, except: [:index]
+      end
     end
   end
 
