@@ -9,10 +9,9 @@
 
       <% events.each do |event| %>
         <% if defined?(event.matter_id) %>
-          <div class="event<%= event.event_type %>">
+          <div class="event<%= event.matter.status %>">
             <%= link_to "", staff_matter_path(current_staff, event.matter.matter_uid), :target=>["_blank"] %>
-            <%= event.matter.title%><br>
-            <%= event.event_name %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
           </div>
         <% else %>
           <div class="event<%= event.event_type %>">
@@ -39,10 +38,9 @@
 
       <% events.each do |event| %>
         <% if defined?(event.matter_id) %>
-          <div class="event<%= event.event_type %>">
-            <%= link_to "", staff_matter_path(current_staff, event.matter.id), :target=>["_blank"] %>
-            <%= event.matter.title%><br>
-            <%= event.event_name %>
+           <div class="event<%= event.matter.status %>">
+            <%= link_to "", staff_matter_path(current_staff, event.matter.matter_uid), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
           </div>
         <% else %>
           <div class="event<%= event.event_type %>">
