@@ -5,6 +5,10 @@ class StaticPageController < ApplicationController
   def login_index
   end
   
+  def test_preview
+    @type = test_preview
+  end
+  
   private
   def top_redirect
     if user_signed_in?
