@@ -1,10 +1,15 @@
 <div class="manager_create_backgroud">
   <div class="manager_create_container">
-    <h2><i class="fas fa-user-alt"></i> アカウント新規作成</h2>
+    <div class="row">
+      <h2 class="col-md-6"><i class="fas fa-user-alt"></i> アカウント新規作成</h2>
+      <div class="col-md-6">
+        <%= link_to "戻る", root_path, class: "btn btn-dark float-r" %>
+      </div>
+    </div>
     <div class="line-sm"></div>
   
-    <%= form_with(model:@manager, url: manager_registration_path) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_with(model:@manager, url: manager_registration_path, local: true) do |f| %>
+      <%= render "layouts/error_messages", resource: resource %>
   
       <div class="form-group">
         <%= f.label :company, "会社名" %>
@@ -33,9 +38,8 @@
         </div>
       </div>
   
-      <div class="">
+      <div class="text-right">
         <%= f.submit "Sign up", class: "btn btn-dark" %>
-        <%= link_to "戻る", root_path, class: "btn btn-dark" %>
       </div>
     <% end %>
 
