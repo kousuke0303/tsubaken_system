@@ -8,19 +8,17 @@
       <%= date %>
 
       <% events.each do |event| %>
-        
-          <% if defined?(event.matter_id)  %>
-            <div class="event<%= event.event_type %>">
-              <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-              <%= Matter.find(event.matter_id).title%><br>
-              <%= event.event_name %>
-            </div>
-          <% else %>
-            <div class="event<%= event.event_type %>">
-              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
-              <%= event.event_name %>
-            </div>
-          <% end %>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "", matter_matter_path(current_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -31,19 +29,17 @@
       <%= date %>
 
       <% events.each do |event| %>
-
-          <% if defined?(event.matter_id) %>
-            <div class="event<%= event.event_type %>">
-              <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-              <%= Matter.find(event.matter_id).title%><br>
-              <%= event.event_name %>
-            </div>
-          <% else %>
-            <div class="event<%= event.event_type %>">
-              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
-              <%= event.event_name %>
-            </div>
-          <% end %>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "", matter_matter_path(current_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

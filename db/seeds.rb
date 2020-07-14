@@ -218,15 +218,6 @@ Event.create!(event_name: "入金予定",
 
 puts "CREATE! EVENT-B"
 
-Event.create!(event_name: "工事着工日",
-    event_type: "C",
-    date: "2020-07-03",
-    note: "仮",
-    manager_id: 3,
-    matter_id: 1)
-
-puts "CREATE! EVENT-C"
-
 Event.create!(event_name: "工事着工予定",
     event_type: "D",
     date: "2020-07-03",
@@ -241,7 +232,7 @@ Event.create!(event_name: "工事着工予定",
     date: "2020-07-01",
     note: "仮",
     manager_id: 2,
-    matter_id: 1)
+    matter_id: 2)
 
 puts "CREATE! EVENT-D2"
 

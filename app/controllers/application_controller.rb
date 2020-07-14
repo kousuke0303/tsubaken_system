@@ -160,6 +160,28 @@ class ApplicationController < ActionController::Base
         progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
         first_move_task = progress_tasks.first
         current_matter.update(status: "progress")
+        event_scheduled_start_at = 
+            Event.find_by(event_name: "着工予定日",
+            event_type: "D",
+            manager_id: dependent_manager.id,
+            matter_id: current_matter.id)
+        if current_matter.scheduled_start_at.present?
+          if event_scheduled_start_at.present?
+            event_scheduled_start_at.update(event_name: "着工日",event_type: "C",date: first_move_task.move_date)
+          else
+              Event.create!(event_name: "着工日",
+                event_type: "C",
+                date: first_move_task.move_date,
+                note: "",
+                manager_id: dependent_manager.id,
+                matter_id: current_matter.id
+              )
+          end
+        else
+          if event_scheduled_start_at.present?
+            event_scheduled_start_at.destroy
+          end
+        end
         # 既に登録がある場合は、アプデしない
         unless current_matter.started_at.present?
           current_matter.update(started_at: first_move_task.move_date)
@@ -170,6 +192,28 @@ class ApplicationController < ActionController::Base
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
         last_complete_task = complete_tasks.last
         current_matter.update(finished_at: last_complete_task.move_date, status: "finished")
+        event_scheduled_finish_at = 
+            Event.find_by(event_name: "完了予定日",
+            event_type: "D",
+            manager_id: dependent_manager.id,
+            matter_id: current_matter.id)
+        if current_matter.scheduled_finish_at.present?
+          if event_scheduled_finish_at.present?
+            event_scheduled_finish_at.update(event_name: "完了日",event_type: "C",date: last_complete_task.move_date)
+          else
+              Event.create!(event_name: "完了日",
+                event_type: "C",
+                date: last_complete_task.move_date,
+                note: "",
+                manager_id: dependent_manager.id,
+                matter_id: current_matter.id
+              )
+          end
+        else
+          if event_scheduled_finish_at.present?
+            event_scheduled_finish_at.destroy
+          end
+        end
       end
     end 
   end
