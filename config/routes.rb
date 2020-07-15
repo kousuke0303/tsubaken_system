@@ -127,8 +127,11 @@ Rails.application.routes.draw do
       # matter
       resources :matters, only: [:index, :show] do
         get :move_task, on: :member
-        # attendance
-        resources :attendance
+      end
+      # attendance
+      resources :attendances do
+        post :going_to_work, on: :collection
+        post :leaving_work, on: :collection
       end
       # event
       resources :events, only: [:index]
