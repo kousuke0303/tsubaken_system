@@ -1,4 +1,5 @@
 class Manager::AttendancesController < ApplicationController
+  before_action :set_one_month, only: :index
   
   def index
     @manager = Manager.find_by(public_uid: params[:id])
