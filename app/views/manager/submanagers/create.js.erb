@@ -1,4 +1,4 @@
-$('.submanager_create_error').html('<%= escape_javascript(render partial: './submanagers/shared/error_messages', locals: { resource: @submanager }) %>');
+$('.submanager_create_error').html('<%= escape_javascript(render partial: 'layouts/error_messages', locals: { resource: @submanager }) %>');
 <% @submanager.errors.messages.keys.each do |key_attribute| %>
   var add_div = $('<div class="field_with_errors">');
   var add_label = $('input[name="submanager[<%= key_attribute.intern.to_s %>]"]').prev();
