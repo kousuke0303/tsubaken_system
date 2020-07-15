@@ -15,16 +15,30 @@
           </div>
         <% else %>
           <div class="event<%= event.event_type %>">
-            <a id="staff_event_edit_btn_<%=event.id%>" staff_id=current_staff.id event_id=event.id></a>
+            <a id="staff_event_month_edit_btn_<%=event.id%>" staff_id=current_staff.id event_id=event.id></a>
             <%= event.event_name %>
           </div>
 
-          <div class="modal" id="staff_event_edit_<%= event.id %>">
+          <div class="modal" id="staff_event_month_edit_<%= event.id %>">
             <div class="modal__bg js-modal-close"></div>
             <div>
               <%= render partial: 'staff/settings/staff_events/edit_event' , locals: { staff: current_staff,event: event } %>
             </div>
           </div>
+
+          <script>
+            $(function(){
+              $('#staff_event_month_edit_btn_<%= event.id %>').on('click',function(){
+                $('#staff_event_month_edit_<%= event.id %>').fadeIn();
+                return false;
+              });
+              
+              $('.js-modal-close').on('click',function(){
+                $('#staff_event_month_edit_<%= event.id %>').fadeOut();
+                return false;
+              });
+            });
+          </script>
           
         <% end %>
       <% end %>
@@ -44,11 +58,11 @@
           </div>
         <% else %>
           <div class="event<%= event.event_type %>">
-            <a id="staff_event_edit_btn_<%=event.id%>" staff_id=current_staff.id event_id=event.id></a>
+            <a id="staff_event_week_edit_btn_<%=event.id%>" staff_id=current_staff.id event_id=event.id></a>
             <%= event.event_name %>
           </div>
 
-          <div class="modal" id="staff_event_edit_<%= event.id %>">
+          <div class="modal" id="staff_event_week_edit_<%= event.id %>">
             <div class="modal__bg js-modal-close"></div>
               <div>
                 <%= render partial: 'staff/settings/staff_events/edit_event' , locals: { staff: current_staff,event: event } %>
@@ -57,13 +71,13 @@
          
           <script>
             $(function(){
-              $('#staff_event_edit_btn_<%= event.id %>').on('click',function(){
-                $('#staff_event_edit_<%= event.id %>').fadeIn();
+              $('#staff_event_week_edit_btn_<%= event.id %>').on('click',function(){
+                $('#staff_event_week_edit_<%= event.id %>').fadeIn();
                 return false;
               });
               
               $('.js-modal-close').on('click',function(){
-                $('#staff_event_edit_<%= event.id %>').fadeOut();
+                $('#staff_event_week_edit_<%= event.id %>').fadeOut();
                 return false;
               });
             });
