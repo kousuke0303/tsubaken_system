@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  worked_on: 2020-07-12
+  started_at: 2020-07-12 22:27:40
+  finished_at: 2020-07-12 22:27:40
+  note: MyString
+  user_id: 1
+  staff_id: 1
+  matter_id: 1
+
+two:
+  worked_on: 2020-07-12
+  started_at: 2020-07-12 22:27:40
+  finished_at: 2020-07-12 22:27:40
+  note: MyString
+  user_id: 1
+  staff_id: 1
+  matter_id: 1
