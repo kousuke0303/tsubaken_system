@@ -230,6 +230,8 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_staffs_attendances_on_matter_id"
     t.index ["staff_id"], name: "index_staffs_attendances_on_staff_id"
+  end
+
   create_table "submanager_event_titles", force: :cascade do |t|
     t.string "event_name"
     t.string "note"
@@ -283,6 +285,8 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.integer "matter_id"
     t.index ["matter_id"], name: "index_submanagers_attendances_on_matter_id"
     t.index ["submanager_id"], name: "index_submanagers_attendances_on_submanager_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "company"
     t.string "location"
