@@ -5,13 +5,3 @@
 <div id="enduser_new" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
   <%= render 'submanager/submanagers/create_enduser' %>
 </div>
-
-<div id="event_new" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
-  <%= render 'submanager/settings/submanager_events/create_event' %>
-</div>
-
-<% SubmanagerEvent.where(submanager_id: current_submanager.id).each do |event| %>
-  <div id="event_edit_<%=current_submanager.id%>_<%=event.id%>" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <%= render partial: 'submanager/settings/submanager_events/edit_event', locals: { event: event } %>
-  </div>
-<% end %> 
