@@ -6,6 +6,10 @@
     <% end %>
   </select>
 </div>
+<div>
+  <%= link_to "⇦ 前月へ", manager_attendances_path(date: @first_day.prev_month), class: "btn btn-info" %>
+  <%= link_to "次月へ ⇨", manager_attendances_path(date: @first_day.next_month), class: "btn btn-info" %>
+</div>
 <div class = "attendances"></div>
 <script>
   $('.submanager_staff').on('change', function(){
