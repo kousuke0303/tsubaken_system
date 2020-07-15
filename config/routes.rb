@@ -65,6 +65,8 @@ Rails.application.routes.draw do
       resources :users, path: '/enduser/users'
       # attendance
       resources :attendances
+    # suppliers
+      resources :suppliers
     end
   end
   
@@ -86,6 +88,14 @@ Rails.application.routes.draw do
         resources :attendances do
           post :going_to_work, on: :collection
           post :leaving_work, on: :collection
+        end
+        # event
+        resources :events, only: [:index] 
+        # settings
+        namespace :settings do
+          resources :tasks, except: [:index]
+          resources :submanager_events
+          resources :submanager_event_titles, except: [:index]
         end
       end
     end
@@ -122,6 +132,10 @@ Rails.application.routes.draw do
       end
       # event
       resources :events, only: [:index]
+      namespace :settings do
+        resources :staff_events
+        resources :staff_event_titles, except: [:index]
+      end
     end
   end
 
@@ -156,9 +170,6 @@ Rails.application.routes.draw do
     namespace :manager do
       resources :events, only: [:index] 
     end
-    namespace :submanager do
-      resources :events, only: [:index] 
-    end
   end
   
   # ################################################################
@@ -173,11 +184,6 @@ Rails.application.routes.draw do
         resources :manager_event_titles, except: [:index]
       end
     end
-    namespace :submanager do
-      namespace :settings do
-        resources :tasks, except: [:index]
-      end
-    end
   end
   
   
@@ -185,6 +191,7 @@ Rails.application.routes.draw do
   
   
   root 'static_page#login_index'
+  
   
   
 

@@ -221,16 +221,7 @@ Event.create!(event_name: "入金予定",
 
 puts "CREATE! EVENT-B"
 
-Event.create!(event_name: "確定した工事着手日",
-    event_type: "C",
-    date: "2020-07-03",
-    note: "仮",
-    manager_id: 3,
-    matter_id: 1)
-
-puts "CREATE! EVENT-C"
-
-Event.create!(event_name: "予定された工事着手日",
+Event.create!(event_name: "工事着工予定",
     event_type: "D",
     date: "2020-07-03",
     note: "仮",
@@ -239,12 +230,12 @@ Event.create!(event_name: "予定された工事着手日",
 
 puts "CREATE! EVENT-D1"
 
-Event.create!(event_name: "予定された工事着手日",
+Event.create!(event_name: "工事着工予定",
     event_type: "D",
     date: "2020-07-01",
     note: "仮",
     manager_id: 2,
-    matter_id: 1)
+    matter_id: 2)
 
 puts "CREATE! EVENT-D2"
 
@@ -275,3 +266,84 @@ ManagerEventTitle.create!(event_name: "マネージャ独自イベントB",
     note: "testb")
 
 puts "CREATE! MANAGEREVENTTITLE-B"
+
+# -----------------------------------------------------
+      # SUPPLIER
+# ---------------------------------------------
+
+Supplier.create!(company: "取引A",
+                 location:  "東京都西新宿１−３−２",
+                 representative_name: "山田太郎",
+                 phone: "09012341234",
+                 fax: "09012351235",
+                 mail: "companya@email.com",
+                 count: 5,
+                 manager_id: 3)
+
+Supplier.create!(company: "取引B",
+                 location:  "東京都西新宿１−９−２",
+                 representative_name: "山田太郎",
+                 phone: "09012361236",
+                 fax: "09012381238",
+                 mail: "companyb@email.com",
+                 count: 3,
+                 manager_id: 3)
+
+puts "CREATE!SUPPLIER"
+
+
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 1,)
+
+puts "CREATE! SUBMANAGEREVENT-A"
+
+SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    submanager_id: 2,)
+
+puts "CREATE! SUBMANAGEREVENT-B"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントA",
+    submanager_id: 1,
+    note: "testa")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-A"
+
+SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントB",
+    submanager_id: 2,
+    note: "testb")
+
+puts "CREATE! SUBMANAGEREVENTTITLE-B"
+
+StaffEvent.create!(event_name: "スタッフ独自イベントA",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    staff_id: 1,)
+
+puts "CREATE! STAFFEVENT-A"
+
+StaffEvent.create!(event_name: "スタッフ独自イベントB",
+    event_type: "Z",
+    date: "2020-07-01",
+    note: "",
+    staff_id: 2,)
+
+puts "CREATE! STAFFEVENT-B"
+
+StaffEventTitle.create!(event_name: "スタッフ独自イベントA",
+    staff_id: 1,
+    note: "testa")
+
+puts "CREATE! STAFFEVENTTITLE-A"
+
+StaffEventTitle.create!(event_name: "スタッフ独自イベントB",
+    staff_id: 2,
+    note: "testb")
+
+puts "CREATE! STAFFEVENTTITLE-B"

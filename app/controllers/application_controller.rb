@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
-    unless params[:id].to_i == current_submanager.id || params[:staff_id].to_i == current_submanager.id
+    unless params[:id].to_i == current_submanager.id || params[:submanager_id].to_i == current_submanager.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
@@ -160,6 +160,29 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
         progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
         first_move_task = progress_tasks.first
+        current_matter.update(status: "progress")
+        event_scheduled_start_at = 
+            Event.find_by(event_name: "着工予定日",
+            event_type: "D",
+            manager_id: dependent_manager.id,
+            matter_id: current_matter.id)
+        if current_matter.scheduled_start_at.present?
+          if event_scheduled_start_at.present?
+            event_scheduled_start_at.update(event_name: "着工日",event_type: "C",date: first_move_task.move_date)
+          else
+              Event.create!(event_name: "着工日",
+                event_type: "C",
+                date: first_move_task.move_date,
+                note: "",
+                manager_id: dependent_manager.id,
+                matter_id: current_matter.id
+              )
+          end
+        else
+          if event_scheduled_start_at.present?
+            event_scheduled_start_at.destroy
+          end
+        end
         # 既に登録がある場合は、アプデしない
         unless current_matter.started_at.present?
           current_matter.update(started_at: first_move_task.move_date)
@@ -169,7 +192,29 @@ class ApplicationController < ActionController::Base
       if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
         last_complete_task = complete_tasks.last
-        current_matter.update(finished_at: last_complete_task.move_date)
+        current_matter.update(finished_at: last_complete_task.move_date, status: "finished")
+        event_scheduled_finish_at = 
+            Event.find_by(event_name: "完了予定日",
+            event_type: "D",
+            manager_id: dependent_manager.id,
+            matter_id: current_matter.id)
+        if current_matter.scheduled_finish_at.present?
+          if event_scheduled_finish_at.present?
+            event_scheduled_finish_at.update(event_name: "完了日",event_type: "C",date: last_complete_task.move_date)
+          else
+              Event.create!(event_name: "完了日",
+                event_type: "C",
+                date: last_complete_task.move_date,
+                note: "",
+                manager_id: dependent_manager.id,
+                matter_id: current_matter.id
+              )
+          end
+        else
+          if event_scheduled_finish_at.present?
+            event_scheduled_finish_at.destroy
+          end
+        end
       end
     end 
   end
@@ -225,6 +270,26 @@ class ApplicationController < ActionController::Base
       end
     @manager_event_title = @manager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
     return @manager_event_title
+  end
+
+  def submanager_event_title
+    ary = SubmanagerEventTitle.where(submanager_id: current_submanager.id).pluck(:event_name)
+    @submanager_event_title = Hash.new(0)
+      ary.each do |elem|
+        @submanager_event_title[elem] += 1
+      end
+    @submanager_event_title = @submanager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @submanager_event_title
+  end
+
+  def staff_event_title
+    ary = StaffEventTitle.where(staff_id: current_staff.id).pluck(:event_name)
+    @staff_event_title = Hash.new(0)
+      ary.each do |elem|
+        @staff_event_title[elem] += 1
+      end
+    @staff_event_title = @staff_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
+    return @staff_event_title
   end
     
   private

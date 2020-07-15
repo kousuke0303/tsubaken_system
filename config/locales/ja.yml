@@ -81,6 +81,12 @@ ja:
         started_at: '出勤時間'
         finished_at: '退勤時間'
 
+      supplier:
+        company: '会社名'
+        location: '所在地'
+        representative_name: '代表者'
+        phone: '電話番号'
+        fax: 'fax'
   date:
     abbr_day_names:
     - 日

@@ -1,36 +1,115 @@
 <div class="container">
-  <h2>Calendar</h2> 
-  
+
+  <button class="btn btn-dark mt-1e mb-1e float-r" id="submanager_event_new_btn"><i class="fas fa-plus"></i> 新規作成</button>
+
   <div id="month_calendar_disp">
-    <%= month_calendar(attribute: :date, events: @events) do |date, events| %>
+    <h2>Calendar</h2> 
+    <%= month_calendar(attribute: :date, events: @events + @submanager_events) do |date, events| %>
       <%= date %>
 
       <% events.each do |event| %>
-        <div class="event<%= event.event_type %>">
-          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-          <%= Matter.find(event.matter_id).title%><br>
-          <%= event.event_name %>
-        </div>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "#{event.matter.title}", matter_matter_path(dependent_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a id="submanager_event_month_edit_btn_<%=event.id%>"  submanager_id=current_submanager.id event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+
+          <div class="modal" id="submanager_event_month_edit_<%= event.id %>">
+            <div class="modal__bg js-modal-close"></div>
+            <div>
+              <%= render partial: 'submanager/settings/submanager_events/edit_event' , locals: { submanager: current_submanager,event: event } %>
+            </div>
+          </div>
+
+          <script>
+            $(function(){
+              $('#submanager_event_month_edit_btn_<%= event.id %>').on('click',function(){
+                $('#submanager_event_month_edit_<%= event.id %>').fadeIn();
+                return false;
+              });
+              
+              $('.js-modal-close').on('click',function(){
+                $('#submanager_event_month_edit_<%= event.id %>').fadeOut();
+                return false;
+              });
+            });
+          </script>
+
+        <% end %>
       <% end %>
     <% end %>
   </div>
 
   <div id="week_calendar_disp" style="display: none">
-    <%= week_calendar(attribute: :date, events: @events) do |date, events| %>
+    <h2>Calendar</h2> 
+    <%= week_calendar(attribute: :date, events: @events + @submanager_events) do |date, events| %>
       <%= date %>
 
       <% events.each do |event| %>
-        <div>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "#{event.matter.title}", matter_matter_path(dependent_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
           <div class="event<%= event.event_type %>">
-          <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-          <%= Matter.find(event.matter_id).title%><br>
-          <%= event.event_name %>
-        </div>
+            <a id="submanager_event_week_edit_btn_<%=event.id%>"  submanager_id=current_submanager.id event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+
+          <div class="modal" id="submanager_event_week_edit_<%= event.id %>">
+            <div class="modal__bg js-modal-close"></div>
+              <div>
+                <%= render partial: 'submanager/settings/submanager_events/edit_event' , locals: { submanager: current_submanager,event: event } %>
+              </div>
+          </div>
+         
+          <script>
+            $(function(){
+              $('#submanager_event_week_edit_btn_<%= event.id %>').on('click',function(){
+                $('#submanager_event_week_edit_<%= event.id %>').fadeIn();
+                return false;
+              });
+              
+              $('.js-modal-close').on('click',function(){
+                $('#submanager_event_week_edit_<%= event.id %>').fadeOut();
+                return false;
+              });
+            });
+          </script>
+
+        <% end %>
       <% end %>
     <% end %>
   </div>
 
+  <div class="modal" id="submanager_event_new">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render 'submanager/settings/submanager_events/create_event' %>
+      </div>
+  </div>
+
 </div>
+
+<script>
+  $(function(){
+    $('#submanager_event_new_btn').on('click',function(){
+      $('#submanager_event_new').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#submanager_event_new').fadeOut();
+      return false;
+    });
+  });
+</script>
 
 <!--カレンダー切替-->
 <script>

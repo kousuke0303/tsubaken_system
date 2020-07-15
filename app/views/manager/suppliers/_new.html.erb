@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content modal-bg-color">
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header bg-dark text-white">
+          Supplier/新規作成
+        </h5>
+        <div class="card-body">
+          <%= form_with(model: [:manager, @supplier], remote: true) do |f| %>
+            <%= render partial: 'manager/suppliers/form', locals: { f: f } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

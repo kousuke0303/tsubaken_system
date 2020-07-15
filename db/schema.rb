@@ -179,6 +179,26 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "staff_event_titles", force: :cascade do |t|
+    t.string "event_name"
+    t.string "note"
+    t.integer "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
+  end
+
+  create_table "staff_events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_type"
+    t.datetime "date"
+    t.string "note"
+    t.integer "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_id"], name: "index_staff_events_on_staff_id"
+  end
+
   create_table "staffs", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -210,6 +230,24 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_staffs_attendances_on_matter_id"
     t.index ["staff_id"], name: "index_staffs_attendances_on_staff_id"
+  create_table "submanager_event_titles", force: :cascade do |t|
+    t.string "event_name"
+    t.string "note"
+    t.integer "submanager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submanager_id"], name: "index_submanager_event_titles_on_submanager_id"
+  end
+
+  create_table "submanager_events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_type"
+    t.datetime "date"
+    t.string "note"
+    t.integer "submanager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submanager_id"], name: "index_submanager_events_on_submanager_id"
   end
 
   create_table "submanagers", force: :cascade do |t|
@@ -245,6 +283,18 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.integer "matter_id"
     t.index ["matter_id"], name: "index_submanagers_attendances_on_matter_id"
     t.index ["submanager_id"], name: "index_submanagers_attendances_on_submanager_id"
+  create_table "suppliers", force: :cascade do |t|
+    t.string "company"
+    t.string "location"
+    t.string "representative_name"
+    t.string "phone"
+    t.string "fax"
+    t.string "mail"
+    t.integer "count"
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_suppliers_on_manager_id"
   end
 
   create_table "tasks", force: :cascade do |t|

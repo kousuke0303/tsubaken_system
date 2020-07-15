@@ -1,6 +1,6 @@
 <div class="container">
   
-  <button class="btn btn-dark mt-1e mb-1e float-r" data-toggle="modal" data-target="#event_new"><i class="fas fa-plus"></i> 新規作成</button>
+  <button class="btn btn-dark mt-1e mb-1e float-r" id="manager_event_new_btn"><i class="fas fa-plus"></i> 新規作成</button>
 
   <div id="month_calendar_disp">
     <h2>Calendar</h2> 
@@ -8,19 +8,39 @@
       <%= date %>
 
       <% events.each do |event| %>
-        
-          <% if defined?(event.matter_id)  %>
-            <div class="event<%= event.event_type %>">
-              <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-              <%= Matter.find(event.matter_id).title%><br>
-              <%= event.event_name %>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "", matter_matter_path(current_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a id="manager_event_month_edit_btn_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
+
+          <div class="modal" id="manager_event_month_edit_<%= event.id %>">
+            <div class="modal__bg js-modal-close"></div>
+            <div>
+              <%= render partial: 'manager/settings/manager_events/edit_event' , locals: { manager: current_manager,event: event } %>
             </div>
-          <% else %>
-            <div class="event<%= event.event_type %>">
-              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
-              <%= event.event_name %>
-            </div>
-          <% end %>
+          </div>
+
+          <script>
+            $(function(){
+              $('#manager_event_month_edit_btn_<%= event.id %>').on('click',function(){
+                $('#manager_event_month_edit_<%= event.id %>').fadeIn();
+                return false;
+              });
+              
+              $('.js-modal-close').on('click',function(){
+                $('#manager_event_month_edit_<%= event.id %>').fadeOut();
+                return false;
+              });
+            });
+          </script>
+
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -31,24 +51,65 @@
       <%= date %>
 
       <% events.each do |event| %>
+        <% if defined?(event.matter_id) %>
+          <div class="event<%= event.matter.status %>">
+            <%= link_to "", matter_matter_path(current_manager, event.matter), :target=>["_blank"] %>
+            <%= event.matter.title %>/ <%= event.event_name.truncate(7)%>
+          </div>
+        <% else %>
+          <div class="event<%= event.event_type %>">
+            <a id="manager_event_week_edit_btn_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
+            <%= event.event_name %>
+          </div>
 
-          <% if defined?(event.matter_id) %>
-            <div class="event<%= event.event_type %>">
-              <%= link_to "", matter_matter_path(current_manager, Matter.find(event.matter_id).matter_uid), :target=>["_blank"] %>
-              <%= Matter.find(event.matter_id).title%><br>
-              <%= event.event_name %>
-            </div>
-          <% else %>
-            <div class="event<%= event.event_type %>">
-              <a data-toggle="modal" data-target="#event_edit_<%=current_manager.id%>_<%=event.id%>"  manager_id=current_manager.public_uid event_id=event.id></a>
-              <%= event.event_name %>
-            </div>
-          <% end %>
+          <div class="modal" id="manager_event_week_edit_<%= event.id %>">
+            <div class="modal__bg js-modal-close"></div>
+              <div>
+                <%= render partial: 'manager/settings/manager_events/edit_event' , locals: { manager: current_manager,event: event } %>
+              </div>
+          </div>
+         
+          <script>
+            $(function(){
+              $('#manager_event_week_edit_btn_<%= event.id %>').on('click',function(){
+                $('#manager_event_week_edit_<%= event.id %>').fadeIn();
+                return false;
+              });
+              
+              $('.js-modal-close').on('click',function(){
+                $('#manager_event_week_edit_<%= event.id %>').fadeOut();
+                return false;
+              });
+            });
+          </script>
+
+        <% end %>
       <% end %>
     <% end %>
   </div>
 
+  <div class="modal" id="manager_event_new">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render 'manager/settings/manager_events/create_event' %>
+      </div>
+  </div>
+
 </div>
+
+<script>
+  $(function(){
+    $('#manager_event_new_btn').on('click',function(){
+      $('#manager_event_new').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#manager_event_new').fadeOut();
+      return false;
+    });
+  });
+</script>
 
 <!--カレンダー切替-->
 <script>

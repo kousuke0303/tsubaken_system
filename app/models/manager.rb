@@ -27,6 +27,8 @@ class Manager < ApplicationRecord
   has_many :manager_tasks, dependent: :destroy
   has_many :tasks, through: :manager_tasks
   
+  has_many :suppliers, dependent: :destroy
+  
   #### scope 
   #---------------------------------------------------------
   

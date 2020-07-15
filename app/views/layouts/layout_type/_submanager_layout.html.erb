@@ -28,7 +28,7 @@
           <%= link_to "Matter", matter_matters_path(current_submanager.manager) %>
         </li>
         <li>
-          <%= link_to "Calendar", submanager_events_path(current_submanager.manager) %>
+          <%= link_to "Calendar", submanager_events_path(dependent_manager, current_submanager) %>
         </li>
         <li>
           <%= link_to "Attendance", submanager_attendances_path(dependent_manager, current_submanager) %>
@@ -37,10 +37,10 @@
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">
             <li>
-              <%= link_to "TASK登録", new_submanager_settings_task_path(dependent_manager) %>
+              <%= link_to "TASK登録", new_submanager_settings_task_path(dependent_manager, current_submanager) %>
             </li>
             <li>
-              <a href="#">action2</a>
+              <li><%= link_to "EVENT登録", new_submanager_settings_submanager_event_title_path(dependent_manager, current_submanager) %></li>
             </li>
             <li>
               <a href="#">action3</a>
@@ -48,7 +48,7 @@
           </ul>
         </li>
         <li>
-          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Calender</a>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
           <li>
             <a href="#">Page 1</a>

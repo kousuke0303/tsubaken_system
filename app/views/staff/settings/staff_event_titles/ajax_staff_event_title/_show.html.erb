@@ -1,0 +1,64 @@
+<% default_staff_event_titles.each do |event_title| %>
+  <div id="default_staff_event_<%= event_title.id %>_showtable">
+    <table class="table table-bordered default_staff_event_show mt-1e" id="default_staff_event_<%= event_title.id %>_show" style="display: none;">
+      <tr>
+        <th>タイトル</th>
+      </tr>
+      <tr>
+        <td><%= event_title.event_name %></td>
+      </tr>
+      <tr>
+        <th>備考</th>
+      </tr>
+      <tr>
+        <td><%= event_title.note %></td>
+      </tr>
+      <tr>
+        <td class="text-right">
+          <button class="btn btn-primary" id="default_staff_event_title_<%= event_title.id %>_edit_btn">編集</button>
+          <%= link_to "削除", staff_settings_staff_event_title_path(current_staff, event_title), method: :delete, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="default_staff_event_title_<%= event_title.id %>_edit_form">
+    <%= form_with(model: event_title, url: staff_settings_staff_event_title_path(current_staff, event_title), remote: true, method: :patch) do |fi| %>
+      <table class="table table-bordered mt-1e default_staff_event_title_edit" id="default_staff_event_title_<%= event_title.id %>_edit" style="display: none;">     
+        <tr>
+          <th>タイトル</th>
+        </tr>
+        <tr>
+          <td><%= fi.text_field :event_name, required: true, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>備考</th>
+        </tr>
+        <tr>
+          <td><%= fi.text_area :note, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <td>
+            <%= fi.submit "更新", class: "btn btn-dark" %>
+            <button type="button" class="float-r return_btn">戻る</button>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+
+<% end %>
+
+<script>
+<% default_staff_event_titles.each do |event_title| %>
+  $('#default_staff_event_title_<%= event_title.id %>_edit_btn').on('click', function(){
+    $('#default_staff_event_title_<%= event_title.id %>_edit').show();
+    $('#default_staff_event_<%= event_title.id %>_showtable').hide();
+  });
+
+  $('.return_btn').on('click', function(){
+    $('#default_staff_event_title_<%= event_title.id %>_edit').hide();
+    $('#default_staff_event_<%= event_title.id %>_showtable').show();
+  });
+<% end %>
+</script> 
