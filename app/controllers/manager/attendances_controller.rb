@@ -11,7 +11,7 @@ class Manager::AttendancesController < ApplicationController
       p @employee_name
       p @employee_id
       @submanagers = Submanagers::Attendance.where(submanager_id: @employee_id)
-      # @staff = Staffs::Attendance.where(staff_id: @employee_id)
+      @staff = Staffs::Attendance.where(staff_id: @employee_id)
     end
     respond_to do |format|
       format.js
