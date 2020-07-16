@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   
   # ログインmanager以外のページ非表示
   def not_current_manager_return_login!
-    unless params[:id] == current_manager.public_uid || params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid
+    unless params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid || params[:id] == current_manager.public_uid
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end

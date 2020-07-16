@@ -1,2 +1,3 @@
 $('.flash_container').html('<%= escape_javascript(render partial: './layouts/flash') %>');
 $('#person_in_charge_index').html('<%= escape_javascript(render partial: './matter/matters/show_menu/person_in_charge/index', locals: { current_matter: current_matter }) %>');
+$('.manage_authority_update').html('<%= escape_javascript(render partial: './matter/matters/show_menu/update_manage_authority', locals: { current_matter: current_matter }) %>');

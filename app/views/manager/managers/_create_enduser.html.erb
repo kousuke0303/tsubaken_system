@@ -27,15 +27,19 @@
                 
               <div class="form-group">
                 <%= f.label :phone, "電話番号" %>
-                <%= f.telephone_field :phone, class: "form-control" %>
+                <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$" %>
+                <small class="form-text text-muted">半角数字のみ（ハイフンなし）</small>
               </div>
             
               <div class="form-group">
                 <%= f.label :fax, "FAX" %>
-                <%= f.telephone_field :fax, class: "form-control" %>
+                <%= f.telephone_field :fax, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$"  %>
+                <small class="form-text text-muted">半角数字のみ（ハイフンなし）</small>
               </div>
               
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <div class="text-right">
+                <%= f.submit "作成", class: "btn btn-dark" %>
+              </div>
             <% end %>
           </div>
         </div>

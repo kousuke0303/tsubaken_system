@@ -34,7 +34,7 @@
           <% end %>
           <div class="modal manage_authority_form">
             <div class="modal__bg js-modal-close"></div>
-              <div>
+              <div class="manage_authority_update">
                 <%= render partial: 'matter/matters/show_menu/update_manage_authority', locals: { current_matter: current_matter} %>
               </div>
           </div>
@@ -44,6 +44,8 @@
         <div class="tab-pane fade bg-white" id="user_information" role="tabpanel" aria-labelledby="contact-tab">
           <h5 class="card-title">依頼人情報</h5>
           <%= render 'matter/matters/show_menu/client/client' %>
+          <h5 class="card-title">連結済User情報</h5>
+          <%= render 'matter/matters/show_menu/client/connected_user_index' %>
         </div>
         
         <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel" aria-labelledby="contact-tab">
