@@ -16,6 +16,7 @@
           <th>会社名</th>
           <th>名前</th>
           <th>Mail</th>
+          <th>Phone</th>
           <th>承認</th>
         </tr>
         <% @non_approval_managers.each do |manager| %>
@@ -23,6 +24,7 @@
           <td><%= manager.company %></td>
           <td><%= manager.name %></td>
           <td><%= manager.email %></td>
+          <td><a href="tel:<%= manager.phone %>"><%= manager.phone %></a></td>
           <td><%= manager.approved %></td><!--decorator-->
         </tr>
         
@@ -55,6 +57,7 @@
           <th>会社名</th>
           <th>名前</th>
           <th>Mail</th>
+          <th>Phone</th>
           <th>UID</th>
           <th>承認</th>
         </tr>
@@ -63,6 +66,7 @@
           <td><%= manager.company %></td>
           <td><%= manager.name %></td>
           <td><%= manager.email %></td>
+           <td><a href="tel:<%= manager.phone %>"><%= manager.phone %></a></td>
           <td><%= manager.public_uid %></td>
           <td><%= manager.approved %></td><!--decorator-->
         </tr>

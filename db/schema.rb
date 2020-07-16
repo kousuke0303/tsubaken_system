@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20200710165249) do
 
   create_table "managers", force: :cascade do |t|
     t.string "name", null: false
-    t.string "mobile_phone"
+    t.string "phone"
     t.string "company"
     t.string "public_uid"
     t.boolean "approval", default: false
