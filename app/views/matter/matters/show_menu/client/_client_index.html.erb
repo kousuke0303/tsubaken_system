@@ -9,7 +9,7 @@
     <% current_matter.clients.each do |client| %>
       <tr>
         <td><%= client.name %></td>
-        <td><%= client.phone %></td>
+        <td><a href="tel:<%= client.phone %>"><%= client.phone %></a></td>
         <td><%= client.fax %></td>
         <td><%= client.email %></td>
       </tr>

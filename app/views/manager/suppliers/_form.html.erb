@@ -35,14 +35,14 @@
                 
   <div class="form-group col-sm-6">
     <%= f.label :phone, "電話番号" %>
-    <%= f.telephone_field :phone, class: "form-control", pattern: "[0-9]{11,}" %>
-    <small class="form-text text-muted">半角数字のみ</small>
+    <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$" %>
+    <small class="form-text text-muted">半角数字のみ（ハイフンなし）</small>
   </div>
               
   <div class="form-group col-sm-6">
     <%= f.label :fax, "FAX" %>
-    <%= f.telephone_field :fax, class: "form-control", pattern: "[0-9]{11,}" %>
-    <small class="form-text text-muted">半角数字のみ</small>
+    <%= f.telephone_field :fax, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$" %>
+    <small class="form-text text-muted">半角数字のみ(ハイフンなし）</small>
   </div>
     
 </div>

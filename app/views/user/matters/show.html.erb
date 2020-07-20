@@ -27,7 +27,7 @@
             </tr>
             <tr>
               <th>連絡先</th>
-              <td><% manage_authority(Manager.find(company.id)) %><%= @telephone %></td>
+              <td><% manage_authority(Manager.find(company.id)) %><a href="tel:<%= @telephone %>"><%= @telephone %></a></td>
             </tr>
           </table>
         </div>
