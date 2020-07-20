@@ -7,8 +7,10 @@
   </select>
 </div>
 <div>
-  <%= link_to "⇦ 前月へ", manager_attendances_path(date: @first_day.prev_month), class: "btn btn-info" %>
-  <%= link_to "次月へ ⇨", manager_attendances_path(date: @first_day.next_month), class: "btn btn-info" %>
+  <%# <%= link_to "⇦ 前月へ", manager_attendances_path(date: @first_day.prev_month), class: "btn btn-info" %>
+  <%# <%= link_to "次月へ ⇨", manager_attendances_path(date: @first_day.next_month), class: "btn btn-info" %> %> %>
+  <input type="button" value="⇦ 前月へ" id="prev_month" >
+
 </div>
 <div class = "attendances"></div>
 <script>
@@ -19,6 +21,19 @@
       url: "<%= manager_attendances_path(current_manager) %>",
       cache: false,
       data: { employee_type: val, remote: true }
+    });
+  })
+</script>
+
+<script>
+  $('#prev_month').on('click', function(){
+    console.log("aassss")
+    var val = $('.submanager_staff').val();
+    $.ajax({
+      type: "GET",
+      url: "<%= manager_attendances_path(current_manager) %>",
+      cache: false,
+      data: { employee_type: val, prev_month:"<%= @first_day.prev_month%>", remote: true ,}
     });
   })
 </script>
