@@ -1,0 +1,16 @@
+<% if blocks %>
+  <h5>区画一覧</h5>
+  <% blocks.each do |block| %>
+    <span class="text-nowrap address_span" id="block_id_<%= block["block_id"] %>"><%= block["block_name"] %></span>
+  <% end %>
+<% else %>
+  <button class="btn btn-dark btn-sm float-r" id="reflection">反映</button>
+<% end %>
+
+<script>
+  $('#reflection').on('click', function(){
+    $('#address_form').val('<%= select_prefecture + select_city + select_town %>');
+    $('.address_modal').hide();
+  });
+</script>
+

@@ -1,0 +1,80 @@
+<div class="row">
+  <h5 class="col-sm-6">市区町村一覧</h5>
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-dark btn-sm float-r close_btn mb-1e">閉じる</button>
+  </div>
+</div>
+<div class="a" style="display: none;"><p>--- あ行 ---</p></div>
+<div class="ka" style="display: none;"><p>--- か行 ---</p></div>
+<div class="sa" style="display: none;"><p>--- さ行 ---</p></div>
+<div class="ta" style="display: none;"><p>--- た行 ---</p></div>
+<div class="na" style="display: none;"><p>--- な行 ---</p></div>
+<div class="ha" style="display: none;"><p>--- は行 ---</p></div>
+<div class="ma" style="display: none;"><p>--- ま行 ---</p></div>
+<div class="ya" style="display: none;"><p>--- や行 ---</p></div>
+<div class="ra" style="display: none;"><p>--- ら行 ---</p></div>
+<div class="wa" style="display: none;"><p>--- わ行 ---</p></div>
+
+
+
+<script>
+<% cities.each do |city| %>
+  var add_city_list = '<span class="text-nowrap address_span" id="city_id_<%= city["city_id"] %>">'
+                      + '<%= city["city_name"] %>'
+                      + '</span>';
+  <% if ["ア", "イ", "ウ", "エ", "オ"].any?{ |t| city["city_furi"][0].include?(t) } %>
+    $('.a').show();
+    $('.a').append(add_city_list);
+  <% elsif ["カ", "キ", "ク", "ケ", "コ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ka').show();
+    $('.ka').append(add_city_list);
+  <% elsif ["サ", "シ", "ス", "セ", "ソ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.sa').show();
+    $('.sa').append(add_city_list);
+  <% elsif ["タ", "チ", "ツ", "テ", "ト"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ta').show();
+    $('.ta').append(add_city_list);
+  <% elsif ["ナ", "ニ", "ヌ", "ネ", "ノ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.na').show();
+    $('.na').append(add_city_list);
+  <% elsif ["ハ", "ヒ", "フ", "ヘ", "ホ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ha').show();
+    $('.ha').append(add_city_list);
+  <% elsif ["マ", "ミ", "ム", "メ", "モ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ma').show();
+    $('.ma').append(add_city_list);
+  <% elsif ["ヤ", "ユ", "ヨ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ya').show();
+    $('.ya').append(add_city_list);
+  <% elsif ["ラ", "リ", "ル", "レ", "ロ"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.ra').show();
+    $('.ra').append(add_city_list);
+  <% elsif ["ワ", "ン"].any?{ |t| city["city_furi"][0].include?(t)} %>
+    $('.wa').show();
+    $('.wa').append(add_city_list);
+  <% end %>
+  
+<% end %>
+</script>
+
+<script>
+<% cities.each do |city| %>
+  $('#city_id_<%= city["city_id"] %>').on('click', function(){
+    $.ajax({
+      type: "GET",
+      url: "<%= town_index_path(dependent_manager) %>",
+      cache: false,
+      data: { city_id: <%= city["city_id"] %>, 
+              city_name: "<%= city["city_name"] %>", 
+              ken_name: "<%= select_prefecture %>",
+              remote: true }
+    });
+  });
+<% end %>
+</script>
+
+<script>
+  $('.close_btn').on('click', function(){
+    $('.address_modal').hide();
+  });
+</script>
