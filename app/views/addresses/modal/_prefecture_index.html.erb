@@ -1,0 +1,81 @@
+<div class="modal-dialog">
+  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+  <div class="modal-content">
+    <div class="modal-body">
+      
+      <div class="prefecture_area">
+        <div id="prefecture_index">
+          <div class="row">
+            <h5 class="col-sm-6">都道府県一覧</h5>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-dark btn-sm float-r close_btn mb-1e">閉じる</button>
+            </div>
+          </div>
+          <div class="hokkaido"><p>--- 北海道・東北 ---</p></div>
+          <div class="kanntou"><p>--- 関東 ---</p></div>
+          <div class="tyuubu"><p>--- 中部 ---</p></div>
+          <div class="kinki"><p>--- 近畿 ---</p></div>
+          <div class="tyuugoku"><p>--- 中国・四国 ---</p></div>
+          <div class="kyuusyuu"><p>--- 九州 ---</p></div>
+        </div>
+        <div id="selected_address_area">
+          <div id="selected_address"></div>
+        </div>
+      </div>
+      
+      <div id="city_area"></div>
+      
+      <div id="town_area"></div>
+      
+      <div id="block_area"></div>
+    </div>
+    
+  </div>
+</div>
+
+<!--地方別で表示-->
+<script>
+$(document).ready(function(){
+  <% prefectures.each do |prefecture| %>
+    var add_list = '<span class="text-nowrap address_span" id="ken_id_<%= prefecture["ken_id"] %>">'
+                    + '<%= prefecture["ken_name"] %>'
+                    + '</span>';
+    <% if prefecture["ken_id"] <= 7 %>
+      $('.hokkaido').append(add_list)
+    <% elsif prefecture["ken_id"] <= 14 %>
+      $('.kanntou').append(add_list)
+    <% elsif prefecture["ken_id"] <= 23 %>
+      $('.tyuubu').append(add_list)
+    <% elsif prefecture["ken_id"] <= 30 %>
+      $('.kinki').append(add_list)
+    <% elsif prefecture["ken_id"] <= 39 %>
+      $('.tyuugoku').append(add_list)
+    <% elsif prefecture["ken_id"] <= 47 %>
+      $('.kyuusyuu').append(add_list)
+    <% end %>
+  <% end %>
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  <% prefectures.each do |prefecture| %>
+    $('#ken_id_<%= prefecture["ken_id"] %>').on('click', function(){
+      $.ajax({
+        type: "GET",
+        url: "<%= city_index_path(dependent_manager) %>",
+        cache: false,
+        data: { ken_id: <%= prefecture["ken_id"] %>, 
+                ken_name: "<%= prefecture["ken_name"] %>", 
+                remote: true }
+      });
+    });
+  <% end %>
+});
+</script>
+
+<script>
+  $('.close_btn').on('click', function(){
+    $('.address_modal').hide();
+  });
+</script>
