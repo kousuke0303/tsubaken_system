@@ -5,7 +5,6 @@ class CreateStaffsAttendances < ActiveRecord::Migration[5.1]
       t.datetime :started_at
       t.datetime :finished_at
       t.string :note
-      t.integer :user_id
       t.integer :staff_id
       t.integer :matter_id
       t.references :staff, index: true, foreign_key: true

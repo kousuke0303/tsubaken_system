@@ -1,39 +1,26 @@
 <div class="container">
-  <select name="submanager_staff" id = "submanager_staff" class="form-control submanager_staff">
+  <select name="submanager_staff" id="submanager_staff" class="form-control submanager_staff">
     <option value="">--- タイプを選択してください ---</option>
     <% submanager_staff_arrey.each_with_index do |submanager_staff, i| %>
       <option value=<%= submanager_staff[0] %>#<%= submanager_staff[1] %>><%= submanager_staff[2] %></option>
     <% end %>
   </select>
-</div>
-<div>
-  <%# <%= link_to "⇦ 前月へ", manager_attendances_path(date: @first_day.prev_month), class: "btn btn-info" %>
-  <%# <%= link_to "次月へ ⇨", manager_attendances_path(date: @first_day.next_month), class: "btn btn-info" %> %> %>
-  <input type="button" value="⇦ 前月へ" id="prev_month" >
+
+  <div class="attendance_area mt-1e">
+    <div class="attendances"></div>
+  </div>
 
 </div>
-<div class = "attendances"></div>
+
+
 <script>
   $('.submanager_staff').on('change', function(){
     var val = $('.submanager_staff').val();
     $.ajax({
       type: "GET",
-      url: "<%= manager_attendances_path(current_manager) %>",
+      url: "<%= attendance_search_manager_attendances_path(current_manager) %>",
       cache: false,
       data: { employee_type: val, remote: true }
-    });
-  })
-</script>
-
-<script>
-  $('#prev_month').on('click', function(){
-    console.log("aassss")
-    var val = $('.submanager_staff').val();
-    $.ajax({
-      type: "GET",
-      url: "<%= manager_attendances_path(current_manager) %>",
-      cache: false,
-      data: { employee_type: val, prev_month:"<%= @first_day.prev_month%>", remote: true ,}
     });
   })
 </script>

@@ -64,7 +64,10 @@ Rails.application.routes.draw do
     # user CRUD
       resources :users, path: '/enduser/users'
       # attendance
-      resources :attendances
+      resources :attendances do
+        get :attendance_search, on: :collection
+        get :attendance_change_month, on: :collection
+      end
     # suppliers
       resources :suppliers
     end

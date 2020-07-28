@@ -1,0 +1,3 @@
+<% if @type == "submanager" %>
+$('.attendances').html('<%= escape_javascript(render partial: 'attendance_show', locals: {submanager: @submanager, attendances: @attendances, type: @type}) %>');
+<% end %>

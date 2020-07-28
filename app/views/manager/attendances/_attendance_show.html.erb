@@ -1,0 +1,30 @@
+<% if type == "submanager" %>
+  <h5><%= submanager.name %>の出勤表</h5>
+  <div>
+    <%= link_to attendance_change_month_manager_attendances_path(dependent_manager, submanager: submanager, date: @first_day.prev_month), remote: true do %>
+      <i class="fas fa-angle-double-left"></i><span class="ml-05e">前月へ</span>
+    <% end %>
+    <span class="ml-05e" style="font-size: 25px;"><%= @first_day.strftime("%m").to_i %>月</span>
+    <%= link_to attendance_change_month_manager_attendances_path(dependent_manager, submanager: submanager, date: @first_day.next_month), remote: true do %>
+      <span class="mr-05e ml-1e">次月へ</span><i class="fas fa-angle-double-right"></i>
+    <% end %>
+  </div>
+  <% if attendances.present? %>
+    <% attendances.each do |attendance| %>
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>日付</th>
+          <th>場所</th>
+          <th>出勤時間</th>
+          <th>退社時間</th>
+        </tr>
+        <tr>
+          <td><%= attendance.worked_on %></td>
+          <td><%= attendance.matter.title %></td>
+          <td><%= attendance.started_at %></td>
+          <td><%= attendance.finished_at %></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

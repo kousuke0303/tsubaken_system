@@ -1,19 +1,33 @@
 class Manager::AttendancesController < ApplicationController
-  before_action :set_one_month, only: :index
+  before_action :set_one_month
   
   def index
-    @manager = Manager.find_by(public_uid: params[:id])
-    unless params[:employee_type].nil?
-      @employee_type = params[:employee_type]
-      @split_employee = @employee_type.split('#')
-      @employee_name = @split_employee[0]
-      @employee_id = @split_employee[1]
-      @submanagers = Submanagers::Attendance.where(submanager_id: @employee_id).where(date: @first_day).worked_on.strftime('%m')
-      @staffs = Staffs::Attendance.where(staff_id: @employee_id)
+  end
+  
+  def attendance_search
+    params_devide = params[:employee_type].split('#')
+    if params_devide[0] == "submanager"
+      @type = "submanager"
+      @submanager = current_manager.submanagers.find(params_devide[1])
+      @attendances = @submanager.attendances.where(worked_on: @first_day..@last_day)
+    else
+      @type = "staff"
+      @staff = current_manager.staffs.find(params_devide[1])
     end
     respond_to do |format|
       format.js
-      format.any
     end
+  end
+  
+  def attendance_change_month
+    if params[:submanager]
+      @type = "submanager"
+      @submanager = current_manager.submanagers.find(params[:submanager])
+      @attendance = @submanager.attendances.where(worked_on: @first_day..@last_day)
+    elsif params[:staff]
+    end
+    respond_to do |format|
+      format.js
+    end  
   end
 end
