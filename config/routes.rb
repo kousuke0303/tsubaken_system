@@ -192,6 +192,16 @@ Rails.application.routes.draw do
   
   # ################################################################
   
+  # ###--API_RECIEVE_ADRESS-##########################
+  
+  scope "(:manager_public_uid)" do
+    get 'prefecture_index', to: 'addresses#prefecture_index'
+    get 'city_index', to: 'addresses#city_index'
+    get 'town_index', to: 'addresses#town_index'
+    get 'block_index', to: 'addresses#block_index'
+  end
+  
+  # ################################################################
   
   root 'static_page#login_index'
   

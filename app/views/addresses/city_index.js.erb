@@ -1,0 +1,3 @@
+$('#prefecture_index').hide();
+$('#selected_address').html('<p><%= @select_prefecture_name %></p>');
+$('#city_area').html('<%= escape_javascript(render partial: './addresses/modal/city_index', locals: { cities: @cities, select_prefecture: @select_prefecture_name } ) %>');

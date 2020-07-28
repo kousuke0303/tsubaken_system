@@ -1,0 +1,4 @@
+$('#prefecture_index').hide();
+$('#city_area').hide();
+$('#selected_address').html('<p><%= @select_prefecture_name + @select_city_name %></p>');
+$('#town_area').html('<%= escape_javascript(render partial: './addresses/modal/town_index', locals: { towns: @towns, select_prefecture: @select_prefecture_name, select_city: @select_city_name } ) %>');
