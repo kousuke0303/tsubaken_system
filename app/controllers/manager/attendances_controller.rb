@@ -13,6 +13,7 @@ class Manager::AttendancesController < ApplicationController
     else
       @type = "staff"
       @staff = current_manager.staffs.find(params_devide[1])
+      @attendances = @staff.attendances.where(worked_on: @first_day..@last_day)
     end
     respond_to do |format|
       format.js
@@ -25,6 +26,8 @@ class Manager::AttendancesController < ApplicationController
       @submanager = current_manager.submanagers.find(params[:submanager])
       @attendance = @submanager.attendances.where(worked_on: @first_day..@last_day)
     elsif params[:staff]
+      @staff = current_manager.staff.find(params[:staff])
+      @attendance = @staff.attendances.where(worked_on: @first_day..@last_day)
     end
     respond_to do |format|
       format.js
