@@ -4,5 +4,4 @@ $('.attendances').html('<%= escape_javascript(render partial: 'attendance_show',
 
 <% if @type == "staff" %>
 $('.attendances').html('<%= escape_javascript(render partial: 'attendance_show', locals: {staff: @staff, attendances: @attendances, type: @type}) %>');
-console.log("ssss")
 <% end %>
