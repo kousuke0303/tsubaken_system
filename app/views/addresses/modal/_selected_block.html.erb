@@ -1,0 +1,8 @@
+<button class="btn btn-dark btn-sm float-r" id="reflection">反映</button>
+
+<script>
+  $('#reflection').on('click', function(){
+    $('#address_form').val('<%= select_prefecture + select_city + select_town + select_block %>');
+    $('.address_modal').hide();
+  });
+</script>

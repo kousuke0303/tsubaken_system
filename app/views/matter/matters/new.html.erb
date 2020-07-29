@@ -17,7 +17,7 @@
           <%= f.label :title, "タイトル" %>
           <%= f.text_field :title, required: true, class: "form-control" %>
         </div>
-        <div class="col-md-10 col-sm-12 mt-1e">
+        <div class="col-sm-12 mt-1e">
           <%= f.label :actual_spot, "現場住所" %>
           <span class="prefectures_all float-r"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
           <%= f.text_field :actual_spot, class: "form-control", id: "address_form" %>
@@ -118,7 +118,6 @@
   <% end %>
 </div>
 
-<!--モーダル枠組み-->
 <div class="modal address_modal">
   <div class="modal__bg js-modal-close"></div>
   <div class="address_select">

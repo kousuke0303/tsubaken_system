@@ -6,7 +6,6 @@ class Manager::StaffsController < ApplicationController
   def create
     @staff = Staff.new(staff_params.merge(password: "staff_password", password_confirmation: "staff_password"))
     if @staff.save
-      @staff.manager_staffs.create!(manager_id: current_manager.id)
       flash[:success] = "Staff#{@staff.name}を登録しました"
       redirect_to employee_manager_url(current_manager)
     else
@@ -17,6 +16,7 @@ class Manager::StaffsController < ApplicationController
   end
   
   def edit
+    @manager_staff = current_manager.manager_staffs.find_by(staff_id: @staff.id)
   end
   
   def update
@@ -42,7 +42,7 @@ class Manager::StaffsController < ApplicationController
   private
 
     def staff_params
-      params.require(:staff).permit(:id, :name, :email)
+      params.require(:staff).permit(:id, :name, :email, manager_staffs_attributes: [:id, :manager_id, :employee])
     end
     
     def set_staff

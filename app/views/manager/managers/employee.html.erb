@@ -7,16 +7,17 @@
       <button class="btn employee_select_btn" id="select_staff">Staff</button>
     </div>
     <div class="col-sm-4">
-      <button class="employee_new_btn btn btn-purple mb-1e float-r" data-toggle="modal" data-target="#employee_new"><i class="fas fa-user-plus"></i> 新規作成</button>
+      <button class="employee_new_btn btn btn-purple mb-1e float-r" id="employee_new_btn"><i class="fas fa-user-plus"></i> 新規作成</button>
     </div>
   </div>
   
   <div class="table-responsive">
-    <table class="table tabale-borderd text-nowrap employee_index">
+    <table class="table table-bordered text-nowrap employee_index">
       <thead>
         <tr>
           <th>type</th>
           <th>名前</th>
+          <th>電話番号</th>
           <th>email</th>
           <th>基本情報</th>
         </tr>
@@ -28,6 +29,14 @@
         <%= render 'manager/managers/employee_type/staff_index' %>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!--新規作成モーダル-->
+<div class="modal" id="employee_new">
+  <div class="modal__bg js-modal-close"></div>
+  <div>
+    <%= render partial: 'manager/managers/select_employee_type', locals: {staff: @staff} %>
   </div>
 </div>
 
@@ -47,4 +56,17 @@
   });
 </script>
 
+<script>
+  $(function(){
+    $('#employee_new_btn').on('click',function(){
+      $('#employee_new').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#employee_new').fadeOut();
+      return false;
+    });
+  });
+</script>
 
