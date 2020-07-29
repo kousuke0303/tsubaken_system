@@ -19,10 +19,10 @@
           <th>退社時間</th>
         </tr>
         <tr>
-          <td><%= attendance.worked_on %></td>
+          <td><%= attendance.worked_on.strftime("%d").to_i %></td>
           <td><%= attendance.matter.title %></td>
-          <td><%= attendance.started_at %></td>
-          <td><%= attendance.finished_at %></td>
+          <td><%= attendance.started_at.strftime("%H:%M") %></td>
+          <td><%= attendance.finished_at.strftime("%H:%M") %></td>
         </tr>
       </table>
     <% end %>
@@ -50,10 +50,10 @@
           <th>退社時間</th>
         </tr>
         <tr>
-          <td><%= attendance.worked_on %></td>
-          <td><%= attendance.matter.title %></td>
-          <td><%= attendance.started_at %></td>
-          <td><%= attendance.finished_at %></td>
+          <td><%= attendance.worked_on.strftime("%d").to_i %></td>
+          <td><%= attendance.matter.title%></td>
+          <td><%= attendance.started_at.strftime("%H:%M") %></td>
+          <td><%= attendance.finished_at.strftime("%H:%M") %></td>
         </tr>
       </table>
     <% end %>
