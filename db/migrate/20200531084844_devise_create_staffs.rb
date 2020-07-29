@@ -8,7 +8,6 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
       t.string :phone
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.boolean :employee, default: false
 
       ## Recoverable
       t.string   :reset_password_token

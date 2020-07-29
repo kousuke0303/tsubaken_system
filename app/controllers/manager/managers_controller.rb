@@ -18,6 +18,8 @@ class Manager::ManagersController < ApplicationController
   end
   
   def employee
+    @staff = dependent_manager.staffs.build
+    @staff.manager_staffs.build
   end
   
   def employee_type

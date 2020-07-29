@@ -53,7 +53,7 @@ class AddressesController < ApplicationController
       when Net::HTTPSuccess
         # responseのbody要素をJSON形式で解釈し、hashに変換
         result = JSON.parse(res.body)
-        @cities = result["data"]
+        @cities = result["data"].sort{|a, b| a["city_furi"] <=> b["city_furi"]}
         # 表示用の変数に結果を格納
         respond_to do |format|
           format.js
@@ -90,7 +90,7 @@ class AddressesController < ApplicationController
       when Net::HTTPSuccess
         # responseのbody要素をJSON形式で解釈し、hashに変換
         result = JSON.parse(res.body)
-        @towns = result["data"]
+        @towns = result["data"].sort{|a, b| a["town_furi"] <=> b["town_furi"]}
         # 表示用の変数に結果を格納
         respond_to do |format|
           format.js
@@ -127,8 +127,13 @@ class AddressesController < ApplicationController
       when Net::HTTPSuccess
         # responseのbody要素をJSON形式で解釈し、hashに変換
         result = JSON.parse(res.body)
-        @blocks = result["data"]
-        debugger
+        if result["type"] == "block"
+          @blocks = result["data"].sort{|a, b| a["block_furi"] <=> b["block_furi"]}
+          @type = "block"
+        else
+          @blocks = result["data"]
+          @type = "kyoto_street"
+        end
         # 表示用の変数に結果を格納
         respond_to do |format|
           format.js
@@ -142,6 +147,16 @@ class AddressesController < ApplicationController
       @message = "e.message"
     rescue => e
       @message = "e.message"
+    end
+  end
+  
+  def selected_block
+    @select_prefecture_name = params[:ken_name]
+    @select_city_name = params[:city_name]
+    @select_town_name = params[:town_name]
+    @select_block_name = params[:block_name]
+    respond_to do |format|
+      format.js
     end
   end
   
