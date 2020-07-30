@@ -15,9 +15,6 @@
       
       <li><%= link_to "Matter", matter_matters_path(current_manager) %></li>
       <li>
-        <%= link_to "Matter", matter_matters_path(current_manager) %>
-      </li>
-      <li>
         <%= link_to "Calendar", manager_events_path(current_manager) %>
       </li>
       <li>
@@ -27,7 +24,6 @@
           <li><%= link_to "EndUser", enduser_manager_path(current_manager) %></li>
         </ul>
       </li>
-      <li><%= link_to "Calendar", manager_events_path(current_manager) %></li>
       <li><%= link_to "Attendance", manager_attendances_path(current_manager) %></li>
       <li>
         <%= link_to "Suppliers", manager_suppliers_path(current_manager) %>

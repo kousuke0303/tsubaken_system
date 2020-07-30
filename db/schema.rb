@@ -223,7 +223,6 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.datetime "started_at"
     t.datetime "finished_at"
     t.string "note"
-    t.integer "user_id"
     t.integer "staff_id"
     t.integer "matter_id"
     t.datetime "created_at", null: false
@@ -278,7 +277,6 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.datetime "started_at"
     t.datetime "finished_at"
     t.string "note"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "submanager_id"

@@ -21,12 +21,13 @@ class Manager::AttendancesController < ApplicationController
   end
   
   def attendance_change_month
-    if params[:submanager]
+    if params[:type] == "submanager"
       @type = "submanager"
-      @submanager = current_manager.submanagers.find(params[:submanager])
+      @submanager = current_manager.submanagers.find(params[:target])
       @attendance = @submanager.attendances.where(worked_on: @first_day..@last_day)
-    elsif params[:staff]
-      @staff = current_manager.staff.find(params[:staff])
+    elsif params[:type] == "staff" 
+      @type = "staff"
+      @staff = current_manager.staffs.find(params[:target])
       @attendance = @staff.attendances.where(worked_on: @first_day..@last_day)
     end
     respond_to do |format|
