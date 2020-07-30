@@ -63,6 +63,11 @@ Rails.application.routes.draw do
       resources :staffs, path: '/employee/staffs'
     # user CRUD
       resources :users, path: '/enduser/users'
+      # attendance
+      resources :attendances do
+        get :attendance_search, on: :collection
+        get :attendance_change_month, on: :collection
+      end
     # suppliers
       resources :suppliers
     end
@@ -82,6 +87,11 @@ Rails.application.routes.draw do
         resources :staffs, path: '/employee/staffs'
         # user CRUD
         resources :users, path: '/enduser/users'
+        # attendance
+        resources :attendances do
+          post :going_to_work, on: :collection
+          post :leaving_work, on: :collection
+        end
         # event
         resources :events, only: [:index] 
         # settings
@@ -120,6 +130,11 @@ Rails.application.routes.draw do
       # matter
       resources :matters, only: [:index, :show] do
         get :move_task, on: :member
+      end
+      # attendance
+      resources :attendances do
+        post :going_to_work, on: :collection
+        post :leaving_work, on: :collection
       end
       # event
       resources :events, only: [:index]

@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
       current_submanager.manager
     end
   end
+    
   
   # ログインmanager以外のページ非表示
   def not_current_manager_return_login!

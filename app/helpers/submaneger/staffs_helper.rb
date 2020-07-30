@@ -1,2 +1,0 @@
-module Submaneger::StaffsHelper
-end

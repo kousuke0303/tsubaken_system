@@ -1,6 +1,21 @@
 <div class="container">
   <div class="col-sm-12 manager_contaioner">
-   <h1>Staff::Staffs#top</h1>
-   <p>Find me in app/views/staff/staffs/top.html.erb</p>
+    <% if @today_attendance.nil? %>
+      <%= form_with(model: @attendance, url: going_to_work_staff_attendances_path(current_staff), method: :post, local:true) do |f| %>
+        <div class="form-group">
+          <%= f.label :matter_id, "出勤場所" %>
+          <div class="col-sm-7">
+            <%= f.collection_select :matter_id, current_staff.matters.all, :id, :title, { prompt: "選択してください" }, class: "form-control" %>
+          </div>
+        </div>
+      <%= f.submit "出勤", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <P>出勤時間：<%= @today_attendance.started_at %></P>
+      <% if @today_attendance.finished_at.nil?%>
+        <%= link_to "退勤", leaving_work_staff_attendances_path(current_staff), method: :post, class: "btn btn-danger" %>
+    <% end %>
+    <P>退勤時間：<%= @today_attendance.finished_at %></P>
+    <% end %>
   </div>
 </div>

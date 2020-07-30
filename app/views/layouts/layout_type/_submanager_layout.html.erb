@@ -30,7 +30,9 @@
         <li>
           <%= link_to "Calendar", submanager_events_path(dependent_manager, current_submanager) %>
         </li>
-        
+        <li>
+          <%= link_to "Attendance", submanager_attendances_path(dependent_manager, current_submanager) %>
+        </li>
         <li class="">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">

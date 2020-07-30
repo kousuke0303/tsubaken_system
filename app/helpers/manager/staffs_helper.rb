@@ -1,0 +1,2 @@
+module Manager::StaffsHelper
+end

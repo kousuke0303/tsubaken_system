@@ -2,10 +2,12 @@ class Staff::StaffsController < ApplicationController
   before_action :authenticate_staff!
   before_action :not_current_staff_return_login!
   
+
   def top
-    @staff = current_staff
+    @attendance = current_staff.attendances.build
+    @today_attendance = current_staff.attendances.find_by(worked_on: Date.today)
   end
-  
+
   def show
   end
   
