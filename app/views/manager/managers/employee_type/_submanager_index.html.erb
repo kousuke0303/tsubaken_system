@@ -2,6 +2,7 @@
   <tr>
     <td>SubManager</td>
     <td><%= submanager.name %></td>
+    <td><%= submanager.phone %></td>
     <td><%= submanager.email %></td>
     <td>
       <%= link_to "編集", edit_manager_submanager_path(current_manager,submanager), class: "btn btn-dark btn-sm" if manager_signed_in? %>

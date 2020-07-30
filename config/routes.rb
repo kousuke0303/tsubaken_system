@@ -202,6 +202,7 @@ Rails.application.routes.draw do
     get 'city_index', to: 'addresses#city_index'
     get 'town_index', to: 'addresses#town_index'
     get 'block_index', to: 'addresses#block_index'
+    get 'selected_block', to: 'addresses#selected_block'
   end
   
   # ################################################################

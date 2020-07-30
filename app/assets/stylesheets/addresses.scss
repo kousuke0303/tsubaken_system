@@ -1,4 +1,8 @@
-.prefecture_area, #city_area, #town_area {
+.address_modal {
+  text-align: left;
+}
+
+.prefecture_area, #city_area, #town_area, #block_area {
   line-height: 1.8em;
   p {
     font-size: 15px;
@@ -26,4 +30,16 @@
 .address_span:hover {
   background-color: #343a40;
   color: white;
+  cursor: pointer;
+}
+
+/* -----------------------------------------------------------------------------------
+    CITY_INDEX
+----------------------------------------------------- */
+
+.address_mokuji {
+  span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

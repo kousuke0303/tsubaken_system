@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "manager_staffs", force: :cascade do |t|
+    t.integer "employee", default: 0
     t.integer "manager_id"
     t.integer "staff_id"
     t.datetime "created_at", null: false

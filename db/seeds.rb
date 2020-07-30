@@ -106,7 +106,7 @@ Staff.create!(name: "スタッフA",
     password: "password",
     password_confirmation: "password")
 
-ManagerStaff.create!(manager_id: 3, staff_id: 1)
+ManagerStaff.create!(employee: 1, manager_id: 3, staff_id: 1)
 
 puts "CREATE! STAFF-A"
 
