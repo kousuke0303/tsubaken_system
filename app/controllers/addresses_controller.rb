@@ -12,7 +12,6 @@ class AddressesController < ApplicationController
     
     req = Net::HTTP::Get.new(uri.path)
     res = http.request(req)
-    
     begin
       case res
       when Net::HTTPSuccess

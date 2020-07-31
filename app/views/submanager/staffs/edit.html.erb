@@ -1,23 +1,48 @@
-<div class="mt-1e">
-  <div class="card mb-3">
-    <div class="card-header text-white bg-purple">Staff/<%= @staff.name %> 編集</div>
-    <div class="card-body">
-      <%= form_with(model: [:submanager, @staff], url: submanager_staff_path(current_submanager, @staff), method: :patch) do |f| %>
+<div class="container">
 
-        <div class="staff_update_error"></div>
+<% if @manager_staff.employee == 1 %>
+  <h5>Staff：<%= @staff.name %>の編集</h5>
+  <div class="edit_frame">
+  
+    <%= form_with(model: [:submanager, @staff], url: submanager_staff_path(current_submanager, @staff), method: :patch) do |f| %>
 
-        <div class="form-group">
-          <%= f.label :name, "名前" %>
-          <%= f.text_field :name, required: true, class: "form-control" %>
-        </div>
+      <div class="staff_update_error"></div>
 
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control" %>
-        </div>
+      <div class="form-group col-sm-6">
+        <%= f.label :name, "名前" %>
+        <%= f.text_field :name, required: true, class: "form-control" %>
+      </div>
+        
+      <div class="form-group col-sm-6">
+        <%= f.label :phone, "電話番号" %>
+        <%= f.phone_field :phone, class: "form-control" %>
+      </div>
 
+      <div class="form-group col-sm-6">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control" %>
+      </div>
+        
+      <div class="col-sm-6">
+        <%= f.fields_for :manager_staffs, @manager_staff do |fi| %>
+          <%= fi.check_box :employee, { class: "employee_type", checked: true }, 1, false %>
+          <%= fi.label :employee, "従業員Staff" %>
+          <%= fi.check_box :employee,  { class: "ml-1e employee_type", checked: false }, 0, false %>
+          <%= fi.label :employee, "外部Staff" %>
+        <% end %>
+      </div>
+        
+      <div class="text-right">
         <%= f.submit "編集", class: "btn btn-dark" %>
-      <% end %>
-   </div>
+      </div>
+    <% end %>
+  <% end %>
   </div>
 </div>
+
+<script>
+  $(".employee_type").on("click", function(){
+    $('.employee_type').prop('checked', false);  //  全部のチェックを外す
+    $(this).prop('checked', true);  //  押したやつだけチェックつける
+  });
+</script>

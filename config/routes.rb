@@ -60,7 +60,9 @@ Rails.application.routes.draw do
     # submanager CRUD
       resources :submanagers, path: '/employee/submanagers'
     # staff CRUD
-      resources :staffs, path: '/employee/staffs'
+      resources :staffs, path: '/employee/staffs' do
+        delete :outsourcing_staff_destroy, on: :member
+      end
     # user CRUD
       resources :users, path: '/enduser/users'
       # attendance
@@ -84,7 +86,9 @@ Rails.application.routes.draw do
         get :enduser, on: :member
         get :employee, on: :member
         # staff CRUD
-        resources :staffs, path: '/employee/staffs'
+        resources :staffs, path: '/employee/staffs' do
+          delete :outsourcing_staff_destroy, on: :member
+        end
         # user CRUD
         resources :users, path: '/enduser/users'
         # attendance

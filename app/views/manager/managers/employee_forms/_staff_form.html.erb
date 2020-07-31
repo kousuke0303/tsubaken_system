@@ -18,9 +18,9 @@
         </div>
         
         <%= f.fields_for :manager_staffs, staff.manager_staffs.build do |fi| %>
-          <%= fi.check_box :employee, { checked: true }, 1, false %>
+          <%= fi.check_box :employee, { class: "employee_type", checked: true }, 1, false %>
           <%= fi.label :employee, "従業員Staff" %>
-          <%= fi.check_box :employee,  { class: "ml-1e", checked: false }, 0, false %>
+          <%= fi.check_box :employee,  { class: "ml-1e employee_type", checked: false }, 0, false %>
           <%= fi.label :employee, "外部Staff" %>
           <%= fi.hidden_field :manager_id, value: current_manager.id %>
         <% end %>
@@ -32,4 +32,11 @@
    </div>   
   </div>
 </div>
+
+<script>
+  $(".employee_type").on("click", function(){
+    $('.employee_type').prop('checked', false);  //  全部のチェックを外す
+    $(this).prop('checked', true);  //  押したやつだけチェックつける
+  });
+</script>
   

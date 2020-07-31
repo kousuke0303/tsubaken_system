@@ -12,7 +12,7 @@
   </div>
   
   <div class="table-responsive">
-    <table class="table table-bordered text-nowrap employee_index">
+    <table class="table table-bordered table-striped text-nowrap">
       <thead>
         <tr>
           <th>type</th>
@@ -66,6 +66,10 @@
     $('.js-modal-close').on('click',function(){
       $('#employee_new').fadeOut();
       return false;
+    });
+    
+    $('.close').on('click', function(){
+      $('#employee_new').fadeOut();
     });
   });
 </script>
