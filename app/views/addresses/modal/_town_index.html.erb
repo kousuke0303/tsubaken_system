@@ -5,16 +5,29 @@
   </div>
 </div>
 
-<div class="town_a" style="display: none;"><p>--- あ行 ---</p></div>
-<div class="town_ka" style="display: none;"><p>--- か行 ---</p></div>
-<div class="town_sa" style="display: none;"><p>--- さ行 ---</p></div>
-<div class="town_ta" style="display: none;"><p>--- た行 ---</p></div>
-<div class="town_na" style="display: none;"><p>--- な行 ---</p></div>
-<div class="town_ha" style="display: none;"><p>--- は行 ---</p></div>
-<div class="town_ma" style="display: none;"><p>--- ま行 ---</p></div>
-<div class="town_ya" style="display: none;"><p>--- や行 ---</p></div>
-<div class="town_ra" style="display: none;"><p>--- ら行 ---</p></div>
-<div class="town_wa" style="display: none;"><p>--- わ行 ---</p></div>
+<div class="address_mokuji">
+  <span id="town_a" style="display: none;">あ</span>
+  <span id="town_ka" style="display: none;">か</span>
+  <span id="town_sa" style="display: none;">さ</span>
+  <span id="town_ta" style="display: none;">た</span>
+  <span id="town_na" style="display: none;">な</span>
+  <span id="town_ha" style="display: none;">は</span>
+  <span id="town_ma" style="display: none;">ま</span>
+  <span id="town_ya" style="display: none;">や</span>
+  <span id="town_ra" style="display: none;">ら</span>
+  <span id="town_wa" style="display: none;">わ</span>
+</div>
+
+<div class="town_a index" style="display: none;"><p>--- あ行 ---</p></div>
+<div class="town_ka index" style="display: none;"><p>--- か行 ---</p></div>
+<div class="town_sa index" style="display: none;"><p>--- さ行 ---</p></div>
+<div class="town_ta index" style="display: none;"><p>--- た行 ---</p></div>
+<div class="town_na index" style="display: none;"><p>--- な行 ---</p></div>
+<div class="town_ha index" style="display: none;"><p>--- は行 ---</p></div>
+<div class="town_ma index" style="display: none;"><p>--- ま行 ---</p></div>
+<div class="town_ya index" style="display: none;"><p>--- や行 ---</p></div>
+<div class="town_ra index" style="display: none;"><p>--- ら行 ---</p></div>
+<div class="town_wa index" style="display: none;"><p>--- わ行 ---</p></div>
 
 <script>
 <% towns.each do |town| %>
@@ -22,39 +35,50 @@
                       + '<%= town["town_name"] %>'
                       + '</span>';
   <% if ["ア", "イ", "ウ", "エ", "オ"].any?{ |t| town["town_furi"][0].include?(t) } %>
-    $('.town_a').show();
+    $('#town_a').show();
     $('.town_a').append(add_town_list);
   <% elsif ["カ", "キ", "ク", "ケ", "コ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ka').show();
+    $('#town_ka').show();
     $('.town_ka').append(add_town_list);
   <% elsif ["サ", "シ", "ス", "セ", "ソ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_sa').show();
+    $('#town_sa').show();
     $('.town_sa').append(add_town_list);
   <% elsif ["タ", "チ", "ツ", "テ", "ト"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ta').show();
+    $('#town_ta').show();
     $('.town_ta').append(add_town_list);
   <% elsif ["ナ", "ニ", "ヌ", "ネ", "ノ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_na').show();
+    $('#town_na').show();
     $('.town_na').append(add_town_list);
   <% elsif ["ハ", "ヒ", "フ", "ヘ", "ホ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ha').show();
+    $('#town_ha').show();
     $('.town_ha').append(add_town_list);
   <% elsif ["マ", "ミ", "ム", "メ", "モ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ma').show();
+    $('#town_ma').show();
     $('.town_ma').append(add_town_list);
   <% elsif ["ヤ", "ユ", "ヨ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ya').show();
+    $('#town_ya').show();
     $('.town_ya').append(add_town_list);
   <% elsif ["ラ", "リ", "ル", "レ", "ロ"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_ra').show();
+    $('#town_ra').show();
     $('.town_ra').append(add_town_list);
   <% elsif ["ワ", "ン"].any?{ |t| town["town_furi"][0].include?(t)} %>
-    $('.town_wa').show();
+    $('#town_wa').show();
     $('.town_wa').append(add_town_list);
   <% end %>
   
 <% end %>
+</script>
+
+<script>
+  var arrey = ["a", "ka", "sa", "ta", "na", "ha", "ma", "ya", "ra", "wa"]
   
+  $.each(arrey, function(index, value){
+    $('#town_' + value).on('click', function(){
+      object = $('.town_' + value);
+      $('.index:not(object)').hide();
+      $(object).show();
+    });
+  });
   
 </script>
 

@@ -6,7 +6,13 @@
     </tr>
     <tr>
       <th>現場住所</th>
-      <td><%= current_matter.actual_spot %></td>
+      <td>
+        <div>
+          <%= current_matter.zip %>
+        </div>
+        <%= current_matter.actual_spot %>
+        <%= current_matter.actual_spot_2 %>
+      </td>
     </tr>
     <tr>
       <th>着工予定日</th>

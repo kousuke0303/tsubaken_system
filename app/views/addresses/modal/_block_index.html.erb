@@ -1,8 +1,13 @@
 <% if type == "block" %>
-  <h5>区画一覧</h5>
-  <% blocks.each_with_index do |block, i| %>
-    <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["block_name"] %></span>
+  <% if select_town == "西新宿" %>
+    <%= render partial: "addresses/partial/nisisinnjyuku", locals: { blocks: blocks } %>
+  <% else %>
+    <h5>区画一覧</h5>
+    <% blocks.each_with_index do |block, i| %>
+      <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["block_name"] %></span>
+    <% end %>
   <% end %>
+
 <% elsif type == "kyoto_street" %>
   <h5>通り一覧</h5>
   <% blocks.each_with_index do |block, i| %>
@@ -15,6 +20,7 @@
 <script>
   $('#reflection').on('click', function(){
     $('#address_form').val('<%= select_prefecture + select_city + select_town %>');
+    $('.actual_spot_form').val('<%= select_prefecture + select_city + select_town %>');
     $('.address_modal').hide();
   });
 </script>
@@ -54,6 +60,8 @@
   <% end %>
 <% end %>
 </script>
+
+
 
 
 

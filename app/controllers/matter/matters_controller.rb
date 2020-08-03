@@ -116,7 +116,7 @@ class Matter::MattersController < ApplicationController
 
   private
     def matter_params
-      params.require(:matter).permit(:title, :actual_spot, :scheduled_start_at, :scheduled_finish_at,
+      params.require(:matter).permit(:title, :actual_spot, :actual_spot_2, :zip, :scheduled_start_at, :scheduled_finish_at,
                                     clients_attributes: [:name, :phone, :fax, :email, :id],
                                     submanager_ids: [], staff_ids: [])
     end

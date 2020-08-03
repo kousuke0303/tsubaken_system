@@ -6,3 +6,20 @@
     <% end %>
   </div>
 </div>
+
+<div class="modal address_modal">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="address_select">
+  </div>
+</div>
+
+<script>
+$('.prefectures_all').on('click', function(){
+  $.ajax({
+    type: "GET",
+    url: "<%= prefecture_index_path(dependent_manager) %>",
+    cache: false,
+    data: {remote: true}
+  });
+})
+</script>

@@ -168,6 +168,8 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   create_table "matters", force: :cascade do |t|
     t.string "title"
     t.string "actual_spot"
+    t.string "actual_spot_2"
+    t.string "zip"
     t.string "status", default: "f"
     t.string "note"
     t.date "scheduled_start_at"
@@ -288,7 +290,9 @@ ActiveRecord::Schema.define(version: 20200712132740) do
 
   create_table "suppliers", force: :cascade do |t|
     t.string "company"
-    t.string "location"
+    t.string "actual_spot"
+    t.string "actual_spot_2"
+    t.string "zip"
     t.string "representative_name"
     t.string "phone"
     t.string "fax"

@@ -24,7 +24,12 @@
         <% @progress_matters.each do |matter| %>
           <tr>
             <td><%= matter.title %></td>
-            <td><%= matter.actual_spot %></td>
+            <td>
+              <div>
+                <%= matter.zip %>
+              </div>
+              <%= matter.actual_spot %><%= matter.actual_spot_2 %>
+            </td>
             <td><%= matter.managers.first.company %></td>
             <td><%= matter.clients.first.name %></td>
             <td>
@@ -37,7 +42,12 @@
         <% @finished_matters.each do |matter| %>
           <tr>
             <td><%= matter.title %></td>
-            <td><%= matter.actual_spot %></td>
+            <td>
+              <div>
+                <%= matter.zip %>
+              </div>
+              <%= matter.actual_spot %><%= matter.actual_spot_2 %>
+            </td>
             <td><%= matter.managers.first.company %></td>
             <td><%= matter.clients.first.name %></td>
             <td>

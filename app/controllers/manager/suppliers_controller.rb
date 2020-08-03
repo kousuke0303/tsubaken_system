@@ -44,7 +44,7 @@ class Manager::SuppliersController < ApplicationController
   
   private
     def supplier_params
-      params.require(:supplier).permit(:company, :location, :representative_name, :phone, :fax, :mail)
+      params.require(:supplier).permit(:company, :actual_spot_2, :zip, :actual_spot, :representative_name, :phone, :fax, :mail)
     end
     
     def set_supplier

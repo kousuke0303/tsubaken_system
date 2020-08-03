@@ -3,6 +3,8 @@ class CreateMatters < ActiveRecord::Migration[5.1]
     create_table :matters do |t|
       t.string :title, comment: "事件名"
       t.string :actual_spot, comment: "現場"
+      t.string :actual_spot_2, commit: "現場住所２"
+      t.string :zip
       t.string :status, default: false, comment: "工事状況"
       t.string :note, comment: "備考"
       t.date :scheduled_start_at, comment: "着工予定日"

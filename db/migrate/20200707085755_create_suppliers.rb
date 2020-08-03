@@ -2,7 +2,9 @@ class CreateSuppliers < ActiveRecord::Migration[5.1]
   def change
     create_table :suppliers do |t|
       t.string :company, comment: "会社名"
-      t.string :location, comment: "所在地"
+      t.string :actual_spot, comment: "所在地"
+      t.string :actual_spot_2, comment: "所在地2"
+      t.string :zip
       t.string :representative_name, comment: "代表者名"
       t.string :phone, comment: "電話番号"
       t.string :fax, comment: "FAX番号"

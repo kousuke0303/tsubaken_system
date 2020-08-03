@@ -8,7 +8,15 @@
       </tr>
       <tr>
         <th>所在地</th>
-        <td><%= @supplier.location %></td>
+        <td>
+          <% if @supplier.zip.present? %>
+            <div>
+              〒 <%= @supplier.zip%>
+            </div>
+          <% end %>
+          <%= @supplier.actual_spot %>
+          <%= @supplier.actual_spot_2 %>
+        </td>
       </tr>
       <tr>
         <th>代表者</th>
@@ -16,7 +24,7 @@
       </tr>
       <tr>
         <th>電話番号</th>
-        <td><%= @supplier.phone %></td>
+        <td><a href="tel:#{@supplier.phone}"><%= @supplier.phone %></a></td>
       </tr>
       <tr>
         <th>FAX</th>
