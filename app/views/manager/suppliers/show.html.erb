@@ -1,13 +1,13 @@
 <div class="container">
   <h5>取引関係者：<%= @supplier.company %>の詳細</h5>
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-bordered">
       <tr>
-        <th>会社名</th>
+        <th style="background-color: #ececec;">会社名</th>
         <td><%= @supplier.company %></td>
       </tr>
       <tr>
-        <th>所在地</th>
+        <th style="background-color: #ececec;">所在地</th>
         <td>
           <% if @supplier.zip.present? %>
             <div>
@@ -19,19 +19,19 @@
         </td>
       </tr>
       <tr>
-        <th>代表者</th>
+        <th style="background-color: #ececec;">代表者</th>
         <td><%= @supplier.representative_name %></td>
       </tr>
       <tr>
-        <th>電話番号</th>
+        <th style="background-color: #ececec;">電話番号</th>
         <td><a href="tel:#{@supplier.phone}"><%= @supplier.phone %></a></td>
       </tr>
       <tr>
-        <th>FAX</th>
+        <th style="background-color: #ececec;">FAX</th>
         <td><%= @supplier.fax %></td>
       </tr>
       <tr>
-        <th>Mail</th>
+        <th style="background-color: #ececec;">Mail</th>
         <td><%= @supplier.mail %></td>
       </tr>
     </table>
