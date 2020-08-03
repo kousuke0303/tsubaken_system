@@ -18,8 +18,16 @@
         <% @suppliers.each do |supplier| %>
           <tr>
             <td><%= supplier.company %></td>
-            <td><%= supplier.location %></td>
-            <td><%= supplier.phone %></td>
+            <td>
+              <% if supplier.zip.present? %>
+                <div>
+                  〒 <%= supplier.zip %>
+                </div>
+              <% end %>
+              <%= supplier.actual_spot %>
+              <%= supplier.actual_spot_2 %>
+            </td>
+            <td><a href="tel:#{supplier.phone}"><%= supplier.phone %></a></td>
             <td><%= supplier.fax %></td>
             <td>
               <%= link_to "編集", manager_supplier_path(dependent_manager, supplier), class: "btn btn-primary btn-sm" %>

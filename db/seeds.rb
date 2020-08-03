@@ -272,7 +272,8 @@ puts "CREATE! MANAGEREVENTTITLE-B"
 # ---------------------------------------------
 
 Supplier.create!(company: "取引A",
-                 location:  "東京都西新宿１−３−２",
+                 actual_spot:  "東京都西新宿",
+                 actual_spot_2: "1-1-1",
                  representative_name: "山田太郎",
                  phone: "09012341234",
                  fax: "09012351235",
@@ -281,7 +282,8 @@ Supplier.create!(company: "取引A",
                  manager_id: 3)
 
 Supplier.create!(company: "取引B",
-                 location:  "東京都西新宿１−９−２",
+                 actual_spot:  "東京都西新宿",
+                 actual_spot_2: "2-2-2",
                  representative_name: "山田太郎",
                  phone: "09012361236",
                  fax: "09012381238",

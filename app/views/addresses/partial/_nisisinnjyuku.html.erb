@@ -1,0 +1,91 @@
+<div class="address_mokuji">
+  
+  <select name="building" id="select_building" class="form-control">
+    <option>選択肢</option>
+    <option value="block_ai">新宿アイランドタワー</option>
+    <option value="block_en">新宿NSビル</option>
+    <option value="block_el">新宿エルタワー</option>
+    <option value="block_sk">新宿スクエアタワー</option>
+    <option value="block_sm">新宿住友ビル</option>
+    <option value="block_sn">新宿センタービル</option>
+    <option value="block_no">新宿野村ビル</option>
+    <option value="block_pa">新宿パークタワー</option>
+    <option value="block_mt">新宿三井ビル</option>
+    <option value="block_mn">新宿モノリス</option>
+    <option value="block_sumi">住友不動産新宿オークタワー</option>
+    <option value="block_ope">東京オペラシティ</option>
+    <option value="block_na">その他</option>
+  </select>
+</div>
+  
+<div class="block_ai index" style="display: none;"><p>--- 新宿アイランドタワー ---</p></div>
+<div class="block_en index" style="display: none;"><p>--- 新宿NSビル ---</p></div>
+<div class="block_el index" style="display: none;"><p>--- 新宿エルタワー ---</p></div>
+<div class="block_sk index" style="display: none;"><p>--- 新宿スクエアタワー ---</p></div>
+<div class="block_sm index" style="display: none;"><p>--- 新宿住友ビル ---</p></div>
+<div class="block_sn index" style="display: none;"><p>--- 新宿センタービル ---</p></div>
+<div class="block_no index" style="display: none;"><p>--- 新宿野村ビル ---</p></div>
+<div class="block_pa index" style="display: none;"><p>--- 新宿パークタワー ---</p></div>
+<div class="block_mt index" style="display: none;"><p>--- 新宿三井ビル ---</p></div>
+<div class="block_mn index" style="display: none;"><p>--- 新宿モノリス ---</p></div>
+<div class="block_sumi index" style="display: none;"><p>--- 住友不動産新宿オークタワー ---</p></div>
+<div class="block_ope index" style="display: none;"><p>--- 東京オペラシティ ---</p></div>
+<div class="block_na index" style="display: none;"><p>--- その他 ---</p></div>
+
+
+<script>
+  <% blocks.each_with_index do |block, i| %>
+    var add_block_list = '<span class="text-nowrap address_span" id="block_id_<%= i %>">'
+                        + '<%= block["block_name"] %>'
+                        + '</span>';
+    <% if block["block_furi"][5..6].include?("アイ") %>
+      $('#block_ai').show();
+      $('.block_ai').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("エヌ") %>
+      $('#block_en').show();
+      $('.block_en').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("エル") %>
+      $('#block_el').show();
+      $('.block_el').append(add_block_list);  
+    <% elsif block["block_furi"][5..6].include?("スク") %>
+      $('#block_sk').show();
+      $('.block_sk').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("スミ") %>
+      $('#block_sm').show();
+      $('.block_sm').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("セン") %>
+      $('#block_sn').show();
+      $('.block_sn').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("ノム") %>
+      $('#block_no').show();
+      $('.block_no').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("パー") %>
+      $('#block_pa').show();
+      $('.block_pa').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("ミツ") %>
+      $('#block_mt').show();
+      $('.block_mt').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("モノ") %>
+      $('#block_mn').show();
+      $('.block_mn').append(add_block_list);
+    <% elsif block["block_furi"][0..1].include?("スミ") %>
+      $('#block_sumi').show();
+      $('.block_sumi').append(add_block_list);
+    <% elsif block["block_furi"][5..6].include?("オペ") %>
+      $('#block_ope').show();
+      $('.block_ope').append(add_block_list);
+    <% else %>
+      $('#block_na').show();
+      $('.block_na').append(add_block_list);
+    <% end %>
+  <% end %>
+</script>
+
+<script>
+  $('#select_building').on('change', function(){
+    var target = $('#select_building').val();
+    var object = $('.' + target);
+    $('.index:not(object)').hide();
+    $(object).show();
+  });
+</script>

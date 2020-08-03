@@ -3,6 +3,7 @@
 <script>
   $('#reflection').on('click', function(){
     $('#address_form').val('<%= select_prefecture + select_city + select_town + select_block %>');
+    $('.actual_spot_form').val('<%= select_prefecture + select_city + select_town + select_block %>');
     $('.address_modal').hide();
   });
 </script>

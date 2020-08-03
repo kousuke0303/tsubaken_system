@@ -155,7 +155,7 @@ Rails.application.routes.draw do
   
   scope "(:manager_public_uid)" do
     namespace :matter do
-      resources :matters, path: '/' do
+      resources :matters, path: '/', only: [:new, :index, :show] do
         patch :title_update, on: :member
         patch :client_update, on: :member
         patch :person_in_charge_update, on: :member

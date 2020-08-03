@@ -83,14 +83,12 @@ class AddressesController < ApplicationController
     
     req = Net::HTTP::Get.new(uri.path + "?" + uri.query)
     res = http.request(req)
-    
     begin
       case res
       when Net::HTTPSuccess
         # responseのbody要素をJSON形式で解釈し、hashに変換
         result = JSON.parse(res.body)
         @towns = result["data"].sort{|a, b| a["town_furi"] <=> b["town_furi"]}
-        # 表示用の変数に結果を格納
         respond_to do |format|
           format.js
         end
@@ -120,7 +118,6 @@ class AddressesController < ApplicationController
     
     req = Net::HTTP::Get.new(uri.path + "?" + uri.query)
     res = http.request(req)
-    
     begin
       case res
       when Net::HTTPSuccess
@@ -129,14 +126,16 @@ class AddressesController < ApplicationController
         if result["type"] == "block"
           @blocks = result["data"].sort{|a, b| a["block_furi"] <=> b["block_furi"]}
           @type = "block"
-        else
+        elsif result["type"] == "kyoto_street"
           @blocks = result["data"]
           @type = "kyoto_street"
+        else
+          @zipcode = result['data'][0]["zip"]
         end
-        # 表示用の変数に結果を格納
         respond_to do |format|
           format.js
         end
+        
       end
     rescue IOError => e
       @message = "e.message"

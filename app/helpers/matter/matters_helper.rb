@@ -1,7 +1,9 @@
 module Matter::MattersHelper
   
   def matter_day(day)
-    day.strftime('%Y年%m月%d日')
+    if day.present?
+      day.strftime('%Y年%m月%d日')
+    end
   end
   
   def manage_authority_badge(submanager)

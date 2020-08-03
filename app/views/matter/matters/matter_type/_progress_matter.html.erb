@@ -3,7 +3,10 @@
   <% if manager_signed_in? || submanager_signed_in? %>
     <tr>
       <td><%= matter.title %></td>
-      <td><%= matter.actual_spot %></td>
+      <td>
+        <div><%= matter.zip %></div>
+        <%= matter.actual_spot %><%= matter.actual_spot_2 %>
+      </td>
       <td><%= matter.clients.first.name if matter.clients.exists? %></td>
       <td><%= matter.connected_id %></td>
       <td>
