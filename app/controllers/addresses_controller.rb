@@ -129,8 +129,17 @@ class AddressesController < ApplicationController
         elsif result["type"] == "kyoto_street"
           @blocks = result["data"]
           @type = "kyoto_street"
+        elsif result["type"] == "office"
+          @blocks = result["data"].sort{|a, b| a["office_furi"] <=> b["office_furi"]}
+          @zipcode = result['address'][0]["zip"]
+          @type = "office"
         else
-          @zipcode = result['data'][0]["zip"]
+          if result["data"].length > 1
+            @type = "memo"
+            @blocks = result["data"]
+          else
+            @zipcode = result['data'][0]["zip"]
+          end
         end
         respond_to do |format|
           format.js
@@ -151,8 +160,22 @@ class AddressesController < ApplicationController
   def selected_block
     @select_prefecture_name = params[:ken_name]
     @select_city_name = params[:city_name]
-    @select_town_name = params[:town_name]
-    @select_block_name = params[:block_name]
+    if params[:type] == "office"
+      @type = "office"
+      @select_town_name = params[:office_address]
+      @zipcode = params[:zip]
+    elsif params[:type] == "block"
+      @select_town_name = params[:town_name]
+      @select_block_name = params[:block_name]
+      @zipcode = params[:zip]
+    elsif params[:type] == "memo"
+      @type = "memo"
+      @select_town_name = params[:town_name]
+      @zipcode = params[:zip]
+    else
+      @select_town_name = params[:town_name]
+      @select_block_name = params[:block_name]
+    end
     respond_to do |format|
       format.js
     end

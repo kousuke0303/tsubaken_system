@@ -4,7 +4,7 @@
   <% else %>
     <h5>区画一覧</h5>
     <% blocks.each_with_index do |block, i| %>
-      <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["block_name"] %></span>
+      <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["block_name"] %><%= block["memo"] %></span>
     <% end %>
   <% end %>
 
@@ -13,8 +13,23 @@
   <% blocks.each_with_index do |block, i| %>
     <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["kyoto_street"] %></span>
   <% end %>
+<% elsif type == "office" %>
+  <div class="text-right">
+    <button class="btn btn-dark btn-sm mb-05e" id="reflection">施設・会社を選択せずに反映</button>
+  </div>
+  <h5>施設・会社</h5>
+  <% blocks.each_with_index do |block, i| %>
+    <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["office_name"] %></span>
+  <% end %>
+
 <% else %>
-  <button class="btn btn-dark btn-sm float-r" id="reflection">反映</button>
+  <% unless type == "memo" %>
+    <button class="btn btn-dark btn-sm float-r" id="reflection">反映</button>
+  <% else %>
+    <% blocks.each_with_index do |block, i| %>
+      <span class="text-nowrap address_span" id="block_id_<%= i %>"><%= block["town_name"] %><%= block["memo"] %></span>
+    <% end %>
+  <% end %>
 <% end %>
 
 <script>
@@ -38,10 +53,13 @@
                 ken_name: "<%= select_prefecture %>",
                 city_name: "<%= select_city %>",
                 town_name: "<%= select_town %>",
+                zip: "<%= block["zip"] %>",
+                type: "block",
                 remote: true }
       });
     });
   <% end %>
+  
 <% elsif type == "kyoto_street" %>
   <% blocks.each_with_index do |block, i| %>
     $('#block_id_<%= i %>').on('click', function(){
@@ -58,10 +76,42 @@
       });
     });
   <% end %>
+
+<% elsif type == "office" %>
+  <% blocks.each_with_index do |block, i| %>
+    $('#block_id_<%= i %>').on('click', function(){
+      $.ajax({
+        type: "GET",
+        url: "<%= selected_block_path(dependent_manager) %>",
+        cache: false,
+        data: { ken_name: "<%= select_prefecture %>",
+                city_name: "<%= select_city %>",
+                town_name: "<%= select_town %>",
+                office_address: "<%= block["office_address"] %>",
+                office_name: "<%= block["office_name"] %>",
+                zip: "<%= block["zip"] %>",
+                type: "office",
+                remote: true }
+      });
+    });
+  <% end %>
+
+<% elsif type == "memo" %>
+  <% blocks.each_with_index do |block, i| %>
+    $('#block_id_<%= i %>').on('click', function(){
+      $.ajax({
+        type: "GET",
+        url: "<%= selected_block_path(dependent_manager) %>",
+        cache: false,
+        data: { ken_name: "<%= select_prefecture %>",
+                city_name: "<%= select_city %>",
+                town_name: "<%= select_town %>",
+                zip: "<%= block["zip"] %>",
+                type: "memo",
+                remote: true }
+      });
+    });
+  <% end %>
+  
 <% end %>
 </script>
-
-
-
-
-

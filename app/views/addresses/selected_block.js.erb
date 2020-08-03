@@ -2,5 +2,20 @@ $('#prefecture_index').hide();
 $('#city_area').hide();
 $('#town_area').hide();
 $('#block_area').hide();
-$('#selected_address').html('<p><%= @select_prefecture_name + @select_city_name + @select_town_name + @select_block_name %></p>');
-$('#selected_block_area').html('<%= escape_javascript(render partial: './addresses/modal/selected_block', locals: { blocks: @blocks, select_prefecture: @select_prefecture_name, select_city: @select_city_name, select_town: @select_town_name, select_block: @select_block_name }) %>');
+<% if @type == "office" %>
+  $('.address_modal').hide();
+  $('#address_form').val('<%= @select_prefecture_name + @select_city_name + @select_town_name %>');
+  $('#address_form_2').val('');
+  $('.actual_spot_form').val('<%= @select_prefecture_name + @select_city_name + @select_town_name %>');
+<% elsif @type == "memo" %>
+  $('.address_modal').hide();
+  $('#address_form').val('<%= @select_prefecture_name + @select_city_name + @select_town_name %>');
+  $('#address_form_2').val('');
+  $('.actual_spot_form').val('<%= @select_prefecture_name + @select_city_name + @select_town_name %>');
+<% else %>
+  $('#selected_address').html('<p><%= @select_prefecture_name + @select_city_name + @select_town_name + @select_block_name %></p>');
+  $('#selected_block_area').html('<%= escape_javascript(render partial: './addresses/modal/selected_block', locals: { blocks: @blocks, select_prefecture: @select_prefecture_name, select_city: @select_city_name, select_town: @select_town_name, select_block: @select_block_name }) %>');
+<% end %>
+<% if @zipcode.present? %>
+  $('.zip_field').val('<%= @zipcode %>');
+<% end %>
