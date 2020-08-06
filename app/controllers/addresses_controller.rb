@@ -3,15 +3,21 @@ require 'uri'
 
 class AddressesController < ApplicationController
   
+  before_action :addresssearch_tokun
+  
   def prefecture_index
-    uri = URI.parse('https://addresssearch.herokuapp.com/api/v1/posts/prefecture')
+    droplet_ep = 'https://addresssearch.herokuapp.com/api/v1/posts/prefecture'
+    uri = URI.parse(droplet_ep)
     http = Net::HTTP.new(uri.host, uri.port)
     
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
-    req = Net::HTTP::Get.new(uri.path)
+    req = Net::HTTP::Get.new(uri.request_uri)
+    req['Authorization'] = "Bearer #{@token}"
+    
     res = http.request(req)
+    
     begin
       case res
       when Net::HTTPSuccess
@@ -45,6 +51,8 @@ class AddressesController < ApplicationController
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
     req = Net::HTTP::Get.new(uri.path + "?" + uri.query)
+    req['Authorization'] = "Bearer #{@token}"
+    
     res = http.request(req)
     
     begin
@@ -82,7 +90,10 @@ class AddressesController < ApplicationController
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
     req = Net::HTTP::Get.new(uri.path + "?" + uri.query)
+    req['Authorization'] = "Bearer #{@token}"
+    
     res = http.request(req)
+    
     begin
       case res
       when Net::HTTPSuccess
@@ -117,7 +128,10 @@ class AddressesController < ApplicationController
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
     req = Net::HTTP::Get.new(uri.path + "?" + uri.query)
+    req['Authorization'] = "Bearer #{@token}"
+    
     res = http.request(req)
+    
     begin
       case res
       when Net::HTTPSuccess
@@ -181,4 +195,8 @@ class AddressesController < ApplicationController
     end
   end
   
+  private
+   def addresssearch_tokun
+     @token = 'yPRgv43UY9aHiBcieWaVv774'
+   end
 end
