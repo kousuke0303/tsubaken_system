@@ -156,43 +156,69 @@ class ApplicationController < ActionController::Base
   # 自動開始・終了登録
   def create_started_at_or_finished_at
     @tasks = current_matter.tasks
-    if @tasks.where(status: "matter_tasks").exists?
-      if @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
+    
+    # matterにstarted_atが登録されていない場合=>初期登録
+    if current_matter.started_at.nil?
+    
+    # 初期パターン：1 複数の案件タスクの中から進行タスクに移動
+      # 案件タスクが少なくとも１つは残っている状態で進行タスクに移動
+      # 終了タスクに移動されたものがあるということは初期状態ではないので、除外
+      if @tasks.where(status: "matter_tasks").exists? && @tasks.where(status: "progress_tasks").exists? && @tasks.where(status: "finished_tasks").empty?
         progress_tasks = @tasks.where(status: "progress_tasks").order(:move_date)
         first_move_task = progress_tasks.first
+        # ここでmatterの状況を更新及びstart_atを登録
         current_matter.update(status: "progress")
+        current_matter.update(started_at: first_move_task.move_date)
+          
         event_scheduled_start_at = 
-            Event.find_by(event_name: "着工予定日",
-            event_type: "D",
-            manager_id: dependent_manager.id,
-            matter_id: current_matter.id)
+          Event.find_by(event_name: "着工予定日",
+          event_type: "D",
+          manager_id: dependent_manager.id,
+          matter_id: current_matter.id)
         if current_matter.scheduled_start_at.present?
           if event_scheduled_start_at.present?
             event_scheduled_start_at.update(event_name: "着工日",event_type: "C",date: first_move_task.move_date)
           else
-              Event.create!(event_name: "着工日",
-                event_type: "C",
-                date: first_move_task.move_date,
-                note: "",
-                manager_id: dependent_manager.id,
-                matter_id: current_matter.id
-              )
+            Event.create!(event_name: "着工日",
+              event_type: "C",
+              date: first_move_task.move_date,
+              note: "",
+              manager_id: dependent_manager.id,
+              matter_id: current_matter.id
+            )
           end
         else
           if event_scheduled_start_at.present?
             event_scheduled_start_at.destroy
           end
         end
-        # 既に登録がある場合は、アプデしない
-        unless current_matter.started_at.present?
-          current_matter.update(started_at: first_move_task.move_date)
-        end
       end
+    
+    # matterにstarted_atが登録されている場合(2パターンあり)
+     # 更新=>誤ってtaskを移動したことにより進行中タスクから案件タスクに戻した場合
+     # 完了=>全ての進行タスクが完了タスクに移動された場合
     else
-      if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
+      # 更新パターンの中でさらに２パターンあり
+        # 開始日の更新=>進行中タスクへの移動を間違えた場合
+        # 完了日の更新=>完了タスクへの移動を間違えた場合
+      # 開始日の更新(修正)
+      if @tasks.where(status: "matter_tasks").exists? && @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").empty?
+        current_matter.update(status: "false")
+        current_matter.update(started_at: nil)
+      # 完了日の更新(修正)
+      elsif current_matter.finished_at.present?
+        if @tasks.where(status: "matter_tasks").exists? || @tasks.where(status: "progress_tasks").exists?
+          current_matter.update(status: "progress")
+          current_matter.update(finished_at: nil)
+        end
+      # 完了パターン
+      elsif @tasks.where(status: "matter_tasks").empty? && @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)
         last_complete_task = complete_tasks.last
+        # ここで完了日を登録
         current_matter.update(finished_at: last_complete_task.move_date, status: "finished")
+        current_matter.update(status: "finish")
+        
         event_scheduled_finish_at = 
             Event.find_by(event_name: "完了予定日",
             event_type: "D",
