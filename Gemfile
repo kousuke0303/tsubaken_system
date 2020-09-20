@@ -29,7 +29,7 @@ gem 'faker'
 gem 'simple_calendar', '~> 2.0'
 
 group :development, :test do
-  gem 'sqlite3',      '1.3.13'
+  gem 'mysql2'
   gem 'byebug', '9.0.6', platform: :mri
 end
 
@@ -41,7 +41,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg', '0.20.0'
 end
 
 # Windows環境では、このgemを含める必要があります。（mac環境でもこのままで問題ありません）
