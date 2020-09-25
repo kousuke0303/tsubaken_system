@@ -1,6 +1,4 @@
 class Matter < ApplicationRecord
-  has_many :matter_managers, dependent: :destroy
-  has_many :managers, through: :matter_managers
   
   has_many :matter_submanagers, dependent: :destroy
   has_many :submanagers, through: :matter_submanagers
@@ -25,7 +23,6 @@ class Matter < ApplicationRecord
   scope :are_connected_matter_without_own, ->(connected_id, manager) {
     joins(:managers).where(connected_id: connected_id).merge(Manager.where.not(id: manager.id))
   }
-  
   
   def to_param
     matter_uid ? matter_uid : super()

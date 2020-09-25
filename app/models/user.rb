@@ -12,13 +12,8 @@ class User < ApplicationRecord
   
   devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :validatable, :omniauthable
-  
-  # アソシエーション ######################################
-  has_many :manager_users, dependent: :delete_all
-  has_many :managers, through: :manager_users
  
-  has_many :user_social_profiles, dependent: :destroy
-  
+  has_many :user_social_profiles, dependent: :destroy  
   has_many :matter_users, dependent: :destroy
   has_many :matters, through: :matter_users
   

@@ -19,7 +19,6 @@ class Staff < ApplicationRecord
 
   has_many :staff_event_titles, dependent: :destroy
   
-  
   # ## scope #########################################
   scope :employee_staff, ->(dependent_manager){
     joins(:manager_staffs).merge(ManagerStaff.where(manager_id: dependent_manager.id)).merge(ManagerStaff.where(employee: 1))

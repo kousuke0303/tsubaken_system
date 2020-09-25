@@ -3,7 +3,7 @@
 class DeviseCreateSubmanagers < ActiveRecord::Migration[5.1]
   def change
     create_table :submanagers do |t|
-      t.string :name
+      t.string :name,               null: false, default: ""
       t.string :phone
       t.string :email
 
