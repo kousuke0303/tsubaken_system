@@ -6,7 +6,7 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.string :before_status
       t.datetime :moved_on
       t.integer :row_order
-      t.text :memo
+      t.string :memo
       t.string :default_title
       t.integer :count
       t.datetime :limited_on
