@@ -2,10 +2,6 @@
 
 class Submanagers::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
-
-  # GET /resource/sign_in
-  def new
-  end
   
   def failed
     # warden で出力されたエラーを保存する

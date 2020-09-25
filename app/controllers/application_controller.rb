@@ -21,30 +21,7 @@ class ApplicationController < ActionController::Base
     @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
     @last_day = @first_day.end_of_month
     @one_month = [*@first_day..@last_day]
-  end
-  
-  
-  # ---------------------------------------------------------
-        # ADMIN関係
-  # ---------------------------------------------------------
-  
-  # 管理者権限者が一人に以上の場合、管理者画面お表示で知らせる。
-  def admin_limit_1
-    if Admin.count > 1
-      @condition = "danger"
-    else
-      @condition = "dark"
-    end
-  end
-  
-  # アクセス制限
-  def only_admin!
-    unless Admin.first.id == current_admin.id 
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-  
+  end 
   
   # ---------------------------------------------------------
         # MANAGER関係
@@ -331,9 +308,7 @@ class ApplicationController < ActionController::Base
    
   
     def after_sign_in_path_for(resource_or_scope)
-      if resource_or_scope.is_a?(Admin)
-        top_admin_admin_path(current_admin)
-      elsif resource_or_scope.is_a?(Manager)
+      if resource_or_scope.is_a?(Manager)
         top_manager_path(current_manager)
       elsif resource_or_scope.is_a?(Submanager)
         top_submanager_path(current_submanager_public_uid, current_submanager)
