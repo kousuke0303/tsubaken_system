@@ -12,18 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20200712132740) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
-  end
-
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", comment: "名前"
     t.string "phone", comment: "連絡先"
@@ -36,9 +24,9 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
+    t.string "title"
+    t.string "kind"
+    t.datetime "holded_on"
     t.string "note"
     t.bigint "manager_id"
     t.bigint "matter_id"
@@ -49,33 +37,23 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "manager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
+    t.string "title"
+    t.string "note"
     t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "note"
     t.index ["manager_id"], name: "index_manager_event_titles_on_manager_id"
   end
 
   create_table "manager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
+    t.string "title"
+    t.string "kind"
+    t.datetime "holded_on"
     t.string "note"
     t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manager_id"], name: "index_manager_events_on_manager_id"
-  end
-
-  create_table "manager_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "employee", default: 0
-    t.bigint "manager_id"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_staffs_on_manager_id"
-    t.index ["staff_id"], name: "index_manager_staffs_on_staff_id"
   end
 
   create_table "manager_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -87,45 +65,22 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.index ["task_id"], name: "index_manager_tasks_on_task_id"
   end
 
-  create_table "manager_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_users_on_manager_id"
-    t.index ["user_id"], name: "index_manager_users_on_user_id"
-  end
-
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
+    t.string "name", default: "", null: false
     t.string "phone"
-    t.string "company"
-    t.string "public_uid"
-    t.boolean "approval", default: false
-    t.string "email", default: "", null: false
+    t.string "email"
+    t.string "public_uid", null: false
+    t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_managers_on_email", unique: true
+    t.index ["employee_id"], name: "index_managers_on_employee_id", unique: true
     t.index ["public_uid"], name: "index_managers_on_public_uid", unique: true
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
-  end
-
-  create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_matter_managers_on_manager_id"
-    t.index ["matter_id"], name: "index_matter_managers_on_matter_id"
   end
 
   create_table "matter_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -183,7 +138,7 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "staff_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
+    t.string "title"
     t.string "note"
     t.bigint "staff_id"
     t.datetime "created_at", null: false
@@ -192,9 +147,9 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "staff_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
+    t.string "title"
+    t.string "kind"
+    t.datetime "holded_on"
     t.string "note"
     t.bigint "staff_id"
     t.datetime "created_at", null: false
@@ -203,21 +158,18 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
+    t.string "name", default: "", null: false
     t.string "phone"
-    t.string "email", default: "", null: false
+    t.string "email"
+    t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_staffs_on_email", unique: true
+    t.index ["employee_id"], name: "index_staffs_on_employee_id", unique: true
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
@@ -235,7 +187,7 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "submanager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
+    t.string "title"
     t.string "note"
     t.bigint "submanager_id"
     t.datetime "created_at", null: false
@@ -244,9 +196,9 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "submanager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
+    t.string "title"
+    t.string "kind"
+    t.datetime "holded_on"
     t.string "note"
     t.bigint "submanager_id"
     t.datetime "created_at", null: false
@@ -255,23 +207,18 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "submanagers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
+    t.string "name", default: "", null: false
     t.string "phone"
-    t.string "email", default: "", null: false
+    t.string "email"
+    t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_submanagers_on_email", unique: true
-    t.index ["manager_id"], name: "index_submanagers_on_manager_id"
+    t.index ["employee_id"], name: "index_submanagers_on_employee_id", unique: true
     t.index ["reset_password_token"], name: "index_submanagers_on_reset_password_token", unique: true
   end
 
@@ -289,14 +236,14 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "company", comment: "会社名"
-    t.string "actual_spot", comment: "所在地"
-    t.string "actual_spot_2", comment: "所在地2"
+    t.string "name", comment: "会社名"
+    t.string "address", comment: "所在地"
+    t.string "address_2", comment: "所在地2"
     t.string "zip"
-    t.string "representative_name", comment: "代表者名"
+    t.string "representative", comment: "代表者名"
     t.string "phone", comment: "電話番号"
     t.string "fax", comment: "FAX番号"
-    t.string "mail", comment: "メール"
+    t.string "email", comment: "メール"
     t.integer "count", comment: "関連事件数"
     t.bigint "manager_id"
     t.datetime "created_at", null: false
@@ -308,12 +255,12 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.string "title"
     t.string "status"
     t.string "before_status"
-    t.datetime "move_date"
+    t.datetime "moved_on"
     t.integer "row_order"
-    t.text "memo"
+    t.string "memo"
     t.string "default_title"
     t.integer "count"
-    t.datetime "deadline"
+    t.datetime "limited_on"
     t.boolean "notification", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -339,7 +286,7 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
+    t.string "name", default: "", null: false
     t.string "phone"
     t.string "fax"
     t.string "email", default: "", null: false
@@ -347,11 +294,6 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -363,14 +305,8 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   add_foreign_key "events", "matters"
   add_foreign_key "manager_event_titles", "managers"
   add_foreign_key "manager_events", "managers"
-  add_foreign_key "manager_staffs", "managers"
-  add_foreign_key "manager_staffs", "staffs"
   add_foreign_key "manager_tasks", "managers"
   add_foreign_key "manager_tasks", "tasks"
-  add_foreign_key "manager_users", "managers"
-  add_foreign_key "manager_users", "users"
-  add_foreign_key "matter_managers", "managers"
-  add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matter_submanagers", "matters"
@@ -385,7 +321,6 @@ ActiveRecord::Schema.define(version: 20200712132740) do
   add_foreign_key "staffs_attendances", "staffs"
   add_foreign_key "submanager_event_titles", "submanagers"
   add_foreign_key "submanager_events", "submanagers"
-  add_foreign_key "submanagers", "managers"
   add_foreign_key "submanagers_attendances", "matters"
   add_foreign_key "submanagers_attendances", "submanagers"
   add_foreign_key "suppliers", "managers"

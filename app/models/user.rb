@@ -1,21 +1,15 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   before_save { self.email = email.downcase }
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
   
-  # validation ############################################
-  
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, length: { maximum: 100 },
-                    format: { with: VALID_EMAIL_REGEX }
-  
-  
-  devise :database_authenticatable, :registerable, 
-         :recoverable, :rememberable, :validatable, :omniauthable
- 
   has_many :user_social_profiles, dependent: :destroy  
   has_many :matter_users, dependent: :destroy
   has_many :matters, through: :matter_users
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable
   
   # userが連結した案件の依頼会社（複数の場合あり）を抽出
   scope :requested_of_company, -> (user, matter) {
