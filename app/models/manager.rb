@@ -1,5 +1,6 @@
 class Manager < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 20 } 
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :employee_id, presence: true, length: { in: 8..10 }
   
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
