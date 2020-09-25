@@ -1,2 +1,0 @@
-module Admin::ManagersHelper
-end
