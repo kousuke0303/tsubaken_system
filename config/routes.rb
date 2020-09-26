@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   
+  # Adminログイン関係
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords',
+    registrations: 'admins/registrations'
+  }
+
   # Managerログイン関係
   devise_for :managers, controllers: {
     sessions:      'managers/sessions',
