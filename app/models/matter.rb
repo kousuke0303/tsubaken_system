@@ -1,13 +1,10 @@
 class Matter < ApplicationRecord
-  has_many :matter_submanagers, dependent: :destroy
-  has_many :submanagers, through: :matter_submanagers
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
   has_many :matter_users, dependent: :destroy
   has_many :users, through: :matter_users
   has_many :clients, dependent: :destroy
   accepts_nested_attributes_for :clients, allow_destroy: true
-  has_one :attendance, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :matter_tasks, dependent: :destroy
   has_many :tasks, through: :matter_tasks

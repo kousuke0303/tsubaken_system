@@ -6,13 +6,6 @@ Rails.application.routes.draw do
     passwords:     'managers/passwords',
     registrations: 'managers/registrations'
   }
-  
-  # Submanagerログイン関係
-  devise_for :submanagers, controllers: {
-    sessions:      'submanagers/sessions',
-    passwords:     'submanagers/passwords',
-    registrations: 'submanagers/registrations'
-  }
 
   # Staffログイン関係
   devise_for :staffs, controllers: {
@@ -31,67 +24,26 @@ Rails.application.routes.draw do
   
   # ###--MANAGER:CONTROLLER--###############################
   
-  scope module: :manager do
-    resources :managers, path: '/', only: [:show] do
-    # manager_未承認中画面
-      get :unapproval_top, on: :member, as: :manager_signup
-    # 承認済開放機能  
-      get :top, on: :member
-      get :employee, on: :member
-      get :employee_type, on: :member
-      get :enduser, on: :member
-    # submanager CRUD
-      resources :submanagers, path: '/employee/submanagers'
-    # staff CRUD
-      resources :staffs, path: '/employee/staffs' do
-        delete :outsourcing_staff_destroy, on: :member
-      end
-    # user CRUD
-      resources :users, path: '/enduser/users'
-      # attendance
-      resources :attendances do
-        get :attendance_search, on: :collection
-        get :attendance_change_month, on: :collection
-      end
-    # suppliers
-      resources :suppliers
-    end
-  end
-  
-  # ################################################################
-  
-  # ###--SUBMANAGER:CONTROLLER--################################
-  
-  scope "(:manager_public_uid)" do
-    scope module: :submanager do
-      resources :submanagers, only: [:show, :edit, :update] do
-        get :top, on: :member
-        get :enduser, on: :member
-        get :employee, on: :member
-        # staff CRUD
-        resources :staffs, path: '/employee/staffs' do
-          delete :outsourcing_staff_destroy, on: :member
-        end
-        # user CRUD
-        resources :users, path: '/enduser/users'
-        # attendance
-        resources :attendances do
-          post :going_to_work, on: :collection
-          post :leaving_work, on: :collection
-        end
-        # event
-        resources :events, only: [:index] 
-        # settings
-        namespace :settings do
-          resources :tasks, except: [:index]
-          resources :submanager_events
-          resources :submanager_event_titles, except: [:index]
-        end
-      end
-    end
-  end
-  
-  # ################################################################
+  # scope module: :manager do
+  #   resources :managers, path: '/', only: [:show] do
+  #   # manager_未承認中画面
+  #     get :unapproval_top, on: :member, as: :manager_signup
+  #   # 承認済開放機能  
+  #     get :top, on: :member
+  #     get :employee, on: :member
+  #     get :employee_type, on: :member
+  #     get :enduser, on: :member
+  #   # staff CRUD
+  #     resources :staffs, path: '/employee/staffs' do
+  #       delete :outsourcing_staff_destroy, on: :member
+  #     end
+  #   # user CRUD
+  #     resources :users, path: '/enduser/users'
+  #     end
+  #   # suppliers
+  #     resources :suppliers
+  #   end
+  # end
 
   # ###--USER:CONTROLLER--################################
   
@@ -104,24 +56,15 @@ Rails.application.routes.draw do
       end
     end
   end
-  
-  # ################################################################
     
   # ###--STAFF:CONTROLLER--################################
   
   scope module: :staff do
     resources :staffs, only: [:show, :edit, :update] do
       get :top, on: :member
-      # submanager CRUD
-      resources :staffs, path: '/employee/staffs'
       # matter
       resources :matters, only: [:index, :show] do
         get :move_task, on: :member
-      end
-      # attendance
-      resources :attendances do
-        post :going_to_work, on: :collection
-        post :leaving_work, on: :collection
       end
       # event
       resources :events, only: [:index]

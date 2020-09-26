@@ -31,6 +31,7 @@ gem 'simple_calendar', '~> 2.0'
 group :development, :test do
   gem 'mysql2'
   gem 'byebug', '9.0.6', platform: :mri
+  gem 'pry-rails'
   gem 'rspec-rails'
 end
 

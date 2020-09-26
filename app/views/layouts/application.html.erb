@@ -19,31 +19,31 @@
       <header class="header_login">
         <%= render 'layouts/login_header' %>
       </header>
-        <div class="login_content">
-          <%= render 'layouts/flash' %>
-          <%= yield %>
-        </div>
+      <div class="login_content">
+        <%= render 'layouts/flash' %>
+        <%= yield %>
+      </div>
+      <%= debug(params) if Rails.env.development? %>
     </body>
   
   <!--通常ページのレイアウト-->
   <% else %>
     <% if manager_signed_in? %>
       <%= render 'layouts/modal/modal_manager' %>
-    <% elsif submanager_signed_in? %>
-      <%= render 'layouts/modal/modal_submanager' %>
     <% end %>
     <body>
-    <% if admin_signed_in? %>
-      <%= render 'layouts/layout_type/admin_layout' %>
-    <% elsif manager_signed_in? %>
-      <%= render 'layouts/layout_type/manager_layout' %>
-    <% elsif submanager_signed_in? %>
-      <%= render 'layouts/layout_type/submanager_layout' %>
-    <% elsif staff_signed_in? %>
-      <%= render 'layouts/layout_type/staff_layout' %>
-    <% elsif user_signed_in? %>
-      <%= render 'layouts/layout_type/user_layout' %>
-    <% end %>
+      <% if admin_signed_in? %>
+        <%= render 'layouts/layout_type/admin_layout' %>
+      <% elsif manager_signed_in? %>
+        <%= render 'layouts/layout_type/manager_layout' %>
+      <% elsif submanager_signed_in? %>
+        <%= render 'layouts/layout_type/submanager_layout' %>
+      <% elsif staff_signed_in? %>
+        <%= render 'layouts/layout_type/staff_layout' %>
+      <% elsif user_signed_in? %>
+        <%= render 'layouts/layout_type/user_layout' %>
+      <% end %>
+      <%= debug(params) if Rails.env.development? %>
     </body>
   <% end %>
 </html>

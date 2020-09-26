@@ -6,7 +6,6 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
       t.string :name,               null: false, default: ""
       t.string :phone
       t.string :email
-      t.string :public_uid,         null: false
 
       ## Database authenticatable
       t.string :employee_id,        null: false, default: ""
@@ -25,6 +24,5 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
     add_index :managers, :employee_id,          unique: true
     add_index :managers, :email,                unique: true
     add_index :managers, :reset_password_token, unique: true
-    add_index :managers, :public_uid,           unique: true
   end
 end
