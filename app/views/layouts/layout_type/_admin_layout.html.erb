@@ -9,7 +9,7 @@
       <ul class="list-unstyled components">
         <p>ADMIN_PAGE</p>
         <li>
-          <%= link_to "Account", admin_managers_path %>
+          <%= link_to "Account", "#" %>
         </li>
         <li class="">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
@@ -77,7 +77,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="nav navbar-nav ml-auto navi-custom">
             <li class="nav-item">
-              <%= link_to top_admin_admin_path(current_admin), class: "nav-link" do %>
+              <%= link_to "#", class: "nav-link" do %>
                 <i class="fas fa-home"></i> Home
               <% end %>
             </li>
@@ -92,7 +92,7 @@
                 Admin
               </a>
               <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
-                <%= link_to "アカウント情報", admin_admin_path(current_admin), class: "dropdown-item item-link" %>
+                <%= link_to "アカウント情報", "#", class: "dropdown-item item-link" %>
                 <div class="dropdown-divider"></div>
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "dropdown-item item-link" %>
               </div>

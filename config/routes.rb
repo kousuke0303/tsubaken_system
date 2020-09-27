@@ -28,6 +28,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+  scope module: :admins do
+    resources :admins, only: [:show, :edit, :update] do
+      get :top, on: :member
+    end
+  end
   
   # ###--MANAGER:CONTROLLER--###############################
   
@@ -66,7 +71,7 @@ Rails.application.routes.draw do
     
   # ###--STAFF:CONTROLLER--################################
   
-  scope module: :staff do
+  scope module: :staffs do
     resources :staffs, only: [:show, :edit, :update] do
       get :top, on: :member
       # matter
