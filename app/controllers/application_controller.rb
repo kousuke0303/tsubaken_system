@@ -275,16 +275,6 @@ class ApplicationController < ActionController::Base
     return @manager_event_title
   end
 
-  def submanager_event_title
-    ary = SubmanagerEventTitle.where(submanager_id: current_submanager.id).pluck(:event_name)
-    @submanager_event_title = Hash.new(0)
-      ary.each do |elem|
-        @submanager_event_title[elem] += 1
-      end
-    @submanager_event_title = @submanager_event_title.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h.keys
-    return @submanager_event_title
-  end
-
   def staff_event_title
     ary = StaffEventTitle.where(staff_id: current_staff.id).pluck(:event_name)
     @staff_event_title = Hash.new(0)
@@ -301,23 +291,19 @@ class ApplicationController < ActionController::Base
         # DEVISE関係
   # --------------------------------------------------------
   
-  # ログイン後のリダイレクト先
-    def current_submanager_public_uid
-      dependent_manager.public_uid
-    end
-   
+  # ログイン後のリダイレクト先   
   
-    def after_sign_in_path_for(resource_or_scope)
-      if resource_or_scope.is_a?(Manager)
-        top_manager_path(current_manager)
-      elsif resource_or_scope.is_a?(Submanager)
-        top_submanager_path(current_submanager_public_uid, current_submanager)
-      elsif resource_or_scope.is_a?(Staff)
-        top_staff_path(current_staff)
-      elsif resource_or_scope.is_a?(User)
-        top_user_path(current_user)
-      else
-        root_path
-      end
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.is_a?(Admin)
+      top_admin_path(current_admin)
+    elsif resource_or_scope.is_a?(Manager)
+      top_manager_path(current_manager)
+    elsif resource_or_scope.is_a?(Staff)
+      top_staff_path(current_staff)
+    elsif resource_or_scope.is_a?(User)
+      top_user_path(current_user)
+    else
+      root_path
     end
+  end
 end

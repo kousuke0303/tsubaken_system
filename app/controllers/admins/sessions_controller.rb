@@ -9,9 +9,12 @@ class Admins::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    
+    # warden で出力されたエラーを保存する
+    flash[:alert] = "ログインに成功しました"
+    redirect_to test_url
+  end
 
   # DELETE /resource/sign_out
   # def destroy

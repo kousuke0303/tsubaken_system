@@ -23,8 +23,26 @@
 </div>
 
 <div class="login_index_container">
-  <p>一般のお客様はこちらから</p>
-  <%= link_to "LOGIN", "#", class: "user_login_btn user_login_modal" %>
+  <div class="grid_user">
+  <div id="user_login">
+    <h2><span class="fontawesome-lock"></span>Login</h2>       
+    <fieldset>  
+      <div class="line"></div>      
+      <%= form_for(Admin.new, as: :admin, url: session_path(:admin), local: true) do |f| %>            
+          <p><%= f.label :employee_id %></p>
+          <p><%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, id: "employee_id" %></p>
+          
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
+          
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン状態を維持する" %>
+          
+          <%= f.submit "ログイン" %>
+      <% end %>     
+      </fieldset>  
+  </div>
+</div>
 </div>
 
 <div class="container-fluid">
@@ -37,18 +55,6 @@
     </div>
   </div>
 </div>
-<!--end/user-->
 
-<!--modal-->
 <script>
-$(function(){
-    $('.user_login_modal').on('click',function(){
-        $('.user_login_form').fadeIn();
-        return false;
-    });
-    $('.js-modal-close').on('click',function(){
-        $('.user_login_form').fadeOut();
-        return false;
-    });
-});
 </script>
