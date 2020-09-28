@@ -1,4 +1,4 @@
-class Manager::AttendancesController < ApplicationController
+class Managers::AttendancesController < ApplicationController
   before_action :set_one_month
   
   def index

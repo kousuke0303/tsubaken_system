@@ -1,4 +1,4 @@
-class Manager::UsersController < ApplicationController
+class Managers::UsersController < ApplicationController
   before_action :authenticate_manager!, only: [:create, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :not_current_manager_return_login!
