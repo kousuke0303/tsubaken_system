@@ -1,4 +1,4 @@
-class StaticPageController < ApplicationController
+class StaticPagesController < ApplicationController
   before_action :non_approval_layout
   before_action :top_redirect
   
@@ -14,6 +14,5 @@ class StaticPageController < ApplicationController
     if user_signed_in?
       redirect_to top_user_path(current_user)
     end
-  end  
-  
+  end 
 end

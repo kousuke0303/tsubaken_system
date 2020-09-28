@@ -149,8 +149,7 @@ Rails.application.routes.draw do
   
   # ################################################################
   
-  root 'static_page#login_index'
-  get 'test', to: 'static_page#test'
+  root 'static_pages#login_index'
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
