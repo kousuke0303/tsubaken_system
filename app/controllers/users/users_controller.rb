@@ -1,4 +1,4 @@
-class User::UsersController < ApplicationController
+class Users::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :not_current_user_return_login!
   
@@ -33,5 +33,4 @@ class User::UsersController < ApplicationController
     # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
       { scope: resource_name, recall: "#{controller_path}#failed" }
     end
-    
 end

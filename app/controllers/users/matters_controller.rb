@@ -1,4 +1,4 @@
-class User::MattersController < ApplicationController
+class Users::MattersController < ApplicationController
   before_action :authenticate_user!
   before_action :not_current_user_return_login!
   
@@ -28,5 +28,4 @@ class User::MattersController < ApplicationController
     connected_id = current_matter.connected_id
     @requesting_matters = current_user.matters.where(connected_id: connected_id)
   end
-  
 end
