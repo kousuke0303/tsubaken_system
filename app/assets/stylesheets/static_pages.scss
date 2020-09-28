@@ -35,39 +35,39 @@
     background: #fff;
     border-radius: 0 0 20px 20px;
     padding: 20px 26px;
-  }
 
-  fieldset p {
-    color: #777;
-    margin-bottom: 14px;
-  }
+    p {
+      color: #777;
+      margin-bottom: 14px;
+    }
 
-  fieldset p:last-child {
-    margin-bottom: 0;
-  }
+    p:last-child {
+      margin-bottom: 0;
+    }
 
-  fieldset input {
-    border-radius: 3px;
-  }
+    input {
+      border-radius: 3px;
+    }
 
-  fieldset input[type="email"], #user_login fieldset input[type="password"] {
-    background: #d8d6d6;
-    color: black;
-    padding: 4px 10px;
-    width: 100%;
-  }
+    input[type="submit"] {
+      background: #6c757d;
+      color: #fff;
+      display: block;
+      margin: 0 auto;
+      padding: 4px 0;
+      width: 100px;
+    }
 
-  fieldset input[type="submit"] {
-    background: #6c757d;
-    color: #fff;
-    display: block;
-    margin: 0 auto;
-    padding: 4px 0;
-    width: 100px;
-  }
-
-  fieldset input[type="submit"]:hover {
+    input[type="submit"]:hover {
       background: #343a40;
+    }
+
+    input[type="text"], input[type="password"] {
+      background: #d8d6d6;
+      color: black;
+      padding: 4px 10px;
+      width: 100%;
+    }
   }
 }
 
@@ -94,6 +94,14 @@
 	-webkit-animation: simple_square_btn6 0.5s both;
 	-moz-animation: simple_square_btn6 0.5s both;
 	animation: simple_square_btn6 0.5s both;
+}
+
+.sign_in_link {
+  margin-top: 1em;
+  text-align: center;
+  a {
+    color: #007bff;
+  }
 }
 
 @-webkit-keyframes user_login_btn {

@@ -1,12 +1,11 @@
 <div class="login-index-container">
   <div class="grid-login">
     <div id="user_login">
-      <h2><span class="fontawesome-lock"></span>Login</h2>       
-      <fieldset>  
-        <div class="line"></div>      
-        <%= form_for(Admin.new, as: :admin, url: session_path(:admin), local: true) do |f| %>            
-            <p><%= f.label :employee_id %></p>
-            <p><%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, id: "employee_id" %></p>
+      <h2><span class="fontawesome-lock"></span>ログイン</h2>       
+      <fieldset>       
+        <%= form_for(Admin.new, as: :admin, url: session_path(:admin), class: "login-form", local: true) do |f| %>            
+            <p><%= f.label :employee_id, "従業員ID" %></p>
+            <p><%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, id: "employee-id" %></p>
             
             <p><%= f.label :password %></p>
             <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
@@ -14,12 +13,36 @@
             <%= f.check_box :remember_me %>
             <%= f.label :remember_me, "ログイン状態を維持する" %>
             
-            <%= f.submit "ログイン" %>
+            <%= f.submit "ログイン", id: "login" %>
         <% end %>     
-        </fieldset>  
+      </fieldset>  
     </div>
   </div>
 </div>
 
 <script>
+
+  // 入力された従業員IDに合わせてログインフォームを、管理者、マネージャー、スタッフに変更
+
+  $("#login").on("click", function() {
+    const form = $(this).parents("form");
+    const idType = $("#employee-id").val().slice(0, 3);
+
+    if(idType == "AD-") {
+      form.attr("class", "new_admin");
+      form.attr("id", "new_admin");
+      form.attr("action", "/admins/sign_in");
+    } else if(idType == "MN-") {
+      form.attr("class", "new_manager");
+      form.attr("id", "new_manager");
+      form.attr("action", "/managers/sign_in");
+    } else if(idType == "ST-") {
+      form.attr("class", "new_staff");
+      form.attr("id", "new_staff");
+      form.attr("action", "/staffs/sign_in");
+    } else {
+
+    }
+  });
+  
 </script>
