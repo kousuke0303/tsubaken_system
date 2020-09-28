@@ -1,57 +1,22 @@
-<div class="manager_staff_login_container container pc_none">
-  <div class="row justify-content-sm-center">
-    <div class="col col-sm-6" style="text-align: right;">
-      <button class= "btn btn-dark manager_login_modal">Manager</button>
-    </div>  
-      
-    <div class="col col-sm-6" style="text-align: left;">
-      <div class="dropdown">
-        <!-- 切替ボタンの設定 -->
-        <button type="button" class="btn btn-dark dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Staff
-        </button>
-        <!-- ドロップメニューの設定 -->
-        <div class="dropdown-menu staff_login_menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item submanager_login_modal" href="#">Submanager</a>
-          <a class="dropdown-item staff_login_modal" href="#">Staff</a>
-        <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">その他リンク</a>
-        </div><!-- /.dropdown-menu -->
-      </div><!-- /.dropdown -->
-    </div>
-  </div>
-</div>
-
-<div class="login_index_container">
-  <div class="grid_user">
-  <div id="user_login">
-    <h2><span class="fontawesome-lock"></span>Login</h2>       
-    <fieldset>  
-      <div class="line"></div>      
-      <%= form_for(Admin.new, as: :admin, url: session_path(:admin), local: true) do |f| %>            
-          <p><%= f.label :employee_id %></p>
-          <p><%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, id: "employee_id" %></p>
-          
-          <p><%= f.label :password %></p>
-          <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
-          
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me, "ログイン状態を維持する" %>
-          
-          <%= f.submit "ログイン" %>
-      <% end %>     
-      </fieldset>  
-  </div>
-</div>
-</div>
-
-<div class="container-fluid">
- <!--user_login-->
-  <div class="modal user_login_form">
-    <div class="modal__bg js-modal-close"></div>
-      <div>
-        <%= render partial: './users/sessions/user_login' %>
-      </div>
+<div class="login-index-container">
+  <div class="grid-login">
+    <div id="user_login">
+      <h2><span class="fontawesome-lock"></span>Login</h2>       
+      <fieldset>  
+        <div class="line"></div>      
+        <%= form_for(Admin.new, as: :admin, url: session_path(:admin), local: true) do |f| %>            
+            <p><%= f.label :employee_id %></p>
+            <p><%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, id: "employee_id" %></p>
+            
+            <p><%= f.label :password %></p>
+            <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
+            
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, "ログイン状態を維持する" %>
+            
+            <%= f.submit "ログイン" %>
+        <% end %>     
+        </fieldset>  
     </div>
   </div>
 </div>

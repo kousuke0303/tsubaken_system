@@ -1,3 +1,146 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-index-container {
+  text-align: center;
+  padding-top: 20Vh;
+  padding-bottom: 40Vh;
+}
+
+.grid-login {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+
+  h2 {
+    background: #3f51b5;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    font-size: 28px;
+    padding: 20px 26px;
+    margin-bottom: 0;
+  }
+
+  h2 span[class*="fontawesome-"] {
+    margin-right: 14px;
+  }
+
+  fieldset {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 20px 26px;
+  }
+
+  fieldset p {
+    color: #777;
+    margin-bottom: 14px;
+  }
+
+  fieldset p:last-child {
+    margin-bottom: 0;
+  }
+
+  fieldset input {
+    border-radius: 3px;
+  }
+
+  fieldset input[type="email"], #user_login fieldset input[type="password"] {
+    background: #d8d6d6;
+    color: black;
+    padding: 4px 10px;
+    width: 100%;
+  }
+
+  fieldset input[type="submit"] {
+    background: #6c757d;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0;
+    width: 100px;
+  }
+
+  fieldset input[type="submit"]:hover {
+      background: #343a40;
+  }
+}
+
+.user_login_btn {
+  display: inline-block;
+	position: relative;
+	width: 160px;
+	padding: 0.8em;
+	text-align: center;
+	text-decoration: none;
+	color: #1B1B1B;
+	background: #fff;
+  border-radius: 30px;
+	border:2px solid #1B1B1B;
+	-webkit-backface-visibility: hidden; 
+	-moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.user_login_btn:hover {
+  cursor: pointer;
+  color: black;
+	text-decoration: none;
+	-webkit-animation: simple_square_btn6 0.5s both;
+	-moz-animation: simple_square_btn6 0.5s both;
+	animation: simple_square_btn6 0.5s both;
+}
+
+@-webkit-keyframes user_login_btn {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@-moz-keyframes simple_square_btn6 {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@keyframes simple_square_btn6 {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media screen and (max-width: 896px) {
+
+  .login-index-container {
+    text-align: center;
+    padding-top: 40Vh;
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  
+  .login-index-container{
+    padding-top: 11em;
+  }
+}
