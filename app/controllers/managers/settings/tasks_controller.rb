@@ -1,4 +1,4 @@
-class Manager::Settings::TasksController < ApplicationController
+class Managers::Settings::TasksController < ApplicationController
   before_action :authenticate_manager!
   before_action :not_current_manager_return_login!
   

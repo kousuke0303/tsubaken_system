@@ -1,4 +1,4 @@
-class Manager::Settings::ManagerEventsController < ApplicationController
+class Managers::Settings::ManagerEventsController < ApplicationController
   before_action :set_manager_event, only: [:edit, :update, :destroy]
   
   def create
@@ -49,5 +49,4 @@ class Manager::Settings::ManagerEventsController < ApplicationController
     def set_manager_event
       @manager_event = ManagerEvent.find(params[:id])
     end
-
 end
