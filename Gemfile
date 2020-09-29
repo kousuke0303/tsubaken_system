@@ -43,6 +43,11 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
+
 group :production do
 end
 
