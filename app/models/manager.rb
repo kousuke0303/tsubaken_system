@@ -3,6 +3,7 @@ class Manager < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :employee_id, presence: true, length: { in: 8..10 }
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
+  validates :password, presence: true, length: { in: 6..12 }
   validate :manager_employee_id_is_correct?
 
   has_many :events
@@ -11,11 +12,6 @@ class Manager < ApplicationRecord
   
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:employee_id]
-  
-  # パラメーター変更
-  def to_param
-    public_uid ? public_uid : super()
-  end
 
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_employee_id_is_correct?

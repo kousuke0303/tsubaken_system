@@ -10,7 +10,7 @@
             <p><%= f.label :password %></p>
             <p><%= f.password_field :password, autocomplete: "current-password", required: true, id: "password" %></p>
             
-            <%= f.check_box :remember_me %>
+            <%= f.check_box :remember_me, id: "remember-me" %>
             <%= f.label :remember_me, "ログイン状態を維持する" %>
             
             <%= f.submit "ログイン", id: "login" %>
@@ -26,7 +26,10 @@
 
   $("#login").on("click", function() {
     const form = $(this).parents("form");
-    const idType = $("#employee-id").val().slice(0, 3);
+    const employeeId = $("#employee-id");
+    const password = $("#password");
+    const rememberMe = $("#remember-me");
+    const idType = employeeId.val().slice(0, 3);
 
     if(idType == "AD-") {
       form.attr("class", "new_admin");

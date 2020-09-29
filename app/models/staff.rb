@@ -3,6 +3,7 @@ class Staff < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :employee_id, presence: true, length: { in: 8..10 }
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
+  validates :password, presence: true, length: { in: 6..12 }
   validate :staff_employee_id_is_correct?
 
   has_many :matter_staffs, dependent: :destroy
