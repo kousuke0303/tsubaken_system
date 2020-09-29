@@ -21,7 +21,6 @@
 </div>
 
 <script>
-
   // 入力された従業員IDに合わせてログインフォームを、管理者、マネージャー、スタッフに変更
 
   $("#login").on("click", function() {
@@ -35,17 +34,27 @@
       form.attr("class", "new_admin");
       form.attr("id", "new_admin");
       form.attr("action", "/admins/sign_in");
+      employeeId.attr("name", "admin[employee_id]");
+      password.attr("name", "admin[password]");
+      rememberMe.attr("name", "admin[remember_me]");
     } else if(idType == "MN-") {
       form.attr("class", "new_manager");
       form.attr("id", "new_manager");
       form.attr("action", "/managers/sign_in");
+      employeeId.attr("name", "manager[employee_id]");
+      password.attr("name", "manager[password]");
+      rememberMe.attr("name", "manager[remember_me]");
     } else if(idType == "ST-") {
       form.attr("class", "new_staff");
       form.attr("id", "new_staff");
       form.attr("action", "/staffs/sign_in");
+      employeeId.attr("name", "staff[employee_id]");
+      password.attr("name", "staff[password]");
+      rememberMe.attr("name", "staff[remember_me]");
     } else {
-
+      $(this).prop('disabled', true);
+      $(this).prop('disabled', false);
+      return false;
     }
   });
-  
 </script>
