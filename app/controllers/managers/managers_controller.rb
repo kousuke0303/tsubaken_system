@@ -1,7 +1,6 @@
 class Managers::ManagersController < ApplicationController
   before_action :authenticate_manager!
-  before_action :not_current_manager_return_login!
-  before_action :set_one_month, only: :top
+  # before_action :set_one_month, only: :top
   
   def show
     @manager = Manager.find(current_manager.id)
