@@ -49,7 +49,6 @@ Rails.application.routes.draw do
       end
     # user CRUD
       resources :users, path: '/enduser/users'
-      end
     # suppliers
       resources :suppliers
     end
@@ -87,23 +86,23 @@ Rails.application.routes.draw do
   
   # ###--MATTER関連--################################
   
-  scope "(:manager_public_uid)" do
-    namespace :matter do
-      resources :matters, path: '/', only: [:new, :index, :show] do
-        patch :title_update, on: :member
-        patch :client_update, on: :member
-        patch :person_in_charge_update, on: :member
-        patch :update_manage_authority, on: :member
-        get :selected_user, on: :collection
-        post :connected_matter 
-        # matter関連タスク
-        resources :matter_tasks, only: [:update, :destroy] do
-          get :create, on: :collection
-          get :move_task, on: :collection
-        end
-      end
-    end
-  end
+  # scope "(:manager_public_uid)" do
+  #   namespace :matter do
+  #     resources :matters, path: '/', only: [:new, :index, :show] do
+  #       patch :title_update, on: :member
+  #       patch :client_update, on: :member
+  #       patch :person_in_charge_update, on: :member
+  #       patch :update_manage_authority, on: :member
+  #       get :selected_user, on: :collection
+  #       post :connected_matter 
+  #       # matter関連タスク
+  #       resources :matter_tasks, only: [:update, :destroy] do
+  #         get :create, on: :collection
+  #         get :move_task, on: :collection
+  #       end
+  #     end
+  #   end
+  # end
   
   # ###--EVENT関連--################################
   
