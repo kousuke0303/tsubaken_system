@@ -1,4 +1,4 @@
-class Staff::MattersController < ApplicationController
+class Staffs::MattersController < ApplicationController
   before_action :authenticate_staff!
   before_action :not_current_staff_return_login!
   
@@ -29,5 +29,4 @@ class Staff::MattersController < ApplicationController
     def roworder_params
       (params[:item_index].to_i * 100 ) - 1
     end
-  
 end

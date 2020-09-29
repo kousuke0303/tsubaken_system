@@ -1,5 +1,4 @@
-class Staff::EventsController < ApplicationController
-  # before_action :not_current_staff_return_login!
+class Staffs::EventsController < ApplicationController
   before_action :staff_event_title
   
   def index
