@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  root 'static_pages#login_index'
   
   # Adminログイン関係
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
   }
 
   # Managerログイン関係
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
   scope module: :admins do
     resources :admins, only: [:show, :edit, :update] do
       get :top, on: :member
@@ -36,30 +37,27 @@ Rails.application.routes.draw do
   
   # ###--MANAGER:CONTROLLER--###############################
   
-  # scope module: :manager do
-  #   resources :managers, path: '/', only: [:show] do
-  #   # manager_未承認中画面
-  #     get :unapproval_top, on: :member, as: :manager_signup
-  #   # 承認済開放機能  
-  #     get :top, on: :member
-  #     get :employee, on: :member
-  #     get :employee_type, on: :member
-  #     get :enduser, on: :member
-  #   # staff CRUD
-  #     resources :staffs, path: '/employee/staffs' do
-  #       delete :outsourcing_staff_destroy, on: :member
-  #     end
-  #   # user CRUD
-  #     resources :users, path: '/enduser/users'
-  #     end
-  #   # suppliers
-  #     resources :suppliers
-  #   end
-  # end
+  scope module: :managers do
+    resources :managers, only: [:update, :edit, :index, :show] do
+      get :top, on: :member
+      get :employee, on: :member
+      get :employee_type, on: :member
+      get :enduser, on: :member
+    # staff CRUD
+      resources :staffs, path: '/employee/staffs' do
+        delete :outsourcing_staff_destroy, on: :member
+      end
+    # user CRUD
+      resources :users, path: '/enduser/users'
+      end
+    # suppliers
+      resources :suppliers
+    end
+  end
 
   # ###--USER:CONTROLLER--################################
   
-  scope module: :user do
+  scope module: :users do
     resources :users, only: [:show, :edit, :update] do
       get :top, on: :member
       # matter_controller
@@ -86,8 +84,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # ################################################################
   
   # ###--MATTER関連--################################
   
@@ -109,9 +105,6 @@ Rails.application.routes.draw do
     end
   end
   
-  # ################################################################
-
-  
   # ###--EVENT関連--################################
   
   scope "(:manager_public_uid)" do
@@ -119,8 +112,6 @@ Rails.application.routes.draw do
       resources :events, only: [:index] 
     end
   end
-  
-  # ################################################################
   
   # ###--SETTING--##################################
   
@@ -134,9 +125,6 @@ Rails.application.routes.draw do
     end
   end
   
-  
-  # ################################################################
-  
   # ###--API_RECIEVE_ADRESS-##########################
   
   scope "(:manager_public_uid)" do
@@ -146,10 +134,4 @@ Rails.application.routes.draw do
     get 'block_index', to: 'addresses#block_index'
     get 'selected_block', to: 'addresses#selected_block'
   end
-  
-  # ################################################################
-  
-  root 'static_pages#login_index'
-  
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -11,7 +11,7 @@ Manager.create!(name: "マネージャーA",
                 password: "password",
                 password_confirmation: "password")
 
-puts "CREATE! MANAGER"
+puts "CREATE! MANAGER-A"
 
 Staff.create!(name: "スタッフA",
               employee_id: "ST-staff",

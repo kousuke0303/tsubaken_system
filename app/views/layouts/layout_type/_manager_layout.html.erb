@@ -11,29 +11,29 @@
     </div>
 
     <ul class="list-unstyled components">
-      <p>管理者専用PAGE</p>
+      <p>マネージャー専用ページ</p>
       
-      <li><%= link_to "Matter", matter_matters_path(current_manager) %></li>
+      <li><%= link_to "Matter", "#" %></li>
       <li>
-        <%= link_to "Calendar", manager_events_path(current_manager) %>
+        <%= link_to "Calendar", "#" %>
       </li>
       <li>
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
-          <li><%= link_to "Employee", employee_manager_path(current_manager) %></li>
-          <li><%= link_to "EndUser", enduser_manager_path(current_manager) %></li>
+          <li><%= link_to "Employee", "#" %></li>
+          <li><%= link_to "EndUser", "#" %></li>
         </ul>
       </li>
-      <li><%= link_to "Attendance", manager_attendances_path(current_manager) %></li>
+      <li><%= link_to "Attendance", "#" %></li>
       <li>
-        <%= link_to "Suppliers", manager_suppliers_path(current_manager) %>
+        <%= link_to "Suppliers", "#" %>
       </li>
       <li>
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li><%= link_to "TASK設定", new_manager_settings_task_path(current_manager) %></li>
+            <li><%= link_to "TASK設定", "#" %></li>
             <li>
-            <li><%= link_to "EVENT登録", new_manager_settings_manager_event_title_path(current_manager) %></li>
+            <li><%= link_to "EVENT登録", "#" %></li>
             </li>
             <li>
               <a href="#">Page 3</a>
