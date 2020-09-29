@@ -1,4 +1,4 @@
-class Staff::Settings::StaffEventTitlesController < ApplicationController
+class Staffs::Settings::StaffEventTitlesController < ApplicationController
   before_action :authenticate_staff!
   # before_action :not_current_staff_return_login!
 

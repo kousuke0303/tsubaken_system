@@ -1,4 +1,4 @@
-class Staff::Settings::StaffEventsController < ApplicationController
+class Staffs::Settings::StaffEventsController < ApplicationController
   before_action :set_staff_event, only: [:edit, :update, :destroy]
 
   def create
