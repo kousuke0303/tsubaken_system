@@ -7,7 +7,7 @@ class Admin < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:employee_id]
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:employee_id]
 
   # 管理者アカウントは一つに制限
   def only_admin?
