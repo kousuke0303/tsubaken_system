@@ -35,40 +35,12 @@ ja:
             user_id:
               not_exists_user: "指定された受講生は存在しません"
     attributes:
-      admin:
-        name: '名前'
-        email: 'メール'
-        password: 'パスワード'
-        password_confirmation: 'パスワード確認'
-      manager:
-        name: '名前'
-        email: 'メール'
-        password: 'パスワード'
-        password_confirmation: 'パスワード再入力'
-      submanager:
-        name: '名前'
-        email: 'メール'
-        password: 'パスワード'
-        password_confirmation: 'パスワード再入力'
-      staff:
-        name: '名前'
-        email: 'メール'
-        password: 'パスワード'
-        password_confirmation: 'パスワード再入力'
-      user:
-        name: '名前'
-        email: 'メール'
-        password: 'パスワード'
-        password_confirmation: 'パスワード再入力'
       event:
         name: 'イベント名'
         place: '場所'
         detail: '詳細'
         latitude: '緯度'
         longitude: '経度'
-      event_tag:
-        name: '名前'
-        show_to_student: '参加回数'
       article:
         title: 'タイトル'
         author_name: '作成者'
@@ -77,10 +49,6 @@ ja:
         service: 'サービス'
         service_manager: '講師'
         user: '受講者'
-      attendance:
-        started_at: '出勤時間'
-        finished_at: '退勤時間'
-
       supplier:
         company: '会社名'
         location: '所在地'
