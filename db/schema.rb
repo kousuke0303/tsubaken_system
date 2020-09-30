@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20200926133207) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
+    t.string "name", default: "", null: false
     t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20200926133207) do
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", comment: "名前"
-    t.string "phone", comment: "連絡先"
-    t.string "fax", comment: "FAX"
-    t.string "email", comment: "email"
+    t.string "name"
+    t.string "phone"
+    t.string "fax"
+    t.string "email"
     t.bigint "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -122,16 +122,16 @@ ActiveRecord::Schema.define(version: 20200926133207) do
   end
 
   create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title", comment: "事件名"
-    t.string "actual_spot", comment: "現場"
+    t.string "title"
+    t.string "actual_spot_1", comment: "現場住所1"
     t.string "actual_spot_2"
     t.string "zip"
     t.string "status", default: "0", comment: "工事状況"
-    t.string "note", comment: "備考"
-    t.date "scheduled_start_at", comment: "着工予定日"
-    t.date "started_at", comment: "着工日"
-    t.date "scheduled_finish_at", comment: "完了予定日"
-    t.date "finished_at", comment: "完了日"
+    t.string "note"
+    t.date "scheduled_started_on", comment: "着工予定日"
+    t.date "started_on", comment: "着工日"
+    t.date "scheduled_finished_on", comment: "完了予定日"
+    t.date "finished_on", comment: "完了日"
     t.string "matter_uid", comment: "パラメーター"
     t.string "connected_id", comment: "パラメーター"
     t.datetime "created_at", null: false
@@ -176,18 +176,15 @@ ActiveRecord::Schema.define(version: 20200926133207) do
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", comment: "会社名"
-    t.string "address", comment: "所在地"
+    t.string "address_1", comment: "所在地"
     t.string "address_2", comment: "所在地2"
     t.string "zip"
     t.string "representative", comment: "代表者名"
     t.string "phone", comment: "電話番号"
     t.string "fax", comment: "FAX番号"
     t.string "email", comment: "メール"
-    t.integer "count", comment: "関連事件数"
-    t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_suppliers_on_manager_id"
   end
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -196,7 +193,7 @@ ActiveRecord::Schema.define(version: 20200926133207) do
     t.string "before_status"
     t.datetime "moved_on"
     t.integer "row_order"
-    t.string "memo"
+    t.string "note"
     t.string "default_title"
     t.integer "count"
     t.datetime "limited_on"
@@ -254,6 +251,5 @@ ActiveRecord::Schema.define(version: 20200926133207) do
   add_foreign_key "matter_users", "users"
   add_foreign_key "staff_event_titles", "staffs"
   add_foreign_key "staff_events", "staffs"
-  add_foreign_key "suppliers", "managers"
   add_foreign_key "user_social_profiles", "users"
 end
