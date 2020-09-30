@@ -68,3 +68,11 @@ ja:
           finished_at: 退勤時間
           created_at: 作成日
           updated_at: 更新日
+        task:
+          title: タイトル
+          created_at: 作成日
+          updated_at: 更新日
+          limited_on: 期限
+          note: 備考
+        matter:
+          

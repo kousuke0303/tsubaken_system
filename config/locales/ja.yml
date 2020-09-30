@@ -49,12 +49,6 @@ ja:
         service: 'サービス'
         service_manager: '講師'
         user: '受講者'
-      supplier:
-        company: '会社名'
-        location: '所在地'
-        representative_name: '代表者'
-        phone: '電話番号'
-        fax: 'fax'
   date:
     abbr_day_names:
     - 日
