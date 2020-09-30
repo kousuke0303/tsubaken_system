@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Managers::RegistrationsController < Devise::RegistrationsController
-  before_action :non_approval_layout, only: [:new, :create]
   before_action :authenticate_manager!
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -15,11 +14,7 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   def create
     @manager = Manager.new(manager_params)
     if @manager.save
-      if @manager.approval
-        redirect_to manager_url(@manager)
-      else
-        redirect_to manager_signup_manager_manager_url(@manager)
-      end
+      redirect_to manager_url(@manager)
     else
       render :new
     end
@@ -47,7 +42,7 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   
   private
    def manager_params
-     params.require(:manager).permit(:company, :name, :email, :password, :password_confirmation)
+     params.require(:manager).permit(:name, employee_id, :email, :password, :password_confirmation)
    end
 
   # GET /resource/cancel

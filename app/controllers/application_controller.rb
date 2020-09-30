@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_submanager_public_uid
   helper_method :current_matter
   helper_method :dependent_manager
   
@@ -28,43 +27,18 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------
   
   def dependent_manager
-    if manager_signed_in?
-      current_manager
-    else submanager_signed_in?
-      current_submanager.manager
-    end
+    current_manager if manager_signed_in?
   end
     
-  
-  # ログインmanager以外のページ非表示
+  # ログインmanager以外のアクセス制限
   def not_current_manager_return_login!
-    unless params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid || params[:id] == current_manager.public_uid
+    unless params[:manager_id] == current_manager.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
   end
   
-  # ---------------------------------------------------------
-        # SUBMANAGER関係
-  # ---------------------------------------------------------
-  
-  # ログインsubmanager以外のページ非表示
-  def not_current_submanager_return_login!
-    unless params[:manager_public_uid] == dependent_manager.public_uid
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-    unless params[:id].to_i == current_submanager.id || params[:submanager_id].to_i == current_submanager.id
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-  
-  # ---------------------------------------------------------
-        # STAFF関係
-  # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
+  # ログインstaff以外のアクセス制限
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
       flash[:alert] = "アクセス権限がありません"
@@ -72,18 +46,13 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # ---------------------------------------------------------
-        # USER関係
-  # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
+  # ログインuser以外のアクセス制限
   def not_current_user_return_login!
     unless params[:id].to_i == current_user.id || params[:user_id].to_i == current_user.id
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
   end
-  
   
   # --------------------------------------------------------
         # MATTER関係
@@ -225,9 +194,7 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
         # TASK関係
   # --------------------------------------------------------
-  
-  # MATTER_TASK______________________________
-  
+
   # 使用回数を保存
   def count_matter_task
     dependent_manager.tasks.each do |task|

@@ -10,13 +10,7 @@ class Managers::ManagersController < ApplicationController
     @manager = Manager.find(current_manager.id)
   end
   
-  def employee
-    @staff = dependent_manager.staffs.build
-    @staff.manager_staffs.build
-  end
-  
   def employee_type
-    @manager = Manager.find_by(public_uid: params[:id])
     @employee_type = params[:employee_type]
     respond_to do |format|
       format.js
@@ -25,6 +19,6 @@ class Managers::ManagersController < ApplicationController
   end
 
   def enduser
-    @manager = Manager.find_by(public_uid: params[:id])
+    @manager = current_manager
   end
 end
