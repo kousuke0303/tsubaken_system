@@ -6,22 +6,22 @@
   
     <div class="form-group">
       <%= f.label :name %>
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, class: "form-control" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 20, required: true, class: "form-control" %>
     </div>
     
     <div class="form-group">
       <%= f.label :employee_id %>
-      <%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", required: true, class: "form-control" %>
+      <%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", maxlength: 10, required: true, class: "form-control" %>
     </div>
   
     <div class="form-group">
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "new-password", required: true, class: "form-control" %>
+      <%= f.password_field :password, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
     </div>
   
     <div class="form-group">
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "form-control" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
     </div>
   
     <div class="">
