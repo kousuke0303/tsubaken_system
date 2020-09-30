@@ -16,8 +16,6 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.1]
       ## Rememberable
       t.datetime :remember_created_at
 
-      t.string :name
-
       t.timestamps null: false
     end
 
