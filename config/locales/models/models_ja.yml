@@ -6,7 +6,7 @@ ja:
       staff: スタッフ
       client: 顧客
       user: ユーザー
-      supplier: 外注先
+      supplier: 外注業者
       attendance: 勤怠
       matter: 案件
       task: タスク
@@ -75,4 +75,21 @@ ja:
           limited_on: 期限
           note: 備考
         matter:
-          
+          status: 工事状況
+          created_at: 作成日
+          updated_at: 更新日
+          actual_spot_1: 現場住所1
+          actual_spot_2: 現場住所2
+          scheduled_started_on: 着工予定日
+          started_on: 着工日
+          scheduled_finished_on: 完了予定日
+          finished_on: 完了日
+        supplier:
+          name: 業者名
+          phone_1: 電話番号1
+          phone_2: 電話番号2
+          email: メールアドレス
+          fax: FAX
+          representative: 代表者名
+          created_at: 作成日
+          updated_at: 更新日

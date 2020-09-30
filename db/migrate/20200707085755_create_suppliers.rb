@@ -9,8 +9,6 @@ class CreateSuppliers < ActiveRecord::Migration[5.1]
       t.string :phone, comment: "電話番号"
       t.string :fax, comment: "FAX番号"
       t.string :email, comment: "メール"
-      t.integer :count, comment: "関連事件数"
-      t.references :manager, foreign_key: true
 
       t.timestamps
     end
