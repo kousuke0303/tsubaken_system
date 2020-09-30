@@ -7,6 +7,7 @@ puts "CREATE! ADMIN"
 
 Manager.create!(name: "マネージャーA",
                 employee_id: "MN-manager",
+                phone: "08011112222"
                 email: "managerA@email.com",
                 password: "password",
                 password_confirmation: "password")
