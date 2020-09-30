@@ -89,10 +89,10 @@
             </li>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Admin
+                管理者
               </a>
               <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
-                <%= link_to "アカウント情報", "#", class: "dropdown-item item-link" %>
+                <%= link_to "アカウント編集", edit_admin_registration_path, class: "dropdown-item item-link" %>
                 <div class="dropdown-divider"></div>
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "dropdown-item item-link" %>
               </div>
