@@ -21,8 +21,8 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # PUT /resource
   def update
@@ -42,19 +42,10 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   
   private
    def manager_params
-     params.require(:manager).permit(:name, employee_id, :email, :password, :password_confirmation)
+     params.require(:manager).permit(:name, :employee_id, :phone, :email, :password, :password_confirmation)
    end
 
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  #protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
