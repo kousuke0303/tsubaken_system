@@ -3,20 +3,10 @@
 class Admins::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
-  # POST /resource/sign_in
-  def create
-    super
-  end
-
   def failed
     # warden で出力されたエラーを保存する
     flash[:alert] = "ログインに失敗しました"
     redirect_to root_path
-  end
-
-  # DELETE /resource/sign_out
-  def destroy
-    super
   end
 
   protected
