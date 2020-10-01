@@ -10,11 +10,6 @@
   
     <%= form_with(model:@manager, url: manager_registration_path, local: true) do |f| %>
       <%= render "layouts/error_messages", resource: resource %>
-  
-      <div class="form-group">
-        <%= f.label :company, "会社名" %>
-        <%= f.text_field :company, autofocus: true, autocomplete: "company", class: "form-control" %>
-      </div>
     
       <div class="form-group">
         <%= f.label :name, "名前" %>
