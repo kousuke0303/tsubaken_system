@@ -28,8 +28,9 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   def update
     @manager = Manager.find(current_manager.id)
     if @manager.update(manager_params)
-      flash[:success] = "アカウント情報を更新しました。再度ログインしてください。"
-      redirect_to manager_url(@manager)
+      sign_in(@manager, :bypass => true)
+      flash[:success] = "アカウント情報を更新しました"
+      redirect_to top_manager_url(@manager)
     else
       render :edit
     end

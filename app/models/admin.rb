@@ -3,16 +3,10 @@ class Admin < ApplicationRecord
   validates :employee_id, presence: true, length: { in: 8..10 }, uniqueness: true
   validates :password, presence: true, length: { in: 6..12 }
   validate :admin_employee_id_is_correct?
-  validate :only_admin?
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:employee_id]
-
-  # 管理者アカウントは一つに制限
-  def only_admin?
-    errors.add(:base, "管理者アカウントは既に存在します。") if Admin.exists?
-  end
 
   # 管理者の従業員IDは「AD-」から始めさせる
   def admin_employee_id_is_correct?
