@@ -1,7 +1,7 @@
 <div class="container">
   <h2>管理者編集</h2>
   
-  <%= form_with(model:@admin, url: admin_registration_path(current_admin), local: true) do |f| %>
+  <%= form_with(model: @admin, url: admin_registration_path(current_admin), local: true) do |f| %>
     <%= render "shared/error_messages", resource: resource %>
   
     <div class="form-group">
