@@ -15,10 +15,11 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     @admin = Admin.find(current_admin.id)
     if @admin.update(admin_params)
       sign_in(@admin, :bypass => true)
-      flash[:success] = "アカウント情報を更新しました"
+      flash[:success] = "アカウント情報を更新しました。"
       redirect_to top_admin_url(@admin)
     else
-      render :edit
+      flash[:alert] = "アカウント情報の更新に失敗しました。再度入力願います。"
+      redirect_to edit_admin_registration_url
     end
   end
 

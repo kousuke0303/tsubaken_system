@@ -16,7 +16,7 @@ class Admins::AdminsController < ApplicationController
       flash[:success] = "アカウント情報を更新しました。"
       redirect_to admin_top_url
     else
-      render :edit
+      render action: :edit
     end
   end
 
