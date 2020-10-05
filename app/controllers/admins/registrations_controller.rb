@@ -18,8 +18,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
       flash[:success] = "アカウント情報を更新しました。"
       redirect_to top_admin_url(@admin)
     else
-      flash[:alert] = "アカウント情報の更新に失敗しました。再度入力願います。"
-      redirect_to edit_admin_registration_url
+      render :edit
     end
   end
 

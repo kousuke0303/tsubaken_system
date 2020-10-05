@@ -1,7 +1,7 @@
 <div class="container">
   <h2>管理者編集</h2>
   
-  <%= form_with(model: @admin, url: admin_registration_path(current_admin), local: true) do |f| %>
+  <%= form_with(model: @admin, url: admin_registration_path, local: true) do |f| %>
     <%= render "shared/error_messages", resource: resource %>
   
     <div class="form-group">
@@ -28,4 +28,13 @@
       <%= f.submit "編集", class: "btn btn-dark" %>
     </div>
   <% end %>
+  
+  <% if @admin.errors.any? %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        history.pushState('', '', location.href + '/edit')
+      });
+    </script>
+  <% end %>
 </div>
+
