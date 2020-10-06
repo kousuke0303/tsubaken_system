@@ -17,8 +17,6 @@ class StaticPagesController < ApplicationController
       redirect_to top_manager_path(current_manager)
     elsif staff_signed_in?
       redirect_to top_staff_path(current_staff)
-    elsif user_signed_in?
-      redirect_to top_user_path(current_user)
     end
   end 
 end
