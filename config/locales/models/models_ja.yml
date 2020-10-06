@@ -29,6 +29,10 @@ ja:
           employee_id: 従業員ID
           phone: 電話番号
           email: メールアドレス
+          zip_code: 郵便番号
+          address: 住所
+          joined_on: 入社日
+          resigned_on: 退社日
           password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
@@ -39,6 +43,11 @@ ja:
           employee_id: 従業員ID
           phone: 電話番号
           email: メールアドレス
+          zip_code: 郵便番号
+          address: 住所
+          joined_on: 入社日
+          resigned_on: 退社日
+          password: パスワード
           password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
@@ -48,12 +57,6 @@ ja:
           name: 名前
           phone: 電話番号
           fax: FAX番号
-          email: メールアドレス
-          created_at: 作成日
-          updated_at: 更新日
-        user:
-          id: ID
-          name: 名前
           email: メールアドレス
           created_at: 作成日
           updated_at: 更新日
