@@ -2,15 +2,11 @@
   
   <!-- Sidebar -->
     <nav id="sidebar">
-      <div class="sidebar-header">
-        <%= image_tag 'app.logo.png' %>
-      </div>
+      <div class="sidebar-header"><%= image_tag "app.logo.png" %></div>
 
       <ul class="list-unstyled components">
         <p>管理者専用ページ</p>
-        <li>
-          <%= link_to "アカウント", "#" %>
-        </li>
+        <li><%= link_to "アカウント", "#" %></li>
         <li class="">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
           <ul class="collapse list-unstyled" id="homeSubmenu">

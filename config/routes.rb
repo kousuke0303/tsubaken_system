@@ -22,14 +22,6 @@ Rails.application.routes.draw do
     registrations: 'staffs/registrations'
   }
 
-  # Userログイン関係
-  devise_for :users, controllers: {
-    sessions:      'users/sessions',
-    passwords:     'users/passwords',
-    registrations: 'users/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
-
   scope module: :admins do
     resources :admins, only: [:show, :edit, :update] do
       get :top, on: :member
@@ -52,18 +44,6 @@ Rails.application.routes.draw do
       resources :users, path: '/enduser/users'
     # suppliers
       resources :suppliers
-    end
-  end
-
-  # ###--USER:CONTROLLER--################################
-  
-  scope module: :users do
-    resources :users, only: [:show, :edit, :update] do
-      get :top, on: :member
-      # matter_controller
-      resources :matters, only: :show do
-        post :matter_connect, on: :collection
-      end
     end
   end
     
