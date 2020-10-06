@@ -1,7 +1,6 @@
 class CreateUserSocialProfiles < ActiveRecord::Migration[5.1]
   def change
     create_table :user_social_profiles do |t|
-      t.references :user, foreign_key: true
       t.string :provider
       t.string :uid
       t.string :name
@@ -16,6 +15,5 @@ class CreateUserSocialProfiles < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :user_social_profiles, [:provider, :uid], unique: true
   end
 end
