@@ -16,7 +16,7 @@ class Staff < ApplicationRecord
   # スタッフの従業員IDは「ST-」から始めさせる
   def staff_employee_id_is_correct?
     if employee_id.present? && employee_id[0..2] != "ST-"
-      errors.add(:employee_id, ":は「ST-」から始めてください。")
+      errors.add(:employee_id, "は「ST-」から始めてください。")
     end
   end
 
