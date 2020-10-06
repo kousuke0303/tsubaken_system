@@ -116,15 +116,6 @@ ActiveRecord::Schema.define(version: 20200926133207) do
     t.index ["task_id"], name: "index_matter_tasks_on_task_id"
   end
 
-  create_table "matter_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_matter_users_on_matter_id"
-    t.index ["user_id"], name: "index_matter_users_on_user_id"
-  end
-
   create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.string "actual_spot_1", comment: "現場住所1"
@@ -211,7 +202,6 @@ ActiveRecord::Schema.define(version: 20200926133207) do
   end
 
   create_table "user_social_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
     t.string "provider"
     t.string "uid"
     t.string "name"
@@ -225,23 +215,6 @@ ActiveRecord::Schema.define(version: 20200926133207) do
     t.text "raw_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider", "uid"], name: "index_user_social_profiles_on_provider_and_uid", unique: true
-    t.index ["user_id"], name: "index_user_social_profiles_on_user_id"
-  end
-
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", default: "", null: false
-    t.string "phone"
-    t.string "fax"
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "clients", "matters"
@@ -255,9 +228,6 @@ ActiveRecord::Schema.define(version: 20200926133207) do
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matter_tasks", "matters"
   add_foreign_key "matter_tasks", "tasks"
-  add_foreign_key "matter_users", "matters"
-  add_foreign_key "matter_users", "users"
   add_foreign_key "staff_event_titles", "staffs"
   add_foreign_key "staff_events", "staffs"
-  add_foreign_key "user_social_profiles", "users"
 end
