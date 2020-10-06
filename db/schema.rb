@@ -82,6 +82,10 @@ ActiveRecord::Schema.define(version: 20200926133207) do
     t.string "name", default: "", null: false
     t.string "phone"
     t.string "email"
+    t.string "zip_code"
+    t.string "address"
+    t.date "joined_on"
+    t.date "resigned_on"
     t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -162,6 +166,10 @@ ActiveRecord::Schema.define(version: 20200926133207) do
     t.string "name", default: "", null: false
     t.string "phone"
     t.string "email"
+    t.string "zip_code"
+    t.string "address"
+    t.date "joined_on"
+    t.date "resigned_on"
     t.string "employee_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

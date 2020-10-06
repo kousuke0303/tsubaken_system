@@ -3,6 +3,8 @@ class Manager < ApplicationRecord
   validates :employee_id, presence: true, length: { in: 8..10 }, uniqueness: true
   validates :email, length: { maximum: 254 }
   validate :manager_employee_id_is_correct?
+  validate :joined_with_resigned
+  validate :resigned_is_since_joined
 
   has_many :events
   has_many :manager_events
@@ -15,6 +17,18 @@ class Manager < ApplicationRecord
   def manager_employee_id_is_correct?
     if employee_id.present? && employee_id[0..2] != "MN-"
       errors.add(:employee_id, ":は「MN-」から始めてください。")
+    end
+  end
+
+  # 退社日は入社日がないとNG
+  def joined_with_resigned
+    errors.add(:joined_on, "を入力してください。") if !self.joined_on.present? && self.resigned_on.present?
+  end
+
+  # 退社日は入社日以降
+  def resigned_is_since_joined
+    if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
+      errors.add(:resigned_on, "は入社日以降にしてください。")
     end
   end
 

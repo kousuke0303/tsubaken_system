@@ -1,9 +1,7 @@
 class Staff < ApplicationRecord
-  before_save { self.email = email.downcase }
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 30 }
   validates :employee_id, presence: true, length: { in: 8..10 }
-  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { in: 6..12 }
+  validates :email, length: { maximum: 254 }
   validate :staff_employee_id_is_correct?
 
   has_many :matter_staffs, dependent: :destroy
@@ -14,15 +12,6 @@ class Staff < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:employee_id]
-  
-  # ## scope #########################################
-  scope :employee_staff, ->(dependent_manager){
-    joins(:manager_staffs).merge(ManagerStaff.where(manager_id: dependent_manager.id)).merge(ManagerStaff.where(employee: 1))
-  }
-  
-  scope :outsourcing_staff, ->(dependent_manager){
-    joins(:manager_staffs).merge(ManagerStaff.where(manager_id: dependent_manager.id)).merge(ManagerStaff.where(employee: 0))
-  }
 
   # スタッフの従業員IDは「ST-」から始めさせる
   def staff_employee_id_is_correct?
@@ -38,6 +27,18 @@ class Staff < ApplicationRecord
       where(conditions).where(employee_id: employee_id).first
     else
       where(conditions).first
+    end
+  end
+
+  # 退社日は入社日がないとNG
+  def joined_with_resigned
+    errors.add(:joined_on, "を入力してください。") if !self.joined_on.present? && self.resigned_on.present?
+  end
+
+  # 退社日は入社日以降
+  def resigned_is_since_joined
+    if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
+      errors.add(:resigned_on, "は入社日以降にしてください。")
     end
   end
 
