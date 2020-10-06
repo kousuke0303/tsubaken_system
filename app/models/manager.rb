@@ -15,9 +15,7 @@ class Manager < ApplicationRecord
 
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_employee_id_is_correct?
-    if employee_id.present? && employee_id[0..2] != "MN-"
-      errors.add(:employee_id, "は「MN-」から始めてください。")
-    end
+    errors.add(:employee_id, "は「MN-」から始めてください。") if employee_id.present? && employee_id[0..2] != "MN-"
   end
 
   # 退社日は入社日がないとNG
