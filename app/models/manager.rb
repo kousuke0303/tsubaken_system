@@ -1,9 +1,7 @@
 class Manager < ApplicationRecord
-  before_save { self.email = email.downcase }
-  validates :name, presence: true, length: { maximum: 20 }
-  validates :employee_id, presence: true, length: { in: 8..10 }
-  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { in: 6..12 }
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :employee_id, presence: true, length: { in: 8..10 }, uniqueness: true
+  validates :email, length: { maximum: 254 }
   validate :manager_employee_id_is_correct?
 
   has_many :events

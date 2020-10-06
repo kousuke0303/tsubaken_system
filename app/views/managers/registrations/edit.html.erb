@@ -3,39 +3,26 @@
   
   <%= form_with(model: @manager, url: manager_registration_path, local: true) do |f| %>
     <%= render "shared/error_messages", resource: resource %>
-  
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 20, required: true, class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :employee_id %>
-      <%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", maxlength: 10, required: true, class: "form-control" %>
-    </div>
 
-    <div class="form-group">
-    <%= f.label :phone %>
-      <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11 %>
-      <small class="form-text text-muted">半角数字のみ（ハイフンなし）</small>
-    </div>
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 20, required: true, class: "form-control" %>
+
+    <%= f.label :employee_id %>
+    <%= f.text_field :employee_id, autofocus: true, autocomplete: "employee_id", maxlength: 10, required: true, class: "form-control" %>
     
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 254, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
-    </div>
-  
-    <div class="">
+    <%= f.label :phone %>
+    <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11, placeholder: "半角数字(ハイフンなし)" %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 254, class: "form-control" %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", maxlength: 12, required: true, class: "form-control" %>
+
+    <div class="btn-area">
       <%= f.submit "編集", class: "btn btn-dark" %>
     </div>
   <% end %>

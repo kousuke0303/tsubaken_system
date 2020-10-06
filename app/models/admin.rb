@@ -1,7 +1,6 @@
 class Admin < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 30 }, uniqueness: true
+  validates :name, presence: true, length: { maximum: 30 }
   validates :employee_id, presence: true, length: { in: 8..10 }, uniqueness: true
-  validates :password, presence: true, length: { in: 6..12 }
   validate :admin_employee_id_is_correct?
 
   # Include default devise modules. Others available are:
