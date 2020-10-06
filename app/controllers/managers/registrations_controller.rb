@@ -43,7 +43,7 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   
   private
    def manager_params
-     params.require(:manager).permit(:name, :employee_id, :phone, :email, :password, :password_confirmation)
+     params.require(:manager).permit(:name, :employee_id, :phone, :email, :zip_code, :address, :joined_on, :resigned_on, :password, :password_confirmation)
    end
 
   protected
