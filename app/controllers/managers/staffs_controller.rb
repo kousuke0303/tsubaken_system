@@ -16,7 +16,6 @@ class Managers::StaffsController < ApplicationController
   end
   
   def edit
-    @manager_staff = current_manager.manager_staffs.find_by(staff_id: @staff.id)
   end
   
   def update

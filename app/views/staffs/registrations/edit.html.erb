@@ -40,3 +40,11 @@
     </div>
   <% end %>
 </div>
+
+<% if @staff.errors.any? %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      history.pushState("", "", location.href + "/edit")
+    });
+  </script>
+<% end %>
