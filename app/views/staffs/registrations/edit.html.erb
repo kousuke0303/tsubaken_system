@@ -1,7 +1,7 @@
 <div class="container">
   <h2>スタッフ編集</h2>
   
-  <%= form_with(model:@staff, url: staff_registration_path(current_staff), local: true) do |f| %>
+  <%= form_with(model:@staff, url: staff_registration_path, local: true) do |f| %>
     <%= render "shared/error_messages", resource: resource %>
   
     <%= f.label :name %>
