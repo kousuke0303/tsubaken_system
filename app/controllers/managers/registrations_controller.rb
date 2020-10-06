@@ -5,6 +5,10 @@ class Managers::RegistrationsController < Devise::RegistrationsController
 
   def update
     @manager = Manager.find(current_manager.id)
+    if params[:manager][:password].blank? && params[:manager][:password_confirmation].blank?
+      params[:manager].delete(:password)
+      params[:manager].delete(:password_confirmation)
+    end
     if @manager.update(manager_params)
       sign_in(@manager, :bypass => true)
       flash[:success] = "アカウント情報を更新しました."
