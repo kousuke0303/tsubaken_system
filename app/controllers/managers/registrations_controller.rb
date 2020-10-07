@@ -11,7 +11,7 @@ class Managers::RegistrationsController < Devise::RegistrationsController
     end
     if @manager.update(manager_params)
       sign_in(@manager, :bypass => true)
-      flash[:success] = "アカウント情報を更新しました."
+      flash[:alert] = "アカウント情報を更新しました"
       redirect_to top_manager_url(@manager)
     else
       render :edit
@@ -20,6 +20,6 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   
   private
     def manager_params
-      params.require(:manager).permit(:name, :employee_id, :phone, :email, :zip_code, :address, :joined_on, :resigned_on, :password, :password_confirmation)
+      params.require(:manager).permit(:name, :employee_id, :phone, :email, :birthed_on, :zip_code, :address, :joined_on, :resigned_on, :password, :password_confirmation)
     end
 end

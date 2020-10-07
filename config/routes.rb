@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     registrations: "staffs/registrations"
   }
 
+  # Admin関係
   scope module: :admins do
     resources :admins, only: [:show] do
       get :top, on: :member
@@ -29,22 +30,10 @@ Rails.application.routes.draw do
     end
   end
   
-  # ###--MANAGER:CONTROLLER--###############################
-  
+  # Manager関係
   scope module: :managers do
     resources :managers, only: [:index] do
       get :top, on: :member
-      get :employee, on: :member
-      get :employee_type, on: :member
-      get :enduser, on: :member
-    # staff CRUD
-      resources :staffs, path: '/employee/staffs' do
-        delete :outsourcing_staff_destroy, on: :member
-      end
-    # user CRUD
-      resources :users, path: '/enduser/users'
-    # suppliers
-      resources :suppliers
     end
   end
     

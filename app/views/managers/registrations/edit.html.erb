@@ -16,6 +16,9 @@
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 254, class: "form-control" %>
 
+    <%= f.label :birthed_on %>
+    <%= f.date_field :birthed_on, autofocus: true, autocomplete: "birthed_on", class: "form-control" %>
+
     <%= f.label :zip_code %>
     <%= f.text_field :zip_code, autofocus: true, autocomplete: "zip_code", maxlength: 7, pattern: "^\d{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
 

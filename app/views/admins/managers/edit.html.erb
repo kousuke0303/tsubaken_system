@@ -1,7 +1,7 @@
 <div>
-  <h2>マネージャー作成</h2>
+  <h2>マネージャー編集</h2>
 
-  <%= form_with(model: @manager, url: admin_managers_path(current_admin), method: :post, local: true) do |f| %>
+  <%= form_with(model: @manager, url: admin_manager_path(current_admin, @manager), method: :patch, local: true) do |f| %>
     <%= render "shared/error_messages", resource: @manager %>
 
     <%= f.label :name %>
@@ -32,14 +32,14 @@
     <%= f.date_field :resigned_on, autofocus: true, autocomplete: "resigned_on", class: "form-control" %>
 
     <div class="btn-area">
-      <%= f.submit "作成", class: "btn btn-dark" %>
+      <%= f.submit "更新", class: "btn btn-dark" %>
     </div>
   <% end %>
 
   <% if @manager.errors.any? %>
     <script>
       $(document).ready(function() {
-        history.pushState("", "", location.href + "/new")
+        history.pushState("", "", location.href + "/edit")
       });
     </script>
   <% end %>

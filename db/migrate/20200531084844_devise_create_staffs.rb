@@ -6,6 +6,7 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
       t.string :name,               null: false, default: ""
       t.string :phone
       t.string :email
+      t.date :birthed_on
       t.string :zip_code
       t.string :address
       t.date :joined_on

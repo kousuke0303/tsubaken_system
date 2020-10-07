@@ -7,7 +7,7 @@ class Admins::ManagersController < ApplicationController
   end
 
   def create
-    @manager = Manager.new(manager_params)
+    @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
     if @manager.save
       flash[:alert] = "マネージャーを作成しました"
       redirect_to admin_manager_url(current_admin, @manager)
@@ -27,6 +27,12 @@ class Admins::ManagersController < ApplicationController
   end
 
   def update
+    if @manager.update(manager_params)
+      flash[:alert] = "マネージャー情報を更新しました"
+      redirect_to admin_manager_url(current_admin, @manager)
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -34,8 +40,7 @@ class Admins::ManagersController < ApplicationController
 
   private
     def manager_params
-      params.require(:manager).permit(:name, :employee_id, :phone, :email, :zipcode, :address, :joined_on, :resigned_on).
-             merge(password: "password", password_confirmation: "password")
+      params.require(:manager).permit(:name, :employee_id, :phone, :email, :birthed_on, :zipcode, :address, :joined_on, :resigned_on)
     end
 
     def set_manager_by_admin

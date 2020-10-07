@@ -19,6 +19,10 @@
       <td><%= @manager.email %></td>
     </tr>
     <tr>
+      <th>生年月日</th>
+      <td><%= @manager.birthed_on %></td>
+    </tr>
+    <tr>
       <th>郵便番号</th>
       <td><%= @manager.zip_code %></td>
     </tr>
@@ -35,4 +39,9 @@
       <td><%= @manager.resigned_on %></td>
     </tr>
   </table>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_admin_manager_path(current_admin, @manager), class: "btn btn-dark" %>
+    <%= link_to "削除", admin_manager_path(current_admin, @manager), method: :delete, class: "btn btn-danger" %>
+  </div>
 </div>
