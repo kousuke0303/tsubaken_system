@@ -1,4 +1,4 @@
-class Admins::ManagersController < ApplicationController
+class Employees::ManagersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
 
@@ -10,7 +10,7 @@ class Admins::ManagersController < ApplicationController
     @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
     if @manager.save
       flash[:alert] = "マネージャーを作成しました"
-      redirect_to admin_manager_url(current_admin, @manager)
+      redirect_to employees_manager_url(@manager)
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admins::ManagersController < ApplicationController
   def update
     if @manager.update(manager_params)
       flash[:alert] = "マネージャー情報を更新しました"
-      redirect_to admin_manager_url(current_admin, @manager)
+      redirect_to employees_manager_url(@manager)
     else
       render :edit
     end

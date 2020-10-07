@@ -1,7 +1,7 @@
 <div>
   <h2>マネージャー作成</h2>
 
-  <%= form_with(model: @manager, url: admin_managers_path(current_admin), method: :post, local: true) do |f| %>
+  <%= form_with(model: @manager, url: employees_managers_path, method: :post, local: true) do |f| %>
     <%= render "shared/error_messages", resource: @manager %>
 
     <%= f.label :name %>

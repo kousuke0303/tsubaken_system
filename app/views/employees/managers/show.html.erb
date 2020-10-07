@@ -41,7 +41,7 @@
   </table>
 
   <div class="btn-area">
-    <%= link_to "編集", edit_admin_manager_path(current_admin, @manager), class: "btn btn-dark" %>
-    <%= link_to "削除", admin_manager_path(current_admin, @manager), method: :delete, class: "btn btn-danger" %>
+    <%= link_to "編集", edit_employees_manager_path(@manager), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_manager_path(@manager), method: :delete, class: "btn btn-danger" %>
   </div>
 </div>

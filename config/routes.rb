@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   scope module: :admins do
     resources :admins, only: [:show] do
       get :top, on: :member
-      resources :managers
     end
   end
   
@@ -39,6 +38,7 @@ Rails.application.routes.draw do
 
   # AdminとManagerがStaffをCRUD
   namespace :employees do
+    resources :managers
     resources :staffs
   end
     
