@@ -1,4 +1,6 @@
-<div>
+<div>  
+  <%= link_to "作成", new_admin_manager_path(current_admin), class: "btn btn-dark" %>
+
   <table class="table table-sm table-hover" id="admins-managers-table">
     <tr>
       <th>名前</th>
@@ -14,5 +16,5 @@
         <td><%= manager.joined_on %></td>
       </tr>
     <% end %>
-  </table>
+</table>
 </div>
