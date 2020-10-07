@@ -13,7 +13,7 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
       t.date :resigned_on
 
       ## Database authenticatable
-      t.string :employee_id,        null: false, default: ""
+      t.string :login_id,           null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -26,7 +26,7 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
       t.timestamps null: false
     end
 
-    add_index :managers, :employee_id,          unique: true
+    add_index :managers, :login_id,          unique: true
     add_index :managers, :reset_password_token, unique: true
   end
 end

@@ -1,26 +1,32 @@
 Rails.application.routes.draw do
-  devise_for :clients
   root "static_pages#login_index"
   
-  # Adminログイン関係
+  # deviseのAdminログイン関係
   devise_for :admins, controllers: {
     sessions:      "admins/sessions",
     passwords:     "admins/passwords",
     registrations: "admins/registrations"
   }
 
-  # Managerログイン関係
+  # deviseのManagerログイン関係
   devise_for :managers, controllers: {
     sessions:      "managers/sessions",
     passwords:     "managers/passwords",
     registrations: "managers/registrations"
   }
 
-  # Staffログイン関係
+  # deviseのStaffログイン関係
   devise_for :staffs, controllers: {
     sessions:      "staffs/sessions",
     passwords:     "staffs/passwords",
     registrations: "staffs/registrations"
+  }
+
+  # deviseのclientログイン関係
+  devise_for :clients, controllers: {
+    sessions:      "clients/sessions",
+    passwords:     "clients/passwords",
+    registrations: "clients/registrations"
   }
 
   # Admin関係

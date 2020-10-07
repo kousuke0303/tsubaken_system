@@ -23,15 +23,15 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :employee_id])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :login_id])
     end
 
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :employee_id])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :login_id])
     end
 
   private
     def admin_params
-      params.require(:admin).permit(:name, :employee_id, :password, :password_confirmation)
+      params.require(:admin).permit(:name, :login_id, :password, :password_confirmation)
     end
 end

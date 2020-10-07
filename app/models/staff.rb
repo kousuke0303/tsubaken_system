@@ -1,8 +1,8 @@
 class Staff < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :employee_id, presence: true, length: { in: 8..10 }
+  validates :login_id, presence: true, length: { in: 8..10 }
   validates :email, length: { maximum: 254 }
-  validate :staff_employee_id_is_correct?
+  validate :staff_login_id_is_correct?
 
   has_many :matter_staffs, dependent: :destroy
   has_many :matters, through: :matter_staffs
@@ -11,18 +11,18 @@ class Staff < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:employee_id]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # スタッフの従業員IDは「ST-」から始めさせる
-  def staff_employee_id_is_correct?
-    errors.add(:employee_id, "は「ST-」から始めてください") if employee_id.present? && employee_id[0..2] != "ST-"
+  def staff_login_id_is_correct?
+    errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && login_id[0..2] != "ST-"
   end
 
-  # emailでなくemployee_idを認証キーにする
+  # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
-    if employee_id = conditions.delete(:employee_id)
-      where(conditions).where(employee_id: employee_id).first
+    if login_id = conditions.delete(:login_id)
+      where(conditions).where(login_id: login_id).first
     else
       where(conditions).first
     end

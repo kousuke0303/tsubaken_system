@@ -1,12 +1,12 @@
 Admin.create!(name: "管理者",
-              employee_id: "AD-admin",
+              login_id: "AD-admin",
               password: "password",
               password_confirmation: "password")
 
 puts "CREATE! ADMIN"
 
 Manager.create!(name: "マネージャーA",
-                employee_id: "MN-manager",
+                login_id: "MN-manager",
                 phone: "08011112222",
                 email: "manager-a@email.com",
                 password: "password",
@@ -15,7 +15,7 @@ Manager.create!(name: "マネージャーA",
 puts "CREATE! MANAGER-A"
 
 Staff.create!(name: "スタッフA",
-              employee_id: "ST-staff",
+              login_id: "ST-staff",
               phone: "08011112222",
               email: "staff-a@email.com",
               password: "password",

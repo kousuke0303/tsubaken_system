@@ -6,7 +6,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.1]
       t.string :name,               null: false, default: ""
 
       ## Database authenticatable
-      t.string :employee_id,        null: false, default: ""
+      t.string :login_id,        null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -19,7 +19,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.1]
       t.timestamps null: false
     end
 
-    add_index :admins, :employee_id,          unique: true
+    add_index :admins, :login_id,          unique: true
     add_index :admins, :reset_password_token, unique: true
   end
 end

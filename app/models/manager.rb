@@ -1,8 +1,8 @@
 class Manager < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :employee_id, presence: true, length: { in: 8..10 }, uniqueness: true
+  validates :login_id, presence: true, length: { in: 8..10 }, uniqueness: true
   validates :email, length: { maximum: 254 }
-  validate :manager_employee_id_is_correct?
+  validate :manager_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
 
@@ -11,11 +11,11 @@ class Manager < ApplicationRecord
   has_many :manager_event_titles
   
   # Include default devise modules. Others available are:
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:employee_id]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # マネージャーの従業員IDは「MN-」から始めさせる
-  def manager_employee_id_is_correct?
-    errors.add(:employee_id, "は「MN-」から始めてください") if employee_id.present? && employee_id[0..2] != "MN-"
+  def manager_login_id_is_correct?
+    errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && login_id[0..2] != "MN-"
   end
 
   # 退社日は入社日がないとNG
@@ -30,11 +30,11 @@ class Manager < ApplicationRecord
     end
   end
 
-  # emailでなくemployee_idを認証キーにする
+  # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
-    if employee_id = conditions.delete(:employee_id)
-      where(conditions).where(employee_id: employee_id).first
+    if login_id = conditions.delete(:login_id)
+      where(conditions).where(login_id: login_id).first
     else
       where(conditions).first
     end
