@@ -7,7 +7,7 @@ class Admins::ManagersController < ApplicationController
   end
 
   def create
-    @manager = Manager.create(manager_params)
+    @manager = Manager.new(manager_params)
     if @manager.save
       flash[:alert] = "マネージャーを作成しました"
       redirect_to admin_manager_url(current_admin, @manager)
