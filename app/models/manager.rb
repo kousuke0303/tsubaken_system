@@ -15,18 +15,18 @@ class Manager < ApplicationRecord
 
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_employee_id_is_correct?
-    errors.add(:employee_id, "は「MN-」から始めてください。") if employee_id.present? && employee_id[0..2] != "MN-"
+    errors.add(:employee_id, "は「MN-」から始めてください") if employee_id.present? && employee_id[0..2] != "MN-"
   end
 
   # 退社日は入社日がないとNG
   def joined_with_resigned
-    errors.add(:joined_on, "を入力してください。") if !self.joined_on.present? && self.resigned_on.present?
+    errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
   end
 
   # 退社日は入社日以降
   def resigned_is_since_joined
     if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
-      errors.add(:resigned_on, "は入社日以降にしてください。")
+      errors.add(:resigned_on, "は入社日以降にしてください")
     end
   end
 
