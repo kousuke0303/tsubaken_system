@@ -1,37 +1,38 @@
 Rails.application.routes.draw do
-  root 'static_pages#login_index'
+  root "static_pages#login_index"
   
   # Adminログイン関係
   devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
+    sessions:      "admins/sessions",
+    passwords:     "admins/passwords",
+    registrations: "admins/registrations"
   }
 
   # Managerログイン関係
   devise_for :managers, controllers: {
-    sessions:      'managers/sessions',
-    passwords:     'managers/passwords',
-    registrations: 'managers/registrations'
+    sessions:      "managers/sessions",
+    passwords:     "managers/passwords",
+    registrations: "managers/registrations"
   }
 
   # Staffログイン関係
   devise_for :staffs, controllers: {
-    sessions:      'staffs/sessions',
-    passwords:     'staffs/passwords',
-    registrations: 'staffs/registrations'
+    sessions:      "staffs/sessions",
+    passwords:     "staffs/passwords",
+    registrations: "staffs/registrations"
   }
 
   scope module: :admins do
-    resources :admins, only: [:show, :edit, :update] do
+    resources :admins, only: [:show] do
       get :top, on: :member
+      resources :managers
     end
   end
   
   # ###--MANAGER:CONTROLLER--###############################
   
   scope module: :managers do
-    resources :managers, only: [:update, :edit, :index, :show] do
+    resources :managers, only: [:index] do
       get :top, on: :member
       get :employee, on: :member
       get :employee_type, on: :member
