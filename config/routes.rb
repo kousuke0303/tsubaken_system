@@ -36,6 +36,11 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+
+  # AdminとManagerがStaffをCRUD
+  namespace :employees do
+    resources :staffs
+  end
     
   # ###--STAFF:CONTROLLER--################################
   

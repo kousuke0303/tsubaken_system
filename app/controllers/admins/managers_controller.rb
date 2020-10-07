@@ -1,6 +1,6 @@
 class Admins::ManagersController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_manager_by_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_manager, only: [:show, :edit, :update, :destroy]
 
   def new
     @manager = Manager.new
@@ -43,7 +43,7 @@ class Admins::ManagersController < ApplicationController
       params.require(:manager).permit(:name, :employee_id, :phone, :email, :birthed_on, :zipcode, :address, :joined_on, :resigned_on)
     end
 
-    def set_manager_by_admin
+    def set_manager
       @manager = Manager.find(params[:id])
     end
 end
