@@ -1,5 +1,6 @@
 class Admins::ManagersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :set_manager_by_admin, only: [:show, :edit, :update, :destroy]
 
   def new
     @manager = Manager.new
@@ -24,4 +25,12 @@ class Admins::ManagersController < ApplicationController
 
   def destroy
   end
+
+  private
+    def admin_manager_params
+    end
+
+    def set_manager_by_admin
+      @manager = Manager.find(params[:id])
+    end
 end
