@@ -15,11 +15,11 @@
   
   <!--ログイン画面のレイアウト-->
   <% if @type == "log_in" %>
-    <body class="login_container">
-      <header class="header_login">
+    <body class="login-container">
+      <header class="header-login">
         <%= render "layouts/login_header" %>
       </header>
-      <div class="login_content">
+      <div class="login-content">
         <%= render "layouts/flash" %>
         <%= yield %>
       </div>

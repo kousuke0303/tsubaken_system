@@ -249,13 +249,18 @@ class ApplicationController < ActionController::Base
     # ログイン後のリダイレクト先   
     def after_sign_in_path_for(resource_or_scope)
       if resource_or_scope.is_a?(Admin)
-        top_admin_path(current_admin)
+        top_admin_url(current_admin)
       elsif resource_or_scope.is_a?(Manager)
-        top_manager_path(current_manager)
+        top_manager_url(current_manager)
       elsif resource_or_scope.is_a?(Staff)
-        top_staff_path(current_staff)
+        top_staff_url(current_staff)
       else
-        root_path
+        root_url
       end
+    end
+
+    # AdminとManager以外にアクセス制限
+    def authenticate_admin_or_manager!
+      redirect_to root_url unless current_admin || current_manager
     end
 end

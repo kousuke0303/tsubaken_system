@@ -1,4 +1,5 @@
 class Employees::StaffsController < ApplicationController
+  before_action :authenticate_admin_or_manager!
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
 
   def new
