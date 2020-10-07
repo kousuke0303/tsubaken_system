@@ -1,2 +1,0 @@
-module Managers::StaffsHelper
-end

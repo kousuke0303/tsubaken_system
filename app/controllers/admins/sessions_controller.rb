@@ -11,18 +11,17 @@ class Admins::SessionsController < Devise::SessionsController
 
   protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  end
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+    end
 
-  def auth_options
-    # 失敗時に recall に設定したパスのアクションが呼び出されるので変更
-    # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
-    { scope: resource_name, recall: "#{controller_path}#failed" }
-  end
-  
-  def after_sign_out_path_for(resource)
-    root_url
-  end 
+    def auth_options
+      # 失敗時に recall に設定したパスのアクションが呼び出されるので変更
+      # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
+      { scope: resource_name, recall: "#{controller_path}#failed" }
+    end
+    
+    def after_sign_out_path_for(resource)
+      root_url
+    end 
 end

@@ -54,14 +54,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # --------------------------------------------------------
-        # MATTER関係
-  # --------------------------------------------------------
-  
-  def current_matter
-    Matter.find_by(matter_uid: params[:id]) || Matter.find_by(matter_uid: params[:matter_id]) 
-  end
-  
   def matter_edit_authenticate!
     if current_manager && current_manager.matters.where(matter_uid: params[:id])
       @manager = current_manager
@@ -254,23 +246,16 @@ class ApplicationController < ActionController::Base
     
   private
   
-  # --------------------------------------------------------
-        # DEVISE関係
-  # --------------------------------------------------------
-  
-  # ログイン後のリダイレクト先   
-  
-  def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(Admin)
-      top_admin_path(current_admin)
-    elsif resource_or_scope.is_a?(Manager)
-      top_manager_path(current_manager)
-    elsif resource_or_scope.is_a?(Staff)
-      top_staff_path(current_staff)
-    elsif resource_or_scope.is_a?(User)
-      top_user_path(current_user)
-    else
-      root_path
+    # ログイン後のリダイレクト先   
+    def after_sign_in_path_for(resource_or_scope)
+      if resource_or_scope.is_a?(Admin)
+        top_admin_path(current_admin)
+      elsif resource_or_scope.is_a?(Manager)
+        top_manager_path(current_manager)
+      elsif resource_or_scope.is_a?(Staff)
+        top_staff_path(current_staff)
+      else
+        root_path
+      end
     end
-  end
 end
