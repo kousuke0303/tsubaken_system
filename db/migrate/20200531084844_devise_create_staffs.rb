@@ -26,7 +26,6 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
     end
 
     add_index :staffs, :employee_id,          unique: true
-    add_index :staffs, :email,                unique: true
     add_index :staffs, :reset_password_token, unique: true
   end
 end

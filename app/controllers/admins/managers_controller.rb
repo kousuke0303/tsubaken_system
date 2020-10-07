@@ -7,7 +7,13 @@ class Admins::ManagersController < ApplicationController
   end
 
   def create
-    @manager = Manager.new
+    @manager = Manager.create(manager_params)
+    if @manager.save
+      flash[:alert] = "マネージャーを作成しました"
+      redirect_to admin_manager_url(current_admin, @manager)
+    else
+      render :new
+    end
   end
 
   def index
@@ -27,7 +33,9 @@ class Admins::ManagersController < ApplicationController
   end
 
   private
-    def admin_manager_params
+    def manager_params
+      params.require(:manager).permit(:name, :employee_id, :phone, :email, :zipcode, :address, :joined_on, :resigned_on).
+             merge(password: "password", password_confirmation: "password")
     end
 
     def set_manager_by_admin

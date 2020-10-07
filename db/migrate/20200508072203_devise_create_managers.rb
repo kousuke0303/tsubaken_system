@@ -26,7 +26,6 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
     end
 
     add_index :managers, :employee_id,          unique: true
-    add_index :managers, :email,                unique: true
     add_index :managers, :reset_password_token, unique: true
   end
 end
