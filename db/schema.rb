@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20201008062911) do
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.string "kana"
     t.integer "gender"
     t.string "phone_1"
     t.string "phone_2"
@@ -190,6 +191,7 @@ ActiveRecord::Schema.define(version: 20201008062911) do
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.string "kana"
     t.string "address"
     t.string "zip_code"
     t.string "representative"
