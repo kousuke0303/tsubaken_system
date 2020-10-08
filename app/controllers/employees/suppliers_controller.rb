@@ -1,4 +1,7 @@
 class Employees::SuppliersController < ApplicationController
+  before_action :authenticate_employee!
+  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+
   def index
     @suppliers = Supplier.all
   end
@@ -21,4 +24,9 @@ class Employees::SuppliersController < ApplicationController
 
   def destroy
   end
+
+  private
+    def set_supplier
+      @supplier = Supplier.find(params[:id])
+    end
 end

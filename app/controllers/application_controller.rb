@@ -259,8 +259,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # AdminとManager以外にアクセス制限
+    # AdminとManager以外はアクセス制限
     def authenticate_admin_or_manager!
       redirect_to root_url unless current_admin || current_manager
+    end
+
+    # 従業員以外はアクセス制限
+    def authenticate_employee!
+      redirect_to root_url unless current_admin || current_manager || current_staff
     end
 end
