@@ -83,8 +83,8 @@ ja:
           status: 工事状況
           created_at: 作成日
           updated_at: 更新日
-          actual_spot_1: 現場住所1
-          actual_spot_2: 現場住所2
+          actual_spot: 現場住所
+          zip_code: 郵便番号
           scheduled_started_on: 着工予定日
           started_on: 着工日
           scheduled_finished_on: 完了予定日
@@ -93,6 +93,7 @@ ja:
           name: 業者名
           phone_1: 電話番号1
           phone_2: 電話番号2
+          address: 住所
           email: メールアドレス
           fax: FAX番号
           representative: 代表者名

@@ -1,4 +1,7 @@
 class Supplier < ApplicationRecord
+  has_many :supplier_matters, dependent: :destroy
+  has_many :matters, through: :supplier_matters
+
   before_save { self.mail = mail.downcase }
   before_save { self.phone = phone.tr('０-９ａ-ｚＡ-Ｚ','0-9a-zA-Z') }
   before_save { self.fax = fax.tr('０-９ａ-ｚＡ-Ｚ','0-9a-zA-Z') }

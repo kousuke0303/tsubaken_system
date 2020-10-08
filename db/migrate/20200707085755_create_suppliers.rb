@@ -1,14 +1,14 @@
 class CreateSuppliers < ActiveRecord::Migration[5.1]
   def change
     create_table :suppliers do |t|
-      t.string :name, comment: "会社名"
-      t.string :address_1, comment: "所在地"
-      t.string :address_2, comment: "所在地2"
-      t.string :zip
-      t.string :representative, comment: "代表者名"
-      t.string :phone, comment: "電話番号"
-      t.string :fax, comment: "FAX番号"
-      t.string :email, comment: "メール"
+      t.string :name
+      t.string :address
+      t.string :zip_code
+      t.string :representative
+      t.string :phone_1
+      t.string :phone_2
+      t.string :fax
+      t.string :email
 
       t.timestamps
     end

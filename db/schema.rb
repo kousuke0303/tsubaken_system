@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201007063927) do
+ActiveRecord::Schema.define(version: 20201008062911) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -126,17 +126,15 @@ ActiveRecord::Schema.define(version: 20201007063927) do
 
   create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.string "actual_spot_1", comment: "現場住所1"
-    t.string "actual_spot_2"
-    t.string "zip"
-    t.string "status", default: "0", comment: "工事状況"
-    t.string "note"
-    t.date "scheduled_started_on", comment: "着工予定日"
-    t.date "started_on", comment: "着工日"
-    t.date "scheduled_finished_on", comment: "完了予定日"
-    t.date "finished_on", comment: "完了日"
-    t.string "matter_uid", comment: "パラメーター"
-    t.string "connected_id", comment: "パラメーター"
+    t.string "actual_spot"
+    t.string "zip_code"
+    t.string "status"
+    t.string "content"
+    t.date "scheduled_started_on"
+    t.date "started_on"
+    t.date "scheduled_finished_on"
+    t.date "finished_on"
+    t.date "maintenanced_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -181,15 +179,24 @@ ActiveRecord::Schema.define(version: 20201007063927) do
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
+  create_table "supplier_matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "matter_id"
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_supplier_matters_on_matter_id"
+    t.index ["supplier_id"], name: "index_supplier_matters_on_supplier_id"
+  end
+
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", comment: "会社名"
-    t.string "address_1", comment: "所在地"
-    t.string "address_2", comment: "所在地2"
-    t.string "zip"
-    t.string "representative", comment: "代表者名"
-    t.string "phone", comment: "電話番号"
-    t.string "fax", comment: "FAX番号"
-    t.string "email", comment: "メール"
+    t.string "name"
+    t.string "address"
+    t.string "zip_code"
+    t.string "representative"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -237,4 +244,6 @@ ActiveRecord::Schema.define(version: 20201007063927) do
   add_foreign_key "matter_tasks", "tasks"
   add_foreign_key "staff_event_titles", "staffs"
   add_foreign_key "staff_events", "staffs"
+  add_foreign_key "supplier_matters", "matters"
+  add_foreign_key "supplier_matters", "suppliers"
 end
