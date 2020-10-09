@@ -18,7 +18,7 @@ ja:
         admin:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
@@ -26,7 +26,7 @@ ja:
         manager:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           phone: 電話番号
           email: メールアドレス
           birthed_on: 生年月日
@@ -41,7 +41,7 @@ ja:
         staff:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           phone: 電話番号
           email: メールアドレス
           birthed_on: 生年月日
@@ -50,22 +50,37 @@ ja:
           joined_on: 入社日
           resigned_on: 退社日
           password: パスワード
-          password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
           updated_at: 更新日
         client:
           id: ID
           name: 名前
-          phone: 電話番号
+          kana: フリガナ
+          login_id: ログインID
+          gender: 性別
+          phone_1: 電話番号①
+          phone_2: 電話番号②
           fax: FAX番号
+          zip_code: 郵便番号
+          address: 住所
+          birthed_on: 生年月日
           email: メールアドレス
           created_at: 作成日
           updated_at: 更新日
+          password: パスワード
+          password_confirmation: パスワード再入力
         supplier:
           id: ID
-          name: 名前
+          name: 業者名
+          kana: フリガナ
+          phone_1: 電話番号①
+          phone_2: 電話番号②
+          fax: FAX番号
           email: メールアドレス
+          representative: 代表者名
+          zip_code: 郵便番号
+          address: 住所
           created_at: 作成日
           updated_at: 更新日
         attendance:
@@ -89,13 +104,3 @@ ja:
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
-        supplier:
-          name: 業者名
-          phone_1: 電話番号1
-          phone_2: 電話番号2
-          address: 住所
-          email: メールアドレス
-          fax: FAX番号
-          representative: 代表者名
-          created_at: 作成日
-          updated_at: 更新日

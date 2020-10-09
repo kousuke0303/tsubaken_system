@@ -8,6 +8,7 @@ class DeviseCreateClients < ActiveRecord::Migration[5.1]
       t.integer :gender
       t.string :phone_1
       t.string :phone_2
+      t.string :fax
       t.string :email
       t.date :birthed_on
       t.string :zip_code
