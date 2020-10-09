@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201008062911) do
+ActiveRecord::Schema.define(version: 20201009063117) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -57,6 +57,21 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.datetime "updated_at", null: false
     t.index ["manager_id"], name: "index_events_on_manager_id"
     t.index ["matter_id"], name: "index_events_on_matter_id"
+  end
+
+  create_table "industries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "industry_suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "industry_id"
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
+    t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
   create_table "manager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -237,6 +252,8 @@ ActiveRecord::Schema.define(version: 20201008062911) do
 
   add_foreign_key "events", "managers"
   add_foreign_key "events", "matters"
+  add_foreign_key "industry_suppliers", "industries"
+  add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "manager_event_titles", "managers"
   add_foreign_key "manager_events", "managers"
   add_foreign_key "manager_tasks", "managers"

@@ -1,0 +1,20 @@
+<div>
+  <h2>業種一覧</h2>
+
+  <%= link_to "作成", new_employees_settings_industry_path, class: "btn btn-dark" %>
+  <table class="table table-sm table" id="employees-industries-table">
+    <tr>
+      <th>名前</th>
+      <th></th>
+    </tr>
+    <% @industries.each do |industry| %>
+      <tr>
+        <td><%= industry.name %></td>
+        <td>
+          <%= link_to "編集", "#", class: "btn btn-sm btn-dark" %>
+          <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

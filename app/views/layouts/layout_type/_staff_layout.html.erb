@@ -13,17 +13,10 @@
         <%= link_to "Calendar", "#" %>
       </li>
       <li>
-        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Setting</a>
-        <ul class="collapse list-unstyled" id="homeSubmenu">
-          <li>
-            <li><%= link_to "EVENT登録", "#" %></li>
-          </li>
-          <li>
-            <a href="#">action2</a>
-          </li>
-          <li>
-            <a href="#">action3</a>
-          </li>
+        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
+        <ul class="collapse list-unstyled" id="settings-menu">
+          <li><%= link_to "部署", "#" %></li>
+          <li><%= link_to "外注先", employees_settings_industries_path %></li>
         </ul>
       </li>
       <li>
