@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     resources :clients
     resources :suppliers
     namespace :settings do
+      resources :industries
     end
   end
     
