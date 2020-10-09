@@ -1,7 +1,7 @@
 <div>
-  <h2>外注先作成</h2>
+  <h2>外注先編集</h2>
 
-  <%= form_with(model: @supplier, url: employees_suppliers_path, method: :post, local: true) do |f| %>
+  <%= form_with(model: @supplier, url: employees_supplier_path(@supplier), method: :patch, local: true) do |f| %>
     <%= render "shared/error_messages", resource: @supplier %>
 
     <%= f.label :name %>
@@ -32,14 +32,14 @@
     <%= f.text_field :address, autofocus: true, autocomplete: "address", maxlength: 50, class: "form-control" %>
 
     <div class="btn-area">
-      <%= f.submit "作成", class: "btn btn-dark" %>
+      <%= f.submit "更新", class: "btn btn-dark" %>
     </div>
   <% end %>
 
   <% if @supplier.errors.any? %>
     <script>
       $(document).ready(function() {
-        history.pushState("", "", location.href + "/new")
+        history.pushState("", "", location.href + "/edit")
       });
     </script>
   <% end %>

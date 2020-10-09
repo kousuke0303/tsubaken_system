@@ -1,0 +1,47 @@
+<div>
+  <h2>外注先詳細</h2>
+
+  <table class="table table-sm" id="employees-supplier-table">
+    <tr>
+      <th>名前</th>
+      <td><%= @supplier.name %></td>
+    </tr>
+    <tr>
+      <th>フリガナ</th>
+      <td><%= @supplier.kana %></td>
+    </tr>
+    <tr>
+      <th>代表者名</th>
+      <td><%= @supplier.representative %></td>
+    </tr>
+    <tr>
+      <th>電話番号1</th>
+      <td><%= @supplier.phone_1 %></td>
+    </tr>
+    <tr>
+      <th>電話番号2</th>
+      <td><%= @supplier.phone_2 %></td>
+    </tr>
+    <tr>
+      <th>FAX</th>
+      <td><%= @supplier.fax %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @supplier.email %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @supplier.zip_code %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @supplier.address %></td>
+    </tr>
+  </table>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_supplier_path(@supplier), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
+</div>
