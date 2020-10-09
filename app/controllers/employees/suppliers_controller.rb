@@ -7,26 +7,45 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def new
-    @suppliers = Supplier.new
+    @supplier = Supplier.new
   end
 
   def create
+    @supplier = Supplier.new(supplier_params)
+    if @supplier.save
+      flash[:success] = "外注先を作成しました"
+      redirect_to employees_supplier_url(@supplier)
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
+    if @supplier.update(supplier_params)
+      flash[:success] = "外注先情報を更新しました"
+      redirect_to employees_supplier_url(@supplier)
+    else
+      render :edit
+    end
   end
 
   def show
   end
 
   def destroy
+    @supplier.destroy ? flash[:success] = "外注先を削除しました" : flash[:alert] = "外注先を削除できませんでした"
+    redirect_to employees_suppliers_url
   end
 
   private
     def set_supplier
       @supplier = Supplier.find(params[:id])
+    end
+
+    def supplier_params
+      params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :zipcode, :address)
     end
 end
