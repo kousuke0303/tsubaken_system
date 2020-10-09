@@ -1,12 +1,11 @@
 ja:
   activerecord:
     models:
-      admin: アドミン
+      admin: 管理者
       manager: マネージャー
       staff: スタッフ
       client: 顧客
-      user: ユーザー
-      supplier: 外注業者
+      supplier: 外注先
       attendance: 勤怠
       matter: 案件
       task: タスク

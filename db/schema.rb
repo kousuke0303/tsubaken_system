@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.integer "gender"
     t.string "phone_1"
     t.string "phone_2"
+    t.string "fax"
     t.string "email"
     t.date "birthed_on"
     t.string "zip_code"

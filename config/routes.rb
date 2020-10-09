@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     resources :staffs
     resources :clients
     resources :suppliers
+    namespace :settings do
+    end
   end
     
   # ###--STAFF:CONTROLLER--################################
