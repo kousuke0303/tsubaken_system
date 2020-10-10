@@ -6,9 +6,11 @@
         <h5 class="card-header">業種作成</h5>
         <div class="card-body">
           <%= form_with(model: @industry, url: employees_settings_industries_path, method: :post, remote: true) do |f| %>
-            <%= render "shared/error_messages", resource: @industry %>
+            <div class="industry-create-errors"></div>
+            <div>
             <%= f.label :name %>
             <%= f.text_field :name, required: true, class: "form-control" %>
+            </div>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark" %>
             </div>
