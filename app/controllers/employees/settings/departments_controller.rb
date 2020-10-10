@@ -1,5 +1,5 @@
-class DepartmentsController < ApplicationController
-  befrore_action :authenticate_admin_or_manager!
+class Employees::Settings::DepartmentsController < ApplicationController
+  before_action :authenticate_admin_or_manager!
   
   def new
     @department = Department.new
