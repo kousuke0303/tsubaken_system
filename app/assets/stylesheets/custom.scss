@@ -452,10 +452,6 @@ a.article, a.article:hover {
   background-color: #007bffc7;
 }
 
-.bg-user-form-color {
-  background-color: #3f50b5;
-}
-
 .bg-pink {
   background-color: #d686bd;
 }
@@ -483,12 +479,11 @@ a.article, a.article:hover {
   text-align: left;
 }
 
-//* 余白 *//
-
-.mt-0 {
-  margin-top: 0;
+.text-left {
+  text-align: right;
 }
 
+//* 余白 *//
 .mt-05e {
   margin-top: 0.5em;
 }
