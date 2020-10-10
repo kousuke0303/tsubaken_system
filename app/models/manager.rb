@@ -9,6 +9,7 @@ class Manager < ApplicationRecord
   has_many :events
   has_many :manager_events
   has_many :manager_event_titles
+  belongs_to :departments
   
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]

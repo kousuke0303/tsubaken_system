@@ -1,2 +1,2 @@
-module DepartmentsHelper
+module Employees::Settings::DepartmentsHelper
 end
