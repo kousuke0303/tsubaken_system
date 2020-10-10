@@ -1,7 +1,6 @@
 <div>
   <h2>業種一覧</h2>
-  <button class="employee_new_btn btn btn-purple mb-1e float-r" id="employee_new_btn"><i class="fas fa-user-plus"></i> 新規作成</button>
-  <%= link_to "作成", new_employees_settings_industry_path, class: "btn btn-dark" %>
+  <button class="btn btn-dark" id="employee-new-btn">作成</button>
   <table class="table table-sm table" id="employees-industries-table">
     <tr>
       <th>名前</th>
@@ -19,25 +18,41 @@
   </table>
 </div>
 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--新規作成モーダル-->
-<div class="modal" id="employee_new">
+<div class="modal" id="employee-new">
   <div class="modal-bg js-modal-close"></div>
-  <div class="modal-dialog">
+  <div class="modal-dialog-centered modal-lg">
   <!-- モーダルコンテンツ:モーダルに表示させる内容-->
   <div class="modal-content">
-    <div class="modal-body pa-2e">
+    <div class="modal-body">
     <!-- &timesは「×ボタン」の表示-->
       <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 id="hoge">新規作成</h4>
-      
-      <label>Type</label>
-      <select name="employee_type" class="custom-select employee_type">
-        <option value="">--- タイプを選択してください ---</option>
-        <option value="submanager">SubManager</option>
-        <option value="staff">Staff</option>
-      </select>
-      
-      <div class="employee_type_form"></div>
+      <h4>新規作成</h4>
     </div>
   </div>
 </div>
@@ -45,18 +60,18 @@
 
 <script>
   $(function(){
-    $('#employee_new_btn').on('click',function(){
-      $('#employee_new').fadeIn();
+    $("#employee-new-btn").on("click",function() {
+      $("#employee-new").fadeIn();
       return false;
     });
     
-    $('.js-modal-close').on('click',function(){
-      $('#employee_new').fadeOut();
+    $(".js-modal-close").on("click",function() {
+      $("#employee-new").fadeOut();
       return false;
     });
     
-    $('.close').on('click', function(){
-      $('#employee_new').fadeOut();
+    $(".close").on("click", function() {
+      $("#employee-new").fadeOut();
     });
   });
 </script>
