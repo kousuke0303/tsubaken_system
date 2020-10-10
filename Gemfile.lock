@@ -84,6 +84,8 @@ GEM
     diff-lcs (1.4.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
@@ -319,6 +321,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.2)
   devise
+  enum_help
   factory_bot_rails
   faker
   font-awesome-rails
