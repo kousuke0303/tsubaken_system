@@ -1,0 +1,5 @@
+<% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+  <div id="industry-new" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
+    <%= render "employees/settings/industries/new" %>
+  </div>
+<% end %>

@@ -27,9 +27,7 @@
   
   <!--通常ページのレイアウト-->
   <% else %>
-    <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
-      <%= render "layouts/modal/modal_employee" %>
-    <% end %>
+    <%= render "layouts/modal" %>
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/admin_layout" %>
