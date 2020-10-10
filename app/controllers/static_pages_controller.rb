@@ -5,18 +5,14 @@ class StaticPagesController < ApplicationController
   def login_index
   end
   
-  def test_preview
-    @type = test_preview
-  end
-  
   private
-  def reject_signed_in
-    if admin_signed_in?
-      redirect_to top_admin_path(current_admin)
-    elsif manager_signed_in?
-      redirect_to top_manager_path(current_manager)
-    elsif staff_signed_in?
-      redirect_to top_staff_path(current_staff)
+    def reject_signed_in
+      if admin_signed_in?
+        redirect_to top_admin_path(current_admin)
+      elsif manager_signed_in?
+        redirect_to top_manager_path(current_manager)
+      elsif staff_signed_in?
+        redirect_to top_staff_path(current_staff)
+      end
     end
-  end 
 end

@@ -1,12 +1,11 @@
 ja:
   activerecord:
     models:
-      admin: アドミン
+      admin: 管理者
       manager: マネージャー
       staff: スタッフ
       client: 顧客
-      user: ユーザー
-      supplier: 外注業者
+      supplier: 外注先
       attendance: 勤怠
       matter: 案件
       task: タスク
@@ -18,7 +17,7 @@ ja:
         admin:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
@@ -26,7 +25,7 @@ ja:
         manager:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           phone: 電話番号
           email: メールアドレス
           birthed_on: 生年月日
@@ -41,7 +40,7 @@ ja:
         staff:
           id: ID
           name: 名前
-          login_id: 従業員ID
+          login_id: ログインID
           phone: 電話番号
           email: メールアドレス
           birthed_on: 生年月日
@@ -50,22 +49,37 @@ ja:
           joined_on: 入社日
           resigned_on: 退社日
           password: パスワード
-          password: パスワード
           password_confirmation: パスワード再入力
           created_at: 作成日
           updated_at: 更新日
         client:
           id: ID
           name: 名前
-          phone: 電話番号
+          kana: フリガナ
+          login_id: ログインID
+          gender: 性別
+          phone_1: 電話番号①
+          phone_2: 電話番号②
           fax: FAX番号
+          zip_code: 郵便番号
+          address: 住所
+          birthed_on: 生年月日
           email: メールアドレス
           created_at: 作成日
           updated_at: 更新日
+          password: パスワード
+          password_confirmation: パスワード再入力
         supplier:
           id: ID
-          name: 名前
+          name: 業者名
+          kana: フリガナ
+          phone_1: 電話番号①
+          phone_2: 電話番号②
+          fax: FAX番号
           email: メールアドレス
+          representative: 代表者名
+          zip_code: 郵便番号
+          address: 住所
           created_at: 作成日
           updated_at: 更新日
         attendance:
@@ -83,18 +97,13 @@ ja:
           status: 工事状況
           created_at: 作成日
           updated_at: 更新日
-          actual_spot_1: 現場住所1
-          actual_spot_2: 現場住所2
+          actual_spot: 現場住所
+          zip_code: 郵便番号
           scheduled_started_on: 着工予定日
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
-        supplier:
-          name: 業者名
-          phone_1: 電話番号1
-          phone_2: 電話番号2
-          email: メールアドレス
-          fax: FAX番号
-          representative: 代表者名
+        industry:
+          name: 業種名
           created_at: 作成日
           updated_at: 更新日

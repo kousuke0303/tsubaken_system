@@ -22,3 +22,16 @@ Staff.create!(name: "スタッフA",
               password_confirmation: "password")
 
 puts "CREATE! STAFF-A"
+
+Supplier.create!(name: "テスト外注先AA",
+                 kana: "テストガイチュウサキ",
+                 phone_1: "08054545454",
+                 email: "testsupplierA@email.com",
+                 zip_code: "5940088",
+                 address: "大阪府テスト市")
+
+puts "CREATE! SupplierA"
+
+Industry.create!(name: "塗装関係")
+
+puts "CREATE! INDUSTRY"

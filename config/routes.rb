@@ -43,14 +43,18 @@ Rails.application.routes.draw do
     end
   end
 
-  # AdminとManagerがStaffをCRUD
+  # 従業員が行う操作
   namespace :employees do
     resources :managers
     resources :staffs
+    resources :clients
+    resources :suppliers
+    namespace :settings do
+      resources :industries
+    end
   end
     
   # ###--STAFF:CONTROLLER--################################
-  
   scope module: :staffs do
     resources :staffs, only: [:show, :edit, :update] do
       get :top, on: :member
