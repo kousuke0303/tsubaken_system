@@ -6,6 +6,14 @@ class Employees::Settings::DepartmentsController < ApplicationController
   end
   
   def create
+    @department = Department.new(department_params)
+    if @department.save
+      flash[:success] = "部署を作成しました"
+      redirect_to employees_settings_department_path(@department)
+    else
+      flash[:danger] = "部署の作成に失敗しました"
+      render :new
+    end
   end
 
   def show
@@ -19,9 +27,17 @@ class Employees::Settings::DepartmentsController < ApplicationController
   end
 
   def update
+    if @department.update(department_params)
+      flash[:success] = "部署情報を更新しました"
+      redirect_to employees_settings_department_path(@department)
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @department.destroy ? flash[:success] = "部署を削除しました" : flash[:alert] = "部署を削除できませんでした"
+    redirect_to employees_settings_departments_path
   end
 
   private

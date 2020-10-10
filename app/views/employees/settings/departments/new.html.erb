@@ -1,7 +1,7 @@
 <div>
   <h1>部署作成</h1>
   <%= form_with(model: @department, url: employees_settings_departments_path, method: :post, local: true) do |f| %>
-    <%= render "shared/error_messages", resource: @supplier %>
+    <%= render "shared/error_messages", resource: @department %>
 
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 30, required: true, class: "form-control" %>
