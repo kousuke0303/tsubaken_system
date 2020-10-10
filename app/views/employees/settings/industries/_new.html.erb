@@ -1,18 +1,18 @@
-<div class="modal-dialog">
-  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+<div class="modal-dialog modal-sm">
   <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
-    <!-- &timesは「×ボタン」の表示-->
-    <div class="row">
-        <div class="col-sm-12 mb-1e">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="col-sm-12">
-          <div class="card mb-3">
-            <h5 class="card-header">業種作成</h5>
-            <div class="card-body">
+      <div class="card mb-3">
+        <h5 class="card-header">業種作成</h5>
+        <div class="card-body">
+          <%= form_with(model: @industry, url: employees_settings_industries_path, method: :post, remote: true) do |f| %>
+            <%= render "shared/error_messages", resource: @industry %>
+            <%= f.label :name %>
+            <%= f.text_field :name, required: true, class: "form-control" %>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark" %>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

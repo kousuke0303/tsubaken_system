@@ -4,6 +4,7 @@ class Employees::Settings::IndustriesController < ApplicationController
 
   def index
     @industries = Industry.all
+    @industry = Industry.new
   end
 
   def new
