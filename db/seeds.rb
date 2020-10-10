@@ -37,9 +37,9 @@ Industry.create!(name: "塗装関係")
 puts "CREATE! INDUSTRY"
 
 Client.create!(name: "テスト顧客AAA",
-               kana: "テスト顧客",
                login_id: "CL-client",
                phone_1: "08011112222",
+               phone_2: "08011113333",
                email: "testclientrA@email.com",
                zip_code: "5940088",
                address: "大阪府テスト市",
