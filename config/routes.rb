@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :suppliers
     namespace :settings do
       resources :industries
+      resources :departments
     end
   end
     
