@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20201009063117) do
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_industries_on_name", unique: true
   end
 
   create_table "industry_suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
