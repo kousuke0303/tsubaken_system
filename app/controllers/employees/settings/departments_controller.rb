@@ -1,5 +1,6 @@
 class Employees::Settings::DepartmentsController < ApplicationController
   before_action :authenticate_admin_or_manager!
+  before_action :set_department, only: [:show, :edit, :update, :destroy]
   
   def new
     @department = Department.new
@@ -41,6 +42,11 @@ class Employees::Settings::DepartmentsController < ApplicationController
   end
 
   private
+  
+    def set_department
+      @department = Department.find(params[:id])
+    end
+    
     def department_params
       params.require(:department).permit(:name)
     end
