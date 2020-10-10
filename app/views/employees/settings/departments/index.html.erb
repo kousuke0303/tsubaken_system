@@ -1,1 +1,16 @@
-<h1>部署一覧</h1>
+<div>
+  <h1>部署一覧</h1>
+  <%= link_to "作成", new_employees_settings_department_path, class: "btn btn-dark" %>
+  <table class="table table-sm table-hover">
+    <tr>
+      <th>名前</th>
+      <th></th>
+    </tr>
+    <% @departments.each do |department| %>
+      <tr>
+        <td><%= department.name %></td>
+        <td><%= link_to "詳細", employees_settings_department_path(department), class: "btn btn-sm btn-dark" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

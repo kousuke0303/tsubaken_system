@@ -35,3 +35,7 @@ puts "CREATE! SupplierA"
 Industry.create!(name: "塗装関係")
 
 puts "CREATE! INDUSTRY"
+
+Department.create!(name: "テスト部署")
+
+puts "CREATE! DepartmentA"

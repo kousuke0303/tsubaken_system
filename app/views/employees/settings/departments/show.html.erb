@@ -7,4 +7,9 @@
       <td><%= @department.name %></td>
     </tr>
   </table>
+  
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_settings_department_path(@department), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_settings_department_path(@department), method: :delete, data: { confirm: "この部署を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
 </div>

@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20201010002755) do
   end
 
   create_table "departments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", default: "無所属", null: false
+    t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
