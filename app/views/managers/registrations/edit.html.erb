@@ -2,7 +2,7 @@
   <h2>マネージャー編集</h2>
 
   <%= form_with(model: @manager, url: manager_registration_path, local: true) do |f| %>
-    <%= render "shared/error_messages", resource: resource %>
+    <%= render "layouts/error_messages", resource: resource %>
 
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 30, required: true, class: "form-control" %>

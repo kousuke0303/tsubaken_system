@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(version: 20201009063117) do
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.string "kana"
     t.integer "gender"
     t.string "phone_1"
     t.string "phone_2"
+    t.string "fax"
     t.string "email"
     t.date "birthed_on"
     t.string "zip_code"
@@ -142,17 +144,15 @@ ActiveRecord::Schema.define(version: 20201009063117) do
 
   create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.string "actual_spot_1", comment: "現場住所1"
-    t.string "actual_spot_2"
-    t.string "zip"
-    t.string "status", default: "0", comment: "工事状況"
-    t.string "note"
-    t.date "scheduled_started_on", comment: "着工予定日"
-    t.date "started_on", comment: "着工日"
-    t.date "scheduled_finished_on", comment: "完了予定日"
-    t.date "finished_on", comment: "完了日"
-    t.string "matter_uid", comment: "パラメーター"
-    t.string "connected_id", comment: "パラメーター"
+    t.string "actual_spot"
+    t.string "zip_code"
+    t.string "status"
+    t.string "content"
+    t.date "scheduled_started_on"
+    t.date "started_on"
+    t.date "scheduled_finished_on"
+    t.date "finished_on"
+    t.date "maintenanced_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -207,14 +207,15 @@ ActiveRecord::Schema.define(version: 20201009063117) do
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", comment: "会社名"
-    t.string "address_1", comment: "所在地"
-    t.string "address_2", comment: "所在地2"
-    t.string "zip"
-    t.string "representative", comment: "代表者名"
-    t.string "phone", comment: "電話番号"
-    t.string "fax", comment: "FAX番号"
-    t.string "email", comment: "メール"
+    t.string "name"
+    t.string "kana"
+    t.string "address"
+    t.string "zip_code"
+    t.string "representative"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
