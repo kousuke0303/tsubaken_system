@@ -33,7 +33,7 @@ label {
 /* ---------------------------------------------------
     ERROR MESSAGE /home/ec2-user/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_error_messages.html.erb
 ----------------------------------------------------- */
-.custom_error {
+.custom-error {
   padding: 1em;
   h5 {
     background-color: #dc3545;
@@ -43,13 +43,13 @@ label {
   }
 }
 
-.error_message {
+.error-message {
   color: #dc3545!important;
 }
 
-.field_with_errors {
-  padding: 2px;
+.field-with-errors {
   background-color: #dc3545;
+  padding: 2px;
   label {
     color: white;
     padding: 2px;
