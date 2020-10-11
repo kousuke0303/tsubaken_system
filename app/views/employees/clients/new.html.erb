@@ -2,7 +2,7 @@
   <h2>顧客作成</h2>
 
   <%= form_with(model: @client, url: employees_staffs_path, method: :post, local: true) do |f| %>
-    <%= render "shared/error_messages", resource: @client %>
+    <%= render "layouts/error_messages", resource: @client %>
 
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 30, required: true, class: "form-control" %>

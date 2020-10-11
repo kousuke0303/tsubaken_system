@@ -3,7 +3,7 @@
     <div class="card-header text-white bg-purple">管理者アカウント編集</div>
     <div class="card-body">
       <%= form_with(model: @admin, url: "#", local: true, method: :patch) do |f| %>
-        <%= render "admins/shared/error_messages", resource: @admin %>
+        <%= render "layouts/error_messages", resource: @admin %>
 
         <div class="form-group">
           <%= f.label :name, "名前" %>

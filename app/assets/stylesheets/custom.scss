@@ -33,7 +33,7 @@ label {
 /* ---------------------------------------------------
     ERROR MESSAGE /home/ec2-user/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_error_messages.html.erb
 ----------------------------------------------------- */
-.custom_error {
+.custom-error {
   padding: 1em;
   h5 {
     background-color: #dc3545;
@@ -43,13 +43,13 @@ label {
   }
 }
 
-.error_message {
+.error-message {
   color: #dc3545!important;
 }
 
-.field_with_errors {
-  padding: 2px;
+.field-with-errors {
   background-color: #dc3545;
+  padding: 2px;
   label {
     color: white;
     padding: 2px;
@@ -122,10 +122,10 @@ input {
   width: 100%;
 }
 
-.modal-bg {
+.modal-dialog-centered {
   background: rgba(0,0,0,0.8);
-  opacity: 0.5;
   height: 100%;
+  opacity: 0.5;
   position: absolute;
   width: 100%;
 }
@@ -452,10 +452,6 @@ a.article, a.article:hover {
   background-color: #007bffc7;
 }
 
-.bg-user-form-color {
-  background-color: #3f50b5;
-}
-
 .bg-pink {
   background-color: #d686bd;
 }
@@ -483,12 +479,11 @@ a.article, a.article:hover {
   text-align: left;
 }
 
-//* 余白 *//
-
-.mt-0 {
-  margin-top: 0;
+.text-left {
+  text-align: right;
 }
 
+//* 余白 *//
 .mt-05e {
   margin-top: 0.5em;
 }

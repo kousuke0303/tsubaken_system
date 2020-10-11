@@ -4,6 +4,7 @@ class Employees::Settings::IndustriesController < ApplicationController
 
   def index
     @industries = Industry.all
+    @industry = Industry.new
   end
 
   def new
@@ -14,9 +15,11 @@ class Employees::Settings::IndustriesController < ApplicationController
     @industry = Industry.new(industry_params)
     if @industry.save
       flash[:success] = "業種を作成しました"
-      redirect_to employees_settings_industry_url(@industry)
+      redirect_to employees_settings_industries_path
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

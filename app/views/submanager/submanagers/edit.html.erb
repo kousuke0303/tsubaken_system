@@ -3,7 +3,7 @@
     <div class="card-header text-white bg-purple">SubManager/<%= @submanager.name %> 編集</div>
     <div class="card-body">
       <%= form_with(model: [:submanager, @submanager], url: submanager_path(current_submanager), local: true, method: :patch) do |f| %>
-        <%= render "devise/shared/error_messages", resource: @submanager %>
+        <%= render "layouts/error_messages", resource: @submanager %>
         
         <div class="form-group">
           <%= f.label :name, "名前" %>

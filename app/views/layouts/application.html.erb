@@ -27,9 +27,7 @@
   
   <!--通常ページのレイアウト-->
   <% else %>
-    <% if manager_signed_in? %>
-      <%= render "layouts/modal/modal_manager" %>
-    <% end %>
+    <%= render "layouts/modal" %>
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/admin_layout" %>

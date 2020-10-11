@@ -3,7 +3,7 @@
     <div class="card-header text-white bg-purple">staff/<%= @staff.name %> 編集</div>
     <div class="card-body">
       <%= form_with(model: [:staff, @staff], url: staff_path(current_staff), local: true, method: :patch) do |f| %>
-        <%= render "staffs/shared/error_messages", resource: @staff %>
+        <%= render "layouts/error_messages", resource: @staff %>
 
         <div class="form-group">
           <%= f.label :name, "名前" %>
