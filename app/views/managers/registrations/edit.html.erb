@@ -20,7 +20,7 @@
     <%= f.date_field :birthed_on, autofocus: true, autocomplete: "birthed_on", class: "form-control" %>
 
     <%= f.label :zip_code %>
-    <%= f.text_field :zip_code, autofocus: true, autocomplete: "zip_code", maxlength: 7, pattern: "^\d{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
+    <%= f.text_field :zip_code, autofocus: true, autocomplete: "zip_code", maxlength: 7, pattern: "^[0-9]{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
 
     <%= f.label :address %>
     <%= f.text_field :address, autofocus: true, autocomplete: "address", maxlength: 50, class: "form-control" %>
