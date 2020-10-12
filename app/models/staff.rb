@@ -1,6 +1,6 @@
 class Staff < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :login_id, presence: true, length: { in: 8..10 }
+  validates :login_id, presence: true, length: { in: 8..12 }
   validates :email, length: { maximum: 254 }
   validate :staff_login_id_is_correct?
 

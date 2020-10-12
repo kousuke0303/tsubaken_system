@@ -344,22 +344,6 @@ a.article, a.article:hover {
   transition: all 0.3s;
 }
 
-.manager_contaioner {
-  word-wrap: break-word;
-}
-
-.staff_container {
-  word-wrap: break-word;
-}
-
-.submanager_contaioner {
-  word-wrap: break-word;
-}
-
-.user_container {
-  word-wrap: break-word;
-}
-
 .line {
   width: 100%;
   height: 1px;
@@ -432,10 +416,6 @@ a.article, a.article:hover {
   padding-left: 1em;
 }
 
-/* ---------------------------------------------------
-    COMMON LAYOUT STYLE
------------------------------------------------------ */
-
 //* 背景色 *//
 
 .modal-bg-color {
@@ -460,25 +440,6 @@ a.article, a.article:hover {
 
 .bg-gray {
   background-color: #b7b7b7;
-}
-
-
-//* 位置 *//
-
-.float-r {
-  float: right;
-}
-
-.float-l {
-  float: left;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-left {
-  text-align: right;
 }
 
 //* BUTTON *//

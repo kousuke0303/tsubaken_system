@@ -4,8 +4,8 @@
       <h2><span class="fontawesome-lock"></span>ログイン</h2>       
       <fieldset>       
         <%= form_for(Admin.new, as: :admin, url: session_path(:admin), class: "login-form", local: true) do |f| %>            
-            <p><%= f.label :login_id, "従業員ID" %></p>
-            <p><%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 10, required: true, id: "login-id" %></p>
+            <p><%= f.label :login_id, "ログインID" %></p>
+            <p><%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 12, required: true, id: "login-id" %></p>
             
             <p><%= f.label :password %></p>
             <p><%= f.password_field :password, autocomplete: "current-password", maxlength: 12, required: true, id: "password" %></p>
@@ -51,6 +51,13 @@
       loginId.attr("name", "staff[login_id]");
       password.attr("name", "staff[password]");
       rememberMe.attr("name", "staff[remember_me]");
+    } else if(idType == "CL-") {
+      form.attr("class", "new_client");
+      form.attr("id", "new_client");
+      form.attr("action", "/clients/sign_in");
+      loginId.attr("name", "client[login_id]");
+      password.attr("name", "client[password]");
+      rememberMe.attr("name", "client[remember_me]");
     } else {
       $(this).prop('disabled', true);
       $(this).prop('disabled', false);

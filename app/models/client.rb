@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :login_id, presence: true, length: { in: 8..10 }, uniqueness: true
+  validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :email, length: { maximum: 254 }
   validate :client_login_id_is_correct?
   

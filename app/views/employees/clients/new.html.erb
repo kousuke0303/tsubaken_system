@@ -15,7 +15,7 @@
     <br>
 
     <%= f.label :login_id %>
-    <%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 10, required: true, class: "form-control" %>
+    <%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 12, required: true, class: "form-control" %>
     
     <%= f.label :phone_1 %>
     <%= f.telephone_field :phone_1, autocomplete: "phone_1", class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11, placeholder: "半角数字(ハイフンなし)" %>

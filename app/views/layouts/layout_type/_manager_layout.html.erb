@@ -2,13 +2,7 @@
 
 <!-- Sidebar -->
   <nav id="sidebar">
-    <div class="sidebar-header">
-      <% if File.exist?("app/assets/images/company_#{current_manager.id}_logo.jpg") %>
-        <%= image_tag "company_#{current_manager.id}_logo.jpg" %>
-      <% else %>
-        <%= image_tag "logo.jpg" %>
-      <% end %>
-    </div>
+    <div class="sidebar-header"><%= image_tag "logo.jpg" %></div>
 
     <ul class="list-unstyled components">
       <p>マネージャー専用ページ</p>    

@@ -1,4 +1,4 @@
-/*各上下左右マージン指定*/
+/*各上下左右マージン*/
 
 .mt-0 { margin-top: 0px; }
 .mt-1 { margin-top: 1px; }
@@ -268,3 +268,10 @@
 .pr-05e { padding-right: 0.5em; }
 .pr-1e { padding-right: 1em; }
 .pr-2e { padding-right: 2em; }
+
+//* 位置 *//
+
+.float-r { float: right; }
+.float-l { float: left; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
