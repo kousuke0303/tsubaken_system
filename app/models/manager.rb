@@ -6,9 +6,8 @@ class Manager < ApplicationRecord
   validate :joined_with_resigned
   validate :resigned_is_since_joined
 
-  has_many :events
-  has_many :manager_events
-  has_many :manager_event_titles
+  has_many :matter_managers, dependent: :destroy
+  has_many :matters, through: :matter_managers
   
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]

@@ -6,6 +6,7 @@
     <div class="card">
       <h5 class="card-header">STEP.1 <span class="ml-1e text-nowrap">タイトル・場所の入力</span></h5>
       <div class="card-body">
+
         <%= f.label :title %>
         <%= f.text_field :title, required: true, class: "form-control" %>
 
@@ -18,6 +19,7 @@
     <div class="card mt-1e">
       <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
       <div class="card-body">
+
         <%= f.label :client %>
         <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
       </div>
@@ -27,6 +29,7 @@
     <div class="card mt-1e">
       <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
       <div class="card-body">
+
         <%= f.label :scheduled_start_at %>
         <%= f.date_field :scheduled_start_at, class: "form-control" %>
 
@@ -38,6 +41,23 @@
     <!--STEP4-->
     <div class="card mt-1e">
       <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
+      <div class="card-body">
+        <div>
+          <%= f.label :manager %>
+          <div>
+            <%= f.collection_check_boxes(:manager_ids, Manager.all, :id, :name) do |m| %>
+              <%= m.check_box %><%= m.text %>
+            <% end %> 
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>  
+    </div>
+
+    <!--STEP5-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.5 <span class="ml-1e text-nowrap">外注先の入力</span></h5>
       <div class="card-body">
       </div>  
     </div>
