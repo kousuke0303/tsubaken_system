@@ -7,10 +7,6 @@ class Employees::Settings::IndustriesController < ApplicationController
     @industry = Industry.new
   end
 
-  def new
-    @industry = Industry.new
-  end
-
   def create
     @industry = Industry.new(industry_params)
     if @industry.save
@@ -33,9 +29,6 @@ class Employees::Settings::IndustriesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def show
   end
 
   def destroy

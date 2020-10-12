@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     resources :staffs
     resources :clients
     resources :suppliers
+    resources :matters
     namespace :settings do
       resources :industries
     end
@@ -71,8 +72,6 @@ Rails.application.routes.draw do
     end
   end
   
-  # ###--MATTER関連--################################
-  
   # scope "(:manager_public_uid)" do
   #   namespace :matter do
   #     resources :matters, path: '/', only: [:new, :index, :show] do
@@ -90,28 +89,6 @@ Rails.application.routes.draw do
   #     end
   #   end
   # end
-  
-  # ###--EVENT関連--################################
-  
-  scope "(:manager_public_uid)" do
-    namespace :manager do
-      resources :events, only: [:index] 
-    end
-  end
-  
-  # ###--SETTING--##################################
-  
-  scope "(:manager_public_uid)" do
-    namespace :manager do
-      namespace :settings do
-        resources :tasks, except: [:index]
-        resources :manager_events
-        resources :manager_event_titles, except: [:index]
-      end
-    end
-  end
-  
-  # ###--API_RECIEVE_ADRESS-##########################
   
   scope "(:manager_public_uid)" do
     get 'prefecture_index', to: 'addresses#prefecture_index'
