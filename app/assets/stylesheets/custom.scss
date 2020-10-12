@@ -137,7 +137,7 @@ _______________________________________ */
 @media screen and (max-width: 480px) { 
 
 /* ロゴを中央に配置 */
-  .smp_center {
+  .smp-center {
     text-align: center;
     margin-top: 1.5em;
   }
@@ -334,7 +334,6 @@ a.article, a.article:hover {
   }
 }
 
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -433,7 +432,6 @@ a.article, a.article:hover {
   padding-left: 1em;
 }
 
-
 /* ---------------------------------------------------
     COMMON LAYOUT STYLE
 ----------------------------------------------------- */
@@ -481,59 +479,6 @@ a.article, a.article:hover {
 
 .text-left {
   text-align: right;
-}
-
-//* 余白 *//
-.mt-05e {
-  margin-top: 0.5em;
-}
-
-.mt-1e {
-  margin-top: 1em;
-}
-
-.mt-2e {
-  margin-top: 2em;
-}
-
-.mb-05e {
-  margin-bottom: 0.5em;  
-}
-
-.mb-1e {
-  margin-bottom: 1em!important;
-}
-
-.mr-05e {
-  margin-right: 0.5em;  
-}
-
-.mr-1e {
-  margin-right: 1em;
-}
-
-.mr-2e {
-  margin-right: 2em;
-}
-
-.ml-05e {
-  margin-left: 0.5em;  
-}
-
-.ml-1e {
-  margin-left: 1em;
-}
-
-.ml-2e {
-  margin-left: 2em;
-}
-
-.pt-05e {
-  padding-top: 0.5em;
-}
-
-.pb-1e {
-  padding-bottom: 1em!important;
 }
 
 //* BUTTON *//
