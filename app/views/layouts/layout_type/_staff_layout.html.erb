@@ -8,7 +8,7 @@
       <p>スタッフ専用ページ</p>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "顧客管理", "#" %></li>
-      <li><%= link_to "Matter", "#" %></li>
+      <li><%= link_to "Matter", employees_matters_path %></li>
       <li>
         <%= link_to "カレンダー", "#" %>
       </li>
@@ -101,9 +101,9 @@
 
 <script>
   $(document).ready(function () {
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-        $(this).toggleClass('active');
+    $("#sidebarCollapse").on("click", function () {
+        $("#sidebar").toggleClass("active");
+        $(this).toggleClass("active");
     });
   });
 </script> 

@@ -20,7 +20,7 @@
         <div class="col-sm-12 mt-1e">
           <%= f.label :actual_spot, "現場住所" %>
           <div class="col-md-10">
-            <span class="prefectures_all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
+            <span class="prefectures-all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
             <%= f.text_field :actual_spot, class: "form-control", id: "address_form", disabled: true %>
           </div>
           <div class="col-md-10 mt-05e">
@@ -141,7 +141,7 @@
 </script>
 
 <script>
-$('.prefectures_all').on('click', function(){
+$('.prefectures-all').on('click', function(){
   $.ajax({
     type: "GET",
     url: "<%= prefecture_index_path(dependent_manager) %>",
