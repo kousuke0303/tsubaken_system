@@ -7,13 +7,13 @@
       <div class="card">
         <h5 class="card-header">STEP.1 <span class="ml-1e text-nowrap">タイトル・場所の入力</span></h5>
         <div class="card-body">
-          <div class="col-md-7 col-sm-12">
+          <div class="col-md-7">
             <%= f.label :title, "タイトル" %>
             <%= f.text_field :title, required: true, class: "form-control" %>
           </div>
-          <div class="col-sm-12 mt-1e">
+          <div class=" mt-1e">
             <%= f.label :actual_spot, "現場住所" %>
-            <div class="col-md-10">
+            <div>
               <span class="prefectures_all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
               <%= f.text_field :actual_spot, class: "form-control", id: "address-form", disabled: true %>
             </div>
@@ -31,13 +31,9 @@
       <div class="card mt-1e">
         <h5 class="card-header">STEP.2 <span class="ml-1e">顧客情報の入力</span></h5>
         <div class="card-body">
-          <div class="col-md-7 col-sm-12">
+          <div>
             <div class="form-check"></div>
-          </div>
-            
-          <!--選択によりform表示-->
-          <div class="mt-1e" style="display: none;" id="client_form">
-          </div>     
+          </div>   
         </div>
       </div>
       
@@ -45,11 +41,11 @@
       <div class="card mt-1e">
         <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
         <div class="card-body">
-          <div class="col-md-7 col-sm-12">
+          <div>
             <%= f.label :scheduled_start_at, "着工予定日" %>
             <%= f.date_field :scheduled_start_at, class: "form-control" %>
           </div>
-          <div class="col-md-7 col-sm-12 mt-1e">
+          <div class="mt-1e">
             <%= f.label :scheduled_finish_at, "完了予定日" %>
             <%= f.date_field :scheduled_finish_at, class: "form-control" %>
           </div>
@@ -76,19 +72,6 @@
 </div>
 
 <script>
-  $("#select_new").on("click", function(){
-    var select_new_client_prop = $("#select_new").prop("checked");
-    if(select_new_client_prop){
-      $("#client_form").empty();
-      $("#client_form").show();
-    };
-  });
-
-  $(".user_form-check-input").on("click", function(){
-    $(".user_form-check-input").prop("checked", false);  //  全部のチェックを外す
-    $(this).prop("checked", true);  //  押したやつだけチェックつける
-  });
-
   $(".prefectures_all").on("click", function(){
     $.ajax({
       type: "GET",
