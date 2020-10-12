@@ -1,7 +1,7 @@
 <div>
   <h2>顧客作成</h2>
 
-  <%= form_with(model: @client, url: employees_staffs_path, method: :post, local: true) do |f| %>
+  <%= form_with(model: @client, url: employees_clients_path, method: :post, local: true) do |f| %>
     <%= render "layouts/error_messages", resource: @client %>
 
     <%= f.label :name %>
@@ -31,6 +31,9 @@
 
     <%= f.label :address %>
     <%= f.text_field :address, autofocus: true, autocomplete: "address", maxlength: 50, class: "form-control" %>
+
+    <%= f.label :birthed_on %>
+    <%= f.date_field :birthed_on, autofocus: true, autocomplete: "birthed_on", class: "form-control" %>
 
     <div class="btn-area">
       <%= f.submit "作成", class: "btn btn-dark" %>

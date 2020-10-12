@@ -7,6 +7,13 @@ class Employees::ClientsController < ApplicationController
   end
 
   def create
+    @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
+    if @client.save
+      flash[:success] = "顧客を作成しました"
+      redirect_to employees_client_url(@client)
+    else
+      render :new
+    end
   end
 
   def show
@@ -23,9 +30,15 @@ class Employees::ClientsController < ApplicationController
   end
 
   def destroy
+    @client.destroy ? flash[:success] = "顧客を削除しました" : flash[:alert] = "顧客を削除できませんでした"
+    redirect_to employees_clients_url
   end
 
   private
+    def client_params
+      params.require(:client).permit(:name, :gender, :login_id, :phone_1, :phone_2, :email, :birthed_on, :zipcode, :address)
+    end
+
     def set_client
       @client = Client.find(params[:id])
     end

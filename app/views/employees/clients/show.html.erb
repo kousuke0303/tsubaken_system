@@ -1,0 +1,43 @@
+<div>
+  <h2>顧客詳細</h2>
+
+  <table class="table table-sm" id="employees-client-table">
+    <tr>
+      <th>名前</th>
+      <td><%= @client.name %></td>
+    </tr>
+    <tr>
+      <th>ログインID</th>
+      <td><%= @client.login_id %></td>
+    </tr>
+    <tr>
+      <th>電話番号①</th>
+      <td><%= @client.phone_1 %></td>
+    </tr>
+    <tr>
+      <th>電話番号②</th>
+      <td><%= @client.phone_2 %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @client.email %></td>
+    </tr>
+    <tr>
+      <th>生年月日</th>
+      <td><%= @client.birthed_on %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @client.zip_code %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @client.address %></td>
+    </tr>
+  </table>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_client_path(@client), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
+</div>

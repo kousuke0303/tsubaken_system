@@ -6,14 +6,14 @@ Admin.create!(name: "管理者",
 puts "CREATE! ADMIN"
 
 Manager.create!(name: "マネージャーA",
-                login_id: "MN-mng-a",
+                login_id: "MN-manager-a",
                 phone: "08011112222",
                 email: "manager-a@email.com",
                 password: "password",
                 password_confirmation: "password")
 
 Manager.create!(name: "マネージャーB",
-                login_id: "MN-mng-b",
+                login_id: "MN-manager-b",
                 phone: "08011112222",
                 email: "manager-b@email.com",
                 password: "password",
@@ -22,14 +22,14 @@ Manager.create!(name: "マネージャーB",
 puts "CREATE! MANAGER"
 
 Staff.create!(name: "スタッフA",
-              login_id: "ST-stf-a",
+              login_id: "ST-staff-a",
               phone: "08011112222",
               email: "staff-a@email.com",
               password: "password",
               password_confirmation: "password")
 
 Staff.create!(name: "スタッフB",
-              login_id: "ST-stf-b",
+              login_id: "ST-staff-b",
               phone: "08011662222",
               email: "staff-b@email.com",
               password: "password",
@@ -59,7 +59,7 @@ Industry.create!(name: "足場関係")
 puts "CREATE! INDUSTRY"
 
 Client.create!(name: "テスト顧客A",
-               login_id: "CL-clt-a",
+               login_id: "CL-client-a",
                phone_1: "08011112222",
                phone_2: "08011113333",
                email: "testclient-a@email.com",
@@ -69,7 +69,7 @@ Client.create!(name: "テスト顧客A",
                password_confirmation: "password")
               
 Client.create!(name: "テスト顧客B",
-               login_id: "CL-clt-b",
+               login_id: "CL-client-b",
                phone_1: "08011112222",
                phone_2: "08011113333",
                email: "testclientr-b@email.com",
