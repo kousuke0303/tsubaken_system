@@ -1,6 +1,6 @@
-<div class="employee-wrapper">
+<div class="entire-wrapper">
 
-<!-- Sidebar -->
+  <!-- Sidebar -->
   <nav id="sidebar">
     <div class="sidebar-header"><%= image_tag "logo.jpg" %></div>
 
@@ -9,9 +9,7 @@
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "顧客管理", "#" %></li>
       <li><%= link_to "Matter", employees_matters_path %></li>
-      <li>
-        <%= link_to "カレンダー", "#" %>
-      </li>
+      <li><%= link_to "カレンダー", "#" %></li>
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
         <ul class="collapse list-unstyled" id="settings-menu">
@@ -19,31 +17,24 @@
           <li><%= link_to "外注先", employees_settings_industries_path %></li>
         </ul>
       </li>
-      <li>
-        <a href="#">未定</a>
-      </li>
-      <li>
-        <a href="#">未定</a>
-      </li>
+      <li><a href="#">未定</a></li>
+      <li><a href="#">未定</a></li>
     </ul>
 
     <ul class="list-unstyled CTAs">
       <li>
         <a href="＃" class="download">Download</a>
       </li>
-      <li>
-        <a href="#" class="article">未定</a>
-      </li>
+      <li><a href="#" class="article">未定</a></li>
     </ul>
   </nav>
 
   <!-- Page Content -->
-  <div id="content">
 
+  <div id="content">
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">
       <div class="container-fluid">
-
         <button type="button" id="sidebarCollapse" class="navbar-btn">
           <span></span>
           <span></span>
@@ -60,12 +51,8 @@
                 <i class="fas fa-home"></i> Home
               <% end %>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Page</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Page</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-alt"></i> <%= current_staff.name %>
