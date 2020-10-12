@@ -42,6 +42,6 @@
 
   <div class="btn-area">
     <%= link_to "編集", edit_employees_supplier_path(@supplier), class: "btn btn-dark" %>
-    <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-danger" %>
+    <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
   </div>
 </div>

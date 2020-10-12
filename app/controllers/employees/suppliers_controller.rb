@@ -46,6 +46,7 @@ class Employees::SuppliersController < ApplicationController
     end
 
     def supplier_params
-      params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :zipcode, :address)
+      params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :zipcode,
+                                       :address, { :industry_ids=> [] })
     end
 end

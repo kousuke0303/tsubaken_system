@@ -19,7 +19,7 @@
           <td><%= %></td>
           <td>
             <%= link_to "編集", edit_manager_user_path(current_manager, user), class: "btn btn-dark btn-sm" %>
-            <%= link_to "削除", manager_user_path(current_manager, user), data: {confirm: "#{user.name}を削除しますか？"}, method: :delete,class: "btn btn-destroy btn-sm" %>
+            <%= link_to "削除", manager_user_path(current_manager, user), data: {confirm: "#{user.name}を削除しますか？"}, method: :delete,class: "btn btn-danger btn-sm" %>
           </td>
         </tr>
       <% end %>
