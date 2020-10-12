@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201009063117) do
+ActiveRecord::Schema.define(version: 20201012014415) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -46,19 +46,6 @@ ActiveRecord::Schema.define(version: 20201009063117) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "manager_id"
-    t.bigint "matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_events_on_manager_id"
-    t.index ["matter_id"], name: "index_events_on_matter_id"
-  end
-
   create_table "industries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
@@ -73,35 +60,6 @@ ActiveRecord::Schema.define(version: 20201009063117) do
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
-  end
-
-  create_table "manager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_event_titles_on_manager_id"
-  end
-
-  create_table "manager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_events_on_manager_id"
-  end
-
-  create_table "manager_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "manager_id"
-    t.bigint "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_tasks_on_manager_id"
-    t.index ["task_id"], name: "index_manager_tasks_on_task_id"
   end
 
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -153,28 +111,10 @@ ActiveRecord::Schema.define(version: 20201009063117) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "staff_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
-  end
-
-  create_table "staff_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_events_on_staff_id"
+    t.index ["client_id"], name: "index_matters_on_client_id"
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -235,36 +175,13 @@ ActiveRecord::Schema.define(version: 20201009063117) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_social_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "nickname"
-    t.string "email"
-    t.string "url"
-    t.string "image_url"
-    t.string "description"
-    t.text "other"
-    t.text "credentials"
-    t.text "raw_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "events", "managers"
-  add_foreign_key "events", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
-  add_foreign_key "manager_event_titles", "managers"
-  add_foreign_key "manager_events", "managers"
-  add_foreign_key "manager_tasks", "managers"
-  add_foreign_key "manager_tasks", "tasks"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matter_tasks", "matters"
   add_foreign_key "matter_tasks", "tasks"
-  add_foreign_key "staff_event_titles", "staffs"
-  add_foreign_key "staff_events", "staffs"
+  add_foreign_key "matters", "clients"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
 end
