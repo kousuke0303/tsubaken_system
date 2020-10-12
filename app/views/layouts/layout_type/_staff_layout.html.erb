@@ -8,7 +8,7 @@
       <p>スタッフ専用ページ</p>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "顧客管理", "#" %></li>
-      <li><%= link_to "Matter", employees_matters_path %></li>
+      <li><%= link_to "案件管理", employees_matters_path %></li>
       <li><%= link_to "カレンダー", "#" %></li>
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
@@ -73,17 +73,12 @@
     </nav>
 
   <!-- Main-content -->
-
-    <%= render 'layouts/flash' %>
-    <div class="staff_contaioner">
-      <%= yield %>
-    </div>
+  <div class="container">
+    <%= render "layouts/flash" %>
+    <%= yield %>
     <div class="line"></div>
-    <div class="debug">
-      <%= debug(params) if Rails.env.development? %>
-    </div>
-   
-  </div>
+    <div class="debug"><%= debug(params) if Rails.env.development? %></div>
+  </div> 
 </div>
 
 <script>
