@@ -18,9 +18,8 @@
     <div class="card mt-1e">
       <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
       <div class="card-body">
-        <div>
-          <div class="form-check"></div>
-        </div>   
+        <%= f.label :client %>
+        <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
       </div>
     </div>
     
