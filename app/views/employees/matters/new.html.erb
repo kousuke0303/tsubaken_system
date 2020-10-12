@@ -1,68 +1,66 @@
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-xs-12">
-    <h3 class="mb-1e">新規案件登録</h3>
+<div>
+  <h3 class="mb-1e">新規案件登録</h3>
 
-    <%= form_with(model: @matter, url: employees_matters_path, method: :post, local: true) do |f| %>
-      <!--STEP1-->
-      <div class="card">
-        <h5 class="card-header">STEP.1 <span class="ml-1e text-nowrap">タイトル・場所の入力</span></h5>
-        <div class="card-body">
-          <div class="col-md-7">
-            <%= f.label :title, "タイトル" %>
-            <%= f.text_field :title, required: true, class: "form-control" %>
-          </div>
-          <div class=" mt-1e">
-            <%= f.label :actual_spot, "現場住所" %>
-            <div>
-              <span class="prefectures_all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
-              <%= f.text_field :actual_spot, class: "form-control", id: "address-form", disabled: true %>
-            </div>
-            <div class="col-md-10 mt-05e">
-              <span>番地以下</span>
-              <%= f.text_field :actual_spot_2, class: "form-control" %>
-            </div>
-          </div>
-          <%= f.hidden_field :zip, class: "zip-field" %>
-          <%= f.hidden_field :actual_spot, class: "actual-spot-form" %>
+  <%= form_with(model: @matter, url: employees_matters_path, method: :post, local: true) do |f| %>
+    <!--STEP1-->
+    <div class="card">
+      <h5 class="card-header">STEP.1 <span class="ml-1e text-nowrap">タイトル・場所の入力</span></h5>
+      <div class="card-body">
+        <div >
+          <%= f.label :title, "タイトル" %>
+          <%= f.text_field :title, required: true, class: "form-control" %>
         </div>
-      </div>
-      
-      <!--STEP2-->
-      <div class="card mt-1e">
-        <h5 class="card-header">STEP.2 <span class="ml-1e">顧客情報の入力</span></h5>
-        <div class="card-body">
+        <div class=" mt-1e">
+          <%= f.label :actual_spot, "現場住所" %>
           <div>
-            <div class="form-check"></div>
-          </div>   
-        </div>
-      </div>
-      
-      <!--STEP3-->
-      <div class="card mt-1e">
-        <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
-        <div class="card-body">
-          <div>
-            <%= f.label :scheduled_start_at, "着工予定日" %>
-            <%= f.date_field :scheduled_start_at, class: "form-control" %>
+            <span class="prefectures_all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
+            <%= f.text_field :actual_spot, class: "form-control", id: "address-form", disabled: true %>
           </div>
-          <div class="mt-1e">
-            <%= f.label :scheduled_finish_at, "完了予定日" %>
-            <%= f.date_field :scheduled_finish_at, class: "form-control" %>
+          <div class="mt-05e">
+            <span>番地以下</span>
+            <%= f.text_field :actual_spot_2, class: "form-control" %>
           </div>
         </div>
+        <%= f.hidden_field :zip, class: "zip-field" %>
+        <%= f.hidden_field :actual_spot, class: "actual-spot-form" %>
       </div>
-      
-      <!--STEP4-->
-      <div class="card mt-1e">
-        <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
-        <div class="card-body">     
-          <div class="form-check text-left"></div>
-        </div>  
+    </div>
+    
+    <!--STEP2-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.2 <span class="ml-1e">顧客情報の入力</span></h5>
+      <div class="card-body">
+        <div>
+          <div class="form-check"></div>
+        </div>   
       </div>
-      
-      <%= f.submit "登録", class: "btn btn-dark mt-1e" %>
-    <% end %>
-  </div>
+    </div>
+    
+    <!--STEP3-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
+      <div class="card-body">
+        <div>
+          <%= f.label :scheduled_start_at, "着工予定日" %>
+          <%= f.date_field :scheduled_start_at, class: "form-control" %>
+        </div>
+        <div class="mt-1e">
+          <%= f.label :scheduled_finish_at, "完了予定日" %>
+          <%= f.date_field :scheduled_finish_at, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    
+    <!--STEP4-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
+      <div class="card-body">     
+        <div class="form-check text-left"></div>
+      </div>  
+    </div>
+    
+    <%= f.submit "登録", class: "btn btn-dark mt-1e" %>
+  <% end %>
 </div>
 
 <div class="modal address_modal">
