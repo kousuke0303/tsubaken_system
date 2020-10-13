@@ -8,6 +8,9 @@ class Employees::MattersController < ApplicationController
   def new
     @matter = Matter.new
     @clients = Client.all
+    @managers = Manager.all
+    @staffs = Staff.all
+    @suppliers = Supplier.all
   end
 
   def create
@@ -46,6 +49,7 @@ class Employees::MattersController < ApplicationController
     end
 
     def matter_params
-      params.require(:matter).permit(:title, :client_id, :zip_code, :actual_spot, :scheduled_started_on, :scheduled_finished_on)
+      params.require(:matter).permit(:title, :client_id, :zip_code, :actual_spot, :scheduled_started_on, :scheduled_finished_on,
+                                     { :manager_ids=> [] }, { :staff_ids=> [] }, { :supplier_ids=> [] })
     end
 end

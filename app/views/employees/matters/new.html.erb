@@ -45,12 +45,18 @@
         <div>
           <%= f.label :manager %>
           <div>
-            <%= f.collection_check_boxes(:manager_ids, Manager.all, :id, :name) do |m| %>
+            <%= f.collection_check_boxes(:manager_ids, @managers, :id, :name) do |m| %>
               <%= m.check_box %><%= m.text %>
             <% end %> 
           </div>
         </div>
         <div>
+          <%= f.label :staff %>
+          <div>
+            <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>
+              <%= s.check_box %><%= s.text %>
+            <% end %> 
+          </div>
         </div>
       </div>  
     </div>
@@ -59,6 +65,12 @@
     <div class="card mt-1e">
       <h5 class="card-header">STEP.5 <span class="ml-1e text-nowrap">外注先の入力</span></h5>
       <div class="card-body">
+        <%= f.label :supplier %>
+        <div>
+          <%= f.collection_check_boxes(:supplier_ids, @suppliers, :id, :name) do |p| %>
+            <%= p.check_box %><%= p.text %>
+          <% end %> 
+        </div>
       </div>  
     </div>
     
