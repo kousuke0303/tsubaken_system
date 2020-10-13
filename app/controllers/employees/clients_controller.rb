@@ -17,6 +17,7 @@ class Employees::ClientsController < ApplicationController
   end
 
   def show
+    @matters = @client.matters
   end
 
   def index

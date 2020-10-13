@@ -35,9 +35,28 @@
       <td><%= @client.address %></td>
     </tr>
   </table>
+  
+  <div><button role="button" id="toggle-clients-matters" class="btn btn-dark">案件一覧を表示</button></div>
+
+  <div id="clients-matters-area"><%= render "matters" %></div>
 
   <div class="btn-area">
     <%= link_to "編集", edit_employees_client_path(@client), class: "btn btn-dark" %>
     <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 </div>
+
+<script>
+  const mattersArea = $("#clients-matters-area")
+  const btn = $("#toggle-clients-matters")
+
+  // 顧客の案件一覧は非表示にしておく
+  mattersArea.hide();
+
+  // 顧客の案件一覧の表示・非表示切替
+  btn.click(function() {
+    mattersArea.toggle();
+    btn.prop("disabled", true);
+    btn.prop("disabled", false);
+  })
+</script>
