@@ -9,12 +9,18 @@
       <th>入社日</th>
     </tr>
     <% @managers.each do |manager| %>
-      <tr>
+      <tr class="tr-link" data-link="<%= employees_manager_path(manager) %>">
         <td><%= manager.name %></td>
         <td><%= manager.login_id %></td>
         <td><%= manager.phone %></td>
         <td><%= manager.joined_on %></td>
       </tr>
     <% end %>
-</table>
+  </table>
 </div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

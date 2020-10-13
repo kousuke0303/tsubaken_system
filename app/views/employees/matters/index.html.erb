@@ -22,7 +22,7 @@
       </tr>
       
       <% @matters.each do |matter| %>
-        <tr>
+        <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
         <td><%= matter.title %></td>
         <td><%= matter.client.name %></td>
         <td><%= matter.actual_spot %></td>
@@ -35,18 +35,8 @@
 </div>
 
 <script>
-  $("#select_progerss").on("click", function(){
-    $("#select-progerss").addClass("active");
-    $("#select-finished").removeClass("active");
-    $("#progress-index").show();
-    $("#finished-index").hide();
-  });
-  
-  $("#select_finished").on("click", function(){
-    $("#select-progerss").removeClass("active");
-    $("#select-finished").addClass("active");
-    $("#progress-index").hide();
-    $("#finished-index").show();
-  });
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
 </script>
   
