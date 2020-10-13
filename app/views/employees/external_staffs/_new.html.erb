@@ -14,7 +14,7 @@
         <%= f.label :login_id %>
         <div class="flex">
           <div class="login-id-lead" id="external-staff-lagin-id-lead"></div>
-          <div class="login-id-form"><%= f.text_field :login_id, required: true, class: "form-control", maxlength: 12 %></div>
+          <div class="login-id-form"><%= f.text_field :login_id, required: true, class: "form-control", maxlength: 8 %></div>
         </div>
 
         <%= f.label :name %>
@@ -40,8 +40,19 @@
 </div>
 
 <script>
-  $('select[name="external_staff[supplier_id]"]').change(function() {
-    let supplierId = $(this).val();
-    $("#external-staff-lagin-id-lead").html("SP" + supplierId + "-");
+  const supplierForm = $('select[name="external_staff[supplier_id]"]');
+
+  // 初期状態でのlogin_idの先頭文字をセット
+  setLeadId();
+
+  // 外注先の選択が変わる度、login_idの先頭文字を変更
+  supplierForm.change(function() {
+    setLeadId();
   });
+
+  // login_idの先頭文字を自動生成するメソッド
+  function setLeadId() {
+    let supplierId = supplierForm.val();
+    $("#external-staff-lagin-id-lead").html("SP" + supplierId + "-");
+  };
 </script>
