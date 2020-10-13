@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :external_staffs
   root "static_pages#login_index"
   
   # deviseのAdminログイン関係
