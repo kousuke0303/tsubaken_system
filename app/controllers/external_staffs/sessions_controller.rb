@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Staffs::SessionsController < Devise::SessionsController
+class ExternalStaffs::SessionsController < Devise::SessionsController
   def failed
     # warden で出力されたエラーを保存する
     flash[:alert] = "ログインに失敗しました"

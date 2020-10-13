@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   }
 
   # deviseのExternalStaffログイン関係
-  devise_for :external_staffs {
+  devise_for :external_staffs, controllers: {
     sessions:      "external_staffs/sessions",
     passwords:     "external_staffs/passwords",
     registrations: "external_staffs/registrations"
@@ -50,6 +50,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Staff関係
+  scope module: :staffs do
+    resources :staffs, only: [:show] do
+      get :top, on: :member
+    end
+  end
+
   # 従業員が行う操作
   namespace :employees do
     resources :managers
@@ -57,45 +64,11 @@ Rails.application.routes.draw do
     resources :clients
     resources :suppliers
     resources :matters
+    resources :external_staffs
     namespace :settings do
       resources :industries
     end
   end
-    
-  # ###--STAFF:CONTROLLER--################################
-  scope module: :staffs do
-    resources :staffs, only: [:show, :edit, :update] do
-      get :top, on: :member
-      # matter
-      resources :matters, only: [:index, :show] do
-        get :move_task, on: :member
-      end
-      # event
-      resources :events, only: [:index]
-      namespace :settings do
-        resources :staff_events
-        resources :staff_event_titles, except: [:index]
-      end
-    end
-  end
-  
-  # scope "(:manager_public_uid)" do
-  #   namespace :matter do
-  #     resources :matters, path: '/', only: [:new, :index, :show] do
-  #       patch :title_update, on: :member
-  #       patch :client_update, on: :member
-  #       patch :person_in_charge_update, on: :member
-  #       patch :update_manage_authority, on: :member
-  #       get :selected_user, on: :collection
-  #       post :connected_matter 
-  #       # matter関連タスク
-  #       resources :matter_tasks, only: [:update, :destroy] do
-  #         get :create, on: :collection
-  #         get :move_task, on: :collection
-  #       end
-  #     end
-  #   end
-  # end
   
   scope "(:manager_public_uid)" do
     get 'prefecture_index', to: 'addresses#prefecture_index'
