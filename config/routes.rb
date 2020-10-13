@@ -57,6 +57,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # ExternalStaff関係
+  scope module: :external_staffs do
+    resources :external_staffs, only: [:show] do
+      get :top, on: :member
+    end
+  end
+
   # 従業員が行う操作
   namespace :employees do
     resources :managers

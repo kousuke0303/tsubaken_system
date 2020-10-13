@@ -16,13 +16,10 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.string "name", default: "", null: false
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_admins_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -38,28 +35,24 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.string "address"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
+    t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
   create_table "external_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "name"
+    t.string "name", default: "", null: false
     t.string "kana"
     t.string "phone"
+    t.string "email"
     t.bigint "supplier_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_external_staffs_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_external_staffs_on_reset_password_token", unique: true
+    t.index ["login_id"], name: "index_external_staffs_on_login_id", unique: true
     t.index ["supplier_id"], name: "index_external_staffs_on_supplier_id"
   end
 
@@ -90,13 +83,10 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.date "resigned_on"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 
   create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -154,13 +144,10 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.date "resigned_on"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
   create_table "supplier_matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -201,6 +188,7 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "matter_managers", "managers"

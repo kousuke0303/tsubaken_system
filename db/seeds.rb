@@ -53,6 +53,26 @@ Supplier.create!(name: "テスト外注先A",
 
 puts "CREATE! Supplier"
 
+ExternalStaff.create!(name: "外部スタッフA",
+                      kana: "ガイブスタッフエー",
+                      login_id: "SP1-sup-a",
+                      phone: "08054545454",
+                      email: "testexternal-a@email.com",
+                      supplier_id: 1,
+                      password: "password",
+                      password_confirmation: "password")
+
+ExternalStaff.create!(name: "外部スタッフB",
+                      kana: "ガイブスタッフビー",
+                      login_id: "SP1-sup-b",
+                      phone: "08054545454",
+                      email: "testexternal-b@email.com",
+                      supplier_id: 1,
+                      password: "password",
+                      password_confirmation: "password")
+
+puts "CREATE! ExternalStaff"
+
 Industry.create!(name: "塗装関係")
 Industry.create!(name: "足場関係")
 
