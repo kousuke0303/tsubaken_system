@@ -4,6 +4,8 @@ class ExternalStaff < ApplicationRecord
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :email, length: { maximum: 254 }
   validate :external_staff_login_id_is_correct?
+
+  attr_accessor :login_id_body
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -14,8 +14,9 @@
         <%= f.label :login_id %>
         <div class="flex">
           <div class="login-id-lead" id="external-staff-lagin-id-lead"></div>
-          <div class="login-id-form"><%= f.text_field :login_id, required: true, class: "form-control", maxlength: 8 %></div>
+          <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8 %></div>
         </div>
+        <%= f.hidden_field :login_id %>
 
         <%= f.label :name %>
         <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
@@ -30,7 +31,7 @@
         <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 254, class: "form-control" %>
 
         <div class="btn-area">
-          <%= f.submit "作成", class: "btn btn-dark" %>
+          <%= f.submit "作成", class: "btn btn-dark", id: "create-external-staff" %>
         </div>
       <% end %>
       </div>
