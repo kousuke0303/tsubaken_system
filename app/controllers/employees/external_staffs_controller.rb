@@ -31,10 +31,6 @@ class Employees::ExternalStaffsController < ApplicationController
     redirect_to employees_external_staff_url
   end
 
-  # 作成編集時に、所属外注先に合わせたログインIDの先頭文字を生成
-  def match_login_id
-  end
-
   private
     def external_staff_params
       params.require(:external_staff).permit(:name, :kana, :login_id, :phone, :email, :supplier_id)

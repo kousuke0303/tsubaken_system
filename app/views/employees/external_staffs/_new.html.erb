@@ -41,10 +41,7 @@
 
 <script>
   $('select[name="external_staff[supplier_id]"]').change(function() {
-    $.ajax({
-      type: "POST",
-      url: "<%= match_login_id_employees_external_staffs_path %>",
-      cache: false
-    });
+    let supplierId = $(this).val();
+    $("#external-staff-lagin-id-lead").html("SP" + supplierId + "-");
   });
 </script>

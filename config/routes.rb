@@ -71,9 +71,7 @@ Rails.application.routes.draw do
     resources :clients
     resources :suppliers
     resources :matters
-    resources :external_staffs do
-      post :match_login_id, on: :collection
-    end
+    resources :external_staffs
     namespace :settings do
       resources :industries
     end
