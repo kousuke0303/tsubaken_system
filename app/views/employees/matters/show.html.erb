@@ -1,3 +1,59 @@
 <div>
   <h2>案件詳細</h2>
+
+  <table class="table table-sm" id="employees-matter-table">
+    <tr>
+      <th>タイトル</th>
+      <td><%= @matter.title %></td>
+    </tr>
+    <tr>
+      <th>顧客</th>
+      <td><%= @client.name %></td>
+    </tr>
+    <tr>
+      <th>担当マネージャー</th>
+      <td>
+        <% @managers.each do |manager| %>
+          <p><%= manager.name %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>担当スタッフ</th>
+      <td>
+        <% @staffs.each do |staff| %>
+          <p><%= staff.name %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @matter.zip_code %></td>
+    </tr>
+    <tr>
+      <th>現場住所</th>
+      <td><%= @matter.actual_spot %></td>
+    </tr>
+    <tr>
+      <th>着工予定日</th>
+      <td><%= @matter.scheduled_started_on %></td>
+    </tr>
+    <tr>
+      <th>完了予定日</th>
+      <td><%= @matter.scheduled_finished_on %></td>
+    </tr>
+    <tr>
+      <th>外注先</th>
+      <td>
+        <% @suppliers.each do |supplier| %>
+          <p><%= supplier.name %></p>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_matter_path(@matter), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
 </div>
