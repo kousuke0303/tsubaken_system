@@ -11,6 +11,12 @@
         <%= f.label :supplier %>
         <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, class: "form-control" %>
 
+        <%= f.label :login_id %>
+        <div class="flex">
+          <div class="login-id-lead" id="external-staff-lagin-id-lead"></div>
+          <div class="login-id-form"><%= f.text_field :login_id, required: true, class: "form-control", maxlength: 12 %></div>
+        </div>
+
         <%= f.label :name %>
         <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
 
