@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :external_staffs
   root "static_pages#login_index"
   
   # deviseのAdminログイン関係
@@ -23,11 +22,18 @@ Rails.application.routes.draw do
     registrations: "staffs/registrations"
   }
 
-  # deviseのclientログイン関係
+  # deviseのClientログイン関係
   devise_for :clients, controllers: {
     sessions:      "clients/sessions",
     passwords:     "clients/passwords",
     registrations: "clients/registrations"
+  }
+
+  # deviseのExternalStaffログイン関係
+  devise_for :external_staffs {
+    sessions:      "external_staffs/sessions",
+    passwords:     "external_staffs/passwords",
+    registrations: "external_staffs/registrations"
   }
 
   # Admin関係
