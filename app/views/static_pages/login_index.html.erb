@@ -2,8 +2,8 @@
   <div class="grid-login">
     <div id="user_login">
       <h2><span class="fontawesome-lock"></span>ログイン</h2>       
-      <fieldset>       
-        <%= form_for(Admin.new, as: :admin, url: session_path(:admin), class: "login-form", local: true) do |f| %>            
+      <fieldset>
+        <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
             <p><%= f.label :login_id, "従業員ID" %></p>
             <p><%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 10, required: true, id: "login-id" %></p>
             
