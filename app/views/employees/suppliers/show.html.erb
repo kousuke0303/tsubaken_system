@@ -40,8 +40,27 @@
     </tr>
   </table>
 
+  <div><button role="button" id="toggle-suppliers-matters" class="btn btn-dark">案件一覧を表示</button></div>
+
+  <div id="suppliers-matters-area"><%= render "matters" %></div>
+
   <div class="btn-area">
     <%= link_to "編集", edit_employees_supplier_path(@supplier), class: "btn btn-dark" %>
     <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
   </div>
 </div>
+
+<script>
+  const mattersArea = $("#suppliers-matters-area")
+  const btn = $("#toggle-suppliers-matters")
+
+  // 外注先の案件一覧は非表示にしておく
+  mattersArea.hide();
+
+  // 外注先の案件一覧の表示・非表示切替
+  btn.click(function() {
+    mattersArea.toggle();
+    btn.prop("disabled", true);
+    btn.prop("disabled", false);
+  })
+</script>

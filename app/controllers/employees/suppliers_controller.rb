@@ -33,6 +33,7 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def show
+    @matters = @supplier.matters
   end
 
   def destroy
