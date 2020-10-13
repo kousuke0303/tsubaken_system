@@ -35,12 +35,12 @@
       <%= f.submit "更新", class: "btn btn-dark" %>
     </div>
   <% end %>
-
-  <% if @manager.errors.any? %>
-    <script>
-      $(document).ready(function() {
-        history.pushState("", "", location.href + "/edit")
-      });
-    </script>
-  <% end %>
 </div>
+
+<% if @manager.errors.any? %>
+  <script>
+    $(document).ready(function() {
+      history.pushState("", "", location.href + "/edit")
+    });
+  </script>
+<% end %>

@@ -32,9 +32,10 @@ class Employees::MattersController < ApplicationController
 
   def edit
     @client = Client.find(@matter.client_id)
-    @managers = @matter.managers
-    @staffs = @matter.staffs
-    @suppliers = @matter.suppliers
+    @clients = Client.all
+    @managers = Manager.all
+    @staffs = Staff.all
+    @suppliers = Supplier.all
   end
 
   def update
