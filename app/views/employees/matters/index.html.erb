@@ -13,19 +13,23 @@
 
   <div class="table-responsive">
     <table class="table table-borderd text-nowrap employee_index">
-      <thead>
-        <tr>
-          <th>タイトル</th>
-          <th>場所</th>
-          <th>顧客</th>
-          <th>情報</th>
-        </tr>
-      </thead>
+      <tr>
+        <th>タイトル</th>
+        <th>顧客</th>
+        <th>現場住所</th>
+        <th>着工予定日</th>
+        <th>完了予定日</th>
+      </tr>
       
-      <tbody id="progress-index" style="display: none;">
-      </tbody>
-      <tbody id="finished-index" style="display: none;">
-      </tbody>
+      <% @matters.each do |matter| %>
+        <tr>
+        <td><%= matter.title %></td>
+        <td><%= matter.client.name %></td>
+        <td><%= matter.actual_spot %></td>
+        <td><%= matter.scheduled_started_on %></td>
+        <td><%= matter.scheduled_finished_on %></td>
+        </tr>
+      <% end %>
     </table>
   </div>
 </div>

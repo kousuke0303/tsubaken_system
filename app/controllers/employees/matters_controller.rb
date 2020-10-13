@@ -1,16 +1,14 @@
 class Employees::MattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
+  before_action :set_matter_support, only: [:new, :edit]
 
   def index
+    @matters = Matter.includes(:client)
   end
   
   def new
     @matter = Matter.new
-    @clients = Client.all
-    @managers = Manager.all
-    @staffs = Staff.all
-    @suppliers = Supplier.all
   end
 
   def create
@@ -32,10 +30,6 @@ class Employees::MattersController < ApplicationController
 
   def edit
     @client = Client.find(@matter.client_id)
-    @clients = Client.all
-    @managers = Manager.all
-    @staffs = Staff.all
-    @suppliers = Supplier.all
   end
 
   def update
@@ -55,6 +49,13 @@ class Employees::MattersController < ApplicationController
   private
     def set_matter
       @matter = Matter.find(params[:id])
+    end
+
+    def set_matter_support
+      @clients = Client.all
+      @managers = Manager.all
+      @staffs = Staff.all
+      @suppliers = Supplier.all
     end
 
     def matter_params
