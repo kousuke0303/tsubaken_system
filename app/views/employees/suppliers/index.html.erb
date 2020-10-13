@@ -9,7 +9,7 @@
       <th></th>
     </tr>
     <% @suppliers.each do |supplier| %>
-      <tr>
+      <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) >
         <td><%= supplier.name %></td>
         <td><%= supplier.phone_1 %></td>
         <td><%= supplier.address %></td>
@@ -18,3 +18,9 @@
     <% end %>
   </table>
 </div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>
