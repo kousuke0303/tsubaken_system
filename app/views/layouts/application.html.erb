@@ -37,6 +37,8 @@
         <%= render "layouts/layout_type/manager_layout" %>
       <% elsif staff_signed_in? %>
         <%= render "layouts/layout_type/staff_layout" %>
+      <% elsif client_signed_in? %>
+        <%= render "layouts/layout_type/client_layout" %>
       <% end %>
     </body>
   <% end %>

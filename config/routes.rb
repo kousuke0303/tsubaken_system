@@ -42,6 +42,13 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+  
+  # Client関係
+  scope module: :clients do
+    resources :clients, only: [:index] do
+      get :top, on: :member
+    end
+  end
 
   # 従業員が行う操作
   namespace :employees do

@@ -1,0 +1,103 @@
+<div class="employee-wrapper">
+
+<!-- Sidebar -->
+  <nav id="sidebar">
+    <div class="sidebar-header"><%= image_tag "logo.jpg" %></div>
+
+    <ul class="list-unstyled components">
+      <p>顧客専用ページ</p>
+      <li><%= link_to "Matter", "#" %></li>
+      <li>
+        <%= link_to "Calendar", "#" %>
+      </li>
+      <li>
+        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
+      </li>
+      <li>
+        <a href="#">未定</a>
+      </li>
+      <li>
+        <a href="#">未定</a>
+      </li>
+    </ul>
+
+    <ul class="list-unstyled CTAs">
+      <li>
+        <a href="＃" class="download">Download</a>
+      </li>
+      <li>
+        <a href="#" class="article">未定</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content">
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">
+      <div class="container-fluid">
+
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-align-justify"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+              <%= link_to top_client_path(current_client), class: "nav-link" do %>
+                <i class="fas fa-home"></i> Home
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Page</a>
+            </li>
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-alt"></i> <%= current_client.name %>
+              </a>
+              <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
+                <%= link_to edit_client_registration_path, class: "dropdown-item item-link" do %>
+                  <i class="fas fa-user-edit"></i> アカウント情報
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to destroy_client_session_path, method: :delete, class: "dropdown-item item-link" do %>
+                  <i class="fas fa-sign-out-alt"></i> ログアウト
+                <% end %>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Main-content -->
+
+    <%= render 'layouts/flash' %>
+    <div class="staff_contaioner">
+      <%= yield %>
+    </div>
+    <div class="line"></div>
+    <div class="debug">
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+   
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+    });
+  });
+</script> 
