@@ -1,11 +1,11 @@
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
-  <div id="industry-new" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
+  <div id="industry-new" class="modal fade" role="dialog">
     <%= render "employees/settings/industries/new" %>
   </div>
 <% end %>
 
 <% if admin_signed_in? || manager_signed_in? %>
-  <div id="external-staff-new" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
+  <div id="external-staff-new" class="modal fade" role="dialog">
     <%= render "employees/external_staffs/new" %>
   </div>
 <% end %>
