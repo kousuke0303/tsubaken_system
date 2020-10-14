@@ -15,7 +15,7 @@
       <td><%= @external_staff.login_id %></td>
     </tr>
     <tr>
-      <th>電話番号①</th>
+      <th>電話番号</th>
       <td><%= @external_staff.phone %></td>
     </tr>
     <tr>
@@ -23,4 +23,9 @@
       <td><%= @external_staff.email %></td>
     </tr>
   </table>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_external_staff_path(@external_staff), class: "btn btn-dark" %>
+    <%= link_to "削除", employees_external_staff_path(@external_staff), method: :delete, data: { confirm: "この外部スタッフを削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
 </div>

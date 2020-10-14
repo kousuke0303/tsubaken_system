@@ -8,7 +8,9 @@ class Employees::ExternalStaffsController < ApplicationController
       flash[:success] = "外部スタッフを作成しました"
       redirect_to employees_external_staff_url(@external_staff)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -28,12 +30,12 @@ class Employees::ExternalStaffsController < ApplicationController
 
   def destroy
     @external_staff.destroy ? flash[:success] = "外部スタッフを削除しました" : flash[:alert] = "外部スタッフを削除できませんでした"
-    redirect_to employees_external_staff_url
+    redirect_to employees_external_staffs_path
   end
 
   private
     def external_staff_params
-      params.require(:external_staff).permit(:name, :kana, :login_id, :phone, :email, :supplier_id)
+      params.require(:external_staff).permit(:name, :kana, :login_id, :login_id_body, :phone, :email, :supplier_id)
     end
 
     def set_external_staff

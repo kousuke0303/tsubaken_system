@@ -6,7 +6,7 @@
       <h5 class="card-header">業種作成</h5>
       <div class="card-body">
       <%= form_with(model: @external_staff, url: employees_external_staffs_path, method: :post, remote: true) do |f| %>
-        <div class="external_staff-create-errors"></div>
+        <div class="external-staff-create-errors"></div>
 
         <%= f.label :supplier %>
         <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, class: "form-control" %>
@@ -41,8 +41,9 @@
 </div>
 
 <script>
+$(document).on("turbolinks:load", function() {
   const supplierForm = $('select[name="external_staff[supplier_id]"]');
-
+  const loginIdLeadArea = $("#external-staff-lagin-id-lead");
   // 初期状態でのlogin_idの先頭文字をセット
   setLeadId();
 
@@ -54,6 +55,13 @@
   // login_idの先頭文字を自動生成するメソッド
   function setLeadId() {
     let supplierId = supplierForm.val();
-    $("#external-staff-lagin-id-lead").html("SP" + supplierId + "-");
+    loginIdLeadArea.html("SP" + supplierId + "-");
   };
+
+  $("#create-external-staff").click(function() {
+    let loginIdLead = loginIdLeadArea.html();
+    let loginIdBody = $('input[name="external_staff[login_id_body]"]').val();
+    $('input[name="external_staff[login_id]"]').val(loginIdLead + loginIdBody);
+  });
+});
 </script>
