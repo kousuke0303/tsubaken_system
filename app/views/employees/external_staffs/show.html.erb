@@ -25,8 +25,7 @@
   </table>
 
   <div class="btn-area">
-    <%= link_to "編集", edit_employees_external_staff_path(@external_staff), class: "btn btn-dark" %>
+    <button class="btn btn-dark" data-toggle="modal" data-target="#external-staff-edit">編集</button>
     <%= link_to "削除", employees_external_staff_path(@external_staff), method: :delete, data: { confirm: "この外部スタッフを削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 </div>
-

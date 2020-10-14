@@ -3,17 +3,17 @@
   <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
   <div class="modal-body pa-2e">
     <div class="card mb-3">
-      <h5 class="card-header">業種作成</h5>
+      <h5 class="card-header">外部スタッフ作成</h5>
       <div class="card-body">
       <%= form_with(model: @external_staff, url: employees_external_staffs_path, method: :post, remote: true) do |f| %>
         <div class="external-staff-create-errors"></div>
 
         <%= f.label :supplier %>
-        <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, class: "form-control" %>
+        <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, class: "form-control", id: "new-external-staff-supplier-id" %>
 
         <%= f.label :login_id %>
         <div class="flex">
-          <div class="login-id-lead" id="external-staff-lagin-id-lead"></div>
+          <div class="login-id-lead" id="new-external-staff-lagin-id-lead"></div>
           <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8 %></div>
         </div>
         <%= f.hidden_field :login_id %>
@@ -42,8 +42,8 @@
 
 <script>
 $(document).on("turbolinks:load", function() {
-  const supplierForm = $('select[name="external_staff[supplier_id]"]');
-  const loginIdLeadArea = $("#external-staff-lagin-id-lead");
+  const supplierForm = $("#new-external-staff-supplier-id");
+  const loginIdLeadArea = $("#new-external-staff-lagin-id-lead");
   // 初期状態でのlogin_idの先頭文字をセット
   setLeadId();
 
