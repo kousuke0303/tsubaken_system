@@ -28,39 +28,46 @@
     const loginId = $("#login-id");
     const password = $("#password");
     const rememberMe = $("#remember-me");
-    const idType = loginId.val().slice(0, 3);
+    const idType = loginId.val().slice(0, 2);
 
-    if(idType == "AD-") {
+    if(idType == "AD") {
       form.attr("class", "new_admin");
       form.attr("id", "new_admin");
       form.attr("action", "/admins/sign_in");
       loginId.attr("name", "admin[login_id]");
       password.attr("name", "admin[password]");
       rememberMe.attr("name", "admin[remember_me]");
-    } else if(idType == "MN-") {
+    } else if(idType == "MN") {
       form.attr("class", "new_manager");
       form.attr("id", "new_manager");
       form.attr("action", "/managers/sign_in");
       loginId.attr("name", "manager[login_id]");
       password.attr("name", "manager[password]");
       rememberMe.attr("name", "manager[remember_me]");
-    } else if(idType == "ST-") {
+    } else if(idType == "ST") {
       form.attr("class", "new_staff");
       form.attr("id", "new_staff");
       form.attr("action", "/staffs/sign_in");
       loginId.attr("name", "staff[login_id]");
       password.attr("name", "staff[password]");
       rememberMe.attr("name", "staff[remember_me]");
-    } else if(idType == "CL-") {
+    } else if(idType == "CL") {
       form.attr("class", "new_client");
       form.attr("id", "new_client");
       form.attr("action", "/clients/sign_in");
       loginId.attr("name", "client[login_id]");
       password.attr("name", "client[password]");
       rememberMe.attr("name", "client[remember_me]");
+    } else if(idType == "SP") {
+      form.attr("class", "new_external_staff");
+      form.attr("id", "new_external_staff");
+      form.attr("action", "/external_staffs/sign_in");
+      loginId.attr("name", "external_staff[login_id]");
+      password.attr("name", "external_staff[password]");
+      rememberMe.attr("name", "external_staff[remember_me]");
     } else {
-      $(this).prop('disabled', true);
-      $(this).prop('disabled', false);
+      $(this).prop("disabled", true);
+      $(this).prop("disabled", false);
       return false;
     }
   });

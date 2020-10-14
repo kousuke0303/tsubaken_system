@@ -254,6 +254,8 @@ class ApplicationController < ActionController::Base
         top_manager_url(current_manager)
       elsif resource_or_scope.is_a?(Staff)
         top_staff_url(current_staff)
+      elsif resource_or_scope.is_a?(ExternalStaff)
+        top_external_staff_url(current_external_staff)
       else
         root_url
       end
