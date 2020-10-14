@@ -5,31 +5,31 @@
     <%= render "layouts/error_messages", resource: @manager %>
 
     <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 30, required: true, class: "form-control" %>
+    <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
 
     <%= f.label :login_id %>
-    <%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 12, required: true, class: "form-control" %>
+    <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
     
     <%= f.label :phone %>
     <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11, placeholder: "半角数字(ハイフンなし)" %>
 
     <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 254, class: "form-control" %>
+    <%= f.email_field :email, maxlength: 254, class: "form-control" %>
 
     <%= f.label :birthed_on %>
-    <%= f.date_field :birthed_on, autofocus: true, autocomplete: "birthed_on", class: "form-control" %>
+    <%= f.date_field :birthed_on, class: "form-control" %>
 
     <%= f.label :zip_code %>
-    <%= f.text_field :zip_code, autofocus: true, autocomplete: "zip_code", maxlength: 7, pattern: "^[0-9]{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
+    <%= f.text_field :zip_code, maxlength: 7, pattern: "^[0-9]{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
 
     <%= f.label :address %>
-    <%= f.text_field :address, autofocus: true, autocomplete: "address", maxlength: 50, class: "form-control" %>
+    <%= f.text_field :address, maxlength: 50, class: "form-control" %>
 
     <%= f.label :joined_on %>
-    <%= f.date_field :joined_on, autofocus: true, autocomplete: "joined_on", class: "form-control" %>
+    <%= f.date_field :joined_on, class: "form-control" %>
 
     <%= f.label :resigned_on %>
-    <%= f.date_field :resigned_on, autofocus: true, autocomplete: "resigned_on", class: "form-control" %>
+    <%= f.date_field :resigned_on, class: "form-control" %>
 
     <div class="btn-area">
       <%= f.submit "作成", class: "btn btn-dark" %>
