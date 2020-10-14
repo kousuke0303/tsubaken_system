@@ -22,14 +22,12 @@ class Employees::MattersController < ApplicationController
   end
 
   def show
-    @client = Client.find(@matter.client_id)
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
   end
 
   def edit
-    @client = Client.find(@matter.client_id)
   end
 
   def update
