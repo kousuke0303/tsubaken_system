@@ -1,11 +1,9 @@
 class Admin < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :login_id, presence: true, length: { in: 8..10 }, uniqueness: true
+  validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validate :admin_login_id_is_correct?
   validate :admin_is_only
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   def admin_is_only
@@ -16,7 +14,7 @@ class Admin < ApplicationRecord
 
   # 管理者の従業員IDは「AD-」から始めさせる
   def admin_login_id_is_correct?
-    errors.add(:login_id, "は「AD-」から始めてください") if login_id.present? && login_id[0..2] != "AD-"
+    errors.add(:login_id, "は「AD-」から始めてください") if login_id.present? && !login_id.start_with?("AD-")
   end
 
   # emailでなくlogin_idを認証キーにする
@@ -35,6 +33,11 @@ class Admin < ApplicationRecord
   end
 
   def will_save_change_to_email?
+    false
+  end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
     false
   end
 end

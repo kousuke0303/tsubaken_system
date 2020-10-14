@@ -47,14 +47,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # ログインuser以外のアクセス制限
-  def not_current_user_return_login!
-    unless params[:id].to_i == current_user.id || params[:user_id].to_i == current_user.id
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-  
   def matter_edit_authenticate!
     if current_manager && current_manager.matters.where(matter_uid: params[:id])
       @manager = current_manager
@@ -218,8 +210,6 @@ class ApplicationController < ActionController::Base
     # row_orderリセット
     reload_row_order(@matter_complete_tasks)
   end
-  
-  # __________________________________________________________________
 
   # --------------------------------------------------------
         # EVENT関係
@@ -255,6 +245,8 @@ class ApplicationController < ActionController::Base
         top_manager_url(current_manager)
       elsif resource_or_scope.is_a?(Staff)
         top_staff_url(current_staff)
+      elsif resource_or_scope.is_a?(ExternalStaff)
+        top_external_staff_url(current_external_staff)
       else
         root_url
       end

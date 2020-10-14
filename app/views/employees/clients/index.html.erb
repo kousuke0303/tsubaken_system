@@ -1,7 +1,7 @@
 <div>
   <h2>顧客一覧</h2>
   <%= link_to "作成", new_employees_client_path, class: "btn btn-dark" %>
-  <table class="table table-sm table-hover" id="staffs-table">
+  <table class="table table-sm" id="staffs-table">
     <tr>
       <th>名前</th>
       <th>顧客ID</th>
@@ -11,15 +11,20 @@
       <th>メールアドレス</th>
     </tr>
     <% @clients.each do |client| %>
-      <tr>
+      <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
         <td><%= client.name %></td>
         <td><%= client.login_id %></td>
         <td><%= client.gender %></td>
         <td><%= client.phone_1 %></td>
         <td><%= client.phone_2 %></td>
         <td><%= client.address %></td>
-        <td><%= link_to "詳細", employees_client_path(client), class: "btn btn-sm btn-dark" %></td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

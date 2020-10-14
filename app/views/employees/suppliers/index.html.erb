@@ -1,20 +1,24 @@
 <div>
   <h2>外注先一覧</h2>
   <%= link_to "作成", new_employees_supplier_path, class: "btn btn-dark" %>
-  <table class="table table-sm table-hover" id="employees-table">
+  <table class="table table-sm" id="employees-table">
     <tr>
       <th>名前</th>
       <th>電話番号①</th>
       <th>住所</th>
-      <th></th>
     </tr>
     <% @suppliers.each do |supplier| %>
-      <tr>
+      <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
         <td><%= supplier.name %></td>
         <td><%= supplier.phone_1 %></td>
         <td><%= supplier.address %></td>
-        <td><%= link_to "詳細", employees_supplier_path(supplier), class: "btn btn-sm btn-dark" %></td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

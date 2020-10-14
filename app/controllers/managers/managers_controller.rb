@@ -12,8 +12,4 @@ class Managers::ManagersController < ApplicationController
       format.any
     end
   end
-
-  def enduser
-    @manager = current_manager
-  end
 end

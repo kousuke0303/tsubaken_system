@@ -1,22 +1,22 @@
-<div class="employee-wrapper">
+<div class="entire-wrapper">
 
-<!-- Sidebar -->
+  <!-- Sidebar -->
   <nav id="sidebar">
-    <div class="sidebar-header">
-      <% if File.exist?("app/assets/images/company_#{current_manager.id}_logo.jpg") %>
-        <%= image_tag "company_#{current_manager.id}_logo.jpg" %>
-      <% else %>
-        <%= image_tag "logo.jpg" %>
-      <% end %>
-    </div>
+    <div class="sidebar-header"><%= image_tag "logo.jpg" %></div>
 
     <ul class="list-unstyled components">
-      <p>マネージャー専用ページ</p>    
-      <li><%= link_to "スタッフ管理", employees_staffs_path %></li>
+      <p>マネージャー専用ページ</p>
+      <li>
+        <a href="#employees-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">従業員管理</a>
+        <ul class="collapse list-unstyled" id="employees-menu">
+          <li><%= link_to "スタッフ", employees_staffs_path %></li>
+          <li><%= link_to "外部スタッフ", employees_external_staffs_path %></li>
+        </ul>
+      </li>  
       <li><%= link_to "顧客管理", employees_clients_path %></li>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
-      <li><%= link_to "案件管理", "#" %></li>
-      <li><%= link_to "Calendar", "#" %></li>
+      <li><%= link_to "案件管理", employees_matters_path %></li>
+      <li><%= link_to "カレンダー", "#" %></li>
       <li><%= link_to "勤怠管理", "#" %></li>
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
@@ -34,14 +34,12 @@
     </ul>
   </nav>
 
-<!-- Page Content -->
-  <div id="content">
-    
-  <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">
-      <div class="container-fluid">
-        
-        <button type="button" id="sidebarCollapse" class="navbar-btn">
+  <!-- Page Content -->
+  <div id="content">   
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
+      <div class="container-fluid">       
+        <button type="button" id="sidebar-collapse" class="navbar-btn">
           <span></span>
           <span></span>
           <span></span>
@@ -83,24 +81,19 @@
       </div>
     </nav>
     
-  <!-- Main-content -->
-    <div class="flash_container">
-      <%= render 'layouts/flash' %>
-    </div>  
-    <div class="manager_contaioner">
-      <%= yield %>
-    </div>
+    <!-- Main-content -->
+    <%= render "layouts/flash" %>
+    <%= yield %>
     <div class="line"></div>
-    <div class="debug"><%= debug(params) if Rails.env.development? %></div>
-     
+    <div class="debug"><%= debug(params) if Rails.env.development? %></div> 
   </div>
 </div>
 
 <script>
   $(document).ready(function () {
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-        $(this).toggleClass('active');
+    $("#sidebar-collapse").on("click", function () {
+        $("#sidebar").toggleClass("active");
+        $(this).toggleClass("active");
     });
   });
-</script>
+</script> 

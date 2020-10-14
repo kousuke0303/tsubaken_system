@@ -1,5 +1,0 @@
-<% if type == "submanager" %>
-  <%= render partial: 'attendance_table', locals: { type: "submanager", target: submanager, attendances: attendances, submanager: submanager } %>
-<% elsif type == "staff" %>
-  <%= render partial: 'attendance_table', locals: { type: "staff", target: staff, attendances: attendances, staff: staff} %>
-<% end %>
