@@ -22,10 +22,15 @@ class Employees::ExternalStaffsController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
   def update
+    if @external_staff.update(external_staff_params)
+      flash[:success] = "外部スタッフ情報を更新しました"
+      redirect_to employees_external_staff_url(@external_staff)
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   def destroy

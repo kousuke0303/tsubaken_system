@@ -14,9 +14,9 @@
         <%= f.label :login_id %>
         <div class="flex">
           <div class="login-id-lead" id="new-external-staff-lagin-id-lead"></div>
-          <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8 %></div>
+          <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "new-external-staff-login-id-body" %></div>
         </div>
-        <%= f.hidden_field :login_id %>
+        <%= f.hidden_field :login_id, id: "new-external-staff-login-id" %>
 
         <%= f.label :name %>
         <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
@@ -60,8 +60,8 @@ $(document).on("turbolinks:load", function() {
 
   $("#create-external-staff").click(function() {
     let loginIdLead = loginIdLeadArea.html();
-    let loginIdBody = $('input[name="external_staff[login_id_body]"]').val();
-    $('input[name="external_staff[login_id]"]').val(loginIdLead + loginIdBody);
+    let loginIdBody = $("#new-external-staff-login-id-body").val();
+    $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
   });
 });
 </script>
