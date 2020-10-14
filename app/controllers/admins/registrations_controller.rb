@@ -2,8 +2,6 @@
 
 class Admins::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_admin!
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
 
   def update
     @admin = Admin.find(current_admin.id)
@@ -19,16 +17,6 @@ class Admins::RegistrationsController < Devise::RegistrationsController
       render :edit
     end
   end
-
-  protected
-
-    def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :login_id])
-    end
-
-    def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :login_id])
-    end
 
   private
     def admin_params
