@@ -16,7 +16,7 @@ class Admin < ApplicationRecord
 
   # 管理者の従業員IDは「AD-」から始めさせる
   def admin_login_id_is_correct?
-    errors.add(:login_id, "は「AD-」から始めてください") if login_id.present? && login_id[0..2] != "AD-"
+    errors.add(:login_id, "は「AD-」から始めてください") if login_id.present? && !login_id.start_with?("AD-")
   end
 
   # emailでなくlogin_idを認証キーにする

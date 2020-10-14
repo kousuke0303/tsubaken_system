@@ -15,7 +15,7 @@ class Staff < ApplicationRecord
 
   # スタッフの従業員IDは「ST-」から始めさせる
   def staff_login_id_is_correct?
-    errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && login_id[0..2] != "ST-"
+    errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && !login_id.start_with?("ST-")
   end
 
   # emailでなくlogin_idを認証キーにする

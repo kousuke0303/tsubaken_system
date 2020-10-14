@@ -13,7 +13,8 @@ class ExternalStaff < ApplicationRecord
 
   # ログインIDは「SP(外注先ID)-」から始めさせる
   def external_staff_login_id_is_correct?
-    errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && login_id[0..1] != "SP"
+    correct_login_id_lead = "SP" + self.supplier_id.to_s + "-"
+    errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && !login_id.start_with?(correct_login_id_lead)
   end
 
   # login_idの先頭部分以外を取得
