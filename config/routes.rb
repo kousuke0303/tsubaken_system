@@ -50,11 +50,19 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :managers do
+    resources :attendances, only: [:edit, :update]
+  end
+
   # Staff関係
   scope module: :staffs do
     resources :staffs, only: [:show] do
       get :top, on: :member
     end
+  end
+
+  namespace :staffs do
+    resources :attendances, only: [:edit, :update]
   end
 
   # ExternalStaff関係
