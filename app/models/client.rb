@@ -16,4 +16,9 @@ class Client < ApplicationRecord
   def client_login_id_is_correct?
     errors.add(:login_id, "は「CL-」から始めてください") if login_id.present? && login_id[0..2] != "CL-"
   end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
+    false
+  end
 end

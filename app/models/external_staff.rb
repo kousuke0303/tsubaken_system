@@ -15,4 +15,9 @@ class ExternalStaff < ApplicationRecord
   def external_staff_login_id_is_correct?
     errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && login_id[0..1] != "SP"
   end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
+    false
+  end
 end

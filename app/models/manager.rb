@@ -47,4 +47,9 @@ class Manager < ApplicationRecord
   def will_save_change_to_email?
     false
   end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
+    false
+  end
 end

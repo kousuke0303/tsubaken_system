@@ -16,7 +16,7 @@
             <div class="login-id-lead" id="edit-external-staff-lagin-id-lead"></div>
             <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "edit-external-staff-login-id-body" %></div>
           </div>
-          <%= f.hidden_field :login_id, id: "#edit-external-staff-login-id" %>
+          <%= f.hidden_field :login_id, id: "edit-external-staff-login-id" %>
 
           <%= f.label :name %>
           <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
@@ -42,6 +42,7 @@
 
 <script>
 $(document).on("turbolinks:load", function() {
+  const form = $("#edit-external-staff");
   const supplierForm = $("#edit-external-staff-supplier-id");
   const loginIdLeadArea = $("#edit-external-staff-lagin-id-lead");
   // 初期状態でのlogin_idの先頭文字をセット
