@@ -16,6 +16,15 @@ class ExternalStaff < ApplicationRecord
     errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && login_id[0..1] != "SP"
   end
 
+  # 登録時にemailを不要にする
+  def email_required?
+    false
+  end
+
+  def will_save_change_to_email?
+    false
+  end
+
   # ログインID変更時のreset_password_token不要にする
   def will_save_change_to_login_id?
     false

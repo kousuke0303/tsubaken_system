@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">外部スタッフ編集</h5>
         <div class="card-body">
-        <%= form_with(model: @external_staff, url: "#", method: :patch, remote: true) do |f| %>
+        <%= form_with(model: @external_staff, url: employees_external_staff_path(@external_staff,), method: :patch, remote: true) do |f| %>
           <div class="external-staff-edit-errors"></div>
 
           <%= f.label :supplier %>
