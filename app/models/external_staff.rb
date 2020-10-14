@@ -6,9 +6,9 @@ class ExternalStaff < ApplicationRecord
   validate :external_staff_login_id_is_correct?
 
   attr_accessor :login_id_body
+
+  has_many :attendances, dependent: :destroy
   
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # ログインIDは「SP(外注先ID)-」から始めさせる
@@ -24,6 +24,16 @@ class ExternalStaff < ApplicationRecord
   end
 
   # ------------------------------以下devise関連------------------------------
+
+  # emailでなくlogin_idを認証キーにする
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login_id = conditions.delete(:login_id)
+      where(conditions).where(login_id: login_id).first
+    else
+      where(conditions).first
+    end
+  end
 
   # 登録時にemailを不要にする
   def email_required?

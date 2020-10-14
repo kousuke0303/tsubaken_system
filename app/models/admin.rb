@@ -4,8 +4,6 @@ class Admin < ApplicationRecord
   validate :admin_login_id_is_correct?
   validate :admin_is_only
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   def admin_is_only

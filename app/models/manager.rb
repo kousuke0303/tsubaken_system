@@ -8,8 +8,8 @@ class Manager < ApplicationRecord
 
   has_many :matter_managers, dependent: :destroy
   has_many :matters, through: :matter_managers
+  has_many :attendances, dependent: :destroy
   
-  # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # マネージャーの従業員IDは「MN-」から始めさせる

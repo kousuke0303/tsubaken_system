@@ -8,9 +8,8 @@ class Staff < ApplicationRecord
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
+  has_many :attendances, dependent: :destroy
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # スタッフの従業員IDは「ST-」から始めさせる

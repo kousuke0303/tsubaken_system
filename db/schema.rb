@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201008062911) do
+ActiveRecord::Schema.define(version: 20201014073644) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_admins_on_login_id", unique: true
+  end
+
+  create_table "attendances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date "worked_on"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "manager_id"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
+    t.index ["manager_id"], name: "index_attendances_on_manager_id"
+    t.index ["staff_id"], name: "index_attendances_on_staff_id"
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -188,6 +202,9 @@ ActiveRecord::Schema.define(version: 20201008062911) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "attendances", "external_staffs"
+  add_foreign_key "attendances", "managers"
+  add_foreign_key "attendances", "staffs"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
