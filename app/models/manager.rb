@@ -29,6 +29,8 @@ class Manager < ApplicationRecord
     end
   end
 
+  # ------------------------------以下devise関連------------------------------
+
   # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

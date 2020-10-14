@@ -20,6 +20,8 @@ class Employees::ExternalStaffsController < ApplicationController
   end
 
   def show
+    # login_idの先頭部分以外を定義
+    @login_id_body = @external_staff.login_id_body
   end
 
   def update

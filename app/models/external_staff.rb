@@ -16,6 +16,14 @@ class ExternalStaff < ApplicationRecord
     errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && login_id[0..1] != "SP"
   end
 
+  # login_idの先頭部分以外を取得
+  def login_id_body
+    login_id_lead_count = self.supplier_id.to_s.length + 3
+    return self.login_id.slice(login_id_lead_count, 12)
+  end
+
+  # ------------------------------以下devise関連------------------------------
+
   # 登録時にemailを不要にする
   def email_required?
     false
