@@ -1,3 +1,11 @@
-<div>
-  <h2>出退勤一覧</h2>
+<div class="center">
+  <h2>
+    <%= link_to "＜＜", managers_attendances_path(date: @first_day.prev_month.beginning_of_month), class: "btn btn-dark" %>
+    <%= @first_day.strftime("%Y年%m月") %>　出退勤一覧
+    <%= link_to "＞＞", managers_attendances_path(date: @first_day.next_month.beginning_of_month), class: "btn btn-dark" %>
+  </h2>
+</div>
+
+<div class="center">
+  <%= link_to "出勤", "#", class: "btn btn-dark btn-lg" %>
 </div>
