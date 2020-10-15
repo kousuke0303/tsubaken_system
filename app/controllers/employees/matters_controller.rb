@@ -5,6 +5,7 @@ class Employees::MattersController < ApplicationController
 
   def index
     @matters = Matter.includes(:client)
+    @clients = Client.all
   end
   
   def new

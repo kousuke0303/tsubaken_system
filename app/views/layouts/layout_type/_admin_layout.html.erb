@@ -68,7 +68,7 @@
             <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                管理者
+                <%= current_admin.name %>
               </a>
               <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
                 <%= link_to edit_admin_registration_path, class: "dropdown-item item-link" do %>

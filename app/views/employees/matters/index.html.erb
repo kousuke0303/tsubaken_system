@@ -6,9 +6,20 @@
     <% end %>
   </div>
 
-  <div>
-    <button class="btn matter-select-btn" id="select_progerss">進行案件</button>
-    <button class="btn matter-select-btn" id="select_finished">完了案件</button>
+  <div class="container">
+    <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
+      <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
+          <%= f.select :status, {'男性': 1, '女性': 2}, { include_blank: "全て" }, { class: "form-control" } %>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
+          <%= f.collection_select :client_id, @clients, :id, :name, { include_blank: "全て" }, class: "form-control" %>
+        </div>
+        <div class="col-xl-1 col-lg-2 col-md-1 pd-0">
+          <%= f.submit "絞り込む", class: "btn btn-dark" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="table-responsive">
