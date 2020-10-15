@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     end
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day)
   end
+
+  def set_today_attendance(resource)
+    @attendance = resource.attendances.where(worked_on: Date.today).first
+  end
     
   # ログインmanager以外のアクセス制限
   def not_current_manager_return_login!

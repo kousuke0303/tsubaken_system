@@ -8,7 +8,13 @@
   </div>
 
   <div class="center">
-    <%= link_to "出勤", "#", class: "btn btn-dark btn-lg" %>
+    <% if @attendance.started_at.blank? && @attendance.finished_at.blank? %>
+      <%= link_to "出勤", managers_attendance_path(@attendance), method: :patch, class: "btn btn-dark btn-lg" %>
+    <% elsif @attendance.started_at.present? && @attendance.finished_at.blank? %>
+      <%= link_to "退勤", managers_attendance_path(@attendance), method: :patch, class: "btn btn-dark btn-lg" %>
+    <% else %>
+      <button class="btn btn-dark btn-lg" disabled="true">退勤済</button>
+    <% end %>
   </div>
 
   <table class="table table-sm mt-1e" id="monthly-attendances-table">
