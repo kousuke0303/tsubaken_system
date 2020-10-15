@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   # Staff関係
   scope module: :staffs do
-    resources :staffs, only: [:show] do
+    resources :staffs, only: [:index] do
       get :top, on: :member
     end
   end
@@ -74,7 +74,7 @@ Rails.application.routes.draw do
 
   # ExternalStaff関係
   scope module: :external_staffs do
-    resources :external_staffs, only: [:show] do
+    resources :external_staffs, only: [:index] do
       get :top, on: :member
     end
   end
