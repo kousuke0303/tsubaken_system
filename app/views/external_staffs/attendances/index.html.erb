@@ -1,3 +1,5 @@
-<div>
-  <h2>出退勤一覧</h2>
-</div>
+<% provide(:to_prev_month_url, external_staffs_attendances_path(date: @first_day.prev_month.beginning_of_month)) %>
+<% provide(:to_next_month_url, external_staffs_attendances_path(date: @first_day.next_month.beginning_of_month)) %>
+<% provide(:to_next_month_url, external_staffs_attendance_path(@attendance)) %>
+
+<%= render "shared/register_attendance" %>

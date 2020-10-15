@@ -2,4 +2,4 @@
 <% provide(:to_next_month_url, managers_attendances_path(date: @first_day.next_month.beginning_of_month)) %>
 <% provide(:to_next_month_url, managers_attendance_path(@attendance)) %>
 
-<%= render "layouts/register_attendance" %>
+<%= render "shared/register_attendance" %>
