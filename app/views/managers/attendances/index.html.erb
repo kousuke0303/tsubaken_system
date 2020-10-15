@@ -11,11 +11,18 @@
     <%= link_to "出勤", "#", class: "btn btn-dark btn-lg" %>
   </div>
 
-  <table class="table table-sm">
+  <table class="table table-sm mt-1e" id="monthly-attendances-table">
     <tr>
       <th>日付</th>
       <th>出勤時間</th>
       <th>退勤時間</th>
     </tr>
+    <% @attendances.each do |attendance| %>
+      <tr>
+        <td><%= attendance.worked_on %></td>
+        <td><%= attendance.started_at %></td>
+        <td><%= attendance.finished_at %></td>
+      </tr>
+    <% end %>
   </table>
 </div>

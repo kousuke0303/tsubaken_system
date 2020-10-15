@@ -4,31 +4,27 @@ class ApplicationController < ActionController::Base
   helper_method :current_matter
   helper_method :dependent_manager
   
-  # ---------------------------------------------------------
-        # FORMAT関係
-  # ---------------------------------------------------------
-  
   # login画面等のデザインformat指定
   def non_approval_layout
     @type = "log_in"
   end
   
-  # ---------------------------------------------------------
-        # 日付取得関係　matter/ganttchart attendance
-  # ---------------------------------------------------------
-  
+  # Attendance用、一月分の日付を定義  
   def set_one_month
     @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
     @last_day = @first_day.end_of_month
     @one_month = [*@first_day..@last_day]
-  end 
-  
-  # ---------------------------------------------------------
-        # MANAGER関係
-  # ---------------------------------------------------------
-  
-  def dependent_manager
-    current_manager if manager_signed_in?
+  end
+
+  # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
+  def create_month_attendances(resource)
+    set_one_month
+    unless resource.attendances.where(worked_on: @first_day..@last_day).length == @one_month.length
+      @one_month.each do |day|
+        attendance = resource.attendances.create!(worked_on: day)
+      end
+    end
+    @attendances = resource.attendances.where(worked_on: @first_day..@last_day)
   end
     
   # ログインmanager以外のアクセス制限
@@ -46,44 +42,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
-  def matter_edit_authenticate!
-    if current_manager && current_manager.matters.where(matter_uid: params[:id])
-      @manager = current_manager
-    elsif current_submanager && dependent_manager.matters.where(matter_uid: params[:id])
-      @manager = dependent_manager
-    else
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_url
-    end
-  end
-  
-  def matter_index_authenticate!
-    if current_manager && current_manager.public_uid == params[:manager_public_uid]
-      @matters = current_manager.matters
-    elsif current_submanager && dependent_manager.public_uid == params[:manager_public_uid]
-      @matters = dependent_manager.matters
-    elsif current_staff
-      @matters = current_staff.matters
-    else
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to matter_matters_url(dependent_manager)
-    end
-  end
-  
-  def matter_show_authenticate!
-    if Matter.find_by(matter_uid: params[:id])
-      if current_manager && current_manager.matters.where(matter_uid: params[:id])
-        return true
-      elsif current_submanager && dependent_manager.matters.where(matter_uid: params[:id])
-        return true
-      end
-    else
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_url
-    end
-  end
-  
+
   # 自動開始・終了登録
   def create_started_at_or_finished_at
     @tasks = current_matter.tasks
