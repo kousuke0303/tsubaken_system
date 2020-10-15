@@ -5,6 +5,10 @@ class Employees::MattersController < ApplicationController
 
   def index
     @matters = Matter.includes(:client)
+    if params[:client_id] && params[:client_id].present?
+      @client = Client.find(params[:client_id])
+      @matters = @client.matters
+    end
     @clients = Client.all
   end
   

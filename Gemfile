@@ -32,7 +32,7 @@ gem 'enum_help'
 
 group :development, :test do
   gem 'mysql2'
-  gem 'byebug', '9.0.6', platform: :mri
+  gem 'byebug',  '9.0.6', platform: :mri
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
