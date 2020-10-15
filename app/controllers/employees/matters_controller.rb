@@ -13,16 +13,14 @@ class Employees::MattersController < ApplicationController
     # 顧客での絞り込みがあった場合
     if params[:client_id] && params[:client_id].present?
       client = Client.find(params[:client_id])
-      @matters = client.matters
+      @matters = client.matters 
     end
 
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "progress"
       @matters = @matters.progress
-      @status = "progress"
     elsif params[:status] && params[:status] == "completed"
       @matters = @matters.completed
-      @status = "completed"
     end
   end
   
