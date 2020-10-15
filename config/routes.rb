@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   end
 
   namespace :managers do
-    resources :attendances, only: [:edit, :update]
+    resources :attendances, only: [:index, :update]
   end
 
   # Staff関係
@@ -69,7 +69,7 @@ Rails.application.routes.draw do
   end
 
   namespace :staffs do
-    resources :attendances, only: [:edit, :update]
+    resources :attendances, only: [:index, :update]
   end
 
   # ExternalStaff関係
@@ -77,6 +77,10 @@ Rails.application.routes.draw do
     resources :external_staffs, only: [:show] do
       get :top, on: :member
     end
+  end
+
+  namespace :external_staffs do
+    resources :attendances, only: [:index, :update]
   end
 
   # 従業員が行う操作
