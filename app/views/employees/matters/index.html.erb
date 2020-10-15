@@ -10,7 +10,7 @@
     <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
       <div class="row">
         <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
-          <%= f.select :status, {'男性': 1, '女性': 2}, { include_blank: "全て" }, { class: "form-control" } %>
+          <%= f.select :status, Matter.statuses_i18n, { include_blank: "全て" }, { class: "form-control" } %>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
           <%= f.collection_select :client_id, @clients, :id, :name, { include_blank: "全て" }, class: "form-control" %>
