@@ -2,7 +2,7 @@
   <h2>スタッフ編集</h2>
 
   <%= form_with(model: @staff, url: employees_staff_path(@staff), method: :patch, local: true) do |f| %>
-    <%= render "layouts/error_messages", resource: @staff %>
+    <%= render "shared/error_messages", resource: @staff %>
 
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>

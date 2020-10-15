@@ -2,7 +2,7 @@
   <h2>マネージャー作成</h2>
 
   <%= form_with(model: @manager, url: employees_managers_path, method: :post, local: true) do |f| %>
-    <%= render "layouts/error_messages", resource: @manager %>
+    <%= render "shared/error_messages", resource: @manager %>
 
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>

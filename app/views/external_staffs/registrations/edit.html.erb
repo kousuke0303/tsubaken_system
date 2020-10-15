@@ -2,7 +2,7 @@
   <h2>アカウント編集</h2>
 
   <%= form_with(model: @external_staff, url: external_staff_registration_path(@external_staff), local: true) do |f| %>
-    <%= render "layouts/error_messages", resource: resource %>
+    <%= render "shared/error_messages", resource: resource %>
 
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>

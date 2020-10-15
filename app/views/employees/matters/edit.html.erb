@@ -2,7 +2,7 @@
   <h2>案件編集</h2>
 
   <%= form_with(model: @matter, url: employees_matter_path(@matter), method: :patch, local: true) do |f| %>
-    <%= render "layouts/error_messages", resource: @matter %>
+    <%= render "shared/error_messages", resource: @matter %>
 
     <!--STEP1-->
     <div class="card">
