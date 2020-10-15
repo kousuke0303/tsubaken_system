@@ -17,9 +17,10 @@ class Employees::MattersController < ApplicationController
     end
 
     # 進行状況での絞り込みがあった場合
-    if params[:status] && params[:status] == "Progress"
+    if params[:status] && params[:status] == "進行中"
       @matters = @matters.progress
-    elsif params[:status] && params[:status] == "Completed"
+    elsif params[:status] && params[:status] == "完了済"
+      @matters = @matters.completed
     end
   end
   
