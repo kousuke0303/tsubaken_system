@@ -74,6 +74,6 @@ class Employees::MattersController < ApplicationController
 
     def matter_params
       params.require(:matter).permit(:title, :client_id, :zip_code, :actual_spot, :scheduled_started_on, :scheduled_finished_on,
-                                     status, { :manager_ids=> [] }, { :staff_ids=> [] }, { :supplier_ids=> [] })
+                                     :status, { :manager_ids=> [] }, { :staff_ids=> [] }, { :supplier_ids=> [] })
     end
 end
