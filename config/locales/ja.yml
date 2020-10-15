@@ -4,6 +4,10 @@ ja:
       gender:
         male: "男性"
         female: "女性"
+    matter:
+      status:
+        progress: "進行中"
+        completed: "完了済"
   activerecord:
     errors:
       messages:

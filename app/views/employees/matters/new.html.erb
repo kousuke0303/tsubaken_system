@@ -37,7 +37,7 @@
         <%= f.date_field :scheduled_finish_at, class: "form-control" %>
 
         <%= f.label :status, class: "mt-1e" %>
-        <%= f.select :status, Matter.statuses_i18n, {}, class: "form-control" %>
+        <%= f.select :status, Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]}, {}, class: "form-control" %>
       </div>
     </div>
     

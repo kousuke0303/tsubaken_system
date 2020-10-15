@@ -30,6 +30,7 @@
         <th>現場住所</th>
         <th>着工予定日</th>
         <th>完了予定日</th>
+        <th>進行状況</th>
       </tr>
       
       <% @matters.each do |matter| %>
@@ -39,6 +40,7 @@
         <td><%= matter.actual_spot %></td>
         <td><%= matter.scheduled_started_on %></td>
         <td><%= matter.scheduled_finished_on %></td>
+        <td><%= matter.status %></td>
         </tr>
       <% end %>
     </table>
