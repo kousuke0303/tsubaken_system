@@ -4,7 +4,7 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.string :title
       t.string :actual_spot
       t.string :zip_code
-      t.string :status
+      t.integer :status
       t.string :content
       t.date :scheduled_started_on
       t.date :started_on
