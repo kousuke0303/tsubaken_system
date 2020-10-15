@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
   helper_method :current_matter
   helper_method :dependent_manager
@@ -259,5 +260,9 @@ class ApplicationController < ActionController::Base
     # 従業員以外はアクセス制限
     def authenticate_employee!
       redirect_to root_url unless current_admin || current_manager || current_staff
+    end
+    
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up,keys:[:email])
     end
 end
