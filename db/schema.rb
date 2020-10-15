@@ -141,25 +141,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "staff_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
-  end
-
-  create_table "staff_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "staff_id"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_matters_on_client_id"

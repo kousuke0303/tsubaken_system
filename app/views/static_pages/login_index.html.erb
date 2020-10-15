@@ -5,10 +5,10 @@
       <fieldset>
         <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
           <p><%= f.label :login_id, "従業員ID" %></p>
-          <p><%= f.text_field :login_id, autofocus: true, autocomplete: "login_id", maxlength: 10, required: true, id: "login-id" %></p>
+          <p><%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id" %></p>
           
           <p><%= f.label :password %></p>
-          <p><%= f.password_field :password, autocomplete: "current-password", maxlength: 12, required: true, id: "password" %></p>
+          <p><%= f.password_field :password, maxlength: 12, required: true, id: "password" %></p>
           
           <%= f.check_box :remember_me, id: "remember-me" %>
           <%= f.label :remember_me, "ログイン状態を維持する" %>
