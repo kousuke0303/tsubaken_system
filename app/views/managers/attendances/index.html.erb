@@ -1,4 +1,4 @@
- <div> 
+<div> 
   <div class="center">
     <h2>
       <%= link_to "＜＜", managers_attendances_path(date: @first_day.prev_month.beginning_of_month), class: "btn btn-dark" %>
@@ -10,4 +10,12 @@
   <div class="center">
     <%= link_to "出勤", "#", class: "btn btn-dark btn-lg" %>
   </div>
+
+  <table class="table table-sm">
+    <tr>
+      <th>日付</th>
+      <th>出勤時間</th>
+      <th>退勤時間</th>
+    </tr>
+  </table>
 </div>
