@@ -53,7 +53,7 @@
     </tr>
     <tr>
       <th>進行状況</th>
-      <td><%= @matter.status %></td>
+      <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>
     </tr>
     <tr>
       <th>着工予定日</th>
