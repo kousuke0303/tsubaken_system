@@ -35,6 +35,9 @@
 
         <%= f.label :scheduled_finish_at, class: "mt-1e" %>
         <%= f.date_field :scheduled_finish_at, class: "form-control" %>
+
+        <%= f.label :status, class: "mt-1e" %>
+        <%= f.select :status, Matter.statuses, {}, class: "form-control" %>
       </div>
     </div>
     

@@ -12,4 +12,6 @@ class Matter < ApplicationRecord
   accepts_nested_attributes_for :supplier_matters, allow_destroy: true
 
   validates :title, presence: true, length: { maximum: 30 }
+
+  enum status: {progress: 0, completed: 1}
 end
