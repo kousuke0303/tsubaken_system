@@ -6,7 +6,7 @@ class Client < ApplicationRecord
   
   has_many :matters, dependent: :destroy
   
-  enum gender: {male: "男", female: "女"}
+  enum gender: {male: 0, female: 1}
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

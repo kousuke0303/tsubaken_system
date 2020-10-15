@@ -1,21 +1,9 @@
 ja:
   enums:
-    questionnaire:
-      repetition_type:
-        date: "日付毎繰り返し"
-        days: "日数毎繰り返し"
-    questionnaire_question:
-      text_validate:
-        kana: "カナ"
-        alphanumeric: "半角英数"
-        phone: "電話番号"
-        mail: "メールアドレス"
-        date: "日付"
-        time: "時刻"
-        zip_code: "郵便番号"
-      choice_option:
-        prefecture: "都道府県"
-        job: "仕事"
+    client:
+      gender:
+        male: "男性"
+        female: "女性"
   activerecord:
     errors:
       messages:

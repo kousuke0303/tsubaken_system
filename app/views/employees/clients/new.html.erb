@@ -9,8 +9,8 @@
   
     <%= f.label :gender %>
     <br>
-    <%= f.collection_radio_buttons :gender, Client.genders, :first, :last do |b| %>
-      <%=  b.radio_button(class: "radio_button") + b.label(class: "radio_button") %>
+    <%= f.collection_radio_buttons :gender, Client.genders_i18n, :first, :last do |b| %>
+      <%=  b.radio_button(class: "") + b.label(class: "mr-1e") %>
     <% end %>
     <br>
 
