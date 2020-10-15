@@ -11,11 +11,6 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
-      models:
-        article:
-          attributes:
-            post_date:
-              cannot_enter_postdate_before_the_actual_time: "に現実時間より先の日時は入力出来ません"
   date:
     abbr_day_names:
     -
@@ -220,5 +215,3 @@ ja:
       short_date: "%Y/%m/%d"
       datetime: "%Y年%m月%d日 %H:%M"
     pm: 午後
-  title: 'タイトル'
-  post_date: '投稿日'
