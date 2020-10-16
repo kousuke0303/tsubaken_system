@@ -41,13 +41,10 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
-    const supplierForm = $("#new-external-staff-supplier-id");
-    const loginIdLeadArea = $("#new-external-staff-lagin-id-lead");
-
-    $("#create-external-staff").click(function() {
-      let loginIdLead = loginIdLeadArea.html();
-      let loginIdBody = $("#new-external-staff-login-id-body").val();
-      $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
+    $("#edit-external-staff").click(function() {
+      let loginIdLead = $("#edit-external-staff-lagin-id-lead").html();
+      let loginIdBody = $("#edit-external-staff-login-id-body").val();
+      $("#edit-external-staff-login-id").val(loginIdLead + loginIdBody);
     });
   });
 </script>

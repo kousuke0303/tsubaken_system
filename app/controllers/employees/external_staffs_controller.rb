@@ -1,23 +1,18 @@
 class Employees::ExternalStaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_external_staff, only: [:show, :edit, :update, :destroy]
-  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+  before_action :set_supplier, only: [:create, :show, :edit, :update, :destroy]
 
   def create
-    @external_staff = ExternalStaff.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
+    @external_staff = @supplier.external_staffs.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
     if @external_staff.save
       flash[:success] = "外部スタッフを作成しました"
-      redirect_to employees_external_staff_url(@external_staff)
+      redirect_to employees_supplier_external_staff_path(@supplier, @external_staff)
     else
       respond_to do |format|
         format.js
       end
     end
-  end
-
-  def index
-    @external_staffs = ExternalStaff.all
-    @external_staff = ExternalStaff.new
   end
 
   def show
@@ -28,7 +23,7 @@ class Employees::ExternalStaffsController < ApplicationController
   def update
     if @external_staff.update(external_staff_params)
       flash[:success] = "外部スタッフ情報を更新しました"
-      redirect_to employees_external_staff_url(@external_staff)
+      redirect_to employees_supplier_external_staff_path(@supplier, @external_staff)
     else
       respond_to do |format|
         format.js
@@ -38,7 +33,7 @@ class Employees::ExternalStaffsController < ApplicationController
 
   def destroy
     @external_staff.destroy ? flash[:success] = "外部スタッフを削除しました" : flash[:alert] = "外部スタッフを削除できませんでした"
-    redirect_to employees_external_staffs_path
+    redirect_to employees_supplier_path(@supplier)
   end
 
   private
