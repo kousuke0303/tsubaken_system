@@ -207,8 +207,6 @@ ja:
       last_word_connector: "、"
       two_words_connector: "、"
       words_connector: "、"
-  date:
-    short: "%m/%d"
   time:
     am: 午前
     formats:
@@ -218,4 +216,5 @@ ja:
       date: "%Y年%m月%d日"
       short_date: "%Y/%m/%d"
       datetime: "%Y年%m月%d日 %H:%M"
+      time: "%H:%M"
     pm: 午後

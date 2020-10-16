@@ -1,5 +1,5 @@
 <% provide(:to_prev_month_url, staffs_attendances_path(date: @first_day.prev_month.beginning_of_month)) %>
 <% provide(:to_next_month_url, staffs_attendances_path(date: @first_day.next_month.beginning_of_month)) %>
-<% provide(:to_next_month_url, staffs_attendance_path(@attendance)) %>
+<% provide(:register_attendance_url, staffs_attendance_path(@attendance)) %>
 
 <%= render "shared/register_attendance" %>
