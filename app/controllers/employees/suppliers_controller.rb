@@ -33,8 +33,8 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def show
-    @matters = @supplier.matters
-    @external_staffs = @supplier.external_staffs
+    @matters = @supplier.matters.all
+    @external_staffs = @supplier.external_staffs.all
     @external_staff = @supplier.external_staffs.new
   end
 

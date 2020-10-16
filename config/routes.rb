@@ -88,9 +88,10 @@ Rails.application.routes.draw do
     resources :managers
     resources :staffs
     resources :clients
-    resources :suppliers
+    resources :suppliers do
+      resources :external_staffs, only: [:create, :show, :update, :destroy]
+    end
     resources :matters
-    resources :external_staffs
     namespace :settings do
       resources :industries
     end
