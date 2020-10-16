@@ -39,6 +39,10 @@
       <td><%= @supplier.address %></td>
     </tr>
   </table>
+  
+  <div><button role="button" id="toggle-suppliers-external-staffs" class="btn btn-dark">外部スタッフ一覧を表示</button></div>
+
+  <div id="suppliers-external-staffs-area"><%= render "external_staffs" %></div>
 
   <div><button role="button" id="toggle-suppliers-matters" class="btn btn-dark">案件一覧を表示</button></div>
 
@@ -51,16 +55,25 @@
 </div>
 
 <script>
+  const externalStaffsArea = $("#suppliers-external-staffs-area")
   const mattersArea = $("#suppliers-matters-area")
-  const btn = $("#toggle-suppliers-matters")
 
   // 外注先の案件一覧は非表示にしておく
   mattersArea.hide();
+  // 外注先の外部スタッフ一覧は非表示にしておく
+  externalStaffsArea.hide();
 
   // 外注先の案件一覧の表示・非表示切替
-  btn.click(function() {
+  $("#toggle-suppliers-matters").click(function() {
     mattersArea.toggle();
-    btn.prop("disabled", true);
-    btn.prop("disabled", false);
+    $(this).prop("disabled", true);
+    $(this).prop("disabled", false);
+  })
+
+  // 外注先の外部スタッフ一覧の表示・非表示切替
+  $("#toggle-suppliers-external-staffs").click(function() {
+    externalStaffsArea.toggle();
+    $(this).prop("disabled", true);
+    $(this).prop("disabled", false);
   })
 </script>

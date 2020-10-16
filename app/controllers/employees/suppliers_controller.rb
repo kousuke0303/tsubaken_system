@@ -34,6 +34,8 @@ class Employees::SuppliersController < ApplicationController
 
   def show
     @matters = @supplier.matters
+    @external_staffs = @supplier.external_staffs
+    @external_staff = @supplier.external_staffs.new
   end
 
   def destroy

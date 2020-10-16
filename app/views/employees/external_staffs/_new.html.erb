@@ -13,7 +13,7 @@
 
         <%= f.label :login_id %>
         <div class="flex">
-          <div class="login-id-lead" id="new-external-staff-lagin-id-lead"></div>
+          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= @external_staff.supplier.id %>-</div>
           <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "new-external-staff-login-id-body" %></div>
         </div>
         <%= f.hidden_field :login_id, id: "new-external-staff-login-id" %>
@@ -41,27 +41,14 @@
 </div>
 
 <script>
-$(document).on("turbolinks:load", function() {
-  const supplierForm = $("#new-external-staff-supplier-id");
-  const loginIdLeadArea = $("#new-external-staff-lagin-id-lead");
-  // 初期状態でのlogin_idの先頭文字をセット
-  setLeadId();
+  $(document).on("turbolinks:load", function() {
+    const supplierForm = $("#new-external-staff-supplier-id");
+    const loginIdLeadArea = $("#new-external-staff-lagin-id-lead");
 
-  // 外注先の選択が変わる度、login_idの先頭文字を変更
-  supplierForm.change(function() {
-    setLeadId();
+    $("#create-external-staff").click(function() {
+      let loginIdLead = loginIdLeadArea.html();
+      let loginIdBody = $("#new-external-staff-login-id-body").val();
+      $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
+    });
   });
-
-  // login_idの先頭文字を自動生成するメソッド
-  function setLeadId() {
-    let supplierId = supplierForm.val();
-    loginIdLeadArea.html("SP" + supplierId + "-");
-  };
-
-  $("#create-external-staff").click(function() {
-    let loginIdLead = loginIdLeadArea.html();
-    let loginIdBody = $("#new-external-staff-login-id-body").val();
-    $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
-  });
-});
 </script>

@@ -1,4 +1,5 @@
 class Supplier < ApplicationRecord
+  has_many :external_staffs, dependent: :destroy
   has_many :supplier_matters, dependent: :destroy
   has_many :matters, through: :supplier_matters
   has_many :industry_suppliers, dependent: :destroy
