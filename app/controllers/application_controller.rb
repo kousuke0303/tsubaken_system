@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_matter
   helper_method :dependent_manager
-
-  $days_of_the_week = %w{日 月 火 水 木 金 土}
   
   # login画面等のデザインformat指定
   def non_approval_layout
