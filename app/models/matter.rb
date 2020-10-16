@@ -13,5 +13,5 @@ class Matter < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
 
-  enum status: {progress: 0, completed: 1}
+  enum status: {not_started: 0,progress: 1, completed: 2}
 end
