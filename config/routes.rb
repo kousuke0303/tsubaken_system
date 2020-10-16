@@ -93,7 +93,7 @@ Rails.application.routes.draw do
     end
     resources :matters
     namespace :settings do
-      resources :industries
+      resources :industries, only: [:create, :index, :update, :destroy]
     end
   end
   

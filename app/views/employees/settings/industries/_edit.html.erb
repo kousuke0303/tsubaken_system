@@ -5,13 +5,13 @@
       <div class="card mb-3">
         <h5 class="card-header">業種編集</h5>
         <div class="card-body">
-          <%= form_with(model: @industry, url: "#", method: :post, remote: true) do |f| %>
+          <%= form_with(model: @industry, url: "#", method: :patch, remote: true, id: "edit-industry-form") do |f| %>
             <div class="industry-create-errors"></div>
             <%= f.label :name %>
             <%= f.text_field :name, required: true, class: "form-control", maxlength: 30, id: "industry-name" %>
             
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
           <% end %>
         </div>
