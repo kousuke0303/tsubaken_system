@@ -25,4 +25,11 @@
       <%= render "employees/settings/industries/new" %>
     </div>
   <% end %>
+
+  <!--業種edit-->
+  <% if controller_name == "industries" && action_name == "index" %>
+    <div id="industry-edit" class="modal fade" role="dialog">
+      <%= render "employees/settings/industries/edit" %>
+    </div>
+  <% end %>
 <% end %>

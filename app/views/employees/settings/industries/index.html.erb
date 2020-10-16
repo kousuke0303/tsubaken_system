@@ -10,10 +10,19 @@
       <tr>
         <td><%= industry.name %></td>
         <td>
-          <%= link_to "編集", "#", class: "btn btn-sm btn-dark" %>
+          <button class="btn btn-sm btn-dark to-edit-industry" data-toggle="modal" data-target="#industry-edit">編集</button>
           <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $(".to-edit-industry").click(function() {
+      let name = $(this).parent().prev().html();
+      $("#industry-name").val(name);
+    });
+  });
+</script>
