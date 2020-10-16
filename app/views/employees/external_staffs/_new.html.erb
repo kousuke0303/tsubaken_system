@@ -8,12 +8,9 @@
       <%= form_with(model: @external_staff, url: employees_external_staffs_path, method: :post, remote: true) do |f| %>
         <div class="external-staff-create-errors"></div>
 
-        <%= f.label :supplier %>
-        <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, class: "form-control", id: "new-external-staff-supplier-id" %>
-
         <%= f.label :login_id %>
         <div class="flex">
-          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= @external_staff.supplier.id %>-</div>
+          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= @supplier.id %>-</div>
           <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "new-external-staff-login-id-body" %></div>
         </div>
         <%= f.hidden_field :login_id, id: "new-external-staff-login-id" %>

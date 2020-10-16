@@ -1,6 +1,7 @@
 class Employees::ExternalStaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_external_staff, only: [:show, :edit, :update, :destroy]
+  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
   def create
     @external_staff = ExternalStaff.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
@@ -47,5 +48,9 @@ class Employees::ExternalStaffsController < ApplicationController
 
     def set_external_staff
       @external_staff = ExternalStaff.find(params[:id])
+    end
+
+    def set_supplier
+      @supplier = Supplier.find(params[:supplier_id])
     end
 end
