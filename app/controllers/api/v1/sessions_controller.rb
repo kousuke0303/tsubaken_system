@@ -1,4 +1,6 @@
-class Api::V1::SessionsController < ApplicationController
+class Api::V1::SessionsController < Api::V1::ApplicationController
+  before_action :check_token_and_key_to_api
+
   def create
     # 受け取ったlogin_id
     login_id = params[:login_id]
@@ -11,35 +13,35 @@ class Api::V1::SessionsController < ApplicationController
     when "AD"
       admin = Admin.find_by(login_id: login_id)
       if admin && admin.valid_password?(password)
-        render json: { status: "success", data: admin }
+        render json: admin, serializer: AdminSerializer
       else
         render json: { status: "false" }
       end
     when "MN"
       manager = Manager.find_by(login_id: login_id)
       if manager && manager.valid_password?(password)
-        render json: { status: "success", data: manager }
+        render json: manager, serializer: ManagerSerializer
       else
         render json: { status: "false" }
       end
     when "ST"
       staff = Staff.find_by(login_id: login_id)
       if staff && staff.valid_password?(password)
-        render json: { status: "success", data: staff }
+        render json: staff, serializer: StaffSerializer
       else
         render json: { status: "false" }
       end
     when "SP"
       external_staff = ExternalStaff.find_by(login_id: login_id)
       if external_staff && external_staff.valid_password?(password)
-        render json: { status: "success", data: external_staff }
+        render json: external_staff, serializer: ExternalStaffSerializer
       else
         render json: { status: "false" }
       end
     when "CL"
       client = Client.find_by(login_id: login_id)
       if client && client.valid_password?(password)
-        render json: { status: "success", data: client }
+        render json: Client, serializer: ClientSerializer
       else
         render json: { status: "false" }
       end

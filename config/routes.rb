@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root "static_pages#login_index"
 
-  post "test", to: "api/v1/sessions#create"
+  namespace :api do
+    namespace :v1 do
+      post "sign_in", to: "sessions#create"
+    end
+  end
   
   # deviseのAdminログイン関係
   devise_for :admins, controllers: {

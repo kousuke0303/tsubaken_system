@@ -84,6 +84,10 @@ GEM
     diff-lcs (1.4.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
     erubi (1.9.0)
@@ -97,6 +101,8 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     font-awesome-rails (4.7.0.5)
@@ -320,9 +326,11 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.2)
   devise
+  dotenv-rails
   enum_help
   factory_bot_rails
   faker
+  fast_jsonapi
   font-awesome-rails
   font-awesome-sass
   jbuilder (~> 2.5)
