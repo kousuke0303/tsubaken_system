@@ -8,7 +8,7 @@ class Staff < ApplicationRecord
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
-  belongs_to :departments
+  # belongs_to :departments
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

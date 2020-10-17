@@ -24,6 +24,9 @@
 
     <%= f.label :address %>
     <%= f.text_field :address, autofocus: true, autocomplete: "address", maxlength: 50, class: "form-control" %>
+    
+    <%= f.label :department, "部署" %>
+    <%= f.select :department, @departments, class: "form-control" %>
 
     <%= f.label :joined_on %>
     <%= f.date_field :joined_on, autofocus: true, autocomplete: "joined_on", class: "form-control" %>
