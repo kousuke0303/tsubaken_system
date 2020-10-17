@@ -29,6 +29,8 @@ gem 'faker'
 gem 'simple_calendar', '~> 2.0'
 # ラジオボタン生成時に便利なgem
 gem 'enum_help'
+# ネイティブへのapi発行用
+gem 'fast_jsonapi'
 
 group :development, :test do
   gem 'mysql2'

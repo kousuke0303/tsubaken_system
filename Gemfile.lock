@@ -97,6 +97,8 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     font-awesome-rails (4.7.0.5)
@@ -324,6 +326,7 @@ DEPENDENCIES
   enum_help
   factory_bot_rails
   faker
+  fast_jsonapi
   font-awesome-rails
   font-awesome-sass
   jbuilder (~> 2.5)
