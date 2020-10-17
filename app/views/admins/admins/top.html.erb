@@ -1,1 +1,4 @@
-<div><h1>ADMIN TOP</h1></div>
+<div>
+  <h1>ADMIN TOP</h1>
+  <%= link_to "apiテスt", api_v1_sign_in_path(api_authenticate_token: "token", api_authenticate_key: "key",login_id: "AD-admin", password: "password"), method: :post %>
+</div>
