@@ -41,7 +41,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
     when "CL"
       client = Client.find_by(login_id: login_id)
       if client && client.valid_password?(password)
-        render json: Client, serializer: ClientSerializer
+        render json: client, serializer: ClientSerializer
       else
         render json: { status: "false" }
       end
