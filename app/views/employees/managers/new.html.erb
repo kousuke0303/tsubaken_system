@@ -27,7 +27,7 @@
     <%= f.text_field :address, maxlength: 50, class: "form-control" %>
     
     <%= f.label :department, "部署" %>
-    <%= f.select :department, @departments, class: "form-control" %>
+    <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control" %>
 
     <%= f.label :joined_on %>
     <%= f.date_field :joined_on, class: "form-control" %>

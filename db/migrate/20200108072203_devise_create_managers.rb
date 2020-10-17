@@ -11,7 +11,7 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.1]
       t.string :address
       t.date :joined_on
       t.date :resigned_on
-      # t.references :department, foreign_key: true
+      t.references :department, foreign_key: true
 
       ## Database authenticatable
       t.string :login_id,           null: false, default: ""

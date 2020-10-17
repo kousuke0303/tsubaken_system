@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
+  create_table "departments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "external_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "kana"

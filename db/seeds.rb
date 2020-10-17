@@ -5,10 +5,15 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
+Department.create!(name: "テスト部署")
+
+puts "CREATE! Department"
+
 Manager.create!(name: "マネージャーA",
                 login_id: "MN-manager-a",
                 phone: "08011112222",
                 email: "manager-a@email.com",
+                department_id: 1,
                 password: "password",
                 password_confirmation: "password")
 
@@ -16,6 +21,7 @@ Manager.create!(name: "マネージャーB",
                 login_id: "MN-manager-b",
                 phone: "08011112222",
                 email: "manager-b@email.com",
+                department_id: 1,
                 password: "password",
                 password_confirmation: "password")
 
@@ -25,6 +31,7 @@ Staff.create!(name: "スタッフA",
               login_id: "ST-staff-a",
               phone: "08011112222",
               email: "staff-a@email.com",
+              department_id: 1,
               password: "password",
               password_confirmation: "password")
 
@@ -32,6 +39,7 @@ Staff.create!(name: "スタッフB",
               login_id: "ST-staff-b",
               phone: "08011662222",
               email: "staff-b@email.com",
+              department_id: 1,
               password: "password",
               password_confirmation: "password")
 
@@ -77,10 +85,6 @@ Industry.create!(name: "塗装関係")
 Industry.create!(name: "足場関係")
 
 puts "CREATE! INDUSTRY"
-
-Department.create!(name: "テスト部署")
-
-puts "CREATE! DepartmentA"
 
 Client.create!(name: "テスト顧客A",
                login_id: "CL-client-a",
