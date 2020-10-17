@@ -31,6 +31,8 @@ gem 'simple_calendar', '~> 2.0'
 gem 'enum_help'
 # ネイティブへのapi発行用
 gem 'fast_jsonapi'
+# 環境変数設定用
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'mysql2'

@@ -1,4 +1,6 @@
-class Api::V1::SessionsController < ApplicationController
+class Api::V1::SessionsController < Api::V1::ApplicationController
+  before_action :check_token_and_key
+
   def create
     # 受け取ったlogin_id
     login_id = params[:login_id]
