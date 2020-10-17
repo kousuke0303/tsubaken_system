@@ -33,6 +33,9 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def show
+    @matters = @supplier.matters.all
+    @external_staffs = @supplier.external_staffs.all
+    @external_staff = @supplier.external_staffs.new
   end
 
   def destroy
@@ -46,6 +49,7 @@ class Employees::SuppliersController < ApplicationController
     end
 
     def supplier_params
-      params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :zipcode, :address)
+      params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :zipcode,
+                                       :address, { :industry_ids=> [] })
     end
 end

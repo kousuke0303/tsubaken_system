@@ -1,0 +1,86 @@
+<div>
+  <h2>案件編集</h2>
+
+  <%= form_with(model: @matter, url: employees_matter_path(@matter), method: :patch, local: true) do |f| %>
+    <%= render "shared/error_messages", resource: @matter %>
+
+    <!--STEP1-->
+    <div class="card">
+      <h5 class="card-header">STEP.1 <span class="ml-1e text-nowrap">タイトル・場所の入力</span></h5>
+      <div class="card-body">
+
+        <%= f.label :title %>
+        <%= f.text_field :title, required: true, class: "form-control" %>
+
+        <%= f.label :actual_spot, class: "mt-1e" %>
+        <%= f.text_field :actual_spot, class: "form-control" %>
+      </div>
+    </div>
+    
+    <!--STEP2-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
+      <div class="card-body">
+
+        <%= f.label :client %>
+        <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
+      </div>
+    </div>
+    
+    <!--STEP3-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
+      <div class="card-body">
+
+        <%= f.label :scheduled_start_at %>
+        <%= f.date_field :scheduled_start_at, class: "form-control" %>
+
+        <%= f.label :scheduled_finish_at, class: "mt-1e" %>
+        <%= f.date_field :scheduled_finish_at, class: "form-control" %>
+
+        <%= f.label :status, class: "mt-1e" %>
+        <%= f.select :status, Matter.statuses.map {|k| [I18n.t("enums.matter.status.#{k}"), k]}, {}, class: "form-control" %>
+      </div>
+    </div>
+    
+    <!--STEP4-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
+      <div class="card-body">
+        <div>
+          <%= f.label :manager %>
+          <div>
+            <%= f.collection_check_boxes(:manager_ids, @managers, :id, :name) do |m| %>
+              <%= m.check_box %><%= m.text %>
+            <% end %> 
+          </div>
+        </div>
+        <div>
+          <%= f.label :staff %>
+          <div>
+            <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>
+              <%= s.check_box %><%= s.text %>
+            <% end %> 
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <!--STEP5-->
+    <div class="card mt-1e">
+      <h5 class="card-header">STEP.5 <span class="ml-1e text-nowrap">外注先の入力</span></h5>
+      <div class="card-body">
+        <%= f.label :supplier %>
+        <div>
+          <%= f.collection_check_boxes(:supplier_ids, @suppliers, :id, :name) do |p| %>
+            <%= p.check_box %><%= p.text %>
+          <% end %> 
+        </div>
+      </div>  
+    </div>
+
+    <div class="btn-area">
+      <%= f.submit "更新", class: "btn btn-dark" %>
+    </div>
+  <% end %>
+</div>

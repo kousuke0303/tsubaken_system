@@ -7,7 +7,7 @@
       <td><%= @staff.name %></td>
     </tr>
     <tr>
-      <th>従業員ID</th>
+      <th>ログインID</th>
       <td><%= @staff.login_id %></td>
     </tr>
     <tr>
@@ -42,6 +42,6 @@
 
   <div class="btn-area">
     <%= link_to "編集", edit_employees_staff_path(@staff), class: "btn btn-dark" %>
-    <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このスタッフを削除してよろしいですか？" }, class: "btn btn-danger" %>
+    <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このスタッフを削除してよろしいですか？" }, class: "btn btn-destroy" %>
   </div>
 </div>

@@ -4,5 +4,5 @@ $('#town_area').hide();
 $('#selected_address').html('<p><%= @select_prefecture_name + @select_city_name + @select_town_name %></p>');
 $('#block_area').html('<%= escape_javascript(render partial: './addresses/modal/block_index', locals: { blocks: @blocks, select_prefecture: @select_prefecture_name, select_city: @select_city_name, select_town: @select_town_name, type: @type } ) %>');
 <% if @zipcode.present? %>
-  $('.zip_field').val('<%= @zipcode %>');
+  $('.zip-field').val('<%= @zipcode %>');
 <% end %>

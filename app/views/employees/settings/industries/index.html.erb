@@ -1,7 +1,6 @@
 <div>
   <h2>業種一覧</h2>
-
-  <%= link_to "作成", new_employees_settings_industry_path, class: "btn btn-dark" %>
+  <button class="btn btn-dark" data-toggle="modal" data-target="#industry-new">作成</button>
   <table class="table table-sm table" id="employees-industries-table">
     <tr>
       <th>名前</th>
@@ -11,10 +10,22 @@
       <tr>
         <td><%= industry.name %></td>
         <td>
-          <%= link_to "編集", "#", class: "btn btn-sm btn-dark" %>
+          <div hidden><%= industry.id %></div>
+          <button class="btn btn-sm btn-dark to-edit-industry" data-toggle="modal" data-target="#industry-edit" >編集</button>
           <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $(".to-edit-industry").click(function() {
+      let name = $(this).parent().prev().html();
+      let industryId = $(this).prev().html();
+      $("#industry-name").val(name);
+      $("#edit-industry-form").attr("action", "/employees/settings/industries/" + industryId);
+    });
+  });
+</script>

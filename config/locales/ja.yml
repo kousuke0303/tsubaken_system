@@ -1,21 +1,14 @@
 ja:
   enums:
-    questionnaire:
-      repetition_type:
-        date: "日付毎繰り返し"
-        days: "日数毎繰り返し"
-    questionnaire_question:
-      text_validate:
-        kana: "カナ"
-        alphanumeric: "半角英数"
-        phone: "電話番号"
-        mail: "メールアドレス"
-        date: "日付"
-        time: "時刻"
-        zip_code: "郵便番号"
-      choice_option:
-        prefecture: "都道府県"
-        job: "仕事"
+    client:
+      gender:
+        male: "男性"
+        female: "女性"
+    matter:
+      status:
+        not_started: "未着手"
+        progress: "進行中"
+        completed: "完了済"
   activerecord:
     errors:
       messages:
@@ -23,34 +16,9 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
-      models:
-        article:
-          attributes:
-            post_date:
-              cannot_enter_postdate_before_the_actual_time: "に現実時間より先の日時は入力出来ません"
-            service_id:
-              not_exists_service: "指定されたサービスは存在しません"
-            service_manager_id:
-              not_exists_service_manager: "指定された講師は存在しません"
-            user_id:
-              not_exists_user: "指定された受講生は存在しません"
-    attributes:
-      event:
-        name: 'イベント名'
-        place: '場所'
-        detail: '詳細'
-        latitude: '緯度'
-        longitude: '経度'
-      article:
-        title: 'タイトル'
-        author_name: '作成者'
-        content: '記事の内容'
-        post_date: '投稿日'
-        service: 'サービス'
-        service_manager: '講師'
-        user: '受講者'
   date:
     abbr_day_names:
+    -
     - 日
     - 月
     - 火
@@ -84,6 +52,7 @@ ja:
       default: "%Y/%m/%d"
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
+      middle: "%m/%d"
     month_names:
     - 
     - 1月
@@ -240,8 +209,6 @@ ja:
       last_word_connector: "、"
       two_words_connector: "、"
       words_connector: "、"
-  date:
-    short: "%m/%d"
   time:
     am: 午前
     formats:
@@ -251,6 +218,5 @@ ja:
       date: "%Y年%m月%d日"
       short_date: "%Y/%m/%d"
       datetime: "%Y年%m月%d日 %H:%M"
+      time: "%H:%M"
     pm: 午後
-  title: 'タイトル'
-  post_date: '投稿日'

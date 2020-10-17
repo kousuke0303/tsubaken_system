@@ -1,6 +1,6 @@
 class Staff < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
-  validates :login_id, presence: true, length: { in: 8..10 }
+  validates :login_id, presence: true, length: { in: 8..12 }
   validates :email, length: { maximum: 254 }
   validate :staff_login_id_is_correct?
 
@@ -9,14 +9,13 @@ class Staff < ApplicationRecord
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
   # belongs_to :departments
+  has_many :attendances, dependent: :destroy
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # スタッフの従業員IDは「ST-」から始めさせる
   def staff_login_id_is_correct?
-    errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && login_id[0..2] != "ST-"
+    errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && !login_id.start_with?("ST-")
   end
 
   # emailでなくlogin_idを認証キーにする
@@ -47,6 +46,11 @@ class Staff < ApplicationRecord
   end
 
   def will_save_change_to_email?
+    false
+  end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
     false
   end
 end

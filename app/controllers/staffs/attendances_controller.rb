@@ -1,35 +1,20 @@
 class Staffs::AttendancesController < ApplicationController
-  def going_to_work
-    if @attendance = current_staff.attendances.create!(worked_on: Date.today, started_at: Time.current, matter_id: params[:staffs_attendance][:matter_id])
-      flash[:success] = "おはようございます！"
-    end
-    redirect_to top_staff_url(current_staff)
-  end
-
-  def leaving_work
-    if @attendance = current_staff.attendances.update(worked_on: Date.today, finished_at: Time.current)
-      flash[:success] = "お疲れ様でした"
-    end
-    redirect_to top_staff_url(current_staff)
-  end
-
-  def show
-  end
+  before_action :authenticate_staff!
+  before_action :set_one_month
+  before_action ->{ create_month_attendances(current_staff) }
+  before_action ->{ set_today_attendance(current_staff) }
   
-  def update
-
-  end
-
   def index
-    # @submanager = Submanager.find(params[:id])
   end
 
-  def edit
-  end
-  
-  private
-  
-    def set_staff
-      @staff = Staff.find(params[:id])
+  def update
+    if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update_attributes(started_at: Time.now)
+      flash[:success] = "出勤しました"
+    elsif @attendance.started_at.present? && @attendance.finished_at.blank? && @attendance.update_attributes(finished_at: Time.now)
+      flash[:success] = "退勤しました"
+    else
+      flash[:success] = "エラーが発生しました"
     end
+    redirect_to staffs_attendances_url
+  end
 end

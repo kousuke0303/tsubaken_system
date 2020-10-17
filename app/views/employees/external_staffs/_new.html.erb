@@ -1,0 +1,48 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+  <div class="modal-body pa-2e">
+    <div class="card mb-3">
+      <h5 class="card-header">外部スタッフ作成</h5>
+      <div class="card-body">
+      <%= form_with(model: @external_staff, url: employees_supplier_external_staffs_path(@supplier), method: :post, remote: true) do |f| %>
+        <div class="external-staff-create-errors"></div>
+
+        <%= f.label :login_id %>
+        <div class="flex">
+          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= @supplier.id %>-</div>
+          <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "new-external-staff-login-id-body" %></div>
+        </div>
+        <%= f.hidden_field :login_id, id: "new-external-staff-login-id" %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+
+        <%= f.label :kana %>
+        <%= f.text_field :kana, required: true, class: "form-control", maxlength: 30 %>
+
+        <%= f.label :phone %>
+        <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11, placeholder: "半角数字(ハイフンなし)" %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, maxlength: 254, class: "form-control" %>
+
+        <div class="btn-area">
+          <%= f.submit "作成", class: "btn btn-dark", id: "create-external-staff" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $("#create-external-staff").click(function() {
+      let loginIdLead = $("#new-external-staff-lagin-id-lead").html();
+      let loginIdBody = $("#new-external-staff-login-id-body").val();
+      $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
+    });
+  });
+</script>

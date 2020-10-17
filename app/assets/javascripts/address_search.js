@@ -1,4 +1,4 @@
-$('.prefectures_all').on('click', function(){
+$('.prefectures-all').on('click', function(){
   $.ajax({
     type: "GET",
     url: "<%= prefecture_index_path %>",

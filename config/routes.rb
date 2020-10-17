@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   root "static_pages#login_index"
+
+  namespace :api do
+    namespace :v1 do
+      post "sign_in", to: "sessions#create"
+    end
+  end
   
   # deviseのAdminログイン関係
   devise_for :admins, controllers: {
@@ -22,11 +28,18 @@ Rails.application.routes.draw do
     registrations: "staffs/registrations"
   }
 
-  # deviseのclientログイン関係
+  # deviseのClientログイン関係
   devise_for :clients, controllers: {
     sessions:      "clients/sessions",
     passwords:     "clients/passwords",
     registrations: "clients/registrations"
+  }
+
+  # deviseのExternalStaffログイン関係
+  devise_for :external_staffs, controllers: {
+    sessions:      "external_staffs/sessions",
+    passwords:     "external_staffs/passwords",
+    registrations: "external_staffs/registrations"
   }
 
   # Admin関係
@@ -42,77 +55,54 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+  
+  # Client関係
+  scope module: :clients do
+    resources :clients, only: [:index] do
+      get :top, on: :member
+    end
+  end
+
+  namespace :managers do
+    resources :attendances, only: [:index, :update]
+  end
+
+  # Staff関係
+  scope module: :staffs do
+    resources :staffs, only: [:index] do
+      get :top, on: :member
+    end
+  end
+
+  namespace :staffs do
+    resources :attendances, only: [:index, :update]
+  end
+
+  # ExternalStaff関係
+  scope module: :external_staffs do
+    resources :external_staffs, only: [:index] do
+      get :top, on: :member
+    end
+  end
+
+  namespace :external_staffs do
+    resources :attendances, only: [:index, :update]
+  end
 
   # 従業員が行う操作
   namespace :employees do
     resources :managers
     resources :staffs
     resources :clients
-    resources :suppliers
+    resources :suppliers do
+      resources :external_staffs, only: [:create, :show, :update, :destroy]
+    end
+    resources :matters
     namespace :settings do
-      resources :industries
+      resources :industries, only: [:create, :index, :update, :destroy]
       resources :departments
     end
   end
-    
-  # ###--STAFF:CONTROLLER--################################
-  scope module: :staffs do
-    resources :staffs, only: [:show, :edit, :update] do
-      get :top, on: :member
-      # matter
-      resources :matters, only: [:index, :show] do
-        get :move_task, on: :member
-      end
-      # event
-      resources :events, only: [:index]
-      namespace :settings do
-        resources :staff_events
-        resources :staff_event_titles, except: [:index]
-      end
-    end
-  end
-  
-  # ###--MATTER関連--################################
-  
-  # scope "(:manager_public_uid)" do
-  #   namespace :matter do
-  #     resources :matters, path: '/', only: [:new, :index, :show] do
-  #       patch :title_update, on: :member
-  #       patch :client_update, on: :member
-  #       patch :person_in_charge_update, on: :member
-  #       patch :update_manage_authority, on: :member
-  #       get :selected_user, on: :collection
-  #       post :connected_matter 
-  #       # matter関連タスク
-  #       resources :matter_tasks, only: [:update, :destroy] do
-  #         get :create, on: :collection
-  #         get :move_task, on: :collection
-  #       end
-  #     end
-  #   end
-  # end
-  
-  # ###--EVENT関連--################################
-  
-  scope "(:manager_public_uid)" do
-    namespace :manager do
-      resources :events, only: [:index] 
-    end
-  end
-  
-  # ###--SETTING--##################################
-  
-  scope "(:manager_public_uid)" do
-    namespace :manager do
-      namespace :settings do
-        resources :tasks, except: [:index]
-        resources :manager_events
-        resources :manager_event_titles, except: [:index]
-      end
-    end
-  end
-  
-  # ###--API_RECIEVE_ADRESS-##########################
   
   scope "(:manager_public_uid)" do
     get 'prefecture_index', to: 'addresses#prefecture_index'

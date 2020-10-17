@@ -20,16 +20,14 @@
         <%= render "layouts/login_header" %>
       </header>
       <div class="login-content">
-        <%= render "layouts/flash" %>
+        <%= render "shared/flash" %>
         <%= yield %>
       </div>
     </body>
   
   <!--通常ページのレイアウト-->
   <% else %>
-    <% if manager_signed_in? %>
-      <%= render "layouts/modal/modal_manager" %>
-    <% end %>
+    <%= render "shared/modal" %>
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/admin_layout" %>
@@ -37,7 +35,17 @@
         <%= render "layouts/layout_type/manager_layout" %>
       <% elsif staff_signed_in? %>
         <%= render "layouts/layout_type/staff_layout" %>
+      <% elsif client_signed_in? %>
+        <%= render "layouts/layout_type/client_layout" %>
+      <% elsif external_staff_signed_in? %>
+        <%= render "layouts/layout_type/external_staff_layout" %>
       <% end %>
     </body>
   <% end %>
 </html>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

@@ -1,0 +1,35 @@
+<!--アドミン・マネージャー用-->
+<% if admin_signed_in? || manager_signed_in? %>
+
+  <!--外部スタッフnew-->
+  <% if controller_name == "suppliers" && action_name == "show" %>
+    <div id="external-staff-new" class="modal fade" role="dialog">
+      <%= render "employees/external_staffs/new" %>
+    </div>
+  <% end %>
+
+  <!--外部スタッフedit-->
+  <% if controller_name == "external_staffs" && action_name == "show" %>
+    <div id="external-staff-edit" class="modal fade" role="dialog">
+      <%= render "employees/external_staffs/edit" %>
+    </div>
+  <% end %>
+<% end %>
+
+<!--アドミン・マネージャー・スタッフ用-->
+<% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+
+  <!--業種new-->
+  <% if controller_name == "industries" && action_name == "index" %>
+    <div id="industry-new" class="modal fade" role="dialog">
+      <%= render "employees/settings/industries/new" %>
+    </div>
+  <% end %>
+
+  <!--業種edit-->
+  <% if controller_name == "industries" && action_name == "index" %>
+    <div id="industry-edit" class="modal fade" role="dialog">
+      <%= render "employees/settings/industries/edit" %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,2 @@
+module ExternalStaffs::ExternalStaffsHelper
+end

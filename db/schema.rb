@@ -10,19 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201010002755) do
+ActiveRecord::Schema.define(version: 20201014074600) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_admins_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "attendances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date "worked_on"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "manager_id"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
+    t.index ["manager_id"], name: "index_attendances_on_manager_id"
+    t.index ["staff_id"], name: "index_attendances_on_staff_id"
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -38,31 +49,25 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.string "address"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
+    t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
-  create_table "departments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "external_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.string "kana"
+    t.string "phone"
+    t.string "email"
+    t.bigint "supplier_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "manager_id"
-    t.bigint "matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_events_on_manager_id"
-    t.index ["matter_id"], name: "index_events_on_matter_id"
+    t.index ["login_id"], name: "index_external_staffs_on_login_id", unique: true
+    t.index ["supplier_id"], name: "index_external_staffs_on_supplier_id"
   end
 
   create_table "industries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -81,35 +86,6 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
-  create_table "manager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_event_titles_on_manager_id"
-  end
-
-  create_table "manager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_events_on_manager_id"
-  end
-
-  create_table "manager_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "manager_id"
-    t.bigint "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_tasks_on_manager_id"
-    t.index ["task_id"], name: "index_manager_tasks_on_task_id"
-  end
-
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "phone"
@@ -121,13 +97,19 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.date "resigned_on"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
+  end
+
+  create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "matter_id"
+    t.bigint "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_matter_managers_on_manager_id"
+    t.index ["matter_id"], name: "index_matter_managers_on_matter_id"
   end
 
   create_table "matter_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -152,35 +134,17 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.string "title"
     t.string "actual_spot"
     t.string "zip_code"
-    t.string "status"
+    t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
     t.date "started_on"
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "staff_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
-  end
-
-  create_table "staff_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
-    t.string "kind"
-    t.datetime "holded_on"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_events_on_staff_id"
+    t.index ["client_id"], name: "index_matters_on_client_id"
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -194,13 +158,10 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.date "resigned_on"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
-    t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
   create_table "supplier_matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -241,36 +202,19 @@ ActiveRecord::Schema.define(version: 20201010002755) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_social_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "nickname"
-    t.string "email"
-    t.string "url"
-    t.string "image_url"
-    t.string "description"
-    t.text "other"
-    t.text "credentials"
-    t.text "raw_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "events", "managers"
-  add_foreign_key "events", "matters"
+  add_foreign_key "attendances", "external_staffs"
+  add_foreign_key "attendances", "managers"
+  add_foreign_key "attendances", "staffs"
+  add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
-  add_foreign_key "manager_event_titles", "managers"
-  add_foreign_key "manager_events", "managers"
-  add_foreign_key "manager_tasks", "managers"
-  add_foreign_key "manager_tasks", "tasks"
+  add_foreign_key "matter_managers", "managers"
+  add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matter_tasks", "matters"
   add_foreign_key "matter_tasks", "tasks"
-  add_foreign_key "staff_event_titles", "staffs"
-  add_foreign_key "staff_events", "staffs"
+  add_foreign_key "matters", "clients"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
 end

@@ -1,12 +1,20 @@
 <div>
   <h2>スタッフ一覧</h2>
   <%= link_to "作成", new_employees_staff_path, class: "btn btn-dark" %>
-  <table class="table table-sm table-hover" id="staffs-table">
+  <table class="table table-sm" id="staffs-table">
     <tr>
       <th>名前</th>
-      <th>従業員ID</th>
+      <th>ログインID</th>
       <th>電話番号</th>
       <th>入社日</th>
     </tr>
+    <% @staffs.each do |staff| %>
+      <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
+        <td><%= staff.name %></td>
+        <td><%= staff.login_id %></td>
+        <td><%= staff.phone %></td>
+        <td><%= staff.joined_on %></td>
+      </tr>
+    <% end %>
   </table>
 </div>

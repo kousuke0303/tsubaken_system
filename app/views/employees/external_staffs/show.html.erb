@@ -1,0 +1,31 @@
+<div>
+  <h2>外部スタッフ詳細</h2>
+
+  <table class="table table-sm" id="employees-external-staff-table">
+    <tr>
+      <th>名前</th>
+      <td><%= @external_staff.name %></td>
+    </tr>
+    <tr>
+      <th>フリガナ</th>
+      <td><%= @external_staff.kana %></td>
+    </tr>
+    <tr>
+      <th>ログインID</th>
+      <td><%= @external_staff.login_id %></td>
+    </tr>
+    <tr>
+      <th>電話番号</th>
+      <td><%= @external_staff.phone %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @external_staff.email %></td>
+    </tr>
+  </table>
+
+  <div class="btn-area">
+    <button class="btn btn-dark" data-toggle="modal" data-target="#external-staff-edit">編集</button>
+    <%= link_to "削除", employees_supplier_external_staff_path(@supplier, @external_staff), method: :delete, data: { confirm: "この外部スタッフを削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
+</div>
