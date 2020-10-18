@@ -37,7 +37,13 @@ class Employees::Settings::DepartmentsController < ApplicationController
   end
 
   def destroy
-    @department.destroy ? flash[:success] = "部署を削除しました" : flash[:alert] = "部署を削除できませんでした"
+    @manager_dept_ids = Manager.pluck(:department_id)
+    @staff_dept_ids = Staff.pluck(:department_id)
+    if @manager_dept_ids.none?{|i| i  == @department.id}  && @staff_dept_ids.none?{|i| i  == @department.id}
+      @department.destroy ? flash[:success] = "部署を削除しました" : flash[:alert] = "部署を削除できませんでした"
+    else
+      flash[:alert] = "#{@department.name}は使用されている為、削除できませんでした"
+    end
     redirect_to employees_settings_departments_path
   end
 
