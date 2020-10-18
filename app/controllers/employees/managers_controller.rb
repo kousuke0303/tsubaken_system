@@ -1,10 +1,10 @@
 class Employees::ManagersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, only: [:new, :create, :edit, :update]
 
   def new
     @manager = Manager.new
-    @departments = Department.all
   end
 
   def create
@@ -22,6 +22,7 @@ class Employees::ManagersController < ApplicationController
   end
 
   def show
+    @department_name = Department.find(@manager.department_id).name
   end
 
   def edit
@@ -43,10 +44,14 @@ class Employees::ManagersController < ApplicationController
 
   private
     def manager_params
-      params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :joined_on, :resigned_on)
+      params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :department_id, :joined_on, :resigned_on)
     end
 
     def set_manager
       @manager = Manager.find(params[:id])
+    end
+    
+    def set_department
+      @departments = Department.all
     end
 end

@@ -4,7 +4,7 @@ class Staff < ApplicationRecord
   validates :email, length: { maximum: 254 }
   validate :staff_login_id_is_correct?
 
-  belongs_to :departments
+  belongs_to :department
   has_many :matter_staffs, dependent: :destroy
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy

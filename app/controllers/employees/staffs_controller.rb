@@ -1,6 +1,7 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, only: [:new, :create, :edit, :update]
 
   def new
     @staff = Staff.new
@@ -21,6 +22,7 @@ class Employees::StaffsController < ApplicationController
   end
 
   def show
+    @department_name = Department.find(@staff.department_id).name
   end
 
   def edit
@@ -42,10 +44,14 @@ class Employees::StaffsController < ApplicationController
 
   private
     def staff_params
-      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :joined_on, :resigned_on)
+      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :department_id, :joined_on, :resigned_on)
     end
 
     def set_staff
       @staff = Staff.find(params[:id])
+    end
+    
+    def set_department
+      @departments = Department.all
     end
 end
