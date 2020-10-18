@@ -32,6 +32,7 @@ ja:
           zip_code: 郵便番号
           address: 住所
           joined_on: 入社日
+          department_id: 部署
           resigned_on: 退社日
           password: パスワード
           password_confirmation: パスワード再入力
@@ -46,6 +47,7 @@ ja:
           birthed_on: 生年月日
           zip_code: 郵便番号
           address: 住所
+          department_id: 部署
           joined_on: 入社日
           resigned_on: 退社日
           password: パスワード
