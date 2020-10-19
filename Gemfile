@@ -17,7 +17,6 @@ gem "font-awesome-rails"
 gem 'font-awesome-sass'
 gem 'toastr-rails'
 gem 'mechanize'
-gem 'mysql2'
 # Devise
 gem 'devise'
 # decorator
@@ -36,6 +35,7 @@ gem 'fast_jsonapi'
 gem 'dotenv-rails'
 
 group :development, :test do
+  gem 'mysql2'
   gem 'byebug',  '9.0.6', platform: :mri
   gem 'pry-rails'
   gem 'rspec-rails'
@@ -55,6 +55,7 @@ group :test do
 end
 
 group :production do
+  gem 'pg', "~> 0.19.0"
 end
 
 # Windows環境では、このgemを含める必要があります。（mac環境でもこのままで問題ありません）
