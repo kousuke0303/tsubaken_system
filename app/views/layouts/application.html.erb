@@ -15,10 +15,9 @@
   
   <!--ログイン画面のレイアウト-->
   <% if @type == "log_in" %>
-    <body class="login-container">
-      <header class="header-login">
-        <%= render "layouts/login_header" %>
-      </header>
+    <body class="login-wrapper">
+      <header class="header-login smp-center"><%= image_tag "logo.jpg" %></header>
+
       <div class="login-content">
         <%= render "shared/flash" %>
         <%= yield %>
