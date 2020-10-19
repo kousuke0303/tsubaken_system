@@ -2,17 +2,15 @@ class Employees::ClientsController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 
-  def new
-    @client = Client.new
-  end
-
   def create
     @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
     if @client.save
       flash[:success] = "顧客を作成しました"
       redirect_to employees_client_url(@client)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -22,6 +20,7 @@ class Employees::ClientsController < ApplicationController
 
   def index
     @clients = Client.all
+    @client = Client.new
   end
 
   def edit

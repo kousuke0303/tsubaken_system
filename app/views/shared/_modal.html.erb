@@ -18,6 +18,12 @@
 
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+  <!--顧客new-->
+  <% if controller_name == "clients" && action_name == "index" %>
+    <div id="client-new" class="modal fade" role="dialog">
+      <%= render "employees/clients/new" %>
+    </div>
+  <% end %>
 
   <!--業種new-->
   <% if controller_name == "industries" && action_name == "index" %>
