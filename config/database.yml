@@ -14,7 +14,3 @@ test:
   <<: *default
   database: tsubaken_test
 
-production:
-  <<: *default
-  adapter: postgresql
-  database: tsubaken_production
