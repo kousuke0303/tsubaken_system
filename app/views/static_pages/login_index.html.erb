@@ -1,7 +1,8 @@
 <div class="login-index-container">
   <div class="grid-login">
     <div id="user_login">
-      <h2><span class="fontawesome-lock"></span>ログイン</h2>       
+      <h2><span class="fontawesome-lock"></span>ログイン</h2>
+      <%= link_to "apiテスト", api_v1_sign_in_path(api_authenticate_token: "token", api_authenticate_key: "key",login_id: "AD-admin", password: "password"), method: :post %>    
       <fieldset>
         <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
           <p><%= f.label :login_id, "ログインID" %></p>
