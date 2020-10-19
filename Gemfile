@@ -35,7 +35,7 @@ gem 'fast_jsonapi'
 gem 'dotenv-rails'
 
 group :development, :test do
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.3.20'
   gem 'byebug',  '9.0.6', platform: :mri
   gem 'pry-rails'
   gem 'rspec-rails'
