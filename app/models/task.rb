@@ -1,6 +1,5 @@
 class Task < ApplicationRecord
-  has_many :matter_tasks, dependent: :destroy
-  has_many :matters, through: :matter_tasks
+  belongs_to :matter
   
   scope :are_matter_tasks, -> { where(status: "matter_tasks").order(:row_order) }
   scope :are_progress_tasks, -> { where(status: "progress_tasks").order(:row_order) }
