@@ -23,15 +23,14 @@ class Employees::ClientsController < ApplicationController
     @client = Client.new
   end
 
-  def edit
-  end
-
   def update
     if @client.update(client_params)
       flash[:success] = "顧客情報を更新しました"
       redirect_to employees_client_url(@client)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

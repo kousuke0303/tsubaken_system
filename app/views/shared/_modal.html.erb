@@ -25,6 +25,13 @@
     </div>
   <% end %>
 
+  <!--顧客edit-->
+  <% if controller_name == "clients" && action_name == "show" %>
+    <div id="client-edit" class="modal fade" role="dialog">
+      <%= render "employees/clients/edit" %>
+    </div>
+  <% end %>
+
   <!--業種new-->
   <% if controller_name == "industries" && action_name == "index" %>
     <div id="industry-new" class="modal fade" role="dialog">
