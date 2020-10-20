@@ -1,10 +1,6 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_staff, only: [:show, :edit, :update, :destroy]
-
-  def new
-    @staff = Staff.new
-  end
+  before_action :set_staff, only: [:show, :update, :destroy]
 
   def create
     @staff = Staff.new(staff_params.merge(password: "password", password_confirmation: "password"))
@@ -12,18 +8,18 @@ class Employees::StaffsController < ApplicationController
       flash[:success] = "スタッフを作成しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
+    @staff = Staff.new
     @staffs = Staff.all
   end
 
   def show
-  end
-
-  def edit
   end
 
   def update
@@ -31,7 +27,9 @@ class Employees::StaffsController < ApplicationController
       flash[:success] = "スタッフ情報を更新しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

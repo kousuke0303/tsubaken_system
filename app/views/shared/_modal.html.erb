@@ -18,6 +18,19 @@
 
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
+  <!--スタッフnew-->
+  <% if controller_name == "staffs" && action_name == "index" %>
+    <div id="staff-new" class="modal fade" role="dialog">
+      <%= render "employees/staffs/new" %>
+    </div>
+  <% end %>
+
+  <!--スタッフedit-->
+  <% if controller_name == "staffs" && action_name == "show" %>
+    <div id="staff-edit" class="modal fade" role="dialog">
+      <%= render "employees/staffs/edit" %>
+    </div>
+  <% end %>
 
   <!--外部スタッフnew-->
   <% if controller_name == "suppliers" && action_name == "show" %>
