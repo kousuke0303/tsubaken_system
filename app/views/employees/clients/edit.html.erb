@@ -9,7 +9,7 @@
   
     <%= f.label :gender %>
     <br>
-    <%= f.collection_radio_buttons :gender, Client.genders_i18n, :first, :last do |b| %>
+    <%= f.collection_radio_buttons :gender, Client.genders.keys.map { |k| [I18n.t("enums.client.status.#{k}"), k] }, :first, :last do |b| %>
       <%=  b.radio_button(class: "radio_button") + b.label(class: "radio_button") %>
     <% end %>
     <br>
