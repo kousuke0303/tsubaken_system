@@ -2,21 +2,20 @@ class Employees::ManagersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
 
-  def new
-    @manager = Manager.new
-  end
-
   def create
     @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
     if @manager.save
       flash[:success] = "マネージャーを作成しました"
       redirect_to employees_manager_url(@manager)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
+    @manager = Manager.new
     @managers = Manager.all
   end
 

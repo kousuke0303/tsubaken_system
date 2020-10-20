@@ -1,3 +1,21 @@
+<!--アドミン用-->
+<% if admin_signed_in? %>
+
+  <!--マネージャーnew-->
+  <% if controller_name == "managers" && action_name == "index" %>
+    <div id="manager-new" class="modal fade" role="dialog">
+      <%= render "employees/managers/new" %>
+    </div>
+  <% end %>
+
+  <!--マネージャーedit-->
+  <% if controller_name == "managers" && action_name == "show" %>
+    <div id="manager-edit" class="modal fade" role="dialog">
+
+    </div>
+  <% end %>
+<% end %>
+
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
 
