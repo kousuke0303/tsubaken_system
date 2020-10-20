@@ -2,16 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* ---------------------------------------------------
-    INDEX
------------------------------------------------------ */
-
-.matter-select {
-  .active {
-    background-color: #e8eae9!important;
-  }
-}
-
 .matter-select-btn {
   height: 2.5em;
   width: 8.5em;
@@ -36,76 +26,6 @@
 
 .prefectures-all {
   color: #3f51b5;
-}
-
-
-/* ---------------------------------------------------
-    SHOW
------------------------------------------------------ */
-
-.matter_index {
-  ul li a {
-    color: white;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .matter_show_container {
-    h5 {
-      display: none!important;
-    }
-  }
-  
-  .matter_index {
-    ul li a {
-      text-align: left!important;
-      font-size: 20px;
-    }
-  }
-}
-
-/* ---------------------------------------------------
-    SHOW_MENU
------------------------------------------------------ */
-
-.matter_show_table {
-  th {
-    text-align: left;
-    background-color: #f7f7f7;
-  }
-  td {
-    text-align: left;
-  }
-}
-
-/* person_in_charge */
-.no_entry_disp {
-  border: 1px solid #dfdfdf;
-  padding: 1em;
-  background-color: #f7f7f7;
-  color: #5f5e5e;
-}
-
-
-/* client */
-.client_form {
-  border: 1px solid #dfdfdf;
-  padding: 1em;
-  border-radius: 5px;
-}
-
-/* ---------------------------------------------------
-    matter_task                                       */
-
-.matter_task_disp {
-  overflow-x: auto;
-  padding-bottom: 1em;
-}
-
-.connecting_matter_show {
-  p {
-    margin-bottom: 0;
-  }
 }
 
 .connected_matter_task_disp {
@@ -139,32 +59,6 @@
   color: #17a2b8;/*文字色*/
   font-weight: bold;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-}
-
-
-@media screen and (max-width: 480px) { 
-  .comp_all_del_btn {
-    display: none!important;
-  }
-}
-
-
-/*  MATTERTASK:EDIT_MODAL
------------------------------------------------------ */
-
-.matter_tasks_color {
-  background-color: #dc3545!important;
-  color: white;
-}
-
-.progress_tasks_color {
-  background-color: #17a2b8!important;
-  color: white;
-}
-
-.finished_tasks_color {
-  background-color: #28a745!important;
-  color: white;
 }
 
 /* ---------------------------------------------------

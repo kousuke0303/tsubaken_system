@@ -21,6 +21,15 @@ p {
     color: #999;
 }
 
+input {
+  background-image: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  transition: all .3s;
+}
+
 label {
   margin-top: 10px;
 }
@@ -54,7 +63,24 @@ label {
   text-align: center;
 }
 
-/* ERROR MESSAGE */
+.tab-wrapper {
+  ul li a {
+    color: white;
+  }
+}
+
+.common-table {
+  margin-top: 1em;
+  th {
+    text-align: left;
+    background-color: #f7f7f7;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+/*------------------------------ ERROR MESSAGE ------------------------------*/
 .custom-error {
   padding: 1em;
   h5 {
@@ -78,14 +104,6 @@ label {
   }
 }
 
-/* -----------------------------------------------------------------------------------
-    LOGIN///FLAMEWORK
------------------------------------------------------ */
-
-/* --------------------------------------
-    PC
---------------------------*/
-
 $color: #000;
 $color-bg: #eae9e9;
 
@@ -96,15 +114,6 @@ $color-bg: #eae9e9;
   line-height: 1.5;
   margin: 0;
   min-height: 100%;
-}
-
-input {
-  background-image: none;
-  border: none;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  transition: all .3s;
 }
 
 .header-login {
@@ -131,19 +140,6 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-/*----------------------------------------------
-  SMARTPHONE
-_______________________________________ */
-
-@media screen and (max-width: 480px) { 
-
-/* ロゴを中央に配置 */
-  .smp-center {
-    text-align: center;
-    margin-top: 1.5em;
-  }
 }
 
 /* -----------------------------------------------------------------------------------
@@ -328,13 +324,6 @@ a.article, a.article:hover {
   }
 }
 
-@media screen and (max-width: 480px) { 
-  .navi-custom {
-    background-color: #eef1f3;
-    padding-left: 1em;
-  }
-}
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -359,41 +348,7 @@ a.article, a.article:hover {
   margin: 1em 0;
 }
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-@media (max-width: 768px) {
-  #sidebar {
-    margin-left: -250px;
-    transform: rotateY(90deg);
-  }
-  #sidebar.active {
-    margin-left: 0;
-    transform: none;
-  }
-  #sidebar-collapse span:first-of-type,
-  #sidebar-collapse span:nth-of-type(2),
-  #sidebar-collapse span:last-of-type {
-    transform: none;
-    opacity: 1;
-    margin: 5px auto;
-}
-  #sidebar-collapse.active span {
-    margin: 0 auto;
-  }
-  #sidebar-collapse.active span:first-of-type {
-    transform: rotate(45deg) translate(2px, 2px);
-  }
-  #sidebar-collapse.active span:nth-of-type(2) {
-    opacity: 0;
-  }
-  #sidebar-collapse.active span:last-of-type {
-    transform: rotate(-45deg) translate(1px, -1px);
-  }
-}
-
-
-/* FLASH */
+/*------------------------------ FLASH ------------------------------*/
 .flash {
   color: white;
   padding: 1em;
@@ -408,12 +363,12 @@ a.article, a.article:hover {
   }
 }
 
-/* DEBUG */
+/*------------------------------ DEBUG ------------------------------*/
 .debug {
   padding-left: 1em;
 }
 
-//* 背景色 *//
+/*------------------------------ 背景色 ------------------------------*/
 
 .bg-purple {
   background-color: #8695d6;
@@ -455,4 +410,52 @@ a.article, a.article:hover {
 .btn-destroy:hover {
   background-color: #e02839f2;
   color: white;
+}
+
+/*------------------------------ MEDIAQUERIES ------------------------------*/
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+    transform: rotateY(90deg);
+  }
+  #sidebar.active {
+    margin-left: 0;
+    transform: none;
+  }
+  #sidebar-collapse span:first-of-type,
+  #sidebar-collapse span:nth-of-type(2),
+  #sidebar-collapse span:last-of-type {
+    transform: none;
+    opacity: 1;
+    margin: 5px auto;
+}
+  #sidebar-collapse.active span {
+    margin: 0 auto;
+  }
+  #sidebar-collapse.active span:first-of-type {
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #sidebar-collapse.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  #sidebar-collapse.active span:last-of-type {
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  .smp-center {
+    text-align: center;
+    margin-top: 1.5em;
+  }
+  .navi-custom {
+    background-color: #eef1f3;
+    padding-left: 1em;
+  }
+  .tab-wrapper {
+    ul li a {
+      text-align: left!important;
+      font-size: 20px;
+    }
+  }
 }

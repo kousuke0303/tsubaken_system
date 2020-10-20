@@ -1,62 +1,36 @@
-<div>
+<div class="container">
   <h2>顧客詳細</h2>
-
-  <table class="table table-sm" id="employees-client-table">
-    <tr>
-      <th>名前</th>
-      <td><%= @client.name %></td>
-    </tr>
-    <tr>
-      <th>ログインID</th>
-      <td><%= @client.login_id %></td>
-    </tr>
-    <tr>
-      <th>電話番号①</th>
-      <td><%= @client.phone_1 %></td>
-    </tr>
-    <tr>
-      <th>電話番号②</th>
-      <td><%= @client.phone_2 %></td>
-    </tr>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= @client.email %></td>
-    </tr>
-    <tr>
-      <th>生年月日</th>
-      <td><%= @client.birthed_on %></td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= @client.zip_code %></td>
-    </tr>
-    <tr>
-      <th>住所</th>
-      <td><%= @client.address %></td>
-    </tr>
-  </table>
-  
-  <div><button role="button" id="toggle-clients-matters" class="btn btn-dark">案件一覧を表示</button></div>
-
-  <div id="clients-matters-area"><%= render "matters" %></div>
-
-  <div class="btn-area">
-    <button class="btn btn-dark" data-toggle="modal" data-target="#client-edit">編集</button>
-    <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
+      
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="client-show-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#client-personal-info" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">個人情報</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#person_in_charge" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">案件一覧</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#user_information" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">営業一覧</a>
+        </li>
+      </ul>
+    </div>
+        
+    <div class="card-body">
+      <div class="tab-content" id="client-show-tab">
+            
+        <div class="tab-pane fade show active bg-white" id="client-personal-info" role="tabpanel" aria-labelledby="home-tab">
+          <%= render "personal_info" %>
+        </div>
+          
+        <div class="tab-pane fade bg-white" id="person_in_charge" role="tabpanel" aria-labelledby="profile-tab">
+          <%= render "matters" %>
+        </div>
+          
+        <div class="tab-pane fade bg-white" id="user_information" role="tabpanel" aria-labelledby="contact-tab">
+        </div>
+        
+      </div>
+    </div>
   </div>
 </div>
-
-<script>
-  const mattersArea = $("#clients-matters-area")
-  const btn = $("#toggle-clients-matters")
-
-  // 顧客の案件一覧は非表示にしておく
-  mattersArea.hide();
-
-  // 顧客の案件一覧の表示・非表示切替
-  btn.click(function() {
-    mattersArea.toggle();
-    btn.prop("disabled", true);
-    btn.prop("disabled", false);
-  })
-</script>
