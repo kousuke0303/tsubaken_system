@@ -1,5 +1,5 @@
 class Supplier < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 30 },
+  validates :name, presence: true, length: { maximum: 30 }
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
 
   has_many :external_staffs, dependent: :destroy

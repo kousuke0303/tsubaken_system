@@ -49,7 +49,7 @@
   <div id="suppliers-matters-area"><%= render "matters" %></div>
 
   <div class="btn-area">
-    <%= link_to "編集", edit_employees_supplier_path(@supplier), class: "btn btn-dark" %>
+    <button class="btn btn-dark" data-toggle="modal" data-target="#supplier-edit">編集</button>
     <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
   </div>
 </div>

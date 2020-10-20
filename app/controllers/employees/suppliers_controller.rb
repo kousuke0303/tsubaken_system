@@ -19,15 +19,14 @@ class Employees::SuppliersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     if @supplier.update(supplier_params)
       flash[:success] = "外注先情報を更新しました"
       redirect_to employees_supplier_url(@supplier)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
