@@ -1,6 +1,6 @@
 class Employees::ClientsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :update, :destroy]
 
   def create
     @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
