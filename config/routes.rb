@@ -97,6 +97,7 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:create, :show, :update, :destroy]
     end
+    resources :attendances, only: [:index]
     resources :matters
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
