@@ -36,3 +36,8 @@
     <td><%= @manager.resigned_on %></td>
   </tr>
 </table>
+
+<div class="btn-area">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#manager-edit">編集</button>
+  <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このマネージャーを削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>

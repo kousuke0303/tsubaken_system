@@ -1,0 +1,43 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>名前</th>
+    <td><%= @staff.name %></td>
+  </tr>
+  <tr>
+    <th>ログインID</th>
+    <td><%= @staff.login_id %></td>
+  </tr>
+  <tr>
+    <th>電話番号</th>
+    <td><%= @staff.phone %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @staff.email %></td>
+  </tr>
+  <tr>
+    <th>生年月日</th>
+    <td><%= @staff.birthed_on %></td>
+  </tr>
+  <tr>
+    <th>郵便番号</th>
+    <td><%= @staff.zip_code %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= @staff.address %></td>
+  </tr>
+  <tr>
+    <th>入社日</th>
+    <td><%= @staff.joined_on %></td>
+  </tr>
+  <tr>
+    <th>退社日</th>
+    <td><%= @staff.resigned_on %></td>
+  </tr>
+</table>
+
+<div class="btn-area">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#staff-edit">編集</button>
+  <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このスタッフを削除してよろしいですか？" }, class: "btn btn-destroy" %>
+</div>

@@ -8,7 +8,7 @@
           <a class="nav-link active" href="#manager-detail" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">詳細情報</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#person_in_charge" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">案件一覧</a>
+          <a class="nav-link" href="#matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">案件一覧</a>
         </li>
       </ul>
     </div>
@@ -20,10 +20,9 @@
           <%= render "employees/managers/tab_pane/detail" %>
         </div>
 
-      <div class="btn-area">
-        <button class="btn btn-dark" data-toggle="modal" data-target="#manager-edit">編集</button>
-        <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このマネージャーを削除してよろしいですか？" }, class: "btn btn-danger" %>
-      </div>
+        <div class="tab-pane fade show active bg-white" id="matters" role="tabpanel" aria-labelledby="home-tab">
+        </div>
+
     </div>
   </div>
 </div>
