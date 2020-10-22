@@ -12,14 +12,14 @@
     <% @managers.each_with_index do |manager, index| %>
       <tr>
         <% if index == 0 %>
-          <th rowspan="<%= @managers.count %>">担当マネージャー</th>
+          <th rowspan="<%= @managers.count %>">担当Manager</th>
         <% end %>
         <td><%= manager.name %></td>
       </tr>
     <% end %>
   <% else %>
     <tr>
-      <th>担当マネージャー</th>
+      <th>担当Manager</th>
       <td></td>
     </tr>
   <% end %>
@@ -28,14 +28,14 @@
     <% @staffs.each_with_index do |staff, index| %>
       <tr>
         <% if index == 0 %>
-          <th rowspan="<%= @staffs.count %>">担当スタッフ</th>
+          <th rowspan="<%= @staffs.count %>">担当Staff</th>
         <% end %>
         <td><%= staff.name %></td>
       </tr>
     <% end %>
   <% else %>
     <tr>
-      <th>担当スタッフ</th>
+      <th>担当Staff</th>
       <td></td>
     </tr>
   <% end %>

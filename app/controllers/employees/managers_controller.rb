@@ -5,7 +5,7 @@ class Employees::ManagersController < ApplicationController
   def create
     @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
     if @manager.save
-      flash[:success] = "マネージャーを作成しました"
+      flash[:success] = "Managerを作成しました"
       redirect_to employees_manager_url(@manager)
     else
       respond_to do |format|
@@ -24,7 +24,7 @@ class Employees::ManagersController < ApplicationController
 
   def update
     if @manager.update(manager_params)
-      flash[:success] = "マネージャー情報を更新しました"
+      flash[:success] = "Manager情報を更新しました"
       redirect_to employees_manager_url(@manager)
     else
       respond_to do |format|
@@ -34,7 +34,7 @@ class Employees::ManagersController < ApplicationController
   end
 
   def destroy
-    @manager.destroy ? flash[:success] = "マネージャーを削除しました" : flash[:alert] = "マネージャーを削除できませんでした"
+    @manager.destroy ? flash[:success] = "Managerを削除しました" : flash[:alert] = "Managerを削除できませんでした"
     redirect_to employees_managers_url
   end
 
