@@ -1,0 +1,16 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>タイトル</th>
+    <th>現場住所</th>
+    <th>着工予定日</th>
+    <th>完了予定日</th>
+  </tr>
+  <% @matters.each do |matter| %>
+    <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
+      <td><%= matter.title %></td>
+      <td><%= matter.actual_spot %></td>
+      <td><%= matter.scheduled_started_on %></td>
+      <td><%= matter.scheduled_finished_on %></td>
+    </tr>
+  <% end %>
+</table>

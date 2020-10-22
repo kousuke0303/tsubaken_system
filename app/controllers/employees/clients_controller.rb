@@ -1,10 +1,6 @@
 class Employees::ClientsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
-
-  def new
-    @client = Client.new
-  end
+  before_action :set_client, only: [:show, :update, :destroy]
 
   def create
     @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
@@ -12,7 +8,9 @@ class Employees::ClientsController < ApplicationController
       flash[:success] = "顧客を作成しました"
       redirect_to employees_client_url(@client)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -22,9 +20,7 @@ class Employees::ClientsController < ApplicationController
 
   def index
     @clients = Client.all
-  end
-
-  def edit
+    @client = Client.new
   end
 
   def update
@@ -32,7 +28,9 @@ class Employees::ClientsController < ApplicationController
       flash[:success] = "顧客情報を更新しました"
       redirect_to employees_client_url(@client)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

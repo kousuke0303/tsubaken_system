@@ -13,11 +13,14 @@ class Employees::StaffsController < ApplicationController
       flash[:success] = "スタッフを作成しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
+    @staff = Staff.new
     @staffs = Staff.all
   end
 
@@ -25,15 +28,14 @@ class Employees::StaffsController < ApplicationController
     @department_name = Department.find(@staff.department_id).name
   end
 
-  def edit
-  end
-
   def update
     if @staff.update(staff_params)
       flash[:success] = "スタッフ情報を更新しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

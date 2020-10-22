@@ -3,11 +3,8 @@ class Employees::SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
   def index
-    @suppliers = Supplier.all
-  end
-
-  def new
     @supplier = Supplier.new
+    @suppliers = Supplier.all
   end
 
   def create
@@ -16,11 +13,10 @@ class Employees::SuppliersController < ApplicationController
       flash[:success] = "外注先を作成しました"
       redirect_to employees_supplier_url(@supplier)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
-  end
-
-  def edit
   end
 
   def update
@@ -28,7 +24,9 @@ class Employees::SuppliersController < ApplicationController
       flash[:success] = "外注先情報を更新しました"
       redirect_to employees_supplier_url(@supplier)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

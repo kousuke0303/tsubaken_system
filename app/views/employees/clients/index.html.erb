@@ -1,24 +1,46 @@
-<div>
-  <h2>顧客一覧</h2>
-  <%= link_to "作成", new_employees_client_path, class: "btn btn-dark" %>
-  <table class="table table-sm" id="staffs-table">
-    <tr>
-      <th>名前</th>
-      <th>顧客ID</th>
-      <th>性別</th>
-      <th>電話番号①</th>
-      <th>電話番号②</th>
-      <th>メールアドレス</th>
-    </tr>
-    <% @clients.each do |client| %>
-      <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-        <td><%= client.name %></td>
-        <td><%= client.login_id %></td>
-        <td><%= client.gender %></td>
-        <td><%= client.phone_1 %></td>
-        <td><%= client.phone_2 %></td>
-        <td><%= client.address %></td>
-      </tr>
-    <% end %>
-  </table>
+<div class="container">
+  <h2>顧客一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#client-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="clients-index" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#has_request" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">依頼あり</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#no_request" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">依頼なし</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content" id="clients-index">
+
+        <div class="tab-pane fade show active bg-white" id="has_request" role="tabpanel" aria-labelledby="home-tab">
+          <table class="table table-sm common-table">
+            <tr>
+              <th>名前</th>
+              <th>顧客ID</th>
+              <th>性別</th>
+              <th>電話番号①</th>
+              <th>電話番号②</th>
+              <th>メールアドレス</th>
+            </tr>
+            <% @clients.each do |client| %>
+              <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+                <td><%= client.name %></td>
+                <td><%= client.login_id %></td>
+                <td><%= client.gender %></td>
+                <td><%= client.phone_1 %></td>
+                <td><%= client.phone_2 %></td>
+                <td><%= client.address %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade show active bg-white" id="no_request" role="tabpanel" aria-labelledby="home-tab">
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

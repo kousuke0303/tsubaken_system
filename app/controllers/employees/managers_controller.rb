@@ -13,11 +13,14 @@ class Employees::ManagersController < ApplicationController
       flash[:success] = "マネージャーを作成しました"
       redirect_to employees_manager_url(@manager)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
+    @manager = Manager.new
     @managers = Manager.all
   end
 
@@ -25,15 +28,14 @@ class Employees::ManagersController < ApplicationController
     @department_name = Department.find(@manager.department_id).name
   end
 
-  def edit
-  end
-
   def update
     if @manager.update(manager_params)
       flash[:success] = "マネージャー情報を更新しました"
       redirect_to employees_manager_url(@manager)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
