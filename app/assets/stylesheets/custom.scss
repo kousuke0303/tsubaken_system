@@ -21,6 +21,15 @@ p {
     color: #999;
 }
 
+input {
+  background-image: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  transition: all .3s;
+}
+
 label {
   margin-top: 10px;
 }
@@ -54,7 +63,24 @@ label {
   text-align: center;
 }
 
-/* ERROR MESSAGE */
+.tab-wrapper {
+  ul li a {
+    color: white;
+  }
+}
+
+.common-table {
+  margin-top: 1em;
+  th {
+    text-align: left;
+    background-color: #f7f7f7;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+/*------------------------------ ERROR MESSAGE ------------------------------*/
 .custom-error {
   padding: 1em;
   h5 {
@@ -78,33 +104,16 @@ label {
   }
 }
 
-/* -----------------------------------------------------------------------------------
-    LOGIN///FLAMEWORK
------------------------------------------------------ */
-
-/* --------------------------------------
-    PC
---------------------------*/
-
 $color: #000;
 $color-bg: #eae9e9;
 
-.login-container {
+.login-wrapper {
   background: $color-bg;
   color: $color;
   font-family: 'Varela Round', sans-serif;
   line-height: 1.5;
   margin: 0;
   min-height: 100%;
-}
-
-input {
-  background-image: none;
-  border: none;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  transition: all .3s;
 }
 
 .header-login {
@@ -131,19 +140,6 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-/*----------------------------------------------
-  SMARTPHONE
-_______________________________________ */
-
-@media screen and (max-width: 480px) { 
-
-/* ロゴを中央に配置 */
-  .smp-center {
-    text-align: center;
-    margin-top: 1.5em;
-  }
 }
 
 /* -----------------------------------------------------------------------------------
@@ -328,13 +324,6 @@ a.article, a.article:hover {
   }
 }
 
-@media screen and (max-width: 480px) { 
-  .navi-custom {
-    background-color: #eef1f3;
-    padding-left: 1em;
-  }
-}
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -359,9 +348,81 @@ a.article, a.article:hover {
   margin: 1em 0;
 }
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
+/*------------------------------ FLASH ------------------------------*/
+.flash {
+  color: white;
+  padding: 1em;
+  &_alert {
+    background-color: #dc3545;
+  }
+  &_success {
+    background-color: #20c997;
+  }
+  &_notice {
+    background-color: #17a2b8;
+  }
+}
+
+/*------------------------------ DEBUG ------------------------------*/
+.debug {
+  padding-left: 1em;
+}
+
+/*------------------------------ 背景色 ------------------------------*/
+
+.bg-purple {
+  background-color: #8695d6;
+}
+
+.bg-blue {
+  background-color: #007bffc7;
+}
+
+.bg-pink {
+  background-color: #d686bd;
+}
+
+.bg-brown {
+  background-color: #8a7a74;
+}
+
+.bg-gray {
+  background-color: #b7b7b7;
+}
+
+//* BUTTON *//
+
+.btn-gray {
+  background-color: gainsboro;
+  color: black;
+}
+
+.btn-gray:hover {
+  background-color: silver;
+  color: black;
+}
+
+.btn-purple {
+  background-color: #6d7fcc;
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #5163b1;
+  color: white;
+}
+
+.btn-destroy {
+  background-color: #c53644d9;
+  color: white;
+}
+
+.btn-destroy:hover {
+  background-color: #e02839f2;
+  color: white;
+}
+
+/*------------------------------ MEDIAQUERIES ------------------------------*/
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -392,67 +453,19 @@ a.article, a.article:hover {
   }
 }
 
-
-/* FLASH */
-.flash {
-  color: white;
-  padding: 1em;
-  &_alert {
-    background-color: #dc3545;
+@media screen and (max-width: 480px) { 
+  .smp-center {
+    text-align: center;
+    margin-top: 1.5em;
   }
-  &_success {
-    background-color: #20c997;
+  .navi-custom {
+    background-color: #eef1f3;
+    padding-left: 1em;
   }
-  &_notice {
-    background-color: #17a2b8;
+  .tab-wrapper {
+    ul li a {
+      text-align: left!important;
+      font-size: 20px;
+    }
   }
-}
-
-/* DEBUG */
-.debug {
-  padding-left: 1em;
-}
-
-//* 背景色 *//
-
-.bg-purple {
-  background-color: #8695d6;
-}
-
-.bg-blue {
-  background-color: #007bffc7;
-}
-
-.bg-pink {
-  background-color: #d686bd;
-}
-
-.bg-brown {
-  background-color: #8a7a74;
-}
-
-.bg-gray {
-  background-color: #b7b7b7;
-}
-
-//* BUTTON *//
-
-.btn-purple {
-  background-color: #6d7fcc;
-  color: white;
-}
-
-.btn-purple:hover {
-  background-color: #5163b1;
-  color: white;
-}
-
-.btn-destroy {
-  background-color: #c53644d9;
-  color: white;
-}
-
-.btn-destroy:hover {
-  background-color: #e02839f2;
-  color: white;
 }

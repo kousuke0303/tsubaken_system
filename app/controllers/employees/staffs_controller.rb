@@ -1,42 +1,40 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_staff, only: [:show, :edit, :update, :destroy]
-
-  def new
-    @staff = Staff.new
-  end
+  before_action :set_staff, only: [:show, :update, :destroy]
 
   def create
     @staff = Staff.new(staff_params.merge(password: "password", password_confirmation: "password"))
     if @staff.save
-      flash[:success] = "スタッフを作成しました"
+      flash[:success] = "Staffを作成しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
+    @staff = Staff.new
     @staffs = Staff.all
   end
 
   def show
   end
 
-  def edit
-  end
-
   def update
     if @staff.update(staff_params)
-      flash[:success] = "スタッフ情報を更新しました"
+      flash[:success] = "Staff情報を更新しました"
       redirect_to employees_staff_url(@staff)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def destroy
-    @staff.destroy ? flash[:success] = "スタッフを削除しました" : flash[:alert] = "スタッフを削除できませんでした"
+    @staff.destroy ? flash[:success] = "Staffを削除しました" : flash[:alert] = "Staffを削除できませんでした"
     redirect_to employees_staffs_url
   end
 

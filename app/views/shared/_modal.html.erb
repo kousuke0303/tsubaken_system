@@ -1,5 +1,36 @@
+<!--アドミン用-->
+<% if admin_signed_in? %>
+
+  <!--マネージャーnew-->
+  <% if controller_name == "managers" && action_name == "index" %>
+    <div id="manager-new" class="modal fade" role="dialog">
+      <%= render "employees/managers/new" %>
+    </div>
+  <% end %>
+
+  <!--マネージャーedit-->
+  <% if controller_name == "managers" && action_name == "show" %>
+    <div id="manager-edit" class="modal fade" role="dialog">
+      <%= render "employees/managers/edit" %>
+    </div>
+  <% end %>
+<% end %>
+
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
+  <!--スタッフnew-->
+  <% if controller_name == "staffs" && action_name == "index" %>
+    <div id="staff-new" class="modal fade" role="dialog">
+      <%= render "employees/staffs/new" %>
+    </div>
+  <% end %>
+
+  <!--スタッフedit-->
+  <% if controller_name == "staffs" && action_name == "show" %>
+    <div id="staff-edit" class="modal fade" role="dialog">
+      <%= render "employees/staffs/edit" %>
+    </div>
+  <% end %>
 
   <!--外部スタッフnew-->
   <% if controller_name == "suppliers" && action_name == "show" %>
@@ -18,6 +49,33 @@
 
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+  <!--顧客new-->
+  <% if controller_name == "clients" && action_name == "index" %>
+    <div id="client-new" class="modal fade" role="dialog">
+      <%= render "employees/clients/new" %>
+    </div>
+  <% end %>
+
+  <!--顧客edit-->
+  <% if controller_name == "clients" && action_name == "show" %>
+    <div id="client-edit" class="modal fade" role="dialog">
+      <%= render "employees/clients/edit" %>
+    </div>
+  <% end %>
+
+  <!--外注先new-->
+  <% if controller_name == "suppliers" && action_name == "index" %>
+    <div id="supplier-new" class="modal fade" role="dialog">
+      <%= render "employees/suppliers/new" %>
+    </div>
+  <% end %>
+
+  <!--外注先edit-->
+  <% if controller_name == "suppliers" && action_name == "show" %>
+    <div id="supplier-edit" class="modal fade" role="dialog">
+      <%= render "employees/suppliers/edit" %>
+    </div>
+  <% end %>
 
   <!--業種new-->
   <% if controller_name == "industries" && action_name == "index" %>

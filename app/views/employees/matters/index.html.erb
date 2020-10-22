@@ -1,49 +1,54 @@
-<div>
-  <h2><i class="fas fa-clipboard"></i>案件一覧</h2>
-  <div>
-    <%= link_to new_employees_matter_path, class: "btn btn-dark mt-1e mb-1e" do %>
+<div class="container">
+  <h2>
+    <i class="fas fa-clipboard"></i>案件一覧
+    <%= link_to new_employees_matter_path, class: "btn btn-dark float-r" do %>
         <i class="fas fa-plus"></i> 新規案件作成
     <% end %>
-  </div>
+  </h2>
 
-  <div class="container">
-    <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
-      <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
-          <%= f.select :status, options_for_select(Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]},params[:status]), { include_blank: "全て" }, { class: "form-control" } %>
-        </div>
-        <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
-          <%= f.collection_select :client_id, @clients, :id, :name, { include_blank: "全て", selected: params[:client_id] }, class: "form-control" %>
-        </div>
-        <div class="col-xl-1 col-lg-2 col-md-1 pd-0">
-          <%= f.submit "絞り込む", class: "btn btn-dark" %>
-        </div>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <div>
+        <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
+              <%= f.select :status, options_for_select(Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]},params[:status]), { include_blank: "全て" }, { class: "form-control" } %>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 pd-0">
+              <%= f.collection_select :client_id, @clients, :id, :name, { include_blank: "全て", selected: params[:client_id] }, class: "form-control" %>
+            </div>
+            <div class="col-xl-1 col-lg-2 col-md-1 pd-0">
+              <%= f.submit "絞り込む", class: "btn btn-gray" %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="table-responsive">
-    <table class="table table-borderd text-nowrap employee_index">
-      <tr>
-        <th>タイトル</th>
-        <th>顧客</th>
-        <th>現場住所</th>
-        <th>着工予定日</th>
-        <th>完了予定日</th>
-        <th>進行状況</th>
-      </tr>
-      
-      <% @matters.each do |matter| %>
-        <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
-        <td><%= matter.title %></td>
-        <td><%= matter.client.name %></td>
-        <td><%= matter.actual_spot %></td>
-        <td><%= matter.scheduled_started_on %></td>
-        <td><%= matter.scheduled_finished_on %></td>
-        <td><%= I18n.t("enums.matter.status.#{matter.status}") %></td>
-        </tr>
-      <% end %>
-    </table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-borderd text-nowrap common-table">
+          <tr>
+            <th>タイトル</th>
+            <th>顧客</th>
+            <th>現場住所</th>
+            <th>着工予定日</th>
+            <th>完了予定日</th>
+            <th>進行状況</th>
+          </tr>
+          
+          <% @matters.each do |matter| %>
+            <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
+            <td><%= matter.title %></td>
+            <td><%= matter.client.name %></td>
+            <td><%= matter.actual_spot %></td>
+            <td><%= matter.scheduled_started_on %></td>
+            <td><%= matter.scheduled_finished_on %></td>
+            <td><%= I18n.t("enums.matter.status.#{matter.status}") %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
   </div>
 </div>
 

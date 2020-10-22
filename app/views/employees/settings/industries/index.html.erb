@@ -1,22 +1,27 @@
-<div>
-  <h2>業種一覧</h2>
-  <button class="btn btn-dark" data-toggle="modal" data-target="#industry-new">作成</button>
-  <table class="table table-sm table" id="employees-industries-table">
-    <tr>
-      <th>名前</th>
-      <th></th>
-    </tr>
-    <% @industries.each do |industry| %>
-      <tr>
-        <td><%= industry.name %></td>
-        <td>
-          <div hidden><%= industry.id %></div>
-          <button class="btn btn-sm btn-dark to-edit-industry" data-toggle="modal" data-target="#industry-edit" >編集</button>
-          <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<div class="container">
+  <h2>業種一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#industry-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm table common-table">
+        <tr>
+          <th>名前</th>
+          <th></th>
+        </tr>
+        <% @industries.each do |industry| %>
+          <tr>
+            <td><%= industry.name %></td>
+            <td>
+              <div hidden><%= industry.id %></div>
+              <button class="btn btn-sm btn-dark to-edit-industry" data-toggle="modal" data-target="#industry-edit" >編集</button>
+              <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>
 
 <script>

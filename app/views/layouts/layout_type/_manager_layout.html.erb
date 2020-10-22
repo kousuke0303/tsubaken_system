@@ -5,13 +5,20 @@
     <div class="sidebar-header"><%= image_tag "logo.jpg" %></div>
 
     <ul class="list-unstyled components">
-      <p>マネージャー専用ページ</p>
+      <p>Manager専用ページ</p>
       <li>
         <a href="#employees-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">従業員管理</a>
         <ul class="collapse list-unstyled" id="employees-menu">
-          <li><%= link_to "スタッフ", employees_staffs_path %></li>
+          <li><%= link_to "Staff", employees_staffs_path %></li>
         </ul>
-      </li>  
+      </li>
+      <li>
+        <a href="#attendances-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">勤怠管理</a>
+        <ul class="collapse list-unstyled" id="attendances-menu">
+          <li><%= link_to "日別", daily_employees_attendances_path %></li>
+          <li><%= link_to "個別", individual_employees_attendances_path %></li>
+        </ul>
+      </li>
       <li><%= link_to "顧客管理", employees_clients_path %></li>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "案件管理", employees_matters_path %></li>

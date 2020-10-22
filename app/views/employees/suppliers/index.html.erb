@@ -1,18 +1,23 @@
-<div>
-  <h2>外注先一覧</h2>
-  <%= link_to "作成", new_employees_supplier_path, class: "btn btn-dark" %>
-  <table class="table table-sm" id="employees-table">
-    <tr>
-      <th>名前</th>
-      <th>電話番号①</th>
-      <th>住所</th>
-    </tr>
-    <% @suppliers.each do |supplier| %>
-      <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
-        <td><%= supplier.name %></td>
-        <td><%= supplier.phone_1 %></td>
-        <td><%= supplier.address %></td>
-      </tr>
-    <% end %>
-  </table>
+<div class="container">
+  <h2>外注先一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#supplier-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm common-table">
+        <tr>
+          <th>名前</th>
+          <th>電話番号①</th>
+          <th>住所</th>
+        </tr>
+        <% @suppliers.each do |supplier| %>
+          <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
+            <td><%= supplier.name %></td>
+            <td><%= supplier.phone_1 %></td>
+            <td><%= supplier.address %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

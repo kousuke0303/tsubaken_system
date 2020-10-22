@@ -19,12 +19,16 @@ class ApplicationController < ActionController::Base
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_month_attendances(resource)
     set_one_month
-    unless resource.attendances.where(worked_on: @first_day..@last_day).length == @one_month.length
-      @one_month.each do |day|
-        attendance = resource.attendances.create!(worked_on: day)
-      end
-    end
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day)
+    unless @attendances.length == @one_month.length
+      ActiveRecord::Base.transaction do
+        @one_month.each { |day| resource.attendances.create!(worked_on: day) }
+      end
+      @attendances = resource.attendances.where(worked_on: @first_day..@last_day)
+    end
+  rescue ActiveRecord::RecordInvalid 
+    flash[:danger] = "ページ情報の取得に失敗しました"
+    redirect_to root_url
   end
 
   def set_today_attendance(resource)

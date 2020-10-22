@@ -1,0 +1,15 @@
+<button class="btn btn-dark" data-toggle="modal" data-target="#external-staff-new">作成</button>
+<table class="table table-sm common-table">
+  <tr>
+    <th>名前</th>
+    <th>ログインID</th>
+    <th>電話番号</th>
+  </tr>
+  <% @external_staffs.each do |external_staff| %>
+    <tr class="tr-link" data-link="<%= employees_supplier_external_staff_path(@supplier, external_staff) %>">
+      <td><%= external_staff.name %></td>
+      <td><%= external_staff.login_id %></td>
+      <td><%= external_staff.phone %></td>
+    </tr>
+  <% end %>
+</table>

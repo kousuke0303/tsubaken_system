@@ -1,21 +1,41 @@
-<div>
-  <h2>マネージャー一覧</h2>
-  <%= link_to "作成", new_employees_manager_path, class: "btn btn-dark" %>
+<div class="container">
+  <h2>Manager一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#manager-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="managers-index" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#enrolled" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">在籍中</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#retired" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">退職済</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content" id="managers-index">
 
-  <table class="table table-sm" id="admins-managers-table">
-    <tr>
-      <th>名前</th>
-      <th>ログインID</th>
-      <th>電話番号</th>
-      <th>入社日</th>
-    </tr>
-    <% @managers.each do |manager| %>
-      <tr class="tr-link" data-link="<%= employees_manager_path(manager) %>">
-        <td><%= manager.name %></td>
-        <td><%= manager.login_id %></td>
-        <td><%= manager.phone %></td>
-        <td><%= manager.joined_on %></td>
-      </tr>
-    <% end %>
-  </table>
+        <div class="tab-pane fade show active bg-white" id="enrolled" role="tabpanel" aria-labelledby="home-tab">
+          <table class="table table-sm common-table">
+            <tr>
+              <th>名前</th>
+              <th>ログインID</th>
+              <th>電話番号</th>
+              <th>入社日</th>
+            </tr>
+            <% @managers.each do |manager| %>
+              <tr class="tr-link" data-link="<%= employees_manager_path(manager) %>">
+                <td><%= manager.name %></td>
+                <td><%= manager.login_id %></td>
+                <td><%= manager.phone %></td>
+                <td><%= manager.joined_on %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade show active bg-white" id="retired" role="tabpanel" aria-labelledby="home-tab">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

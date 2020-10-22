@@ -1,20 +1,42 @@
-<div>
-  <h2>スタッフ一覧</h2>
-  <%= link_to "作成", new_employees_staff_path, class: "btn btn-dark" %>
-  <table class="table table-sm" id="staffs-table">
-    <tr>
-      <th>名前</th>
-      <th>ログインID</th>
-      <th>電話番号</th>
-      <th>入社日</th>
-    </tr>
-    <% @staffs.each do |staff| %>
-      <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
-        <td><%= staff.name %></td>
-        <td><%= staff.login_id %></td>
-        <td><%= staff.phone %></td>
-        <td><%= staff.joined_on %></td>
-      </tr>
-    <% end %>
-  </table>
+<div class="container">
+  <h2>Staff一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#staff-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="staffs-index" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#enrolled" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">在籍中</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#retired" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">退職済</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content" id="staffs-index">
+
+        <div class="tab-pane fade show active bg-white" id="enrolled" role="tabpanel" aria-labelledby="home-tab">
+          <table class="table table-sm common-table">
+            <tr>
+              <th>名前</th>
+              <th>ログインID</th>
+              <th>電話番号</th>
+              <th>入社日</th>
+            </tr>
+            <% @staffs.each do |staff| %>
+              <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
+                <td><%= staff.name %></td>
+                <td><%= staff.login_id %></td>
+                <td><%= staff.phone %></td>
+                <td><%= staff.joined_on %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <div class="tab-pane fade show active bg-white" id="retired" role="tabpanel" aria-labelledby="home-tab">
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
