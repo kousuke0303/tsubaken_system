@@ -1,0 +1,155 @@
+<div class="col-sm-12 text-right mb-1e">
+  <button class="btn btn-primary" id="addToDo"><i class="fas fa-plus"></i>タスク追加</button>
+</div>
+
+<div class="matter_task_disp" id="myKanban"></div>
+
+<% @tasks.each do |task| %>
+  <div class="modal" id="matter_task_<%= task.id %>_modal">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render partial: 'matter/matters/show_menu/matter_task/task_show', locals: {task: task, status: task.status} %>
+      </div>
+  </div>
+<% end %>
+
+
+<script>
+$(document).ready( function(){
+    
+//初期状態のタスク管理ボード用JSONデータ
+  const defaultBoards = [
+    {
+      "id": "manager_tasks",
+      "title": "登録済タスク一覧",
+      "class": "default",
+    //   "item": [
+    //     </% @manager_tasks.each do |task| %>    
+    //       { 
+    //         "title": "</%= task.title %>",
+    //         "id": "item_id_</%= task.id %>"
+    //       },
+    //     </% end %>
+    //   ]
+    },
+    
+    {
+      "id": "matter_tasks",
+      "title": "この案件のタスク",
+      "class": "task",
+       //   "item": [
+    //     </% @manager_tasks.each do |task| %>    
+    //       { 
+    //         "title": "</%= task.title %>",
+    //         "id": "item_id_</%= task.id %>"
+    //       },
+    //     </% end %>
+    //   ]
+    },
+    
+    {
+      "id": "progress_tasks",
+      "title": "進行中",
+      "class": "running",
+       //   "item": [
+    //     </% @manager_tasks.each do |task| %>    
+    //       { 
+    //         "title": "</%= task.title %>",
+    //         "id": "item_id_</%= task.id %>"
+    //       },
+    //     </% end %>
+    //   ]
+    },
+
+    {
+      "id": "finished_tasks",
+      "title": "完了",
+      "class": "done",
+       //   "item": [
+    //     </% @manager_tasks.each do |task| %>    
+    //       { 
+    //         "title": "</%= task.title %>",
+    //         "id": "item_id_</%= task.id %>"
+    //       },
+    //     </% end %>
+    //   ]
+    }
+  ];
+  
+  //jKanbanのインスタンス作成
+  var kanban = new jKanban({
+    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    gutter          : '13px',       //ボード同士の間隔
+    widthBoard      : '220px',      //ボードのサイズ
+    boards          : defaultBoards,//初期状態のJSONデータ
+    
+    
+    dropEl: function(el, target, a, b){
+      var task = el.getAttribute('data-eid');
+      var status = target.parentNode.getAttribute('data-id');
+      var item_arrey = target.children;
+      item_arrey = [].slice.call(item_arrey);
+      var item_index = item_arrey.indexOf(el);
+      
+    //   $.ajax({
+    //     type: "GET",
+    //     url: "</%= move_task_matter_matter_matter_tasks_path(dependent_manager, @tasks) %>",
+    //     cache: false,
+    //     data: { task: task, status: status, item_index: item_index, remote: true }
+    //   });
+    }
+    
+  });
+  
+  var toDoButton = document.getElementById('addToDo');
+    toDoButton.addEventListener('click',function(){
+      
+      const formItem = document.createElement('form');
+      formItem.innerHTML = '<input type="text", id="new_task_form">';
+      kanban.addForm('matter_tasks', formItem);
+  
+    // $('#new_task_form').on('change', function(){
+    //   var title = $('#new_task_form').val();
+    //   $.ajax({
+    //       type: "GET",
+    //       url: "</%= matter_matter_matter_tasks_path(dependent_manager, @tasks) %>",
+    //       cache: false,
+    //       data: { title: title, remote: true }
+    //   });
+    });
+  });
+  
+  // 現状使用しない
+
+  //var removeItem = document.getElementById('Item_reset');
+  //removeItem.addEventListener('click',function(){
+  //    $('div[data-id="finished_task"] main div').each(function(index, element){
+  //      kanban.removeElement(element)
+  //    });
+      
+  //    $.ajax({
+  //        type: "GET",
+  //        url: "",
+  //        cache: false,
+  //    });
+  //  });
+
+});
+  
+</script>
+
+<script>
+<% @tasks.each do |task| %>
+  $(function(){
+    $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeIn();
+      return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeOut();
+      return false;
+    });
+  });
+<% end %>
+</script>

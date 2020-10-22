@@ -44,6 +44,7 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
+    @tasks = @matter.tasks
   end
 
   def edit
