@@ -18,7 +18,7 @@
               <%= f.collection_select :client_id, @clients, :id, :name, { include_blank: "全て", selected: params[:client_id] }, class: "form-control" %>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-1 pd-0">
-              <%= f.submit "絞り込む", class: "btn btn-dark" %>
+              <%= f.submit "絞り込む", class: "btn btn-gray" %>
             </div>
           </div>
         <% end %>
