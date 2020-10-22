@@ -1,0 +1,84 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>タイトル</th>
+    <td><%= @matter.title %></td>
+  </tr>
+  <tr>
+    <th>顧客</th>
+    <td><%= @matter.client.name %></td>
+  </tr>
+
+  <% if @managers.exists? %>
+    <% @managers.each_with_index do |manager, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @managers.count %>">担当マネージャー</th>
+        <% end %>
+        <td><%= manager.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>担当マネージャー</th>
+      <td></td>
+    </tr>
+  <% end %>
+
+  <% if @staffs.exists? %>
+    <% @staffs.each_with_index do |staff, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @staffs.count %>">担当スタッフ</th>
+        <% end %>
+        <td><%= staff.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>担当スタッフ</th>
+      <td></td>
+    </tr>
+  <% end %>
+
+  <tr>
+    <th>郵便番号</th>
+    <td><%= @matter.zip_code %></td>
+  </tr>
+  <tr>
+    <th>現場住所</th>
+    <td><%= @matter.actual_spot %></td>
+  </tr>
+  <tr>
+    <th>進行状況</th>
+    <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>
+  </tr>
+  <tr>
+    <th>着工予定日</th>
+    <td><%= @matter.scheduled_started_on %></td>
+  </tr>
+  <tr>
+    <th>完了予定日</th>
+    <td><%= @matter.scheduled_finished_on %></td>
+  </tr>
+
+  <% if @suppliers.exists? %>
+    <% @suppliers.each_with_index do |supplier, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @suppliers.count %>">外注先</th>
+        <% end %>
+        <td><%= supplier.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>外注先</th>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_matter_path(@matter), class: "btn btn-dark" %>
+  <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>
