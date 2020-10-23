@@ -5,71 +5,49 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
-Manager.create!(name: "マネージャーA",
-                login_id: "MN-manager-a",
-                phone: "08011112222",
-                email: "manager-a@email.com",
-                password: "password",
-                password_confirmation: "password")
-
-Manager.create!(name: "マネージャーB",
-                login_id: "MN-manager-b",
-                phone: "08011112222",
-                email: "manager-b@email.com",
-                password: "password",
-                password_confirmation: "password")
+3.times do |n|
+  Manager.create!(name: "マネージャー#{n}",
+                  login_id: "MN-manager-#{n}",
+                  phone: "08011112222",
+                  email: "manager-#{n}@email.com",
+                  password: "password",
+                  password_confirmation: "password")
+end
 
 puts "CREATE! MANAGER"
 
-Staff.create!(name: "スタッフA",
-              login_id: "ST-staff-a",
-              phone: "08011112222",
-              email: "staff-a@email.com",
-              password: "password",
-              password_confirmation: "password")
-
-Staff.create!(name: "スタッフB",
-              login_id: "ST-staff-b",
-              phone: "08011662222",
-              email: "staff-b@email.com",
-              password: "password",
-              password_confirmation: "password")
+3.times do |n|
+  Staff.create!(name: "スタッフ#{n}",
+                login_id: "ST-staff-#{n}",
+                phone: "08011112222",
+                email: "staff-#{n}@email.com",
+                password: "password",
+                password_confirmation: "password")
+end
 
 puts "CREATE! STAFF"
 
-Supplier.create!(name: "テスト外注先A",
-                 kana: "テストガイチュウサキエー",
-                 phone_1: "08054545454",
-                 email: "testsupplier-a@email.com",
-                 zip_code: "5940088",
-                 address: "大阪府テスト市")
-          
-                 Supplier.create!(name: "テスト外注先B",
-                 kana: "テストガイチュウサキビー",
-                 phone_1: "08054545774",
-                 email: "testsupplier-b@email.com",
-                 zip_code: "5940188",
-                 address: "大阪府テスト市")
+3.times do |n|
+  Supplier.create!(name: "テスト外注先#{n}",
+                  kana: "テストガイチュウサキ",
+                  phone_1: "08054545454",
+                  email: "testsupplier-#{n}@email.com",
+                  zip_code: "5940088",
+                  address: "大阪府テスト市")
+end
 
 puts "CREATE! Supplier"
 
-ExternalStaff.create!(name: "外部スタッフA",
-                      kana: "ガイブスタッフエー",
-                      login_id: "SP1-sup-a",
+3.times do |n|
+ExternalStaff.create!(name: "外部スタッフ#{n}",
+                      kana: "ガイブスタッフ",
+                      login_id: "SP1-sup-#{n}",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       supplier_id: 1,
                       password: "password",
                       password_confirmation: "password")
-
-ExternalStaff.create!(name: "外部スタッフB",
-                      kana: "ガイブスタッフビー",
-                      login_id: "SP1-sup-b",
-                      phone: "08054545454",
-                      email: "testexternal-b@email.com",
-                      supplier_id: 1,
-                      password: "password",
-                      password_confirmation: "password")
+end
 
 puts "CREATE! ExternalStaff"
 
@@ -78,24 +56,43 @@ Industry.create!(name: "足場関係")
 
 puts "CREATE! INDUSTRY"
 
-Client.create!(name: "テスト顧客A",
-               login_id: "CL-client-a",
-               phone_1: "08011112222",
-               phone_2: "08011113333",
-               email: "testclient-a@email.com",
-               zip_code: "5940088",
-               address: "大阪府テスト市",
-               password: "password",
-               password_confirmation: "password")
-              
-Client.create!(name: "テスト顧客B",
-               login_id: "CL-client-b",
-               phone_1: "08011112222",
-               phone_2: "08011113333",
-               email: "testclientr-b@email.com",
-               zip_code: "5940088",
-               address: "大阪府テスト市",
-               password: "password",
-               password_confirmation: "password")
+3.times do |n|
+  Client.create!(name: "テスト顧客#{n}",
+                login_id: "CL-client-#{n}",
+                phone_1: "08011112222",
+                phone_2: "08011113333",
+                email: "client-#{n}@email.com",
+                zip_code: "5940088",
+                address: "大阪府テスト市",
+                password: "password",
+                password_confirmation: "password")
+end
 
 puts "CREATE! CLIENT"
+
+first_day = Date.current.beginning_of_month
+last_day = first_day.end_of_month
+one_month = [*first_day..last_day]
+today = Date.current
+year = today.year
+month = today.month
+day = today.day
+Manager.all.each do |manager|
+  one_month.each { |day| manager.attendances.create!(worked_on: day) }
+  manager.attendances.find_by(worked_on: Date.current).update_attributes!(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                          finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
+
+Staff.all.each do |staff|
+  one_month.each { |day| staff.attendances.create!(worked_on: day) }
+  staff.attendances.find_by(worked_on: Date.current).update_attributes!(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                        finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
+
+ExternalStaff.all.each do |external_staff|
+  one_month.each { |day| external_staff.attendances.create!(worked_on: day) }
+  external_staff.attendances.find_by(worked_on: Date.current).update_attributes!(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                                 finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
+
+puts "CREATE! ATTENDANCES"

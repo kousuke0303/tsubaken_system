@@ -13,7 +13,19 @@
     </div>
         
     <div class="card-body">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <%= render "employees/attendances/base_table", attendances: @manager_attendances %>
+        </div>
 
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <%= render "employees/attendances/base_table", attendances: @staff_attendances %> 
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <%= render "employees/attendances/base_table", attendances: @external_staff_attendances %> 
+        </div>
+      </div>
     </div>
   </div>
 </div>
