@@ -4,7 +4,7 @@ class Employees::AttendancesController < ApplicationController
 
   def daily
     params[:day] && params[:day].present? ? @day = params[:day].to_date : @day = Date.current
-    attendances = Attendance.where(worked_on: @day)
+    attendances = Attendance.where(worked_on: @day).includes(:manager).includes(:staff).includes(:external_staff)
     @manager_attendances = attendances.where(manager_id: !nil)
     @staff_attendances = attendances.where(staff_id: !nil)
     @external_staff_attendances = attendances.where(external_staff_id: !nil)

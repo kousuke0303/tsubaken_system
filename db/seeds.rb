@@ -6,10 +6,10 @@ Admin.create!(name: "管理者",
 puts "CREATE! ADMIN"
 
 3.times do |n|
-  Manager.create!(name: "マネージャー#{n}",
-                  login_id: "MN-manager-#{n}",
+  Manager.create!(name: "マネージャー#{ n + 1 }",
+                  login_id: "MN-manager-#{ n + 1 }",
                   phone: "08011112222",
-                  email: "manager-#{n}@email.com",
+                  email: "manager-#{ n + 1 }@email.com",
                   password: "password",
                   password_confirmation: "password")
 end
@@ -17,10 +17,10 @@ end
 puts "CREATE! MANAGER"
 
 3.times do |n|
-  Staff.create!(name: "スタッフ#{n}",
-                login_id: "ST-staff-#{n}",
+  Staff.create!(name: "スタッフ#{ n + 1 }",
+                login_id: "ST-staff-#{ n + 1 }",
                 phone: "08011112222",
-                email: "staff-#{n}@email.com",
+                email: "staff-#{ n + 1 }@email.com",
                 password: "password",
                 password_confirmation: "password")
 end
@@ -28,10 +28,10 @@ end
 puts "CREATE! STAFF"
 
 3.times do |n|
-  Supplier.create!(name: "テスト外注先#{n}",
+  Supplier.create!(name: "テスト外注先#{ n + 1 }",
                   kana: "テストガイチュウサキ",
                   phone_1: "08054545454",
-                  email: "testsupplier-#{n}@email.com",
+                  email: "testsupplier-#{ n + 1 }@email.com",
                   zip_code: "5940088",
                   address: "大阪府テスト市")
 end
@@ -39,9 +39,9 @@ end
 puts "CREATE! Supplier"
 
 3.times do |n|
-ExternalStaff.create!(name: "外部スタッフ#{n}",
+ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       kana: "ガイブスタッフ",
-                      login_id: "SP1-sup-#{n}",
+                      login_id: "SP1-sup-#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       supplier_id: 1,
@@ -57,11 +57,11 @@ Industry.create!(name: "足場関係")
 puts "CREATE! INDUSTRY"
 
 3.times do |n|
-  Client.create!(name: "テスト顧客#{n}",
-                login_id: "CL-client-#{n}",
+  Client.create!(name: "テスト顧客#{ n + 1 }",
+                login_id: "CL-client-#{ n +1 }",
                 phone_1: "08011112222",
                 phone_2: "08011113333",
-                email: "client-#{n}@email.com",
+                email: "client-#{ n + 1 }@email.com",
                 zip_code: "5940088",
                 address: "大阪府テスト市",
                 password: "password",

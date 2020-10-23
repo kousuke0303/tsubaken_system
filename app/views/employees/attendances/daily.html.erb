@@ -5,7 +5,7 @@
     <div class="card-header bg-dark text-center text-white">
       <h2>
         <%= link_to "＜＜", daily_employees_attendances_path(day: @day.yesterday), class: "btn btn-gray" %>
-        <%= @day %>
+        <%= l(@day, format: :long) %>
         <% if @day < Date.current %>
           <%= link_to "＞＞", daily_employees_attendances_path(day: @day.tomorrow), class: "btn btn-gray" %>
         <% end %>
