@@ -27,14 +27,40 @@
           <th>日付</th>
           <th>出勤時間</th>
           <th>退勤時間</th>
+          <th>勤務時間</th>
         </tr>
+        <% @total_working_days = 0 %>
+        <% @total_working_minutes = 0 %>
         <% @attendances.each do |attendance| %>
           <tr>
             <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
-            <td><%= l(attendance.started_at, format: :time) if attendance.started_at.present? %></td>
+            <td>
+              <% if attendance.started_at.present? %>
+                <%= l(attendance.started_at, format: :time) %>
+                <% @total_working_days += 1 %>
+              <% end %>
+            </td>
             <td><%= l(attendance.finished_at, format: :time) if attendance.finished_at.present? %></td>
+            <td>
+              <% if attendance.working_minutes.present? %>
+                <%= daily_working_time(attendance.working_minutes) %>
+                <% @total_working_minutes += attendance.working_minutes.to_i %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
+        <tr>
+          <th></th>
+          <th>出勤回数</th>
+          <th></th>
+          <th>合計勤務時間</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= @total_working_days %>日</td>
+          <td></td>
+          <td><%= monthly_working_time(@total_working_minutes) %></td>
+        </tr>
       </table>
     </div>
   </div>

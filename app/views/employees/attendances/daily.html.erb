@@ -1,9 +1,15 @@
 <div class="container">
   <h2>日別勤怠</h2>
       
-  <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark">
-
+  <div class="card tab-wrapper">
+    <div class="card-header bg-dark text-center text-white">
+      <h2>
+        <%= link_to "＜＜", daily_employees_attendances_path(day: @day.yesterday), class: "btn btn-gray" %>
+        <%= @day %>
+        <% if @day < Date.current %>
+          <%= link_to "＞＞", daily_employees_attendances_path(day: @day.tomorrow), class: "btn btn-gray" %>
+        <% end %>
+        </h2>
     </div>
         
     <div class="card-body">

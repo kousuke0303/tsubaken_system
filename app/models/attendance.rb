@@ -4,6 +4,8 @@ class Attendance < ApplicationRecord
   validate :finished_is_after_started
   validate :require_worker
 
+  before_save { save_working_minutes }
+
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
@@ -20,5 +22,16 @@ class Attendance < ApplicationRecord
 
   def require_worker
     errors.add(:base, "勤務者を入力してください") if manager_id.blank? && staff_id.blank? && external_staff_id.blank?
+  end
+
+  # 勤務時間(分)を保存
+  def save_working_minutes
+    if self.started_at.present? && self.finished_at.present?
+      start = self.started_at.hour * 60 + self.started_at.min
+      finish = self.finished_at.hour * 60 + self.finished_at.min
+      self.working_minutes = finish - start
+    else
+      self.working_minutes = nil
+    end
   end
 end

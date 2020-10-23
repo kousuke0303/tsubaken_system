@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.string "working_minutes"
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
