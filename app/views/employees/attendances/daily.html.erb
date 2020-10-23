@@ -9,21 +9,21 @@
         <% if @day < Date.current %>
           <%= link_to "＞＞", daily_employees_attendances_path(day: @day.tomorrow), class: "btn btn-gray" %>
         <% end %>
-        </h2>
+      </h2>
     </div>
         
     <div class="card-body">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <%= render "employees/attendances/base_table", attendances: @manager_attendances %>
+          <%= render "employees/attendances/base_table", employee_type: "Manager", attendances: @manager_attendances %>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <%= render "employees/attendances/base_table", attendances: @staff_attendances %> 
+          <%= render "employees/attendances/base_table", employee_type: "Staff", attendances: @staff_attendances %> 
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <%= render "employees/attendances/base_table", attendances: @external_staff_attendances %> 
+          <%= render "employees/attendances/base_table", employee_type: "外部Staff", attendances: @external_staff_attendances %> 
         </div>
       </div>
     </div>

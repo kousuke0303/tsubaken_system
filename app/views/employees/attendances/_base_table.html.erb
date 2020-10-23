@@ -1,4 +1,6 @@
-<table class="table table-sm">
+<div class="text-center"><h5><%= employee_type %></h5></div>
+
+<table class="table table-sm common-table">
   <tr>
     <th>名前</th>
     <th width=20%>出勤</th>
@@ -8,9 +10,9 @@
   <% attendances.each do |attendance| %>
     <tr>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%= l(attendance.started_at, format: :time) if attendance.started_at.present? %></td>
+      <td><%= l(attendance.finished_at, format: :time) if attendance.finished_at.present? %></td>
+      <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
     </tr>
   <% end %>
 </table>

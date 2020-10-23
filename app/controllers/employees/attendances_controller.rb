@@ -11,5 +11,6 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def individual
+    @attendances = Attendance.where(manager_id: !nil)
   end
 end

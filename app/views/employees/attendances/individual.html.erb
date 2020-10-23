@@ -3,32 +3,41 @@
       
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="individual" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#manager" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Manager</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#staff" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">Staff</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#external-staff" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">外部Staff</a>
-        </li>
-      </ul>
+      <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
+        <div class="row">
+          <div class="col-lg-3 col-md-3">
+            <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" },
+                               { class: "form-control" , required: true } %>
+          </div>
+          <div class="col-lg-3 col-md-3">
+          </div>
+          <div class="col-lg-2 col-md-2">
+            
+          </div>
+          <div class="col-lg-2 col-md-2">
+            
+          </div>
+        </div>
+      <% end %>
     </div>
         
     <div class="card-body">
-      <div class="tab-content" id="individual">
-            
-        <div class="tab-pane fade show active bg-white" id="manager" role="tabpanel">
-        </div>
-          
-        <div class="tab-pane fade bg-white" id="staff" role="tabpanel">
-        </div>
-
-        <div class="tab-pane fade bg-white" id="external-staff" role="tabpanel">
-        </div>
-        
-      </div>
+      <table class="table table-sm">
+        <tr>
+          <th>日付</th>
+          <th>出勤時間</th>
+          <th>退勤時間</th>
+          <th>勤務時間</th>
+        </tr>
+        <% @attendances.each do |attendance| %>
+          <tr>
+            <td><%= attendance.worked_on %></td>
+            <td><%= attendance.started_at %></td>
+            <td><%= attendance.finished_at %></td>
+            <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>
