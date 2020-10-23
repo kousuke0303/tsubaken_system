@@ -1,34 +1,41 @@
-<div> 
-  <div class="center">
-    <h2>
-      <%= link_to "＜＜", yield(:to_prev_month_url), class: "btn btn-dark" %>
-      <%= @first_day.strftime("%Y年%m月") %>　出退勤一覧
-      <%= link_to "＞＞", yield(:to_next_month_url), class: "btn btn-dark" %>
-    </h2>
-  </div>
+<div class="container"> 
 
-  <div class="center">
-    <% if @attendance.started_at.blank? && @attendance.finished_at.blank? %>
-      <%= link_to "出勤", yield(:register_attendance_url), method: :patch, class: "btn btn-dark btn-lg" %>
-    <% elsif @attendance.started_at.present? && @attendance.finished_at.blank? %>
-      <%= link_to "退勤", yield(:register_attendance_url), method: :patch, class: "btn btn-dark btn-lg" %>
-    <% else %>
-      <button class="btn btn-dark btn-lg" disabled="true">退勤済</button>
-    <% end %>
-  </div>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark text-center">
+      <h2>
+        <%= link_to "＜＜", yield(:to_prev_month_url), class: "btn btn-gray" %>
+        <span class="text-white"><%= @first_day.strftime("%Y年%m月") %>　出退勤一覧</span>
+        <% if @first_day < Date.current.beginning_of_month %>
+          <%= link_to "＞＞", yield(:to_next_month_url), class: "btn btn-gray" %>
+        <% end %>
+      </h2>
+    </div>
 
-  <table class="table table-sm mt-1e" id="monthly-attendances-table">
-    <tr>
-      <th>日付</th>
-      <th>出勤時間</th>
-      <th>退勤時間</th>
-    </tr>
-    <% @attendances.each do |attendance| %>
-      <tr>
-        <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
-        <td><%= l(attendance.started_at, format: :time) if attendance.started_at.present? %></td>
-        <td><%= l(attendance.finished_at, format: :time) if attendance.finished_at.present? %></td>
-      </tr>
-    <% end %>
-  </table>
+    <div class="card-body">
+      <div class="text-center">
+        <% if @attendance.started_at.blank? && @attendance.finished_at.blank? %>
+          <%= link_to "出勤", yield(:register_attendance_url), method: :patch, class: "btn btn-dark btn-lg" %>
+        <% elsif @attendance.started_at.present? && @attendance.finished_at.blank? %>
+          <%= link_to "退勤", yield(:register_attendance_url), method: :patch, class: "btn btn-dark btn-lg" %>
+        <% else %>
+          <button class="btn btn-dark btn-lg" disabled="true">退勤済</button>
+        <% end %>
+      </div>
+
+      <table class="table table-sm common-table">
+        <tr>
+          <th>日付</th>
+          <th>出勤時間</th>
+          <th>退勤時間</th>
+        </tr>
+        <% @attendances.each do |attendance| %>
+          <tr>
+            <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
+            <td><%= l(attendance.started_at, format: :time) if attendance.started_at.present? %></td>
+            <td><%= l(attendance.finished_at, format: :time) if attendance.finished_at.present? %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>
