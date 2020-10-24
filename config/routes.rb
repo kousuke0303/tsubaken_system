@@ -8,7 +8,6 @@ Rails.application.routes.draw do
         post "client_create", to: "clients#create"
         put "client_update", to: "clients#update"
         delete "client_destroy", to: "clients#destroy"
-        # resources :clients
       end
     end
   end
