@@ -8,31 +8,31 @@
 
           <div class="col-lg-3 col-md-3" style="display: flex;">
             <div style="width: 60%;">
-              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control" , required: true } %>
+              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
             </div>
               
             <div style="width: 40%;">
-              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control" , required: true } %>
+              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control", required: true } %>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-3">
-            <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" }, { class: "form-control" , required: true } %>
+            <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
           <div class="col-lg-3 col-md-3">
             <%= f.select :disabled, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3" hidden>
+          <div class="col-lg-3 col-md-3" id="manager" hidden>
             <%= f.collection_select :client_id, @managers, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" hidden>
+          <div class="col-lg-3 col-md-3" id="staff" hidden>
             <%= f.collection_select :client_id, @staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" hidden>
+          <div class="col-lg-3 col-md-3" id="external_staff" hidden>
             <%= f.collection_select :client_id, @external_staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
@@ -63,3 +63,7 @@
     </div>
   </div>
 </div>
+
+<script>
+
+</script>
