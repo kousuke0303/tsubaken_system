@@ -20,19 +20,19 @@
             <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3">
+          <div class="col-lg-3 col-md-3" id="disabled">
             <%= f.select :disabled, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="manager" hidden>
+          <div class="col-lg-3 col-md-3" id="manager">
             <%= f.collection_select :client_id, @managers, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="staff" hidden>
+          <div class="col-lg-3 col-md-3" id="staff">
             <%= f.collection_select :client_id, @staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="external_staff" hidden>
+          <div class="col-lg-3 col-md-3" id="external_staff">
             <%= f.collection_select :client_id, @external_staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
@@ -65,5 +65,36 @@
 </div>
 
 <script>
+  const manager = $("#manager");
+  const staff = $("#staff");
+  const externalStaff = $("#external_staff");
+  const disabled = $("#disabled");
 
+  manager.hide();
+  staff.hide();
+  externalStaff.hide();
+
+  $("#type").change(function() {
+    if($(this).val() == "1"){
+      manager.show();
+      staff.hide();
+      externalStaff.hide();
+      disabled.hide();
+    } else if ($(this).val() == "2") {
+      manager.hide();
+      staff.show();
+      externalStaff.hide();
+      disabled.hide();
+    } else if ($(this).val() == "3") {
+      manager.hide();
+      staff.hide();
+      externalStaff.show();
+      disabled.hide();
+    } else {
+      manager.hide();
+      staff.hide();
+      externalStaff.hide();
+      disabled.show();
+    };
+  });
 </script>
