@@ -8,11 +8,11 @@
 
           <div class="col-lg-3 col-md-3" style="display: flex;">
             <div style="width: 60%;">
-              <%= f.select :year, { "2020年": 2020, "2019年": 22019 }, {}, { class: "form-control" , required: true } %>
+              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control" , required: true } %>
             </div>
               
             <div style="width: 40%;">
-              <%= f.select :month, Constants::MONTH_HASH, { selected: Date.current.month }, { class: "form-control" , required: true } %>
+              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control" , required: true } %>
             </div>
           </div>
 
@@ -21,11 +21,23 @@
           </div>
 
           <div class="col-lg-3 col-md-3">
-            
+            <%= f.select :disabled, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3">
-            
+          <div class="col-lg-3 col-md-3" hidden>
+            <%= f.collection_select :client_id, @managers, :id, :name, {}, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" hidden>
+            <%= f.collection_select :client_id, @staffs, :id, :name, {}, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" hidden>
+            <%= f.collection_select :client_id, @external_staffs, :id, :name, {}, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3 text-left">
+            <%= f.submit "検索", class: "btn btn-gray" %>
           </div>
         </div>
       <% end %>
