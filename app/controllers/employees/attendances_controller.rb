@@ -16,10 +16,6 @@ class Employees::AttendancesController < ApplicationController
 
   # 従業員別の月毎の勤怠表示ページ
   def individual
-    @years_hash = Hash.new
-    latest_year = Date.current.year
-    [*latest_year - 30..latest_year].each { |year| @years_hash.store("#{year}年", year) }
-    @years_hash = @years_hash.sort.reverse.to_h
     @managers = Manager.all
     @staffs = Staff.all
     @external_staffs = ExternalStaff.all
