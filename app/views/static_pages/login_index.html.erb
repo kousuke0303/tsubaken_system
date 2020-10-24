@@ -1,22 +1,3 @@
-<div class="login-main-content">
-  <div class="grid-login">
-    <h2><span class="fontawesome-lock"></span>ログイン</h2>    
-    <fieldset>
-      <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
-        <p><%= f.label :login_id, "ログインID" %></p>
-        <p><%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id" %></p>
-        
-        <p><%= f.label :password %></p>
-        <p><%= f.password_field :password, maxlength: 12, required: true, id: "password" %></p>
-        
-        <%= f.check_box :remember_me, id: "remember-me" %>
-        <%= f.label :remember_me, "ログイン状態を維持する" %>
-        
-        <%= f.submit "ログイン", id: "login" %>
-      <% end %>     
-    </fieldset>  
-  </div>
-</div>
 
 <script>
   // 入力された従業員IDに合わせてログインフォームを、管理者、マネージャー、スタッフ、外部スタッフ、顧客に変更
