@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
       namespace :employees do
-        resources :clients
+        post "client_create", to: "clients#create"
+        put "client_update", to: "clients#update"
+        delete "client_destroy", to: "clients#destroy"
+        # resources :clients
       end
     end
   end
