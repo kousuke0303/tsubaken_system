@@ -1,9 +1,9 @@
 <div class="container">
-  <h2>個別勤怠</h2>
+  <h2>個別勤怠</h2><%= link_to "d", individual_employees_attendances_path %>
       
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark">
-      <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
+      <%= form_with url: individual_employees_attendances_path, method: :get, local: true do |f| %>
         <div class="row">
 
           <div class="col-lg-3 col-md-3" style="display: flex;">
@@ -20,19 +20,19 @@
             <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3">
+          <div class="col-lg-3 col-md-3" id="disabled">
             <%= f.select :disabled, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="manager" hidden>
+          <div class="col-lg-3 col-md-3" id="manager">
             <%= f.collection_select :client_id, @managers, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="staff" hidden>
+          <div class="col-lg-3 col-md-3" id="staff">
             <%= f.collection_select :client_id, @staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="external_staff" hidden>
+          <div class="col-lg-3 col-md-3" id="external_staff">
             <%= f.collection_select :client_id, @external_staffs, :id, :name, {}, class: "form-control" %>
           </div>
 
@@ -65,5 +65,38 @@
 </div>
 
 <script>
+  const manager = $("#manager");
+  const staff = $("#staff");
+  const externalStaff = $("#external_staff");
+  const disabled = $("#disabled");
 
+  // 従業員タイプ未選択時は、従業員選択フォームを非表示
+  manager.hide();
+  staff.hide();
+  externalStaff.hide();
+
+  // 従業員タイプ選択が変わる度に、該当のセレクトフォームを表示
+  $("#type").change(function() {
+    if($(this).val() == "1"){
+      manager.show();
+      staff.hide();
+      externalStaff.hide();
+      disabled.hide();
+    } else if ($(this).val() == "2") {
+      manager.hide();
+      staff.show();
+      externalStaff.hide();
+      disabled.hide();
+    } else if ($(this).val() == "3") {
+      manager.hide();
+      staff.hide();
+      externalStaff.show();
+      disabled.hide();
+    } else {
+      manager.hide();
+      staff.hide();
+      externalStaff.hide();
+      disabled.show();
+    };
+  });
 </script>

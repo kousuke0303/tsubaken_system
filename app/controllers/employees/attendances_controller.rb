@@ -16,6 +16,10 @@ class Employees::AttendancesController < ApplicationController
 
   # 従業員別の月毎の勤怠表示ページ
   def individual
+    if params[:year] && params[:year].present? && params[:month] && params[:month].present?
+      @first_day = "#{params[:year]}-#{params[:month]}-01".to_date
+      @last_day = @first_day.end_of_month
+    end
     @managers = Manager.all
     @staffs = Staff.all
     @external_staffs = ExternalStaff.all

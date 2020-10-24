@@ -1,0 +1,36 @@
+<header class="header-login smp-center">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 smp_center">
+        <%= image_tag "logo_image.png", size: "300x75", alt:"ロゴ" %>
+      </div>
+      <div class="col-sm-8 login_menu">
+        <button class="btn btn-lg btn-dark login-button smp_none" id="login_modal">ログイン</button>
+      </div>
+    </div>
+          
+    <!--login_modal-->
+      <div class="modal login_form">
+        <div class="modal__bg js-modal-close"></div>
+          <div class="">
+            <%= render partial: './static_pages/login_modal' %>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+</header>
+
+<script>
+$(function(){
+    $('#login_modal').on('click',function(){
+        $('.login_form').fadeIn();
+        return false;
+    });
+    
+    $('.js-modal-close').on('click',function(){
+        $('.login_form').fadeOut();
+        return false;
+    });
+});
+</script>

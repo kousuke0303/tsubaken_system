@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ARCHI</title>
+    <title>AZABU</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
@@ -16,7 +16,7 @@
   <!--ログイン画面のレイアウト-->
   <% if @type == "log_in" %>
     <body class="login-wrapper">
-      <header class="header-login smp-center"><%= image_tag "logo.jpg" %></header>
+      <%= render "layouts/header" %>
 
       <div class="login-content">
         <%= render "shared/flash" %>
