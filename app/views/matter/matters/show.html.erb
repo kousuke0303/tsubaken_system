@@ -22,12 +22,12 @@
     <div class="card-body">
       <div class="tab-content" id="myTabContent">
             
-        <div class="tab-pane fade show active bg-white" id="progress_matters" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade show active bg-white" id="progress_matters" role="tabpanel">
           <h5 class="card-title">概要</h5>
           <%= render 'matter/matters/show_menu/title'%>
         </div>
           
-        <div class="tab-pane fade bg-white" id="person_in_charge" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane fade bg-white" id="person_in_charge" role="tabpanel">
           <h5 class="card-title">担当者一覧</h5>
           <%= link_to "#", class: "float-r manage_authority" do %>
             窓口担当者を変更
@@ -41,14 +41,14 @@
           <%= render 'matter/matters/show_menu/person_in_charge/person_in_charge' %>
         </div>
           
-        <div class="tab-pane fade bg-white" id="user_information" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade bg-white" id="user_information" role="tabpanel">
           <h5 class="card-title">依頼人情報</h5>
           <%= render 'matter/matters/show_menu/client/client' %>
           <h5 class="card-title">連結済User情報</h5>
           <%= render 'matter/matters/show_menu/client/connected_user_index' %>
         </div>
         
-        <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade bg-white" id="matter_task_index" role="tabpanel">
           <div class="text-left" id="connect_task_container">
             <% if @connecting_companies_matters.exists? %>
               <button class="btn btn-dark" id="connected_task">連結会社の作業工程</button>

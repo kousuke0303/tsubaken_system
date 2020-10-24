@@ -19,12 +19,16 @@ class ApplicationController < ActionController::Base
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_month_attendances(resource)
     set_one_month
-    unless resource.attendances.where(worked_on: @first_day..@last_day).length == @one_month.length
-      @one_month.each do |day|
-        attendance = resource.attendances.create!(worked_on: day)
+    @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    unless @attendances.length == @one_month.length
+      ActiveRecord::Base.transaction do
+        @one_month.each { |day| resource.attendances.create!(worked_on: day) }
       end
+      @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
-    @attendances = resource.attendances.where(worked_on: @first_day..@last_day)
+  rescue ActiveRecord::RecordInvalid 
+    flash[:danger] = "ページ情報の取得に失敗しました"
+    redirect_to root_url
   end
 
   def set_today_attendance(resource)
@@ -89,8 +93,8 @@ class ApplicationController < ActionController::Base
       end
     
     # matterにstarted_atが登録されている場合(2パターンあり)
-     # 更新=>誤ってtaskを移動したことにより進行中タスクから案件タスクに戻した場合
-     # 完了=>全ての進行タスクが完了タスクに移動された場合
+    # 更新=>誤ってtaskを移動したことにより進行中タスクから案件タスクに戻した場合
+    # 完了=>全ての進行タスクが完了タスクに移動された場合
     else
       # 更新パターンの中でさらに２パターンあり
         # 開始日の更新=>進行中タスクへの移動を間違えた場合

@@ -43,10 +43,6 @@ label {
   display: flex;
 }
 
-.center {
-  text-align: center;
-}
-
 .login-id-lead {
   font-weight: bold;
   padding-top: 7px;
@@ -391,6 +387,16 @@ a.article, a.article:hover {
 }
 
 //* BUTTON *//
+
+.btn-gray {
+  background-color: gainsboro;
+  color: black;
+}
+
+.btn-gray:hover {
+  background-color: silver;
+  color: black;
+}
 
 .btn-purple {
   background-color: #6d7fcc;

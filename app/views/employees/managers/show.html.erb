@@ -1,51 +1,28 @@
-<div>
-  <h2>マネージャー詳細</h2>
+<div class="container">
+  <h2>Manager詳細</h2>
 
-  <table class="table table-sm" id="admins-manager-table">
-    <tr>
-      <th>名前</th>
-      <td><%= @manager.name %></td>
-    </tr>
-    <tr>
-      <th>ログインID</th>
-      <td><%= @manager.login_id %></td>
-    </tr>
-    <tr>
-      <th>電話番号</th>
-      <td><%= @manager.phone %></td>
-    </tr>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= @manager.email %></td>
-    </tr>
-    <tr>
-      <th>生年月日</th>
-      <td><%= @manager.birthed_on %></td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= @manager.zip_code %></td>
-    </tr>
-    <tr>
-      <th>住所</th>
-      <td><%= @manager.address %></td>
-    </tr>
-    <tr>
-      <th>部署</th>
-      <td><%= @department_name %></td>
-    </tr>
-    <tr>
-      <th>入社日</th>
-      <td><%= @manager.joined_on %></td>
-    </tr>
-    <tr>
-      <th>退社日</th>
-      <td><%= @manager.resigned_on %></td>
-    </tr>
-  </table>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="manager-show-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#manager-detail" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">詳細情報</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">案件一覧</a>
+        </li>
+      </ul>
+    </div>
 
-  <div class="btn-area">
-  <button class="btn btn-dark" data-toggle="modal" data-target="#manager-edit">編集</button>
-    <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このマネージャーを削除してよろしいですか？" }, class: "btn btn-danger" %>
+    <div class="card-body">
+      <div class="tab-content" id="manager-show-tab">
+
+        <div class="tab-pane fade show active bg-white" id="manager-detail" role="tabpanel">
+          <%= render "employees/managers/tab_pane/detail" %>
+        </div>
+
+        <div class="tab-pane fade show active bg-white" id="matters" role="tabpanel">
+        </div>
+
+    </div>
   </div>
 </div>

@@ -8,6 +8,7 @@ class ExternalStaff < ApplicationRecord
   attr_accessor :login_id_body
 
   has_many :attendances, dependent: :destroy
+  belongs_to :supplier
   
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
 
