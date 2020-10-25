@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.index ["staff_id"], name: "index_matter_staffs_on_staff_id"
   end
 
+  create_table "matter_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "matter_id"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_matter_tasks_on_matter_id"
+    t.index ["task_id"], name: "index_matter_tasks_on_task_id"
+  end
+
   create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.string "actual_spot"
@@ -180,14 +189,14 @@ ActiveRecord::Schema.define(version: 20201014074600) do
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.integer "status"
-    t.integer "before_status"
-    t.datetime "moved_at"
+    t.string "status"
+    t.string "before_status"
+    t.datetime "moved_on"
     t.integer "row_order"
-    t.string "content"
+    t.string "note"
+    t.string "default_title"
     t.integer "count"
-    t.date "limited_on"
-    t.integer "priority"
+    t.datetime "limited_on"
     t.boolean "notification", default: false
     t.bigint "matter_id"
     t.datetime "created_at", null: false
@@ -205,6 +214,8 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
+  add_foreign_key "matter_tasks", "matters"
+  add_foreign_key "matter_tasks", "tasks"
   add_foreign_key "matters", "clients"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"

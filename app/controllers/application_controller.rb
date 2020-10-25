@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_matter
   helper_method :dependent_manager
   
+  def current_matter
+    @current_matter ||= Matter.find(params[:id])
+  end
+  
+  def dependent_manager
+    @dependent_manager ||= Manager.find(params[:id])
+  end
+  
   # login画面等のデザインformat指定
   def non_approval_layout
     @type = "log_in"

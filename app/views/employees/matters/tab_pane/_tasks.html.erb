@@ -4,11 +4,11 @@
 
 <div class="matter_task_disp" id="myKanban"></div>
 
-<% @tasks.each do |task| %>
-  <div class="modal" id="matter_task_<%= task.id %>_modal">
+<% current_matter.tasks.all.each do |task| %>
+  <div class="modal" id="matter_task_</%= task.id %>_modal">
     <div class="modal__bg js-modal-close"></div>
       <div>
-        <%= render partial: 'matter/matters/show_menu/matter_task/task_show', locals: {task: task, status: task.status} %>
+        <%= render partial: 'employees/matters/tasks/task_show', locals: {task: task, status: task.status} %>
       </div>
   </div>
 <% end %>
@@ -23,56 +23,56 @@ $(document).ready( function(){
       "id": "manager_tasks",
       "title": "登録済タスク一覧",
       "class": "default",
-    //   "item": [
-    //     </% @manager_tasks.each do |task| %>    
-    //       { 
-    //         "title": "</%= task.title %>",
-    //         "id": "item_id_</%= task.id %>"
-    //       },
-    //     </% end %>
-    //   ]
+      "item": [
+        <% @manager_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
     },
     
     {
       "id": "matter_tasks",
       "title": "この案件のタスク",
       "class": "task",
-       //   "item": [
-    //     </% @manager_tasks.each do |task| %>    
-    //       { 
-    //         "title": "</%= task.title %>",
-    //         "id": "item_id_</%= task.id %>"
-    //       },
-    //     </% end %>
-    //   ]
+      "item": [
+        <% @matter_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
     },
     
     {
       "id": "progress_tasks",
       "title": "進行中",
       "class": "running",
-       //   "item": [
-    //     </% @manager_tasks.each do |task| %>    
-    //       { 
-    //         "title": "</%= task.title %>",
-    //         "id": "item_id_</%= task.id %>"
-    //       },
-    //     </% end %>
-    //   ]
+      "item": [
+        <% @matter_progress_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
     },
 
     {
       "id": "finished_tasks",
       "title": "完了",
       "class": "done",
-       //   "item": [
-    //     </% @manager_tasks.each do |task| %>    
-    //       { 
-    //         "title": "</%= task.title %>",
-    //         "id": "item_id_</%= task.id %>"
-    //       },
-    //     </% end %>
-    //   ]
+      "item": [
+        <% @matter_complete_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
     }
   ];
   
@@ -91,12 +91,12 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
       
-    //   $.ajax({
-    //     type: "GET",
-    //     url: "</%= move_task_matter_matter_matter_tasks_path(dependent_manager, @tasks) %>",
-    //     cache: false,
-    //     data: { task: task, status: status, item_index: item_index, remote: true }
-    //   });
+      $.ajax({
+        type: "GET",
+        url: "<%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
     }
     
   });
@@ -108,14 +108,14 @@ $(document).ready( function(){
       formItem.innerHTML = '<input type="text", id="new_task_form">';
       kanban.addForm('matter_tasks', formItem);
   
-    // $('#new_task_form').on('change', function(){
-    //   var title = $('#new_task_form').val();
-    //   $.ajax({
-    //       type: "GET",
-    //       url: "</%= matter_matter_matter_tasks_path(dependent_manager, @tasks) %>",
-    //       cache: false,
-    //       data: { title: title, remote: true }
-    //   });
+    $('#new_task_form').on('change', function(){
+      var title = $('#new_task_form').val();
+      $.ajax({
+          type: "GET",
+          url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+          cache: false,
+          data: { title: title, remote: true }
+      });
     });
   });
   
