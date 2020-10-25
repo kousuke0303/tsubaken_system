@@ -76,49 +76,53 @@
   const initial = $("#initial");
   const inputDisabled = $("#input-disabled");
 
-  <% if params[:type] && params[:type] == "1" %>
+  function showManagerSelect() {
     manager.show();
     staff.hide();
     externalStaff.hide();
     initial.hide();
-  <% elsif params[:type] && params[:type] == "2" %>
+  };
+
+  function showStaffSelect() {
     manager.hide();
     staff.show();
     externalStaff.hide();
     initial.hide();
-  <% elsif params[:type] && params[:type] == "3" %>
+  };
+
+  function showExternalStaffSelect() {
     manager.hide();
     staff.hide();
     externalStaff.show();
     initial.hide();
-  <% else %>
+  };
+
+  function showInitialSelect() {
     manager.hide();
     staff.hide();
     externalStaff.hide();
+  };
+
+  <% if params[:type] && params[:type] == "1" %>
+    showManagerSelect();
+  <% elsif params[:type] && params[:type] == "2" %>
+    showStaffSelect();
+  <% elsif params[:type] && params[:type] == "3" %>
+    showExternalStaffSelect();
+  <% else %>
+    showInitialSelect();
   <% end %>
 
   // 従業員タイプ選択が変わる度に、該当のセレクトフォームを表示
   $("#type").change(function() {
     if($(this).val() == "1"){
-      manager.show();
-      staff.hide();
-      externalStaff.hide();
-      initial.hide();
+      showManagerSelect();
     } else if ($(this).val() == "2") {
-      manager.hide();
-      staff.show();
-      externalStaff.hide();
-      initial.hide();
+      showStaffSelect();
     } else if ($(this).val() == "3") {
-      manager.hide();
-      staff.hide();
-      externalStaff.show();
-      initial.hide();
+      showExternalStaffSelect();
     } else {
-      manager.hide();
-      staff.hide();
-      externalStaff.hide();
-      initial.show();
+      showInitialSelect();
     };
   });
 </script>
