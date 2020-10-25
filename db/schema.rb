@@ -182,12 +182,11 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.string "title"
     t.integer "status"
     t.integer "before_status"
-    t.datetime "moved_at"
+    t.datetime "move_date"
     t.integer "row_order"
-    t.string "content"
-    t.integer "count"
-    t.date "limited_on"
-    t.integer "priority"
+    t.string "contents"
+    t.string "default_title"
+    t.integer "priority_count"
     t.boolean "notification", default: false
     t.bigint "matter_id"
     t.datetime "created_at", null: false

@@ -173,15 +173,15 @@ class ApplicationController < ActionController::Base
   def matter_task_type
     if manager_signed_in? || submanager_signed_in?
       count_matter_task
-      @manager_tasks = dependent_manager.tasks.are_matter_tasks_for_commonly_used
+      @manager_tasks = @task.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
     reload_row_order(@matter_tasks)
-    @matter_progress_tasks = current_matter.tasks.are_progress_tasks
+    @matter_progress_tasks = @task.are_progress_tasks
     # row_orderリセット
     reload_row_order(@matter_progress_tasks)
-    @matter_complete_tasks = current_matter.tasks.are_finished_tasks
+    @matter_complete_tasks = @task.are_finished_tasks
     # row_orderリセット
     reload_row_order(@matter_complete_tasks)
   end

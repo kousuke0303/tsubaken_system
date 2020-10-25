@@ -4,11 +4,12 @@
 
 <div class="matter_task_disp" id="myKanban"></div>
 
-<% @tasks.all.each do |task| %>
-  <div class="modal js-modal-close" id="matter_task_<%= task.id %>_modal">
-    <div>
-      <%= render partial: 'employees/matters/tasks/task_show', locals: {task: task, status: task.status} %>
-    </div>
+<% current_matter.tasks.all.each do |task| %>
+  <div class="modal" id="matter_task_<%= task.id %>_modal">
+    <div class="modal__bg js-modal-close"></div>
+      <div>
+        <%= render partial: 'matter/matters/show_menu/matter_task/task_show', locals: {task: task, status: task.status} %>
+      </div>
   </div>
 <% end %>
 
@@ -23,7 +24,7 @@ $(document).ready( function(){
       "title": "登録済タスク一覧",
       "class": "default",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @manager_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -37,7 +38,7 @@ $(document).ready( function(){
       "title": "この案件のタスク",
       "class": "task",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -51,7 +52,7 @@ $(document).ready( function(){
       "title": "進行中",
       "class": "running",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_progress_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -65,12 +66,13 @@ $(document).ready( function(){
       "title": "完了",
       "class": "done",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_complete_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },
         <% end %>
+      
       ]
     }
   ];
@@ -90,12 +92,12 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
       
-      // $.ajax({
-      //   type: "GET",
-      //   url: "</%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
-      //   cache: false,
-      //   data: { task: task, status: status, item_index: item_index, remote: true }
-      // });
+      $.ajax({
+        type: "GET",
+        url: "<%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
     }
     
   });
@@ -109,12 +111,12 @@ $(document).ready( function(){
   
     $('#new_task_form').on('change', function(){
       var title = $('#new_task_form').val();
-      // $.ajax({
-      //     type: "GET",
-      //     url: "</%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
-      //     cache: false,
-      //     data: { title: title, remote: true }
-      // });
+      $.ajax({
+          type: "GET",
+          url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+          cache: false,
+          data: { title: title, remote: true }
+      });
     });
   });
   
@@ -138,7 +140,7 @@ $(document).ready( function(){
 </script>
 
 <script>
-<% @tasks.each do |task| %>
+<% current_matter.tasks.all.each do |task| %>
   $(function(){
     $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
       $('#matter_task_<%= task.id %>_modal').fadeIn();

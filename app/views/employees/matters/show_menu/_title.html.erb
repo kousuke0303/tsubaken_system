@@ -1,0 +1,98 @@
+<div class="table-responsive" id="edit_change">
+  <div id="matter_title_show">
+    <table class="table table-bordered text-nowrap matter_show_table">
+      <tr>
+        <th>連結コード</th>
+        <td><%= current_matter.connected_id %></td>
+      </tr>
+      <tr>
+        <th>タイトル</th>
+        <td><%= current_matter.title %></td>
+      </tr>
+      <tr>
+        <th>現場住所</th>
+        <td>
+          <% if current_matter.zip.present? %>
+            <div>〒<%= current_matter.zip %></div>
+          <% end %>
+          <%= current_matter.actual_spot.present? ? current_matter.actual_spot : "登録がありません" %>
+          <%= current_matter.actual_spot_2 if current_matter.actual_spot_2.present? %>
+        </td>
+      </tr>
+      <tr>
+        <th>着工予定日</th>
+        <td><%= current_matter.scheduled_start_at.present? ? matter_day(current_matter.scheduled_start_at) : "登録がありません" %></td>
+      </tr>
+      <tr>
+        <th>完了予定日</th>
+        <td><%= current_matter.scheduled_finish_at.present? ? matter_day(current_matter.scheduled_finish_at) : "登録がありません" %></td>
+      </tr>
+    </table>
+    <button class="btn btn-dark float-l mb-1e" id="title_edit_btn">編集</button>
+  </div>
+  
+  <div id="matter_title_edit" style="display: none;">
+    <%= form_with(model: current_matter, url: title_update_matter_matter_path(@manager, current_matter), method: :patch, local: true) do |f| %>
+      <table class="table table-bordered text-nowrap matter_show_table">
+        <tr>
+          <th>タイトル</th>
+          <td><%= f.text_field :title, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>現場住所</th>
+          <td>
+            <div class="col-md-10">
+              <span class="prefectures-all"><i class="fas fa-clipboard-list"></i> 都道府県一覧から選択</span>
+              <%= f.text_field :actual_spot, class: "form-control", id: "address-form", disabled: true %>
+            </div>
+            <div class="col-md-10 mt-05e">
+              <span>番地以下</span>
+              <%= f.text_field :actual_spot_2, class: "form-control" %>
+            </div>
+            <%= f.hidden_field :zip, class: "zip-field" %>
+            <%= f.hidden_field :actual_spot, class: "actual-spot-form" %>
+          </td>
+        </tr>
+        <tr>
+          <th>着工予定日</th>
+          <td><%= f.date_field :scheduled_start_at, class: "form-control" %></td>
+        </tr>
+        <tr>
+          <th>完了予定日</th>
+          <td><%= f.date_field :scheduled_finish_at, class: "form-control" %></td>
+        </tr>
+      </table>
+      <%= f.submit "更新", class: "btn btn-dark float-l" %>
+      <button type="button" class="btn float-r" id="return_btn"><i class="fas fa-angle-left"></i> 戻る</button>
+    <% end %>
+  </div>
+  
+</div>
+
+<div class="modal address_modal">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="address_select"></div>
+</div>
+
+<script>
+  $('#title_edit_btn').on('click', function(){
+    $('#matter_title_edit').show();
+    $('#matter_title_show').hide();
+  });
+  
+  $('#return_btn').on('click', function(){
+    $('#matter_title_show').show();
+    $('#matter_title_edit').hide();
+  });
+</script>
+
+<script>
+$('.prefectures-all').on('click', function(){
+  $.ajax({
+    type: "GET",
+    url: "<%= prefecture_index_path(dependent_manager) %>",
+    cache: false,
+    data: {remote: true}
+  });
+})
+</script>
