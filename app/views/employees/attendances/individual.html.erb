@@ -70,70 +70,87 @@
 </div>
 
 <script>
-  const manager = $("#manager");
-  const managerSelect = $('select[name="manager_id"]');
-  const staff = $("#staff");
-  const staffSelect = $('select[name="staff_id"]');
-  const externalStaff = $("#external_staff");
-  const externalStaffSelect = $('select[name="external_staff_id"]');
-  const initial = $("#initial");
+  $(document).on("turbolinks:load", function() {
+    const manager = $("#manager");
+    const managerSelect = $('select[name="manager_id"]');
+    const staff = $("#staff");
+    const staffSelect = $('select[name="staff_id"]');
+    const externalStaff = $("#external_staff");
+    const externalStaffSelect = $('select[name="external_staff_id"]');
+    const initial = $("#initial");
 
-  function showManagerSelect() {
-    manager.show();
-    managerSelect.attr("required", "true");
-    staff.hide();
-    staffSelect.removeAttr("required");
-    externalStaff.hide();
-    externalStaffSelect.removeAttr("required");
-    initial.hide();
-  };
-
-  function showStaffSelect() {
-    manager.hide();
-    managerSelect.removeAttr("required");
-    staff.show();
-    staffSelect.attr("required", "true");
-    externalStaff.hide();
-    externalStaffSelect.removeAttr("required");
-    initial.hide();
-  };
-
-  function showExternalStaffSelect() {
-    manager.hide();
-    managerSelect.removeAttr("required");
-    staff.hide();
-    staffSelect.removeAttr("required");
-    externalStaff.show();
-    externalStaffSelect.attr("required", "true");
-    initial.hide();
-  };
-
-  function showInitialSelect() {
-    manager.hide();
-    staff.hide();
-    externalStaff.hide();
-  };
-
-  <% if params[:type] && params[:type] == "1" %>
-    showManagerSelect();
-  <% elsif params[:type] && params[:type] == "2" %>
-    showStaffSelect();
-  <% elsif params[:type] && params[:type] == "3" %>
-    showExternalStaffSelect();
-  <% else %>
-    showInitialSelect();
-  <% end %>
-
-  // 従業員タイプ選択が変わる度に、該当のセレクトフォームを表示
-  $("#type").change(function() {
-    if($(this).val() == "1"){
-      showManagerSelect();
-    } else if ($(this).val() == "2") {
-      showStaffSelect();
-    } else if ($(this).val() == "3") {
-      showExternalStaffSelect();
-    } else {
-      showInitialSelect();
+    // マネージャー選択フォーム表示し、それ以外はリセットして非表示
+    function showManagerSelect() {
+      manager.show();
+      managerSelect.attr("required", "true");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
     };
+
+    // スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.show();
+      staffSelect.attr("required", "true");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
+    };
+
+    // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showExternalStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      externalStaff.show();
+      staffSelect.val("");
+      externalStaffSelect.attr("required", "true");
+      initial.hide();
+    };
+
+    // 全タイプの従業員選択フォームをリセットして非表示
+    function showInitialSelect() {
+      initial.show();
+      manager.hide();
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.val("");
+    };
+
+    // 検索結果を、選択フォームに初期表示
+    <% if params[:type] && params[:type] == "1" %>
+      showManagerSelect();
+    <% elsif params[:type] && params[:type] == "2" %>
+      showStaffSelect();
+    <% elsif params[:type] && params[:type] == "3" %>
+      showExternalStaffSelect();
+    <% else %>
+      showInitialSelect();
+    <% end %>
+
+    // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
+    $("#type").change(function() {
+      if($(this).val() == "1"){
+        showManagerSelect();
+      } else if ($(this).val() == "2") {
+        showStaffSelect();
+      } else if ($(this).val() == "3") {
+        showExternalStaffSelect();
+      } else {
+        showInitialSelect();
+      };
+    });
   });
 </script>
