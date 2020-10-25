@@ -10,16 +10,16 @@
     </tr>
   </table>
 </div>
-<!--<div>-->
-<!--  </% unless dependent_manager.tasks.where(id: task.id).exists? %>-->
-<!--    <button type="button", class="btn btn-sm btn-primary" id="edit_task_</%= task.id %>">編集</button>-->
-<!--    </%= link_to "削除", matter_matter_matter_task_path(dependent_manager, current_matter, task), method: :delete, remote: true, class: "btn btn-sm btn-dark" %>-->
-<!--  </% end %>-->
-<!--</div>-->
+<div>
+  <% unless dependent_manager.tasks.where(id: task.id).exists? %>
+    <button type="button", class="btn btn-sm btn-primary" id="edit_task_</%= task.id %>">編集</button>
+    <%= link_to "削除", matter_matter_matter_task_path(dependent_manager, current_matter, task), method: :delete, remote: true, class: "btn btn-sm btn-dark" %>
+  </% end %>
+</div>
 
-<!--<script>-->
-<!--  $('#edit_task_</%= task.id %>').on('click', function(){-->
-<!--    $('.show_table_</%= task.id %>').hide();-->
-<!--    $('.edit_form_</%= task.id %>').show();-->
-<!--  });-->
-<!--</script>-->
+<script>
+  $('#edit_task_</%= task.id %>').on('click', function(){
+    $('.show_table_</%= task.id %>').hide();
+    $('.edit_form_</%= task.id %>').show();
+  });
+</script>

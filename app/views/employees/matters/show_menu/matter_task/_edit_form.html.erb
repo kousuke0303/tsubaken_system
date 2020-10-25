@@ -1,5 +1,5 @@
 <div class="text-left">
-<%= form_with(model: task, url: matter_matter_matter_task_path(dependent_manager, current_matter, task), method: :patch, remote: true) do |f| %>
+<%= form_with(model: task, url: employees_matter_task_path(@matter, task), method: :patch, remote: true) do |f| %>
   <div class="form-group">
     <%= f.label :title, "タイトル" %>
     <%= f.text_field :title, class: "form-control" %>
@@ -9,7 +9,7 @@
     <%= f.label :contents, "備考" %>
     <%= f.text_area :contents, class: "form-control" %>
   </div>
-  
+
   <%= f.submit "更新", class: "btn btn-dark float-r" %>
 <% end %>
 </div>

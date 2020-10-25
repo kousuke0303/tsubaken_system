@@ -11,10 +11,8 @@
   </table>
 </div>
 <div>
-  <% unless dependent_manager.tasks.where(id: task.id).exists? %>
     <button type="button", class="btn btn-sm btn-primary" id="edit_task_<%= task.id %>">編集</button>
-    <%= link_to "削除", matter_matter_matter_task_path(dependent_manager, current_matter, task), method: :delete, remote: true, class: "btn btn-sm btn-dark" %>
-  <% end %>
+    <%= link_to "削除", employees_matter_task_path(task), method: :delete, data: {confirm: "本当に削除しますか？"}, remote: true, class: "btn btn-sm btn-dark" %>
 </div>
 
 <script>

@@ -103,7 +103,9 @@ Rails.application.routes.draw do
         get :individual
       end
     end
-    resources :matters
+    resources :matters do
+      resources :tasks
+    end
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
     end
