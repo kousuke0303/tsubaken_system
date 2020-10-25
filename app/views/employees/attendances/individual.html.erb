@@ -71,29 +71,40 @@
 
 <script>
   const manager = $("#manager");
+  const managerSelect = $('select[name="manager_id"]');
   const staff = $("#staff");
+  const staffSelect = $('select[name="staff_id"]');
   const externalStaff = $("#external_staff");
+  const externalStaffSelect = $('select[name="external_staff_id"]');
   const initial = $("#initial");
-  const inputDisabled = $("#input-disabled");
 
   function showManagerSelect() {
     manager.show();
+    managerSelect.attr("required", "true");
     staff.hide();
+    staffSelect.removeAttr("required");
     externalStaff.hide();
+    externalStaffSelect.removeAttr("required");
     initial.hide();
   };
 
   function showStaffSelect() {
     manager.hide();
+    managerSelect.removeAttr("required");
     staff.show();
+    staffSelect.attr("required", "true");
     externalStaff.hide();
+    externalStaffSelect.removeAttr("required");
     initial.hide();
   };
 
   function showExternalStaffSelect() {
     manager.hide();
+    managerSelect.removeAttr("required");
     staff.hide();
+    staffSelect.removeAttr("required");
     externalStaff.show();
+    externalStaffSelect.attr("required", "true");
     initial.hide();
   };
 
