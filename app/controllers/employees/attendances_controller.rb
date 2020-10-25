@@ -16,14 +16,24 @@ class Employees::AttendancesController < ApplicationController
 
   # 従業員別の月毎の勤怠表示ページ
   def individual
+    @managers = Manager.all
+    @staffs = Staff.all
+    @external_staffs = ExternalStaff.all
     if params[:year] && params[:year].present? && params[:month] && params[:month].present?
       @first_day = "#{params[:year]}-#{params[:month]}-01".to_date
       @last_day = @first_day.end_of_month
     end
-    @managers = Manager.all
-    @staffs = Staff.all
-    @external_staffs = ExternalStaff.all
-    @attendances = Attendance.where(manager_id: !nil)
+    if params[:type] && params[:type] == "1" && params[:manager_id] && params[:manager_id].present?
+      manager_id = params[:manager_id]
+      @resource = Manager.find(manager_id)
+    elsif params[:type] && params[:type] == "2" && params[:staff_id] && params[:staff_id].present?
+      staff_id = params[:staff_id]
+      @resource = Staff.find(staff_id)
+    elsif params[:type] && params[:type] == "3" && params[:external_staff_id] && params[:external_staff_id].present?
+      external_staff_id = params[:external_staff_id]
+      @resource = ExternalStaff.find(external_staff_id)
+    end
+    @attendances = @resource.attendances if @resource
   end
 
   private

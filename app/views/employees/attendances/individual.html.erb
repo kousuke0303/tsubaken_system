@@ -1,9 +1,9 @@
 <div class="container">
-  <h2>個別勤怠</h2><%= link_to "d", individual_employees_attendances_path %>
+  <h2>個別勤怠</h2>
       
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark">
-      <%= form_with url: individual_employees_attendances_path, method: :get, local: true do |f| %>
+      <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
 
           <div class="col-lg-3 col-md-3" style="display: flex;">
@@ -17,23 +17,23 @@
           </div>
 
           <div class="col-lg-3 col-md-3">
-            <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
+            <%= f.select :type, { "Manager": 1, "Staff": 2, "外部Staff": 3 }, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="disabled">
-            <%= f.select :disabled, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
+          <div class="col-lg-3 col-md-3" id="initial">
+            <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
           <div class="col-lg-3 col-md-3" id="manager">
-            <%= f.collection_select :client_id, @managers, :id, :name, {}, class: "form-control" %>
+            <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
           </div>
 
           <div class="col-lg-3 col-md-3" id="staff">
-            <%= f.collection_select :client_id, @staffs, :id, :name, {}, class: "form-control" %>
+            <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
           </div>
 
           <div class="col-lg-3 col-md-3" id="external_staff">
-            <%= f.collection_select :client_id, @external_staffs, :id, :name, {}, class: "form-control" %>
+            <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
           </div>
 
           <div class="col-lg-3 col-md-3 text-left">
@@ -44,20 +44,25 @@
     </div>
         
     <div class="card-body">
-      <table class="table table-sm">
+      <% if @resource %>
+        <h5><%= @resource.name %></h5>
+      <% end %>
+      <table class="table table-sm common-table">
         <tr>
           <th>日付</th>
           <th>出勤時間</th>
           <th>退勤時間</th>
           <th>勤務時間</th>
         </tr>
-        <% @attendances.each do |attendance| %>
-          <tr>
-            <td><%= attendance.worked_on %></td>
-            <td><%= attendance.started_at %></td>
-            <td><%= attendance.finished_at %></td>
-            <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
-          </tr>
+        <% if @attendances %>
+          <% @attendances.each do |attendance| %>
+            <tr>
+              <td><%= attendance.worked_on %></td>
+              <td><%= attendance.started_at %></td>
+              <td><%= attendance.finished_at %></td>
+              <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+            </tr>
+          <% end %>
         <% end %>
       </table>
     </div>
@@ -68,12 +73,29 @@
   const manager = $("#manager");
   const staff = $("#staff");
   const externalStaff = $("#external_staff");
-  const disabled = $("#disabled");
+  const initial = $("#initial");
+  const inputDisabled = $("#input-disabled");
 
-  // 従業員タイプ未選択時は、従業員選択フォームを非表示
-  manager.hide();
-  staff.hide();
-  externalStaff.hide();
+  <% if params[:type] && params[:type] == "1" %>
+    manager.show();
+    staff.hide();
+    externalStaff.hide();
+    initial.hide();
+  <% elsif params[:type] && params[:type] == "2" %>
+    manager.hide();
+    staff.show();
+    externalStaff.hide();
+    initial.hide();
+  <% elsif params[:type] && params[:type] == "3" %>
+    manager.hide();
+    staff.hide();
+    externalStaff.show();
+    initial.hide();
+  <% else %>
+    manager.hide();
+    staff.hide();
+    externalStaff.hide();
+  <% end %>
 
   // 従業員タイプ選択が変わる度に、該当のセレクトフォームを表示
   $("#type").change(function() {
@@ -81,22 +103,22 @@
       manager.show();
       staff.hide();
       externalStaff.hide();
-      disabled.hide();
+      initial.hide();
     } else if ($(this).val() == "2") {
       manager.hide();
       staff.show();
       externalStaff.hide();
-      disabled.hide();
+      initial.hide();
     } else if ($(this).val() == "3") {
       manager.hide();
       staff.hide();
       externalStaff.show();
-      disabled.hide();
+      initial.hide();
     } else {
       manager.hide();
       staff.hide();
       externalStaff.hide();
-      disabled.show();
+      initial.show();
     };
   });
 </script>
