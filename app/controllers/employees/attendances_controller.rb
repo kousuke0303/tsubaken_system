@@ -33,7 +33,7 @@ class Employees::AttendancesController < ApplicationController
       external_staff_id = params[:external_staff_id]
       @resource = ExternalStaff.find(external_staff_id)
     end
-    @attendances = @resource.attendances if @resource
+    @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
   end
 
   private
