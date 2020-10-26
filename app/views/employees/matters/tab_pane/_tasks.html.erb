@@ -5,9 +5,10 @@
 <div class="matter_task_disp" id="myKanban"></div>
 
 <% @tasks.all.each do |task| %>
-  <div class="modal js-modal-close" id="matter_task_<%= task.id %>_modal">
+  <div class="modal" id="matter_task_<%= task.id %>_modal">
     <div>
       <%= render partial: 'employees/matters/tasks/task_show', locals: {task: task, status: task.status} %>
+      <button class="button-position js-modal-close">閉じる</button>
     </div>
   </div>
 <% end %>
@@ -145,7 +146,7 @@ $(document).ready( function(){
       return false;
     });
     
-    $('.js-modal-close').on('click',function(){
+     $('.js-modal-close').on('click',function(){
       $('#matter_task_<%= task.id %>_modal').fadeOut();
       return false;
     });

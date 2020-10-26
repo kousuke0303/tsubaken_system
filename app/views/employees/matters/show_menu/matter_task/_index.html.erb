@@ -6,10 +6,11 @@
 
 <% current_matter.tasks.all.each do |task| %>
   <div class="modal" id="matter_task_<%= task.id %>_modal">
-    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__bg js-modal-close">
       <div>
         <%= render partial: 'matter/matters/show_menu/matter_task/task_show', locals: {task: task, status: task.status} %>
       </div>
+    </div>
   </div>
 <% end %>
 

@@ -38,11 +38,9 @@ class Employees::TasksController < ApplicationController
     # manager_taskに登録されているものは編集できない
     # unless dependent_manager.tasks.where(id: @task.id).exists?
     if @task.update(update_task_params)
-      flash.now[:success] = "#{@task.title}を更新しました"
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
+      flash[:success] = "#{@task.title}を更新しました"
+      # matter_task_type
+      redirect_to employees_matter_url
     end
     # end
   end
@@ -52,10 +50,9 @@ class Employees::TasksController < ApplicationController
     # # manager_taskに登録されているものは削除できない
     # unless dependent_manager.tasks.where(id: @task.id).exists?
     if @task.destroy
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
+      flash[:danger] = "#{@task.title}を削除しました"
+      # matter_task_type
+      redirect_to employees_matter_url
     end
     # end
   end
