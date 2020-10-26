@@ -1,11 +1,7 @@
 class Employees::ManagersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
-  before_action :set_department, only: [:new, :create, :edit, :update]
-
-  def new
-    @manager = Manager.new
-  end
+  before_action :set_departments, only: [:index, :show]
 
   def create
     @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
@@ -53,7 +49,7 @@ class Employees::ManagersController < ApplicationController
       @manager = Manager.find(params[:id])
     end
     
-    def set_department
+    def set_departments
       @departments = Department.all
     end
 end
