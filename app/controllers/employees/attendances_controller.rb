@@ -2,6 +2,8 @@ class Employees::AttendancesController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
+  before_action :set_employees, only: [:daily, :individual]
+  before_action :set_new_attendance, only: [:daily, :individual, :create]
 
   # 日別勤怠表示ページ
   def daily
@@ -16,9 +18,6 @@ class Employees::AttendancesController < ApplicationController
 
   # 従業員別の月毎の勤怠表示ページ
   def individual
-    @managers = Manager.all
-    @staffs = Staff.all
-    @external_staffs = ExternalStaff.all
     if params[:year] && params[:year].present? && params[:month] && params[:month].present?
       @first_day = "#{params[:year]}-#{params[:month]}-01".to_date
       @last_day = @first_day.end_of_month
@@ -36,6 +35,13 @@ class Employees::AttendancesController < ApplicationController
     @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
   end
 
+  def create
+  end
+
+  def update
+    @Attendance = Attendance.find(params[:id])
+  end
+
   private
     # 直近30年をhashに(フォーム用)
     def set_latest_30_year
@@ -43,5 +49,15 @@ class Employees::AttendancesController < ApplicationController
       latest_year = @first_day.year
       [*latest_year - 30..latest_year].each { |year| @years_hash.store("#{year}年", year) }
       @years_hash = @years_hash.sort.reverse.to_h
+    end
+
+    def set_employees
+      @managers = Manager.all
+      @staffs = Staff.all
+      @external_staffs = ExternalStaff.all
+    end
+
+    def set_new_attendance
+      @new_attendance = Attendance.new
     end
 end

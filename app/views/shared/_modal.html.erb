@@ -56,6 +56,13 @@
       <%= render "employees/settings/departments/edit" %>
     </div>
   <% end %>
+
+  <!--勤怠new-->
+  <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
+    <div id="attendance-new" class="modal fade" role="dialog">
+      <%= render "employees/attendances/new" %>
+    </div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
