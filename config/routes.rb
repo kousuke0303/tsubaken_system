@@ -118,4 +118,15 @@ Rails.application.routes.draw do
     get 'block_index', to: 'addresses#block_index'
     get 'selected_block', to: 'addresses#selected_block'
   end
+  
+  scope "(:manager_public_uid)" do
+    namespace :employees do
+      resources :matters, path: '/' do
+        resources :tasks, only: [:update, :destroy] do
+          get :create, on: :collection
+          get :move_task, on: :collection
+        end
+      end
+    end
+  end
 end

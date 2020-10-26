@@ -92,7 +92,7 @@ $(document).ready( function(){
       
       $.ajax({
         type: "GET",
-        url: "<%= move_task_matter_matter_matter_tasks_path(current_manager, current_matter) %>",
+        url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });
@@ -112,7 +112,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });
