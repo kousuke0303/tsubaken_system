@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
+    t.integer "matter_uid"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

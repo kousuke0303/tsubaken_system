@@ -121,7 +121,8 @@ SeedMatter = Matter.create!(title: "案件１",
                actual_spot: "東京都渋谷区神宮町１−１−１",
                scheduled_started_on:  "2020-07-01",
                scheduled_finished_on: "2020-7-15",
-               client_id: '1'
+               client_id: '1',
+               matter_uid: '1'
                )
 
 puts "CREATE! MATTER1"
@@ -131,7 +132,8 @@ SeedMatterB = Matter.create!(title: "案件２",
                actual_spot: "東京都渋谷区神宮町１−２−１",
                scheduled_started_on: "2020-07-20",
                scheduled_finished_on: "2020-08-30",
-               client_id: '2'
+               client_id: '2',
+               matter_uid: '2'
                )
 
 puts "CREATE! MATTER２"
@@ -141,7 +143,8 @@ SeedMatterC = Matter.create!(title: "案件3",
                actual_spot: "東京都渋谷区神宮町１−２−１",
                scheduled_started_on: "2020-08-20",
                scheduled_finished_on: "2020-09-30",
-               client_id: '3'
+               client_id: '3',
+               matter_uid: '3'
                )
 
 puts "CREATE! MATTER3"

@@ -11,6 +11,7 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.date :scheduled_finished_on
       t.date :finished_on
       t.date :maintenanced_on
+      t.integer :matter_uid
       t.references :client, foreign_key: true
 
       t.timestamps

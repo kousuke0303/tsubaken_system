@@ -40,6 +40,7 @@ class Employees::MattersController < ApplicationController
   end
 
   def show
+    matter_task_type
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers

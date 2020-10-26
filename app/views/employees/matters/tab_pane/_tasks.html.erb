@@ -24,7 +24,7 @@ $(document).ready( function(){
       "title": "登録済タスク一覧",
       "class": "default",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @manager_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -38,7 +38,7 @@ $(document).ready( function(){
       "title": "この案件のタスク",
       "class": "task",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -52,7 +52,7 @@ $(document).ready( function(){
       "title": "進行中",
       "class": "running",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_progress_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -66,7 +66,7 @@ $(document).ready( function(){
       "title": "完了",
       "class": "done",
       "item": [
-        <% @tasks.each do |task| %>    
+        <% @matter_complete_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"

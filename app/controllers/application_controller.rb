@@ -50,11 +50,13 @@ class ApplicationController < ActionController::Base
         # MANAGER関係
   # ---------------------------------------------------------
   
+  def current_manager
+    Manager.find_by(matter_uid: params[:id]) || Manager.find_by(matter_uid: params[:matter_id]) 
+  end
+  
   def dependent_manager
     if manager_signed_in?
       current_manager
-    else submanager_signed_in?
-      current_submanager.manager
     end
   end
     
@@ -241,7 +243,7 @@ class ApplicationController < ActionController::Base
   end
       
   def matter_task_type
-    if manager_signed_in? || submanager_signed_in?
+    if manager_signed_in?
       count_matter_task
       @manager_tasks = dependent_manager.tasks.are_matter_tasks_for_commonly_used
     end
@@ -306,7 +308,7 @@ class ApplicationController < ActionController::Base
   
     def after_sign_in_path_for(resource_or_scope)
       if resource_or_scope.is_a?(Admin)
-        top_admin_admin_path(current_admin)
+        top_admin_path(current_admin)
       elsif resource_or_scope.is_a?(Manager)
         top_manager_path(current_manager)
       elsif resource_or_scope.is_a?(Submanager)
