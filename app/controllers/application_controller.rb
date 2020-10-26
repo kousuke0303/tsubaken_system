@@ -46,12 +46,12 @@ class ApplicationController < ActionController::Base
   end
 
   # ログインmanager以外のページ非表示
-  def not_current_admin_return_login!
-    unless params[:manager_id] == current_admin.public_uid || params[:manager_public_uid] == current_admin.public_uid || params[:id] == current_admin.public_uid
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
+  # def not_current_admin_return_login!
+  #   unless params[:manager_id] == current_admin.public_uid || params[:manager_public_uid] == current_admin.public_uid || params[:id] == current_admin.public_uid
+  #     flash[:alert] = "アクセス権限がありません"
+  #     redirect_to root_path
+  #   end
+  # end
   
   # ---------------------------------------------------------
         # STAFF関係
@@ -89,26 +89,24 @@ class ApplicationController < ActionController::Base
   def matter_edit_authenticate!
     if current_admin && current_admin.matters.where(matter_uid: params[:id])
       @manager = current_admin
-    elsif current_submanager && current_admin.matters.where(matter_uid: params[:id])
-      @manager = current_admin
     else
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_url
     end
   end
   
-  def matter_index_authenticate!
-    if current_admin && current_admin.public_uid == params[:manager_public_uid]
-      @matters = current_admin.matters
-    elsif current_submanager && current_admin.public_uid == params[:manager_public_uid]
-      @matters = current_admin.matters
-    elsif current_staff
-      @matters = current_staff.matters
-    else
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to matter_matters_url(current_admin)
-    end
-  end
+  # def matter_index_authenticate!
+  #   if current_admin && current_admin.public_uid == params[:manager_public_uid]
+  #     @matters = current_admin.matters
+  #   elsif current_submanager && current_admin.public_uid == params[:manager_public_uid]
+  #     @matters = current_admin.matters
+  #   elsif current_staff
+  #     @matters = current_staff.matters
+  #   else
+  #     flash[:alert] = "アクセス権限がありません"
+  #     redirect_to matter_matters_url(current_admin)
+  #   end
+  # end
   
   def matter_show_authenticate!
     if Matter.find_by(matter_uid: params[:id])
@@ -134,7 +132,7 @@ class ApplicationController < ActionController::Base
         event_scheduled_start_at = 
             Event.find_by(event_name: "着工予定日",
             event_type: "D",
-            manager_id: current_admin.id,
+            # manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_start_at.present?
           if event_scheduled_start_at.present?
@@ -144,7 +142,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: first_move_task.move_date,
                 note: "",
-                manager_id: current_admin.id,
+                # manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -166,7 +164,7 @@ class ApplicationController < ActionController::Base
         event_scheduled_finish_at = 
             Event.find_by(event_name: "完了予定日",
             event_type: "D",
-            manager_id: current_admin.id,
+            # manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_finish_at.present?
           if event_scheduled_finish_at.present?
@@ -176,7 +174,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: last_complete_task.move_date,
                 note: "",
-                manager_id: current_admin.id,
+                # manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -196,13 +194,12 @@ class ApplicationController < ActionController::Base
   # MATTER_TASK______________________________
   
   def default_tasks
-    Admin.find_by(task_id: params[:task_id]) || Manager.find_by(task_id: params[:task_id]) 
+    Task.where.not(default_title: nil)
   end
   
   # 使用回数を保存
   def count_matter_task
-    @default_tasks = default_tasks.are_matter_tasks_for_commonly_used
-    @default_tasks.each do |task|
+    default_tasks.each do |task|
       priority_count = Task.where(default_title: task.default_title).where.not(status: nil).count
       task.update(priority_count: priority_count)
     end
@@ -218,6 +215,7 @@ class ApplicationController < ActionController::Base
   def matter_task_type
     if admin_signed_in? || manager_signed_in?
       count_matter_task
+      @default_tasks = default_tasks.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット

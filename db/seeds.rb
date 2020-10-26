@@ -149,19 +149,6 @@ SeedMatterC = Matter.create!(title: "案件3",
 
 puts "CREATE! MATTER3"
 
-SeedMatterManagerA = MatterManager.create!(matter_uid: '1',
-                     matter_id: '1',
-                     manager_id: '1'
-                     )
-
-puts "CREATE! MATTERMANAGER1"
-
-SeedMatterManagerB = MatterManager.create!(matter_uid: '2',
-                     matter_id: '2',
-                     manager_id: '2'
-                     )
-
-puts "CREATE! MATTERMANAGER2"
 
 # -----------------------------------------------------
       # TASK

@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   end
 
   create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "matter_uid"
     t.bigint "matter_id"
     t.bigint "manager_id"
     t.datetime "created_at", null: false
@@ -191,11 +190,9 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.integer "priority_count"
     t.boolean "notification", default: false
     t.bigint "matter_id"
-    t.bigint "matter_manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
-    t.index ["matter_manager_id"], name: "index_tasks_on_matter_manager_id"
   end
 
   add_foreign_key "attendances", "external_staffs"
@@ -211,6 +208,5 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   add_foreign_key "matters", "clients"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
-  add_foreign_key "tasks", "matter_managers"
   add_foreign_key "tasks", "matters"
 end

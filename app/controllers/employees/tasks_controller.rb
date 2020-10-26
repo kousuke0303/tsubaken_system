@@ -4,8 +4,8 @@ class Employees::TasksController < ApplicationController
     task = Task.find(remove_str(params[:task]))
     before_status = task.status
     move_date = Time.current
-    # manager_taskから移動した場合は、コピー作成
-    if dependent_manager.manager_tasks.where(task_id: task.id).exists?
+    # default_tasksから移動した場合は、コピー作成
+    if default_tasks.where(task_id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
       copy_task.matter_tasks.create(matter_id: current_matter.id)
