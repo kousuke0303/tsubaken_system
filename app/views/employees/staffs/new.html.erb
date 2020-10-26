@@ -1,8 +1,8 @@
 <div>
-  <h2>アカウント編集</h2>
+  <h2>スタッフ作成</h2>
 
-  <%= form_with(model: @manager, url: manager_registration_path, local: true) do |f| %>
-    <%= render "shared/error_messages", resource: resource %>
+  <%= form_with(model: @staff, url: employees_staffs_path, method: :post, local: true) do |f| %>
+    <%= render "shared/error_messages", resource: @staff %>
 
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
@@ -26,7 +26,7 @@
     <%= f.text_field :address, maxlength: 50, class: "form-control" %>
     
     <%= f.label :department_id %>
-    <%= f.collection_select :department_id, Department.all, :id, :name, {}, class: "form-control" %>
+    <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control" %>
 
     <%= f.label :joined_on %>
     <%= f.date_field :joined_on, class: "form-control" %>
@@ -34,21 +34,15 @@
     <%= f.label :resigned_on %>
     <%= f.date_field :resigned_on, class: "form-control" %>
 
-    <%= f.label :password %>
-    <%= f.password_field :password, maxlength: 12, class: "form-control" %>
-
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, maxlength: 12, class: "form-control" %>
-
     <div class="btn-area">
-      <%= f.submit "編集", class: "btn btn-dark" %>
+      <%= f.submit "作成", class: "btn btn-dark" %>
     </div>
   <% end %>
 
-  <% if @manager.errors.any? %>
+  <% if @staff.errors.any? %>
     <script>
       $(document).ready(function() {
-        history.pushState("", "", location.href + "/edit")
+        history.pushState("", "", location.href + "/new")
       });
     </script>
   <% end %>

@@ -45,6 +45,17 @@
       <%= render "employees/external_staffs/edit" %>
     </div>
   <% end %>
+
+  <!--部署new・edit-->
+  <% if controller_name == "departments" && action_name == "index" %>
+    <div id="department-new" class="modal fade" role="dialog">
+      <%= render "employees/settings/departments/new" %>
+    </div>
+
+    <div id="department-edit" class="modal fade" role="dialog">
+      <%= render "employees/settings/departments/edit" %>
+    </div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
@@ -77,15 +88,12 @@
     </div>
   <% end %>
 
-  <!--業種new-->
+  <!--業種new・edit-->
   <% if controller_name == "industries" && action_name == "index" %>
     <div id="industry-new" class="modal fade" role="dialog">
       <%= render "employees/settings/industries/new" %>
     </div>
-  <% end %>
 
-  <!--業種edit-->
-  <% if controller_name == "industries" && action_name == "index" %>
     <div id="industry-edit" class="modal fade" role="dialog">
       <%= render "employees/settings/industries/edit" %>
     </div>

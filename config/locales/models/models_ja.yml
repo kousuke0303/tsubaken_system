@@ -9,6 +9,7 @@ ja:
       attendance: 勤怠
       matter: 案件
       task: タスク
+      department: 部署
       manager_event: マネージャーイベント
       manager_event_title: マネージャーイベントタイトル
       staff_event: スタッフイベント
@@ -32,6 +33,7 @@ ja:
           zip_code: 郵便番号
           address: 住所
           joined_on: 入社日
+          department_id: 部署
           resigned_on: 退社日
           password: パスワード
           password_confirmation: パスワード再入力
@@ -46,6 +48,7 @@ ja:
           birthed_on: 生年月日
           zip_code: 郵便番号
           address: 住所
+          department_id: 部署
           joined_on: 入社日
           resigned_on: 退社日
           password: パスワード
@@ -108,3 +111,5 @@ ja:
           name: 業種名
           created_at: 作成日
           updated_at: 更新日
+        department:
+          name: 名前

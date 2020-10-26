@@ -1,0 +1,36 @@
+<div class="container">
+  <h2>部署一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#department-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm table common-table">
+        <tr>
+          <th>名前</th>
+          <th></th>
+        </tr>
+        <% @departments.each do |department| %>
+          <tr>
+            <td><%= department.name %></td>
+            <td>
+              <div hidden><%= department.id %></div>
+              <button class="btn btn-sm btn-dark to-edit-department" data-toggle="modal" data-target="#department-edit" >編集</button>
+              <%= link_to "削除", employees_settings_department_path(department), method: :delete, data: { confirm: "この部署を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $(".to-edit-department").click(function() {
+      let name = $(this).parent().prev().html();
+      let departmentId = $(this).prev().html();
+      $("#department-name").val(name);
+      $("#edit-department-form").attr("action", "/employees/settings/departments/" + departmentId);
+    });
+  });
+</script>

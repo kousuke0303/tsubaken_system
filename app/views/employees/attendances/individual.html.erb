@@ -6,7 +6,7 @@
       <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
 
-          <div class="col-lg-3 col-md-3" style="display: flex;">
+          <div class="col-lg-3 col-md-3 flex">
             <div style="width: 60%;">
               <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
             </div>
