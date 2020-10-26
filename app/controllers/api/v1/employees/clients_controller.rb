@@ -1,14 +1,11 @@
 class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
   protect_from_forgery
-  skip_before_action :verify_authenticity_token
   before_action :check_token_and_key_to_api
   before_action :set_client, only: [:update, :destroy]
 
   def create
-    print ’success0’
     client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
     if client.save
-      print ’success’
       render json: client, serializer: ClientSerializer
     else
       render json: { status: "false", message: client.errors.messages }
