@@ -14,6 +14,9 @@ ActiveRecord::Schema.define(version: 20201014074600) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "auth", default: "admin"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"

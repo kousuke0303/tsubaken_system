@@ -1,7 +1,10 @@
 class Manager < ApplicationRecord
+  before_save { self.email = email.downcase if email.present? }
+
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
-  validates :email, length: { maximum: 254 }
+  validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validate :manager_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
