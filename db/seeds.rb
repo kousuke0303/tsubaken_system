@@ -1,3 +1,8 @@
+Department.create!(name: "無所属")
+Department.create!(name: "営業")
+
+puts "CREATE! DEPARTMENT"
+
 Admin.create!(name: "管理者",
               login_id: "AD-admin",
               password: "password",
@@ -14,6 +19,7 @@ puts "CREATE! Department"
                   login_id: "MN-manager-#{ n + 1 }",
                   phone: "08011112222",
                   email: "manager-#{ n + 1 }@email.com",
+                  department_id: 2,
                   password: "password",
                   password_confirmation: "password")
 end
@@ -25,6 +31,7 @@ puts "CREATE! MANAGER"
                 login_id: "ST-staff-#{ n + 1 }",
                 phone: "08011112222",
                 email: "staff-#{ n + 1 }@email.com",
+                department_id: 2,
                 password: "password",
                 password_confirmation: "password")
 end

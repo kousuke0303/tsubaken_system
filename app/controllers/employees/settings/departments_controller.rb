@@ -1,43 +1,32 @@
 class Employees::Settings::DepartmentsController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_department, only: [:show, :edit, :update, :destroy]
-  
-  def new
-    @department = Department.new
-  end
+  before_action :set_department, only: [:update, :destroy]
   
   def create
     @department = Department.new(department_params)
     if @department.save
       flash[:success] = "部署を作成しました"
-      redirect_to employees_settings_department_path(@department)
+      redirect_to employees_settings_departments_url
     else
-      flash[:danger] = "部署の作成に失敗しました"
-      render :new
+      respond_to do |format|
+        format.js
+      end
     end
-  end
-
-  def show
   end
 
   def index
-    @departments = Department.where(id: 2..Float::INFINITY)
-  end
-
-  def edit
+    @department = Department.new
+    @departments = Department.where.not(id: 1)
   end
 
   def update
-    # 無所属は編集できないように設定
-    if @department.id == 1
-      flash[:alert] = "無所属は編集できません"
-      exit
-    end
     if @department.update(department_params)
       flash[:success] = "部署情報を更新しました"
-      redirect_to employees_settings_department_path(@department)
+      redirect_to employees_settings_departments_url
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -58,11 +47,10 @@ class Employees::Settings::DepartmentsController < ApplicationController
       Staff.where('department_id = ?', @department.id).update_all(:department_id => 1)
     end
     @department.destroy ? flash[:success] = "部署を削除しました" : flash[:alert] = "部署を削除できませんでした"
-    redirect_to employees_settings_departments_path
+    redirect_to employees_settings_departments_url
   end
 
   private
-  
     def set_department
       @department = Department.find(params[:id])
     end

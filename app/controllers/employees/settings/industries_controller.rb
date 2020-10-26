@@ -24,7 +24,9 @@ class Employees::Settings::IndustriesController < ApplicationController
       flash[:success] = "業種情報を更新しました"
       redirect_to employees_settings_industries_url
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
