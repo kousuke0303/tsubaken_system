@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  helper_method :current_submanager_public_uid
   helper_method :current_matter
-  helper_method :current_manager
+  helper_method :current_admin
   
   # ---------------------------------------------------------
         # FORMAT関係
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------
         # ADMIN関係
   # ---------------------------------------------------------
-  
+
   # 管理者権限者が一人に以上の場合、管理者画面お表示で知らせる。
   def admin_limit_1
     if Admin.count > 1
@@ -43,36 +44,10 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
-  
-  # ---------------------------------------------------------
-        # MANAGER関係
-  # ---------------------------------------------------------
-  
-  def current_manager
-    MatterManager.find_by(matter_uid: params[:matter_id]) || MatterManager.find_by(matter_uid: params[:manager_id]) 
-  end
-    
-  
+
   # ログインmanager以外のページ非表示
-  def not_current_manager_return_login!
-    unless params[:manager_id] == current_manager.public_uid || params[:manager_public_uid] == current_manager.public_uid || params[:id] == current_manager.public_uid
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-  
-  # ---------------------------------------------------------
-        # SUBMANAGER関係
-  # ---------------------------------------------------------
-  
-  # ログインsubmanager以外のページ非表示
-  def not_current_submanager_return_login!
-    unless params[:manager_public_uid] == current_manager.public_uid
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-    unless params[:id].to_i == current_submanager.id 
+  def not_current_admin_return_login!
+    unless params[:manager_id] == current_admin.public_uid || params[:manager_public_uid] == current_admin.public_uid || params[:id] == current_admin.public_uid
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
@@ -112,8 +87,10 @@ class ApplicationController < ActionController::Base
   end
   
   def matter_edit_authenticate!
-    if current_manager && current_manager.matters.where(matter_uid: params[:id])
-      @manager = current_manager
+    if current_admin && current_admin.matters.where(matter_uid: params[:id])
+      @manager = current_admin
+    elsif current_submanager && current_admin.matters.where(matter_uid: params[:id])
+      @manager = current_admin
     else
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_url
@@ -121,19 +98,23 @@ class ApplicationController < ActionController::Base
   end
   
   def matter_index_authenticate!
-    if current_manager
-      @matters = current_manager.matters
+    if current_admin && current_admin.public_uid == params[:manager_public_uid]
+      @matters = current_admin.matters
+    elsif current_submanager && current_admin.public_uid == params[:manager_public_uid]
+      @matters = current_admin.matters
     elsif current_staff
       @matters = current_staff.matters
     else
       flash[:alert] = "アクセス権限がありません"
-      redirect_to matter_matters_url(current_manager)
+      redirect_to matter_matters_url(current_admin)
     end
   end
   
   def matter_show_authenticate!
     if Matter.find_by(matter_uid: params[:id])
-      if current_manager && current_manager.matters.where(matter_uid: params[:id])
+      if current_admin && current_admin.matters.where(matter_uid: params[:id])
+        return true
+      elsif current_admin.matters.where(matter_uid: params[:id])
         return true
       end
     else
@@ -153,7 +134,7 @@ class ApplicationController < ActionController::Base
         event_scheduled_start_at = 
             Event.find_by(event_name: "着工予定日",
             event_type: "D",
-            manager_id: current_manager.id,
+            manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_start_at.present?
           if event_scheduled_start_at.present?
@@ -163,7 +144,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: first_move_task.move_date,
                 note: "",
-                manager_id: current_manager.id,
+                manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -185,7 +166,7 @@ class ApplicationController < ActionController::Base
         event_scheduled_finish_at = 
             Event.find_by(event_name: "完了予定日",
             event_type: "D",
-            manager_id: current_manager.id,
+            manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_finish_at.present?
           if event_scheduled_finish_at.present?
@@ -195,7 +176,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: last_complete_task.move_date,
                 note: "",
-                manager_id: current_manager.id,
+                manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -214,9 +195,14 @@ class ApplicationController < ActionController::Base
   
   # MATTER_TASK______________________________
   
+  def default_tasks
+    Admin.find_by(task_id: params[:task_id]) || Manager.find_by(task_id: params[:task_id]) 
+  end
+  
   # 使用回数を保存
   def count_matter_task
-    current_manager.tasks.each do |task|
+    @default_tasks = default_tasks.are_matter_tasks_for_commonly_used
+    @default_tasks.each do |task|
       priority_count = Task.where(default_title: task.default_title).where.not(status: nil).count
       task.update(priority_count: priority_count)
     end
@@ -230,9 +216,8 @@ class ApplicationController < ActionController::Base
   end
       
   def matter_task_type
-    if manager_signed_in?
+    if admin_signed_in? || manager_signed_in?
       count_matter_task
-      @manager_tasks = current_manager.tasks.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
@@ -252,7 +237,7 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
 
   def manager_event_title
-    ary = ManagerEventTitle.where(manager_id: current_manager.id).pluck(:event_name)
+    ary = ManagerEventTitle.where(manager_id: current_admin.id).pluck(:event_name)
     @manager_event_title = Hash.new(0)
       ary.each do |elem|
         @manager_event_title[elem] += 1
@@ -287,13 +272,23 @@ class ApplicationController < ActionController::Base
         # DEVISE関係
   # --------------------------------------------------------
   
+  # ログイン後のリダイレクト先
+    def current_submanager_public_uid
+      current_admin.public_uid
+    end
+   
+  
     def after_sign_in_path_for(resource_or_scope)
       if resource_or_scope.is_a?(Admin)
         top_admin_path(current_admin)
       elsif resource_or_scope.is_a?(Manager)
-        top_manager_path(current_manager)
+        top_manager_path(current_admin)
+      elsif resource_or_scope.is_a?(Submanager)
+        top_submanager_path(current_submanager_public_uid, current_submanager)
       elsif resource_or_scope.is_a?(Staff)
         top_staff_path(current_staff)
+      elsif resource_or_scope.is_a?(User)
+        top_user_path(current_user)
       else
         root_path
       end

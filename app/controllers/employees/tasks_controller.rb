@@ -36,25 +36,25 @@ class Employees::TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     # manager_taskに登録されているものは編集できない
-    # unless dependent_manager.tasks.where(id: @task.id).exists?
-    if @task.update(update_task_params)
-      flash[:success] = "#{@task.title}を更新しました"
-      # matter_task_type
-      redirect_to employees_matter_url
+    unless default_tasks.where(id: @task.id).exists?
+      if @task.update(update_task_params)
+        flash[:success] = "#{@task.title}を更新しました"
+        matter_task_type
+        redirect_to employees_matter_url
+      end
     end
-    # end
   end
   
   def destroy
     @task = Task.find(params[:id])
     # # manager_taskに登録されているものは削除できない
-    # unless dependent_manager.tasks.where(id: @task.id).exists?
-    if @task.destroy
-      flash[:danger] = "#{@task.title}を削除しました"
-      # matter_task_type
-      redirect_to employees_matter_url
+    unless default_tasks.where(id: @task.id).exists?
+      if @task.destroy
+        flash[:danger] = "#{@task.title}を削除しました"
+        matter_task_type
+        redirect_to employees_matter_url
+      end
     end
-    # end
   end
   
   private
