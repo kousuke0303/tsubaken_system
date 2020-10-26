@@ -5,6 +5,10 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
+Department.create!(name: "無所属")
+
+puts "CREATE! Department"
+
 3.times do |n|
   Manager.create!(name: "マネージャー#{ n + 1 }",
                   login_id: "MN-manager-#{ n + 1 }",
@@ -58,7 +62,7 @@ puts "CREATE! INDUSTRY"
 
 3.times do |n|
   Client.create!(name: "テスト顧客#{ n + 1 }",
-                login_id: "CL-client-#{ n +1 }",
+                login_id: "CL-client-#{ n + 1 }",
                 phone_1: "08011112222",
                 phone_2: "08011113333",
                 email: "client-#{ n + 1 }@email.com",

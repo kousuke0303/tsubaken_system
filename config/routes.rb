@@ -106,6 +106,7 @@ Rails.application.routes.draw do
     resources :matters
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
+      resources :departments
     end
   end
   

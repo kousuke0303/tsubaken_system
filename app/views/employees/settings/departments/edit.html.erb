@@ -1,0 +1,12 @@
+<div>
+  <h1>部署編集</h1>
+  <%= form_with(model: @department, url: employees_settings_department_path(@department), method: :patch, local: true) do |f| %>
+    <%= render "shared/error_messages", resource: @department %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: 30, required: true, class: "form-control" %>
+    <div class="btn-area">
+      <%= f.submit "更新", class: "btn btn-dark" %>
+    </div>
+  <% end %>
+</div>

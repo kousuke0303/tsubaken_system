@@ -5,7 +5,8 @@ class Manager < ApplicationRecord
   validate :manager_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
-
+  
+  belongs_to :department
   has_many :matter_managers, dependent: :destroy
   has_many :matters, through: :matter_managers
   has_many :attendances, dependent: :destroy
