@@ -23,14 +23,14 @@ $(document).ready( function(){
       "id": "manager_tasks",
       "title": "登録済タスク一覧",
       "class": "default",
-      "item": [
-        <% @manager_tasks.each do |task| %>    
-          { 
-            "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>"
-          },
-        <% end %>
-      ]
+      // "item": [
+      //   </% @manager_tasks.each do |task| %>    
+      //     { 
+      //       "title": "</%= task.title %>",
+      //       "id": "item_id_</%= task.id %>"
+      //     },
+      //   </% end %>
+      // ]
     },
     
     {
@@ -91,12 +91,12 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
       
-      // $.ajax({
-      //   type: "GET",
-      //   url: "</%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
-      //   cache: false,
-      //   data: { task: task, status: status, item_index: item_index, remote: true }
-      // });
+      $.ajax({
+        type: "GET",
+        url: "<%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
     }
     
   });
@@ -110,12 +110,12 @@ $(document).ready( function(){
   
     $('#new_task_form').on('change', function(){
       var title = $('#new_task_form').val();
-      // $.ajax({
-      //     type: "GET",
-      //     url: "</%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
-      //     cache: false,
-      //     data: { title: title, remote: true }
-      // });
+      $.ajax({
+          type: "GET",
+          url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+          cache: false,
+          data: { title: title, remote: true }
+      });
     });
   });
   

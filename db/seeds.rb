@@ -149,15 +149,27 @@ SeedMatterC = Matter.create!(title: "案件3",
 
 puts "CREATE! MATTER3"
 
+SeedMatterManagerA = MatterManager.create!(matter_uid: '1',
+                     matter_id: '1',
+                     manager_id: '1'
+                     )
+
+puts "CREATE! MATTERMANAGER1"
+
+SeedMatterManagerB = MatterManager.create!(matter_uid: '2',
+                     matter_id: '2',
+                     manager_id: '2'
+                     )
+
+puts "CREATE! MATTERMANAGER2"
+
 # -----------------------------------------------------
       # TASK
 # ---------------------------------------------
 
-Task.create!(title: "TASK1", status: 0,  matter_id: '1', default_title: "TASK1")
+Task.create!(title: "TASK1", status: 0, matter_id: '1', default_title: "TASK1")
 
-Task.create!(title: "TASK2", status: 1,  matter_id: '2', default_title: "TASK2")
-
-Task.create!(title: "TASK3", status: 2,  matter_id: '3', default_title: "TASK3")
+Task.create!(title: "TASK2", status: 1, matter_id: '2', default_title: "TASK2")
 
 # TargetManagers = Manager.where(approval: true)
 # TargetManagers.each do |manager|
