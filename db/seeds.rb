@@ -10,8 +10,6 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
-Department.create!(name: "無所属")
-
 puts "CREATE! Department"
 
 3.times do |n|

@@ -16,7 +16,8 @@ class Employees::Settings::DepartmentsController < ApplicationController
 
   def index
     @department = Department.new
-    @departments = Department.where.not(id: 1)
+    @departments = Department.all
+    # @departments = Department.where.not(id: 1)
   end
 
   def update
