@@ -83,7 +83,6 @@ $(document).ready( function(){
     widthBoard      : '220px',      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
     
-    
     dropEl: function(el, target, a, b){
       var task = el.getAttribute('data-eid');
       var status = target.parentNode.getAttribute('data-id');
@@ -93,7 +92,7 @@ $(document).ready( function(){
       
       $.ajax({
         type: "GET",
-        url: "<%= move_task_matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
+        url: "<%= move_task_matter_matter_matter_tasks_path(current_manager, current_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });
@@ -110,6 +109,7 @@ $(document).ready( function(){
   
     $('#new_task_form').on('change', function(){
       var title = $('#new_task_form').val();
+
       $.ajax({
           type: "GET",
           url: "<%= matter_matter_matter_tasks_path(dependent_manager, current_matter) %>",
