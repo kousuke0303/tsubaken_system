@@ -8,7 +8,7 @@ class Employees::TasksController < ApplicationController
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
-      copy_task.default_tasks.create(matter_id: current_matter.id)
+      # copy_task.default_tasks.create(matter_id: current_matter.id)
       copy_task.update(status: params[:status], row_order: roworder_params)
     else
       task.update(status: params[:status],
@@ -17,18 +17,18 @@ class Employees::TasksController < ApplicationController
                   row_order: roworder_params)
       # create_started_at_or_finished_at
     end
-    matter_task_type
+    # matter_task_type
     respond_to do |format|
       format.js
     end
   end
   
   def create
-    if params[:status] = "matter_tasks"
+    if params[:status] == "matter_tasks"
       new_task = current_matter.tasks.create(title: params[:title], status: "matter_tasks")
       matter_tasks_count = current_matter.tasks.where(status: "matter_tasks").count
       new_task.update(row_order: matter_tasks_count * 100)
-      matter_task_type
+      # matter_task_type
       respond_to do |format|
         format.js
       end
@@ -36,7 +36,7 @@ class Employees::TasksController < ApplicationController
       new_task = default_tasks.create(default_title: params[:default_title], status: "default_tasks")
       default_tasks_count = default_tasks.where(status: "default_tasks").count
       new_task.update(row_order: default_tasks_count * 100)
-      matter_task_type
+      # matter_task_type
       respond_to do |format|
         format.js
       end
