@@ -8,7 +8,7 @@ class Employees::TasksController < ApplicationController
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
-      copy_task.matter_tasks.create(matter_id: current_matter.id)
+      copy_task.default_tasks.create(matter_id: current_matter.id)
       copy_task.update(status: params[:status], row_order: roworder_params)
     else
       task.update(status: params[:status],
