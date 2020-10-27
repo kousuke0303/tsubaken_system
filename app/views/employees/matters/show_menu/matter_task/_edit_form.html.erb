@@ -1,5 +1,5 @@
 <div class="text-left">
-  <%= form_with(model: task, url: employees_matter_task_path(@matter, task), method: :patch, remote: true) do |f| %>
+  <%= form_with(model: task, url: employees_matter_task_path(current_matter, task), method: :patch, remote: true) do |f| %>
   
     <div class="form-group">
       <%= f.label :title, "タイトル" %>

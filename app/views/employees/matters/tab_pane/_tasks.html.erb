@@ -90,13 +90,22 @@ $(document).ready( function(){
       var item_arrey = target.children;
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
-      
-      $.ajax({
-        type: "GET",
-        url: "<%= move_task_employees_tasks_path(@default_tasks, current_matter) %>",
-        cache: false,
-        data: { task: task, status: status, item_index: item_index, remote: true }
-      });
+
+      <% if params[:status] == "default_task" %>
+        $.ajax({
+          type: "GET",
+          url: "<%= move_task_employees_tasks_path(@default_task) %>",
+          cache: false,
+          data: { task: task, status: status, item_index: item_index, remote: true }
+        });
+      <% else %>
+        $.ajax({
+          type: "GET",
+          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
+          cache: false,
+          data: { task: task, status: status, item_index: item_index, remote: true }
+        });
+      <% end %>
     }
     
   });
@@ -113,7 +122,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
+          url: "<%= employees_tasks_path %>",
           cache: false,
           data: { title: title, remote: true }
       });
@@ -132,7 +141,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
+          url: "<%= employees_matter_tasks_path(current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });

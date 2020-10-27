@@ -104,7 +104,10 @@ Rails.application.routes.draw do
       end
     end
     resources :matters do
-      resources :tasks
+      resources :tasks do
+        get :move_task, on: :collection
+        get :create, on: :collection
+      end
     end
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
