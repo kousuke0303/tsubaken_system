@@ -49,7 +49,7 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
-
+    
     $('input[name="prev_url"]').val("<%= controller.action_name %>");
 
     const managerSelectNew = $("#manager-select");
@@ -93,13 +93,16 @@
         externalStaffSelectNew.show();
         externalStaffOption.attr("required", "true");
       } else {
+        managerSelectNew.hide();
+        managerOption.val("");
+        managerOption.removeAttr("required");
+        staffSelectNew.hide();
+        staffOption.val("");
+        staffOption.removeAttr("required");
+        externalStaffSelectNew.hide();
+        externalStaffOption.val("");
+        externalStaffOption.removeAttr("required");
       };
     });
-
-    <% if @new_attendance.errors.any? %>
-      $(document).ready(function() {
-        history.pushState("", "", location.href + "/daily")
-      });
-    <% end %>
   });
 </script>

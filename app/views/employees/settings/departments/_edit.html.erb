@@ -8,7 +8,7 @@
           <%= form_with(model: @department, url: "#", method: :patch, remote: true, id: "edit-department-form") do |f| %>
             <div class="department-update-errors"></div>
             <%= f.label :name %>
-            <%= f.text_field :name, required: true, class: "form-control", maxlength: 40, id: "department-name" %>
+            <%= f.text_field :name, required: true, class: "form-control", maxlength: 30, id: "department-name" %>
             
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>

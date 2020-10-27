@@ -57,10 +57,14 @@
     </div>
   <% end %>
 
-  <!--勤怠new-->
+  <!--勤怠・editnew-->
   <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
     <div id="attendance-new" class="modal fade" role="dialog">
       <%= render "employees/attendances/new" %>
+    </div>
+
+    <div id="attendance-edit" class="modal fade" role="dialog">
+      <%= render "employees/attendances/edit" %>
     </div>
   <% end %>
 <% end %>
