@@ -35,8 +35,10 @@
             <%= f.label :finished_at %>
             <%= f.time_field :finished_at, class: "form-control", required: true %>
 
+            <input name="prev_url" hidden>
+
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <%= f.submit "作成", class: "btn btn-dark", id: "create-attendance-submit" %>
             </div>
           <% end %>
         </div>
@@ -47,6 +49,9 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
+
+    $('input[name="prev_url"]').val("<%= controller.action_name %>");
+
     const managerSelectNew = $("#manager-select");
     const managerOption = $('select[name="attendance[manager_id]"]');
     const staffSelectNew = $("#staff-select");

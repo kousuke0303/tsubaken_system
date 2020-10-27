@@ -3,7 +3,7 @@ class Employees::AttendancesController < ApplicationController
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:daily, :individual]
-  before_action :set_new_attendance, only: [:daily, :individual, :create]
+  before_action :set_new_attendance, only: [:daily, :individual]
 
   # 日別勤怠表示ページ
   def daily
@@ -36,13 +36,29 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def create
-    @attendance = Attendance.new(employee_attendance_params)
-    if @attendance.save
+    case params[:attendance]["employee_type"]
+    when "1"
+      manager_id = params[:attendance]["manager_id"]
+      resource = Manager.find(manager_id)
+    when "2"
+      staff_id = params[:attendance]["staff_id"]
+      resource = Staff.find(staff_id)
+    when "3"
+      external_staff_id = params[:attendance]["external_staff_id"]
+      resource = ExternalStaff.find(external_staff_id)
+    end
+    create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
+    if @attendance.update_attributes(employee_attendance_params)
       flash[:success] = "勤怠を作成しました"
-      redirect_to individual_employees_attendances_url
+      if params["prev_url"].eql?("daily")
+        redirect_to daily_employees_attendances_url
+      else 
+        redirect_to individual_employees_attendances_url
+      end
     else
-      flash[:success] = @attendance.errors.full_messages
-      redirect_to individual_employees_attendances_url
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -74,5 +90,16 @@ class Employees::AttendancesController < ApplicationController
     end
 
     def create_monthly_attendance_by_date(resource, date)
+      ActiveRecord::Base.transaction do
+        unless resource.attendances.where(worked_on: date).exists?
+          first_day = date.beginning_of_month
+          last_day = first_day.end_of_month
+          [*first_day..last_day].each { |day| resource.attendances.create!(worked_on: day) }
+        end
+        @attendance = resource.attendances.where(worked_on: date).first
+      end
+    rescue ActiveRecord::RecordInvalid 
+      flash[:danger] = "ページ情報の取得に失敗しました"
+      redirect_to root_url
     end
 end
