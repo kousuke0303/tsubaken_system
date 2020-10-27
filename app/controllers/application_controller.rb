@@ -214,7 +214,7 @@ class ApplicationController < ActionController::Base
   def matter_task_type
     if admin_signed_in? || manager_signed_in?
       count_matter_task
-      @default_tasks = default_tasks.are_matter_tasks_for_commonly_used
+      @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット

@@ -8,14 +8,13 @@ class Employees::TasksController < ApplicationController
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
-      copy_task.default_tasks.create(matter_id: current_matter.id)
       copy_task.update(status: params[:status], row_order: roworder_params)
     else
       task.update(status: params[:status],
                   before_status: before_status,
                   move_date: move_date,
                   row_order: roworder_params)
-      # create_started_at_or_finished_at
+      create_started_at_or_finished_at
     end
     matter_task_type
     respond_to do |format|

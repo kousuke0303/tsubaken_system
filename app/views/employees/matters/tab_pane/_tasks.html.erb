@@ -91,10 +91,10 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
 
-      <% if params[:status] == "default_task" %>
+      <% if params[:status] == "default_tasks" %>
         $.ajax({
           type: "GET",
-          url: "<%= move_task_employees_tasks_path(@default_task) %>",
+          url: "<%= move_task_employees_task_path(@default_tasks) %>",
           cache: false,
           data: { task: task, status: status, item_index: item_index, remote: true }
         });
@@ -122,7 +122,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= employees_tasks_path %>",
+          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });
@@ -141,7 +141,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= employees_matter_tasks_path(current_matter) %>",
+          url: "<%= employees_matter_tasks_path(@default_tasks, current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });
