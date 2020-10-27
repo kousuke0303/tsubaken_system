@@ -32,7 +32,7 @@
             <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="external_staff">
+          <div class="col-lg-3 col-md-3" id="external-staff">
             <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
           </div>
 
@@ -93,7 +93,7 @@
     const managerSelect = $('select[name="manager_id"]');
     const staff = $("#staff");
     const staffSelect = $('select[name="staff_id"]');
-    const externalStaff = $("#external_staff");
+    const externalStaff = $("#external-staff");
     const externalStaffSelect = $('select[name="external_staff_id"]');
     const initial = $("#initial");
 
