@@ -93,7 +93,7 @@ $(document).ready( function(){
       
       $.ajax({
         type: "GET",
-        url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
+        url: "<%= move_task_employees_tasks_path(@default_tasks, current_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });
@@ -113,7 +113,7 @@ $(document).ready( function(){
 
       $.ajax({
           type: "GET",
-          url: "<%= move_task_employees_matter_tasks_path(@default_tasks) %>",
+          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });
@@ -131,8 +131,8 @@ $(document).ready( function(){
       var title = $('#new_task_form').val();
 
       $.ajax({
-          type: "POST",
-          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
+          type: "GET",
+          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
           cache: false,
           data: { title: title, remote: true }
       });

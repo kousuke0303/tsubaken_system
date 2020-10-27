@@ -132,7 +132,6 @@ class ApplicationController < ActionController::Base
         event_scheduled_start_at = 
             Event.find_by(event_name: "着工予定日",
             event_type: "D",
-            # manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_start_at.present?
           if event_scheduled_start_at.present?
@@ -142,7 +141,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: first_move_task.move_date,
                 note: "",
-                # manager_id: current_admin.id,
+                manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -164,7 +163,7 @@ class ApplicationController < ActionController::Base
         event_scheduled_finish_at = 
             Event.find_by(event_name: "完了予定日",
             event_type: "D",
-            # manager_id: current_admin.id,
+            manager_id: current_admin.id,
             matter_id: current_matter.id)
         if current_matter.scheduled_finish_at.present?
           if event_scheduled_finish_at.present?
@@ -174,7 +173,7 @@ class ApplicationController < ActionController::Base
                 event_type: "C",
                 date: last_complete_task.move_date,
                 note: "",
-                # manager_id: current_admin.id,
+                manager_id: current_admin.id,
                 matter_id: current_matter.id
               )
           end
@@ -194,7 +193,7 @@ class ApplicationController < ActionController::Base
   # MATTER_TASK______________________________
   
   def default_tasks
-    Task.where.not(default_title: nil)
+    Task.where.not(default_title: nil).are_default_tasks
   end
   
   # 使用回数を保存
