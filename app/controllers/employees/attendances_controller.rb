@@ -36,6 +36,14 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def create
+    @attendance = Attendance.new(employee_attendance_params)
+    if @attendance.save
+      flash[:success] = "勤怠を作成しました"
+      redirect_to individual_employees_attendances_url
+    else
+      flash[:success] = @attendance.errors.full_messages
+      redirect_to individual_employees_attendances_url
+    end
   end
 
   def update
@@ -59,5 +67,12 @@ class Employees::AttendancesController < ApplicationController
 
     def set_new_attendance
       @new_attendance = Attendance.new
+    end
+
+    def employee_attendance_params
+      params.require(:attendance).permit(:employee_type, :manager_id, :staff_id, :external_staff_id, :worked_on, :started_at, :finished_at)
+    end
+
+    def create_monthly_attendance_by_date(resource, date)
     end
 end

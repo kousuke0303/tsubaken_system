@@ -26,6 +26,15 @@
               <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { include_blank: "外部Staffを選択" }, class: "form-control" %>
             </div>
 
+            <%= f.label :worked_on %>
+            <%= f.date_field :worked_on, class: "form-control", required: true %>
+
+            <%= f.label :started_at %>
+            <%= f.time_field :started_at, class: "form-control", required: true %>
+
+            <%= f.label :finished_at %>
+            <%= f.time_field :finished_at, class: "form-control", required: true %>
+
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark" %>
             </div>
