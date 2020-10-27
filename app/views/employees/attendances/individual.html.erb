@@ -57,7 +57,8 @@
         <% if @attendances %>
           <% @total_working_minutes = 0 %>
           <% @attendances.each do |attendance| %>
-            <tr>
+            <a href="a">
+            <tr class="tr-link" data-toggle="modal" data-target="#attendance-edit">
               <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
               <td><%= l(attendance.started_at, format: :time) %></td>
               <td><%= l(attendance.finished_at, format: :time) %></td>
@@ -68,24 +69,27 @@
                 <% end %>
               </td>
             </tr>
-            <tr>
-              <th>出勤回数</th>
-              <th></th>
-              <th></th>
-              <th>合計勤務時間</th>
-            </tr>
-            <tr>
-              <td><%= @attendances.length %>日</td>
-              <td></td>
-              <td></td>
-              <td><%= monthly_working_time(@total_working_minutes) %></td>
-            </tr>
+            </a>
           <% end %>
+          <tr>
+            <th>出勤回数</th>
+            <th></th>
+            <th></th>
+            <th>合計勤務時間</th>
+          </tr>
+          <tr>
+            <td><%= @attendances.length %>日</td>
+            <td></td>
+            <td></td>
+            <td><%= monthly_working_time(@total_working_minutes) %></td>
+          </tr>
         <% end %>
       </table>
     </div>
   </div>
 </div>
+
+
 
 <script>
   $(document).on("turbolinks:load", function() {

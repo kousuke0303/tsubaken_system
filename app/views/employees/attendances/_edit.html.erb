@@ -3,7 +3,7 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">勤怠作成</h5>
+        <h5 class="card-header">勤怠編集</h5>
         <div class="card-body">
           <%= form_with(model: @edit_attendance, url: "#", method: :patch, remote: true) do |f| %>
             <div class="attendance-edit-errors"></div>
@@ -20,7 +20,8 @@
             <input name="prev_url" hidden>
 
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark", id: "create-attendance-submit" %>
+              <%= f.submit "編集", class: "btn btn-dark", id: "create-attendance-submit" %>
+              <%= link_to "削除", {}, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
