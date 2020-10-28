@@ -109,44 +109,46 @@ $(document).ready( function(){
     }
     
   });
-  
-  var toDoButton = document.getElementById('AddToDoDefaultTasks');
-    toDoButton.addEventListener('click',function(){
-      
-      const formItem = document.createElement('form');
-      formItem.innerHTML = '<input type="text", id="new_task_form">';
-      kanban.addForm('default_tasks', formItem);
-  
-    $('#new_task_form').on('change', function(){
-      var title = $('#new_task_form').val();
 
-      $.ajax({
-          type: "GET",
-          url: "<%= employees_tasks_path(@default_tasks, current_matter) %>",
-          cache: false,
-          data: { title: title, remote: true }
+  <% if params[:status] == "default_tasks" %>
+    var toDoButton = document.getElementById('AddToDoDefaultTasks');
+      toDoButton.addEventListener('click',function(){
+        
+        const formItem = document.createElement('form');
+        formItem.innerHTML = '<input type="text", id="new_task_form">';
+        kanban.addForm('default_tasks', formItem);
+    
+        $('#new_task_form').on('change', function(){
+          var title = $('#new_task_form').val();
+  
+        $.ajax({
+            type: "POST",
+            url: "<%= employees_tasks_path(@default_tasks) %>",
+            cache: false,
+            data: { title: title, status: 'default_tasks', remote: true }
+        });
       });
     });
-  });
+  <% else %>
+    var toDoButton = document.getElementById('AddToDoMatterTasks');
+      toDoButton.addEventListener('click',function(){
+        
+        const formItem = document.createElement('form');
+        formItem.innerHTML = '<input type="text", id="new_task_form">';
+        kanban.addForm('matter_tasks', formItem);
+    
+        $('#new_task_form').on('change', function(){
+          var title = $('#new_task_form').val();
   
-  var toDoButton = document.getElementById('AddToDoMatterTasks');
-    toDoButton.addEventListener('click',function(){
-      
-      const formItem = document.createElement('form');
-      formItem.innerHTML = '<input type="text", id="new_task_form">';
-      kanban.addForm('matter_tasks', formItem);
-  
-    $('#new_task_form').on('change', function(){
-      var title = $('#new_task_form').val();
-
-      $.ajax({
-          type: "GET",
-          url: "<%= employees_matter_tasks_path(@default_tasks, current_matter) %>",
-          cache: false,
-          data: { title: title, remote: true }
+        $.ajax({
+            type: "POST",
+            url: "<%= employees_matter_tasks_path(current_matter) %>",
+            cache: false,
+            data: { title: title, status: 'matter_tasks', remote: true }
+        });
       });
     });
-  });
+  <% end %>
   
   // 現状使用しない
 
