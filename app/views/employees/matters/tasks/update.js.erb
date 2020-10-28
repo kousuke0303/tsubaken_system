@@ -1,6 +1,0 @@
-$('#matter_task_tab').addClass('active');
-$('#matter_task_index').addClass('active');
-$('.task_index').html('<%= escape_javascript(render partial: './employees/matters/show_menu/tab_pane/tasks', locals: {current_matter: current_matter}) %>');
-$('#matter_task_<%= @task.id %>_modal').show();
-$('.edit_form_<%= @task.id %>').hide();
-$('.show_table_<%= @task.id %>').show();

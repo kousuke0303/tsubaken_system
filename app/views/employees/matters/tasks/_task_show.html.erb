@@ -7,11 +7,11 @@
         <h5 class="card-header <%= task.status %>_color">タスク詳細</h5>
         <div class="card-body">
           <div class="show_table_<%= task.id %>">
-            <%= render partial: 'employees/matters/show_menu/matter_task/show_table', locals: { task: task} %>
+            <%= render partial: 'employees/matters/tasks/show_table', locals: { task: task} %>
           </div>
     
           <div class="edit_form_<%= task.id %>" style="display: none;">
-            <%= render partial: 'employees/matters/show_menu/matter_task/edit_form', locals: { task: task} %>
+            <%= render partial: 'employees/matters/tasks/edit_form', locals: { task: task} %>
           </div>
         </div>
       </div>
