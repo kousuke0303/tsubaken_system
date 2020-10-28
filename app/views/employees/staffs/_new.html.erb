@@ -10,6 +10,9 @@
             <%= f.label :name %>
             <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
 
+            <%= f.label :department_id %>
+            <%= f.collection_select :department_id, @departments, :id, :name, { required: true }, class: "form-control" %>
+
             <%= f.label :login_id %>
             <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
             

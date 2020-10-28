@@ -36,6 +36,19 @@ class ApplicationController < ActionController::Base
       @condition = "dark"
     end
   end
+
+  # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
+  def create_monthly_attendances(resource)
+    set_one_month
+    @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    unless @attendances.length == @one_month.length
+      ActiveRecord::Base.transaction do
+        @one_month.each { |day| resource.attendances.create!(worked_on: day) }
+      end
+      @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+
+    end
+  end
   
   # アクセス制限
   def only_admin!
@@ -155,6 +168,10 @@ class ApplicationController < ActionController::Base
           current_matter.update(started_at: first_move_task.move_date)
         end
       end
+    
+    # matterにstarted_atが登録されている場合(2パターンあり)
+    # 更新=>誤ってtaskを移動したことにより進行中タスクから案件タスクに戻した場合
+    # 完了=>全ての進行タスクが完了タスクに移動された場合
     else
       if @tasks.where(status: "progress_tasks").empty? && @tasks.where(status: "finished_tasks").exists?
         complete_tasks = @tasks.where(status: "finished_tasks").order(:move_date)

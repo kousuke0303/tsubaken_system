@@ -14,6 +14,9 @@ ActiveRecord::Schema.define(version: 20201014074600) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "auth", default: "admin"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -26,6 +29,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.string "working_minutes"
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
@@ -53,6 +57,12 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
+  end
+
+  create_table "departments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "external_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -95,11 +105,13 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.string "address"
     t.date "joined_on"
     t.date "resigned_on"
+    t.bigint "department_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_managers_on_department_id"
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
   end
 
@@ -148,11 +160,13 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.string "address"
     t.date "joined_on"
     t.date "resigned_on"
+    t.bigint "department_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_staffs_on_department_id"
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
   end
 
@@ -201,11 +215,13 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "managers", "departments"
   add_foreign_key "matter_managers", "managers"
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "clients"
+  add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "matters"

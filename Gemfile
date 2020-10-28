@@ -36,7 +36,8 @@ gem 'dotenv-rails'
 
 group :development, :test do
   gem 'mysql2'
-  gem 'byebug',  '9.0.6', platform: :mri
+  # gem 'byebug',  '9.0.6', platform: :mri
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'factory_bot_rails'

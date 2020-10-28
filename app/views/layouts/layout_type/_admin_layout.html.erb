@@ -2,7 +2,9 @@
   
   <!-- Sidebar -->
   <nav id="sidebar">
-    <div class="sidebar-header"><%= image_tag "app.logo.png" %></div>
+    <div class="sidebar-header">
+      <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
+    </div>
 
     <ul class="list-unstyled components">
       <p>管理者専用ページ</p>
@@ -26,7 +28,7 @@
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
         <ul class="collapse list-unstyled" id="settings-menu">
-          <li><%= link_to "部署", "#" %></li>
+          <li><%= link_to "部署", employees_settings_departments_path %></li>
           <li><%= link_to "外注先", employees_settings_industries_path %></li>
         </ul>
       </li>
@@ -75,7 +77,7 @@
               <a href="#" class="nav-link dropdown-toggle text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= current_admin.name %>
               </a>
-              <div class="dropdown-menu dropdown-position account_dropdown_menu" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-position account_dropdown_menu">
                 <%= link_to edit_admin_registration_path, class: "dropdown-item item-link" do %>
                   <i class="fas fa-user-edit"></i> アカウント編集
                 <% end %>

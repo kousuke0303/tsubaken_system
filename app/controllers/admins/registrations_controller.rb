@@ -20,6 +20,6 @@ class Admins::RegistrationsController < Devise::RegistrationsController
 
   private
     def admin_params
-      params.require(:admin).permit(:name, :login_id, :password, :password_confirmation)
+      params.require(:admin).permit(:name, :login_id, :email, :phone, :password, :password_confirmation)
     end
 end

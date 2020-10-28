@@ -1,28 +1,178 @@
 <div class="container">
-  <h2>個別勤怠</h2>
+  <h2>個別勤怠<button class="btn btn-dark float-r" data-toggle="modal" data-target="#attendance-new">作成</button></h2>
       
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="individual-attendances" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#individual-manager" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Manager</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#individual-staff" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">Staff</a>
-        </li>
-      </ul>
+      <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
+        <div class="row">
+
+          <div class="col-lg-3 col-md-3 flex">
+            <div style="width: 60%;">
+              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
+            </div>
+              
+            <div style="width: 40%;">
+              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control", required: true } %>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3">
+            <%= f.select :type, Constants::EMPLOYEES_TYPE_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" id="initial">
+            <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" id="manager">
+            <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" id="staff">
+            <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3" id="external-staff">
+            <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
+          </div>
+
+          <div class="col-lg-3 col-md-3 text-left">
+            <%= f.submit "検索", class: "btn btn-gray" %>
+          </div>
+        </div>
+      <% end %>
     </div>
         
     <div class="card-body">
-      <div class="tab-content" id="individual-attendances">
-            
-        <div class="tab-pane fade show active bg-white" id="individual-manager" role="tabpanel" aria-labelledby="home-tab">
-        </div>
-          
-        <div class="tab-pane fade bg-white" id="individual-staff" role="tabpanel" aria-labelledby="profile-tab">
-        </div>
-        
-      </div>
+      <% if @resource %>
+        <h5><%= @resource.name %></h5>
+      <% end %>
+      <table class="table table-sm common-table">
+        <tr>
+          <th>日付</th>
+          <th>出勤時間</th>
+          <th>退勤時間</th>
+          <th>勤務時間</th>
+        </tr>
+        <% if @attendances %>
+          <% @total_working_minutes = 0 %>
+          <% @attendances.each do |attendance| %>
+            <a href="a">
+            <tr class="tr-link" data-toggle="modal" data-target="#attendance-edit">
+              <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
+              <td><%= l(attendance.started_at, format: :time) %></td>
+              <td><%= l(attendance.finished_at, format: :time) %></td>
+              <td>
+                <% if attendance.working_minutes.present? %>
+                  <%= daily_working_time(attendance.working_minutes) %>
+                  <% @total_working_minutes += attendance.working_minutes.to_i %>
+                <% end %>
+              </td>
+            </tr>
+            </a>
+          <% end %>
+          <tr>
+            <th>出勤回数</th>
+            <th></th>
+            <th></th>
+            <th>合計勤務時間</th>
+          </tr>
+          <tr>
+            <td><%= @attendances.length %>日</td>
+            <td></td>
+            <td></td>
+            <td><%= monthly_working_time(@total_working_minutes) %></td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>
+
+
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    const manager = $("#manager");
+    const managerSelect = $('select[name="manager_id"]');
+    const staff = $("#staff");
+    const staffSelect = $('select[name="staff_id"]');
+    const externalStaff = $("#external-staff");
+    const externalStaffSelect = $('select[name="external_staff_id"]');
+    const initial = $("#initial");
+
+    // マネージャー選択フォーム表示し、それ以外はリセットして非表示
+    function showManagerSelect() {
+      manager.show();
+      managerSelect.attr("required", "true");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
+    };
+
+    // スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.show();
+      staffSelect.attr("required", "true");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
+    };
+
+    // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showExternalStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      externalStaff.show();
+      staffSelect.val("");
+      externalStaffSelect.attr("required", "true");
+      initial.hide();
+    };
+
+    // 全タイプの従業員選択フォームをリセットして非表示
+    function showInitialSelect() {
+      initial.show();
+      manager.hide();
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.val("");
+    };
+
+    // 検索結果を、選択フォームに初期表示
+    <% if params[:type] && params[:type] == "1" %>
+      showManagerSelect();
+    <% elsif params[:type] && params[:type] == "2" %>
+      showStaffSelect();
+    <% elsif params[:type] && params[:type] == "3" %>
+      showExternalStaffSelect();
+    <% else %>
+      showInitialSelect();
+    <% end %>
+
+    // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
+    $("#type").change(function() {
+      if($(this).val() == "1"){
+        showManagerSelect();
+      } else if ($(this).val() == "2") {
+        showStaffSelect();
+      } else if ($(this).val() == "3") {
+        showExternalStaffSelect();
+      } else {
+        showInitialSelect();
+      };
+    });
+  });
+</script>
