@@ -1,9 +1,5 @@
 module Employees::TasksHelper
-    
-  def default_tasks(matter)
-    matter.tasks.are_default_tasks
-  end
-  
+
   def matter_tasks(matter)
     matter.tasks.are_matter_tasks
   end
