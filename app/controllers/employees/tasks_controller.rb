@@ -22,6 +22,14 @@ class Employees::TasksController < ApplicationController
     end
   end
   
+  def default_task
+    @default_task = Task.new(default_task_params)
+    if @default_task.save
+      flash[:success] = "デフォルトタスク作成に成功しました。"
+      redirect_to employees_matter_url
+    end
+  end
+  
   def create
     new_task = current_matter.tasks.create(title: params[:title], status: "matter_tasks")
     matter_tasks_count = current_matter.tasks.where(status: "matter_tasks").count
@@ -68,6 +76,10 @@ class Employees::TasksController < ApplicationController
     
     def update_task_params
       params.require(:task).permit(:title, :contents)
+    end
+    
+    def default_task_params
+      params.require(:task).permit(:default_title)
     end
     
 end

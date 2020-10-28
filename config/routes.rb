@@ -124,6 +124,7 @@ Rails.application.routes.draw do
   
   namespace :employees do
     resources :tasks, only: [:update, :destroy] do
+      get :default_task, on: :collection
       post :create, on: :collection
       post :move_task, on: :member
     end

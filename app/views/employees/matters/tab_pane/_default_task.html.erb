@@ -1,0 +1,13 @@
+<div class="text-left">
+  <%= form_with(model: @default_task, url: default_task_employees_tasks_path, method: :get, local: true) do |f| %>
+  
+    <div class="form-group">
+      <%= f.label :default_title, "デフォルトタスク名" %>
+      <%= f.text_field :default_title, class: "form-control" %>
+    </div>
+
+    <div style="text-align: center;">
+      <%= f.submit "作成", class: "btn btn-dark" %>
+    </div>
+  <% end %>
+</div>
