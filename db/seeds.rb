@@ -156,10 +156,6 @@ puts "CREATE! MATTER3"
 
 Task.create!(title: "TASK1", status: 0, matter_id: '1', default_title: "TASK1")
 
-Task.create!(title: "TASK2", status: 1, matter_id: '2', default_title: "TASK2")
-
-Task.create!(title: "TASK3", status: 2, matter_id: '3', default_title: "TASK3")
-
 # TargetManagers = Manager.where(approval: true)
 # TargetManagers.each do |manager|
 #   Task.all.each do |task|
