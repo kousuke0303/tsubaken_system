@@ -9,13 +9,13 @@
             <div class="attendance-edit-errors"></div>
 
             <%= f.label :worked_on %>
-            <%= f.date_field :worked_on, class: "form-control", required: true %>
+            <%= f.date_field :worked_on, class: "form-control", required: true, id: "edit-attendance-worked-on" %>
 
             <%= f.label :started_at %>
-            <%= f.time_field :started_at, class: "form-control", required: true %>
+            <%= f.time_field :started_at, class: "form-control", required: true, id: "edit-attendance-started-at" %>
 
             <%= f.label :finished_at %>
-            <%= f.time_field :finished_at, class: "form-control", required: true %>
+            <%= f.time_field :finished_at, class: "form-control", required: true, id: "edit-attendance-finished-at" %>
 
             <input name="prev_url" hidden>
 

@@ -29,3 +29,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $(".to-edit-attendance").on("click", function() {
+      let id = $(this).data("id");
+      let worledOn = $(this).data("worled-on");
+      let startedAt = $(this).data("started-at");
+      let finishedAt = $(this).data("finished-at");
+
+      $("#edit-attendance-worked-on").val(worledOn);
+      $("#edit-attendance-started-at").val(startedAt);
+    });
+  });
+</script>
