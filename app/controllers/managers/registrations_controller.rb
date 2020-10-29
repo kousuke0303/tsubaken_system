@@ -3,6 +3,10 @@
 class Managers::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_manager!
 
+  def edit
+    @departments = Department.all
+  end
+
   def update
     @manager = Manager.find(current_manager.id)
     if params[:manager][:password].blank? && params[:manager][:password_confirmation].blank?
@@ -20,6 +24,6 @@ class Managers::RegistrationsController < Devise::RegistrationsController
   
   private
     def manager_params
-      params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :joined_on, :resigned_on, :password, :password_confirmation)
+      params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :department_id, :joined_on, :resigned_on, :password, :password_confirmation)
     end
 end

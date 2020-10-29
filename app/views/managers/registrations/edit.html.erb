@@ -7,6 +7,9 @@
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
 
+    <%= f.label :department_id %>
+    <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control" %>
+
     <%= f.label :login_id %>
     <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
     
@@ -24,6 +27,9 @@
 
     <%= f.label :address %>
     <%= f.text_field :address, maxlength: 50, class: "form-control" %>
+    
+    <%= f.label :department_id %>
+    <%= f.collection_select :department_id, Department.all, :id, :name, {}, class: "form-control" %>
 
     <%= f.label :joined_on %>
     <%= f.date_field :joined_on, class: "form-control" %>
@@ -38,7 +44,7 @@
     <%= f.password_field :password_confirmation, maxlength: 12, class: "form-control" %>
 
     <div class="btn-area">
-      <%= f.submit "編集", class: "btn btn-dark" %>
+      <%= f.submit "更新", class: "btn btn-dark" %>
     </div>
   <% end %>
 

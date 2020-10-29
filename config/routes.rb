@@ -60,6 +60,10 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+
+  namespace :managers do
+    resources :attendances, only: [:index, :update]
+  end
   
   # Client関係
   scope module: :clients do
@@ -68,8 +72,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :managers do
-    resources :attendances, only: [:index, :update]
+  namespace :clients do
+    resources :matters, only: [:index, :show]
   end
 
   # Staff関係
@@ -102,7 +106,8 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:create, :show, :update, :destroy]
     end
-    resources :attendances, only: [:update] do
+    resources :attendances, only: [:create, :update, :destroy] do
+      patch :erase, on: :member
       collection do
         get :daily
         get :individual
@@ -111,6 +116,7 @@ Rails.application.routes.draw do
     resources :matters
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
+      resources :departments
     end
   end
   

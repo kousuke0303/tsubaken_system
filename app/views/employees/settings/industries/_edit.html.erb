@@ -4,9 +4,10 @@
     <div class="modal-body pa-2e">
       <div class="card mb-3">
         <h5 class="card-header">業種編集</h5>
+
         <div class="card-body">
           <%= form_with(model: @industry, url: "#", method: :patch, remote: true, id: "edit-industry-form") do |f| %>
-            <div class="industry-create-errors"></div>
+            <div class="industry-update-errors"></div>
             <%= f.label :name %>
             <%= f.text_field :name, required: true, class: "form-control", maxlength: 30, id: "industry-name" %>
             

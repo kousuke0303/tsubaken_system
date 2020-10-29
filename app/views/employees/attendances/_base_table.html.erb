@@ -11,8 +11,14 @@
     <th width=20%>勤務</th>
   </tr>
   <% attendances.each do |attendance| %>
-    <tr>
-      <td>
+    <% if attendance.finished_at.present? %>
+      <% finished_at = l(attendance.finished_at, format: :time) %>
+    <% else %>
+      <% finished_at = "not-entered" %>
+    <% end %>
+    <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
+        data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+      <td class="name">
         <% if attendance.manager %>
           <%= attendance.manager.name %>
         <% elsif attendance.staff %>
@@ -24,8 +30,8 @@
       <% if employee_type == "外部Staff" %>
         <td><%= attendance.external_staff.supplier.name %></td>
       <% end %>
-      <td><%= l(attendance.started_at, format: :time) if attendance.started_at.present? %></td>
-      <td><%= l(attendance.finished_at, format: :time) if attendance.finished_at.present? %></td>
+      <td><%= l(attendance.started_at, format: :time) %></td>
+      <td><%= finished_at if attendance.finished_at.present? %></td>
       <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
     </tr>
   <% end %>

@@ -20,7 +20,7 @@
       <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
       <div class="card-body">
 
-        <%= f.label :client %>
+        <%= f.label :client_id %>
         <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
       </div>
     </div>

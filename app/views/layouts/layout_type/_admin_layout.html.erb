@@ -2,7 +2,9 @@
   
   <!-- Sidebar -->
   <nav id="sidebar">
-    <div class="sidebar-header"><%= image_tag "app.logo.png" %></div>
+    <div class="sidebar-header">
+      <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
+    </div>
 
     <ul class="list-unstyled components">
       <p>管理者専用ページ</p>
@@ -26,7 +28,7 @@
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
         <ul class="collapse list-unstyled" id="settings-menu">
-          <li><%= link_to "部署", "#" %></li>
+          <li><%= link_to "部署", employees_settings_departments_path %></li>
           <li><%= link_to "外注先", employees_settings_industries_path %></li>
         </ul>
       </li>

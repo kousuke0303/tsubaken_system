@@ -1,7 +1,12 @@
 class Client < ApplicationRecord
+  before_save { self.email = email.downcase if email.present? }
+
   validates :name, presence: true, length: { maximum: 30 }
+  validates :phone_1, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :phone_2, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :fax, format: { with: VALID_FAX_REGEX }, allow_blank: true
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
-  validates :email, length: { maximum: 254 }
   validate :client_login_id_is_correct?
   
   has_many :matters, dependent: :destroy

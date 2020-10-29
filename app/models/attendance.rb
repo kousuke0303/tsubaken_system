@@ -4,6 +4,8 @@ class Attendance < ApplicationRecord
   validate :finished_is_after_started
   validate :require_worker
 
+  attr_accessor :employee_type
+
   before_save { save_working_minutes }
 
   belongs_to :manager, optional: true

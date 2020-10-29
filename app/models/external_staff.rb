@@ -1,8 +1,11 @@
 class ExternalStaff < ApplicationRecord
+  before_save { self.email = email.downcase }
+
   validates :name, presence: true, length: { maximum: 30 }
   validates :kana, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
-  validates :email, length: { maximum: 254 }
+  validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validate :external_staff_login_id_is_correct?
 
   attr_accessor :login_id_body
