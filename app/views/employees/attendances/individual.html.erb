@@ -57,11 +57,16 @@
         <% if @attendances %>
           <% @total_working_minutes = 0 %>
           <% @attendances.each do |attendance| %>
+            <% if attendance.finished_at.present? %>
+              <% finished_at = l(attendance.finished_at, format: :time) %>
+            <% else %>
+              <% finished_at = "not-entered" %>
+            <% end %>
             <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>" data-name="<%= @resource.name %>"
-                data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>">
+                data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
               <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
               <td><%= l(attendance.started_at, format: :time) %></td>
-              <td><%= l(attendance.finished_at, format: :time) %></td>
+              <td><%= finished_at if attendance.finished_at.present? %></td>
               <td>
                 <% if attendance.working_minutes.present? %>
                   <%= daily_working_time(attendance.working_minutes) %>
@@ -185,7 +190,7 @@
       $("#edit-attendance-started-at").val(startedAt);
       $("#edit-attendance-name").html(name);
       $("#edit-attendance-worked-on").html(worledOn);
-      
+
       if(finishedAt != "not-entered") {
         $("#edit-attendance-finished-at").val(finishedAt);
       }
