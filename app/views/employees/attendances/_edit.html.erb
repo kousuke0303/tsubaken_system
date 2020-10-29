@@ -8,9 +8,6 @@
           <%= form_with(model: @edit_attendance, url: "#", method: :patch, remote: true) do |f| %>
             <div class="attendance-edit-errors"></div>
 
-            <%= f.label :worked_on %>
-            <%= f.date_field :worked_on, class: "form-control", required: true, id: "edit-attendance-worked-on" %>
-
             <%= f.label :started_at %>
             <%= f.time_field :started_at, class: "form-control", required: true, id: "edit-attendance-started-at" %>
 

@@ -38,8 +38,11 @@
       let startedAt = $(this).data("started-at");
       let finishedAt = $(this).data("finished-at");
 
-      $("#edit-attendance-worked-on").val(worledOn);
       $("#edit-attendance-started-at").val(startedAt);
+      if(finishedAt != "not-entered") {
+        $("#edit-attendance-finished-at").val(finishedAt);
+      }
+      alert(id);
     });
   });
 </script>
