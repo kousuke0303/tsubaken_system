@@ -17,8 +17,8 @@
       <% finished_at = "not-entered" %>
     <% end %>
     <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
-        data-worled-on="<%= attendance.worked_on %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
-      <td>
+        data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+      <td class="name">
         <% if attendance.manager %>
           <%= attendance.manager.name %>
         <% elsif attendance.staff %>

@@ -33,16 +33,20 @@
 <script>
   $(document).on("turbolinks:load", function() {
     $(".to-edit-attendance").on("click", function() {
-      let id = $(this).data("id");
+      let form = $("#edit-attendance-form");
+      let attendanceId = $(this).data("id");
+      let name = $(this).find("td.name").html();
       let worledOn = $(this).data("worled-on");
       let startedAt = $(this).data("started-at");
       let finishedAt = $(this).data("finished-at");
 
       $("#edit-attendance-started-at").val(startedAt);
+      $("#edit-attendance-name").html(name);
+      $("#edit-attendance-worked-on").html(worledOn);
       if(finishedAt != "not-entered") {
         $("#edit-attendance-finished-at").val(finishedAt);
       }
-      alert(id);
+      $("#edit-attendance-form").attr("action", "/employees/attendances/" + attendanceId);
     });
   });
 </script>

@@ -4,6 +4,7 @@ class Employees::AttendancesController < ApplicationController
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:daily, :individual]
   before_action :set_new_attendance, only: [:daily, :individual]
+  before_action :set_attendance, only: [:update, :destroy]
 
   # 日別勤怠表示ページ
   def daily
@@ -48,7 +49,7 @@ class Employees::AttendancesController < ApplicationController
       resource = ExternalStaff.find(external_staff_id)
     end
     create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
-    if @attendance.update_attributes(employee_attendance_params)
+    if @attendance.update(employee_attendance_params)
       flash[:success] = "勤怠を作成しました"
       if params["prev_url"].eql?("daily")
         redirect_to daily_employees_attendances_url
@@ -63,7 +64,14 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def update
-    @Attendance = Attendance.find(params[:id])
+    if @attendance.update(employee_attendance_params)
+      flash[:success] = "勤怠を更新しました"
+      redirect_to daily_employees_attendances_url
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   private
@@ -82,7 +90,11 @@ class Employees::AttendancesController < ApplicationController
     end
 
     def set_new_attendance
-      @new_attendance = Attendance.new
+      @attendance = Attendance.new
+    end
+
+    def set_attendance
+      @attendance = Attendance.find(params[:id])
     end
 
     def employee_attendance_params
