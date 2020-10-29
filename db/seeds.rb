@@ -140,9 +140,9 @@ puts "CREATE! MATTER3"
 
 Task.create!(title: "TASK1", status: 0, matter_id: SeedMatter1.id, default_title: "DEFALTE_TASK1")
 
-Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id, default_title: "DEFALTE_TASK2")
+Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id)
 
-Task.create!(title: "TASK3", status: 2, matter_id: SeedMatter3.id, default_title: "DEFALTE_TASK3")
+Task.create!(title: "TASK3", status: 2, matter_id: SeedMatter3.id)
 
 # TargetManagers = Manager.where(approval: true)
 # TargetManagers.each do |manager|
