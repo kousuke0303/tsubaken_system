@@ -55,6 +55,10 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+
+  namespace :managers do
+    resources :attendances, only: [:index, :update]
+  end
   
   # Client関係
   scope module: :clients do
@@ -63,8 +67,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :managers do
-    resources :attendances, only: [:index, :update]
+  namespace :clients do
+    resources :matters, only: [:index, :show]
   end
 
   # Staff関係
