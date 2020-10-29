@@ -35,7 +35,7 @@
     $(".to-edit-attendance").on("click", function() {
       let form = $("#edit-attendance-form");
       let attendanceId = $(this).data("id");
-      let name = $(this).find("td.name").html();
+      let name = $(this).find(".name").html();
       let worledOn = $(this).data("worled-on");
       let startedAt = $(this).data("started-at");
       let finishedAt = $(this).data("finished-at");

@@ -57,8 +57,8 @@
         <% if @attendances %>
           <% @total_working_minutes = 0 %>
           <% @attendances.each do |attendance| %>
-            <a href="a">
-            <tr class="tr-link" data-toggle="modal" data-target="#attendance-edit">
+            <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
+            data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>">
               <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
               <td><%= l(attendance.started_at, format: :time) %></td>
               <td><%= l(attendance.finished_at, format: :time) %></td>
@@ -69,7 +69,6 @@
                 <% end %>
               </td>
             </tr>
-            </a>
           <% end %>
           <tr>
             <th>出勤回数</th>
@@ -173,6 +172,22 @@
       } else {
         showInitialSelect();
       };
+    });
+
+    $(".to-edit-attendance").on("click", function() {
+      let form = $("#edit-attendance-form");
+      let attendanceId = $(this).data("id");
+      let worledOn = $(this).data("worled-on");
+      let startedAt = $(this).data("started-at");
+      let finishedAt = $(this).data("finished-at");
+
+      $("#edit-attendance-started-at").val(startedAt);
+      $("#edit-attendance-name").html(name);
+      $("#edit-attendance-worked-on").html(worledOn);
+      if(finishedAt != "not-entered") {
+        $("#edit-attendance-finished-at").val(finishedAt);
+      }
+      $("#edit-attendance-form").attr("action", "/employees/attendances/" + attendanceId);
     });
   });
 </script>

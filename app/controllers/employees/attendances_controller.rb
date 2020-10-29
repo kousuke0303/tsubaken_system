@@ -66,7 +66,11 @@ class Employees::AttendancesController < ApplicationController
   def update
     if @attendance.update(employee_attendance_params)
       flash[:success] = "勤怠を更新しました"
-      redirect_to daily_employees_attendances_url
+      if params["prev_url"].eql?("daily")
+        redirect_to daily_employees_attendances_url
+      else 
+        redirect_to individual_employees_attendances_url
+      end
     else
       respond_to do |format|
         format.js
