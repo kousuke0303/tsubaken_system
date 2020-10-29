@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
   
   def current_matter
-    Matter.find_by(matter_id: params[:id])
+    Matter.find_by(id: params[:id])
   end
   
   def matter_edit_authenticate!
