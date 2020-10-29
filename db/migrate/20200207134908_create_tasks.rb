@@ -10,9 +10,11 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.string :default_title
       t.integer :priority_count
       t.boolean :notification, default: false
-      t.references :matter, foreign_key: true
+      t.string :matter_id, null: false
 
       t.timestamps
     end
+    add_foreign_key :tasks, :matters
+    add_index  :tasks, :matter_id
   end
 end

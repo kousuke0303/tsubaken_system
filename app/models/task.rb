@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  belongs_to :matter
+  belongs_to :matter, inverse_of: :tasks
   
   enum status: {default_tasks: 0, matter_tasks: 1, progress_tasks: 2, finished_tasks: 3}
    

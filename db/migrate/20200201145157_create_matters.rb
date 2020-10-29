@@ -1,6 +1,6 @@
 class CreateMatters < ActiveRecord::Migration[5.1]
   def change
-    create_table :matters do |t|
+    create_table :matters, id: :string do |t|
       t.string :title
       t.string :actual_spot
       t.string :zip_code
@@ -11,7 +11,6 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.date :scheduled_finished_on
       t.date :finished_on
       t.date :maintenanced_on
-      t.integer :matter_uid
       t.references :client, foreign_key: true
 
       t.timestamps

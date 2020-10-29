@@ -103,36 +103,33 @@ puts "CREATE! CLIENT"
 
 # 1.Matter-----------------
 
-SeedMatter = Matter.create!(title: "案件１",
-               status: 0,
-               actual_spot: "東京都渋谷区神宮町１−１−１",
-               scheduled_started_on:  "2020-07-01",
-               scheduled_finished_on: "2020-7-15",
-               client_id: '1',
-               matter_uid: '1'
-               )
+SeedMatter1 = Matter.create!(title: "案件１",
+              status: 0,
+              actual_spot: "東京都渋谷区神宮町１−１−１",
+              scheduled_started_on:  "2020-07-01",
+              scheduled_finished_on: "2020-7-15",
+              client_id: '1',
+              )
 
 puts "CREATE! MATTER1"
 
-SeedMatterB = Matter.create!(title: "案件２",
-               status: 1,
-               actual_spot: "東京都渋谷区神宮町１−２−１",
-               scheduled_started_on: "2020-07-20",
-               scheduled_finished_on: "2020-08-30",
-               client_id: '2',
-               matter_uid: '2'
-               )
+SeedMatter2 = Matter.create!(title: "案件２",
+              status: 1,
+              actual_spot: "東京都渋谷区神宮町１−２−１",
+              scheduled_started_on: "2020-07-20",
+              scheduled_finished_on: "2020-08-30",
+              client_id: '2',
+              )
 
 puts "CREATE! MATTER２"
 
-SeedMatterC = Matter.create!(title: "案件3",
-               status: 2,
-               actual_spot: "東京都渋谷区神宮町１−２−１",
-               scheduled_started_on: "2020-08-20",
-               scheduled_finished_on: "2020-09-30",
-               client_id: '3',
-               matter_uid: '3'
-               )
+SeedMatter3 = Matter.create!(title: "案件3",
+              status: 2,
+              actual_spot: "東京都渋谷区神宮町１−２−１",
+              scheduled_started_on: "2020-08-20",
+              scheduled_finished_on: "2020-09-30",
+              client_id: '3',
+              )
 
 puts "CREATE! MATTER3"
 
@@ -141,7 +138,11 @@ puts "CREATE! MATTER3"
       # TASK
 # ---------------------------------------------
 
-Task.create!(title: "TASK1", status: 0, matter_id: '1', default_title: "TASK1")
+Task.create!(title: "TASK1", status: 0, matter_id: SeedMatter1.id, default_title: "DEFALTE_TASK1")
+
+Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id, default_title: "DEFALTE_TASK2")
+
+Task.create!(title: "TASK3", status: 2, matter_id: SeedMatter3.id, default_title: "DEFALTE_TASK3")
 
 # TargetManagers = Manager.where(approval: true)
 # TargetManagers.each do |manager|

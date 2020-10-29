@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   end
 
   create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
+    t.string "matter_id", null: false
     t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   end
 
   create_table "matter_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
+    t.string "matter_id", null: false
     t.bigint "staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.index ["staff_id"], name: "index_matter_staffs_on_staff_id"
   end
 
-  create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "matters", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.string "actual_spot"
     t.string "zip_code"
@@ -144,7 +144,6 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.integer "matter_uid"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -171,7 +170,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
   end
 
   create_table "supplier_matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
+    t.string "matter_id", null: false
     t.bigint "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -203,7 +202,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.string "default_title"
     t.integer "priority_count"
     t.boolean "notification", default: false
-    t.bigint "matter_id"
+    t.string "matter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
