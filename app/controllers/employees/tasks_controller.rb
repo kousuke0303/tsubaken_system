@@ -49,7 +49,9 @@ class Employees::TasksController < ApplicationController
       if @task.update(update_task_params)
         flash[:success] = "#{@task.title}を更新しました"
         matter_task_type
-        redirect_to employees_matter_url
+        respond_to do |format|
+          format.js
+        end
       end
     end
   end
@@ -61,7 +63,9 @@ class Employees::TasksController < ApplicationController
       if @task.destroy
         flash[:danger] = "#{@task.title}を削除しました"
         matter_task_type
-        redirect_to employees_matter_url
+        respond_to do |format|
+          format.js
+        end
       end
     end
   end
