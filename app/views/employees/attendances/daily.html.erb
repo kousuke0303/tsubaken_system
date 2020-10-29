@@ -32,6 +32,7 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
+    // 勤怠編集モーダル
     $(".to-edit-attendance").on("click", function() {
       let form = $("#edit-attendance-form");
       let attendanceId = $(this).data("id");
@@ -47,6 +48,7 @@
         $("#edit-attendance-finished-at").val(finishedAt);
       }
       $("#edit-attendance-form").attr("action", "/employees/attendances/" + attendanceId);
+      $("#to-destroy-attendance").attr("href", "/employees/attendances/" + attendanceId + "?prev_url=daily");
     });
   });
 </script>

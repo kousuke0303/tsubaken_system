@@ -78,6 +78,15 @@ class Employees::AttendancesController < ApplicationController
     end
   end
 
+  def destroy
+    @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました" : flash[:notice] = "勤怠を削除できませんでした"
+    if params["prev_url"].eql?("daily")
+      redirect_to daily_employees_attendances_url
+    else 
+      redirect_to individual_employees_attendances_url
+    end
+  end
+
   private
     # 直近30年をhashに(フォーム用)
     def set_latest_30_year
