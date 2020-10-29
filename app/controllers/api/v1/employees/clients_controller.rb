@@ -14,17 +14,17 @@ class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
 
   def update
     if @client.update(client_params)
-      render json: client, serializer: ClientSerializer
+      render json: @client, serializer: ClientSerializer
     else
-      render json: { status: "false", message: client.errors.messages }
+      render json: { status: "false", message: @client.errors.messages }
     end
   end
 
   def destroy
     if @client.destroy
-      render json: client, serializer: ClientSerializer
+      render json: @client, serializer: ClientSerializer
     else
-      render json: { status: "false", message: client.errors.messages }
+      render json: { status: "false", message: @client.errors.messages }
     end
   end
 

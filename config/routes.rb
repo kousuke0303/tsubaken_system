@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       post "sign_in", to: "sessions#create"
       namespace :employees do
         post "client_create", to: "clients#create"
-        put "client_update", to: "clients#update"
-        delete "client_destroy", to: "clients#destroy"
+        post "client_update", to: "clients#update"
+        post "client_destroy", to: "clients#destroy"
       end
     end
   end
