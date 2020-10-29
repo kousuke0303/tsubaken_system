@@ -14,7 +14,10 @@
             <td><%= department.name %></td>
             <td>
               <div hidden><%= department.id %></div>
-              <button class="btn btn-sm btn-dark to-edit-department" data-toggle="modal" data-target="#department-edit" >編集</button>
+              <button class="btn btn-sm btn-dark to-edit-department" data-toggle="modal" data-target="#department-edit"
+                      data-id="<%= department.id %>" data-name="<%= department.name %>">
+                編集
+              </button>
               <%= link_to "削除", employees_settings_department_path(department), method: :delete, data: { confirm: "この部署を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>
@@ -27,8 +30,8 @@
 <script>
   $(document).on("turbolinks:load", function() {
     $(".to-edit-department").click(function() {
-      let name = $(this).parent().prev().html();
-      let departmentId = $(this).prev().html();
+      let name = $(this).data("name");
+      let departmentId = $(this).data("id");
       $("#department-name").val(name);
       $("#edit-department-form").attr("action", "/employees/settings/departments/" + departmentId);
     });
