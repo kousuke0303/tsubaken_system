@@ -25,6 +25,7 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
   def register
   end
 
+  # 従業員自身の@one_monthの勤怠を取得、なければ生成
   def api_create_monthly_attendances(resource)
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     unless @attendances.length == @one_month.length
