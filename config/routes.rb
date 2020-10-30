@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         post "destroy_client", to: "clients#destroy"
 
         # 従業員自身の勤怠関連
-        post "index_attendance", to: "attenances#index"
+        post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
       end
     end
