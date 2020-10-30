@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "ページ情報の取得に失敗しました"
+    flash[:danger] = "勤怠情報の取得に失敗しました"
     redirect_to root_url
   end
 

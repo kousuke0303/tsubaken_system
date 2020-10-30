@@ -24,6 +24,15 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
       set_one_month
       api_create_monthly_attendances(@resource)
       attendance = @resource.attendances.where(worked_on: Date.current).first
+      if attendance.started_at.blank? && attendance.finished_at.blank?
+        attendance.update!(started_at: Time.current)
+        render json: attendance, serializer: AttendanceSerializer
+      elsif attendance.finished_at.blank? && attendance.finished_at.blank?
+        attendance.update!(finished_at: Time.current)
+        render json: attendance, serializer: AttendanceSerializer
+      else
+        render json: { status: "false", message: "退勤済です" }
+      end
     end
   rescue
     render json: { status: "false", message: "出退勤の登録に失敗しました" }
@@ -39,6 +48,6 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    render json: { status: "false", message: "エラーが発生しました" }
+    render json: { status: "false", message: "勤怠情報の取得に失敗しました" }
   end
 end
