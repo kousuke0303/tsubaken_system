@@ -6,7 +6,16 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
   def index
     begin
       set_one_month
-      render json: { status: "success", message: @one_month }
+      case params[:auth]
+      when "manager"
+        resource = Manager.find(params[:id])
+      when "staff"
+        resource = Staff.find(params[:id])
+      when "external_staff"
+        resource = ExternalStaff.find(params[:id])
+      end
+      api_create_monthly_attendances(resource)
+      render json: { status: "success", message: @attendances }
     end
   rescue
     render json: { status: "false", message: "エラーが発生しました" }
@@ -14,5 +23,17 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
 
   # 出退勤登録
   def register
+  end
+
+  def api_create_monthly_attendances(resource)
+    @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    unless @attendances.length == @one_month.length
+      ActiveRecord::Base.transaction do
+        @one_month.each { |day| resource.attendances.create!(worked_on: day) }
+      end
+      @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    end
+  rescue ActiveRecord::RecordInvalid 
+    render json: { status: "false", message: "エラーが発生しました" }
   end
 end

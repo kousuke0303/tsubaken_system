@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
 
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_monthly_attendances(resource)
-    set_one_month
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     unless @attendances.length == @one_month.length
       ActiveRecord::Base.transaction do
