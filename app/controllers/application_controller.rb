@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
   # Attendance用、一月分の日付を定義  
   def set_one_month
-    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
+    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date.beginning_of_month
     @last_day = @first_day.end_of_month
     @one_month = [*@first_day..@last_day]
   end
