@@ -1,5 +1,5 @@
 class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
-  protect_from_forgery
+  skip_before_action :verify_authenticity_token
   before_action :check_token_and_key_to_api
   before_action :set_client, only: [:update, :destroy]
 
@@ -8,7 +8,7 @@ class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
     if client.save
       render json: client, serializer: ClientSerializer
     else
-      render json: { status: "false", message: client.errors.messages }
+      render json: { status: "false", message: client.errors.full_messages }
     end
   end
 
@@ -16,7 +16,7 @@ class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
     if @client.update(client_params)
       render json: @client, serializer: ClientSerializer
     else
-      render json: { status: "false", message: @client.errors.messages }
+      render json: { status: "false", message: @client.errors.full_messages }
     end
   end
 
@@ -24,13 +24,13 @@ class Api::V1::Employees::ClientsController < Api::V1::ApplicationController
     if @client.destroy
       render json: @client, serializer: ClientSerializer
     else
-      render json: { status: "false", message: @client.errors.messages }
+      render json: { status: "false", message: @client.errors.full_messages }
     end
   end
 
   private
     def client_params
-      params.require(:client).permit(:name, :gender, :login_id, :phone_1, :phone_2, :email, :birthed_on, :zipcode, :address)
+      params.permit(:name, :gender, :login_id, :phone_1, :phone_2, :email, :birthed_on, :zipcode, :address)
     end
 
     def set_client
