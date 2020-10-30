@@ -9,7 +9,7 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
       begin
         set_one_month
         api_create_monthly_attendances(@resource)
-        render json: { status: "success", message: @attendances }
+        render json: { data: @attendances }
       end
     else
       render json: { status: "false", message: "権限が不正です" }
@@ -22,10 +22,11 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
   def register
     begin
       set_one_month
-
+      api_create_monthly_attendances(@resource)
+      attendance = @resource.attendances.where(worked_on: Date.current).first
     end
   rescue
-    render json: { status: "false", message: "エラーが発生しました" }
+    render json: { status: "false", message: "出退勤の登録に失敗しました" }
   end
 
   # 従業員自身の@one_monthの勤怠を取得、なければ生成
