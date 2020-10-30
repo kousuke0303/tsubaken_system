@@ -4,10 +4,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
+
+      # 従業員が行う操作
       namespace :employees do
-        post "client_create", to: "clients#create"
-        post "client_update", to: "clients#update"
-        post "client_destroy", to: "clients#destroy"
+        # 顧客のCRUD
+        post "create_client", to: "clients#create"
+        post "update_client", to: "clients#update"
+        post "destroy_client", to: "clients#destroy"
+
+        # 従業員自身の勤怠関連
+        post "index_attendance", to: "attenances#index"
+        post "register_attendance", to: "attendances#register"
       end
     end
   end
