@@ -3,6 +3,7 @@
 class DeviseCreateManagers < ActiveRecord::Migration[5.1]
   def change
     create_table :managers do |t|
+      t.string :auth,               null: false, default: "manager"
       t.string :name,               null: false, default: ""
       t.string :phone
       t.string :email
