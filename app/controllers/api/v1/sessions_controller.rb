@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < Api::V1::ApplicationController
-  protect_from_forgery
+  skip_before_action :verify_authenticity_token
   before_action :check_token_and_key_to_api
 
   def create
