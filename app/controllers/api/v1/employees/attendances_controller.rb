@@ -5,10 +5,14 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
 
   # 従業員自身の一月分の勤怠取得
   def index
-    begin
-      set_one_month
-      api_create_monthly_attendances(@resource)
-      render json: { status: "success", message: @attendances }
+    if @resource.is_a?(Manager) || @resource.is_a?(Staff) || @resource.is_a?(ExternalStaff)
+      begin
+        set_one_month
+        api_create_monthly_attendances(@resource)
+        render json: { status: "success", message: @attendances }
+      end
+    else
+      render json: { status: "false", message: "権限が不正です" }
     end
   rescue
     render json: { status: "false", message: "エラーが発生しました" }
