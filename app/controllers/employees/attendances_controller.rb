@@ -64,7 +64,7 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def update
-    if @attendance.update(employee_attendance_params)
+    if @attendance.update(employee_attendance_params.except(:worked_on, :manager_id, :staff_id, :external_staff_id))
       flash[:success] = "勤怠を更新しました"
       if params["prev_url"].eql?("daily")
         redirect_to daily_employees_attendances_url
