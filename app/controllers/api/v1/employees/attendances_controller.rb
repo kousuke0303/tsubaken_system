@@ -9,7 +9,7 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
       begin
         set_one_month
         api_create_monthly_attendances(@resource)
-        render json: { data: @attendances }
+        render json: @attendances
       end
     else
       render json: { status: "false", message: "権限が不正です" }
