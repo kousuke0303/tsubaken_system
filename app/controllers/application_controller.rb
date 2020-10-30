@@ -214,7 +214,7 @@ class ApplicationController < ActionController::Base
   end
   
   # 使用回数を保存
-  def count_matter_task
+  def count_default_task
     default_tasks.each do |task|
       priority_count = Task.where(default_title: task.default_title).where.not(status: nil).count
       task.update(priority_count: priority_count)
@@ -230,7 +230,7 @@ class ApplicationController < ActionController::Base
       
   def matter_task_type
     if admin_signed_in? || manager_signed_in?
-      count_matter_task
+      count_default_task
       @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
@@ -296,7 +296,7 @@ class ApplicationController < ActionController::Base
       if resource_or_scope.is_a?(Admin)
         top_admin_path(current_admin)
       elsif resource_or_scope.is_a?(Manager)
-        top_manager_path(current_admin)
+        top_manager_path(current_manager)
       elsif resource_or_scope.is_a?(Submanager)
         top_submanager_path(current_submanager_public_uid, current_submanager)
       elsif resource_or_scope.is_a?(Staff)

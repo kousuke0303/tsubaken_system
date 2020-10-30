@@ -110,6 +110,9 @@ Rails.application.routes.draw do
         get :create, on: :collection
       end
     end
+    
+    resources :tasks, only: [:create, :index, :update, :destroy]
+    
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
       resources :departments
@@ -126,7 +129,6 @@ Rails.application.routes.draw do
   
   namespace :employees do
     resources :tasks, only: [:update, :destroy] do
-      get :default_task, on: :collection
       post :create, on: :collection
       post :move_task, on: :member
     end

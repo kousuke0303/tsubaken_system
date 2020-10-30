@@ -123,16 +123,6 @@ SeedMatter2 = Matter.create!(title: "案件２",
 
 puts "CREATE! MATTER２"
 
-SeedMatter3 = Matter.create!(title: "案件3",
-              status: 2,
-              actual_spot: "東京都渋谷区神宮町１−２−１",
-              scheduled_started_on: "2020-08-20",
-              scheduled_finished_on: "2020-09-30",
-              client_id: '3',
-              )
-
-puts "CREATE! MATTER3"
-
 
 # -----------------------------------------------------
       # TASK
@@ -141,8 +131,6 @@ puts "CREATE! MATTER3"
 Task.create!(title: "TASK1", status: 0, matter_id: SeedMatter1.id, default_title: "DEFALTE_TASK1")
 
 Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id)
-
-Task.create!(title: "TASK3", status: 2, matter_id: SeedMatter3.id)
 
 # TargetManagers = Manager.where(approval: true)
 # TargetManagers.each do |manager|

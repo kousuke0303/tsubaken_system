@@ -13,7 +13,6 @@
   </div>
 <% end %>
 
-
 <script>
 $(document).ready( function(){
     
@@ -26,7 +25,7 @@ $(document).ready( function(){
       "item": [
         <% @default_tasks.each do |task| %>    
           { 
-            "title": "<%= task.title %>",
+            "title": "<%= task.default_title %>",
             "id": "item_id_<%= task.id %>"
           },
         <% end %>
@@ -39,7 +38,7 @@ $(document).ready( function(){
       "class": "task",
       "item": [
         <% @matter_tasks.each do |task| %>    
-          { 
+          {
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },

@@ -109,4 +109,16 @@
       <%= render "employees/settings/industries/edit" %>
     </div>
   <% end %>
+  
+  <!--デフォルトタスクnew edit-->
+  <% if controller_name == "tasks" && action_name == "index" %>
+    <div id="default-task-new" class="modal fade" role="dialog">
+      <%= render "employees/tasks/new" %>
+    </div>
+
+    <div id="default-task-edit" class="modal fade" role="dialog">
+      <%= render "employees/tasks/edit" %>
+    </div>
+  <% end %>
+  
 <% end %>

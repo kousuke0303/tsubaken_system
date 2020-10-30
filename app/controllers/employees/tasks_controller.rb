@@ -1,5 +1,12 @@
 class Employees::TasksController < ApplicationController
+  before_action :set_default_task, only: [:show, :edit, :update, :destroy]
   
+  def index
+    default_tasks
+    @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
+    @default_task = Task.new
+  end
+
   def move_task
     task = Task.find(remove_str(params[:task]))
     before_status = task.status
@@ -10,6 +17,13 @@ class Employees::TasksController < ApplicationController
       copy_task.save
       default_tasks.create(matter_id: current_matter.id)
       copy_task.update(status: params[:status], row_order: roworder_params)
+      # default_tasksから移動した時に、移動先でもデフォルトタスクで設定できるようにする
+      if Task.where(before_status: 0).where.not(status: "default_tasks")
+        task.update(move_date: move_date,
+                    row_order: roworder_params,
+                    title: task.default_title)
+        create_started_at_or_finished_at
+      end
     else
       task.update(status: params[:status],
                   before_status: before_status,
@@ -41,6 +55,15 @@ class Employees::TasksController < ApplicationController
         format.js
       end
     end
+    
+    # @default_task = Task.new(default_title_params)
+    # if @default_task.save!
+    #   flash[:success] = "デフォルトタスクを作成しました"
+    #   redirect_to employees_tasks_url
+    # else
+    #   flash[:danger] = "デフォルトタスク作成に失敗しました"
+    #   redirect_to employees_tasks_url
+    # end
   end
   
   def update
@@ -55,6 +78,15 @@ class Employees::TasksController < ApplicationController
         end
       end
     end
+
+    # if @default_task.update(default_title_params)
+    #   flash[:success] = "デフォルトタスク名を更新しました"
+    #   redirect_to employees_tasks_url
+    # else
+    #   respond_to do |format|
+    #     format.js
+    #   end
+    # end
   end
   
   def destroy
@@ -69,6 +101,9 @@ class Employees::TasksController < ApplicationController
         end
       end
     end
+
+    # @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
+    # redirect_to employees_tasks_url
   end
   
   private
@@ -85,4 +120,11 @@ class Employees::TasksController < ApplicationController
       params.require(:task).permit(:title, :contents)
     end
     
+    def default_title_params
+      params.require(:task).permit(:default_title)
+    end
+    
+    def set_default_task
+      @default_task = Task.find(params[:id])
+    end
 end

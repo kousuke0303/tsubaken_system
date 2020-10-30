@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">デフォルトタスク作成</h5>
+        <div class="card-body">
+          <%= form_with(model: @default_task, url: employees_tasks_path, method: :post, local: true) do |f| %>
+            <div class="task-create-errors"></div>
+            <%= f.label :default_title, "デフォルトタスク名" %>
+            <%= f.text_field :default_title, required: true, class: "form-control", maxlength: 60 %>
+            
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

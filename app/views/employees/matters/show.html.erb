@@ -16,9 +16,6 @@
         <li class="nav-item">
           <a class="nav-link" href="#tasks" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">タスク一覧</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#default_task" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">デフォルトタスク作成</a>
-        </li>
       </ul>
     </div>
 
@@ -36,16 +33,12 @@
         <div class="tab-pane fade show bg-white" id="clients" role="tabpanel">
         </div>
 
-        <div class="tab-pane fade show bg-white" id="tasks" role="tabpanel">
-          <%= render "employees/matters/tab_pane/tasks" %>
+        <div class="tab-pane fade show bg-white", id="tasks" role="tabpanel">
+          <div class="task_index">
+            <%= render "employees/matters/tab_pane/tasks" %>
+          </div>
         </div>
-        
-        <div class="tab-pane fade show bg-white" id="default_task" role="tabpanel" aria-labelledby="home-tab">
-          <%= render "employees/matters/tab_pane/default_task" %>
-        </div>
-        
       </div>
-
     </div>
   </div>
 </div>

@@ -1,3 +1,11 @@
 $('#matter_task_tab').addClass('active');
 $('#matter_task_index').addClass('active');
 $('.task_index').html('<%= escape_javascript(render partial: './employees/matters/tab_pane/tasks') %>');
+
+<!--$(".task-create-errors").html('</%= escape_javascript(render partial: "shared/error_messages", locals: { resource: @default_task }) %>');-->
+<!--</% @default_task.errors.messages.keys.each do |key_attribute| %>-->
+<!--  var addDiv = $('<div class="field-with-errors">');-->
+<!--  var addLabel = $('input[name="industry[</%= key_attribute.intern.to_s %>]"]').prev();-->
+<!--  $('input[name="industry[</%= key_attribute.intern.to_s %>]"]').wrap(addDiv);-->
+<!--  addLabel.wrap(addDiv);-->
+<!--</% end %>-->
