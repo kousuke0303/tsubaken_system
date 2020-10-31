@@ -108,13 +108,14 @@ Rails.application.routes.draw do
         get :individual
       end
     end
+
     resources :matters do
       resources :tasks do
         get :move_task, on: :collection
-        get :create, on: :collection
+        post :create, on: :collection
       end
     end
-    
+
     resources :tasks, only: [:create, :index, :update, :destroy] do
       post :create, on: :collection
       post :move_task, on: :member

@@ -4,7 +4,8 @@ class Employees::TasksController < ApplicationController
   def index
     default_tasks
     @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
-    @default_task = Task.new
+    @matter = Matter.new
+    @default_task = @matter.tasks.build
   end
 
   def move_task
@@ -58,9 +59,8 @@ class Employees::TasksController < ApplicationController
   end
   
   def default_task_create
-    @default_task = Task.new(default_title_params)
-    puts @default_task
-    if @default_task.save!
+    @default_task = @matter.tasks.new(default_title_params)
+    if @default_task.save
       flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_tasks_url
     else

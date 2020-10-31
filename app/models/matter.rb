@@ -10,6 +10,7 @@ class Matter < ApplicationRecord
   accepts_nested_attributes_for :matter_managers, allow_destroy: true
   accepts_nested_attributes_for :matter_staffs, allow_destroy: true
   accepts_nested_attributes_for :supplier_matters, allow_destroy: true
+  accepts_nested_attributes_for :tasks, allow_destroy: true
 
   validates :title, presence: true, length: { maximum: 30 }
 
