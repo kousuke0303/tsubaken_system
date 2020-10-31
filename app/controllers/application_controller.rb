@@ -297,8 +297,6 @@ class ApplicationController < ActionController::Base
         top_admin_path(current_admin)
       elsif resource_or_scope.is_a?(Manager)
         top_manager_path(current_manager)
-      elsif resource_or_scope.is_a?(Submanager)
-        top_submanager_path(current_submanager_public_uid, current_submanager)
       elsif resource_or_scope.is_a?(Staff)
         top_staff_path(current_staff)
       elsif resource_or_scope.is_a?(User)

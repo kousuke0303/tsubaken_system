@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">デフォルトタスク作成</h5>
         <div class="card-body">
-          <%= form_with(model: @default_task, url: employees_tasks_path, method: :post, local: true) do |f| %>
+          <%= form_with(model: @default_task, url: default_task_employees_tasks_path, method: :post, local: true) do |f| %>
             <div class="task-create-errors"></div>
             <%= f.label :default_title, "デフォルトタスク名" %>
             <%= f.text_field :default_title, required: true, class: "form-control", maxlength: 60 %>

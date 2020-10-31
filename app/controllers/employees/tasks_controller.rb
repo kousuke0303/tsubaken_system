@@ -1,5 +1,5 @@
 class Employees::TasksController < ApplicationController
-  before_action :set_default_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_default_task, only: [:show, :edit, :update, :destroy, :default_task_update, :default_task_destroy]
   
   def index
     default_tasks
@@ -55,15 +55,17 @@ class Employees::TasksController < ApplicationController
         format.js
       end
     end
-    
-    # @default_task = Task.new(default_title_params)
-    # if @default_task.save!
-    #   flash[:success] = "デフォルトタスクを作成しました"
-    #   redirect_to employees_tasks_url
-    # else
-    #   flash[:danger] = "デフォルトタスク作成に失敗しました"
-    #   redirect_to employees_tasks_url
-    # end
+  end
+  
+  def default_task_create
+    @default_task = Task.new(default_title_params)
+    if @default_task.save!
+      flash[:success] = "デフォルトタスクを作成しました"
+      redirect_to employees_tasks_url
+    else
+      flash[:danger] = "デフォルトタスク作成に失敗しました"
+      redirect_to employees_tasks_url
+    end
   end
   
   def update
@@ -78,15 +80,17 @@ class Employees::TasksController < ApplicationController
         end
       end
     end
-
-    # if @default_task.update(default_title_params)
-    #   flash[:success] = "デフォルトタスク名を更新しました"
-    #   redirect_to employees_tasks_url
-    # else
-    #   respond_to do |format|
-    #     format.js
-    #   end
-    # end
+  end
+  
+  def default_task_update
+    if @default_task.update(default_title_params)
+      flash[:success] = "デフォルトタスク名を更新しました"
+      redirect_to employees_tasks_url
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
   end
   
   def destroy
@@ -101,9 +105,11 @@ class Employees::TasksController < ApplicationController
         end
       end
     end
-
-    # @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
-    # redirect_to employees_tasks_url
+  end
+  
+  def default_task_destroy
+    @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
+    redirect_to employees_tasks_url
   end
   
   private
