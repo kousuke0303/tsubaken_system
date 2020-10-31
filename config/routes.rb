@@ -133,11 +133,4 @@ Rails.application.routes.draw do
     get 'block_index', to: 'addresses#block_index'
     get 'selected_block', to: 'addresses#selected_block'
   end
-  
-  # namespace :employees do
-  #   resources :tasks, only: [:update, :destroy] do
-  #     post :create, on: :collection
-  #     post :move_task, on: :member
-  #   end
-  # end
 end
