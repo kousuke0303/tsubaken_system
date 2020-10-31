@@ -59,6 +59,7 @@ class Employees::TasksController < ApplicationController
   
   def default_task_create
     @default_task = Task.new(default_title_params)
+    puts @default_task
     if @default_task.save!
       flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_tasks_url
