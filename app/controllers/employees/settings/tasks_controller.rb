@@ -9,7 +9,7 @@ class Employees::Settings::TasksController < ApplicationController
   end
 
   def create
-    row_order = Task.default.length + 1
+    row_order = Task.default.length
     @task = Task.new(default_task_params.merge(status: 0, row_order: row_order))
     if @task.save
       flash[:success] = "デフォルトタスクを作成しました"

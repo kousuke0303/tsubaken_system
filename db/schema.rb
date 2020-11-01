@@ -203,9 +203,9 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.datetime "moved_on"
     t.integer "row_order"
     t.string "content"
-    t.string "default_title"
     t.integer "priority_count"
     t.boolean "notification", default: false
+    t.integer "default_task_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
