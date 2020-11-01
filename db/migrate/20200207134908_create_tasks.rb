@@ -6,11 +6,11 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.integer :before_status
       t.datetime :moved_on
       t.integer :row_order
-      t.string :contents
+      t.string :content
       t.string :default_title
       t.integer :priority_count
       t.boolean :notification, default: false
-      t.string :matter_id, null: false
+      t.string :matter_id
 
       t.timestamps
     end

@@ -10,8 +10,6 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
-puts "CREATE! Department"
-
 3.times do |n|
   Manager.create!(name: "マネージャー#{ n + 1 }",
                   login_id: "MN-manager-#{ n + 1 }",
@@ -48,14 +46,14 @@ end
 puts "CREATE! Supplier"
 
 3.times do |n|
-ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
-                      kana: "ガイブスタッフ",
-                      login_id: "SP1-sup-#{ n + 1 }",
-                      phone: "08054545454",
-                      email: "testexternal-a@email.com",
-                      supplier_id: 1,
-                      password: "password",
-                      password_confirmation: "password")
+  ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
+                        kana: "ガイブスタッフ",
+                        login_id: "SP1-sup-#{ n + 1 }",
+                        phone: "08054545454",
+                        email: "testexternal-a@email.com",
+                        supplier_id: 1,
+                        password: "password",
+                        password_confirmation: "password")
 end
 
 puts "CREATE! ExternalStaff"
@@ -65,35 +63,17 @@ Industry.create!(name: "足場関係")
 
 puts "CREATE! INDUSTRY"
 
-Client.create!(name: "テスト顧客A",
-               login_id: "CL-client-a",
-               phone_1: "08011112222",
-               phone_2: "08011113333",
-               email: "testclient-a@email.com",
-               zip_code: "5940088",
-               address: "大阪府テスト市",
-               password: "password",
-               password_confirmation: "password")
-              
-Client.create!(name: "テスト顧客B",
-               login_id: "CL-client-b",
-               phone_1: "08011112222",
-               phone_2: "08011113333",
-               email: "testclientr-b@email.com",
-               zip_code: "5940088",
-               address: "大阪府テスト市",
-               password: "password",
-               password_confirmation: "password")
-               
-Client.create!(name: "テスト顧客c",
-               login_id: "CL-client-c",
-               phone_1: "08011112222",
-               phone_2: "08011113333",
-               email: "testclientr-c@email.com",
-               zip_code: "5940088",
-               address: "大阪府テスト市",
-               password: "password",
-               password_confirmation: "password")
+3.times do |n|
+  Client.create!(name: "テスト顧客#{ n + 1 }",
+                login_id: "CL-client-#{ n + 1 }",
+                phone_1: "08011112222",
+                phone_2: "08011113333",
+                email: "testclient-#{ n + 1 }@email.com",
+                zip_code: "5940088",
+                address: "大阪府テスト市",
+                password: "password",
+                password_confirmation: "password")
+end
 
 puts "CREATE! CLIENT"
 
@@ -126,34 +106,15 @@ puts "CREATE! MATTER２"
 
 # -----------------------------------------------------
       # TASK
-# ---------------------------------------------
+# -----------------------------------------------------
 
-Task.create!(title: "TASK1", status: 0, matter_id: SeedMatter1.id, default_title: "DEFALTE_TASK1")
+Task.create!(title: "DEFAULT_TASK1", status: 0, content: "テストコンテント1", row_order: 1)
+Task.create!(title: "DEFAULT_TASK2", status: 0, content: "テストコンテント2", row_order: 2)
 
-Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id, default_title: "DEFALTE_TASK2")
+Task.create!(title: "TASK1", status: 1, matter_id: SeedMatter2.id, content: "テストコンテント3")
 
-# TargetManagers = Manager.where(approval: true)
-# TargetManagers.each do |manager|
-#   Task.all.each do |task|
-#     task.manager_tasks.create!(manager_id: manager.id)
-#   end
-# end
   
 puts "CREATE! TASK"
-
-3.times do |n|
-  Client.create!(name: "テスト顧客#{ n + 1 }",
-                login_id: "CL-client-#{ n + 1 }",
-                phone_1: "08011112222",
-                phone_2: "08011113333",
-                email: "client-#{ n + 1 }@email.com",
-                zip_code: "5940088",
-                address: "大阪府テスト市",
-                password: "password",
-                password_confirmation: "password")
-end
-
-puts "CREATE! CLIENT"
 
 first_day = Date.current.beginning_of_month
 last_day = first_day.end_of_month

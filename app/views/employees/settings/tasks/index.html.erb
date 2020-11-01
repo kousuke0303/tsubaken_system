@@ -8,14 +8,16 @@
         <tr>
           <th>名前</th>
           <th></th>
+          <th></th>
         </tr>
         <% @tasks.each do |task| %>
           <tr>
             <td><%= task.title %></td>
+            <td><%= task.content %></td>
             <td>
               <div hidden><%= task.id %></div>
               <button class="btn btn-sm btn-dark to-edit-task" data-toggle="modal" data-target="#default-task-edit" data-id="<%= task.title %>"
-                      data-title="<%= task.title %>">
+                      data-title="<%= task.title %>" data-content="<%= task.content %>">
                 編集
               </button>
               <%= link_to "削除", employees_settings_task_path(task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
@@ -30,9 +32,11 @@
 <script>
   $(document).on("turbolinks:load", function() {
     $(".to-edit-task").click(function() {
-      let title = $(this).data("title");
+      let taskTitle = $(this).data("title");
       let taskId = $(this).data("id");
-      $("#edit-task-title").val(title);
+      let taskContent = $(this).data("content");
+      $("#edit-task-title").val(taskTitle);
+      $("#edit-task-content").val(taskContent);
       $("#edit-task-form").attr("action", "/employees/settings/tasks/" + taskId);
     });
   });

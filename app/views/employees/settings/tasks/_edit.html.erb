@@ -9,6 +9,9 @@
             <div class="industry-update-errors"></div>
             <%= f.label :title, "デフォルトタスク名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "edit-task-title" %>
+
+            <%= f.label :content %>
+            <%= f.text_area :content, required: true, class: "form-control", maxlength: 3000, id: "edit-task-content" %>
             
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
