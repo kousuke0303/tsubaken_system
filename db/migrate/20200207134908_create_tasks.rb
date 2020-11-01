@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.string :title
       t.integer :status
       t.integer :before_status
-      t.datetime :move_date
+      t.datetime :moved_on
       t.integer :row_order
       t.string :contents
       t.string :default_title

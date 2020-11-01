@@ -67,6 +67,17 @@
       <%= render "employees/attendances/edit" %>
     </div>
   <% end %>
+
+  <!--デフォルトタスクnew edit-->
+  <% if controller_name == "tasks" && action_name == "index" && @employees_settings_tasks %>
+    <div id="default-task-new" class="modal fade" role="dialog">
+      <%= render "employees/settings/tasks/new" %>
+    </div>
+
+    <div id="default-task-edit" class="modal fade" role="dialog">
+      <%= render "employees/settings/tasks/edit" %>
+    </div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
@@ -109,16 +120,4 @@
       <%= render "employees/settings/industries/edit" %>
     </div>
   <% end %>
-  
-  <!--デフォルトタスクnew edit-->
-  <% if controller_name == "tasks" && action_name == "index" %>
-    <div id="default-task-new" class="modal fade" role="dialog">
-      <%= render "employees/tasks/new" %>
-    </div>
-
-    <div id="default-task-edit" class="modal fade" role="dialog">
-      <%= render "employees/tasks/edit" %>
-    </div>
-  <% end %>
-  
 <% end %>
