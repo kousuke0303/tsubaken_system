@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------
   
   def set_one_month
-    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
+    @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date.beginning_of_month
     @last_day = @first_day.end_of_month
     @one_month = [*@first_day..@last_day]
   end
@@ -40,15 +40,16 @@ class ApplicationController < ActionController::Base
 
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_monthly_attendances(resource)
-    set_one_month
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     unless @attendances.length == @one_month.length
       ActiveRecord::Base.transaction do
         @one_month.each { |day| resource.attendances.create!(worked_on: day) }
       end
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
-
     end
+  rescue ActiveRecord::RecordInvalid 
+    flash[:danger] = "勤怠情報の取得に失敗しました"
+    redirect_to root_url
   end
   
   # アクセス制限

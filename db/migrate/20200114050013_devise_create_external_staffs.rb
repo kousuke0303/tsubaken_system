@@ -3,6 +3,7 @@
 class DeviseCreateExternalStaffs < ActiveRecord::Migration[5.1]
   def change
     create_table :external_staffs do |t|
+      t.string :auth,               null: false, default: "external_staff"
       t.string :name,               null: false, default: ""
       t.string :kana
       t.string :phone

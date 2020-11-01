@@ -8,6 +8,18 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
+
+      # 従業員が行う操作
+      namespace :employees do
+        # 顧客のCRUD
+        post "create_client", to: "clients#create"
+        post "update_client", to: "clients#update"
+        post "destroy_client", to: "clients#destroy"
+
+        # 従業員自身の勤怠関連
+        post "index_attendances", to: "attendances#index"
+        post "register_attendance", to: "attendances#register"
+      end
     end
   end
   
@@ -59,6 +71,10 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+
+  namespace :managers do
+    resources :attendances, only: [:index, :update]
+  end
   
   # Client関係
   scope module: :clients do
@@ -67,8 +83,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :managers do
-    resources :attendances, only: [:index, :update]
+  namespace :clients do
+    resources :matters, only: [:index, :show]
   end
 
   # Staff関係
@@ -101,7 +117,7 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:create, :show, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update] do
+    resources :attendances, only: [:create, :update, :destroy] do
       patch :erase, on: :member
       collection do
         get :daily

@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>案件一覧</h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+    </div>
+    <div class="card-body">
+      <div class="tab-content" id="clients-index">
+
+        <table class="table table-sm common-table">
+          <tr>
+            <th>タイトル</th>
+            <th>進行状況</th>
+          </tr>
+          <% @matters.each do |matter| %>
+            <tr class="tr-link" data-link="<%= clients_matter_path(matter) %>">
+              <td><%= matter.title %></td>
+              <td><%= matter.status %></td>
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
