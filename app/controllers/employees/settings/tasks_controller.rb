@@ -33,6 +33,10 @@ class Employees::Settings::TasksController < ApplicationController
   end
 
   def destroy
+    @task.destroy
+    Task.where(default_task_id: @task.id).update_all(default_task_id: nil)
+    flash[:notice] = "デフォルトタスクを削除しました"
+    redirect_to employees_settings_tasks_url
   end
 
   def set_employees_settings_tasks

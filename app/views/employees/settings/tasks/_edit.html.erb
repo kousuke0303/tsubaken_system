@@ -5,8 +5,8 @@
       <div class="card mb-3">
         <h5 class="card-header">デフォルトタスク編集</h5>
         <div class="card-body">
-          <%= form_with(model: @task, url: "#", method: :patch, remote: true, id: "edit-task-form") do |f| %>
-            <div class="industry-update-errors"></div>
+          <%= form_with(model: @task, url: "#", method: :patch, remote: true, id: "edit-default-task-form") do |f| %>
+            <div class="default-task-update-errors"></div>
             <%= f.label :title, "デフォルトタスク名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "edit-task-title" %>
 

@@ -16,7 +16,7 @@
             <td><%= task.content %></td>
             <td>
               <div hidden><%= task.id %></div>
-              <button class="btn btn-sm btn-dark to-edit-task" data-toggle="modal" data-target="#default-task-edit" data-id="<%= task.title %>"
+              <button class="btn btn-sm btn-dark to-edit-default-task" data-toggle="modal" data-target="#default-task-edit" data-id="<%= task.id %>"
                       data-title="<%= task.title %>" data-content="<%= task.content %>">
                 編集
               </button>
@@ -31,13 +31,13 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
-    $(".to-edit-task").click(function() {
+    $(".to-edit-default-task").click(function() {
       let taskTitle = $(this).data("title");
       let taskId = $(this).data("id");
       let taskContent = $(this).data("content");
       $("#edit-task-title").val(taskTitle);
       $("#edit-task-content").val(taskContent);
-      $("#edit-task-form").attr("action", "/employees/settings/tasks/" + taskId);
+      $("#edit-default-task-form").attr("action", "/employees/settings/tasks/" + taskId);
     });
   });
 </script>

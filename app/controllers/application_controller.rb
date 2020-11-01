@@ -23,20 +23,6 @@ class ApplicationController < ActionController::Base
     @last_day = @first_day.end_of_month
     @one_month = [*@first_day..@last_day]
   end
-  
-  
-  # ---------------------------------------------------------
-        # ADMIN関係
-  # ---------------------------------------------------------
-
-  # 管理者権限者が一人に以上の場合、管理者画面お表示で知らせる。
-  def admin_limit_1
-    if Admin.count > 1
-      @condition = "danger"
-    else
-      @condition = "dark"
-    end
-  end
 
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_monthly_attendances(resource)
@@ -52,22 +38,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
   
-  # アクセス制限
-  def only_admin!
-    unless Admin.first.id == current_admin.id 
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-
-  # ログインmanager以外のページ非表示
-  # def not_current_admin_return_login!
-  #   unless params[:manager_id] == current_admin.public_uid || params[:manager_public_uid] == current_admin.public_uid || params[:id] == current_admin.public_uid
-  #     flash[:alert] = "アクセス権限がありません"
-  #     redirect_to root_path
-  #   end
-  # end
-  
   # ---------------------------------------------------------
         # STAFF関係
   # ---------------------------------------------------------
@@ -80,19 +50,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # ---------------------------------------------------------
-        # USER関係
-  # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
-  def not_current_user_return_login!
-    unless params[:id].to_i == current_user.id || params[:user_id].to_i == current_user.id
-      flash[:alert] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
-  
-  
   # --------------------------------------------------------
         # MATTER関係
   # --------------------------------------------------------
@@ -101,35 +58,10 @@ class ApplicationController < ActionController::Base
     Matter.find_by(id: params[:matter_id]) || Matter.find_by(id: params[:id])
   end
   
-  # def matter_index_authenticate!
-  #   if current_admin && current_admin.public_uid == params[:manager_public_uid]
-  #     @matters = current_admin.matters
-  #   elsif current_submanager && current_admin.public_uid == params[:manager_public_uid]
-  #     @matters = current_admin.matters
-  #   elsif current_staff
-  #     @matters = current_staff.matters
-  #   else
-  #     flash[:alert] = "アクセス権限がありません"
-  #     redirect_to matter_matters_url(current_admin)
-  #   end
-  # end
-  
-  
   # --------------------------------------------------------
         # TASK関係
   # --------------------------------------------------------
-  
-  def default_tasks
-    Task.where.not(default_title: nil).are_default_tasks
-  end
-  
-  # 使用回数を保存
-  def count_default_task
-    default_tasks.each do |task|
-      priority_count = Task.where(default_title: task.default_title).where.not(status: nil).count
-      task.update(priority_count: priority_count)
-    end
-  end
+
   
   # 並び順更新_____________________________________________________
   def reload_row_order(tasks)
