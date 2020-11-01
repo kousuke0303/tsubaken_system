@@ -16,7 +16,7 @@
 <script>
 $(document).ready( function(){
     
-//初期状態のタスク管理ボード用JSONデータ
+  //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
       "id": "default_tasks",
@@ -25,7 +25,7 @@ $(document).ready( function(){
       "item": [
         <% @default_tasks.each do |task| %>    
           { 
-            "title": "<%= task.default_title %>",
+            "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },
         <% end %>

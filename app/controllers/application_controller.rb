@@ -70,21 +70,20 @@ class ApplicationController < ActionController::Base
     end
   end
       
-  def matter_task_type
-    if admin_signed_in? || manager_signed_in?
-      count_default_task
-      @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
-    end
-    @matter_tasks = current_matter.tasks.are_matter_tasks
-    # row_orderリセット
-    reload_row_order(@matter_tasks)
-    @matter_progress_tasks = current_matter.tasks.are_progress_tasks
-    # row_orderリセット
-    reload_row_order(@matter_progress_tasks)
-    @matter_complete_tasks = current_matter.tasks.are_finished_tasks
-    # row_orderリセット
-    reload_row_order(@matter_complete_tasks)
-  end
+  # def matter_task_type
+  #   if admin_signed_in? || manager_signed_in?
+  #     @default_tasks = Task.are_default
+  #   end
+  #   @matter_tasks = current_matter.tasks.are_matter
+  #   # row_orderリセット
+  #   reload_row_order(@matter_tasks)
+  #   @matter_progress_tasks = current_matter.tasks.are_progress
+  #   # row_orderリセット
+  #   reload_row_order(@matter_progress_tasks)
+  #   @matter_complete_tasks = current_matter.tasks.are_finished
+  #   # row_orderリセット
+  #   reload_row_order(@matter_complete_tasks)
+  # end
     
   private
   
