@@ -3,7 +3,7 @@ class Employees::TasksController < ApplicationController
   
   def index
     default_tasks
-    @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
+    @default_tasks = default_tasks.are_default_tasks
     @default_task = Task.new
   end
 

@@ -65,14 +65,6 @@ class ApplicationController < ActionController::Base
     Task.where.not(default_title: nil).are_default_tasks
   end
   
-  # 使用回数を保存
-  def count_default_task
-    default_tasks.each do |task|
-      priority_count = Task.where(default_title: task.default_title).where.not(status: nil).count
-      task.update(priority_count: priority_count)
-    end
-  end
-  
   # 並び順更新_____________________________________________________
   def reload_row_order(tasks)
     tasks.each_with_index do |task, i|
@@ -82,8 +74,7 @@ class ApplicationController < ActionController::Base
       
   def matter_task_type
     if admin_signed_in? || manager_signed_in?
-      count_default_task
-      @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
+      @default_tasks = Task.are_default_tasks
     end
     @matter_tasks = current_matter.tasks.are_matter_tasks
     # row_orderリセット
