@@ -15,14 +15,8 @@ class Employees::TasksController < ApplicationController
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
-      default_tasks.create(matter_id: current_matter.id)
-      copy_task.update(status: params[:status], row_order: roworder_params)
-      # default_tasksから移動した時に、移動先でもデフォルトタスクで設定できるようにする
-      if Task.where(before_status: 0).where.not(status: "default_tasks")
-        task.update(move_date: move_date,
-                    row_order: roworder_params,
-                    title: task.default_title)
-      end
+      current_matter.tasks.create(status: params[:status], matter_id: current_matter.id, title: task.default_title)
+      copy_task.update(row_order: roworder_params)
     else
       task.update(status: params[:status],
                   before_status: before_status,
