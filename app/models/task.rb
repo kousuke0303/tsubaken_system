@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :matter, inverse_of: :tasks, optional: true
-   after_initialize :set_default_task, if: :new_record?
+  after_initialize :set_default_task, if: :new_record?
   
   enum status: {default_tasks: 0, matter_tasks: 1, progress_tasks: 2, finished_tasks: 3}
    
