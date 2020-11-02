@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.string "title"
     t.integer "status"
     t.integer "before_status"
-    t.datetime "move_date"
+    t.datetime "moved_on"
     t.integer "row_order"
     t.string "contents"
     t.string "default_title"

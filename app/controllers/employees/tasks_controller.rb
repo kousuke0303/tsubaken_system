@@ -10,7 +10,7 @@ class Employees::TasksController < ApplicationController
   def move_task
     task = Task.find(remove_str(params[:task]))
     before_status = task.status
-    move_date = Time.current
+    moved_on = Time.current
     # default_tasksから移動した場合は、コピー作成
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
@@ -20,7 +20,7 @@ class Employees::TasksController < ApplicationController
     else
       task.update(status: params[:status],
                   before_status: before_status,
-                  move_date: move_date,
+                  moved_on: moved_on,
                   row_order: roworder_params)
     end
     matter_task_type
