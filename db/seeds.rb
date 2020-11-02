@@ -128,7 +128,11 @@ puts "CREATE! MATTER２"
       # TASK
 # ---------------------------------------------
 
-Task.create!(title: "TASK1", status: 0, matter_id: SeedMatter1.id, default_title: "DEFALTE_TASK1")
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 0, default_title: "DEFALTE_TASK#{ n + 1 }", row_order: n)
+end
+
+puts "CREATE! DEFALTE_TASK"
 
 Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id, default_title: "DEFALTE_TASK2")
 

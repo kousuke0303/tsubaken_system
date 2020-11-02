@@ -200,9 +200,10 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.integer "row_order"
     t.string "contents"
     t.string "default_title"
+    t.integer "default_task_id"
     t.integer "priority_count"
     t.boolean "notification", default: false
-    t.string "matter_id", null: false
+    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_tasks_on_matter_id"

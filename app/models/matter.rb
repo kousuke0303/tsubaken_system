@@ -19,7 +19,6 @@ class Matter < ApplicationRecord
   before_create :identify
 
   private
-
     def identify(num = 16)
       self.id ||= SecureRandom.hex(num)
     end

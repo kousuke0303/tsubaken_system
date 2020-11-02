@@ -4,8 +4,7 @@ class Employees::TasksController < ApplicationController
   def index
     default_tasks
     @default_tasks = default_tasks.are_default_tasks.are_matter_tasks_for_commonly_used
-    @matter = Matter.new
-    @default_task = @matter.tasks.build
+    @default_task = Task.new
   end
 
   def move_task
@@ -23,14 +22,12 @@ class Employees::TasksController < ApplicationController
         task.update(move_date: move_date,
                     row_order: roworder_params,
                     title: task.default_title)
-        create_started_at_or_finished_at
       end
     else
       task.update(status: params[:status],
                   before_status: before_status,
                   move_date: move_date,
                   row_order: roworder_params)
-      create_started_at_or_finished_at
     end
     matter_task_type
     respond_to do |format|
@@ -59,7 +56,7 @@ class Employees::TasksController < ApplicationController
   end
   
   def default_task_create
-    @default_task = @matter.tasks.new(default_title_params)
+    @default_task = Task.new(default_title_params)
     if @default_task.save
       flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_tasks_url
@@ -128,7 +125,7 @@ class Employees::TasksController < ApplicationController
     end
     
     def default_title_params
-      params.require(:task).permit(:default_title)
+      params.require(:task).permit(:default_title, status: "default_tasks")
     end
     
     def set_default_task
