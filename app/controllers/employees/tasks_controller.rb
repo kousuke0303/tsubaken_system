@@ -16,7 +16,7 @@ class Employees::TasksController < ApplicationController
       copy_task = task.deep_dup
       copy_task.save
       current_matter.tasks.create(status: params[:status], matter_id: current_matter.id, title: task.default_title)
-      copy_task.update(row_order: roworder_params)
+      copy_task.update(status: params[:status], row_order: roworder_params)
     else
       task.update(status: params[:status],
                   before_status: before_status,

@@ -200,7 +200,6 @@ ActiveRecord::Schema.define(version: 20201014074600) do
     t.integer "row_order"
     t.string "contents"
     t.string "default_title"
-    t.integer "default_task_id"
     t.integer "priority_count"
     t.boolean "notification", default: false
     t.string "matter_id"
