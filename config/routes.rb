@@ -123,7 +123,8 @@ Rails.application.routes.draw do
     
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
-      resources :departments
+      resources :departments, only: [:create, :index, :update, :destroy]
+      resources :tasks, only: [:create, :index, :update, :destroy]
     end
   end
   
