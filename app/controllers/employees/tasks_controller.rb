@@ -2,7 +2,6 @@ class Employees::TasksController < ApplicationController
   before_action :set_default_task, only: [:show, :edit, :update, :destroy, :default_task_update, :default_task_destroy]
   
   def index
-    default_tasks
     @default_tasks = default_tasks.are_default_tasks
     @default_task = Task.new
   end

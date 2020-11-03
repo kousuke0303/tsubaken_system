@@ -60,10 +60,7 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
         # TASK関係
   # --------------------------------------------------------
-  
-  def default_tasks
-    Task.where.not(default_title: nil).are_default_tasks
-  end
+
   
   # 並び順更新_____________________________________________________
   def reload_row_order(tasks)
@@ -72,20 +69,17 @@ class ApplicationController < ActionController::Base
     end
   end
       
-  def matter_task_type
-    if admin_signed_in? || manager_signed_in?
-      @default_tasks = Task.are_default_tasks
-    end
-    @matter_tasks = current_matter.tasks.are_matter_tasks
-    # row_orderリセット
-    reload_row_order(@matter_tasks)
-    @matter_progress_tasks = current_matter.tasks.are_progress_tasks
-    # row_orderリセット
-    reload_row_order(@matter_progress_tasks)
-    @matter_complete_tasks = current_matter.tasks.are_finished_tasks
-    # row_orderリセット
-    reload_row_order(@matter_complete_tasks)
-  end
+  # def matter_task_type
+  #   @matter_tasks = current_matter.tasks.are_matter
+  #   # row_orderリセット
+  #   reload_row_order(@matter_tasks)
+  #   @matter_progress_tasks = current_matter.tasks.are_progress
+  #   # row_orderリセット
+  #   reload_row_order(@matter_progress_tasks)
+  #   @matter_complete_tasks = current_matter.tasks.are_finished
+  #   # row_orderリセット
+  #   reload_row_order(@matter_complete_tasks)
+  # end
     
   private
   
