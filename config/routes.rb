@@ -5,18 +5,27 @@ Rails.application.routes.draw do
   patch '/employees/tasks/:id', to: 'employees/tasks#default_task_update', as: 'default_task_employees_task_update'
   delete '/employees/tasks/:id', to: 'employees/tasks#default_task_destroy', as: 'default_task_employees_task_destroy'
 
+  # API関連
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
       
       namespace :employees do
+        # スタッフCRUD
+        post "create_staff", to: "staffs#create"
+        post "update_staff", to: "staffs#update"
+        post "destroy_staff", to: "staffs#destroy"
+
+        # 顧客CRUD
         post "create_client", to: "clients#create"
         post "update_client", to: "clients#update"
         post "destroy_client", to: "clients#destroy"
 
+        # 外注先CRUD
         post "create_supplier", to: "suppliers#create"
         post "update_supplier", to: "suppliers#update"
         post "destroy_supplier", to: "suppliers#destroy"
+
       end
     end
   end
