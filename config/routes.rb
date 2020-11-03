@@ -8,6 +8,16 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
+      
+      namespace :employees do
+        post "create_client", to: "clients#create"
+        post "update_client", to: "clients#update"
+        post "destroy_client", to: "clients#destroy"
+
+        post "create_supplier", to: "suppliers#create"
+        post "update_supplier", to: "suppliers#update"
+        post "destroy_supplier", to: "suppliers#destroy"
+      end
     end
   end
   
