@@ -5,19 +5,19 @@ ja:
       manager: マネージャー
       staff: スタッフ
       client: 顧客
+      external_staff: 外部スタッフ
       supplier: 外注先
       attendance: 勤怠
       matter: 案件
       task: タスク
+      industry: 業種
       department: 部署
-      manager_event: マネージャーイベント
-      manager_event_title: マネージャーイベントタイトル
-      staff_event: スタッフイベント
-      ataff_event_title: スタッフイベントタイトル
     attributes:
         admin:
           id: ID
           name: 名前
+          phone: 電話番号
+          email: メールアドレス
           login_id: ログインID
           password: パスワード
           password_confirmation: パスワード再入力
@@ -113,3 +113,5 @@ ja:
           updated_at: 更新日
         department:
           name: 名前
+          created_at: 作成日
+          updated_at: 更新日

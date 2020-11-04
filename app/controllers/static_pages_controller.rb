@@ -13,6 +13,8 @@ class StaticPagesController < ApplicationController
         redirect_to top_manager_path(current_manager)
       elsif staff_signed_in?
         redirect_to top_staff_path(current_staff)
+      elsif external_staff_signed_in?
+        redirect_to top_external_staff_path(current_external_staff)
       elsif client_signed_in?
         redirect_to top_client_path(current_client)
       end

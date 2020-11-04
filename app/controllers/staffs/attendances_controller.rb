@@ -8,9 +8,9 @@ class Staffs::AttendancesController < ApplicationController
   end
 
   def update
-    if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update_attributes(started_at: Time.now)
+    if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update(started_at: Time.now)
       flash[:success] = "出勤しました"
-    elsif @attendance.started_at.present? && @attendance.finished_at.blank? && @attendance.update_attributes(finished_at: Time.now)
+    elsif @attendance.started_at.present? && @attendance.finished_at.blank? && @attendance.update(finished_at: Time.now)
       flash[:success] = "退勤しました"
     else
       flash[:success] = "エラーが発生しました"

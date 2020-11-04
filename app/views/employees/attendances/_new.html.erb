@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">勤怠作成</h5>
         <div class="card-body">
-          <%= form_with(model: @new_attendance, url: employees_attendances_path, method: :post, remote: true) do |f| %>
+          <%= form_with(model: @attendance, url: employees_attendances_path, method: :post, remote: true) do |f| %>
             <div class="attendance-create-errors"></div>
 
             <%= f.label "従業員タイプ" %>

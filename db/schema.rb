@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 20201103000001) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "auth", default: "admin", null: false
     t.string "name", default: "", null: false
     t.string "email"
     t.string "phone"
-    t.string "auth", default: "admin"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   end
 
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "auth", default: "client", null: false
     t.string "name", default: "", null: false
     t.string "kana"
     t.integer "gender"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   end
 
   create_table "external_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "auth", default: "external_staff", null: false
     t.string "name", default: "", null: false
     t.string "kana"
     t.string "phone"
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   end
 
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
     t.string "phone"
     t.string "email"
@@ -165,6 +168,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "auth", default: "staff", null: false
     t.string "name", default: "", null: false
     t.string "phone"
     t.string "email"
