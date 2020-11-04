@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "勤怠情報の取得に失敗しました"
+    flash[:danger] = "勤怠情報の取得に失敗しました。"
     redirect_to root_url
   end
   
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   # ログインstaff以外のページ非表示
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません"
+      flash[:alert] = "アクセス権限がありません。"
       redirect_to root_path
     end
   end

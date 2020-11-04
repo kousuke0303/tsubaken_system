@@ -3,7 +3,7 @@
 class Clients::SessionsController < Devise::SessionsController
   def failed
     # warden で出力されたエラーを保存する
-    flash[:alert] = "ログインに失敗しました"
+    flash[:alert] = "ログインに失敗しました。"
     redirect_to root_path
   end
 

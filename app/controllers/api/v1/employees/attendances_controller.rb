@@ -12,10 +12,10 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
         render json: @attendances, each_serializer: AttendanceSerializer
       end
     else
-      render json: { status: "false", message: "権限が不正です" }
+      render json: { status: "false", message: "権限が不正です。" }
     end
   rescue
-    render json: { status: "false", message: "エラーが発生しました" }
+    render json: { status: "false", message: "エラーが発生しました。" }
   end
 
   # 出退勤登録
@@ -31,11 +31,11 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
         attendance.update!(finished_at: Time.current)
         render json: attendance, serializer: AttendanceSerializer
       else
-        render json: { status: "false", message: "退勤済です" }
+        render json: { status: "false", message: "退勤済です。" }
       end
     end
   rescue
-    render json: { status: "false", message: "出退勤の登録に失敗しました" }
+    render json: { status: "false", message: "出退勤の登録に失敗しました。" }
   end
 
   # 従業員自身の@one_monthの勤怠を取得、なければ生成
@@ -48,6 +48,6 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    render json: { status: "false", message: "勤怠情報の取得に失敗しました" }
+    render json: { status: "false", message: "勤怠情報の取得に失敗しました。" }
   end
 end

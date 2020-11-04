@@ -9,11 +9,11 @@ class Staffs::AttendancesController < ApplicationController
 
   def update
     if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update(started_at: Time.now)
-      flash[:success] = "出勤しました"
+      flash[:success] = "出勤しました。"
     elsif @attendance.started_at.present? && @attendance.finished_at.blank? && @attendance.update(finished_at: Time.now)
-      flash[:success] = "退勤しました"
+      flash[:success] = "退勤しました。"
     else
-      flash[:success] = "エラーが発生しました"
+      flash[:success] = "エラーが発生しました。"
     end
     redirect_to staffs_attendances_url
   end

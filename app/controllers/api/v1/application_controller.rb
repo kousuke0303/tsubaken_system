@@ -1,7 +1,7 @@
 class Api::V1::ApplicationController < ApplicationController
   def check_token_and_key_to_api
     unless params[:api_authenticate_token] == ENV["API_AUTHENTICATE_TOKEN"] && params[:api_authenticate_key] == ENV["API_AUTHENTICATE_KEY"]
-      render json: { status: "false", message: "認証トークンまたは認証キーが不正です" }
+      render json: { status: "false", message: "認証トークンまたは認証キーが不正です。" }
     end
   end
 
@@ -18,10 +18,10 @@ class Api::V1::ApplicationController < ApplicationController
       elsif params[:auth].eql?("client")
         @resource = Client.find(params[:id])
       else
-        render json: { status: "false", message: "アカウント情報の取得に失敗しました" }
+        render json: { status: "false", message: "アカウント情報の取得に失敗しました。" }
       end
     end
   rescue
-    render json: { status: "false", message: "アカウント情報の取得に失敗しました" }
+    render json: { status: "false", message: "アカウント情報の取得に失敗しました。" }
   end
 end

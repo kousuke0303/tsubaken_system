@@ -6,7 +6,7 @@ class Employees::ExternalStaffsController < ApplicationController
   def create
     @external_staff = @supplier.external_staffs.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
     if @external_staff.save
-      flash[:success] = "外部Staffを作成しました"
+      flash[:success] = "外部Staffを作成しました。"
       redirect_to employees_supplier_external_staff_path(@supplier, @external_staff)
     else
       respond_to do |format|
@@ -22,7 +22,7 @@ class Employees::ExternalStaffsController < ApplicationController
 
   def update
     if @external_staff.update(external_staff_params)
-      flash[:success] = "外部Staff情報を更新しました"
+      flash[:success] = "外部Staff情報を更新しました。"
       redirect_to employees_supplier_external_staff_path(@supplier, @external_staff)
     else
       respond_to do |format|
@@ -32,7 +32,7 @@ class Employees::ExternalStaffsController < ApplicationController
   end
 
   def destroy
-    @external_staff.destroy ? flash[:success] = "外部Staffを削除しました" : flash[:alert] = "外部Staffを削除できませんでした"
+    @external_staff.destroy ? flash[:success] = "外部Staffを削除しました。" : flash[:alert] = "外部Staffを削除できませんでした。"
     redirect_to employees_supplier_path(@supplier)
   end
 
