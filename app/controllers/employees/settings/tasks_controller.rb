@@ -4,13 +4,13 @@ class Employees::Settings::TasksController < ApplicationController
   before_action :set_task, only: [:update, :destroy]
 
   def index
-    @tasks = Task.are_default
-    @task = Task.new
+    @default_tasks = Task.are_default
+    @default_task = Task.new
   end
 
   def create
-    task = Task.new(default_task_params.merge(status: 0))
-    if task.save
+    @default_task = Task.new(default_task_params.merge(status: 0))
+    if @default_task.save
       flash[:success] = "デフォルトタスクを作成しました。"
       redirect_to employees_settings_tasks_url
     else
@@ -32,7 +32,7 @@ class Employees::Settings::TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
+    @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
     redirect_to employees_settings_tasks_url
   end
 
@@ -42,10 +42,10 @@ class Employees::Settings::TasksController < ApplicationController
     end
 
     def default_task_params
-      params.require(:task).permit(:name, :content)
+      params.require(:task).permit(:title, :content)
     end
 
     def set_task
-      @task = Task.find(params[:id])
+      @default_task= Task.find(params[:id])
     end
 end

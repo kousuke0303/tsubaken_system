@@ -7,8 +7,8 @@ class Employees::Settings::IndustriesController < ApplicationController
   end
 
   def create
-    industry = Industry.new(industry_params)
-    if industry.save
+    @industry = Industry.new(industry_params)
+    if @industry.save
       flash[:success] = "業種を作成しました。"
       redirect_to employees_settings_industries_url
     else

@@ -3,8 +3,8 @@ class Employees::Settings::DepartmentsController < ApplicationController
   before_action :set_department, only: [:update, :destroy]
   
   def create
-    department = Department.new(department_params)
-    if department.save
+    @department = Department.new(department_params)
+    if @department.save
       flash[:success] = "部署を作成しました。"
       redirect_to employees_settings_departments_url
     else

@@ -10,13 +10,13 @@
           <th></th>
           <th></th>
         </tr>
-        <% @tasks.each do |task| %>
+        <% @default_tasks.each do |default_task| %>
           <tr>
-            <td><%= task.title %></td>
-            <td><%= task.content %></td>
+            <td><%= default_task.title %></td>
+            <td><%= default_task.content %></td>
             <td>
               <button class="btn btn-sm btn-dark to-edit-default-task" data-toggle="modal" data-target="#default-task-edit" >編集</button>
-              <%= link_to "削除", employees_settings_task_path(task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>
         <% end %>
