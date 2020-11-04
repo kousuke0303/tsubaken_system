@@ -27,7 +27,7 @@ class Employees::MattersController < ApplicationController
   
   def new
     @matter = Matter.new
-    @client = @matter.clients.build
+    @clients = Client.all
   end
 
   def create
@@ -44,7 +44,6 @@ class Employees::MattersController < ApplicationController
   end
 
   def show
-    matter_task_type
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers

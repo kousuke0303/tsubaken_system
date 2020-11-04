@@ -32,17 +32,25 @@
     </div>
   <% end %>
 
-  <!--外部スタッフnew-->
+  <!--外部スタッフnew・edit-->
   <% if controller_name == "suppliers" && action_name == "show" %>
     <div id="external-staff-new" class="modal fade" role="dialog">
       <%= render "employees/external_staffs/new" %>
     </div>
-  <% end %>
 
-  <!--外部スタッフedit-->
-  <% if controller_name == "external_staffs" && action_name == "show" %>
     <div id="external-staff-edit" class="modal fade" role="dialog">
       <%= render "employees/external_staffs/edit" %>
+    </div>
+  <% end %>
+
+  <!--勤怠new・edit-->
+  <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
+    <div id="attendance-new" class="modal fade" role="dialog">
+      <%= render "employees/attendances/new" %>
+    </div>
+
+    <div id="attendance-edit" class="modal fade" role="dialog">
+      <%= render "employees/attendances/edit" %>
     </div>
   <% end %>
 
@@ -57,14 +65,14 @@
     </div>
   <% end %>
 
-  <!--勤怠edit・new-->
-  <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
-    <div id="attendance-new" class="modal fade" role="dialog">
-      <%= render "employees/attendances/new" %>
+  <!--デフォルトタスクnew・edit-->
+  <% if controller_name == "tasks" && action_name == "index" %>
+    <div id="default-task-new" class="modal fade" role="dialog">
+      <%= render "employees/settings/tasks/new" %>
     </div>
 
-    <div id="attendance-edit" class="modal fade" role="dialog">
-      <%= render "employees/attendances/edit" %>
+    <div id="default-task-edit" class="modal fade" role="dialog">
+      <%= render "employees/settings/tasks/edit" %>
     </div>
   <% end %>
 <% end %>
@@ -109,16 +117,4 @@
       <%= render "employees/settings/industries/edit" %>
     </div>
   <% end %>
-  
-  <!--デフォルトタスクnew edit-->
-  <% if controller_name == "tasks" && action_name == "index" %>
-    <div id="default-task-new" class="modal fade" role="dialog">
-      <%= render "employees/tasks/new" %>
-    </div>
-
-    <div id="default-task-edit" class="modal fade" role="dialog">
-      <%= render "employees/tasks/edit" %>
-    </div>
-  <% end %>
-  
 <% end %>
