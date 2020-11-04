@@ -1,20 +1,44 @@
 Rails.application.routes.draw do
   root "static_pages#login_index"
+  
+  post '/employees/tasks', to: 'employees/tasks#default_task_create', as: 'default_task_employees_tasks'
+  patch '/employees/tasks/:id', to: 'employees/tasks#default_task_update', as: 'default_task_employees_task_update'
+  delete '/employees/tasks/:id', to: 'employees/tasks#default_task_destroy', as: 'default_task_employees_task_destroy'
 
+  # API関連
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
+<<<<<<< HEAD
 
       # 従業員が行う操作
       namespace :employees do
         # 顧客のCRUD
+=======
+      
+      namespace :employees do
+        # スタッフCRUD
+        post "create_staff", to: "staffs#create"
+        post "update_staff", to: "staffs#update"
+        post "destroy_staff", to: "staffs#destroy"
+
+        # 顧客CRUD
+>>>>>>> 3aa6f4471c184b23399744da184af7bbb90d1f7c
         post "create_client", to: "clients#create"
         post "update_client", to: "clients#update"
         post "destroy_client", to: "clients#destroy"
 
+<<<<<<< HEAD
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
+=======
+        # 外注先CRUD
+        post "create_supplier", to: "suppliers#create"
+        post "update_supplier", to: "suppliers#update"
+        post "destroy_supplier", to: "suppliers#destroy"
+
+>>>>>>> 3aa6f4471c184b23399744da184af7bbb90d1f7c
       end
     end
   end
@@ -120,10 +144,23 @@ Rails.application.routes.draw do
         get :individual
       end
     end
-    resources :matters
+
+    resources :matters do
+      resources :tasks do
+        get :move_task, on: :collection
+        post :create, on: :collection
+      end
+    end
+
+    resources :tasks, only: [:create, :index, :update, :destroy] do
+      post :create, on: :collection
+      post :move_task, on: :member
+    end
+    
     namespace :settings do
       resources :industries, only: [:create, :index, :update, :destroy]
-      resources :departments
+      resources :departments, only: [:create, :index, :update, :destroy]
+      resources :tasks, only: [:create, :index, :update, :destroy]
     end
   end
   

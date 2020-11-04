@@ -1,6 +1,6 @@
 class CreateMatters < ActiveRecord::Migration[5.1]
   def change
-    create_table :matters do |t|
+    create_table :matters, id: :string do |t|
       t.string :title
       t.string :actual_spot
       t.string :zip_code

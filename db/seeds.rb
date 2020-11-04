@@ -65,6 +65,86 @@ Industry.create!(name: "足場関係")
 
 puts "CREATE! INDUSTRY"
 
+Client.create!(name: "テスト顧客A",
+               login_id: "CL-client-a",
+               phone_1: "08011112222",
+               phone_2: "08011113333",
+               email: "testclient-a@email.com",
+               zip_code: "5940088",
+               address: "大阪府テスト市",
+               password: "password",
+               password_confirmation: "password")
+              
+Client.create!(name: "テスト顧客B",
+               login_id: "CL-client-b",
+               phone_1: "08011112222",
+               phone_2: "08011113333",
+               email: "testclientr-b@email.com",
+               zip_code: "5940088",
+               address: "大阪府テスト市",
+               password: "password",
+               password_confirmation: "password")
+               
+Client.create!(name: "テスト顧客c",
+               login_id: "CL-client-c",
+               phone_1: "08011112222",
+               phone_2: "08011113333",
+               email: "testclientr-c@email.com",
+               zip_code: "5940088",
+               address: "大阪府テスト市",
+               password: "password",
+               password_confirmation: "password")
+
+puts "CREATE! CLIENT"
+
+# -----------------------------------------------------
+      # MATTER
+# ---------------------------------------------
+
+# 1.Matter-----------------
+
+SeedMatter1 = Matter.create!(title: "案件１",
+              status: 0,
+              actual_spot: "東京都渋谷区神宮町１−１−１",
+              scheduled_started_on:  "2020-07-01",
+              scheduled_finished_on: "2020-7-15",
+              client_id: '1',
+              )
+
+puts "CREATE! MATTER1"
+
+SeedMatter2 = Matter.create!(title: "案件２",
+              status: 1,
+              actual_spot: "東京都渋谷区神宮町１−２−１",
+              scheduled_started_on: "2020-07-20",
+              scheduled_finished_on: "2020-08-30",
+              client_id: '2',
+              )
+
+puts "CREATE! MATTER２"
+
+
+# -----------------------------------------------------
+      # TASK
+# ---------------------------------------------
+
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 0, default_title: "DEFALTE_TASK#{ n + 1 }", row_order: n)
+end
+
+puts "CREATE! DEFALTE_TASK"
+
+Task.create!(title: "TASK2", status: 1, matter_id: SeedMatter2.id, default_title: "DEFALTE_TASK2")
+
+# TargetManagers = Manager.where(approval: true)
+# TargetManagers.each do |manager|
+#   Task.all.each do |task|
+#     task.manager_tasks.create!(manager_id: manager.id)
+#   end
+# end
+  
+puts "CREATE! TASK"
+
 3.times do |n|
   Client.create!(name: "テスト顧客#{ n + 1 }",
                 login_id: "CL-client-#{ n + 1 }",

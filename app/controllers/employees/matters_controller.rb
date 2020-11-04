@@ -1,5 +1,4 @@
 class Employees::MattersController < ApplicationController
-  before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_matter_support, only: [:new, :edit]
 
@@ -28,22 +27,28 @@ class Employees::MattersController < ApplicationController
   
   def new
     @matter = Matter.new
+    @client = @matter.clients.build
   end
 
   def create
     @matter = Matter.new(matter_params)
     if @matter.save
+      @matter.update(matter_uid: Faker::Number.hexadecimal(digits: 10))
+      @matter.matter_managers.create(manager_id: current_manager.id)
       flash[:success] = "案件を作成しました"
-      redirect_to employees_matter_url(@matter)
+      automatic_event_creation(@matter)
+      redirect_to matter_matters_url(current_manager)
     else
       render :new
     end
   end
 
   def show
+    matter_task_type
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
+    @tasks = @matter.tasks
   end
 
   def edit

@@ -1,0 +1,162 @@
+<div class="col-sm-12 text-right mb-1e">
+  <button class="btn btn-primary" id="AddToDoMatterTasks"><i class="fas fa-plus"></i>タスク追加</button>
+</div>
+
+<div class="matter_task_disp" id="myKanban"></div>
+
+<% current_matter.tasks.all.each do |task| %>
+  <div class="modal" id="matter_task_<%= task.id %>_modal">
+    <div>
+      <%= render partial: 'employees/matters/tasks/task_show', locals: {task: task, status: task.status} %>
+      <button class="button-position js-modal-close">閉じる</button>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(document).ready( function(){
+    
+//初期状態のタスク管理ボード用JSONデータ
+  const defaultBoards = [
+    {
+      "id": "default_tasks",
+      "title": "デフォルトタスク一覧",
+      "class": "default",
+      "item": [
+        <% @default_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.default_title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
+    },
+    
+    {
+      "id": "matter_tasks",
+      "title": "当該タスク",
+      "class": "task",
+      "item": [
+        <% @matter_tasks.each do |task| %>    
+          {
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
+    },
+    
+    {
+      "id": "progress_tasks",
+      "title": "進行中",
+      "class": "running",
+      "item": [
+        <% @matter_progress_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "finished_tasks",
+      "title": "完了",
+      "class": "done",
+      "item": [
+        <% @matter_complete_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
+    }
+  ];
+  
+  //jKanbanのインスタンス作成
+  var kanban = new jKanban({
+    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    gutter          : '13px',       //ボード同士の間隔
+    widthBoard      : '220px',      //ボードのサイズ
+    boards          : defaultBoards,//初期状態のJSONデータ
+    
+    dropEl: function(el, target, a, b){
+      var task = el.getAttribute('data-eid');
+      var status = target.parentNode.getAttribute('data-id');
+      var item_arrey = target.children;
+      item_arrey = [].slice.call(item_arrey);
+      var item_index = item_arrey.indexOf(el);
+
+      <% if current_matter.tasks.where.not(status: "default_tasks") %>
+        $.ajax({
+          type: "GET",
+          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
+          cache: false,
+          data: { task: task, status: status, item_index: item_index, remote: true }
+        });
+      <% else %>
+        $.ajax({
+          type: "GET",
+          url: "<%= move_task_employees_tasks_path(@default_task) %>",
+          cache: false,
+          data: { task: task, status: status, item_index: item_index, remote: true }
+        });
+      <% end %>
+    }
+  });
+
+    var toDoButton = document.getElementById('AddToDoMatterTasks');
+      toDoButton.addEventListener('click',function(){
+        
+        const formItem = document.createElement('form');
+        formItem.innerHTML = '<input type="text", id="new_task_form">';
+        kanban.addForm('matter_tasks', formItem);
+    
+        $('#new_task_form').on('change', function(){
+          var title = $('#new_task_form').val();
+  
+        $.ajax({
+            type: "POST",
+            url: "<%= employees_matter_tasks_path(current_matter) %>",
+            cache: false,
+            data: { title: title, status: 'matter_tasks', remote: true }
+        });
+      });
+    });
+  
+  // 現状使用しない
+
+  //var removeItem = document.getElementById('Item_reset');
+  //removeItem.addEventListener('click',function(){
+  //    $('div[data-id="finished_task"] main div').each(function(index, element){
+  //      kanban.removeElement(element)
+  //    });
+      
+  //    $.ajax({
+  //        type: "GET",
+  //        url: "",
+  //        cache: false,
+  //    });
+  //  });
+
+});
+  
+</script>
+
+<script>
+<% current_matter.tasks.each do |task| %>
+  $(function(){
+    $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeIn();
+      return false;
+    });
+    
+     $('.js-modal-close').on('click',function(){
+      $('#matter_task_<%= task.id %>_modal').fadeOut();
+      return false;
+    });
+  });
+<% end %>
+</script>

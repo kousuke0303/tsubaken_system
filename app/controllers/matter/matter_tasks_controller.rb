@@ -3,7 +3,7 @@ class Matter::MatterTasksController < ApplicationController
   def move_task
     task = Task.find(remove_str(params[:task]))
     before_status = task.status
-    move_date = Time.current
+    moved_on = Time.current
     # manager_taskから移動した場合は、コピー作成
     if dependent_manager.manager_tasks.where(task_id: task.id).exists?
       copy_task = task.deep_dup
@@ -13,7 +13,7 @@ class Matter::MatterTasksController < ApplicationController
     else
       task.update(status: params[:status],
                   before_status: before_status,
-                  move_date: move_date,
+                  moved_on: moved_on,
                   row_order: roworder_params)
       create_started_at_or_finished_at
     end

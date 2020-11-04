@@ -1,5 +1,4 @@
 class Employees::Settings::IndustriesController < ApplicationController
-  before_action :authenticate_employee!
   before_action :set_industry, only: [:show, :edit, :update, :destroy]
 
   def index
