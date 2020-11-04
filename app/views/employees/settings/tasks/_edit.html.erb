@@ -5,13 +5,13 @@
       <div class="card mb-3">
         <h5 class="card-header">デフォルトタスク編集</h5>
         <div class="card-body">
-          <%= form_with(model: @task, url: "#", method: :patch, remote: true, id: "edit-default-task-form") do |f| %>
+          <%= form_with(model: @default_task, url: "#", method: :patch, remote: true, id: "edit-default-task-form") do |f| %>
             <div class="default-task-update-errors"></div>
             <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-name" %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "default-task-title" %>
 
             <%= f.label :content %>
-            <%= f.text_area :content, required: true, class: "form-control", maxlength: 3000 %>
+            <%= f.text_area :content, required: true, class: "form-control", maxlength: 3000, id: "default-task-content" %>
             
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>

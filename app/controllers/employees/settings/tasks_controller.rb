@@ -21,7 +21,7 @@ class Employees::Settings::TasksController < ApplicationController
   end
 
   def update
-    if @task.update(default_task_params)
+    if @default_task.update(default_task_params)
       flash[:success] = "デフォルトタスクを更新しました。"
       redirect_to employees_settings_tasks_url
     else

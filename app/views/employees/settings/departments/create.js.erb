@@ -1,7 +1,7 @@
 $(".department-create-errors").html('<%= escape_javascript(render partial: "shared/error_messages", locals: { resource: @department }) %>');
 <% @department.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('input[name="department[<%= key_attribute.intern.to_s %>]"]').prev();
+  let addDiv = $('<div class="field-with-errors">');
+  let addLabel = $('input[name="department[<%= key_attribute.intern.to_s %>]"]').prev();
   $('input[name="department[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
   addLabel.wrap(addDiv);
 <% end %>
