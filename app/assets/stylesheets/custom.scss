@@ -82,7 +82,6 @@ label {
 
 /*------------------------------ ERROR MESSAGE ------------------------------*/
 .custom-error {
-  padding: 1em;
   h5 {
     background-color: #dc3545;
     color: white;
@@ -100,6 +99,7 @@ label {
   padding: 2px;
   label {
     color: white;
+    margin-top: 0;
     padding: 2px;
   }
 }

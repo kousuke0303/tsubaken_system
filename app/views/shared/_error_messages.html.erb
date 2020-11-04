@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div id="error-explanation" class="custom-error">
+  <div class="custom-error">
     <h5><%= I18n.t("errors.messages.not_saved", count: resource.errors.count, resource: resource.model_name.human.downcase) %></h5>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
