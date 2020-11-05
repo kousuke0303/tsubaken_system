@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   root "static_pages#login_index"
-  
-  post '/employees/tasks', to: 'employees/tasks#default_task_create', as: 'default_task_employees_tasks'
-  patch '/employees/tasks/:id', to: 'employees/tasks#default_task_update', as: 'default_task_employees_task_update'
-  delete '/employees/tasks/:id', to: 'employees/tasks#default_task_destroy', as: 'default_task_employees_task_destroy'
 
   # API関連
   namespace :api do

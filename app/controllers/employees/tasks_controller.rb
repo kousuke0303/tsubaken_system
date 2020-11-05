@@ -48,17 +48,6 @@ class Employees::TasksController < ApplicationController
     end
   end
   
-  def default_task_create
-    @default_task = Task.new(default_title_params)
-    if @default_task.save
-      flash[:success] = "デフォルトタスクを作成しました"
-      redirect_to employees_tasks_url
-    else
-      flash[:danger] = "デフォルトタスク作成に失敗しました"
-      redirect_to employees_tasks_url
-    end
-  end
-  
   def update
     @task = Task.find(params[:id])
     # default_tasksに登録されているものは編集できない
@@ -69,17 +58,6 @@ class Employees::TasksController < ApplicationController
         respond_to do |format|
           format.js
         end
-      end
-    end
-  end
-  
-  def default_task_update
-    if @default_task.update(default_title_params)
-      flash[:success] = "デフォルトタスク名を更新しました"
-      redirect_to employees_tasks_url
-    else
-      respond_to do |format|
-        format.js
       end
     end
   end
@@ -96,11 +74,6 @@ class Employees::TasksController < ApplicationController
         end
       end
     end
-  end
-  
-  def default_task_destroy
-    @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
-    redirect_to employees_tasks_url
   end
   
   private
