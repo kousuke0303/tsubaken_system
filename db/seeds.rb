@@ -106,7 +106,7 @@ puts "CREATE! MATTER"
 # -----------------------------------------------------
 
 3.times do |n|
-  Task.create!(title: "TASK#{ n + 1 }", status: 0, title: "DEFALTE_TASK_#{ n + 1 }", content: "テスト内容", row_order: n)
+  Task.create!(title: "TASK#{ n + 1 }", status: 0, title: "DEFALTE_TASK_#{ n + 1 }", content: "テスト内容", sort_order: n)
 end
 
 puts "CREATE! DEFALTE_TASK"

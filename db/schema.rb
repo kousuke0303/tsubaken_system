@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
     t.integer "status"
     t.integer "before_status"
     t.datetime "moved_on"
-    t.integer "row_order"
+    t.integer "sort_order"
     t.string "content"
     t.integer "default_task_id"
     t.boolean "notification", default: false

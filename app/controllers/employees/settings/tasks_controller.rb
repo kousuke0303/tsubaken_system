@@ -9,7 +9,8 @@ class Employees::Settings::TasksController < ApplicationController
   end
 
   def create
-    @default_task = Task.new(default_task_params.merge(status: 0))
+    sort_order = Task.are_default.length
+    @default_task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
     if @default_task.save
       flash[:success] = "デフォルトタスクを作成しました。"
       redirect_to employees_settings_tasks_url
@@ -33,6 +34,7 @@ class Employees::Settings::TasksController < ApplicationController
 
   def destroy
     @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
+    Task.rearranges(Task.are_default)
     redirect_to employees_settings_tasks_url
   end
 

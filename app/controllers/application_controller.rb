@@ -63,9 +63,9 @@ class ApplicationController < ActionController::Base
 
   
   # 並び順更新_____________________________________________________
-  def reload_row_order(tasks)
+  def reload_sort_order(tasks)
     tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
+      task.update(sort_order: i * 100)
     end
   end
       
