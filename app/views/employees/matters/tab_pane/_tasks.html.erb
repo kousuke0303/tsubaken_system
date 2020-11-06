@@ -1,5 +1,5 @@
 <div class="col-sm-12 text-right mb-1e">
-  <button class="btn btn-primary" id="AddToDoMatterTasks"><i class="fas fa-plus"></i>タスク追加</button>
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
 <div class="matter_task_disp" id="myKanban"></div>
@@ -45,14 +45,14 @@ $(document).ready( function(){
         <% end %>
       ]
     },
-    
+
     {
-      "id": "progress-tasks",
+      "id": "ongoing-tasks",
       "title": "進行中",
-      "class": "progress",
+      "class": "ongoing",
       "item": [
-        <% @progress_tasks.each do |task| %>    
-          { 
+        <% @ongoing_tasks.each do |task| %>    
+          {
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },
@@ -107,8 +107,8 @@ $(document).ready( function(){
     }
   });
 
-    var toDoButton = document.getElementById('AddToDoMatterTasks');
-    toDoButton.addEventListener('click',function(){
+    var toDoButton = document.getElementById("add-task");
+    toDoButton.addEventListener("click",function(){
       
       const formItem = document.createElement('form');
       formItem.innerHTML = '<input type="text", id="new-task-form">';

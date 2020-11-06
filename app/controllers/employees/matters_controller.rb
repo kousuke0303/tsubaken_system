@@ -51,7 +51,7 @@ class Employees::MattersController < ApplicationController
 
     @default_tasks = Task.are_default
     @relevant_tasks = @tasks.are_relevant
-    @progress_tasks = @tasks.are_progress
+    @ongoing_tasks = @tasks.are_ongoing
     @finished_tasks = @tasks.are_finished
   end
 
