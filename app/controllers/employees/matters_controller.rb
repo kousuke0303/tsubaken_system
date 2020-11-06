@@ -48,6 +48,11 @@ class Employees::MattersController < ApplicationController
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
+
+    @default_tasks = Task.are_default
+    @relevant_tasks = @tasks.are_relevant
+    @progress_tasks = @tasks.are_progress
+    @finished_tasks = @tasks.are_finished
   end
 
   def edit
