@@ -14,7 +14,7 @@ class Manager < ApplicationRecord
   has_many :matters, through: :matter_managers
   has_many :attendances, dependent: :destroy
   
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_login_id_is_correct?

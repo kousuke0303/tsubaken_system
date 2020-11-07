@@ -14,7 +14,7 @@ class Staff < ApplicationRecord
   has_many :staff_event_titles, dependent: :destroy
   has_many :attendances, dependent: :destroy
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # スタッフの従業員IDは「ST-」から始めさせる
   def staff_login_id_is_correct?

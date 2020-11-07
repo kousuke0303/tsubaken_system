@@ -13,7 +13,7 @@ class ExternalStaff < ApplicationRecord
   has_many :attendances, dependent: :destroy
   belongs_to :supplier
   
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:login_id]
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # ログインIDは「SP(外注先ID)-」から始めさせる
   def external_staff_login_id_is_correct?
