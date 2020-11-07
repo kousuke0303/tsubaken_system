@@ -1,6 +1,0 @@
-$('.ajax_title_area').html('<%= escape_javascript(render partial: 'submanager/settings/tasks/ajax_task/title_index', locals: { default_matter_tasks: @default_matter_tasks }) %>');
-$('input[name="task[title]"]').val("");
-$('textarea[name="task[memo]"]').val("");
-$('.default_matter_task_new_form').hide();
-$('.ajax_show_area').html('<%= escape_javascript(render partial: 'submanager/settings/tasks/ajax_task/show', locals: { default_matter_tasks: @default_matter_tasks }) %>');
-$('#default_matter_task_<%= @task.id %>_show').show();

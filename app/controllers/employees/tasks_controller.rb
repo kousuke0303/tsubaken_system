@@ -14,15 +14,14 @@ class Employees::TasksController < ApplicationController
     if default_tasks.where(id: task.id).exists?
       copy_task = task.deep_dup
       copy_task.save
-      current_matter.tasks.create(status: params[:status], matter_id: current_matter.id, title: task.default_title)
-      copy_task.update(status: params[:status], row_order: roworder_params)
+      current_matter.tasks.create(status: params[:status], matter_id: current_matter.id, title: task.title)
+      copy_task.update(status: params[:status], sort_order: sort_order_params)
     else
       task.update(status: params[:status],
                   before_status: before_status,
                   moved_on: moved_on,
-                  row_order: roworder_params)
+                  sort_order: roworder_params)
     end
-    matter_task_type
     respond_to do |format|
       format.js
     end
@@ -76,7 +75,7 @@ class Employees::TasksController < ApplicationController
       str.gsub(/[^\d]/, "").to_i
     end
     
-    def roworder_params
+    def sort_order_params
       (params[:item_index].to_i * 100 ) - 1
     end
     
