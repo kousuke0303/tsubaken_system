@@ -35,7 +35,7 @@ class Employees::TasksController < ApplicationController
     Task.rearranges(relevant_tasks)
     # 追加するタスクのsort_orderを定義
     sort_order = relevant_tasks.length
-    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order, matter_id: @matter.id)
+    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order)
     respond_to do |format|
       format.js
     end
