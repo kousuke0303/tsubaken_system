@@ -1,3 +1,39 @@
 // Place all the styles related to the admins::admins controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* -----------------------------------------------------------------------------------
+    TOPPAGE
+----------------------------------------------------- */
+.title_tab_bar {
+ border-bottom: 3px solid #343a40!important;
+}
+
+.title_tab {
+  background-color: #343a40!important;
+  color: white!important;
+  font-size: 1.3em;
+}
+
+.news_container {
+  border: 1px solid #343a40;
+  padding: 15px;
+  margin-bottom: 2em;
+}
+
+.top_page_contents {
+  p {
+    margin: 3px;
+  }
+  span{
+    color: #343a40;
+  }
+}
+
+.fa-blue {
+  color: #17a2b8;
+}
+
+.fa-orange {
+  color: #fd7e14;
+}
