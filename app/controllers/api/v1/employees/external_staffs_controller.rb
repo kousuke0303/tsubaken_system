@@ -4,7 +4,7 @@ class Api::V1::Employees::ExternalStaffsController < Api::V1::ApplicationControl
   before_action :set_external_staff, only: [:update, :destroy]
 
   def create
-    external_staff = ExternalStaff.new(external_staff_params)
+    external_staff = ExternalStaff.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
     if external_staff.save
       render json: external_staff, serializer: ExternalStaffSerializer
     else
@@ -30,7 +30,7 @@ class Api::V1::Employees::ExternalStaffsController < Api::V1::ApplicationControl
 
   private
     def external_staff_params
-      params.permit(:name, :phone, :email, :supplier_id)
+      params.permit(:name, :kana, :phone, :email, :login_id, :supplier_id)
     end
 
     def set_external_staff

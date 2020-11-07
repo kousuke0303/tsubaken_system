@@ -25,6 +25,18 @@ Rails.application.routes.draw do
         post "create_supplier", to: "suppliers#create"
         post "update_supplier", to: "suppliers#update"
         post "destroy_supplier", to: "suppliers#destroy"
+        
+        namespace :settings do
+          # 業種CRUD
+          post "create_industry", to: "industries#create"
+          post "update_industry", to: "industries#update"
+          post "destroy_industry", to: "industries#destroy"
+        end
+        
+        # 外部スタッフCRUD
+        post "create_external_staff", to: "external_staffs#create"
+        post "update_external_staff", to: "external_staffs#update"
+        post "destroy_external_staff", to: "external_staffs#destroy"
 
       end
     end
