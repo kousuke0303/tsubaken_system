@@ -2,7 +2,7 @@ class Task < ApplicationRecord
   belongs_to :matter, inverse_of: :tasks, optional: true
 
   validates :title, presence: true, length: { maximum: 30 }
-  validates :content, presence: true, length: { maximum: 3000 }
+  validates :content, length: { maximum: 3000 }
   
   enum status: {default: 0, relevant: 1, ongoing: 2, finished: 3}
    

@@ -111,6 +111,12 @@ end
 
 puts "CREATE! DEFALTE_TASK"
 
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+end
+
+puts "CREATE! TASK"
+
 first_day = Date.current.beginning_of_month
 last_day = first_day.end_of_month
 one_month = [*first_day..last_day]

@@ -110,18 +110,18 @@ $(document).ready( function(){
     var toDoButton = document.getElementById("add-task");
     toDoButton.addEventListener("click",function(){
       
-      const formItem = document.createElement('form');
+      const formItem = document.createElement("form");
       formItem.innerHTML = '<input type="text", id="new-task-form">';
       kanban.addForm("relevant-tasks", formItem);
   
-      $("#new-task-form").on("change", function(){
+      $("#new-task-form").blur(function(){
         var title = $("#new-task-form").val();
 
         $.ajax({
           type: "POST",
-          url: "<%= employees_matter_tasks_path(current_matter) %>",
+          url: "<%= employees_matter_tasks_path(@matter) %>",
           cache: false,
-          data: { title: title, status: "relevant", remote: true }
+          data: { title: title, remote: true }
       });
     });
   });

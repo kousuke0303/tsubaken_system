@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   end
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title"
+    t.string "title", default: "", null: false
     t.integer "status"
     t.integer "before_status"
     t.datetime "moved_on"

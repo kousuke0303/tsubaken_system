@@ -29,22 +29,15 @@ class Employees::TasksController < ApplicationController
   end
   
   def create
-    if params[:status] == "matter_tasks"
-      new_task = current_matter.tasks.create(title: params[:title], status: "matter_tasks")
-      matter_tasks_count = current_matter.tasks.where(status: "matter_tasks").count
-      new_task.update(row_order: matter_tasks_count * 100)
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
-    elsif params[:status] == "default_tasks"
-      new_task = default_tasks.create(default_title: params[:default_title], status: "default_tasks")
-      default_tasks_count = default_tasks.where(status: "default_tasks").count
-      new_task.update(row_order: default_tasks_count * 100)
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
+    @matter = Matter.find(params[:matter_id])
+    # 作成前に進行中タスクのsort_orderを更新
+    relevant_tasks = @matter.tasks.are_relevant
+    Task.rearranges(relevant_tasks)
+    # 追加するタスクのsort_orderを定義
+    sort_order = relevant_tasks.length
+    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order, matter_id: @matter.id)
+    respond_to do |format|
+      format.js
     end
   end
   
