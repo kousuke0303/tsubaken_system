@@ -29,33 +29,16 @@ class Employees::TasksController < ApplicationController
   end
   
   def create
-    if params[:status] == "matter_tasks"
-      new_task = current_matter.tasks.create(title: params[:title], status: "matter_tasks")
-      matter_tasks_count = current_matter.tasks.where(status: "matter_tasks").count
-      new_task.update(row_order: matter_tasks_count * 100)
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
-    elsif params[:status] == "default_tasks"
-      new_task = default_tasks.create(default_title: params[:default_title], status: "default_tasks")
-      default_tasks_count = default_tasks.where(status: "default_tasks").count
-      new_task.update(row_order: default_tasks_count * 100)
-      matter_task_type
-      respond_to do |format|
-        format.js
-      end
-    end
-  end
-  
-  def default_task_create
-    @default_task = Task.new(default_title_params)
-    if @default_task.save
-      flash[:success] = "デフォルトタスクを作成しました"
-      redirect_to employees_tasks_url
-    else
-      flash[:danger] = "デフォルトタスク作成に失敗しました"
-      redirect_to employees_tasks_url
+    @matter = Matter.find(params[:matter_id])
+    # 作成前に進行中タスクのsort_orderを更新
+    relevant_tasks = @matter.tasks.are_relevant
+    Task.reload_sort_order(relevant_tasks)
+    # 追加するタスクのsort_orderを定義
+    sort_order = relevant_tasks.length
+    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order)
+    set_classified_tasks(@matter)
+    respond_to do |format|
+      format.js
     end
   end
   
@@ -64,22 +47,11 @@ class Employees::TasksController < ApplicationController
     # default_tasksに登録されているものは編集できない
     unless default_tasks.where(id: @task.id).exists?
       if @task.update(update_task_params)
-        flash[:success] = "#{@task.title}を更新しました"
+        flash[:success] = "#{@task.title}を更新しました。"
         matter_task_type
         respond_to do |format|
           format.js
         end
-      end
-    end
-  end
-  
-  def default_task_update
-    if @default_task.update(default_title_params)
-      flash[:success] = "デフォルトタスク名を更新しました"
-      redirect_to employees_tasks_url
-    else
-      respond_to do |format|
-        format.js
       end
     end
   end
@@ -89,18 +61,13 @@ class Employees::TasksController < ApplicationController
     # default_tasksに登録されているものは削除できない
     unless default_tasks.where(id: @task.id).exists?
       if @task.destroy
-        flash[:danger] = "#{@task.title}を削除しました"
+        flash[:danger] = "#{@task.title}を削除しました。"
         matter_task_type
         respond_to do |format|
           format.js
         end
       end
     end
-  end
-  
-  def default_task_destroy
-    @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
-    redirect_to employees_tasks_url
   end
   
   private
@@ -114,14 +81,6 @@ class Employees::TasksController < ApplicationController
     end
     
     def update_task_params
-      params.require(:task).permit(:title, :contents)
-    end
-    
-    def default_title_params
-      params.require(:task).permit(:default_title, status: "default_tasks")
-    end
-    
-    def set_default_task
-      @default_task = Task.find(params[:id])
+      params.require(:task).permit(:title, :content)
     end
 end

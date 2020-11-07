@@ -152,22 +152,22 @@
 
 .default {
  color: white;
- background-color: #343a40;
+ background: #343a40;
 }
 
-.task {
+.relevant {
   color: white;
-  background-color: #dc3545;
+  background: #dc3545;
 }
 
-.running {
+.ongoing {
   color: white;
-  background-color: #17a2b8;
+  background: #17a2b8;
 }
 
-.done {
+.finished {
   color: white;
-  background-color: #28a745;
+  background: #28a745;
 }
 
 #myKanban {

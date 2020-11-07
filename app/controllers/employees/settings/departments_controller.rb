@@ -5,7 +5,7 @@ class Employees::Settings::DepartmentsController < ApplicationController
   def create
     @department = Department.new(department_params)
     if @department.save
-      flash[:success] = "部署を作成しました"
+      flash[:success] = "部署を作成しました。"
       redirect_to employees_settings_departments_url
     else
       respond_to do |format|
@@ -22,7 +22,7 @@ class Employees::Settings::DepartmentsController < ApplicationController
 
   def update
     if @department.update(department_params)
-      flash[:success] = "部署情報を更新しました"
+      flash[:success] = "部署情報を更新しました。"
       redirect_to employees_settings_departments_url
     else
       respond_to do |format|
@@ -36,9 +36,9 @@ class Employees::Settings::DepartmentsController < ApplicationController
       @department.managers.update_all(department_id: 1)
       @department.staffs.update_all(department_id: 1)
       @department.delete
-      flash[:success] = "部署を削除しました"
+      flash[:success] = "部署を削除しました。"
     else
-      flash[:notice] = "部署を削除できませんでした"
+      flash[:notice] = "部署を削除できませんでした。"
     end
     redirect_to employees_settings_departments_url
   end

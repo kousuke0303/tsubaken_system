@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
   root "static_pages#login_index"
-  
-  post '/employees/tasks', to: 'employees/tasks#default_task_create', as: 'default_task_employees_tasks'
-  patch '/employees/tasks/:id', to: 'employees/tasks#default_task_update', as: 'default_task_employees_task_update'
-  delete '/employees/tasks/:id', to: 'employees/tasks#default_task_destroy', as: 'default_task_employees_task_destroy'
 
   # API関連
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
-      
+
+      # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
         post "create_staff", to: "staffs#create"
@@ -38,6 +35,9 @@ Rails.application.routes.draw do
         post "update_external_staff", to: "external_staffs#update"
         post "destroy_external_staff", to: "external_staffs#destroy"
 
+        # 従業員自身の勤怠関連
+        post "index_attendances", to: "attendances#index"
+        post "register_attendance", to: "attendances#register"
       end
     end
   end
@@ -90,6 +90,10 @@ Rails.application.routes.draw do
       get :top, on: :member
     end
   end
+
+  namespace :managers do
+    resources :attendances, only: [:index, :update]
+  end
   
   # Client関係
   scope module: :clients do
@@ -98,8 +102,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :managers do
-    resources :attendances, only: [:index, :update]
+  namespace :clients do
+    resources :matters, only: [:index, :show]
   end
 
   # Staff関係
@@ -132,7 +136,7 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:create, :show, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update] do
+    resources :attendances, only: [:create, :update, :destroy] do
       patch :erase, on: :member
       collection do
         get :daily

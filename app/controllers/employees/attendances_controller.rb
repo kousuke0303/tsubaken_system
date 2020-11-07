@@ -4,6 +4,7 @@ class Employees::AttendancesController < ApplicationController
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:daily, :individual]
   before_action :set_new_attendance, only: [:daily, :individual]
+  before_action :set_attendance, only: [:update, :destroy]
 
   # 日別勤怠表示ページ
   def daily
@@ -48,8 +49,8 @@ class Employees::AttendancesController < ApplicationController
       resource = ExternalStaff.find(external_staff_id)
     end
     create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
-    if @attendance.update_attributes(employee_attendance_params)
-      flash[:success] = "勤怠を作成しました"
+    if @attendance.update(employee_attendance_params)
+      flash[:success] = "勤怠を作成しました。"
       if params["prev_url"].eql?("daily")
         redirect_to daily_employees_attendances_url
       else 
@@ -63,7 +64,27 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def update
-    @Attendance = Attendance.find(params[:id])
+    if @attendance.update(employee_attendance_params.except(:worked_on, :manager_id, :staff_id, :external_staff_id))
+      flash[:success] = "勤怠を更新しました。"
+      if params["prev_url"].eql?("daily")
+        redirect_to daily_employees_attendances_url
+      else 
+        redirect_to individual_employees_attendances_url
+      end
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
+  def destroy
+    @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました。" : flash[:notice] = "勤怠を削除できませんでした。"
+    if params["prev_url"].eql?("daily")
+      redirect_to daily_employees_attendances_url
+    else 
+      redirect_to individual_employees_attendances_url
+    end
   end
 
   private
@@ -82,7 +103,11 @@ class Employees::AttendancesController < ApplicationController
     end
 
     def set_new_attendance
-      @new_attendance = Attendance.new
+      @attendance = Attendance.new
+    end
+
+    def set_attendance
+      @attendance = Attendance.find(params[:id])
     end
 
     def employee_attendance_params
@@ -99,7 +124,7 @@ class Employees::AttendancesController < ApplicationController
         @attendance = resource.attendances.where(worked_on: date).first
       end
     rescue ActiveRecord::RecordInvalid 
-      flash[:danger] = "ページ情報の取得に失敗しました"
+      flash[:danger] = "ページ情報の取得に失敗しました。"
       redirect_to root_url
     end
 end

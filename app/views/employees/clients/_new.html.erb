@@ -1,6 +1,8 @@
 <div class="modal-dialog">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
         <h5 class="card-header">顧客作成</h5>
@@ -12,7 +14,7 @@
           
             <%= f.label :gender %>
             <br>
-            <%= f.collection_radio_buttons :gender, Client.genders.keys.map { |k| [I18n.t("enums.client.status.#{k}"), k] }, :first, :last do |b| %>
+            <%= f.collection_radio_buttons :gender, Client.genders_i18n, :first, :last do |b| %>
               <%=  b.radio_button(class: "") + b.label(class: "mr-1e") %>
             <% end %>
             <br>

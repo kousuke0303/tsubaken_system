@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "勤怠情報の取得に失敗しました"
+    flash[:danger] = "勤怠情報の取得に失敗しました。"
     redirect_to root_url
   end
   
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   # ログインstaff以外のページ非表示
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません"
+      flash[:alert] = "アクセス権限がありません。"
       redirect_to root_path
     end
   end
@@ -63,23 +63,19 @@ class ApplicationController < ActionController::Base
 
   
   # 並び順更新_____________________________________________________
-  def reload_row_order(tasks)
+  def reload_sort_order(tasks)
     tasks.each_with_index do |task, i|
-      task.update(row_order: i * 100)
+      task.update(sort_order: i * 100)
     end
   end
-      
-  # def matter_task_type
-  #   @matter_tasks = current_matter.tasks.are_matter
-  #   # row_orderリセット
-  #   reload_row_order(@matter_tasks)
-  #   @matter_progress_tasks = current_matter.tasks.are_progress
-  #   # row_orderリセット
-  #   reload_row_order(@matter_progress_tasks)
-  #   @matter_complete_tasks = current_matter.tasks.are_finished
-  #   # row_orderリセット
-  #   reload_row_order(@matter_complete_tasks)
-  # end
+
+  # 案件の持つタスクを分類して定義
+  def set_classified_tasks(matter)
+    @default_tasks = Task.are_default
+    @relevant_tasks = matter.tasks.are_relevant
+    @ongoing_tasks = matter.tasks.are_ongoing
+    @finished_tasks = matter.tasks.are_finished
+  end
     
   private
   

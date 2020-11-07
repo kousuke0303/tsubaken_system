@@ -11,7 +11,7 @@ class ExternalStaffs::RegistrationsController < Devise::RegistrationsController
     end
     if @external_staff.update(external_staff_params)
       sign_in(@external_staff, :bypass => true)
-      flash[:alert] = "アカウント情報を更新しました"
+      flash[:alert] = "アカウント情報を更新しました。"
       redirect_to top_external_staff_url(@external_staff)
     else
       render :edit

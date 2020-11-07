@@ -1,13 +1,13 @@
 <div class="col-sm-12 text-right mb-1e">
-  <button class="btn btn-primary" id="AddToDoMatterTasks"><i class="fas fa-plus"></i>タスク追加</button>
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
 <div class="matter_task_disp" id="myKanban"></div>
 
-<% current_matter.tasks.all.each do |task| %>
+<% @matter.tasks.all.each do |task| %>
   <div class="modal" id="matter_task_<%= task.id %>_modal">
     <div>
-      <%= render partial: 'employees/matters/tasks/task_show', locals: {task: task, status: task.status} %>
+      <%= render "employees/matters/tasks/task_show", task: task, status: task.status %>
       <button class="button-position js-modal-close">閉じる</button>
     </div>
   </div>
@@ -16,29 +16,15 @@
 <script>
 $(document).ready( function(){
     
-//初期状態のタスク管理ボード用JSONデータ
+  //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
-      "id": "default_tasks",
+      "id": "default-tasks",
       "title": "デフォルトタスク一覧",
       "class": "default",
       "item": [
         <% @default_tasks.each do |task| %>    
           { 
-            "title": "<%= task.default_title %>",
-            "id": "item_id_<%= task.id %>"
-          },
-        <% end %>
-      ]
-    },
-    
-    {
-      "id": "matter_tasks",
-      "title": "当該タスク",
-      "class": "task",
-      "item": [
-        <% @matter_tasks.each do |task| %>    
-          {
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },
@@ -47,12 +33,12 @@ $(document).ready( function(){
     },
     
     {
-      "id": "progress_tasks",
-      "title": "進行中",
-      "class": "running",
+      "id": "relevant-tasks",
+      "title": "当該タスク",
+      "class": "relevant",
       "item": [
-        <% @matter_progress_tasks.each do |task| %>    
-          { 
+        <% @relevant_tasks.each do |task| %>    
+          {
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
           },
@@ -61,11 +47,25 @@ $(document).ready( function(){
     },
 
     {
-      "id": "finished_tasks",
-      "title": "完了",
-      "class": "done",
+      "id": "ongoing-tasks",
+      "title": "進行中",
+      "class": "ongoing",
       "item": [
-        <% @matter_complete_tasks.each do |task| %>    
+        <% @ongoing_tasks.each do |task| %>    
+          {
+            "title": "<%= task.title %>",
+            "id": "item_id_<%= task.id %>"
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "finished-tasks",
+      "title": "完了",
+      "class": "finished",
+      "item": [
+        <% @finished_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
             "id": "item_id_<%= task.id %>"
@@ -89,7 +89,7 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
 
-      <% if current_matter.tasks.where.not(status: "default_tasks") %>
+      <% if current_matter.tasks.where.not(status: "default") %>
         $.ajax({
           type: "GET",
           url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
@@ -107,56 +107,52 @@ $(document).ready( function(){
     }
   });
 
-    var toDoButton = document.getElementById('AddToDoMatterTasks');
-      toDoButton.addEventListener('click',function(){
-        
-        const formItem = document.createElement('form');
-        formItem.innerHTML = '<input type="text", id="new_task_form">';
-        kanban.addForm('matter_tasks', formItem);
-    
-        $('#new_task_form').on('change', function(){
-          var title = $('#new_task_form').val();
+    var toDoButton = document.getElementById("add-task");
+    toDoButton.addEventListener("click",function(){
+      
+      const formItem = document.createElement("form");
+      formItem.innerHTML = '<input type="text", id="new-task-form">';
+      kanban.addForm("relevant-tasks", formItem);
   
+      $("#new-task-form").blur(function(){
+        var title = $("#new-task-form").val();
+
         $.ajax({
-            type: "POST",
-            url: "<%= employees_matter_tasks_path(current_matter) %>",
-            cache: false,
-            data: { title: title, status: 'matter_tasks', remote: true }
-        });
+          type: "POST",
+          url: "<%= employees_matter_tasks_path(@matter) %>",
+          cache: false,
+          data: { title: title, remote: true }
       });
     });
-  
+  });
   // 現状使用しない
-
   //var removeItem = document.getElementById('Item_reset');
   //removeItem.addEventListener('click',function(){
   //    $('div[data-id="finished_task"] main div').each(function(index, element){
   //      kanban.removeElement(element)
   //    });
-      
   //    $.ajax({
   //        type: "GET",
   //        url: "",
   //        cache: false,
   //    });
   //  });
-
 });
   
 </script>
 
 <script>
-<% current_matter.tasks.each do |task| %>
-  $(function(){
-    $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
-      $('#matter_task_<%= task.id %>_modal').fadeIn();
-      return false;
+  <% current_matter.tasks.each do |task| %>
+    $(function(){
+      $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
+        $('#matter_task_<%= task.id %>_modal').fadeIn();
+        return false;
+      });
+      
+      $('.js-modal-close').on('click',function(){
+        $('#matter_task_<%= task.id %>_modal').fadeOut();
+        return false;
+      });
     });
-    
-     $('.js-modal-close').on('click',function(){
-      $('#matter_task_<%= task.id %>_modal').fadeOut();
-      return false;
-    });
-  });
-<% end %>
+  <% end %>
 </script>

@@ -10,7 +10,7 @@ class Employees::SuppliersController < ApplicationController
   def create
     @supplier = Supplier.new(supplier_params)
     if @supplier.save
-      flash[:success] = "外注先を作成しました"
+      flash[:success] = "外注先を作成しました。"
       redirect_to employees_supplier_url(@supplier)
     else
       respond_to do |format|
@@ -21,7 +21,7 @@ class Employees::SuppliersController < ApplicationController
 
   def update
     if @supplier.update(supplier_params)
-      flash[:success] = "外注先情報を更新しました"
+      flash[:success] = "外注先情報を更新しました。"
       redirect_to employees_supplier_url(@supplier)
     else
       respond_to do |format|
@@ -37,7 +37,7 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def destroy
-    @supplier.destroy ? flash[:success] = "外注先を削除しました" : flash[:alert] = "外注先を削除できませんでした"
+    @supplier.destroy ? flash[:success] = "外注先を削除しました。" : flash[:alert] = "外注先を削除できませんでした。"
     redirect_to employees_suppliers_url
   end
 

@@ -1,13 +1,12 @@
 class CreateTasks < ActiveRecord::Migration[5.1]
   def change
     create_table :tasks do |t|
-      t.string :title
+      t.string :title,         null: false, default: ""
       t.integer :status
       t.integer :before_status
       t.datetime :moved_on
-      t.integer :row_order
-      t.string :contents
-      t.string :default_title
+      t.integer :sort_order
+      t.string :content
       t.integer :default_task_id
       t.boolean :notification, default: false
       t.string :matter_id

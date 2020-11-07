@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>デフォルトタスク一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#default-task-new">作成</button></h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm table common-table">
+        <tr>
+          <th>名前</th>
+          <th>内容</th>
+          <th></th>
+        </tr>
+        <% @default_tasks.each do |default_task| %>
+          <tr>
+            <td><%= default_task.title %></td>
+            <td><%= default_task.content %></td>
+            <td>
+              <button class="btn btn-sm btn-dark to-edit-default-task" data-toggle="modal" data-target="#default-task-edit" data-id="<%= default_task.id %>"
+                      data-title="<%= default_task.title %>" data-content="<%= default_task.content %>">
+                編集
+              </button>
+              <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $(".to-edit-default-task").click(function() {
+      let title = $(this).data("title")
+      let content = $(this).data("content")
+      let taskId = $(this).data("id")
+      $("#default-task-title").val(title);
+      $("#default-task-content").val(content);
+      $("#edit-default-task-form").attr("action", "/employees/settings/tasks/" + taskId);
+    });
+  });
+</script>

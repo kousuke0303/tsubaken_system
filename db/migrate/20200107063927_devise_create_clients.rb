@@ -3,6 +3,7 @@
 class DeviseCreateClients < ActiveRecord::Migration[5.1]
   def change
     create_table :clients do |t|
+      t.string :auth,               null: false, default: "client"
       t.string :name,               null: false, default: ""
       t.string :kana
       t.integer :gender
