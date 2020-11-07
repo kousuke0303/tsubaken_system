@@ -32,10 +32,11 @@ class Employees::TasksController < ApplicationController
     @matter = Matter.find(params[:matter_id])
     # 作成前に進行中タスクのsort_orderを更新
     relevant_tasks = @matter.tasks.are_relevant
-    Task.rearranges(relevant_tasks)
+    Task.reload_sort_order(relevant_tasks)
     # 追加するタスクのsort_orderを定義
     sort_order = relevant_tasks.length
     @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order)
+    set_classified_tasks(@matter)
     respond_to do |format|
       format.js
     end
@@ -46,7 +47,7 @@ class Employees::TasksController < ApplicationController
     # default_tasksに登録されているものは編集できない
     unless default_tasks.where(id: @task.id).exists?
       if @task.update(update_task_params)
-        flash[:success] = "#{@task.title}を更新しました"
+        flash[:success] = "#{@task.title}を更新しました。"
         matter_task_type
         respond_to do |format|
           format.js
@@ -60,7 +61,7 @@ class Employees::TasksController < ApplicationController
     # default_tasksに登録されているものは削除できない
     unless default_tasks.where(id: @task.id).exists?
       if @task.destroy
-        flash[:danger] = "#{@task.title}を削除しました"
+        flash[:danger] = "#{@task.title}を削除しました。"
         matter_task_type
         respond_to do |format|
           format.js
@@ -80,14 +81,6 @@ class Employees::TasksController < ApplicationController
     end
     
     def update_task_params
-      params.require(:task).permit(:title, :contents)
-    end
-    
-    def default_title_params
-      params.require(:task).permit(:default_title, status: "default_tasks")
-    end
-    
-    def set_default_task
-      @default_task = Task.find(params[:id])
+      params.require(:task).permit(:title, :content)
     end
 end

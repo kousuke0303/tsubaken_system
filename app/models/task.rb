@@ -12,7 +12,7 @@ class Task < ApplicationRecord
   scope :are_finished, -> { finished.order(:sort_order) }
 
   # sort_orderを正しい連番に更新
-  def self.rearranges(tasks)
+  def self.reload_sort_order(tasks)
     tasks.order(:sort_order).each_with_index do |task, index|
       task.update(sort_order: index)
     end

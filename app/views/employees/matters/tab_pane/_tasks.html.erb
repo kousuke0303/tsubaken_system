@@ -4,7 +4,7 @@
 
 <div class="matter_task_disp" id="myKanban"></div>
 
-<% current_matter.tasks.all.each do |task| %>
+<% @matter.tasks.all.each do |task| %>
   <div class="modal" id="matter_task_<%= task.id %>_modal">
     <div>
       <%= render "employees/matters/tasks/task_show", task: task, status: task.status %>

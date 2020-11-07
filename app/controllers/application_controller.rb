@@ -68,18 +68,14 @@ class ApplicationController < ActionController::Base
       task.update(sort_order: i * 100)
     end
   end
-      
-  # def matter_task_type
-  #   @matter_tasks = current_matter.tasks.are_matter
-  #   # row_orderリセット
-  #   reload_row_order(@matter_tasks)
-  #   @matter_progress_tasks = current_matter.tasks.are_progress
-  #   # row_orderリセット
-  #   reload_row_order(@matter_progress_tasks)
-  #   @matter_complete_tasks = current_matter.tasks.are_finished
-  #   # row_orderリセット
-  #   reload_row_order(@matter_complete_tasks)
-  # end
+
+  # 案件の持つタスクを分類して定義
+  def set_classified_tasks(matter)
+    @default_tasks = Task.are_default
+    @relevant_tasks = matter.tasks.are_relevant
+    @ongoing_tasks = matter.tasks.are_ongoing
+    @finished_tasks = matter.tasks.are_finished
+  end
     
   private
   

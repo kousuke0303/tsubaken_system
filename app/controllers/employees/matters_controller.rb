@@ -47,12 +47,8 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
-    @tasks = @matter.tasks
-
-    @default_tasks = Task.are_default
-    @relevant_tasks = @tasks.are_relevant
-    @ongoing_tasks = @tasks.are_ongoing
-    @finished_tasks = @tasks.are_finished
+    # 案件の持つタスクを分離して定義
+    set_classified_tasks(@matter)
   end
 
   def edit

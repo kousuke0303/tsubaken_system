@@ -34,7 +34,7 @@ class Employees::Settings::TasksController < ApplicationController
 
   def destroy
     @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
-    Task.rearranges(Task.are_default)
+    Task.reload_sort_order(Task.are_default)
     redirect_to employees_settings_tasks_url
   end
 
