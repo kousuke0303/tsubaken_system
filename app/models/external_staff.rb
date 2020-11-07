@@ -1,5 +1,5 @@
 class ExternalStaff < ApplicationRecord
-  before_save { self.email = email.downcase }
+  before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :kana, presence: true, length: { maximum: 30 }
