@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
 
+      # 管理者CRUD
+      post "self_update_admin", to: "staffs#self_update"
+
       # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
