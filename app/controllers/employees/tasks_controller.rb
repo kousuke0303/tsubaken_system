@@ -1,11 +1,6 @@
 class Employees::TasksController < ApplicationController
-  before_action :set_matter, only: [:create, :move]
-  before_action :set_default_task, only: [:show, :edit, :update, :destroy, :default_task_update, :default_task_destroy]
-  
-  def index
-    @default_tasks = default_tasks.are_default_tasks
-    @default_task = Task.new
-  end
+  before_action :set_matter
+  before_action :set_task, only: [:update, :destroy]
 
   def move
     task = Task.find(params[:task])
@@ -42,12 +37,11 @@ class Employees::TasksController < ApplicationController
   end
   
   def update
-    @task = Task.find(params[:id])
     # default_tasksに登録されているものは編集できない
     unless default_tasks.where(id: @task.id).exists?
       if @task.update(update_task_params)
         flash[:success] = "#{@task.title}を更新しました。"
-        matter_task_type
+        set_classified_tasks(@matter)
         respond_to do |format|
           format.js
         end
@@ -56,15 +50,11 @@ class Employees::TasksController < ApplicationController
   end
   
   def destroy
-    @task = Task.find(params[:id])
-    # default_tasksに登録されているものは削除できない
-    unless default_tasks.where(id: @task.id).exists?
-      if @task.destroy
-        flash[:danger] = "#{@task.title}を削除しました。"
-        matter_task_type
-        respond_to do |format|
-          format.js
-        end
+    if @task.destroy
+      flash[:danger] = "#{@task.title}を削除しました。"
+      set_classified_tasks(@matter)
+      respond_to do |format|
+        format.js
       end
     end
   end
@@ -74,9 +64,8 @@ class Employees::TasksController < ApplicationController
       @matter = Matter.find(params[:matter_id])
     end
 
-    # 文字列から数字のみ取り出す
-    def remove_str(str)
-      str.gsub(/[^\d]/, "").to_i
+    def set_task
+      @task = Task.find(params[:id])
     end
 
     # paramsで送られてきたstatusをenumの数値に変換

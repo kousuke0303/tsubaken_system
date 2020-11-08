@@ -5,7 +5,7 @@
 <div class="matter_task_disp" id="myKanban"></div>
 
 <% @matter.tasks.all.each do |task| %>
-  <div class="modal" id="matter_task_<%= task.id %>_modal">
+  <div class="modal" id="task-<%= task.id %>-modal">
     <div>
       <%= render "employees/matters/tasks/task_show", task: task, status: task.status %>
       <button class="button-position js-modal-close">閉じる</button>
@@ -14,8 +14,8 @@
 <% end %>
 
 <script>
-$(document).ready( function(){
-    
+// タスク移動関連
+$(document).ready(function(){
   //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
@@ -89,26 +89,17 @@ $(document).ready( function(){
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
 
-      <% if current_matter.tasks.where.not(status: "default") %>
-        $.ajax({
-          type: "POST",
-          url: "<%= move_employees_matter_tasks_path(@matter) %>",
-          cache: false,
-          data: { task: task, status: status, item_index: item_index, remote: true }
-        });
-      <% else %>
-        $.ajax({
-          type: "GET",
-          url: "<%= move_task_employees_tasks_path(@default_task) %>",
-          cache: false,
-          data: { task: task, status: status, item_index: item_index, remote: true }
-        });
-      <% end %>
+      $.ajax({
+        type: "POST",
+        url: "<%= move_employees_matter_tasks_path(@matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
     }
   });
 
-    var toDoButton = document.getElementById("add-task");
-    toDoButton.addEventListener("click",function(){
+    var addTaskButton = document.getElementById("add-task");
+    addTaskButton.addEventListener("click",function(){
       
       const formItem = document.createElement("form");
       formItem.innerHTML = '<input type="text", id="new-task-form">';
@@ -142,15 +133,16 @@ $(document).ready( function(){
 </script>
 
 <script>
-  <% current_matter.tasks.each do |task| %>
+  // タスク編集モーダル
+  <% @matter.tasks.each do |task| %>
     $(function(){
-      $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
-        $('#matter_task_<%= task.id %>_modal').fadeIn();
+      $("[data-eid=<%= task.id %>]").on("click",function(){
+        $("#task-<%= task.id %>-modal").fadeIn();
         return false;
       });
       
-      $('.js-modal-close').on('click',function(){
-        $('#matter_task_<%= task.id %>_modal').fadeOut();
+      $(".js-modal-close").on("click",function(){
+        $("#task-<%= task.id %>-modal").fadeOut();
         return false;
       });
     });

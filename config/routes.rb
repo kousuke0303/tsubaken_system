@@ -145,15 +145,10 @@ Rails.application.routes.draw do
     end
 
     resources :matters do
-      resources :tasks do
+      resources :tasks, only: [:update, :destroy] do
         post :move, on: :collection
         post :create, on: :collection
       end
-    end
-
-    resources :tasks, only: [:create, :index, :update, :destroy] do
-      post :create, on: :collection
-      post :move, on: :member
     end
     
     namespace :settings do
