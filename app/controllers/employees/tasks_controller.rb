@@ -1,4 +1,5 @@
 class Employees::TasksController < ApplicationController
+  before_action :set_matter, only: [:create, :move_task]
   before_action :set_default_task, only: [:show, :edit, :update, :destroy, :default_task_update, :default_task_destroy]
   
   def index
@@ -7,28 +8,27 @@ class Employees::TasksController < ApplicationController
   end
 
   def move_task
-    task = Task.find(remove_str(params[:task]))
-    before_status = task.status
-    moved_on = Time.current
-    # default_tasksから移動した場合は、コピー作成
-    if default_tasks.where(id: task.id).exists?
-      copy_task = task.deep_dup
-      copy_task.save
-      current_matter.tasks.create(status: params[:status], matter_id: current_matter.id, title: task.title)
-      copy_task.update(status: params[:status], sort_order: sort_order_params)
-    else
-      task.update(status: params[:status],
-                  before_status: before_status,
-                  moved_on: moved_on,
-                  sort_order: roworder_params)
+    task = Task.find(params[:task])
+    new_status = convert_to_status_num(params[:status])
+    sort_order = params[:item_index]
+    @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
+      new_sort_order = task.sort_order.to_i + 1
+      task.update(sort_order: new_sort_order)
     end
+    if task.default?
+      # デフォルトタスクからコピー
+      @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
+    else
+      # タスク移動
+      task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
+    end
+    set_classified_tasks(@matter)
     respond_to do |format|
       format.js
     end
   end
   
   def create
-    @matter = Matter.find(params[:matter_id])
     # 作成前に進行中タスクのsort_orderを更新
     relevant_tasks = @matter.tasks.are_relevant
     Task.reload_sort_order(relevant_tasks)
@@ -70,13 +70,27 @@ class Employees::TasksController < ApplicationController
   end
   
   private
+    def set_matter
+      @matter = Matter.find(params[:matter_id])
+    end
+
     # 文字列から数字のみ取り出す
     def remove_str(str)
       str.gsub(/[^\d]/, "").to_i
     end
-    
-    def sort_order_params
-      (params[:item_index].to_i * 100 ) - 1
+
+    # paramsで送られてきたstatusをenumの数値に変換
+    def convert_to_status_num(status)
+      case status
+      when "default-tasks"
+        0
+      when "relevant-tasks"
+        1
+      when "ongoing-tasks"
+        2
+      when "finished-tasks"
+        3
+      end
     end
     
     def update_task_params
