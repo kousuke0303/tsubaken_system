@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       # 管理者Update
       namespace :admins do
         namespace :registrations do
-          post "self_update", to: "self_update"
+          post "update_self", to: "update_self"
         end
       end
 
