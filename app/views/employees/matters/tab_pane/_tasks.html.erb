@@ -91,8 +91,8 @@ $(document).ready( function(){
 
       <% if current_matter.tasks.where.not(status: "default") %>
         $.ajax({
-          type: "GET",
-          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
+          type: "POST",
+          url: "<%= move_employees_matter_tasks_path(@matter) %>",
           cache: false,
           data: { task: task, status: status, item_index: item_index, remote: true }
         });

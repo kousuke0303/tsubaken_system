@@ -1,5 +1,5 @@
 class Employees::TasksController < ApplicationController
-  before_action :set_matter, only: [:create, :move_task]
+  before_action :set_matter, only: [:create, :move]
   before_action :set_default_task, only: [:show, :edit, :update, :destroy, :default_task_update, :default_task_destroy]
   
   def index
@@ -7,7 +7,7 @@ class Employees::TasksController < ApplicationController
     @default_task = Task.new
   end
 
-  def move_task
+  def move
     task = Task.find(params[:task])
     new_status = convert_to_status_num(params[:status])
     sort_order = params[:item_index]

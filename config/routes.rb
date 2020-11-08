@@ -146,7 +146,7 @@ Rails.application.routes.draw do
 
     resources :matters do
       resources :tasks do
-        get :move_task, on: :collection
+        post :move, on: :collection
         post :create, on: :collection
       end
     end
