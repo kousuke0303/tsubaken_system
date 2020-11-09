@@ -3,24 +3,27 @@ class Employees::TasksController < ApplicationController
   before_action :set_task, only: [:update, :destroy]
 
   def move
-    task = Task.find(params[:task])
     new_status = convert_to_status_num(params[:status])
-    sort_order = params[:item_index]
-    # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
-    @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
-      new_sort_order = task.sort_order.to_i + 1
-      task.update(sort_order: new_sort_order)
+    # 移動先がデフォルトタスクでない場合のみ処理
+    unless new_status = 0
+      task = Task.find(params[:task])
+      sort_order = params[:item_index]
+      # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
+      @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
+        new_sort_order = task.sort_order.to_i + 1
+        task.update(sort_order: new_sort_order)
+      end
+      if task.default?
+        # デフォルトタスクからコピー
+        @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
+      else
+        # タスク移動
+        task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
+      end
+      # 移動・コピーによりタスクが追加された項目の全タスクのsort_orderを整理
+      tasks = @matter.tasks.where(status: new_status)
+      Task.reload_sort_order(tasks)
     end
-    if task.default?
-      # デフォルトタスクからコピー
-      @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
-    else
-      # タスク移動
-      task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
-    end
-    # 移動・コピーによりタスクが追加された項目の全タスクのsort_orderを整理
-    tasks = @matter.tasks.where(status: new_status)
-    Task.reload_sort_order(tasks)
     set_classified_tasks(@matter)
     respond_to do |format|
       format.js

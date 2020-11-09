@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+  <!-- モーダルコンテンツ:モーダルに表示させる内容-->
+  <div class="modal-content">
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <div class="matter_edit_flash"></div>
+        <h5 class="card-header <%= task.status %>_color">タスク編集</h5>
+        <div class="card-body">
+          <div class="text-left">
+            <%= form_with(model: task, url: employees_matter_task_path(@matter, task), method: :patch, remote: true) do |f| %>
+            
+              <div class="form-group">
+                <%= f.label :title %>
+                <%= f.text_field :title, class: "form-control" %>
+              </div>
+              
+              <div class="form-group">
+                <%= f.label :content %>
+                <%= f.text_area :content, class: "form-control" %>
+              </div>
+            
+              <div class="text-center">
+                <%= f.submit "更新", class: "btn btn-sm btn-dark" %>
+                <%= link_to "削除", employees_matter_task_path(current_matter, task), method: :delete, data: {confirm: "本当に削除しますか？"}, remote: true, class: "btn btn-sm btn-danger" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
