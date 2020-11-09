@@ -5,9 +5,9 @@ class Employees::TasksController < ApplicationController
   def move
     new_status = convert_to_status_num(params[:status])
     # 移動先がデフォルトタスクでない場合のみ処理
-    unless new_status = 0
+    unless new_status == 0
       task = Task.find(params[:task])
-      sort_order = params[:item_index]
+      sort_order = params[:item_index].to_i
       # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
       @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
         new_sort_order = task.sort_order.to_i + 1
