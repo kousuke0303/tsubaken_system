@@ -6,6 +6,7 @@ class Employees::TasksController < ApplicationController
     task = Task.find(params[:task])
     new_status = convert_to_status_num(params[:status])
     sort_order = params[:item_index]
+    # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
     @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
       new_sort_order = task.sort_order.to_i + 1
       task.update(sort_order: new_sort_order)
@@ -17,6 +18,9 @@ class Employees::TasksController < ApplicationController
       # タスク移動
       task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
     end
+    # 移動・コピーによりタスクが追加された項目の全タスクのsort_orderを整理
+    tasks = @matter.tasks.where(status: new_status)
+    Task.reload_sort_order(tasks)
     set_classified_tasks(@matter)
     respond_to do |format|
       format.js
@@ -37,14 +41,11 @@ class Employees::TasksController < ApplicationController
   end
   
   def update
-    # default_tasksに登録されているものは編集できない
-    unless default_tasks.where(id: @task.id).exists?
-      if @task.update(update_task_params)
-        flash[:success] = "#{@task.title}を更新しました。"
-        set_classified_tasks(@matter)
-        respond_to do |format|
-          format.js
-        end
+    if @task.update(update_task_params)
+      flash[:success] = "#{@task.title}を更新しました。"
+      set_classified_tasks(@matter)
+      respond_to do |format|
+        format.js
       end
     end
   end
