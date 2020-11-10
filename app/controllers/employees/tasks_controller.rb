@@ -48,7 +48,6 @@ class Employees::TasksController < ApplicationController
   
   def update
     if @task.update(task_params)
-      flash[:success] = "#{@task.title}を更新しました。"
       set_classified_tasks(@matter)
       respond_to do |format|
         format.js
