@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         post "create_client", to: "clients#create"
         post "update_client", to: "clients#update"
         post "destroy_client", to: "clients#destroy"
+        post "self_update_client", to: "clients#self_update"
 
         # 外注先CRUD
         post "create_supplier", to: "suppliers#create"
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
         post "destroy_external_staff", to: "external_staffs#destroy"
+        post "self_update_external_staff", to: "external_staffs#self_update"
 
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
