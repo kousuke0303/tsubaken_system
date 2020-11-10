@@ -19,14 +19,6 @@ class Api::V1::Employees::ExternalStaffsController < Api::V1::ApplicationControl
       render json: { status: "false", message: @external_staff.errors.full_messages }
     end
   end
-  
-  def self_update
-    if @external_staff.update(external_staff_params)
-      render json: @external_staff, serializer: ExternalStaffSerializer
-    else
-      render json: { status: "false", message: @external_staff.errors.full_messages }
-    end
-  end
 
   def destroy
     if @external_staff.destroy
