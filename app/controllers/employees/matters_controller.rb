@@ -47,7 +47,7 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
-    # 案件の持つタスクを分離して定義
+    @task = Task.new
     set_classified_tasks(@matter)
   end
 

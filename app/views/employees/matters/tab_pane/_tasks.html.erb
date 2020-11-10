@@ -4,15 +4,6 @@
 
 <div class="matter_task_disp" id="myKanban"></div>
 
-<% @matter.tasks.all.each do |task| %>
-  <div class="modal" id="task-<%= task.id %>-modal">
-    <div>
-      <%= render "employees/matters/tasks/task_show", task: task, status: task.status %>
-      <button class="button-position js-modal-close">閉じる</button>
-    </div>
-  </div>
-<% end %>
-
 <script>
 // タスク移動関連
 $(document).ready(function(){
@@ -26,7 +17,9 @@ $(document).ready(function(){
         <% @default_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
-            "id": "<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -40,7 +33,9 @@ $(document).ready(function(){
         <% @relevant_tasks.each do |task| %>    
           {
             "title": "<%= task.title %>",
-            "id": "<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -54,7 +49,9 @@ $(document).ready(function(){
         <% @ongoing_tasks.each do |task| %>    
           {
             "title": "<%= task.title %>",
-            "id": "<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -69,6 +66,8 @@ $(document).ready(function(){
           { 
             "title": "<%= task.title %>",
             "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -137,13 +136,14 @@ $(document).ready(function(){
   <% @matter.tasks.each do |task| %>
     $(function(){
       $("[data-eid=<%= task.id %>]").on("click",function(){
-        $("#task-<%= task.id %>-modal").fadeIn();
-        return false;
-      });
-      
-      $(".js-modal-close").on("click",function(){
-        $("#task-<%= task.id %>-modal").fadeOut();
-        return false;
+        let matterId = "<%= @matter.id %>"
+        let taskId = this.getAttribute("data-eid");
+        let taskTitle = this.getAttribute("data-task-title");
+        let taskContent = this.getAttribute("data-task-content");
+        $("#task-edit").modal();
+        $("#task-title").val(taskTitle);
+        $("#task-content").val(taskContent);
+        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });
   <% end %>

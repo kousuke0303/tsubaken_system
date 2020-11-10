@@ -47,7 +47,7 @@ class Employees::TasksController < ApplicationController
   end
   
   def update
-    if @task.update(update_task_params)
+    if @task.update(task_params)
       flash[:success] = "#{@task.title}を更新しました。"
       set_classified_tasks(@matter)
       respond_to do |format|
@@ -89,7 +89,7 @@ class Employees::TasksController < ApplicationController
       end
     end
     
-    def update_task_params
+    def task_params
       params.require(:task).permit(:title, :content)
     end
 end
