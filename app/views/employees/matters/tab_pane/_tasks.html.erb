@@ -140,10 +140,12 @@ $(document).ready(function(){
         let taskId = this.getAttribute("data-eid");
         let taskTitle = this.getAttribute("data-task-title");
         let taskContent = this.getAttribute("data-task-content");
+        let url = "/employees/matters/" + matterId + "/tasks/" + taskId
         $("#task-edit").modal();
         $("#task-title").val(taskTitle);
         $("#task-content").val(taskContent);
-        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
+        $("#edit-task-form").attr("action", url);
+        $("#destroy-task").attr("href", url);
       });
     });
   <% end %>
