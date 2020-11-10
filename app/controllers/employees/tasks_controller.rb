@@ -10,19 +10,11 @@ class Employees::TasksController < ApplicationController
       sort_order = params[:item_index].to_i
       if task.status_before_type_cast == new_status && task.sort_order < sort_order
         # 対象タスクより、優先順位が上の全タスクのsort_orderを-1
-        @matter.tasks.where(status: new_status).where("sort_order <= ?", sort_order).each do |task|
-          unless task.sort_order == 0
-            new_sort_order = task.sort_order.to_i - 1
-            task.update(sort_order: new_sort_order)
-          end
-        end
+        Task.decrement_sort_order(@matter, new_status, sort_order)
         task.update(moved_on: Time.current, sort_order: sort_order)
       else
         # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
-        @matter.tasks.where(status: new_status).where("sort_order >= ?", sort_order).each do |task|
-          new_sort_order = task.sort_order.to_i + 1
-          task.update(sort_order: new_sort_order)
-        end
+          Task.increment_sort_order(@matter, new_status, sort_order)
         if task.default?
           # デフォルトタスクからコピー
           @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)

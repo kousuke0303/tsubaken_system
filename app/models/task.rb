@@ -17,4 +17,22 @@ class Task < ApplicationRecord
       task.update(sort_order: index)
     end
   end
+
+  # sort_orderを+1に更新
+  def self.increment_sort_order(matter, status, sort_order)
+    matter.tasks.where(status: status).where("sort_order >= ?", sort_order).each do |task|
+      new_sort_order = task.sort_order.to_i + 1
+      task.update(sort_order: new_sort_order)
+    end
+  end
+
+  # sort_orderを-1に更新
+  def self.decrement_sort_order(matter, status, sort_order)
+    matter.tasks.where(status: status).where("sort_order <= ?", sort_order).each do |task|
+      unless task.sort_order == 0
+        new_sort_order = task.sort_order.to_i - 1
+        task.update(sort_order: new_sort_order)
+      end
+    end
+  end
 end
