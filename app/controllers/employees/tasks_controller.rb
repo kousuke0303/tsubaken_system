@@ -38,7 +38,8 @@ class Employees::TasksController < ApplicationController
     Task.reload_sort_order(relevant_tasks)
     # 追加するタスクのsort_orderを定義
     sort_order = relevant_tasks.length
-    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order)
+    title = params[:title]
+    @matter.tasks.create(title: title, status: 1, sort_order: sort_order)
     set_classified_tasks(@matter)
     respond_to do |format|
       format.js
