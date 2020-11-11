@@ -6,37 +6,37 @@
       <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
 
-          <div class="col-lg-3 col-md-3 flex">
-            <div style="width: 60%;">
+          <div class="col-lg-3 col-md-3 flex pl-5 pr-5">
+            <div class="pl-5 pr-5" style="width: 60%;">
               <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
             </div>
               
-            <div style="width: 40%;">
+            <div class="pl-5 pr-5"  style="width: 40%;">
               <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control", required: true } %>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-3">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5">
             <%= f.select :type, Constants::EMPLOYEES_TYPE_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="initial">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="initial">
             <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="manager">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="manager">
             <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="staff">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="staff">
             <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3" id="external-staff">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="external-staff">
             <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3 text-left">
+          <div class="col-lg-3 col-md-3 pl-5 pr-5 text-left">
             <%= f.submit "検索", class: "btn btn-gray" %>
           </div>
         </div>
