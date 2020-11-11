@@ -44,7 +44,7 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
-    @tasks = @matter.tasks
+    @task = @matter.tasks
     set_classified_tasks(@matter)
   end
 
