@@ -2,7 +2,7 @@
   <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
-<div id="myKanban"></div>
+<div id="kanban-tasks"></div>
 
 <script>
 // タスク移動関連
@@ -80,7 +80,7 @@ $(document).ready(function(){
   
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
-    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    element         : "#kanban-tasks",  //タスク管理ボードを表示するHTML要素
     gutter          : '13px',       //ボード同士の間隔
     widthBoard      : '220px',      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
