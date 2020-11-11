@@ -16,7 +16,7 @@ $(document).ready(function(){
       "item": [
         <% @default_tasks.each do |task| %>    
           { 
-            "title": "<%= task.title %>",
+            "title": "<%= task.title.truncate(11) %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
             "task-content": "<%= task.content %>",
@@ -50,7 +50,7 @@ $(document).ready(function(){
       "item": [
         <% @ongoing_tasks.each do |task| %>    
           {
-            "title": "<%= task.title %>",
+            "title": "<%= task.title.truncate(11) %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
             "task-content": "<%= task.content %>",
@@ -67,7 +67,7 @@ $(document).ready(function(){
       "item": [
         <% @finished_tasks.each do |task| %>    
           { 
-            "title": "<%= task.title %>",
+            "title": "<%= task.title.truncate(11) %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
             "task-content": "<%= task.content %>",
@@ -81,8 +81,8 @@ $(document).ready(function(){
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
     element         : "#kanban-tasks",  //タスク管理ボードを表示するHTML要素
-    gutter          : '13px',       //ボード同士の間隔
-    widthBoard      : '220px',      //ボードのサイズ
+    gutter          : "5px",       //ボード同士の間隔
+    widthBoard      : "250px",      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
     
     dropEl: function(el, target, a, b){
