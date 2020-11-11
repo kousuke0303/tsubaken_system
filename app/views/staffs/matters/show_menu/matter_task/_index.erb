@@ -1,6 +1,4 @@
-<div class="staff_matter_task_index">
-  <div class="matter_task_disp" id="myKanban"></div>
-</div>
+<div id="myKanban"></div>
 
 <% current_matter.tasks.all.each do |task| %>
   <div class="modal" id="matter_task_<%= task.id %>_modal">

@@ -2,7 +2,7 @@
   <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
-<div class="matter_task_disp" id="myKanban"></div>
+<div id="myKanban"></div>
 
 <script>
 // タスク移動関連
@@ -33,7 +33,7 @@ $(document).ready(function(){
       "item": [
         <% @relevant_tasks.each do |task| %>    
           {
-            "title": "<%= task.title %>",
+            "title": "<%= task.title.truncate(11) %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
             "task-content": "<%= task.content %>",
