@@ -3,7 +3,7 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">タスク編集</h5>
+        <h5 class="card-header <%= %>_color">タスク編集</h5>
 
         <div class="card-body">
           <%= form_with(model: @task, url: "#", method: :patch, remote: true, id: "edit-task-form") do |f| %>
