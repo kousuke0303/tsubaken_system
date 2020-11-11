@@ -8,13 +8,15 @@ class Employees::TasksController < ApplicationController
     unless new_status == 0
       task = Task.find(params[:task])
       sort_order = params[:item_index].to_i
+      # 同ステータス内で上に移動時
       if task.status_before_type_cast == new_status && task.sort_order < sort_order
         # 対象タスクより、優先順位が上の全タスクのsort_orderを-1
         Task.decrement_sort_order(@matter, new_status, sort_order)
         task.update(moved_on: Time.current, sort_order: sort_order)
+      # ステータス移動、又は下に移動時
       else
         # 対象タスクより、優先順位が下の全タスクのsort_orderを+1
-          Task.increment_sort_order(@matter, new_status, sort_order)
+        Task.increment_sort_order(@matter, new_status, sort_order)
         if task.default?
           # デフォルトタスクからコピー
           @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
@@ -22,9 +24,6 @@ class Employees::TasksController < ApplicationController
           # タスク移動
           task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
         end
-        # 移動・コピーによりタスクが追加された項目の全タスクのsort_orderを整理
-        tasks = @matter.tasks.where(status: new_status)
-        Task.reload_sort_order(tasks)
       end
     end
     set_classified_tasks(@matter)
@@ -39,7 +38,8 @@ class Employees::TasksController < ApplicationController
     Task.reload_sort_order(relevant_tasks)
     # 追加するタスクのsort_orderを定義
     sort_order = relevant_tasks.length
-    @matter.tasks.create(title: params[:title], status: 1, sort_order: sort_order)
+    title = params[:title]
+    @matter.tasks.create(title: title, status: 1, sort_order: sort_order)
     set_classified_tasks(@matter)
     respond_to do |format|
       format.js
@@ -57,7 +57,7 @@ class Employees::TasksController < ApplicationController
   
   def destroy
     if @task.destroy
-      flash[:danger] = "#{@task.title}を削除しました。"
+      flash[:danger] = "タスクを削除しました。"
       set_classified_tasks(@matter)
       respond_to do |format|
         format.js

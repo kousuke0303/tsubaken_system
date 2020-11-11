@@ -33,11 +33,8 @@ class Employees::MattersController < ApplicationController
   def create
     @matter = Matter.new(matter_params)
     if @matter.save
-      @matter.update(matter_uid: Faker::Number.hexadecimal(digits: 10))
-      @matter.matter_managers.create(manager_id: current_manager.id)
-      flash[:success] = "案件を作成しました"
-      automatic_event_creation(@matter)
-      redirect_to matter_matters_url(current_manager)
+      flash[:success] = "案件を作成しました。"
+      redirect_to employees_matter_url(@matter)
     else
       render :new
     end
@@ -47,7 +44,7 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
-    @task = Task.new
+    @tasks = @matter.tasks
     set_classified_tasks(@matter)
   end
 

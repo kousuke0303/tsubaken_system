@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       # 管理者Update
       namespace :admins do
         namespace :registrations do
-          post "update_self", to: "update_self"
+          post "update_self"
         end
       end
 
@@ -40,11 +40,24 @@ Rails.application.routes.draw do
         # 外部スタッフCRUD
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
-        post "destroy_external_staff", to: "external_staffs#destroy"
+        post "self_update_external_staff", to: "external_staffs#self_update"
 
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
+      end
+
+      # 管理者Update
+      namespace :clients do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
+      namespace :external_staffs do
+        namespace :registrations do
+          post "update_self"
+        end
       end
     end
   end
