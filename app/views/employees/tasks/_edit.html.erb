@@ -17,7 +17,7 @@
             
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
-              <%= link_to "削除", "#", method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, class: "btn btn-danger", id: "destroy-task" %>
+              <%= link_to "削除", "#", method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
             </div>
           <% end %>
         </div>

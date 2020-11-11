@@ -57,7 +57,7 @@ class Employees::TasksController < ApplicationController
   
   def destroy
     if @task.destroy
-      flash[:danger] = "#{@task.title}を削除しました。"
+      flash[:danger] = "タスクを削除しました。"
       set_classified_tasks(@matter)
       respond_to do |format|
         format.js
