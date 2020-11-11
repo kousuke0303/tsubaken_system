@@ -66,6 +66,7 @@ class Employees::TasksController < ApplicationController
   end
   
   private
+
     def set_matter
       @matter = Matter.find(params[:matter_id])
     end

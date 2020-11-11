@@ -10,6 +10,7 @@ class Task < ApplicationRecord
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
+  
 
   # sort_orderを正しい連番に更新
   def self.reload_sort_order(tasks)
