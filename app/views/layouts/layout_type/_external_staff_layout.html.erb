@@ -31,50 +31,55 @@
   <!-- Page Content -->
 
   <div id="content">
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
-      <div class="container-fluid">
-        <button type="button" id="sidebar-collapse" class="navbar-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-align-justify"></i>
-        </button>
+    <div class="container-fluid">
+      <div class="row">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item">
-              <%= link_to top_external_staff_path(current_external_staff), class: "nav-link" do %>
-                <i class="fas fa-home"></i> Home
-              <% end %>
-            </li>
-            <li class="nav-item"><%= link_to "出退勤", external_staffs_attendances_path, class: "nav-link" %></li>
-            <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-alt"></i> <%= current_external_staff.name %>
-              </a>
-              <div class="dropdown-menu dropdown-position account_dropdown_menu">
-                <%= link_to edit_external_staff_registration_path, class: "dropdown-item item-link" do %>
-                  <i class="fas fa-user-edit"></i> アカウント編集
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to destroy_external_staff_session_path, method: :delete, class: "dropdown-item item-link" do %>
-                  <i class="fas fa-sign-out-alt"></i> ログアウト
-                <% end %>
-              </div>
+        <!-- Header -->
+        <div class="col-lg-12 col-md-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
+            <button type="button" id="sidebar-collapse" class="navbar-btn">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                  <%= link_to top_external_staff_path(current_external_staff), class: "nav-link" do %>
+                    <i class="fas fa-home"></i> Home
+                  <% end %>
+                </li>
+                <li class="nav-item"><%= link_to "出退勤", external_staffs_attendances_path, class: "nav-link" %></li>
+                <div class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-alt"></i> <%= current_external_staff.name %>
+                  </a>
+                  <div class="dropdown-menu dropdown-position account_dropdown_menu">
+                    <%= link_to edit_external_staff_registration_path, class: "dropdown-item item-link" do %>
+                      <i class="fas fa-user-edit"></i> アカウント編集
+                    <% end %>
+                    <div class="dropdown-divider"></div>
+                    <%= link_to destroy_external_staff_session_path, method: :delete, class: "dropdown-item item-link" do %>
+                      <i class="fas fa-sign-out-alt"></i> ログアウト
+                    <% end %>
+                  </div>
+                </div>
+              </ul>
             </div>
-          </ul>
+          </nav>
         </div>
+        
+        <!-- Main-content -->
+        <%= render "shared/flash" %>
+        <%= yield %>
+        <div class="line"></div>
+        <div class="debug"><%= debug(params) if Rails.env.development? %></div>
       </div>
-    </nav>
-    
-    <!-- Main-content -->
-    <%= render "shared/flash" %>
-    <%= yield %>
-    <div class="line"></div>
-    <div class="debug"><%= debug(params) if Rails.env.development? %></div> 
+    </div>
   </div>
 </div>
 
