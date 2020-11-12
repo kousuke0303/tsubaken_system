@@ -1,5 +1,8 @@
 class Task < ApplicationRecord
-  belongs_to :matter, inverse_of: :tasks, optional: true
+  belongs_to :matter, optional: true
+  belongs_to :manager, optional: true
+  belongs_to :staff, optional: true
+  belongs_to :external_staff, optional: true
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, length: { maximum: 3000 }

@@ -14,6 +14,34 @@
 
             <%= f.label :content %>
             <%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+
+            <h5 class="text-center mt-1e">担当者</h5>
+            <div class="flex mt-1e">
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button">Manager</button>
+              </div>
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button">Staff</button>
+              </div>
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button">外部Staff</button>
+              </div>
+            </div>
+
+            <div>
+              <div id="manager-select">
+                <%= f.label :manager_id %>
+                <%= f.collection_select :manager_id, Manager.all, :id, :name, { include_blank: "Managerを選択" }, class: "form-control", id: "manager" %>
+              </div>
+              <div id="staff-select">
+                <%= f.label :staff_id %>
+                <%= f.collection_select :staff_id, Staff.all, :id, :name, { include_blank: "Staffを選択" }, class: "form-control", id: "staff" %>
+              </div>
+              <div id="external-staff-select">
+                <%= f.label :external_staff_id %>
+                <%= f.collection_select :external_staff_id, ExternalStaff.all, :id, :name, { include_blank: "外部Staffを選択" }, class: "form-control", id: "external-staff" %>
+              </div>
+            </div>
             
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
@@ -25,3 +53,24 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    const managerSelect = $("#manager-select");
+    const staffSelect = $("#staff-select");
+    const externalStaffSelect = $("#external-staff-select");
+    const manager = $("#manager");
+    const staff = $("#staff");
+    const externalStaff = $("#external-staff");
+
+    manager.change(function() {
+  
+    });
+    staff.change(function() {
+    
+    });
+    externalStaff.change(function() {
+    
+    });
+  });
+</script>

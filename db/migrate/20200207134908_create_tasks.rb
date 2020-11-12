@@ -10,6 +10,9 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.integer :default_task_id
       t.boolean :notification, default: false
       t.string :matter_id
+      t.references :manager,          foreign_key: true
+      t.references :staff,            foreign_key: true
+      t.references :external_staff,   foreign_key: true
 
       t.timestamps
     end
