@@ -9,12 +9,14 @@
     <div class="card-body">
       <table class="table table-sm table common-table">
         <tr>
+          <th>コピー回数</th>
           <th>名前</th>
           <th>内容</th>
           <th></th>
         </tr>
         <% @default_tasks.each do |default_task| %>
           <tr>
+            <td><%= Task.are_default_task_id_count %></td>
             <td><%= default_task.title %></td>
             <td><%= default_task.content %></td>
             <td>
