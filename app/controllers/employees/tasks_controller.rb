@@ -4,6 +4,7 @@ class Employees::TasksController < ApplicationController
 
   def move
     new_status = convert_to_status_num(params[:status]).to_i
+    @default_tasks = Task.are_default
     # 移動先がデフォルトタスクでない場合のみ処理
     unless new_status == 0
       task = Task.find(params[:task])
@@ -20,6 +21,7 @@ class Employees::TasksController < ApplicationController
         if task.default?
           # デフォルトタスクからコピー
           @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
+          Task.count_default_tasks(@default_tasks)
         else
           # タスク移動
           task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)

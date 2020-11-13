@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
 
   # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(matter)
-    @default_tasks = Task.are_default
+    @default_tasks = Task.default.order(default_task_id_count: :desc)
     Task.reload_sort_order(@default_tasks)
     @relevant_tasks = matter.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)

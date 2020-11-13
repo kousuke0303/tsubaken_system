@@ -36,6 +36,14 @@ class Task < ApplicationRecord
     end
   end
   
+  # 使用回数を保存
+  def self.count_default_tasks(default_tasks)
+    default_tasks.each do |default_task|
+      count = Task.where(default_task_id: default_task.default_task_id).count - 1
+      default_task.update(default_task_id_count: count)
+    end
+  end
+  
   def self.convert_to_status_num(status)
     case status
     when "relevant-tasks"

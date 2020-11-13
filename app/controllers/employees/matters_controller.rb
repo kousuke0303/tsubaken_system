@@ -41,7 +41,6 @@ class Employees::MattersController < ApplicationController
   end
 
   def show
-    # @task = Task.find(params[:task])
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
