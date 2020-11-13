@@ -153,6 +153,8 @@ $(document).ready(function(){
         $("#task-edit").modal();
         $("#task-title").val(taskTitle);
         $("#task-content").val(taskContent);
+        $('h4').removeClass();
+　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
         $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });

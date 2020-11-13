@@ -58,5 +58,4 @@ class Task < ApplicationRecord
       default_task.update(default_task_id_count: count)
     end
   end
-
 end
