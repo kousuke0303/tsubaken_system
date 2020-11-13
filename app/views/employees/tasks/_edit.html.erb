@@ -18,13 +18,13 @@
             <h5 class="text-center mt-1e">担当者</h5>
             <div class="flex mt-1e">
               <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
-                <button class="btn btn-dark btn-block" type="button">Manager</button>
+                <button class="btn btn-dark btn-block" type="button" id="manager-btn">Manager</button>
               </div>
               <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
-                <button class="btn btn-dark btn-block" type="button">Staff</button>
+                <button class="btn btn-dark btn-block" type="button" id="staff-btn">Staff</button>
               </div>
               <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
-                <button class="btn btn-dark btn-block" type="button">外部Staff</button>
+                <button class="btn btn-dark btn-block" type="button" id="external-staff-btn">外部Staff</button>
               </div>
             </div>
 
@@ -55,6 +55,7 @@
 </div>
 
 <script>
+  // タスクの担当者設定フォームの表示切替
   $(document).on("turbolinks:load", function() {
     const managerSelect = $("#manager-select");
     const staffSelect = $("#staff-select");
@@ -63,14 +64,45 @@
     const staff = $("#staff");
     const externalStaff = $("#external-staff");
 
+    managerSelect.hide();
+    staffSelect.hide();
+    externalStaffSelect.hide();
+
+    $("#manager-btn").click(function() {
+      managerSelect.show();
+      staffSelect.hide();
+      externalStaffSelect.hide();
+    });
+
+    $("#staff-btn").click(function() {
+      managerSelect.hide();
+      staffSelect.show();
+      externalStaffSelect.hide();
+    });
+
+    $("#external-staff-btn").click(function() {
+      managerSelect.hide();
+      staffSelect.hide();
+      externalStaffSelect.show();
+    });
+
     manager.change(function() {
-  
+      if($(this).val() != "") {
+        $("#staff").val("");
+        $("#external-staff").val("");
+      }
     });
     staff.change(function() {
-    
+      if($(this).val() != "") {
+        $("#manager").val("");
+        $("#external-staff").val("");
+      }
     });
     externalStaff.change(function() {
-    
+      if($(this).val() != "") {
+        $("#manager").val("");
+        $("#staff").val("");
+      }
     });
   });
 </script>
