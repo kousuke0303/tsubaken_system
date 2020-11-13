@@ -135,13 +135,13 @@ $(document).ready(function(){
   <% @matter.tasks.each do |task| %>
     $(function(){
       <% if task.manager %>
-        $("[data-eid=<%= task.id %>]").html('<div class="task-manager-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
       <% elsif task.staff %>
-        $("[data-eid=<%= task.id %>]").html('<div class="task-staff-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
       <% elsif task.external_staff %>
-        $("[data-eid=<%= task.id %>]").html('<div class="task-external-staff-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div>| <%= task.title %></div></div>');
       <% else %>
-        $("[data-eid=<%= task.id %>]").html('<span>なし</span> | <%= task.title %>');
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div>なし</div></div><div class="task-title"><div>| <%= task.title %></div></div>');
       <% end %>
 
       // タスク編集モーダル

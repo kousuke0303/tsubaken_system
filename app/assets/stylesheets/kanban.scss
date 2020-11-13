@@ -71,6 +71,33 @@
   margin-bottom: 15px;
   text-align: left;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  .in-charge-icon {
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 0.7em;
+    height: 2.6em;
+    margin: auto 0.5em;
+    position: relative;
+    text-align: center;
+    width: 2.6em;
+    div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      letter-spacing: -2px;
+      transform: translateY(-50%) translateX(-50%);
+      white-space: nowrap;
+    }
+  }
+  .task-title {
+    position: relative;
+    div {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+    }
+  }
 }
 
 .kanban-item:hover {
@@ -183,65 +210,5 @@
   input {
     font: 16px;
     width: 165px;
-  }
-}
-
-// マネージャーアイコン
-.task-manager-icon {
-  border: 1px solid black;
-  border-radius: 50%;
-  font-size: 0.7em;
-  height: 2.6em;
-  margin: auto 0.5em;
-  position: relative;
-  text-align: center;
-  width: 2.6em;
-  div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    letter-spacing: -2px;
-    transform: translateY(-50%) translateX(-50%);
-    white-space: nowrap;
-  }
-}
-
-// スタッフアイコン
-.task-staff-icon {
-  border: 1px solid black;
-  border-radius: 50%;
-  font-size: 0.7em;
-  height: 2.6em;
-  margin: auto 0.5em;
-  position: relative;
-  text-align: center;
-  width: 2.6em;
-  div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    letter-spacing: -2px;
-    transform: translateY(-50%) translateX(-50%);
-    white-space: nowrap;
-  }
-}
-
-// 外部スタッフアイコン
-.task-external-staff-icon {
-  border: 1px solid black;
-  border-radius: 50%;
-  font-size: 0.7em;
-  height: 2.6em;
-  margin: auto 0.5em;
-  position: relative;
-  text-align: center;
-  width: 2.6em;
-  div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    letter-spacing: -2px;
-    transform: translateY(-50%) translateX(-50%);
-    white-space: nowrap;
   }
 }
