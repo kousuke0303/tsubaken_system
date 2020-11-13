@@ -13,6 +13,7 @@ class Manager < ApplicationRecord
   has_many :matter_managers, dependent: :destroy
   has_many :matters, through: :matter_managers
   has_many :attendances, dependent: :destroy
+  has_many :tasks, dependent: :destroy
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 

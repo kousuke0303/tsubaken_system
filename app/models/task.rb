@@ -1,8 +1,12 @@
 class Task < ApplicationRecord
-  belongs_to :matter, inverse_of: :tasks, optional: true
+  belongs_to :matter, optional: true
+  belongs_to :manager, optional: true
+  belongs_to :staff, optional: true
+  belongs_to :external_staff, optional: true
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, length: { maximum: 3000 }
+  validate :only_in_charge
   
   enum status: {default: 0, relevant: 1, ongoing: 2, finished: 3}
    
@@ -10,6 +14,17 @@ class Task < ApplicationRecord
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
+
+  # 担当者は一名に制限
+  def only_in_charge
+    if self.manager
+      errors.add(:base, "担当者は一名までです") if self.staff || self.external_staff
+    elsif self.staff
+      errors.add(:base, "担当者は一名までです") if self.manager || self.external_staff
+    elsif self.external_staff
+      errors.add(:base, "担当者は一名までです") if self.manager || self.staff
+    end
+  end
 
   # sort_orderを正しい連番に更新
   def self.reload_sort_order(tasks)
