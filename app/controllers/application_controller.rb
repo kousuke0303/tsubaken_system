@@ -61,14 +61,6 @@ class ApplicationController < ActionController::Base
         # TASK関係
   # --------------------------------------------------------
 
-  
-  # 並び順更新_____________________________________________________
-  def reload_sort_order(tasks)
-    tasks.each_with_index do |task, i|
-      task.update(sort_order: i * 100)
-    end
-  end
-
   # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(matter)
     @default_tasks = Task.default.order(default_task_id_count: :desc)
