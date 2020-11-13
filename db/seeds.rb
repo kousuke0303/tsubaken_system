@@ -106,13 +106,14 @@ puts "CREATE! MATTER"
 # -----------------------------------------------------
 
 3.times do |n|
-  Task.create!(title: "TASK#{ n + 1 }", status: 0, title: "DEFALTE_TASK_#{ n + 1 }", content: "テスト内容", sort_order: n)
+  Task.create!(title: "TASK#{ n + 1 }", status: 0, title: "DEFALTE_TASK_#{ n + 1 }",  content: "テスト内容", sort_order: n, default_task_id: "#{ n + 1 }")
 end
 
 puts "CREATE! DEFALTE_TASK"
 
 3.times do |n|
-  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
 end
 
 puts "CREATE! TASK"

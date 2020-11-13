@@ -1,17 +1,22 @@
-<div class="container">
-  <h2>デフォルトタスク一覧<button class="btn btn-dark float-r" data-toggle="modal" data-target="#default-task-new">作成</button></h2>
+<div class="col-lg-12 col-md-12">
+  <h2>
+    デフォルトタスク一覧
+    <button class="btn btn-dark float-r" data-toggle="modal" data-target="#default-task-new"><i class="fas fa-plus"></i> 新規デフォルトタスク</button>
+  </h2>
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark"></div>
 
     <div class="card-body">
       <table class="table table-sm table common-table">
         <tr>
+          <th>コピー回数</th>
           <th>名前</th>
           <th>内容</th>
           <th></th>
         </tr>
         <% @default_tasks.each do |default_task| %>
           <tr>
+            <td><%= Task.where(default_task_id: default_task.default_task_id).count - 1 %></td>
             <td><%= default_task.title %></td>
             <td><%= default_task.content %></td>
             <td>

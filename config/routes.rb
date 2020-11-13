@@ -6,6 +6,13 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
 
+      # 管理者Update
+      namespace :admins do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
       # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
@@ -33,11 +40,24 @@ Rails.application.routes.draw do
         # 外部スタッフCRUD
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
-        post "destroy_external_staff", to: "external_staffs#destroy"
+        post "self_update_external_staff", to: "external_staffs#self_update"
 
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
+      end
+
+      # 管理者Update
+      namespace :clients do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
+      namespace :external_staffs do
+        namespace :registrations do
+          post "update_self"
+        end
       end
     end
   end
@@ -145,15 +165,10 @@ Rails.application.routes.draw do
     end
 
     resources :matters do
-      resources :tasks do
-        get :move_task, on: :collection
+      resources :tasks, only: [:update, :destroy] do
+        post :move, on: :collection
         post :create, on: :collection
       end
-    end
-
-    resources :tasks, only: [:create, :index, :update, :destroy] do
-      post :create, on: :collection
-      post :move, on: :member
     end
     
     namespace :settings do

@@ -1,3 +1,2 @@
-$('#matter_task_tab').addClass('active');
-$('#matter_task_index').addClass('active');
-$('.task_index').html('<%= escape_javascript(render partial: './employees/matters/tab_pane/tasks') %>');
+$("#task-edit").modal("hide");
+$(".tasks-index").html('<%= escape_javascript(render "./employees/matters/tab_pane/tasks") %>');

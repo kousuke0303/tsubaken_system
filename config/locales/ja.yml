@@ -8,7 +8,7 @@ ja:
       status:
         not_started: "未着手"
         progress: "進行中"
-        completed: "完了済"
+        completed: "完了済"     
   activerecord:
     errors:
       messages:

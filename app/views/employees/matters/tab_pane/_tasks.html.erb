@@ -2,20 +2,11 @@
   <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
-<div class="matter_task_disp" id="myKanban"></div>
-
-<% @matter.tasks.all.each do |task| %>
-  <div class="modal" id="matter_task_<%= task.id %>_modal">
-    <div>
-      <%= render "employees/matters/tasks/task_show", task: task, status: task.status %>
-      <button class="button-position js-modal-close">閉じる</button>
-    </div>
-  </div>
-<% end %>
+<div id="kanban-tasks"></div>
 
 <script>
-$(document).ready( function(){
-    
+// タスク移動関連
+$(document).ready(function(){
   //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
@@ -26,7 +17,9 @@ $(document).ready( function(){
         <% @default_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -40,7 +33,9 @@ $(document).ready( function(){
         <% @relevant_tasks.each do |task| %>    
           {
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -51,10 +46,12 @@ $(document).ready( function(){
       "title": "進行中",
       "class": "ongoing",
       "item": [
-        <% @ongoing_tasks.each do |task| %>    
+        <% @ongoing_tasks.each do |task| %> 
           {
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -68,7 +65,9 @@ $(document).ready( function(){
         <% @finished_tasks.each do |task| %>    
           { 
             "title": "<%= task.title %>",
-            "id": "item_id_<%= task.id %>"
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -77,38 +76,29 @@ $(document).ready( function(){
   
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
-    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    element         : '#kanban-tasks',  //タスク管理ボードを表示するHTML要素
     gutter          : '13px',       //ボード同士の間隔
     widthBoard      : '220px',      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
     
     dropEl: function(el, target, a, b){
-      var task = el.getAttribute('data-eid');
-      var status = target.parentNode.getAttribute('data-id');
+      var task = el.getAttribute("data-eid");
+      var status = target.parentNode.getAttribute("data-id");
       var item_arrey = target.children;
       item_arrey = [].slice.call(item_arrey);
       var item_index = item_arrey.indexOf(el);
 
-      <% if current_matter.tasks.where.not(status: "default") %>
-        $.ajax({
-          type: "GET",
-          url: "<%= move_task_employees_matter_tasks_path(current_matter) %>",
-          cache: false,
-          data: { task: task, status: status, item_index: item_index, remote: true }
-        });
-      <% else %>
-        $.ajax({
-          type: "GET",
-          url: "<%= move_task_employees_tasks_path(@default_task) %>",
-          cache: false,
-          data: { task: task, status: status, item_index: item_index, remote: true }
-        });
-      <% end %>
+      $.ajax({
+        type: "POST",
+        url: "<%= move_employees_matter_tasks_path(@matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
     }
   });
 
-    var toDoButton = document.getElementById("add-task");
-    toDoButton.addEventListener("click",function(){
+    var addTaskButton = document.getElementById("add-task");
+    addTaskButton.addEventListener("click",function(){
       
       const formItem = document.createElement("form");
       formItem.innerHTML = '<input type="text", id="new-task-form">';
@@ -137,21 +127,37 @@ $(document).ready( function(){
   //        cache: false,
   //    });
   //  });
-});
-  
-</script>
+  });
 
-<script>
-  <% current_matter.tasks.each do |task| %>
+  <% @default_tasks.each do |task| %>
     $(function(){
-      $('[data-eid=item_id_<%= task.id %>]').on('click',function(){
-        $('#matter_task_<%= task.id %>_modal').fadeIn();
-        return false;
-      });
-      
-      $('.js-modal-close').on('click',function(){
-        $('#matter_task_<%= task.id %>_modal').fadeOut();
-        return false;
+    });
+  <% end %>
+
+  <% @matter.tasks.each do |task| %>
+    $(function(){
+      <% if task.manager %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% elsif task.staff %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% elsif task.external_staff %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% else %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div>なし</div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% end %>
+
+      // タスク編集モーダル
+      $("[data-eid=<%= task.id %>]").on("click",function(){
+        let matterId = "<%= @matter.id %>"
+        let taskId = this.getAttribute("data-eid");
+        let taskTitle = this.getAttribute("data-task-title");
+        let taskContent = this.getAttribute("data-task-content");
+        $("#task-edit").modal();
+        $("#task-title").val(taskTitle);
+        $("#task-content").val(taskContent);
+        $('h4').removeClass();
+　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
+        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });
   <% end %>

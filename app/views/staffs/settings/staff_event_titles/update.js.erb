@@ -1,4 +1,0 @@
-$('.ajax_title_area').html('<%= escape_javascript(render partial: './staff/settings/staff_event_titles/ajax_staff_event_title/title_index', locals: { default_staff_event_titles: @default_staff_event_titles }) %>');
-$('.ajax_show_area').html('<%= escape_javascript(render partial: './staff/settings/staff_event_titles/ajax_staff_event_title/show', locals: { default_staff_event_titles: @default_staff_event_titles }) %>');
-$('#default_staff_event_<%= @staff_event_title.id %>_show').show();
-$('#default_staff_event_<%= @staff_event_title.id %>_edit').hide();

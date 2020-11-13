@@ -218,11 +218,18 @@ ActiveRecord::Schema.define(version: 20201103000001) do
     t.integer "sort_order"
     t.string "content"
     t.integer "default_task_id"
+    t.integer "default_task_id_count"
     t.boolean "notification", default: false
     t.string "matter_id"
+    t.bigint "manager_id"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
+    t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
+    t.index ["staff_id"], name: "index_tasks_on_staff_id"
   end
 
   add_foreign_key "attendances", "external_staffs"
@@ -240,5 +247,8 @@ ActiveRecord::Schema.define(version: 20201103000001) do
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
+  add_foreign_key "tasks", "external_staffs"
+  add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
+  add_foreign_key "tasks", "staffs"
 end
