@@ -43,16 +43,5 @@ class Task < ApplicationRecord
       default_task.update(default_task_id_count: count)
     end
   end
-  
-  def self.convert_to_status_num(status)
-    case status
-    when "relevant-tasks"
-      1
-    when "ongoing-tasks"
-      2
-    when "finished-tasks"
-      3
-    end
-  end
 
 end
