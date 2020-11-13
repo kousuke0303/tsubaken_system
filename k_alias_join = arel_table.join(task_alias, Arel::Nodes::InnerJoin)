@@ -1,0 +1,10 @@
+=> [32m#<Arel::Nodes::TableAlias:0x0000000005db6ac8[0m
+ @left[32m=[0m
+  [32m#<Arel::Table:0x000000000622d188[0m
+   @name[32m=[0m[31m[1;31m"[0m[31mtasks[1;31m"[0m[31m[0m,
+   @table_alias[32m=[0m[1;36mnil[0m,
+   @type_caster[32m=[0m
+    [32m#<ActiveRecord::TypeCaster::Map:0x000000000622d1d8[0m
+     @types[32m=[0m
+      Task([35mid[0m: integer, [35mtitle[0m: string, [35mstatus[0m: integer, [35mbefore_status[0m: integer, [35mmoved_on[0m: datetime, [35msort_order[0m: integer, [35mcontent[0m: string, [35mdefault_task_id[0m: integer, [35mnotification[0m: boolean, [35mmatter_id[0m: string, [35mcreated_at[0m: datetime, [35mupdated_at[0m: datetime)[32m>[0m[32m>[0m,
+ @right[32m=[0m[31m[1;31m"[0m[31mtask_alias[1;31m"[0m[31m[0m[32m>[0m

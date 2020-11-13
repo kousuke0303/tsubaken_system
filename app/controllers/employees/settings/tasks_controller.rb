@@ -12,6 +12,7 @@ class Employees::Settings::TasksController < ApplicationController
     sort_order = Task.are_default.length
     @default_task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
     if @default_task.save
+      @default_task.update(default_task_id: @default_task.id)
       flash[:success] = "デフォルトタスクを作成しました。"
       redirect_to employees_settings_tasks_url
     else

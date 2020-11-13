@@ -1,8 +1,8 @@
 <div class="col-sm-12 text-right mb-1e">
-  <button class="btn btn-dark" id="add-task"><i class="fas fa-plus"></i> 新規タスク</button>
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
 
-<div id="kanban-tasks"></div>
+<div class="matter_task_disp" id="myKanban"></div>
 
 <script>
 // タスク移動関連
@@ -16,11 +16,10 @@ $(document).ready(function(){
       "item": [
         <% @default_tasks.each do |task| %>    
           { 
-            "title": "<%= task.title.truncate(11) %>",
+            "title": "<%= task.title %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>",
-            "task-status": "<%= task.status %>"
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -33,11 +32,10 @@ $(document).ready(function(){
       "item": [
         <% @relevant_tasks.each do |task| %>    
           {
-            "title": "<%= task.title.truncate(11) %>",
+            "title": "<%= task.title %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>",
-            "task-status": "<%= task.status %>"
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -48,13 +46,12 @@ $(document).ready(function(){
       "title": "進行中",
       "class": "ongoing",
       "item": [
-        <% @ongoing_tasks.each do |task| %>    
+        <% @ongoing_tasks.each do |task| %> 
           {
-            "title": "<%= task.title.truncate(11) %>",
+            "title": "<%= task.title %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>",
-            "task-status": "<%= task.status %>"
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -67,11 +64,10 @@ $(document).ready(function(){
       "item": [
         <% @finished_tasks.each do |task| %>    
           { 
-            "title": "<%= task.title.truncate(11) %>",
+            "title": "<%= task.title %>",
             "id": "<%= task.id %>",
             "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>",
-            "task-status": "<%= task.status %>"
+            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -80,9 +76,9 @@ $(document).ready(function(){
   
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
-    element         : "#kanban-tasks",  //タスク管理ボードを表示するHTML要素
-    gutter          : "5px",       //ボード同士の間隔
-    widthBoard      : "250px",      //ボードのサイズ
+    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    gutter          : '13px',       //ボード同士の間隔
+    widthBoard      : '220px',      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
     
     dropEl: function(el, target, a, b){
@@ -154,14 +150,12 @@ $(document).ready(function(){
         let taskId = this.getAttribute("data-eid");
         let taskTitle = this.getAttribute("data-task-title");
         let taskContent = this.getAttribute("data-task-content");
-        let taskStatus = this.getAttribute("data-task-status");
-        let url = "/employees/matters/" + matterId + "/tasks/" + taskId
         $("#task-edit").modal();
         $("#task-title").val(taskTitle);
         $("#task-content").val(taskContent);
-        $("#edit-task-form").attr("action", url);
-        $("#destroy-task").attr("href", url);
-        $("#task-edit").find("div.modal-header").addClass("modal-header-" + taskStatus);
+        $('h4').removeClass();
+　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
+        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });
   <% end %>
