@@ -127,7 +127,12 @@ $(document).ready(function(){
   //        cache: false,
   //    });
   //  });
-});
+  });
+
+  <% @default_tasks.each do |task| %>
+    $(function(){
+    });
+  <% end %>
 
   <% @matter.tasks.each do |task| %>
     $(function(){
