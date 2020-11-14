@@ -13,6 +13,20 @@ Rails.application.routes.draw do
         end
       end
 
+      # マネージャーUpdate
+      namespace :managers do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
+      # スタッフUpdate
+      namespace :staffs do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
       # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
