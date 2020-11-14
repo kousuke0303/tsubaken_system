@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def set_today_attendance(employee)
+    @attendance = employee.attendances.where(worked_on: Date.current).first
+  end
   
   # --------------------------------------------------------
         # MATTER関係

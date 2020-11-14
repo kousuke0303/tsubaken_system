@@ -1,3 +1,4 @@
+/* ボード全体 */
 .kanban-container {
   position: relative;
   box-sizing: border-box;
@@ -63,6 +64,7 @@
   content: "";
 }
 
+/* タスクを表示するアイテム */
 .kanban-item {
   background: #fff;
   display: flex;
@@ -86,6 +88,16 @@
       left: 50%;
       letter-spacing: -2px;
       transform: translateY(-50%) translateX(-50%);
+      white-space: nowrap;
+    }
+  }
+  .default-task-title {
+    position: relative;
+    div {
+      position: absolute;
+      margin-left: 1em;
+      top: 50%;
+      transform: translateY(-50%);
       white-space: nowrap;
     }
   }
@@ -200,6 +212,7 @@
   background: #28a745;
 }
 
+/* タスク作成フォーム */
 #kanban-tasks {
   form {
     background: #fff;
