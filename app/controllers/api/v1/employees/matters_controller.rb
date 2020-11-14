@@ -4,7 +4,13 @@ class Api::V1::Employees::MattersController < Api::V1::ApplicationController
   before_action :set_matter, only: [:update, :show, :destroy]
 
   def create
-    matter = Matter.new(matter_params)
+    client = client.find(params[:client_id])
+    matter = client.matters.new(matter_params)
+    if matter.save
+      render json: matter, serializer: MatterSerializer
+    else
+      render json: { status: "false", message: matter.errors.full_messages }
+    end
   end
 
   def update

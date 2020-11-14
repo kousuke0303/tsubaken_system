@@ -6,21 +6,21 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
 
-      # 管理者Update
+      # 管理者が自身のアカウントを更新
       namespace :admins do
         namespace :registrations do
           post "update_self"
         end
       end
 
-      # マネージャーUpdate
+      # マネージャーが自身のアカウントを更新
       namespace :managers do
         namespace :registrations do
           post "update_self"
         end
       end
 
-      # スタッフUpdate
+      # スタッフが自身のアカウントを更新
       namespace :staffs do
         namespace :registrations do
           post "update_self"
@@ -43,7 +43,12 @@ Rails.application.routes.draw do
         post "create_supplier", to: "suppliers#create"
         post "update_supplier", to: "suppliers#update"
         post "destroy_supplier", to: "suppliers#destroy"
-        
+
+        # 案件CRUD
+        post "create_mattter", to: "matters#create"
+        post "update_matter", to: "matters#update"
+        post "destroy_matter", to: "matters#destroy"
+
         namespace :settings do
           # 業種CRUD
           post "create_industry", to: "industries#create"
