@@ -45,7 +45,7 @@ Rails.application.routes.draw do
         post "destroy_supplier", to: "suppliers#destroy"
 
         # 案件CRUD
-        post "create_mattter", to: "matters#create"
+        post "create_matter", to: "matters#create"
         post "update_matter", to: "matters#update"
         post "destroy_matter", to: "matters#destroy"
 
