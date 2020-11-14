@@ -44,7 +44,7 @@ class Employees::MattersController < ApplicationController
     @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
-    @task = @matter.tasks.new
+    @tasks = @matter.tasks
     set_classified_tasks(@matter)
   end
 
@@ -64,6 +64,7 @@ class Employees::MattersController < ApplicationController
     @matter.destroy ? flash[:success] = "案件を削除しました" : flash[:alert] = "案件を削除できませんでした"
     redirect_to employees_matters_url
   end
+  
 
   private
     def set_matter
