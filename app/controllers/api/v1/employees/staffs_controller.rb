@@ -5,18 +5,18 @@ class Api::V1::Employees::StaffsController < Api::V1::ApplicationController
 
   def index
     if params[:status] == "enrolled"
-      managers = Manager.enrolled
-      render json: managers, each_sserializer: ManagerSerializer
+      staffs = Staff.enrolled
+      render json: staffs, each_sserializer: StaffSerializer
     elsif params[:status] == "retired"
-      managers = Manager.retired
-      render json: managers, each_sserializer: ManagerSerializer
+      staffs = Staff.retired
+      render json: staffs, each_sserializer: StaffSerializer
     else
-      render json: { status: "false", message: "Managerを取得できませんでした" }
+      render json: { status: "false", message: "Staffを取得できませんでした" }
     end
   end
   
   def show
-    render json: @manager, serializer: StaffrSerializer, include: :matters
+    render json: @staff, serializer: StaffSerializer, include: :matters
   end
 
   def create
