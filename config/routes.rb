@@ -30,6 +30,13 @@ Rails.application.routes.draw do
       # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
+        post "index_managers", to: "managers#index"
+        post "show_manager", to: "managers#show"
+        post "create_manager", to: "managers#create"
+        post "update_manager", to: "managers#update"
+        post "destroy_manager", to: "managers#destroy"
+
+        # スタッフCRUD
         post "create_staff", to: "staffs#create"
         post "update_staff", to: "staffs#update"
         post "destroy_staff", to: "staffs#destroy"

@@ -17,11 +17,11 @@ class Employees::ManagersController < ApplicationController
 
   def index
     @manager = Manager.new
-    @managers = Manager.all
+    @enrolled_managers = Manager.enrolled
+    @retired_managers = Manager.retired
   end
 
   def show
-    @department_name = Department.find(@manager.department_id).name
   end
 
   def update
