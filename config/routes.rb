@@ -49,6 +49,7 @@ Rails.application.routes.draw do
         post "destroy_client", to: "clients#destroy"
 
         # 外注先CRUD
+        post "index_suppliers", to: "suppliers#index"
         post "create_supplier", to: "suppliers#create"
         post "update_supplier", to: "suppliers#update"
         post "destroy_supplier", to: "suppliers#destroy"
