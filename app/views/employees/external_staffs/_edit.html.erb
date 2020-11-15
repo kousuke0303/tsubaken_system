@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">外部Staff編集</h5>
         <div class="card-body">
-        <%= form_with(model: @external_staff, url: employees_supplier_external_staff_path(@supplier, @external_staff), method: :patch, remote: true) do |f| %>
+        <%= form_with(model: @external_staff, url: "#", method: :patch, remote: true) do |f| %>
           <div class="external-staff-edit-errors"></div>
 
           <%= f.label :login_id %>
@@ -38,13 +38,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on("turbolinks:load", function() {
-    $("#edit-external-staff").click(function() {
-      let loginIdLead = $("#edit-external-staff-lagin-id-lead").html();
-      let loginIdBody = $("#edit-external-staff-login-id-body").val();
-      $("#edit-external-staff-login-id").val(loginIdLead + loginIdBody);
-    });
-  });
-</script>

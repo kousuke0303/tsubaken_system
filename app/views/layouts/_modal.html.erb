@@ -32,12 +32,15 @@
     </div>
   <% end %>
 
-  <!--外部スタッフnew・edit-->
+  <!--外部スタッフnew-->
   <% if controller_name == "suppliers" && action_name == "show" %>
     <div id="external-staff-new" class="modal fade" role="dialog">
       <%= render "employees/external_staffs/new" %>
     </div>
+  <% end %>
 
+  <!--外部スタッフedit-->
+  <% if controller_name == "external_staffs" && action_name == "show" %>
     <div id="external-staff-edit" class="modal fade" role="dialog">
       <%= render "employees/external_staffs/edit" %>
     </div>
