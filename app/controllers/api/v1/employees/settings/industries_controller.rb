@@ -3,6 +3,11 @@ class Api::V1::Employees::Settings::IndustriesController < Api::V1::ApplicationC
   before_action :check_token_and_key_to_api
   before_action :set_industry, only: [:update, :destroy]
 
+  def index
+    industries = Industry.all
+    render json: industries, each_serializer: IndustrySerializer
+  end
+
   def create
     industry = Industry.new(industry_params)
     if industry.save

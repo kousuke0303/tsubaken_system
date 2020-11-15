@@ -44,6 +44,7 @@ Rails.application.routes.draw do
         post "destroy_staff", to: "staffs#destroy"
 
         # 顧客CRUD
+        post "index_clients", to: "clients#index"
         post "create_client", to: "clients#create"
         post "update_client", to: "clients#update"
         post "destroy_client", to: "clients#destroy"
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
 
         namespace :settings do
           # 業種CRUD
+          post "index_industries", to: "industries#index"
           post "create_industry", to: "industries#create"
           post "update_industry", to: "industries#update"
           post "destroy_industry", to: "industries#destroy"
