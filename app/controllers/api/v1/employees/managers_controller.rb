@@ -4,7 +4,15 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   before_action :set_manager, only: [:show, :update, :destroy]
 
   def index
-    
+    if params[:status] == "enrolled"
+      managers = Manager.enrolled
+      render json: managers, each_sserializer: ManagerSerializer
+    elsif params[:status] == "retired"
+      managers = Manager.retired
+      render json: managers, each_sserializer: ManagerSerializer
+    else
+      render json: { status: "false", message: "Managerを取得できませんでした" }
+    end
   end
   
   def show
