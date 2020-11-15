@@ -16,6 +16,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   end
   
   def show
+    render json: @manager, serializer: ManagerSerializer, include: :matters
   end
 
   def create

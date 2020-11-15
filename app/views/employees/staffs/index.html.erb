@@ -1,4 +1,4 @@
-<div class="container">
+<div class="col-lg-12 col-md-12">
   <h2>
     Staff一覧
     <button class="btn btn-dark float-r" data-toggle="modal" data-target="#staff-new"><i class="fas fa-plus"></i> 新規Staff</button>
@@ -25,7 +25,7 @@
               <th>電話番号</th>
               <th>入社日</th>
             </tr>
-            <% @staffs.each do |staff| %>
+            <% @enrolled_staffs.each do |staff| %>
               <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
                 <td><%= staff.name %></td>
                 <td><%= staff.login_id %></td>
@@ -36,7 +36,23 @@
           </table>
         </div>
 
-        <div class="tab-pane fade show active bg-white" id="retired" role="tabpanel">
+        <div class="tab-pane fade show bg-white" id="retired" role="tabpanel">
+          <table class="table table-sm common-table">
+              <tr>
+                <th>名前</th>
+                <th>ログインID</th>
+                <th>電話番号</th>
+                <th>入社日</th>
+              </tr>
+              <% @retired_staffs.each do |staff| %>
+                <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
+                  <td><%= staff.name %></td>
+                  <td><%= staff.login_id %></td>
+                  <td><%= staff.phone %></td>
+                  <td><%= staff.joined_on %></td>
+                </tr>
+              <% end %>
+            </table>
         </div>
 
       </div>

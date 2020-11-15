@@ -1,4 +1,5 @@
 class StaffSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes
+  has_many :matters, serializer: MatterSerializer
 end

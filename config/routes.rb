@@ -37,6 +37,8 @@ Rails.application.routes.draw do
         post "destroy_manager", to: "managers#destroy"
 
         # スタッフCRUD
+        post "index_staffs", to: "staffs#index"
+        post "show_staff", to: "staffs#show"
         post "create_staff", to: "staffs#create"
         post "update_staff", to: "staffs#update"
         post "destroy_staff", to: "staffs#destroy"

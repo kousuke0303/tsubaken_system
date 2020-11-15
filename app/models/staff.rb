@@ -15,6 +15,9 @@ class Staff < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
 
+  scope :enrolled, -> { where(resigned_on: nil) }
+  scope :retired, -> { where.not(resigned_on: nil) }
+
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # スタッフの従業員IDは「ST-」から始めさせる
