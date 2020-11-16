@@ -58,3 +58,10 @@
     });
   </script>
 <% end %>
+
+<script>
+  $('.btn').on('click', function(){
+   $("field-with-errors").unwrap();
+   console.log("btn")
+  });
+</script>
