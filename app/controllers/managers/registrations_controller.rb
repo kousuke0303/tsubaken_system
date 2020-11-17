@@ -1,83 +1,29 @@
 # frozen_string_literal: true
 
 class Managers::RegistrationsController < Devise::RegistrationsController
-  before_action :non_approval_layout, only: [:new, :create]
   before_action :authenticate_manager!
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
-  def new
-    @manager = Manager.new
-  end
-
-  # POST /resource
-  def create
-    @manager = Manager.new(manager_params)
-    if @manager.save
-      if @manager.approval
-        redirect_to manager_url(@manager)
-      else
-        redirect_to manager_signup_manager_manager_url(@manager)
-      end
-    else
-      render :new
-    end
-  end
-
-  # GET /resource/edit
   def edit
+    @departments = Department.all
   end
 
-  # PUT /resource
   def update
     @manager = Manager.find(current_manager.id)
+    if params[:manager][:password].blank? && params[:manager][:password_confirmation].blank?
+      params[:manager].delete(:password)
+      params[:manager].delete(:password_confirmation)
+    end
     if @manager.update(manager_params)
-      flash[:success] = "アカウント情報を更新しました。再度ログインしてください。"
-      redirect_to manager_url(@manager)
+      sign_in(@manager, :bypass => true)
+      flash[:alert] = "アカウント情報を更新しました。"
+      redirect_to top_manager_url(@manager)
     else
       render :edit
     end
   end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
   
   private
-   def manager_params
-     params.require(:manager).permit(:company, :name, :email, :password, :password_confirmation)
-   end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  #protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+    def manager_params
+      params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :department_id, :joined_on, :resigned_on, :password, :password_confirmation)
+    end
 end

@@ -1,32 +1,47 @@
 class Admin < ApplicationRecord
-  
-  # テーブル数を一つにする
-  validates_with AdminsValidator, on: :create
-  
-  # 編集・削除禁止
-  before_destroy :destroy_control
-  before_update :update_control
-  
-  # 管理者の削除を制限
-  def destroy_control
-    if Admin.count.to_i == 1
-      errors.add(:base, "Adminは削除できません")
-      throw(:abort)
-    end
-  end
-  
-  # 管理者の編集を制限
-  def update_control
-    if Admin.count.to_i == 1
-      errors.add(:base, "Adminは編集できません")
-      throw(:abort)
-    end
-  end
-    
-  
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  before_save { self.email = email.downcase if email.present? }
 
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
+  validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
+  validate :admin_login_id_is_correct?
+  validate :admin_is_only
+
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
+
+  def admin_is_only
+    if Admin.exists? && self.id != 1
+      errors.add(:base, "管理者アカウントは既に存在します")
+    end
+  end
+
+  # 管理者の従業員IDは「AD-」から始めさせる
+  def admin_login_id_is_correct?
+    errors.add(:login_id, "は「AD-」から始めてください") if login_id.present? && !login_id.start_with?("AD-")
+  end
+
+  # emailでなくlogin_idを認証キーにする
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login_id = conditions.delete(:login_id)
+      where(conditions).where(login_id: login_id).first
+    else
+      where(conditions).first
+    end
+  end
+
+  # 登録時にemailを不要にする
+  def email_required?
+    false
+  end
+
+  def will_save_change_to_email?
+    false
+  end
+
+  # ログインID変更時のreset_password_token不要にする
+  def will_save_change_to_login_id?
+    false
+  end
 end

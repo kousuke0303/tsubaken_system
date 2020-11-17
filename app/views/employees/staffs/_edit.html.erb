@@ -1,0 +1,55 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">Staff作成</h5>
+        <div class="card-body">
+          <%= form_with(model: @staff, url: employees_staff_path(@staff), method: :patch, remote: true) do |f| %>
+            <div class="staff-update-errors"></div>
+            <%= f.label :name %>
+            <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
+
+            <%= f.label :department_id %>
+            <%= f.collection_select :department_id, @departments, :id, :name, { required: true }, class: "form-control" %>
+
+            <%= f.label :login_id %>
+            <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
+            
+            <%= f.label :phone %>
+            <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11, placeholder: "半角数字(ハイフンなし)" %>
+
+            <%= f.label :email %>
+            <%= f.email_field :email, maxlength: 254, class: "form-control" %>
+
+            <%= f.label :birthed_on %>
+            <%= f.date_field :birthed_on, class: "form-control" %>
+
+            <%= f.label :zip_code %>
+            <%= f.text_field :zip_code, maxlength: 7, pattern: "^[0-9]{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
+
+            <%= f.label :address %>
+            <%= f.text_field :address, maxlength: 50, class: "form-control" %>
+
+            <%= f.label :joined_on %>
+            <%= f.date_field :joined_on, class: "form-control" %>
+
+            <%= f.label :resigned_on %>
+            <%= f.date_field :resigned_on, class: "form-control" %>
+
+            <div class="btn-area"><%= f.submit "更新", class: "btn btn-dark" %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @staff.errors.any? %>
+  <script>
+    $(document).ready(function() {
+      history.pushState("", "", location.href + "/edit")
+    });
+  </script>
+<% end %>
+

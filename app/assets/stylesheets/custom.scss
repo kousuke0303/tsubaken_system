@@ -21,52 +21,6 @@ p {
     color: #999;
 }
 
-/* ---------------------------------------------------
-    ERROR MESSAGE /home/ec2-user/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_error_messages.html.erb
------------------------------------------------------ */
-.custom_error {
-  padding: 1em;
-  h5 {
-    background-color: #dc3545;
-    color: white;
-    padding: 0.5em;
-    font-size: 1em;
-  }
-}
-
-.error_message {
-  color: #dc3545!important;
-}
-
-.field_with_errors {
-  padding: 2px;
-  background-color: #dc3545;
-  label {
-    color: white;
-    padding: 2px;
-  }
-}
-
-/* -----------------------------------------------------------------------------------
-    LOGIN///FLAMEWORK
------------------------------------------------------ */
-
-/* --------------------------------------
-    PC
---------------------------*/
-
-$color: #000;
-$color-bg: #eae9e9;
-
-.login_container {
-  background: $color-bg;
-  color: $color;
-  font-family: 'Varela Round', sans-serif;
-  line-height: 1.5;
-  margin: 0;
-  min-height: 100%;
-}
-
 input {
   background-image: none;
   border: none;
@@ -76,7 +30,97 @@ input {
   transition: all .3s;
 }
 
-.header_login {
+label {
+  margin-top: 10px;
+}
+
+.tr-link:hover {
+  background: lightgray;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.login-id-lead {
+  font-weight: bold;
+  padding-top: 7px;
+  text-align: center;
+  margin-right: 0.5em;
+}
+
+.login-id-body {
+  width: 100%;
+}
+
+.btn-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tab-wrapper {
+  ul li a {
+    color: white;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.common-table {
+  margin-top: 1em;
+  th {
+    text-align: left;
+    background-color: #f7f7f7;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+/*------------------------------ ERROR MESSAGE ------------------------------*/
+.custom-error {
+  h5 {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5em;
+    font-size: 1em;
+  }
+}
+
+.error-message {
+  color: #dc3545!important;
+}
+
+.field-with-errors {
+  background-color: #dc3545;
+  padding: 2px;
+  label {
+    color: white;
+    margin-top: 0;
+    padding: 2px;
+  }
+}
+
+$color: #000;
+$color-bg: #eae9e9;
+
+/* -----------------------------------------------------------------------------------
+    LOGIN
+----------------------------------------------------- */
+
+.login-wrapper {
+  background: $color-bg;
+  color: $color;
+  font-family: 'Varela Round', sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100%;
+}
+
+.header-login {
   background-color: white;
   padding: 0.5em;
   header {
@@ -84,31 +128,21 @@ input {
   }
 }
 
-.login_menu {
-  margin-top: 2em;
+.login-menu {
+  height: 20vh;
 }
 
-.staff_login_menu {
-  left: -50PX;
+.login-button {
+  position: absolute;
+  right: 1em;
+  bottom: 0;
 }
 
-.login_content {
-  
-  background-image: url(/assets/images/login_image.jpg);
+.login-content {
+  height: 88Vh;
+  background-image: url(/assets/images/login_background.jpeg);
   background-size: cover;
 }
-
-/* ---------- ALIGN ---------- */
-
-.align {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-
-/* ---------- MODAL ------------ */
 
 .modal{
   display: none;
@@ -126,31 +160,93 @@ input {
   width: 100%;
 }
 
-/*----------------------------------------------
-  SMARTPHONE
-_______________________________________ */
+.grid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
 
-@media screen and (max-width: 480px) { 
+#login h2 {
+    background: #dea111;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    font-size: 28px;
+    padding: 20px 26px;
+    margin-bottom: 0;
+}
 
-/* ロゴを中央に配置 */
-  .smp_center {
-    text-align: center;
-    margin-top: 1.5em;
-  }
+#login h2 span[class*="fontawesome-"] {
+    margin-right: 14px;
+}
 
-/* ログインBUTTONの位置変更*/
-  .smp_none {
-    display: none;
+#login fieldset {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 20px 26px;
+}
+
+#login fieldset p {
+    color: black;
+    margin-bottom: 14px;
+}
+
+#login fieldset p:last-child {
+    margin-bottom: 0;
+}
+
+#login fieldset input {
+    border-radius: 3px;
+}
+
+#login fieldset input[type="text"], #login fieldset input[type="password"] {
+    background: #d8d6d6;
+    color: black;
+    padding: 4px 10px;
+    width: 100%;
+}
+
+#login fieldset input[type="submit"] {
+    background: #6c757d;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0;
+    width: 100px;
+}
+
+#login fieldset input[type="submit"]:hover {
+    background: #343a40;
+}
+
+.sign_in_link {
+  margin-top: 1em;
+  text-align: center;
+  a {
+    color: #007bff;
   }
 }
 
+//////////////////////////////////////////////
 
+/* ---------- ALIGN ---------- */
+
+.align {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 /* -----------------------------------------------------------------------------------
     ADMIN & MANAGER///FLAMEWORK
 ----------------------------------------------------- */
 
-.manager_wrapper {
+.entire-wrapper {
   display: flex;
   width: 100%;
   align-items: stretch;
@@ -167,9 +263,7 @@ ul ul a {
     background: #6c757d;
 }
 
-/* ---------------------------------------------------
-    MANAGER SIDEBAR STYLE
------------------------------------------------------ */
+/* sidebar */
 
 #sidebar {
   min-width: 250px;
@@ -203,7 +297,6 @@ ul ul a {
     text-decoration: none;
     transition: all 0.3s;
   }
-  
 }
 
 #sidebar.active {
@@ -213,11 +306,11 @@ ul ul a {
 
 #sidebar ul p {
   color: #fff;
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 #sidebar ul li a {
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   font-size: 1.1em;
   display: block;
 }
@@ -263,37 +356,37 @@ a.article, a.article:hover {
   color: #fff !important;
 }
 
-#sidebarCollapse {
-    width: 40px;
-    height: 40px;
-    background: #f5f5f5;
-    cursor: pointer;
+#sidebar-collapse {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  cursor: pointer;
 }
 
-#sidebarCollapse span {
-    width: 80%;
-    height: 2px;
-    margin: 0 auto;
-    display: block;
-    background: #555;
-    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
-    transition-delay: 0.2s;
+#sidebar-collapse span {
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+  transition-delay: 0.2s;
 }
 
-#sidebarCollapse span:first-of-type {
-    transform: rotate(45deg) translate(2px, 2px);
+#sidebar-collapse span:first-of-type {
+  transform: rotate(45deg) translate(2px, 2px);
 }
-#sidebarCollapse span:nth-of-type(2) {
-    opacity: 0;
+#sidebar-collapse span:nth-of-type(2) {
+  opacity: 0;
 }
-#sidebarCollapse span:last-of-type {
-    transform: rotate(-45deg) translate(1px, -1px);
+#sidebar-collapse span:last-of-type {
+  transform: rotate(-45deg) translate(1px, -1px);
 }
 
-#sidebarCollapse.active span {
-    transform: none;
-    opacity: 1;
-    margin: 5px auto;
+#sidebar-collapse.active span {
+  transform: none;
+  opacity: 1;
+  margin: 5px auto;
 }
 
 
@@ -309,15 +402,15 @@ a.article, a.article:hover {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.header_nav ul li.active a, a[aria-expanded="true"]{
+.header-nav ul li.active a, a[aria-expanded="true"]{
   background-color: #f8f9fa;
   font-weight: bold;
 }
 
 .navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
+  box-shadow: none;
+  outline: none !important;
+  border: none;
 }
 
 .account_dropdown_menu {
@@ -331,45 +424,21 @@ a.article, a.article:hover {
   }
 }
 
-@media screen and (max-width: 480px) { 
-  .navi-custom {
-    background-color: #eef1f3;
-    padding-left: 1em;
-  }
-}
-
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
-.manager_contaioner {
-  word-wrap: break-word;
-}
-
-.staff_container {
-  word-wrap: break-word;
-}
-
-.submanager_contaioner {
-  word-wrap: break-word;
-}
-
-.user_container {
-  word-wrap: break-word;
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
 }
 
 .line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
 }
 
 .line-sm {
@@ -379,45 +448,7 @@ a.article, a.article:hover {
   margin: 1em 0;
 }
 
-
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-        transform: rotateY(90deg);
-    }
-    #sidebar.active {
-        margin-left: 0;
-        transform: none;
-    }
-    #sidebarCollapse span:first-of-type,
-    #sidebarCollapse span:nth-of-type(2),
-    #sidebarCollapse span:last-of-type {
-        transform: none;
-        opacity: 1;
-        margin: 5px auto;
-    }
-    #sidebarCollapse.active span {
-        margin: 0 auto;
-    }
-    #sidebarCollapse.active span:first-of-type {
-        transform: rotate(45deg) translate(2px, 2px);
-    }
-    #sidebarCollapse.active span:nth-of-type(2) {
-        opacity: 0;
-    }
-    #sidebarCollapse.active span:last-of-type {
-        transform: rotate(-45deg) translate(1px, -1px);
-    }
-
-}
-
-
-/* ---------------------------------------------------
-    FLASH
------------------------------------------------------ */
+/*------------------------------ FLASH ------------------------------*/
 .flash {
   color: white;
   padding: 1em;
@@ -432,23 +463,12 @@ a.article, a.article:hover {
   }
 }
 
-/* ---------------------------------------------------
-    DEBUG
------------------------------------------------------ */
+/*------------------------------ DEBUG ------------------------------*/
 .debug {
   padding-left: 1em;
 }
 
-
-/* ---------------------------------------------------
-    COMMON LAYOUT STYLE
------------------------------------------------------ */
-
-//* 背景色 *//
-
-.modal-bg-color {
-  background-color: #f5f5f5;
-}
+/*------------------------------ 背景色 ------------------------------*/
 
 .bg-purple {
   background-color: #8695d6;
@@ -456,10 +476,6 @@ a.article, a.article:hover {
 
 .bg-blue {
   background-color: #007bffc7;
-}
-
-.bg-user-form-color {
-  background-color: #3f50b5;
 }
 
 .bg-pink {
@@ -474,80 +490,17 @@ a.article, a.article:hover {
   background-color: #b7b7b7;
 }
 
-
-//* 位置 *//
-
-.float-r {
-  float: right;
-}
-
-.float-l {
-  float: left;
-}
-
-.text-left {
-  text-align: left;
-}
-
-//* 余白 *//
-
-.mt-0 {
-  margin-top: 0;
-}
-
-.mt-05e {
-  margin-top: 0.5em;
-}
-
-.mt-1e {
-  margin-top: 1em;
-}
-
-.mt-2e {
-  margin-top: 2em;
-}
-
-.mb-05e {
-  margin-bottom: 0.5em;  
-}
-
-.mb-1e {
-  margin-bottom: 1em!important;
-}
-
-.mr-05e {
-  margin-right: 0.5em;  
-}
-
-.mr-1e {
-  margin-right: 1em;
-}
-
-.mr-2e {
-  margin-right: 2em;
-}
-
-.ml-05e {
-  margin-left: 0.5em;  
-}
-
-.ml-1e {
-  margin-left: 1em;
-}
-
-.ml-2e {
-  margin-left: 2em;
-}
-
-.pt-05e {
-  padding-top: 0.5em;
-}
-
-.pb-1e {
-  padding-bottom: 1em!important;
-}
-
 //* BUTTON *//
+
+.btn-gray {
+  background-color: gainsboro;
+  color: black;
+}
+
+.btn-gray:hover {
+  background-color: silver;
+  color: black;
+}
 
 .btn-purple {
   background-color: #6d7fcc;
@@ -568,3 +521,52 @@ a.article, a.article:hover {
   background-color: #e02839f2;
   color: white;
 }
+
+/*------------------------------ MEDIAQUERIES ------------------------------*/
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+    transform: rotateY(90deg);
+  }
+  #sidebar.active {
+    margin-left: 0;
+    transform: none;
+  }
+  #sidebar-collapse span:first-of-type,
+  #sidebar-collapse span:nth-of-type(2),
+  #sidebar-collapse span:last-of-type {
+    transform: none;
+    opacity: 1;
+    margin: 5px auto;
+}
+  #sidebar-collapse.active span {
+    margin: 0 auto;
+  }
+  #sidebar-collapse.active span:first-of-type {
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  #sidebar-collapse.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  #sidebar-collapse.active span:last-of-type {
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  .smp-center {
+    text-align: center;
+    margin-top: 1.5em;
+  }
+  .navi-custom {
+    background-color: #eef1f3;
+    padding-left: 1em;
+  }
+  .tab-wrapper {
+    ul li a {
+      text-align: left!important;
+      font-size: 20px;
+    }
+  }
+}
+

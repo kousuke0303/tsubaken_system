@@ -1,42 +1,25 @@
 class Matter < ApplicationRecord
+  belongs_to :client
   has_many :matter_managers, dependent: :destroy
   has_many :managers, through: :matter_managers
-  
-  has_many :matter_submanagers, dependent: :destroy
-  has_many :submanagers, through: :matter_submanagers
-  
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
-  
-  has_many :matter_users, dependent: :destroy
-  has_many :users, through: :matter_users
-  
-  has_many :clients, dependent: :destroy
-  accepts_nested_attributes_for :clients, allow_destroy: true
+  has_many :tasks, dependent: :destroy
+  has_many :supplier_matters, dependent: :destroy
+  has_many :suppliers, through: :supplier_matters
+  accepts_nested_attributes_for :matter_managers, allow_destroy: true
+  accepts_nested_attributes_for :matter_staffs, allow_destroy: true
+  accepts_nested_attributes_for :supplier_matters, allow_destroy: true
+  accepts_nested_attributes_for :tasks, allow_destroy: true
 
-  has_one :attendance, dependent: :destroy
-  
-  has_many :events, dependent: :destroy
+  validates :title, presence: true, length: { maximum: 30 }
 
-  has_many :matter_tasks, dependent: :destroy
-  has_many :tasks, through: :matter_tasks
+  enum status: {not_started: 0,progress: 1, completed: 2}
   
-  # ## scope #########################################
-  scope :are_connected_matter_without_own, ->(connected_id, manager) {
-    joins(:managers).where(connected_id: connected_id).merge(Manager.where.not(id: manager.id))
-  }
-  
-  
-  def to_param
-    matter_uid ? matter_uid : super()
-  end
-  
-  # user_matter_managerの連結
-  def connected_matter(user)
-    self.matter_users.create(user_id: user.id)
-    self.managers.each do |manager|
-      manager.manager_users.create!(user_id: user.id)
+  before_create :identify
+
+  private
+    def identify(num = 16)
+      self.id ||= SecureRandom.hex(num)
     end
-  end
-  
 end

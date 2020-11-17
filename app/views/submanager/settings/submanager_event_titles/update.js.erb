@@ -1,4 +1,0 @@
-$('.ajax_title_area').html('<%= escape_javascript(render partial: './submanager/settings/submanager_event_titles/ajax_submanager_event_title/title_index', locals: { default_submanager_event_titles: @default_submanager_event_titles }) %>');
-$('.ajax_show_area').html('<%= escape_javascript(render partial: './submanager/settings/submanager_event_titles/ajax_submanager_event_title/show', locals: { default_submanager_event_titles: @default_submanager_event_titles }) %>');
-$('#default_submanager_event_<%= @submanager_event_title.id %>_show').show();
-$('#default_submanager_event_<%= @submanager_event_title.id %>_edit').hide();

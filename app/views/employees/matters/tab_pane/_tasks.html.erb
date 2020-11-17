@@ -1,0 +1,165 @@
+<div class="col-sm-12 text-right mb-1e">
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
+</div>
+
+<div id="kanban-tasks"></div>
+
+<script>
+// タスク移動関連
+$(document).ready(function(){
+  //初期状態のタスク管理ボード用JSONデータ
+  const defaultBoards = [
+    {
+      "id": "default-tasks",
+      "title": "デフォルトタスク一覧",
+      "class": "default",
+      "item": [
+        <% @default_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
+          },
+        <% end %>
+      ]
+    },
+    
+    {
+      "id": "relevant-tasks",
+      "title": "当該タスク",
+      "class": "relevant",
+      "item": [
+        <% @relevant_tasks.each do |task| %>    
+          {
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "ongoing-tasks",
+      "title": "進行中",
+      "class": "ongoing",
+      "item": [
+        <% @ongoing_tasks.each do |task| %> 
+          {
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "finished-tasks",
+      "title": "完了",
+      "class": "finished",
+      "item": [
+        <% @finished_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+            "task-title": "<%= task.title %>",
+            "task-content": "<%= task.content %>"
+          },
+        <% end %>
+      ]
+    }
+  ];
+  
+  //jKanbanのインスタンス作成
+  var kanban = new jKanban({
+    element         : '#kanban-tasks',  //タスク管理ボードを表示するHTML要素
+    gutter          : '13px',       //ボード同士の間隔
+    widthBoard      : '220px',      //ボードのサイズ
+    boards          : defaultBoards,//初期状態のJSONデータ
+    
+    dropEl: function(el, target, a, b){
+      var task = el.getAttribute("data-eid");
+      var status = target.parentNode.getAttribute("data-id");
+      var item_arrey = target.children;
+      item_arrey = [].slice.call(item_arrey);
+      var item_index = item_arrey.indexOf(el);
+
+      $.ajax({
+        type: "POST",
+        url: "<%= move_employees_matter_tasks_path(@matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
+    }
+  });
+
+    var addTaskButton = document.getElementById("add-task");
+    addTaskButton.addEventListener("click",function(){
+      
+      const formItem = document.createElement("form");
+      formItem.innerHTML = '<input type="text", id="new-task-form">';
+      kanban.addForm("relevant-tasks", formItem);
+  
+      $("#new-task-form").blur(function(){
+        var title = $("#new-task-form").val();
+
+        $.ajax({
+          type: "POST",
+          url: "<%= employees_matter_tasks_path(@matter) %>",
+          cache: false,
+          data: { title: title, remote: true }
+      });
+    });
+  });
+  // 現状使用しない
+  //var removeItem = document.getElementById('Item_reset');
+  //removeItem.addEventListener('click',function(){
+  //    $('div[data-id="finished_task"] main div').each(function(index, element){
+  //      kanban.removeElement(element)
+  //    });
+  //    $.ajax({
+  //        type: "GET",
+  //        url: "",
+  //        cache: false,
+  //    });
+  //  });
+  });
+
+  <% @default_tasks.each do |task| %>
+    $(function(){
+      $("[data-eid=<%= task.id %>]").html('<div class="default-task-title"><div><%= task.title.truncate(11) %></div></div>');
+    });
+  <% end %>
+
+  <% @matter.tasks.each do |task| %>
+    $(function(){
+      <% if task.manager %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% elsif task.staff %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% elsif task.external_staff %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% else %>
+        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div>なし</div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
+      <% end %>
+
+      // タスク編集モーダル
+      $("[data-eid=<%= task.id %>]").on("click",function(){
+        let matterId = "<%= @matter.id %>"
+        let taskId = this.getAttribute("data-eid");
+        let taskTitle = this.getAttribute("data-task-title");
+        let taskContent = this.getAttribute("data-task-content");
+        $("#task-edit").modal();
+        $("#task-title").val(taskTitle);
+        $("#task-content").val(taskContent);
+        $('h4').removeClass();
+　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
+        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
+      });
+    });
+  <% end %>
+</script>

@@ -10,117 +10,137 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200712132740) do
+ActiveRecord::Schema.define(version: 2020_11_17_004822) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "email", default: "", null: false
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "admin", null: false
+    t.string "name", default: "", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+    t.index ["login_id"], name: "index_admins_on_login_id", unique: true
   end
 
-  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", comment: "名前"
-    t.string "phone", comment: "連絡先"
-    t.string "fax", comment: "FAX"
-    t.string "email", comment: "email"
-    t.bigint "matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_clients_on_matter_id"
-  end
-
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
-    t.string "note"
-    t.bigint "manager_id"
-    t.bigint "matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_events_on_manager_id"
-    t.index ["matter_id"], name: "index_events_on_matter_id"
-  end
-
-  create_table "manager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "note"
-    t.index ["manager_id"], name: "index_manager_event_titles_on_manager_id"
-  end
-
-  create_table "manager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
-    t.string "note"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_events_on_manager_id"
-  end
-
-  create_table "manager_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "employee", default: 0
+  create_table "attendances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "worked_on"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string "working_minutes"
     t.bigint "manager_id"
     t.bigint "staff_id"
+    t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_staffs_on_manager_id"
-    t.index ["staff_id"], name: "index_manager_staffs_on_staff_id"
+    t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
+    t.index ["manager_id"], name: "index_attendances_on_manager_id"
+    t.index ["staff_id"], name: "index_attendances_on_staff_id"
   end
 
-  create_table "manager_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "manager_id"
-    t.bigint "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_tasks_on_manager_id"
-    t.index ["task_id"], name: "index_manager_tasks_on_task_id"
-  end
-
-  create_table "manager_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_manager_users_on_manager_id"
-    t.index ["user_id"], name: "index_manager_users_on_user_id"
-  end
-
-  create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
-    t.string "phone"
-    t.string "company"
-    t.string "public_uid"
-    t.boolean "approval", default: false
-    t.string "email", default: "", null: false
+  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "client", null: false
+    t.string "name", default: "", null: false
+    t.string "kana"
+    t.integer "gender"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
+    t.date "birthed_on"
+    t.string "zip_code"
+    t.string "address"
+    t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_managers_on_email", unique: true
-    t.index ["public_uid"], name: "index_managers_on_public_uid", unique: true
-    t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
+    t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
-  create_table "matter_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
+  create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "external_staff", null: false
+    t.string "name", default: "", null: false
+    t.string "kana"
+    t.string "phone"
+    t.string "email"
+    t.bigint "supplier_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["login_id"], name: "index_external_staffs_on_login_id", unique: true
+    t.index ["supplier_id"], name: "index_external_staffs_on_supplier_id"
+  end
+
+  create_table "industries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_industries_on_name", unique: true
+  end
+
+  create_table "industry_suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "industry_id"
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
+    t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
+  end
+
+  create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "manager", null: false
+    t.string "name", default: "", null: false
+    t.string "phone"
+    t.string "email"
+    t.date "birthed_on"
+    t.string "zip_code"
+    t.string "address"
+    t.date "joined_on"
+    t.date "resigned_on"
+    t.bigint "department_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_managers_on_department_id"
+    t.index ["login_id"], name: "index_managers_on_login_id", unique: true
+  end
+
+  create_table "matter_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
     t.bigint "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,8 +148,8 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.index ["matter_id"], name: "index_matter_managers_on_matter_id"
   end
 
-  create_table "matter_staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
+  create_table "matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
     t.bigint "staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -137,257 +157,120 @@ ActiveRecord::Schema.define(version: 20200712132740) do
     t.index ["staff_id"], name: "index_matter_staffs_on_staff_id"
   end
 
-  create_table "matter_submanagers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.boolean "manage_authority", default: false
-    t.bigint "matter_id"
-    t.bigint "submanager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_matter_submanagers_on_matter_id"
-    t.index ["submanager_id"], name: "index_matter_submanagers_on_submanager_id"
-  end
-
-  create_table "matter_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
-    t.bigint "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_matter_tasks_on_matter_id"
-    t.index ["task_id"], name: "index_matter_tasks_on_task_id"
-  end
-
-  create_table "matter_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "matter_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_matter_users_on_matter_id"
-    t.index ["user_id"], name: "index_matter_users_on_user_id"
-  end
-
-  create_table "matters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "title", comment: "事件名"
-    t.string "actual_spot", comment: "現場"
-    t.string "actual_spot_2"
-    t.string "zip"
-    t.string "status", default: "0", comment: "工事状況"
-    t.string "note", comment: "備考"
-    t.date "scheduled_start_at", comment: "着工予定日"
-    t.date "started_at", comment: "着工日"
-    t.date "scheduled_finish_at", comment: "完了予定日"
-    t.date "finished_at", comment: "完了日"
-    t.string "matter_uid", comment: "パラメーター"
-    t.string "connected_id", comment: "パラメーター"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "staff_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_event_titles_on_staff_id"
-  end
-
-  create_table "staff_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
-    t.string "note"
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["staff_id"], name: "index_staff_events_on_staff_id"
-  end
-
-  create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_staffs_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
-  end
-
-  create_table "staffs_attendances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.date "worked_on"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.string "note"
-    t.bigint "staff_id"
-    t.bigint "matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_staffs_attendances_on_matter_id"
-    t.index ["staff_id"], name: "index_staffs_attendances_on_staff_id"
-  end
-
-  create_table "submanager_event_titles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "note"
-    t.bigint "submanager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["submanager_id"], name: "index_submanager_event_titles_on_submanager_id"
-  end
-
-  create_table "submanager_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "event_name"
-    t.string "event_type"
-    t.datetime "date"
-    t.string "note"
-    t.bigint "submanager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["submanager_id"], name: "index_submanager_events_on_submanager_id"
-  end
-
-  create_table "submanagers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_submanagers_on_email", unique: true
-    t.index ["manager_id"], name: "index_submanagers_on_manager_id"
-    t.index ["reset_password_token"], name: "index_submanagers_on_reset_password_token", unique: true
-  end
-
-  create_table "submanagers_attendances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.date "worked_on"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.string "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "submanager_id"
-    t.bigint "matter_id"
-    t.index ["matter_id"], name: "index_submanagers_attendances_on_matter_id"
-    t.index ["submanager_id"], name: "index_submanagers_attendances_on_submanager_id"
-  end
-
-  create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "company", comment: "会社名"
-    t.string "actual_spot", comment: "所在地"
-    t.string "actual_spot_2", comment: "所在地2"
-    t.string "zip"
-    t.string "representative_name", comment: "代表者名"
-    t.string "phone", comment: "電話番号"
-    t.string "fax", comment: "FAX番号"
-    t.string "mail", comment: "メール"
-    t.integer "count", comment: "関連事件数"
-    t.bigint "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_suppliers_on_manager_id"
-  end
-
-  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "status"
-    t.string "before_status"
-    t.datetime "move_date"
-    t.integer "row_order"
-    t.text "memo"
-    t.string "default_title"
-    t.integer "count"
-    t.datetime "deadline"
-    t.boolean "notification", default: false
+    t.string "actual_spot"
+    t.string "zip_code"
+    t.integer "status"
+    t.string "content"
+    t.date "scheduled_started_on"
+    t.date "started_on"
+    t.date "scheduled_finished_on"
+    t.date "finished_on"
+    t.date "maintenanced_on"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_matters_on_client_id"
+  end
+
+  create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "staff_id"
+    t.integer "event_title_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_social_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "nickname"
-    t.string "email"
-    t.string "url"
-    t.string "image_url"
-    t.string "description"
-    t.text "other"
-    t.text "credentials"
-    t.text "raw_info"
+  create_table "staff_events", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "staff_id"
+    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider", "uid"], name: "index_user_social_profiles_on_provider_and_uid", unique: true
-    t.index ["user_id"], name: "index_user_social_profiles_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
+  create_table "staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "staff", null: false
+    t.string "name", default: "", null: false
     t.string "phone"
-    t.string "fax"
-    t.string "email", default: "", null: false
+    t.string "email"
+    t.date "birthed_on"
+    t.string "zip_code"
+    t.string "address"
+    t.date "joined_on"
+    t.date "resigned_on"
+    t.bigint "department_id"
+    t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["department_id"], name: "index_staffs_on_department_id"
+    t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
   end
 
-  add_foreign_key "clients", "matters"
-  add_foreign_key "events", "managers"
-  add_foreign_key "events", "matters"
-  add_foreign_key "manager_event_titles", "managers"
-  add_foreign_key "manager_events", "managers"
-  add_foreign_key "manager_staffs", "managers"
-  add_foreign_key "manager_staffs", "staffs"
-  add_foreign_key "manager_tasks", "managers"
-  add_foreign_key "manager_tasks", "tasks"
-  add_foreign_key "manager_users", "managers"
-  add_foreign_key "manager_users", "users"
+  create_table "supplier_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_supplier_matters_on_matter_id"
+    t.index ["supplier_id"], name: "index_supplier_matters_on_supplier_id"
+  end
+
+  create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "kana"
+    t.string "address"
+    t.string "zip_code"
+    t.string "representative"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.integer "status"
+    t.integer "before_status"
+    t.datetime "moved_on"
+    t.integer "sort_order"
+    t.string "content"
+    t.integer "default_task_id"
+    t.integer "default_task_id_count"
+    t.boolean "notification", default: false
+    t.string "matter_id"
+    t.bigint "manager_id"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
+    t.index ["manager_id"], name: "index_tasks_on_manager_id"
+    t.index ["matter_id"], name: "index_tasks_on_matter_id"
+    t.index ["staff_id"], name: "index_tasks_on_staff_id"
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attendances", "external_staffs"
+  add_foreign_key "attendances", "managers"
+  add_foreign_key "attendances", "staffs"
+  add_foreign_key "external_staffs", "suppliers"
+  add_foreign_key "industry_suppliers", "industries"
+  add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "managers", "departments"
   add_foreign_key "matter_managers", "managers"
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-  add_foreign_key "matter_submanagers", "matters"
-  add_foreign_key "matter_submanagers", "submanagers"
-  add_foreign_key "matter_tasks", "matters"
-  add_foreign_key "matter_tasks", "tasks"
-  add_foreign_key "matter_users", "matters"
-  add_foreign_key "matter_users", "users"
-  add_foreign_key "staff_event_titles", "staffs"
-  add_foreign_key "staff_events", "staffs"
-  add_foreign_key "staffs_attendances", "matters"
-  add_foreign_key "staffs_attendances", "staffs"
-  add_foreign_key "submanager_event_titles", "submanagers"
-  add_foreign_key "submanager_events", "submanagers"
-  add_foreign_key "submanagers", "managers"
-  add_foreign_key "submanagers_attendances", "matters"
-  add_foreign_key "submanagers_attendances", "submanagers"
-  add_foreign_key "suppliers", "managers"
-  add_foreign_key "user_social_profiles", "users"
+  add_foreign_key "matters", "clients"
+  add_foreign_key "staffs", "departments"
+  add_foreign_key "supplier_matters", "matters"
+  add_foreign_key "supplier_matters", "suppliers"
+  add_foreign_key "tasks", "external_staffs"
+  add_foreign_key "tasks", "managers"
+  add_foreign_key "tasks", "matters"
+  add_foreign_key "tasks", "staffs"
 end

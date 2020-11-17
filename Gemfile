@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '~> 5.1.6'
+gem 'rails',        '~> 5.2.2'
 gem 'puma',         '~> 3.7'
 gem 'rails-i18n'
 gem 'will_paginate'
@@ -27,10 +27,20 @@ gem 'omniauth-line'
 gem 'faker'
 # simple_calendar
 gem 'simple_calendar', '~> 2.0'
+# ラジオボタン生成時に便利なgem
+gem 'enum_help'
+# ネイティブへのapi発行用
+gem 'fast_jsonapi'
+# 環境変数設定用
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'mysql2'
-  gem 'byebug', '9.0.6', platform: :mri
+  # gem 'byebug',  '9.0.6', platform: :mri
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -40,7 +50,13 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
+
 group :production do
+  # gem 'pg', '0.20.0'
 end
 
 # Windows環境では、このgemを含める必要があります。（mac環境でもこのままで問題ありません）

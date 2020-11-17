@@ -1,0 +1,44 @@
+<div class="col-lg-12 col-md-12">
+  <h2><i class="fas fa-clipboard"></i> 案件詳細</h2>
+
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark">
+      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="matters-show-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#detail" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">詳細情報</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#employees" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">担当者</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#clients" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">顧客情報</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tasks" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">タスク一覧</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-body">
+
+      <div class="tab-content" id="matter-show-tab">
+
+        <div class="tab-pane fade show active bg-white" id="detail" role="tabpanel">
+          <%= render "employees/matters/tab_pane/detail" %>
+        </div>
+
+        <div class="tab-pane fade show bg-white" id="employees" role="tabpanel">
+        </div>
+
+        <div class="tab-pane fade show bg-white" id="clients" role="tabpanel">
+        </div>
+
+        <div class="tab-pane fade show bg-white", id="tasks" role="tabpanel">
+          <div class="tasks-index">
+            <%= render "employees/matters/tab_pane/tasks" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

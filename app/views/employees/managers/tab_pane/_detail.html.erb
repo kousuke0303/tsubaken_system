@@ -1,0 +1,47 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>名前</th>
+    <td><%= @manager.name %></td>
+  </tr>
+  <tr>
+    <th>部署</th>
+    <td><%= @manager.department.name %></td>
+  </tr>
+  <tr>
+    <th>ログインID</th>
+    <td><%= @manager.login_id %></td>
+  </tr>
+  <tr>
+    <th>電話番号</th>
+    <td><%= @manager.phone %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @manager.email %></td>
+  </tr>
+  <tr>
+    <th>生年月日</th>
+    <td><%= @manager.birthed_on %></td>
+  </tr>
+  <tr>
+    <th>郵便番号</th>
+    <td><%= @manager.zip_code %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= @manager.address %></td>
+  </tr>
+  <tr>
+    <th>入社日</th>
+    <td><%= @manager.joined_on %></td>
+  </tr>
+  <tr>
+    <th>退社日</th>
+    <td><%= @manager.resigned_on %></td>
+  </tr>
+</table>
+
+<div class="btn-area">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#manager-edit">編集</button>
+  <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このManagerを削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>

@@ -1,351 +1,146 @@
-#------------------------------------------------------
-    # 権限
-# ----------------------------------------------------
+Department.create!(name: "無所属")
+Department.create!(name: "営業")
 
-# 1.管理者権限---------------
+puts "CREATE! DEPARTMENT"
 
-Admin.create!(email: "test12345@email.com",
-              password: "password12345",
-              password_confirmation: "password12345")
+Admin.create!(name: "管理者",
+              login_id: "AD-admin",
+              password: "password",
+              password_confirmation: "password")
+
 puts "CREATE! ADMIN"
 
-# -------------------------------------------------
+puts "CREATE! Department"
 
+3.times do |n|
+  Manager.create!(name: "マネージャー#{ n + 1 }",
+                  login_id: "MN-manager-#{ n + 1 }",
+                  phone: "08011112222",
+                  email: "manager-#{ n + 1 }@email.com",
+                  department_id: 2,
+                  password: "password",
+                  password_confirmation: "password")
+end
 
-# 2.MANAGER権限--------------
+puts "CREATE! MANAGER"
 
-# 未承認------------------
-Manager.create!(company: "株式会社Tokkun",
-                name: "Modalist徳永",
-                email: "toku@email.com",
+3.times do |n|
+  Staff.create!(name: "スタッフ#{ n + 1 }",
+                login_id: "ST-staff-#{ n + 1 }",
+                phone: "08011112222",
+                email: "staff-#{ n + 1 }@email.com",
+                department_id: 2,
                 password: "password",
-                password_confirmation: "password",
-                approval: false)
+                password_confirmation: "password")
+end
 
-puts "CREATE! NON_APPROVAL_MANAGER"
+puts "CREATE! STAFF"
 
-# 承認--------------------
-Manager.create!(company: "S0CIO株式会社",
-                name: "山本達也",
-                email: "test@email.com",
-                public_uid: "socio",
+3.times do |n|
+  Supplier.create!(name: "テスト外注先#{ n + 1 }",
+                  kana: "テストガイチュウサキ",
+                  phone_1: "08054545454",
+                  email: "testsupplier-#{ n + 1 }@email.com",
+                  zip_code: "5940088",
+                  address: "大阪府テスト市")
+end
+
+puts "CREATE! Supplier"
+
+3.times do |n|
+ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
+                      kana: "ガイブスタッフ",
+                      login_id: "SP1-sup-#{ n + 1 }",
+                      phone: "08054545454",
+                      email: "testexternal-a@email.com",
+                      supplier_id: 1,
+                      password: "password",
+                      password_confirmation: "password")
+end
+
+puts "CREATE! ExternalStaff"
+
+Industry.create!(name: "塗装関係")
+Industry.create!(name: "足場関係")
+
+puts "CREATE! INDUSTRY"
+
+3.times do |n|
+  Client.create!(name: "テスト顧客#{ n + 1 }",
+                login_id: "CL-client-#{ n + 1 }",
+                phone_1: "08011112222",
+                phone_2: "08011113333",
+                email: "client-#{ n + 1 }@email.com",
+                zip_code: "5940088",
+                address: "大阪府テスト市",
                 password: "password",
-                password_confirmation: "password",
-                approval: true)
+                password_confirmation: "password")
+end
 
-puts "CREATE! APPROVAL_MANAGER1"
-
-Manager.create!(company: "KIDA株式会社",
-                name: "貴田",
-                email: "kida@email.com",
-                public_uid: "kida",
-                password: "password",
-                password_confirmation: "password",
-                approval: true)
-
-puts "CREATE! APPROVAL_MANAGER2"
-
-Manager.create!(company: "MARU株式会社",
-                name: "MARU",
-                email: "maru@email.com",
-                public_uid: "MARU",
-                password: "password",
-                password_confirmation: "password",
-                approval: true)
-
-puts "CREATE! APPROVAL_MANAGER3"
-
-# ------------------------------------------------------
-
-# 3.SUBMANAGER権限------------------
-
-Submanager.create!(name: "サブマネA",
-                   email: "submanagerA@email.com",
-                   password: "password",
-                   password_confirmation: "password",
-                   manager_id: 3)
-
-puts "CREATE! SUBMANAGER-A"
-
-Submanager.create!(name: "サブマネB",
-                   email: "submanagerb@email.com",
-                   password: "password",
-                   password_confirmation: "password",
-                   manager_id: 3)
-
-puts "CREATE! SUBMANAGER-B"
-
-# ------------------------------------------------------
-
-# 4.USER権限------------------------------------
-
-User.create!(name: "ユーザーA",
-                   email: "userA@email.com",
-                   password: "password",
-                   password_confirmation: "password")
-
-ManagerUser.create!(manager_id: 3, user_id: 1)
-
-puts "CREATE! USER-A"
-
-User.create!(name: "ユーザーB",
-                   email: "userB@email.com",
-                   password: "password",
-                   password_confirmation: "password")
-
-ManagerUser.create!(manager_id: 3, user_id: 2)
-
-puts "CREATE! USER-B"
-
-# ------------------------------------------------------
-
-# 5.STAFF権限----------------------
-
-Staff.create!(name: "スタッフA",
-    email: "staffA@email.com",
-    password: "password",
-    password_confirmation: "password")
-
-ManagerStaff.create!(employee: 1, manager_id: 3, staff_id: 1)
-
-puts "CREATE! STAFF-A"
-
-Staff.create!(name: "スタッフB",
-    email: "staffB@email.com",
-    password: "password",
-    password_confirmation: "password")
-
-ManagerStaff.create!(manager_id: 3, staff_id: 2)
-
-puts "CREATE! STAFF-B"
-
-# ----------------
-    # 権限END
-# ------------------------------------------------------
+puts "CREATE! CLIENT"
 
 # -----------------------------------------------------
       # MATTER
-# ---------------------------------------------
+# -----------------------------------------------------
 
-# 1.Matter-----------------
+SeedMatter1 = Matter.create!(title: "案件１",
+              status: 0,
+              actual_spot: "東京都渋谷区神宮町１−１−１",
+              scheduled_started_on:  "2020-07-01",
+              scheduled_finished_on: "2020-7-15",
+              client_id: '1',
+              )
 
-SeedMatter = Matter.create!(title: "案件１",
-               actual_spot: "東京都渋谷区神宮町１−１−１",
-               started_at: "2020-07-01",
-               scheduled_finish_at: "2020-7-15",
-               matter_uid: "aa00000001",
-               connected_id: "testtest01"
-               )
-SeedMatter.matter_managers.create!(manager_id: 3)
-SeedMatter.clients.create!(name: "３匹のこぶた",
-                           phone: "09000000000",
-                           email: "clientA@email.com"
-                           )
-SeedMatter.matter_submanagers.create(submanager_id: 1)
-SeedMatter.matter_staffs.create(staff_id: 1)
+SeedMatter2 = Matter.create!(title: "案件２",
+              status: 1,
+              actual_spot: "東京都渋谷区神宮町１−２−１",
+              scheduled_started_on: "2020-07-20",
+              scheduled_finished_on: "2020-08-30",
+              client_id: '2',
+              )
 
-puts "CREATE! MATTER1"
-
-SeedMatterB = Matter.create!(title: "案件２",
-               actual_spot: "東京都渋谷区神宮町１−２−１",
-               scheduled_start_at: "2020-07-20",
-               scheduled_finish_at: "2020-08-30",
-               matter_uid: "aa00000002",
-               connected_id: "testtest02"
-               )
-SeedMatterB.matter_managers.create!(manager_id: 3)
-SeedMatterB.clients.create!(name: "鬼ちゃん",
-                           phone: "09000000000",
-                           email: "clientB@email.com"
-                           )
-puts "CREATE! MATTER２"
+puts "CREATE! MATTER"
 
 # -----------------------------------------------------
       # TASK
-# ---------------------------------------------
+# -----------------------------------------------------
 
-# 1.Manager_task-----------------
-
-1.upto(9) do |i|
-  Task.create!(title: "TASK#{i}", default_title: "TASK#{i}")
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 0, title: "DEFALTE_TASK_#{ n + 1 }",  content: "テスト内容", sort_order: n, default_task_id: "#{ n + 1 }")
 end
 
-TargetManagers = Manager.where(approval: true)
-TargetManagers.each do |manager|
-  Task.all.each do |task|
-    task.manager_tasks.create!(manager_id: manager.id)
-  end
+puts "CREATE! DEFALTE_TASK"
+
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
 end
-  
-puts "CREATE! MANAGERTASK"
 
+puts "CREATE! TASK"
 
+first_day = Date.current.beginning_of_month
+last_day = first_day.end_of_month
+one_month = [*first_day..last_day]
+today = Date.current
+year = today.year
+month = today.month
+day = today.day
+Manager.all.each do |manager|
+  one_month.each { |day| manager.attendances.create!(worked_on: day) }
+  manager.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                          finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
 
-# -----------------------------------------------------
-      # EVENT
-# ---------------------------------------------
+Staff.all.each do |staff|
+  one_month.each { |day| staff.attendances.create!(worked_on: day) }
+  staff.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                        finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
 
-Event.create!(event_name: "打ち合わせ",
-    event_type: "A",
-    date: "2020-07-01",
-    note: "仮",
-    manager_id: 2,
-    matter_id: 1)
+ExternalStaff.all.each do |external_staff|
+  one_month.each { |day| external_staff.attendances.create!(worked_on: day) }
+  external_staff.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
+                                                                                 finished_at: "#{year}-#{month}-#{day} 17:00:00")
+end
 
-puts "CREATE! EVENT-A1"
-
-Event.create!(event_name: "打ち合わせ",
-    event_type: "A",
-    date: "2020-06-30",
-    note: "仮",
-    manager_id: 2,
-    matter_id: 1)
-
-puts "CREATE! EVENT-A2"
-
-Event.create!(event_name: "打ち合わせ",
-    event_type: "A",
-    date: "2020-07-02",
-    note: "仮",
-    manager_id: 3,
-    matter_id: 1)
-
-puts "CREATE! EVENT-A3"
-
-Event.create!(event_name: "入金予定",
-    event_type: "B",
-    date: "2020-07-03",
-    note: "仮入金",
-    manager_id: 3,
-    matter_id: 1)
-
-puts "CREATE! EVENT-B"
-
-Event.create!(event_name: "工事着工予定",
-    event_type: "D",
-    date: "2020-07-03",
-    note: "仮",
-    manager_id: 3,
-    matter_id: 1)
-
-puts "CREATE! EVENT-D1"
-
-Event.create!(event_name: "工事着工予定",
-    event_type: "D",
-    date: "2020-07-01",
-    note: "仮",
-    manager_id: 2,
-    matter_id: 2)
-
-puts "CREATE! EVENT-D2"
-
-ManagerEvent.create!(event_name: "マネージャ独自イベントA",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    manager_id: 3,)
-
-puts "CREATE! MANAGEREVENT-A"
-
-ManagerEvent.create!(event_name: "マネージャ独自イベントB",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    manager_id: 2,)
-
-puts "CREATE! MANAGEREVENT-B"
-
-ManagerEventTitle.create!(event_name: "マネージャ独自イベントA",
-    manager_id: 3,
-    note: "testa")
-
-puts "CREATE! MANAGEREVENTTITLE-A"
-
-ManagerEventTitle.create!(event_name: "マネージャ独自イベントB",
-    manager_id: 2,
-    note: "testb")
-
-puts "CREATE! MANAGEREVENTTITLE-B"
-
-# -----------------------------------------------------
-      # SUPPLIER
-# ---------------------------------------------
-
-Supplier.create!(company: "取引A",
-                 actual_spot:  "東京都西新宿",
-                 actual_spot_2: "1-1-1",
-                 representative_name: "山田太郎",
-                 phone: "09012341234",
-                 fax: "09012351235",
-                 mail: "companya@email.com",
-                 count: 5,
-                 manager_id: 3)
-
-Supplier.create!(company: "取引B",
-                 actual_spot:  "東京都西新宿",
-                 actual_spot_2: "2-2-2",
-                 representative_name: "山田太郎",
-                 phone: "09012361236",
-                 fax: "09012381238",
-                 mail: "companyb@email.com",
-                 count: 3,
-                 manager_id: 3)
-
-puts "CREATE!SUPPLIER"
-
-
-SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントA",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    submanager_id: 1,)
-
-puts "CREATE! SUBMANAGEREVENT-A"
-
-SubmanagerEvent.create!(event_name: "サブマネージャ独自イベントB",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    submanager_id: 2,)
-
-puts "CREATE! SUBMANAGEREVENT-B"
-
-SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントA",
-    submanager_id: 1,
-    note: "testa")
-
-puts "CREATE! SUBMANAGEREVENTTITLE-A"
-
-SubmanagerEventTitle.create!(event_name: "サブマネージャ独自イベントB",
-    submanager_id: 2,
-    note: "testb")
-
-puts "CREATE! SUBMANAGEREVENTTITLE-B"
-
-StaffEvent.create!(event_name: "スタッフ独自イベントA",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    staff_id: 1,)
-
-puts "CREATE! STAFFEVENT-A"
-
-StaffEvent.create!(event_name: "スタッフ独自イベントB",
-    event_type: "Z",
-    date: "2020-07-01",
-    note: "",
-    staff_id: 2,)
-
-puts "CREATE! STAFFEVENT-B"
-
-StaffEventTitle.create!(event_name: "スタッフ独自イベントA",
-    staff_id: 1,
-    note: "testa")
-
-puts "CREATE! STAFFEVENTTITLE-A"
-
-StaffEventTitle.create!(event_name: "スタッフ独自イベントB",
-    staff_id: 2,
-    note: "testb")
-
-puts "CREATE! STAFFEVENTTITLE-B"
+puts "CREATE! ATTENDANCES"

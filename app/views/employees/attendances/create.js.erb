@@ -1,0 +1,8 @@
+$(".attendance-create-errors").html('<%= escape_javascript(render partial: "shared/error_messages", locals: { resource: @attendance }) %>');
+<% @attendance.errors.messages.keys.each do |key_attribute| %>
+  var addDiv = $('<div class="field-with-errors">');
+  var addLabel = $('input[name="attendance[<%= key_attribute.intern.to_s %>]"]').prev();
+  $('input[name="attendance[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+  addLabel.wrap(addDiv);
+<% end %>
+  
