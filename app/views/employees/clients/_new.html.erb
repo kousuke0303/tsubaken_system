@@ -43,7 +43,7 @@
             <%= f.date_field :birthed_on, class: "form-control" %>
 
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark submit" %>
+              <%= f.submit "作成", class: "btn btn-dark" %>
             </div>
           <% end %>
         </div>
@@ -61,10 +61,15 @@
 <% end %>
 
 <script>
-  $('.submit').on('click', function(){
-    $('div').each(function(index, element){
-      if($(element).parent().hasClass('field-with-errors')){
-        $(element).parent().removeClass('field-with-errors');
+  $("form").submit(function(){
+    $("label").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+    $("input").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
       }
     })
   });
