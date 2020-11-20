@@ -71,20 +71,20 @@ Rails.application.routes.draw do
         # 外部スタッフCRUD
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
-        post "self_update_external_staff", to: "external_staffs#self_update"
 
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
       end
 
-      # 管理者Update
+      # 顧客が自身のアカウントを更新
       namespace :clients do
         namespace :registrations do
           post "update_self"
         end
       end
 
+      # 外部スタッフが自身のアカウントを更新
       namespace :external_staffs do
         namespace :registrations do
           post "update_self"
@@ -200,6 +200,10 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
+    end
+
+    resources :matters do
+      resources :images
     end
     
     namespace :settings do

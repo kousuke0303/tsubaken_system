@@ -5,7 +5,7 @@ class Api::V1::Managers::RegistrationsController < Api::V1::ApplicationControlle
   def update_self
     @manager = Manager.find(params[:id])
     if @manager.update(manager_params)
-      render json: @manager, serializer: RegistrationSerializer
+      render json: @manager, serializer: ManagerSerializer
     else
       render json: { status: "false", message: @manager.errors.full_messages }
     end
