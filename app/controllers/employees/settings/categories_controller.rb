@@ -8,7 +8,7 @@ class Employees::Settings::CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:success] = "カテゴリを作成しました。"
+      flash[:success] = "見積書カテゴリを作成しました。"
       redirect_to employees_settings_categories_path
     else
       respond_to do |format|
@@ -22,7 +22,7 @@ class Employees::Settings::CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      flash[:success] = "カテゴリを更新しました。"
+      flash[:success] = "見積書カテゴリを更新しました。"
       redirect_to employees_settings_categories_url
     else
       respond_to do |format|
@@ -36,7 +36,7 @@ class Employees::Settings::CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy ? flash[:success] = "カテゴリを削除しました。" : flash[:alert] = "カテゴリを削除できませんでした。"
+    @category.destroy ? flash[:success] = "見積書カテゴリを削除しました。" : flash[:alert] = "見積書カテゴリを削除できませんでした。"
     redirect_to employees_settings_categories_url
   end
 
