@@ -206,6 +206,8 @@ Rails.application.routes.draw do
       resources :industries, only: [:create, :index, :update, :destroy]
       resources :departments, only: [:create, :index, :update, :destroy]
       resources :tasks, only: [:create, :index, :update, :destroy]
+      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
   

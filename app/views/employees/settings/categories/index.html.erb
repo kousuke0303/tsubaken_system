@@ -1,0 +1,27 @@
+<div class="col-lg-12 col-md-12">
+  <h2>
+    見積書カテゴリ一覧
+    <%= link_to "新規カテゴリ", new_employees_settings_category_path, remote: true, class: "btn btn-dark float-r" %>
+  </h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm table common-table">
+        <tr>
+          <th>名前</th>
+          <th></th>
+        </tr>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td>
+              <%= link_to "編集", edit_employees_settings_category_path(category), class: "btn btn-sm btn-dark" %>
+              <%= link_to "削除", employees_settings_category_path(category), method: :delete, data: { confirm: "このカテゴリを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
