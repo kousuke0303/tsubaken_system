@@ -16,7 +16,7 @@
           <tr>
             <td><%= category.name %></td>
             <td>
-              <%= link_to "編集", edit_employees_settings_category_path(category), class: "btn btn-sm btn-dark" %>
+              <%= link_to "編集", edit_employees_settings_category_path(category), remote: true, class: "btn btn-sm btn-dark" %>
               <%= link_to "削除", employees_settings_category_path(category), method: :delete, data: { confirm: "このカテゴリを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>

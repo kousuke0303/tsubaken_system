@@ -1,5 +1,5 @@
 class Employees::Settings::CategoriesController < ApplicationController
-  before_action :set_category, only: [:edit, :udpate, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def new
     @category = Category.new
@@ -21,6 +21,14 @@ class Employees::Settings::CategoriesController < ApplicationController
   end
 
   def update
+    if @category.update(category_params)
+      flash[:success] = "カテゴリを更新しました。"
+      redirect_to employees_settings_categories_url
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   def index
