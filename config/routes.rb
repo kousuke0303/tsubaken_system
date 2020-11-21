@@ -66,6 +66,11 @@ Rails.application.routes.draw do
           post "create_industry", to: "industries#create"
           post "update_industry", to: "industries#update"
           post "destroy_industry", to: "industries#destroy"
+
+          # デフォルトタスクCRUD
+          post "create_task", to: "tasks#create"
+          post "update_task", to: "tasks#update"
+          post "destroy_task", to: "tasks#destroy"
         end
         
         # 外部スタッフCRUD
