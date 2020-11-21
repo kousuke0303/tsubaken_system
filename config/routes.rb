@@ -6,8 +6,22 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
 
-      # 管理者Update
+      # 管理者が自身のアカウントを更新
       namespace :admins do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
+      # マネージャーが自身のアカウントを更新
+      namespace :managers do
+        namespace :registrations do
+          post "update_self"
+        end
+      end
+
+      # スタッフが自身のアカウントを更新
+      namespace :staffs do
         namespace :registrations do
           post "update_self"
         end
@@ -16,22 +30,39 @@ Rails.application.routes.draw do
       # 従業員が行う操作
       namespace :employees do
         # スタッフCRUD
+        post "index_managers", to: "managers#index"
+        post "show_manager", to: "managers#show"
+        post "create_manager", to: "managers#create"
+        post "update_manager", to: "managers#update"
+        post "destroy_manager", to: "managers#destroy"
+
+        # スタッフCRUD
+        post "index_staffs", to: "staffs#index"
+        post "show_staff", to: "staffs#show"
         post "create_staff", to: "staffs#create"
         post "update_staff", to: "staffs#update"
         post "destroy_staff", to: "staffs#destroy"
 
         # 顧客CRUD
+        post "index_clients", to: "clients#index"
         post "create_client", to: "clients#create"
         post "update_client", to: "clients#update"
         post "destroy_client", to: "clients#destroy"
 
         # 外注先CRUD
+        post "index_suppliers", to: "suppliers#index"
         post "create_supplier", to: "suppliers#create"
         post "update_supplier", to: "suppliers#update"
         post "destroy_supplier", to: "suppliers#destroy"
-        
+
+        # 案件CRUD
+        post "create_matter", to: "matters#create"
+        post "update_matter", to: "matters#update"
+        post "destroy_matter", to: "matters#destroy"
+
         namespace :settings do
           # 業種CRUD
+          post "index_industries", to: "industries#index"
           post "create_industry", to: "industries#create"
           post "update_industry", to: "industries#update"
           post "destroy_industry", to: "industries#destroy"
@@ -180,6 +211,8 @@ Rails.application.routes.draw do
       resources :industries, only: [:create, :index, :update, :destroy]
       resources :departments, only: [:create, :index, :update, :destroy]
       resources :tasks, only: [:create, :index, :update, :destroy]
+      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
   

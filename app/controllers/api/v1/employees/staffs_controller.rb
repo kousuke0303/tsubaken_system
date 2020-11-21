@@ -1,7 +1,23 @@
 class Api::V1::Employees::StaffsController < Api::V1::ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_token_and_key_to_api
-  before_action :set_staff, only: [:update, :destroy]
+  before_action :set_staff, only: [:show, :update, :destroy]
+
+  def index
+    if params[:status] == "enrolled"
+      staffs = Staff.enrolled
+      render json: staffs, each_sserializer: StaffSerializer
+    elsif params[:status] == "retired"
+      staffs = Staff.retired
+      render json: staffs, each_sserializer: StaffSerializer
+    else
+      render json: { status: "false", message: "Staffを取得できませんでした" }
+    end
+  end
+  
+  def show
+    render json: @staff, serializer: StaffSerializer, include: :matters
+  end
 
   def create
     staff = Staff.new(staff_params.merge(password: "password", password_confirmation: "password"))

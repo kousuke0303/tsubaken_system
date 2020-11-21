@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '~> 5.1.6'
+gem 'rails',        '~> 5.2.2'
 gem 'puma',         '~> 3.7'
 gem 'rails-i18n'
 gem 'will_paginate'

@@ -25,7 +25,7 @@
               <th>電話番号</th>
               <th>入社日</th>
             </tr>
-            <% @managers.each do |manager| %>
+            <% @enrolled_managers.each do |manager| %>
               <tr class="tr-link" data-link="<%= employees_manager_path(manager) %>">
                 <td><%= manager.name %></td>
                 <td><%= manager.login_id %></td>
@@ -36,7 +36,23 @@
           </table>
         </div>
 
-        <div class="tab-pane fade show active bg-white" id="retired" role="tabpanel">
+        <div class="tab-pane fade show bg-white" id="retired" role="tabpanel">
+          <table class="table table-sm common-table">
+              <tr>
+                <th>名前</th>
+                <th>ログインID</th>
+                <th>電話番号</th>
+                <th>入社日</th>
+              </tr>
+              <% @retired_managers.each do |manager| %>
+                <tr class="tr-link" data-link="<%= employees_manager_path(manager) %>">
+                  <td><%= manager.name %></td>
+                  <td><%= manager.login_id %></td>
+                  <td><%= manager.phone %></td>
+                  <td><%= manager.joined_on %></td>
+                </tr>
+              <% end %>
+            </table>
         </div>
       </div>
     </div>

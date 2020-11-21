@@ -131,6 +131,7 @@ $(document).ready(function(){
 
   <% @default_tasks.each do |task| %>
     $(function(){
+      $("[data-eid=<%= task.id %>]").html('<div class="default-task-title"><div><%= task.title.truncate(11) %></div></div>');
     });
   <% end %>
 

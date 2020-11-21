@@ -3,6 +3,11 @@ class Api::V1::Employees::SuppliersController < Api::V1::ApplicationController
   before_action :check_token_and_key_to_api
   before_action :set_supplier, only: [:update, :destroy]
 
+  def index
+    suppliers = Supplier.all
+    render json: suppliers, serializer: SupplierSerializer
+  end
+
   def create
     supplier = Supplier.new(supplier_params)
     if supplier.save

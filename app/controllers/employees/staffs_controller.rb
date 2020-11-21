@@ -17,7 +17,8 @@ class Employees::StaffsController < ApplicationController
 
   def index
     @staff = Staff.new
-    @staffs = Staff.all
+    @enrolled_staffs = Staff.enrolled
+    @retired_staffs = Staff.retired
   end
 
   def show
