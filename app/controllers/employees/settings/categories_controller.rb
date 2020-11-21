@@ -1,4 +1,5 @@
 class Employees::Settings::CategoriesController < ApplicationController
+  before_action :authenticate_admin_or_manager!
   before_action :set_category, only: [:edit, :update, :destroy]
 
   def new

@@ -3,6 +3,7 @@ class Employees::Settings::KindsController < ApplicationController
 
   def new
     @kind = Kind.new
+    @categories = Category.all
   end
 
   def create
@@ -18,6 +19,7 @@ class Employees::Settings::KindsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
   end
 
   def update
@@ -42,7 +44,7 @@ class Employees::Settings::KindsController < ApplicationController
 
   private
     def kind_params
-      params.require(:kind).permit(:name)
+      params.require(:kind).permit(:name, :category_id)
     end
 
     def set_kind
