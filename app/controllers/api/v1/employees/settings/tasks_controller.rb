@@ -10,7 +10,7 @@ class Api::V1::Employees::Settings::TasksController < Api::V1::ApplicationContro
       @default_task.update(default_task_id: @default_task.id)
       render json: @default_task, serializer: TaskSerializer
     else
-      render json: { status: "false", message: @default_task,.errors.full_messages }
+      render json: { status: "false", message: @default_task.errors.full_messages }
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::Employees::Settings::TasksController < Api::V1::ApplicationContro
 
   private
     def default_task_params
-      params.require(:task).permit(:ottitle, :content)
+      params.require(:task).permit(:title, :content)
     end
 
     def set_task
