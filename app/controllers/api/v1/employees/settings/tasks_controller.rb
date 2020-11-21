@@ -33,7 +33,7 @@ class Api::V1::Employees::Settings::TasksController < Api::V1::ApplicationContro
 
   private
     def default_task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:ottitle, :content)
     end
 
     def set_task
