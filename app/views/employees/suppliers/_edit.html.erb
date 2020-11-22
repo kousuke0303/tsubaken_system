@@ -50,11 +50,17 @@
   </div>
 </div>
 
-<% if @supplier.errors.any? %>
-  <script>
-    $(document).ready(function() {
-      history.pushState("", "", location.href + "/edit")
-    });
-  </script>
-<% end %>
-
+<script>
+  $("form").submit(function(){
+    $("label").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+    $("input").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+  });
+</script>
