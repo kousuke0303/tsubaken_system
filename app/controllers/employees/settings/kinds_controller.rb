@@ -34,7 +34,7 @@ class Employees::Settings::KindsController < ApplicationController
   end
 
   def index
-    @kinds = Kind.all
+    @kinds = Kind.all.includes(:category).order(:category_id)
   end
 
   def destroy
