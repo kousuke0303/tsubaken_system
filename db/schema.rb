@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_004822) do
+ActiveRecord::Schema.define(version: 2020_11_20_010111) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,12 @@ ActiveRecord::Schema.define(version: 2020_11_17_004822) do
     t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
     t.index ["manager_id"], name: "index_attendances_on_manager_id"
     t.index ["staff_id"], name: "index_attendances_on_staff_id"
+  end
+
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -117,6 +123,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_004822) do
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
+  end
+
+  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "amount"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_kinds_on_category_id"
   end
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -260,6 +275,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_004822) do
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
   add_foreign_key "matter_managers", "managers"
   add_foreign_key "matter_managers", "matters"
