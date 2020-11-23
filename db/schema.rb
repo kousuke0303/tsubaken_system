@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_010111) do
+ActiveRecord::Schema.define(version: 2020_11_23_003308) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -189,6 +189,17 @@ ActiveRecord::Schema.define(version: 2020_11_20_010111) do
     t.index ["client_id"], name: "index_matters_on_client_id"
   end
 
+  create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "kind_id"
+    t.string "title"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_quotations_on_client_id"
+    t.index ["kind_id"], name: "index_quotations_on_kind_id"
+  end
+
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "staff_id"
     t.integer "event_title_id"
@@ -282,6 +293,8 @@ ActiveRecord::Schema.define(version: 2020_11_20_010111) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "clients"
+  add_foreign_key "quotations", "clients"
+  add_foreign_key "quotations", "kinds"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"

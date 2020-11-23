@@ -200,6 +200,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :quotations, only: [:new, :create, :edit, :update, :index, :destroy]
+
     resources :matters do
       resources :tasks, only: [:update, :destroy] do
         post :move, on: :collection
