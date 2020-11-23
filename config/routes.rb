@@ -203,7 +203,9 @@ Rails.application.routes.draw do
     end
 
     resources :matters do
-      resources :images
+      resources :images do
+        post :edit, on: :member
+      end
     end
     
     namespace :settings do

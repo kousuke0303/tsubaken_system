@@ -1,25 +1,19 @@
-<div class="images-show">
-  <%= form_with(model: @image, url: employees_matter_image_path(@image), local: true) do |f| %>
-    <div>
-      <%= f.label :content, '内容' %>
-      <%= f.text_field :content, readonly: true %>
-    </div>
-    
-    <div>
-      <%= f.label :shooted_on, '撮影日' %>
-      <%= f.text_field :shooted_on, readonly: true %>
-    </div>
-  
-    <% if @image.images.present? %>
-      <p>現在登録されている画像（削除するものはチェックしてください）</p>
-      <% @image.images.each do |image| %>
-        <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-        <%= image_tag image.variant(resize: "400x400") %> <br>
-      <% end %>
+<%= form_with(local: true) do |f| %>
+  <div>
+    <%= f.label :content, '内容' %>
+    <%= f.text_field :content, class: "form-control" %>
+  </div>
+
+  <% if @image.images.present? %>
+    <p>現在登録されている画像（削除するものはチェックしてください）</p>
+    <% @image.images.each do |image| %>
+      <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+      <%= image_tag image.variant(resize: "400x400") %> <br>
     <% end %>
-  
-    <div>
-      <%= f.submit '削除する', class: "btn btn-md btn-danger"  %>
-    </div>
   <% end %>
-</div>
+
+  <div style="margin-top: 10px;">
+    <%= f.submit '編集する', class: "btn btn-md btn-primary" %>
+    <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-primary"  %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<div class="post-partial">
+  <% image.images.each do |images| %>
+    <%= image_tag(images, width:400) %>
+    <div class=img-display-area>
+      <%= image.content %>
+      <%= image.shooted_on %>
+      <div class="margin-left-posision">
+        <%= link_to '削除', employees_matter_image_path(current_matter, image.id), method: :delete, data: { confirm: '本当に削除してよろしいですか?' }, class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,52 +1,53 @@
 class Employees::ImagesController < ApplicationController
-  before_action :set_image, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_image, only: [:edit, :destroy]
+  before_action :set_images, only: [:index, :edit]
   before_action :current_matter
 
   def new
-    @image = current_matter.images.build
+    @image = Image.new
   end
 
   def create
-    @image = Image.create(image_params)
+    @image = Image.new(image_params)
     if @image.save
-      redirect_to employees_matter_image_url(current_matter, @image)
+      redirect_to employees_matter_images_url(current_matter, @image)
     else
       render :new
     end 
   end
 
-  def show
-    @images = Image.all
+  def index
   end
 
   def edit
-  end
-  
-  def destroy
-    @image.destroy
-    redirect_to employees_matter_image_url(current_matter, @image)
-  end
-
-  def update
-    if params[:image][:image_ids]
-      params[:image][:image_ids].each do |image_id|
+    if params[:image_ids]
+      params[:image_ids].each do |image_id|
         image = @image.images.find(image_id)
-        image.purge
+        Image.delete_image_contents(image)
       end
     end
-    if @image.destroy
-      flash[:success] = "削除しました"
-      respond_to do |format|
-        format.js
-      end
+
+    if params[:content]
+      Image.edit_image_content(@images)
+      flash[:success] = "編集しました"
+      redirect_to employees_matter_images_url
     else
       render :edit
     end
   end
   
+  def destroy
+    @image.destroy
+    redirect_to employees_matter_images_url(current_matter, @image)
+  end
+  
   private
     def set_image
-      @image = Image.with_attached_images.find(params[:id])
+      @image = Image.find(params[:id])
+    end
+    
+    def set_images
+      @images = Image.all.order('shooted_on DESC')
     end
 
     def image_params
