@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   end
 
   create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.string "amount"
     t.bigint "category_id"
     t.datetime "created_at", null: false

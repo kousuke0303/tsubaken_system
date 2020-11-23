@@ -44,7 +44,7 @@ class Employees::Settings::KindsController < ApplicationController
 
   private
     def kind_params
-      params.require(:kind).permit(:name, :category_id)
+      params.require(:kind).permit(:title, :category_id)
     end
 
     def set_kind

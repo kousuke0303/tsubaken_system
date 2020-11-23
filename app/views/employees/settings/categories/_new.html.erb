@@ -7,8 +7,8 @@
         <div class="card-body">
           <%= form_with(model: category, url: employees_settings_categories_path, method: :post, remote: true) do |f| %>
             <div class="category-create-errors"></div>
-            <%= f.label :name %>
-            <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+            <%= f.label :title %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
             
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark" %>
