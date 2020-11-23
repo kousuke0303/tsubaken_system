@@ -2,7 +2,7 @@ class Employees::QuotationsController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @quotations = Quotation.all
+    @quotations = Quotation.all.includes(:client)
   end
 
   def new
