@@ -8,16 +8,20 @@
     </div>
   <% end %>
 
+  <%= f.label :content %>
   <div>
     <%= f.text_area :content, maxlength: 300 %>
   </div>
-
-  <div class="margin-top-posision">
+  
+  <%= f.label :shooted_on %>
+  <div>
     <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
   </div>
   
-  <div class="margin-top-posision margin-bottom-posision">
+  <%= f.label :images %>
+  <div class="margin-bottom-posision">
     <%= f.file_field :images, multiple: true, class: "file-input" %>
   </div>
+
   <%= f.submit class: "btn btn-dark" %>
 <% end %>

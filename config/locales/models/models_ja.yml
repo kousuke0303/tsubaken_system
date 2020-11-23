@@ -55,6 +55,12 @@ ja:
           password_confirmation: パスワード再入力
           created_at: 作成日
           updated_at: 更新日
+        external_staff:
+          login_id: ログインID
+          name: 名前
+          kana: カナ
+          phone: 電話番号
+          email: メールアドレス
         client:
           id: ID
           name: 名前
@@ -83,6 +89,7 @@ ja:
           representative: 代表者名
           zip_code: 郵便番号
           address: 住所
+          industries: 業種
           created_at: 作成日
           updated_at: 更新日
         attendance:
@@ -126,5 +133,6 @@ ja:
           created_at: 作成日
           updated_at: 更新日
         image:
+          content: 内容
           images: 写真
           shooted_on: 撮影日
