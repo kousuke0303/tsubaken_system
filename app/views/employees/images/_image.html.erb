@@ -1,5 +1,5 @@
-<div class="post-partial">
-  <% image.images.each do |images| %>
+<% image.images.each do |images| %>
+  <figure class="images_partial">
     <%= image_tag(images, width:400) %>
     <div class=img-display-area>
       <%= image.content %>
@@ -8,5 +8,5 @@
         <%= link_to '削除画像選択', edit_employees_matter_image_path(current_matter, image.id), class: "btn btn-sm btn-primary" %>
       </div>
     </div>
-  <% end %>
-</div>
+  </figure>
+<% end %>
