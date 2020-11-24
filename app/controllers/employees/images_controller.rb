@@ -1,4 +1,6 @@
 class Employees::ImagesController < ApplicationController
+  layout "image_layout"
+  
   before_action :set_images, only: [:index, :edit]
   before_action :current_matter
 

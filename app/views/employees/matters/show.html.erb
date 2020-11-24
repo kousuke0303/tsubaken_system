@@ -16,8 +16,8 @@
         <li class="nav-item">
           <a class="nav-link" href="#tasks" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">タスク一覧</a>
         </li>
-        <li style="margin-top: 2px;">
-          <%= link_to "写真一覧", new_employees_matter_image_path(current_matter), target: :_blank, class: "btn btn-dark" %>
+        <li class="link-to-image-index-buttom-position">
+          <%= link_to "写真一覧", employees_matter_images_path(current_matter), target: :_blank, rel: :noopener, rel: :noreferrer, class: "btn btn-dark" %>
         </li>
       </ul>
     </div>
