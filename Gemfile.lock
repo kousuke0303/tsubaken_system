@@ -125,7 +125,6 @@ GEM
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
     ffi (1.13.1)
-    ffi (1.13.1-x64-mingw32)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
     font-awesome-sass (5.15.1)
@@ -179,14 +178,11 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     mysql2 (0.5.3)
-    mysql2 (0.5.3-x64-mingw32)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
     nio4r (2.5.4)
     nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
-    nokogiri (1.10.10-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
     oauth2 (1.4.4)
@@ -284,8 +280,6 @@ GEM
       tilt (>= 1.1, < 3)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc (2.4.0-x64-mingw32)
-      ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -319,14 +313,11 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2020.4)
-      tzinfo (>= 1.0.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
-    unf_ext (0.0.7.7-x64-mingw32)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (3.5.1)
@@ -344,7 +335,6 @@ GEM
 
 PLATFORMS
   ruby
-  x64-mingw32
 
 DEPENDENCIES
   active_decorator

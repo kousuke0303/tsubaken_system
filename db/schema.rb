@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_120924) do
+ActiveRecord::Schema.define(version: 2020_11_23_003308) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,12 @@ ActiveRecord::Schema.define(version: 2020_11_17_120924) do
     t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
     t.index ["manager_id"], name: "index_attendances_on_manager_id"
     t.index ["staff_id"], name: "index_attendances_on_staff_id"
+  end
+
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -128,6 +134,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_120924) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
+  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "amount"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_kinds_on_category_id"
+  end
+
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
@@ -181,6 +196,17 @@ ActiveRecord::Schema.define(version: 2020_11_17_120924) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_matters_on_client_id"
+  end
+
+  create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "kind_id"
+    t.string "title"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_quotations_on_client_id"
+    t.index ["kind_id"], name: "index_quotations_on_kind_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -270,12 +296,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_120924) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
   add_foreign_key "matter_managers", "managers"
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "clients"
+  add_foreign_key "quotations", "clients"
+  add_foreign_key "quotations", "kinds"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"

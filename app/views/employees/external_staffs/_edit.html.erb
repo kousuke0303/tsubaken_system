@@ -15,7 +15,7 @@
               <%= f.text_field :login_id_body, required: true, autocomplete: @login_id_body, class: "form-control", maxlength: 8, id: "edit-external-staff-login-id-body" %>
             </div>
           </div>
-          <%= f.hidden_field :login_id, id: "edit-external-staff-login-id" %>
+          <%= f.text_field :login_id, id: "edit-external-staff-login-id" %>
 
           <%= f.label :name %>
           <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
@@ -30,7 +30,7 @@
           <%= f.email_field :email, maxlength: 254, class: "form-control" %>
 
           <div class="btn-area">
-            <%= f.submit "更新", class: "btn btn-dark", id: "edit-external-staff" %>
+            <%= f.submit "更新", class: "btn btn-dark", id: "update-external-staff" %>
           </div>
         <% end %>
         </div>
@@ -38,3 +38,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on("turbolinks:load", function() {
+    $("#update-external-staff").click(function() {
+      var loginIdLead = $("#edit-external-staff-lagin-id-lead").html();
+      var loginIdBody = $("#edit-external-staff-login-id-body").val();
+      $("#edit-external-staff-login-id").val(loginIdLead + loginIdBody);
+    });
+  });
+</script>
+
+<script>
+  $("form").submit(function(){
+    $("label").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+    $("input").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+  });
+</script>

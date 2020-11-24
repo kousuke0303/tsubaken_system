@@ -1,5 +1,4 @@
 class Employees::ImagesController < ApplicationController
-  before_action :set_image, only: [:edit, :destroy]
   before_action :set_images, only: [:index, :edit]
   before_action :current_matter
 
@@ -20,32 +19,18 @@ class Employees::ImagesController < ApplicationController
   end
 
   def edit
+    @image = Image.find(params[:id])
     if params[:image_ids]
       params[:image_ids].each do |image_id|
         image = @image.images.find(image_id)
         Image.delete_image_contents(image)
       end
+      flash[:success] = "削除しました"
+      redirect_to employees_matter_images_url(current_matter, @image)
     end
-
-    if params[:content]
-      Image.edit_image_content(@images)
-      flash[:success] = "編集しました"
-      redirect_to employees_matter_images_url
-    else
-      render :edit
-    end
-  end
-  
-  def destroy
-    @image.destroy
-    redirect_to employees_matter_images_url(current_matter, @image)
   end
   
   private
-    def set_image
-      @image = Image.find(params[:id])
-    end
-    
     def set_images
       @images = Image.all.order('shooted_on DESC')
     end

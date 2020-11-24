@@ -40,9 +40,24 @@
 <script>
   $(document).on("turbolinks:load", function() {
     $("#create-external-staff").click(function() {
-      let loginIdLead = $("#new-external-staff-lagin-id-lead").html();
-      let loginIdBody = $("#new-external-staff-login-id-body").val();
+      var loginIdLead = $("#new-external-staff-lagin-id-lead").html();
+      var loginIdBody = $("#new-external-staff-login-id-body").val();
       $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
     });
+  });
+</script>
+
+<script>
+  $("form").submit(function(){
+    $("label").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+    $("input").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
   });
 </script>

@@ -14,6 +14,7 @@
           <li><%= link_to "Staff", employees_staffs_path %></li>
         </ul>
       </li>
+      <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li>
         <a href="#attendances-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">勤怠管理</a>
         <ul class="collapse list-unstyled" id="attendances-menu">
@@ -22,7 +23,7 @@
         </ul>
       </li>
       <li><%= link_to "顧客管理", employees_clients_path %></li>
-      <li><%= link_to "外注先管理", employees_suppliers_path %></li>
+      <li><%= link_to "見積書管理", employees_quotations_path %></li>
       <li><%= link_to "案件管理", employees_matters_path %></li>
       <li><%= link_to "カレンダー", "#" %></li>
       <li>
@@ -31,6 +32,8 @@
           <li><%= link_to "部署", employees_settings_departments_path %></li>
           <li><%= link_to "外注先", employees_settings_industries_path %></li>
           <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
+          <li><%= link_to "見積書カテゴリ", employees_settings_categories_path %></li>
+          <li><%= link_to "見積書タイプ", employees_settings_kinds_path %></li>
         </ul>
       </li>
       <li><a href="#">未定</a></li>

@@ -1,11 +1,6 @@
 <%= form_with(local: true) do |f| %>
-  <div>
-    <%= f.label :content, '内容' %>
-    <%= f.text_field :content, class: "form-control" %>
-  </div>
-
   <% if @image.images.present? %>
-    <p>現在登録されている画像（削除するものはチェックしてください）</p>
+    <p>削除するものはチェックしてください</p>
     <% @image.images.each do |image| %>
       <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
       <%= image_tag image.variant(resize: "400x400") %> <br>
