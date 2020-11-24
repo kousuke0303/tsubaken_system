@@ -25,3 +25,11 @@
 
   <%= f.submit class: "btn btn-dark" %>
 <% end %>
+
+<% if @image.errors.any? %>
+  <script>
+    $(document).ready(function() {
+      history.pushState("", "", location.href + "/new")
+    });
+  </script>
+<% end %>
