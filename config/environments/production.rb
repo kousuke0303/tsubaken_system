@@ -29,13 +29,9 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
-<<<<<<< HEAD
   
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :amazon
-=======
-  config.serve_static_assets = true
->>>>>>> 38074afc7d92a9408786fe70544a087aefc2a5e3
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
