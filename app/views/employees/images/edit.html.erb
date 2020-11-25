@@ -8,6 +8,11 @@
   <div class="margin-bottom-posision">
     <%= f.file_field :images, multiple: true, class: "file-input" %>
   </div>
+  
+  <div>
+    <%= f.submit '編集する', class: "btn btn-md btn-primary" %>
+    <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-primary" %>
+  </div>
 
   <% if @image.images.attached? %>
     <div class="margin-top-posision">
@@ -20,9 +25,4 @@
       </figure>
     <% end %>
   <% end %>
-  
-  <div class="edit-button-position">
-    <%= f.submit '編集する', class: "btn btn-md btn-primary" %>
-    <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-primary" %>
-  </div>
 <% end %>
