@@ -7,6 +7,14 @@
   <p>写真追加</p>
   <div class="margin-bottom-posision">
     <%= f.file_field :images, multiple: true, class: "file-input" %>
+    <% if @image.errors.any? %>
+      <div id="error_explanation">
+        <% @image.errors.full_messages.each do |message| %>
+          <li class="image-error-color"><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
   
   <div>
@@ -20,8 +28,12 @@
     </div>
     <% @image.images.each do |image| %>
       <figure class="images-partial">
-        <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-        <%= image_tag image.variant(resize: "400x400") %>
+        <% if !image.blob.content_type.in?(%('image/jpeg image/png image/gif image/bmp image/psd image/tiff')) %>
+          <% image.purge %>
+        <% else %>
+          <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+          <%= image_tag image.variant(resize: "400x400") %>
+        <% end %>
       </figure>
     <% end %>
   <% end %>

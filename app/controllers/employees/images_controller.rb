@@ -25,7 +25,7 @@ class Employees::ImagesController < ApplicationController
     if params[:image_ids]
       params[:image_ids].each do |image_id|
         image = @image.images.find(image_id)
-        Image.delete_image_contents(image)
+        image.purge
       end
     end
 
