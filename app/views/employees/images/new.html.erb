@@ -1,35 +1,37 @@
-<%= form_with(model: @image, url: employees_matter_images_path(current_matter), local: true) do |f| %>
-  <% if @image.errors.any? %>
-    <div id="error_explanation">
-      <% @image.errors.full_messages.each do |message| %>
-        <li class="image-error-color"><%= message %></li>
-      <% end %>
-      </ul>
+<div class="top-new-image">
+  <%= form_with(model: @image, url: employees_matter_images_path(current_matter), local: true) do |f| %>
+    <% if @image.errors.any? %>
+      <div id="error_explanation">
+        <% @image.errors.full_messages.each do |message| %>
+          <li class="image-error-color"><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <%= f.label :content %>
+    <div>
+      <%= f.text_area :content, maxlength: 300 %>
     </div>
+    
+    <%= f.label :shooted_on %>
+    <div>
+      <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
+    </div>
+    
+    <%= f.label :images %>
+    <div class="margin-bottom-posision">
+      <%= f.file_field :images, multiple: true, class: "file-input" %>
+    </div>
+  
+    <%= f.submit class: "btn btn-dark" %>
   <% end %>
-
-  <%= f.label :content %>
-  <div>
-    <%= f.text_area :content, maxlength: 300 %>
-  </div>
   
-  <%= f.label :shooted_on %>
-  <div>
-    <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
-  </div>
-  
-  <%= f.label :images %>
-  <div class="margin-bottom-posision">
-    <%= f.file_field :images, multiple: true, class: "file-input" %>
-  </div>
-
-  <%= f.submit class: "btn btn-dark" %>
-<% end %>
-
-<% if @image.errors.any? %>
-  <script>
-    $(document).ready(function() {
-      history.pushState("", "", location.href + "/new")
-    });
-  </script>
-<% end %>
+  <% if @image.errors.any? %>
+    <script>
+      $(document).ready(function() {
+        history.pushState("", "", location.href + "/new")
+      });
+    </script>
+  <% end %>
+</div>
