@@ -7,12 +7,21 @@
   width: 100%;
 }
 
+.image-error-color {
+  color: red;
+}
+
 .margin-top-posision {
   margin-top: 10px;
 }
 
 .margin-bottom-posision {
   margin-bottom: 17px;
+}
+
+.margin-bottom-index-posision {
+  margin-bottom: 17px;
+  margin-left: 20px;
 }
 
 .margin-left-posision {
@@ -23,6 +32,19 @@
   margin-top: 2px;
 }
 
-.images_partial {
-  float: left
+.images-partial {
+  float: left;
+  margin-left: 40px;
+}
+
+.edit-image-content-position{
+  margin-top: -15px; margin-bottom: 10px;
+}  
+
+.link-to-image-edit-buttom-position {
+  margin-bottom: 10px;
+}
+
+.edit-button-position {
+  position: absolute; margin-top: 620px;
 }

@@ -26,6 +26,7 @@
   
   <!--通常ページのレイアウト-->
   <% else %>
+    <%= render "layouts/modal" %>
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/image_admin_layout" %>

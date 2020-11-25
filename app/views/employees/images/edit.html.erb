@@ -1,14 +1,28 @@
-<%= form_with(local: true) do |f| %>
-  <% if @image.images.present? %>
-    <p>削除するものはチェックしてください</p>
+<%= form_with(url: edit_employees_matter_image_path(current_matter, @image.id), local: true) do |f| %>
+  <p>内容</p>
+  <div class="edit-image-content-position">
+    <h2><%= @image.content %></h2>
+  </div>
+
+  <p>写真追加</p>
+  <div class="margin-bottom-posision">
+    <%= f.file_field :images, multiple: true, class: "file-input" %>
+  </div>
+
+  <% if @image.images.attached? %>
+    <div class="margin-top-posision">
+      <p>削除するものはチェックしてください</p>
+    </div>
     <% @image.images.each do |image| %>
-      <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-      <%= image_tag image.variant(resize: "400x400") %> <br>
+      <figure class="images-partial">
+        <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+        <%= image_tag image.variant(resize: "400x400") %>
+      </figure>
     <% end %>
   <% end %>
-
-  <div class="margin-top-posision">
-    <%= f.submit '削除する', class: "btn btn-md btn-primary" %>
-    <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-primary"  %>
+  
+  <div class="edit-button-position">
+    <%= f.submit '編集する', class: "btn btn-md btn-primary" %>
+    <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-primary" %>
   </div>
 <% end %>

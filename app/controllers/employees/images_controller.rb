@@ -27,17 +27,21 @@ class Employees::ImagesController < ApplicationController
         image = @image.images.find(image_id)
         Image.delete_image_contents(image)
       end
-      flash[:success] = "削除しました"
-      redirect_to employees_matter_images_url(current_matter, @image)
     end
+
+    @image.update_attributes(image_edit_params)
   end
   
   private
     def set_images
       @images = Image.all.order('shooted_on DESC')
     end
-
+    
     def image_params
       params.require(:image).permit(:content, :shooted_on, images: [])
+    end
+
+    def image_edit_params
+      params.permit(:content, :shooted_on, images: [])
     end
 end
