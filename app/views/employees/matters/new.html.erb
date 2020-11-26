@@ -20,7 +20,7 @@
       <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
       <div class="card-body">
 
-        <%= f.label :client_id %>
+        <%= f.label :client %>
         <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
       </div>
     </div>
@@ -30,11 +30,11 @@
       <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
       <div class="card-body">
 
-        <%= f.label :scheduled_start_at %>
-        <%= f.date_field :scheduled_start_at, class: "form-control" %>
+        <%= f.label :scheduled_started_on %>
+        <%= f.date_field :scheduled_started_on, class: "form-control" %>
 
-        <%= f.label :scheduled_finish_at, class: "mt-1e" %>
-        <%= f.date_field :scheduled_finish_at, class: "form-control" %>
+        <%= f.label :scheduled_finished_on, class: "mt-1e" %>
+        <%= f.date_field :scheduled_finished_on, class: "form-control" %>
 
         <%= f.label :status, class: "mt-1e" %>
         <%= f.select :status, Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]}, {}, class: "form-control" %>

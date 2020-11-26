@@ -11,6 +11,9 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+  
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
@@ -53,6 +56,9 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = true
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

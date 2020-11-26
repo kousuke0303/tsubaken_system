@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AZABU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.1.0/jquery.sidebar.min.js"></script>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+    <%= render "layouts/shim" %>
+    <%= favicon_link_tag("favicon.ico") %>
+  </head>
+  
+  <!--ログイン画面のレイアウト-->
+  <% if @type == "log_in" %>
+    <body class="login-wrapper">
+      <%= render "layouts/header" %>
+
+      <div class="login-content">
+        <%= render "shared/flash" %>
+        <%= yield %>
+      </div>
+    </body>
+  
+  <!--通常ページのレイアウト-->
+  <% else %>
+    <%= render "layouts/modal" %>
+    <body>
+      <% if admin_signed_in? %>
+        <%= render "layouts/layout_type/image_admin_layout" %>
+      <% elsif manager_signed_in? %>
+        <%= render "layouts/layout_type/image_manager_layout" %>
+      <% elsif staff_signed_in? %>
+        <%= render "layouts/layout_type/image_staff_layout" %>
+      <% elsif client_signed_in? %>
+        <%= render "layouts/layout_type/image_client_layout" %>
+      <% elsif external_staff_signed_in? %>
+        <%= render "layouts/layout_type/image_external_staff_layout" %>
+      <% end %>
+    </body>
+  <% end %>
+</html>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  })
+</script>

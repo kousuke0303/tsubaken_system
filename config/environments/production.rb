@@ -29,7 +29,9 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
-  config.serve_static_assets = true
+  
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :amazon
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -76,6 +78,7 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
