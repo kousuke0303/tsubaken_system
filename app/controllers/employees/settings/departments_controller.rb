@@ -1,7 +1,11 @@
 class Employees::Settings::DepartmentsController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_department, only: [:update, :destroy]
-  
+  before_action :set_department, only: [:edit, :update, :destroy]
+
+  def new
+    @department = Department.new
+  end
+
   def create
     @department = Department.new(department_params)
     if @department.save
@@ -15,9 +19,10 @@ class Employees::Settings::DepartmentsController < ApplicationController
   end
 
   def index
-    @department = Department.new
     @departments = Department.all
-    # @departments = Department.where.not(id: 1)
+  end
+
+  def edit
   end
 
   def update

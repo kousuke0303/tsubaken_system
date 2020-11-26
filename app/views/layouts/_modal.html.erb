@@ -59,13 +59,8 @@
 
   <!--部署new・edit-->
   <% if controller_name == "departments" && action_name == "index" %>
-    <div id="department-new" class="modal fade" role="dialog">
-      <%= render "employees/settings/departments/new" %>
-    </div>
-
-    <div id="department-edit" class="modal fade" role="dialog">
-      <%= render "employees/settings/departments/edit" %>
-    </div>
+    <div id="department-new" class="modal fade" role="dialog"></div>
+    <div id="department-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--デフォルトタスクnew・edit-->

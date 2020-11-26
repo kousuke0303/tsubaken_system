@@ -5,13 +5,13 @@
       <div class="card mb-3">
         <h5 class="card-header">部署作成</h5>
         <div class="card-body">
-          <%= form_with(model: @department, url: employees_settings_departments_path, method: :post, remote: true) do |f| %>
+          <%= form_with(model: department, url: employees_settings_departments_path, method: :post, remote: true) do |f| %>
             <div class="department-create-errors"></div>
             <%= f.label :name %>
             <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
             
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
           <% end %>
         </div>
@@ -19,3 +19,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  $("form").submit(function(){
+    $("label").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+    $("input").each(function(index, element){
+      if($(element).parent().hasClass("field-with-errors")){
+        $(element).unwrap();
+      }
+    })
+  });
+</script>
