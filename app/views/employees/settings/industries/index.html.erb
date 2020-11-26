@@ -1,7 +1,9 @@
 <div class="col-lg-12 col-md-12">
   <h2>
     業種一覧
-    <button class="btn btn-dark float-r" data-toggle="modal" data-target="#industry-new"><i class="fas fa-plus"></i> 新規業種</button>
+    <%= link_to new_employees_settings_industry_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> 新規業種
+    <% end %>
   </h2>
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark"></div>
@@ -16,10 +18,7 @@
           <tr>
             <td><%= industry.name %></td>
             <td>
-              <button class="btn btn-sm btn-dark to-edit-industry" data-toggle="modal" data-target="#industry-edit"
-                      data-id="<%= industry.id %>" data-name="<%= industry.name %>">
-                編集
-              </button>
+              <%= link_to "編集", edit_employees_settings_industry_path(industry), remote: true, class: "btn btn-sm btn-dark" %>
               <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>
@@ -28,14 +27,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on("turbolinks:load", function() {
-    $(".to-edit-industry").click(function() {
-      let name = $(this).data("name");
-      let industryId = $(this).data("id");
-      $("#industry-name").val(name);
-      $("#edit-industry-form").attr("action", "/employees/settings/industries/" + industryId);
-    });
-  });
-</script>

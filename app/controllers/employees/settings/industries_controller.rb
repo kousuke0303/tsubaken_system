@@ -1,9 +1,12 @@
 class Employees::Settings::IndustriesController < ApplicationController
-  before_action :set_industry, only: [:show, :edit, :update, :destroy]
+  before_action :set_industry, only: [:edit, :update, :destroy]
+
+  def new
+    @industry = Industry.new
+  end
 
   def index
     @industries = Industry.all
-    @industry = Industry.new
   end
 
   def create
@@ -16,6 +19,9 @@ class Employees::Settings::IndustriesController < ApplicationController
         format.js
       end
     end
+  end
+
+  def edit
   end
 
   def update

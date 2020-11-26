@@ -1,4 +1,4 @@
-$(".industry-update-errors").html('<%= escape_javascript(render "shared/error_messages", esource: @industry) %>');
+$(".industry-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @industry) %>');
 <% @industry.errors.messages.keys.each do |key_attribute| %>
   var addDiv = $('<div class="field-with-errors">');
   var addLabel = $('[name="industry[<%= key_attribute.intern.to_s %>]"]').prev();
