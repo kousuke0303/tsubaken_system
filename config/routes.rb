@@ -135,15 +135,15 @@ Rails.application.routes.draw do
 
   # Admin関係
   scope module: :admins do
-    resources :admins, only: [:show] do
-      get :top, on: :member
+    namespace :admins do
+      get :top
     end
   end
   
   # Manager関係
   scope module: :managers do
-    resources :managers, only: [:index] do
-      get :top, on: :member
+    namespace :managers do
+      get :top
     end
   end
 
@@ -153,8 +153,8 @@ Rails.application.routes.draw do
   
   # Client関係
   scope module: :clients do
-    resources :clients, only: [:index] do
-      get :top, on: :member
+    namespace :clients do
+      get :top
     end
   end
 
@@ -164,8 +164,8 @@ Rails.application.routes.draw do
 
   # Staff関係
   scope module: :staffs do
-    resources :staffs, only: [:index] do
-      get :top, on: :member
+    namespace :staffs do
+      get :top
     end
   end
 
@@ -175,8 +175,8 @@ Rails.application.routes.draw do
 
   # ExternalStaff関係
   scope module: :external_staffs do
-    resources :external_staffs, only: [:index] do
-      get :top, on: :member
+    namespace :external_staffs do
+      get :top
     end
   end
 
