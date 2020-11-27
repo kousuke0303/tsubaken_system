@@ -1,7 +1,11 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
-  before_action :set_departments, only: [:show, :index]
+  before_action :set_departments, only: [:new, :show, :edit, :index]
+
+  def new
+    @staff = Staff.new
+  end
 
   def create
     @staff = Staff.new(staff_params.merge(password: "password", password_confirmation: "password"))
@@ -16,9 +20,11 @@ class Employees::StaffsController < ApplicationController
   end
 
   def index
-    @staff = Staff.new
     @enrolled_staffs = Staff.enrolled
     @retired_staffs = Staff.retired
+  end
+
+  def edit
   end
 
   def show
