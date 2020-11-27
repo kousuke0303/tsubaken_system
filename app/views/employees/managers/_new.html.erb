@@ -45,14 +45,6 @@
   </div>
 </div>
 
-<% if @manager.errors.any? %>
-  <script>
-    $(document).ready(function() {
-      history.pushState("", "", location.href + "/new")
-    });
-  </script>
-<% end %>
-
 <script>
   $("form").submit(function(){
     $("label").each(function(index, element){
