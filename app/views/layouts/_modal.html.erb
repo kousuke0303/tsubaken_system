@@ -78,16 +78,12 @@
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
   <!--顧客new-->
   <% if controller_name == "clients" && action_name == "index" %>
-    <div id="client-new" class="modal fade" role="dialog">
-      <%= render "employees/clients/new" %>
-    </div>
+    <div id="client-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--顧客edit-->
   <% if controller_name == "clients" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog">
-      <%= render "employees/clients/edit" %>
-    </div>
+    <div id="client-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外注先new-->
