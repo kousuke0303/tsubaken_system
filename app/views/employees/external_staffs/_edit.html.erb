@@ -49,17 +49,4 @@
   });
 </script>
 
-<script>
-  $("form").submit(function(){
-    $("label").each(function(index, element){
-      if($(element).parent().hasClass("field-with-errors")){
-        $(element).unwrap();
-      }
-    })
-    $("input").each(function(index, element){
-      if($(element).parent().hasClass("field-with-errors")){
-        $(element).unwrap();
-      }
-    })
-  });
-</script>
+<%= render "shared/reset_errors_jq" %>
