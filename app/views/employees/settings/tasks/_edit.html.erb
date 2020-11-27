@@ -7,12 +7,7 @@
         <div class="card-body">
           <%= form_with(model: default_task, url: employees_settings_task_path(default_task), method: :patch, remote: true) do |f| %>
             <div class="default-task-update-errors"></div>
-            <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
-            <%= f.label :content %>
-            <%= f.text_area :content, required: true, class: "form-control", maxlength: 3000 %>
-            
+            <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
