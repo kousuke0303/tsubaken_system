@@ -1,9 +1,13 @@
 class Employees::SuppliersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+  before_action :set_industries, only: [:new, :edit]
+
+  def new
+    @supplier = Supplier.new
+  end
 
   def index
-    @supplier = Supplier.new
     @suppliers = Supplier.all
   end
 
@@ -17,6 +21,9 @@ class Employees::SuppliersController < ApplicationController
         format.js
       end
     end
+  end
+
+  def edit
   end
 
   def update
@@ -44,6 +51,10 @@ class Employees::SuppliersController < ApplicationController
   private
     def set_supplier
       @supplier = Supplier.find(params[:id])
+    end
+
+    def set_industries
+      @industries = Industry.all
     end
 
     def supplier_params
