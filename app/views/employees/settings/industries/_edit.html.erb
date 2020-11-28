@@ -8,9 +8,7 @@
         <div class="card-body">
           <%= form_with(model: industry, url: employees_settings_industry_path(industry), method: :patch, remote: true) do |f| %>
             <div class="industry-update-errors"></div>
-            <%= f.label :name %>
-            <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
-            
+            <%= render "form", f: f %>    
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
