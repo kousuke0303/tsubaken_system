@@ -22,15 +22,15 @@ App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
     // var recieve_massage = message["message"] 
   },
   
-  speak: function(message, matter_id, admin_id, manager_id, staff_id, external_staff_id) {
+  speak: function(message, file, matter_id, admin_id, manager_id, staff_id, external_staff_id) {
     if(admin_id != null) {
-      return this.perform('speak', {message: message, matter_id: matter_id, admin_id: admin_id});
+      return this.perform('speak', {message: message, file: file, matter_id: matter_id, admin_id: admin_id});
     }else if (manager_id != null) {
-      return this.perform('speak', {message: message, matter_id: matter_id, manager_id: manager_id});
+      return this.perform('speak', {message: message, file: file, matter_id: matter_id, manager_id: manager_id});
     }else if (staff_id != null) {
-      return this.perform('speak', {message: message, matter_id: matter_id, staff_id: staff_id});
+      return this.perform('speak', {message: message, file: file, matter_id: matter_id, staff_id: staff_id});
     }else if (external_staff_id != null) {
-      return this.perform('speak', {message: message, matter_id: matter_id, external_staff_id: external_staff_id});
+      return this.perform('speak', {message: message, file: file, matter_id: matter_id, external_staff_id: external_staff_id});
     }
   },
 });
