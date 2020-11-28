@@ -190,7 +190,7 @@ Rails.application.routes.draw do
     resources :staffs
     resources :clients
     resources :suppliers do
-      resources :external_staffs, only: [:create, :show, :update, :destroy]
+      resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
     end
     resources :attendances, only: [:create, :update, :destroy] do
       patch :erase, on: :member

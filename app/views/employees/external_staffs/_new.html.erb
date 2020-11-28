@@ -5,12 +5,12 @@
     <div class="card mb-3">
       <h5 class="card-header">外部Staff作成</h5>
       <div class="card-body">
-      <%= form_with(model: @external_staff, url: employees_supplier_external_staffs_path(@supplier), method: :post, remote: true) do |f| %>
+      <%= form_with(model: external_staff, url: employees_supplier_external_staffs_path(supplier), method: :post, remote: true) do |f| %>
         <div class="external-staff-create-errors"></div>
 
         <%= f.label :login_id %>
         <div class="flex">
-          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= @supplier.id %>-</div>
+          <div class="login-id-lead" id="new-external-staff-lagin-id-lead">SP<%= supplier.id %>-</div>
           <div class="login-id-body"><%= f.text_field :login_id_body, required: true, class: "form-control", maxlength: 8, id: "new-external-staff-login-id-body" %></div>
         </div>
         <%= f.hidden_field :login_id, id: "new-external-staff-login-id" %>
@@ -38,12 +38,10 @@
 </div>
 
 <script>
-  $(document).on("turbolinks:load", function() {
-    $("#create-external-staff").click(function() {
-      var loginIdLead = $("#new-external-staff-lagin-id-lead").html();
-      var loginIdBody = $("#new-external-staff-login-id-body").val();
-      $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
-    });
+  $("#create-external-staff").click(function() {
+    var loginIdLead = $("#new-external-staff-lagin-id-lead").html();
+    var loginIdBody = $("#new-external-staff-login-id-body").val();
+    $("#new-external-staff-login-id").val(loginIdLead + loginIdBody);
   });
 </script>
 
