@@ -4,7 +4,7 @@
   <div class="balloon_r">
     <span><%= message.created_at.strftime("%H:%M") %></span>
     <div class="my_says">
-      <p id="<%= message.id %>"><%= message.message %></p>
+      <p id="<%= message.id %>"><%= simple_format message.message %></p>
     </div>
   </div>
             
@@ -17,7 +17,7 @@
     </div>
     <div>
       <span class="name_container"><%= sender_name(message) %></span>
-      <p id="<%= message.id %>" class="says"><%= message.message %></p>
+      <p id="<%= message.id %>"><%= simple_format message.message, class: "says" %></p>
     </div>
     <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
   </div>

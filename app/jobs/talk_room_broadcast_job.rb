@@ -22,8 +22,9 @@ class TalkRoomBroadcastJob < ApplicationJob
     elsif message.external_staff_id
       @sender = ExternalStaff.find(message.external_staff_id).name
     end
-    html = renderer.render(partial: "employees/talkrooms/add_message", locals: {message: message, sender: @sender})
-    ActionCable.server.broadcast "talk_room_channel", html: html, sender: @sender
+    recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: {message: message, sender: @sender})
+    sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: {message: message, sender: @sender})
+    ActionCable.server.broadcast "talk_room_channel", recieve_html: recieve_html, sender_html: sender_html, sender: @sender
     # ActionCable.server.broadcast 'talk_room_channel', message: render_message(current_admin)
     
   end

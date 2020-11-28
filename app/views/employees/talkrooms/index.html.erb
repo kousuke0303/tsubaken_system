@@ -46,10 +46,13 @@
         </div>
         <div class="row form_container">
           <div class="col-sm-10">
-            <input type="text" id="chat-input" data-behavior="room_speaker" placeholder="メッセージを入力" class="form-control">
+            <textarea id="chat-input" data-behavior="room_speaker" placeholder="メッセージを入力" class="form-control"></textarea>
+          </div>
+          <div class="col-sm-10">
+            <input type="file" name="image">
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-success chat_submit">送信</button>
+            <button type="button" class="btn btn-dark chat_submit">送信</button>
           </div>
         </div>
       </form>
@@ -59,6 +62,7 @@
 
 
 
+<!--▼talk_room.jsのspeakアクションに送信-->
 <script>
 $(function(){
   $(".chat_submit").on("click",function(){
@@ -70,11 +74,10 @@ $(function(){
     var external_staff_id = $("external_staff_id").val();
     
     App.talk_room.speak(message, matter_id, admin_id, manager_id, staff_id, external_staff_id);
-    $(".chat-input").val("");
+    $("#chat-input").val("");
   });
 });
 </script>
-
 
 <!--▼スクロール関係-->
 <script>

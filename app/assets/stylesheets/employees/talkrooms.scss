@@ -58,7 +58,7 @@
 }
 
 .form_container {
-  background: #797878;
+  background: #dcddde;
   padding: 1em;
   margin: 0;
 }
@@ -91,7 +91,7 @@
 }
 
 .my_says {
-  max-width:500px; /*最大幅は任意*/
+  max-width: 500px; /*最大幅は任意*/
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -105,7 +105,9 @@
 }
 
 .my_says p{
-  margin:8px 0 0 !important; 
+  max-width: 470px;
+  margin: 0!important;
+  word-wrap: break-word;
 }
 
 .my_says p:first-child{
@@ -157,10 +159,12 @@
   line-height: 1.5;
 /*   align-items: center; */
   color: black;
+  word-wrap: break-word;
+  
 }
-.says p{
-  margin:8px 0 0 !important; 
-}
+// .says p{
+//   margin:8px 0 0 !important; 
+// }
 .says p:first-child{
   margin-top:0 !important;
 }

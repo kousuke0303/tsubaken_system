@@ -7,10 +7,13 @@ App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
    
   received: function(data) {
     const current_name = document.getElementById('current_name');
-    // 受け取った送信者の名前とチャットルームの投稿者の名前が一致した場合のみ非同期処理
+    // 受け取った送信者の名前とチャットルームの投稿者の名前が一致・不一致による非同期処理
     if (current_name.textContent != data["sender"]){
       const messages = document.getElementById('message_container');
-      messages.insertAdjacentHTML('beforeend', data['html']);
+      messages.insertAdjacentHTML('beforeend', data['recieve_html']);
+    } else {
+      const messages = document.getElementById('message_container');
+      messages.insertAdjacentHTML('beforeend', data['sender_html']);
     };
     // const add_current_name = document.getElementById('add_current_name');
     // add_current_name.textContent = current_name.textContent;
