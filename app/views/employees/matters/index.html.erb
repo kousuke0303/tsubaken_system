@@ -1,4 +1,5 @@
 <div class="col-lg-12 col-md-12">
+  
   <h2>
     <i class="fas fa-clipboard"></i> 案件一覧
     <%= link_to new_employees_matter_path, class: "btn btn-dark float-r" do %>
@@ -6,7 +7,7 @@
     <% end %>
   </h2>
 
-  <div class="card text-center tab-wrapper">
+  <div class="card text-center tab-wrapper mt-1e">
     <div class="card-header bg-dark">
       <div>
         <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
@@ -27,7 +28,7 @@
 
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-borderd text-nowrap common-table">
+        <table class="table table-bordered text-nowrap common-table">
           <tr>
             <th>タイトル</th>
             <th>顧客</th>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  mount ActionCable.server => '/cable'
   root "static_pages#login_index"
 
   # API関連
@@ -199,6 +201,9 @@ Rails.application.routes.draw do
       resources :tasks, only: [:update, :destroy] do
         post :move, on: :collection
         post :create, on: :collection
+      end
+      resources :talkrooms, only: :index do
+        get :scroll_get_messages, on: :collection
       end
     end
     

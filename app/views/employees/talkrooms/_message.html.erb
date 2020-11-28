@@ -1,0 +1,25 @@
+<% if my_message?(message) %>
+  
+  <!--自分のメッセージ-->
+  <div class="balloon_r">
+    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <div class="my_says">
+      <p id="<%= message.id %>"><%= message.message %></p>
+    </div>
+  </div>
+            
+<% else %>
+        
+  <!--自分以外のメッセージ-->
+  <div class="balloon_l">
+    <div class="faceicon">
+      <img src="https://stand-4u.com/stand-4u/wp-content/uploads/2019/09/s4man.png" alt="" >
+    </div>
+    <div>
+      <span class="name_container"><%= sender_name(message) %></span>
+      <p id="<%= message.id %>" class="says"><%= message.message %></p>
+    </div>
+    <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+  </div>
+              
+<% end %>
