@@ -35,7 +35,7 @@
             <%= f.label :finished_at %>
             <%= f.time_field :finished_at, class: "form-control", required: true %>
 
-            <input name="prev_url" hidden>
+            <input name="prev_action" value="<%= @prev_action %>" hidden>
 
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark", id: "create-attendance-submit" %>

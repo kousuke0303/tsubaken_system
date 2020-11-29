@@ -16,7 +16,7 @@
         $("#edit-attendance-finished-at").val(finishedAt);
       }
       $("#edit-attendance-form").attr("action", "/employees/attendances/" + attendanceId);
-      $("#to-destroy-attendance").attr("href", "/employees/attendances/" + attendanceId + "?prev_url=daily");
+      $("#to-destroy-attendance").attr("href", "/employees/attendances/" + attendanceId + "?prev_action=daily");
     });
   });
 </script>
