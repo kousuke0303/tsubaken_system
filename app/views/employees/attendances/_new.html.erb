@@ -9,7 +9,7 @@
             <div class="attendance-create-errors"></div>
 
             <%= f.label "従業員タイプ" %>
-            <%= f.select :employee_type, Constants::EMPLOYEES_TYPE_HASH, { include_blank: "従業員タイプを選択" }, { class: "form-control", id: "employee-type", required: true } %>
+            <%= f.select :employee_type, Constants::EMPLOYEES_TYPE_HASH, { include_blank: "従業員タイプを選択" }, { class: "form-control", required: true } %>
             
             <div id="manager-select">
               <%= f.label :manager_id %>
@@ -48,19 +48,19 @@
 </div>
 
 <script>
-  const managerSelectNew = $("#manager-select");
-  const managerOption = $('select[name="attendance[manager_id]"]');
-  const staffSelectNew = $("#staff-select");
-  const staffOption = $('select[name="attendance[staff_id]"]');
-  const externalStaffSelectNew = $("#external-staff-select");
-  const externalStaffOption = $('select[name="attendance[external_staff_id]"]');
+  var managerSelectNew = $("#manager-select");
+  var managerOption = $('select[name="attendance[manager_id]"]');
+  var staffSelectNew = $("#staff-select");
+  var staffOption = $('select[name="attendance[staff_id]"]');
+  var externalStaffSelectNew = $("#external-staff-select");
+  var externalStaffOption = $('select[name="attendance[external_staff_id]"]');
 
   managerSelectNew.hide();
   staffSelectNew.hide();
   externalStaffSelectNew.hide();
 
   // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
-  $("#employee-type").change(function() {
+  $('[name="attendance[employee_type]"]').change(function() {
     if($(this).val() == "1"){
       managerSelectNew.show();
       managerOption.attr("required", "true");
