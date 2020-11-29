@@ -1,6 +1,32 @@
-<div class="balloon_r">
-  <span><%= message.created_at.strftime("%H:%M") %></span>
-  <div class="my_says">
-    <p id="<%= message.id %>"><%= simple_format message.message %></p>
+<% if message.message && message.photo %>
+  <div class="balloon_r">
+    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <div class="my_says">
+      <p id="<%= message.id %>"><%= image_tag message.photo %></p>
+    </div>
   </div>
-</div>
+  <div class="balloon_r">
+    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <div class="my_says">
+      <p id="<%= message.id %>"><%= simple_format message.message %></p>
+    </div>
+  </div>
+<% end %>
+
+<% if message.message && !message.photo %>
+  <div class="balloon_r">
+    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <div class="my_says">
+      <p id="<%= message.id %>"><%= simple_format message.message %></p>
+    </div>
+  </div>
+<% end %>
+
+<% if !message.message && message.photo %>
+  <div class="balloon_r">
+    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <div class="my_says">
+      <p id="<%= message.id %>"><%= image_tag message.photo %></p>
+    </div>
+  </div>
+<% end %>

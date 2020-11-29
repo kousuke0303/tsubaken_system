@@ -7,7 +7,6 @@ class CreateMessages < ActiveRecord::Migration[5.2]
       t.integer :staff_id
       t.integer :external_staff_id
       t.text :message
-      t.string :picture
       t.timestamps
     end
   end

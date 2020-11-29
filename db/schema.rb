@@ -196,7 +196,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_024609) do
     t.integer "staff_id"
     t.integer "external_staff_id"
     t.text "message"
-    t.string "picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

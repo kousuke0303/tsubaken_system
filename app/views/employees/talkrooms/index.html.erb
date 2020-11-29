@@ -46,10 +46,10 @@
         </div>
         <div class="row form_container">
           <div class="col-sm-10">
-            <textarea id="chat-input" data-behavior="room_speaker" placeholder="メッセージを入力" class="form-control"></textarea>
+            <textarea id="chat_input" data-behavior="room_speaker" placeholder="メッセージを入力" class="form-control"></textarea>
           </div>
           <div class="col-sm-10">
-            <input type="file" id="chat_file" name="image">
+            <input type="file" name="photo" id="chat_file">
           </div>
           <div class="col-sm-2 text-right">
             <button type="button" class="btn btn-dark chat_submit">送信</button>
@@ -66,8 +66,8 @@
 <script>
 $(function(){
   $(".chat_submit").on("click",function(){
-    var message = $("#chat-input").val();
-    var file = $("#chat-file").val();
+    var message = $("#chat_input").val();
+    var file = $("#chat_file").val();
     var matter_id = $('#matter_id').val();
     var admin_id = $("#admin_id").val();
     var manager_id = $("#manager_id").val();
@@ -75,7 +75,7 @@ $(function(){
     var external_staff_id = $("external_staff_id").val();
     
     App.talk_room.speak(message, file, matter_id, admin_id, manager_id, staff_id, external_staff_id);
-    $("#chat-input").val("");
+    $("#chat_input").val("");
     $('#chat_file').val("");
   });
 });

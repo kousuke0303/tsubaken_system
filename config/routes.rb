@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  mount ActionCable.server => '/cable'
+  # mount ActionCable.server => '/cable'
   root "static_pages#login_index"
 
   # API関連
