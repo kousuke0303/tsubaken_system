@@ -13,7 +13,7 @@ RSpec.describe Admin, type: :model do
       password: "password",
       password_confirmation: "password"
     )
-    expect(@admin).to be_valid
+    expect(@admin.valid?).to eq(true)
   end
 
   # 次のバリデーションの確認
@@ -141,13 +141,29 @@ RSpec.describe Admin, type: :model do
 
   # 次のバリデーションの確認
   # validate :admin_is_only
-  it "管理者アカウントが既に存在した場合無効" do
-    @admin = Admin.create(
+  it "管理者アカウントが既に存在しない場合有効" do
+    expect{Admin.create(
       name: "AD-admin-T",
       login_id: "AD-admiest",
       password: "password",
       password_confirmation: "password"
+    )}.to change{Admin.count}.by(1)
+  end
+
+  # 次のバリデーションの確認
+  # validate :admin_is_only
+  it "管理者アカウントが既に存在する場合無効" do
+    Admin.create(
+      name: "AD-admin-T",
+      login_id: "AD-admin",
+      password: "password",
+      password_confirmation: "password"
     )
-    expect(@admin.valid?).to eq(false)
+    expect{Admin.create(
+      name: "AD-admin-T",
+      login_id: "AD-admiest",
+      password: "password",
+      password_confirmation: "password"
+    )}.to change{Admin.count}.by(0)
   end
 end
