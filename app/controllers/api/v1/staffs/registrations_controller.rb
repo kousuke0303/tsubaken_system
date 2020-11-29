@@ -5,7 +5,7 @@ class Api::V1::Staffs::RegistrationsController < Api::V1::ApplicationController
   def update_self
     @staff = Staff.find(params[:id])
     if @staff.update(staff_params)
-      render json: @staff, serializer: RegistrationSerializer
+      render json: @staff, serializer: StaffSerializer
     else
       render json: { status: "false", message: @staff.errors.full_messages }
     end

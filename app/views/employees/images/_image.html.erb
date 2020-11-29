@@ -1,0 +1,12 @@
+<% image.images.each do |images| %>
+  <figure class="images-partial">
+    <%= image_tag(images, width:400) %>
+    <div class=img-display-area>
+      <%= image.content %>
+      <%= image.shooted_on %>
+      <div class="margin-left-posision">
+        <%= link_to '編集', edit_employees_matter_image_path(current_matter, image.id), class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  </figure>
+<% end %>

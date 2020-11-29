@@ -3,16 +3,12 @@
 
   <!--マネージャーnew-->
   <% if controller_name == "managers" && action_name == "index" %>
-    <div id="manager-new" class="modal fade" role="dialog">
-      <%= render "employees/managers/new" %>
-    </div>
+    <div id="manager-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--マネージャーedit-->
   <% if controller_name == "managers" && action_name == "show" %>
-    <div id="manager-edit" class="modal fade" role="dialog">
-      <%= render "employees/managers/edit" %>
-    </div>
+    <div id="manager-edit" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>
 
@@ -20,30 +16,22 @@
 <% if admin_signed_in? || manager_signed_in? %>
   <!--スタッフnew-->
   <% if controller_name == "staffs" && action_name == "index" %>
-    <div id="staff-new" class="modal fade" role="dialog">
-      <%= render "employees/staffs/new" %>
-    </div>
+    <div id="staff-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--スタッフedit-->
   <% if controller_name == "staffs" && action_name == "show" %>
-    <div id="staff-edit" class="modal fade" role="dialog">
-      <%= render "employees/staffs/edit" %>
-    </div>
+    <div id="staff-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外部スタッフnew-->
   <% if controller_name == "suppliers" && action_name == "show" %>
-    <div id="external-staff-new" class="modal fade" role="dialog">
-      <%= render "employees/external_staffs/new" %>
-    </div>
+    <div id="external-staff-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外部スタッフedit-->
   <% if controller_name == "external_staffs" && action_name == "show" %>
-    <div id="external-staff-edit" class="modal fade" role="dialog">
-      <%= render "employees/external_staffs/edit" %>
-    </div>
+    <div id="external-staff-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--勤怠new・edit-->
@@ -59,24 +47,14 @@
 
   <!--部署new・edit-->
   <% if controller_name == "departments" && action_name == "index" %>
-    <div id="department-new" class="modal fade" role="dialog">
-      <%= render "employees/settings/departments/new" %>
-    </div>
-
-    <div id="department-edit" class="modal fade" role="dialog">
-      <%= render "employees/settings/departments/edit" %>
-    </div>
+    <div id="department-new" class="modal fade" role="dialog"></div>
+    <div id="department-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--デフォルトタスクnew・edit-->
   <% if controller_name == "tasks" && action_name == "index" %>
-    <div id="default-task-new" class="modal fade" role="dialog">
-      <%= render "employees/settings/tasks/new" %>
-    </div>
-
-    <div id="default-task-edit" class="modal fade" role="dialog">
-      <%= render "employees/settings/tasks/edit" %>
-    </div>
+    <div id="default-task-new" class="modal fade" role="dialog"></div>
+    <div id="default-task-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--見積書カテゴリnew・edit-->
@@ -96,30 +74,22 @@
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
   <!--顧客new-->
   <% if controller_name == "clients" && action_name == "index" %>
-    <div id="client-new" class="modal fade" role="dialog">
-      <%= render "employees/clients/new" %>
-    </div>
+    <div id="client-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--顧客edit-->
   <% if controller_name == "clients" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog">
-      <%= render "employees/clients/edit" %>
-    </div>
+    <div id="client-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外注先new-->
   <% if controller_name == "suppliers" && action_name == "index" %>
-    <div id="supplier-new" class="modal fade" role="dialog">
-      <%= render "employees/suppliers/new" %>
-    </div>
+    <div id="supplier-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外注先edit-->
   <% if controller_name == "suppliers" && action_name == "show" %>
-    <div id="supplier-edit" class="modal fade" role="dialog">
-      <%= render "employees/suppliers/edit" %>
-    </div>
+    <div id="supplier-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--タスクedit-->
@@ -131,12 +101,7 @@
 
   <!--業種new・edit-->
   <% if controller_name == "industries" && action_name == "index" %>
-    <div id="industry-new" class="modal fade" role="dialog">
-      <%= render "employees/settings/industries/new" %>
-    </div>
-
-    <div id="industry-edit" class="modal fade" role="dialog">
-      <%= render "employees/settings/industries/edit" %>
-    </div>
+    <div id="industry-new" class="modal fade" role="dialog"></div>
+    <div id="industry-edit" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>

@@ -1,4 +1,6 @@
-<button class="btn btn-dark" data-toggle="modal" data-target="#external-staff-new"><i class="fas fa-plus"></i> 新規外部Staff</button>
+<%= link_to new_employees_supplier_external_staff_path(@supplier), remote: true, class: "btn btn-dark float-r" do %>
+  <i class="fas fa-plus"></i> 新規外部Staff
+<% end %>
 <table class="table table-sm common-table">
   <tr>
     <th>名前</th>

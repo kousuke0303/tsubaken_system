@@ -42,6 +42,6 @@
 </table>
 
 <div class="btn-area">
-  <button class="btn btn-dark" data-toggle="modal" data-target="#staff-edit">編集</button>
+  <%= link_to "編集", edit_employees_staff_path(@staff), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このStaffを削除してよろしいですか？" }, class: "btn btn-destroy" %>
 </div>

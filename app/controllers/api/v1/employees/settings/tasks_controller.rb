@@ -7,7 +7,6 @@ class Api::V1::Employees::Settings::TasksController < Api::V1::ApplicationContro
     sort_order = Task.are_default.length
     @default_task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
     if @default_task.save
-      @default_task.update(default_task_id: @default_task.id)
       render json: @default_task, serializer: TaskSerializer
     else
       render json: { status: "false", message: @default_task.errors.full_messages }
@@ -33,7 +32,7 @@ class Api::V1::Employees::Settings::TasksController < Api::V1::ApplicationContro
 
   private
     def default_task_params
-      params.require(:task).permit(:title, :content)
+      params.permit(:title, :content)
     end
 
     def set_task

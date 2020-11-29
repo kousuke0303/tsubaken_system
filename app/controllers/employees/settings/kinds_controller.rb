@@ -34,7 +34,7 @@ class Employees::Settings::KindsController < ApplicationController
   end
 
   def index
-    @kinds = Kind.all
+    @kinds = Kind.all.includes(:category).order(:category_id)
   end
 
   def destroy
@@ -44,7 +44,7 @@ class Employees::Settings::KindsController < ApplicationController
 
   private
     def kind_params
-      params.require(:kind).permit(:name, :category_id)
+      params.require(:kind).permit(:title, :amount, :category_id)
     end
 
     def set_kind

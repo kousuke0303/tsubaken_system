@@ -1,7 +1,9 @@
 <div class="col-lg-12 col-md-12">
   <h2>
     デフォルトタスク一覧
-    <button class="btn btn-dark float-r" data-toggle="modal" data-target="#default-task-new"><i class="fas fa-plus"></i> 新規デフォルトタスク</button>
+    <%= link_to new_employees_settings_task_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> デフォルトタスク
+    <% end %>
   </h2>
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark"></div>
@@ -20,10 +22,7 @@
             <td><%= default_task.title %></td>
             <td><%= default_task.content %></td>
             <td>
-              <button class="btn btn-sm btn-dark to-edit-default-task" data-toggle="modal" data-target="#default-task-edit" data-id="<%= default_task.id %>"
-                      data-title="<%= default_task.title %>" data-content="<%= default_task.content %>">
-                編集
-              </button>
+            <%= link_to "編集", edit_employees_settings_task_path(default_task), remote: true, class: "btn btn-sm btn-dark" %>
               <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>
@@ -32,16 +31,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on("turbolinks:load", function() {
-    $(".to-edit-default-task").click(function() {
-      let title = $(this).data("title")
-      let content = $(this).data("content")
-      let taskId = $(this).data("id")
-      $("#default-task-title").val(title);
-      $("#default-task-content").val(content);
-      $("#edit-default-task-form").attr("action", "/employees/settings/tasks/" + taskId);
-    });
-  });
-</script>

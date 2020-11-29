@@ -7,14 +7,16 @@
     <div class="card-header bg-dark"></div>
 
     <div class="card-body">
-      <table class="table table-sm table common-table">
+      <table class="table table-sm table-bordered common-table">
         <tr>
           <th>名前</th>
+          <th>カテゴリ</th>
           <th></th>
         </tr>
         <% @kinds.each do |kind| %>
           <tr>
-            <td><%= kind.name %></td>
+            <td><%= kind.title %></td>
+            <td><%= kind.category.title %></td>
             <td>
               <%= link_to "編集", edit_employees_settings_kind_path(kind), remote: true, class: "btn btn-sm btn-dark" %>
               <%= link_to "削除", employees_settings_kind_path(kind), method: :delete, data: { confirm: "この見積書タイプを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>

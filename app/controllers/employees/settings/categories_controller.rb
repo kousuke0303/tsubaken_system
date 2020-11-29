@@ -43,7 +43,7 @@ class Employees::Settings::CategoriesController < ApplicationController
 
   private
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:title)
     end
 
     def set_category

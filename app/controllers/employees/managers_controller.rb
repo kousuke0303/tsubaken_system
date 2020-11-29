@@ -1,7 +1,11 @@
 class Employees::ManagersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
-  before_action :set_departments, only: [:index, :show]
+  before_action :set_departments, only: [:new, :edit, :show]
+
+  def new
+    @manager = Manager.new
+  end
 
   def create
     @manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
@@ -16,12 +20,14 @@ class Employees::ManagersController < ApplicationController
   end
 
   def index
-    @manager = Manager.new
     @enrolled_managers = Manager.enrolled
     @retired_managers = Manager.retired
   end
 
   def show
+  end
+
+  def edit
   end
 
   def update
