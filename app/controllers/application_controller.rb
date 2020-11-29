@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     unless @attendances.length == @one_month.length
       ActiveRecord::Base.transaction do
-        @one_month.each { |day| resource.attendances.create!("worked_on = ?", day) }
+        @one_month.each { |day| resource.attendances.create!(worked_on: day) }
       end
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
