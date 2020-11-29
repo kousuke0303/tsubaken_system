@@ -1,7 +1,7 @@
 class Employees::TasksController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter
-  before_action :set_task, only: [:update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy]
 
   def move
     new_status = convert_to_status_num(params[:status]).to_i
@@ -47,6 +47,9 @@ class Employees::TasksController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def edit
   end
   
   def update

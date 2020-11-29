@@ -200,7 +200,7 @@ Rails.application.routes.draw do
     end
 
     resources :matters do
-      resources :tasks, only: [:update, :destroy] do
+      resources :tasks, only: [:edit, :update, :destroy] do
         post :move, on: :collection
         post :create, on: :collection
       end

@@ -97,21 +97,21 @@ $(document).ready(function(){
     }
   });
 
-    var addTaskButton = document.getElementById("add-task");
-    addTaskButton.addEventListener("click",function(){
-      
-      const formItem = document.createElement("form");
-      formItem.innerHTML = '<input type="text", id="new-task-form">';
-      kanban.addForm("relevant-tasks", formItem);
-  
-      $("#new-task-form").blur(function(){
-        var title = $("#new-task-form").val();
+  var addTaskButton = document.getElementById("add-task");
+  addTaskButton.addEventListener("click",function(){
+    
+    const formItem = document.createElement("form");
+    formItem.innerHTML = '<input type="text", id="new-task-form">';
+    kanban.addForm("relevant-tasks", formItem);
 
-        $.ajax({
-          type: "POST",
-          url: "<%= employees_matter_tasks_path(@matter) %>",
-          cache: false,
-          data: { title: title, remote: true }
+    $("#new-task-form").blur(function(){
+      var title = $("#new-task-form").val();
+
+      $.ajax({
+        type: "POST",
+        url: "<%= employees_matter_tasks_path(@matter) %>",
+        cache: false,
+        data: { title: title, remote: true }
       });
     });
   });
@@ -149,16 +149,23 @@ $(document).ready(function(){
 
       // タスク編集モーダル
       $("[data-eid=<%= task.id %>]").on("click",function(){
-        let matterId = "<%= @matter.id %>"
-        let taskId = this.getAttribute("data-eid");
-        let taskTitle = this.getAttribute("data-task-title");
-        let taskContent = this.getAttribute("data-task-content");
-        $("#task-edit").modal();
-        $("#task-title").val(taskTitle);
-        $("#task-content").val(taskContent);
-        $('h4').removeClass();
-　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
-        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
+        $.ajax({
+          type: "GET",
+          url: "<%= edit_employees_matter_task_path(@matter, task) %>",
+          cache: false,
+          data: { remote: true }
+        });
+        
+//         let matterId = "<%= @matter.id %>"
+//         let taskId = this.getAttribute("data-eid");
+//         let taskTitle = this.getAttribute("data-task-title");
+//         let taskContent = this.getAttribute("data-task-content");
+//         $("#task-edit").modal();
+//         $("#task-title").val(taskTitle);
+//         $("#task-content").val(taskContent);
+//         $('h4').removeClass();
+//         $('h4').addClass("modal-header-<%= task.status %> text-center");
+//         $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });
   <% end %>

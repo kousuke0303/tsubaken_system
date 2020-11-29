@@ -6,7 +6,7 @@
         <h4>タスク編集</h4>
 
         <div class="card-body">
-          <%= form_with(model: @tasks, url: "#", method: :patch, remote: true, id: "edit-task-form") do |f| %>
+          <%= form_with(model: task, url: employees_matter_task_path(matter, task), method: :patch, remote: true, id: "edit-task-form") do |f| %>
             <div class="task-update-errors"></div>
 
             <%= f.label :title %>
@@ -55,54 +55,52 @@
 </div>
 
 <script>
-  // タスクの担当者設定フォームの表示切替
-  $(document).on("turbolinks:load", function() {
-    const managerSelect = $("#manager-select");
-    const staffSelect = $("#staff-select");
-    const externalStaffSelect = $("#external-staff-select");
-    const manager = $("#manager");
-    const staff = $("#staff");
-    const externalStaff = $("#external-staff");
+// タスクの担当者設定フォームの表示切替
+  var managerSelect = $("#manager-select");
+  var staffSelect = $("#staff-select");
+  var externalStaffSelect = $("#external-staff-select");
+  var manager = $("#manager");
+  var staff = $("#staff");
+  var externalStaff = $("#external-staff");
 
-    managerSelect.hide();
+  managerSelect.hide();
+  staffSelect.hide();
+  externalStaffSelect.hide();
+
+  $("#manager-btn").click(function() {
+    managerSelect.show();
     staffSelect.hide();
     externalStaffSelect.hide();
+  });
 
-    $("#manager-btn").click(function() {
-      managerSelect.show();
-      staffSelect.hide();
-      externalStaffSelect.hide();
-    });
+  $("#staff-btn").click(function() {
+    managerSelect.hide();
+    staffSelect.show();
+    externalStaffSelect.hide();
+  });
 
-    $("#staff-btn").click(function() {
-      managerSelect.hide();
-      staffSelect.show();
-      externalStaffSelect.hide();
-    });
+  $("#external-staff-btn").click(function() {
+    managerSelect.hide();
+    staffSelect.hide();
+    externalStaffSelect.show();
+  });
 
-    $("#external-staff-btn").click(function() {
-      managerSelect.hide();
-      staffSelect.hide();
-      externalStaffSelect.show();
-    });
-
-    manager.change(function() {
-      if($(this).val() != "") {
-        $("#staff").val("");
-        $("#external-staff").val("");
-      }
-    });
-    staff.change(function() {
-      if($(this).val() != "") {
-        $("#manager").val("");
-        $("#external-staff").val("");
-      }
-    });
-    externalStaff.change(function() {
-      if($(this).val() != "") {
-        $("#manager").val("");
-        $("#staff").val("");
-      }
-    });
+  manager.change(function() {
+    if($(this).val() != "") {
+      $("#staff").val("");
+      $("#external-staff").val("");
+    }
+  });
+  staff.change(function() {
+    if($(this).val() != "") {
+      $("#manager").val("");
+      $("#external-staff").val("");
+    }
+  });
+  externalStaff.change(function() {
+    if($(this).val() != "") {
+      $("#manager").val("");
+      $("#staff").val("");
+    }
   });
 </script>
