@@ -1,10 +1,13 @@
 class Employees::Settings::TasksController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_employees_settings_tasks, only: :index
-  before_action :set_task, only: [:update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
     @default_tasks = Task.are_default
+  end
+
+  def new
     @default_task = Task.new
   end
 
@@ -20,6 +23,9 @@ class Employees::Settings::TasksController < ApplicationController
         format.js
       end
     end
+  end
+
+  def edit
   end
 
   def update

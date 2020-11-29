@@ -1,7 +1,11 @@
 class Employees::ExternalStaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_external_staff, only: [:show, :edit, :update, :destroy]
-  before_action :set_supplier, only: [:create, :show, :edit, :update, :destroy]
+  before_action :set_supplier, only: [:new, :create, :show, :edit, :update, :destroy]
+
+  def new
+    @external_staff = @supplier.external_staffs.new
+  end
 
   def create
     @external_staff = @supplier.external_staffs.new(external_staff_params.merge(password: "password", password_confirmation: "password"))
@@ -18,6 +22,9 @@ class Employees::ExternalStaffsController < ApplicationController
   def show
     # login_idの先頭部分以外を定義
     @login_id_body = @external_staff.login_id_body
+  end
+
+  def edit
   end
 
   def update
@@ -38,7 +45,7 @@ class Employees::ExternalStaffsController < ApplicationController
 
   private
     def external_staff_params
-      params.require(:external_staff).permit(:name, :kana, :login_id, :login_id_body, :phone, :email, :supplier_id)
+      params.require(:external_staff).permit(:name, :kana, :login_id, :login_id_body, :phone, :email)
     end
 
     def set_external_staff

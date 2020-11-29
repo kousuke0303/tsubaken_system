@@ -86,13 +86,15 @@ class ApplicationController < ActionController::Base
   # ログイン後のリダイレクト先
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(Admin)
-      top_admin_path(current_admin)
+      admins_top_path
     elsif resource_or_scope.is_a?(Manager)
-      top_manager_path(current_manager)
+      managers_top_path
     elsif resource_or_scope.is_a?(Staff)
-      top_staff_path(current_staff)
-    elsif resource_or_scope.is_a?(User)
-      top_user_path(current_user)
+      staffs_top_path
+    elsif resource_or_scope.is_a?(ExternalStaff)
+      external_staffs_top_path
+    elsif resource_or_scope.is_a?(Client)
+      clients_top_path
     else
       root_path
     end
@@ -109,7 +111,7 @@ class ApplicationController < ActionController::Base
   end
   
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up,keys:[:email])
+    devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
   end
   
 end

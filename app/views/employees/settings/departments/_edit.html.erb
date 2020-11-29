@@ -5,11 +5,9 @@
       <div class="card mb-3">
         <h5 class="card-header">部署編集</h5>
         <div class="card-body">
-          <%= form_with(model: @department, url: "#", method: :patch, remote: true, id: "edit-department-form") do |f| %>
+          <%= form_with(model: department, url: employees_settings_department_path(department), method: :patch, remote: true) do |f| %>
             <div class="department-update-errors"></div>
-            <%= f.label :name %>
-            <%= f.text_field :name, required: true, class: "form-control", maxlength: 30, id: "department-name" %>
-            
+            <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
@@ -19,3 +17,5 @@
     </div>
   </div>
 </div>
+
+<%= render "shared/reset_errors_jq" %>

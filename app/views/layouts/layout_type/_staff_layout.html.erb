@@ -10,6 +10,7 @@
       <p>Staff専用ページ</p>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "顧客管理", employees_clients_path %></li>
+      <li><%= link_to "見積案件管理", "#" %></li>
       <li><%= link_to "案件管理", employees_matters_path %></li>
       <li><%= link_to "カレンダー", "#" %></li>
       <li>
@@ -52,7 +53,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                  <%= link_to top_staff_path(current_staff), class: "nav-link" do %>
+                  <%= link_to staffs_top_path, class: "nav-link" do %>
                     <i class="fas fa-home"></i> Home
                   <% end %>
                 </li>

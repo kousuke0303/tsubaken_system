@@ -144,3 +144,15 @@ ExternalStaff.all.each do |external_staff|
 end
 
 puts "CREATE! ATTENDANCES"
+
+3.times do |n|
+  Category.create(title: "テストカテゴリ#{ n + 1 }")
+end
+
+puts "CREATE! CATEGORIES"
+
+3.times do |n|
+  Kind.create(title: "テストタイプ#{ n + 1 }", category_id: 1, amount: "10000")
+end
+
+puts "CREATE! KINDS"

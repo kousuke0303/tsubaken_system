@@ -30,7 +30,7 @@
           <%= f.email_field :email, maxlength: 254, class: "form-control" %>
 
           <div class="btn-area">
-            <%= f.submit "更新", class: "btn btn-dark", id: "edit-external-staff" %>
+            <%= f.submit "更新", class: "btn btn-dark", id: "update-external-staff" %>
           </div>
         <% end %>
         </div>
@@ -38,3 +38,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $("#update-external-staff").click(function() {
+    var loginIdLead = $("#edit-external-staff-lagin-id-lead").html();
+    var loginIdBody = $("#edit-external-staff-login-id-body").val();
+    $("#edit-external-staff-login-id").val(loginIdLead + loginIdBody);
+  });
+</script>
+
+<%= render "shared/reset_errors_jq" %>
