@@ -8,15 +8,15 @@ class StaticPagesController < ApplicationController
   private
     def reject_signed_in
       if admin_signed_in?
-        redirect_to top_admin_path(current_admin)
+        redirect_to admins_top_path
       elsif manager_signed_in?
-        redirect_to top_manager_path(current_manager)
+        redirect_to managers_top_path
       elsif staff_signed_in?
-        redirect_to top_staff_path(current_staff)
+        redirect_to staffs_top_path
       elsif external_staff_signed_in?
-        redirect_to top_external_staff_path(current_external_staff)
+        redirect_to external_staffs_top_path
       elsif client_signed_in?
-        redirect_to top_client_path(current_client)
+        redirect_to clients_top_path
       end
     end
 end
