@@ -23,7 +23,7 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
     begin
       set_one_month
       api_create_monthly_attendances(@resource)
-      attendance = @resource.attendances.where(worked_on: Date.current).first
+      attendance = @resource.attendances.where("worked_on = ?", Date.current).first
       if attendance.started_at.blank? && attendance.finished_at.blank?
         attendance.update!(started_at: Time.current)
         render json: attendance, serializer: AttendanceSerializer
@@ -40,12 +40,12 @@ class Api::V1::Employees::AttendancesController < Api::V1::ApplicationController
 
   # 従業員自身の@one_monthの勤怠を取得、なければ生成
   def api_create_monthly_attendances(resource)
-    @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    @attendances = resource.attendances.where("worked_on = ?", @first_day..@last_day).order(:worked_on)
     unless @attendances.length == @one_month.length
       ActiveRecord::Base.transaction do
         @one_month.each { |day| resource.attendances.create!(worked_on: day) }
       end
-      @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+      @attendances = resource.attendances.where("worked_on = ?", @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
     render json: { status: "false", message: "勤怠情報の取得に失敗しました。" }

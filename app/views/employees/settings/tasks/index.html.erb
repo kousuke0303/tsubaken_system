@@ -16,7 +16,7 @@
         </tr>
         <% @default_tasks.each do |default_task| %>
           <tr>
-            <td><%= Task.where(default_task_id: default_task.default_task_id).count - 1 %></td>
+            <td><%= Task.where("default_task_id = ?", default_task.default_task_id).count - 1 %></td>
             <td><%= default_task.title %></td>
             <td><%= default_task.content %></td>
             <td>

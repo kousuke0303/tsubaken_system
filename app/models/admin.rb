@@ -25,7 +25,7 @@ class Admin < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login_id = conditions.delete(:login_id)
-      where(conditions).where(login_id: login_id).first
+      where(conditions).where("login_id = ?", login_id).first
     else
       where(conditions).first
     end
