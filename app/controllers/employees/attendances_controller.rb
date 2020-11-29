@@ -11,7 +11,7 @@ class Employees::AttendancesController < ApplicationController
     # 対象日を定義
     params[:day] && params[:day].present? ? @day = params[:day].to_date : @day = Date.current
     # 勤怠モデルと、マネージャー・スタッフ・外部スタッフ(所属の外注先を含めて)を事前に読み込む
-    attendances = Attendance.where("worked_on = ?", @day).where.not("started_at = ?", nil).includes(:manager).includes(:staff).includes(external_staff: :supplier)
+    attendances = Attendance.where(worked_on: @day).where.not(started_at: nil).includes(:manager).includes(:staff).includes(external_staff: :supplier)
     @manager_attendances = attendances.where.not("manager_id = ?", nil)
     @staff_attendances = attendances.where.not("staff_id = ?", nil)
     @external_staff_attendances = attendances.where.not("external_staff_id = ?", nil)
@@ -33,7 +33,7 @@ class Employees::AttendancesController < ApplicationController
       external_staff_id = params[:external_staff_id]
       @resource = ExternalStaff.find(external_staff_id)
     end
-    @attendances = @resource.attendances.where("worked_on = ?", @first_day..@last_day).where.not("started_at = ?", nil).order(:worked_on) if @resource
+    @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
   end
 
   def create
@@ -116,12 +116,12 @@ class Employees::AttendancesController < ApplicationController
 
     def create_monthly_attendance_by_date(resource, date)
       ActiveRecord::Base.transaction do
-        unless resource.attendances.where("worked_on = ?", date).exists?
+        unless resource.attendances.where(worked_on: date).exists?
           first_day = date.beginning_of_month
           last_day = first_day.end_of_month
           [*first_day..last_day].each { |day| resource.attendances.create!(worked_on: day) }
         end
-        @attendance = resource.attendances.where("worked_on = ?", date).first
+        @attendance = resource.attendances.where(worked_on: date).first
       end
     rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "ページ情報の取得に失敗しました。"

@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_today_attendance(employee)
-    @attendance = employee.attendances.where("worked_on = ?", Date.current).first
+    @attendance = employee.attendances.where(worked_on: Date.current).first
   end
   
   # --------------------------------------------------------
