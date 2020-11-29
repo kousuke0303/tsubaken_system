@@ -1,0 +1,2 @@
+$("#attendance-new").html('<%= escape_javascript(render "employees/attendances/new", attendance: @attendance, managers: @managers, staffs: @staffs, external_staffs: @external_staffs) %>'); 
+$("#attendance-new").modal();

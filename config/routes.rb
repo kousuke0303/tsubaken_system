@@ -192,7 +192,7 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update, :destroy] do
+    resources :attendances, only: [:new, :create, :update, :destroy] do
       patch :erase, on: :member
       collection do
         get :daily

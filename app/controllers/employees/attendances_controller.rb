@@ -36,6 +36,13 @@ class Employees::AttendancesController < ApplicationController
     @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
   end
 
+  def new
+    @attendance = Attendance.new
+    @managers = Manager.all
+    @staffs = Staff.all
+    @external_staffs = ExternalStaff.all
+  end
+
   def create
     case params[:attendance]["employee_type"]
     when "1"

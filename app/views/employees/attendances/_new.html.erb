@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">勤怠作成</h5>
         <div class="card-body">
-          <%= form_with(model: @attendance, url: employees_attendances_path, method: :post, remote: true) do |f| %>
+          <%= form_with(model: attendance, url: employees_attendances_path, method: :post, remote: true) do |f| %>
             <div class="attendance-create-errors"></div>
 
             <%= f.label "従業員タイプ" %>
@@ -13,17 +13,17 @@
             
             <div id="manager-select">
               <%= f.label :manager_id %>
-              <%= f.collection_select :manager_id, @managers, :id, :name, { include_blank: "Managerを選択" }, class: "form-control" %>
+              <%= f.collection_select :manager_id, managers, :id, :name, { include_blank: "Managerを選択" }, class: "form-control" %>
             </div>
 
             <div id="staff-select">
               <%= f.label :staff_id %>
-              <%= f.collection_select :staff_id, @staffs, :id, :name, { include_blank: "Staffを選択" }, class: "form-control" %>
+              <%= f.collection_select :staff_id, staffs, :id, :name, { include_blank: "Staffを選択" }, class: "form-control" %>
             </div>
 
             <div id="external-staff-select">
               <%= f.label :external_staff_id %>
-              <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { include_blank: "外部Staffを選択" }, class: "form-control" %>
+              <%= f.collection_select :external_staff_id, external_staffs, :id, :name, { include_blank: "外部Staffを選択" }, class: "form-control" %>
             </div>
 
             <%= f.label :worked_on %>
@@ -48,61 +48,58 @@
 </div>
 
 <script>
-  $(document).on("turbolinks:load", function() {
-    
-    $('[name="prev_url"]').val("<%= controller.action_name %>");
+  $('[name="prev_url"]').val("<%= controller.action_name %>");
 
-    const managerSelectNew = $("#manager-select");
-    const managerOption = $('select[name="attendance[manager_id]"]');
-    const staffSelectNew = $("#staff-select");
-    const staffOption = $('select[name="attendance[staff_id]"]');
-    const externalStaffSelectNew = $("#external-staff-select");
-    const externalStaffOption = $('select[name="attendance[external_staff_id]"]');
+  const managerSelectNew = $("#manager-select");
+  const managerOption = $('select[name="attendance[manager_id]"]');
+  const staffSelectNew = $("#staff-select");
+  const staffOption = $('select[name="attendance[staff_id]"]');
+  const externalStaffSelectNew = $("#external-staff-select");
+  const externalStaffOption = $('select[name="attendance[external_staff_id]"]');
 
-    managerSelectNew.hide();
-    staffSelectNew.hide();
-    externalStaffSelectNew.hide();
+  managerSelectNew.hide();
+  staffSelectNew.hide();
+  externalStaffSelectNew.hide();
 
-    // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
-    $("#employee-type").change(function() {
-      if($(this).val() == "1"){
-        managerSelectNew.show();
-        managerOption.attr("required", "true");
-        staffSelectNew.hide();
-        staffOption.val("");
-        staffOption.removeAttr("required");
-        externalStaffSelectNew.hide();
-        externalStaffOption.val("");
-        externalStaffOption.removeAttr("required");
-      } else if ($(this).val() == "2") {
-        managerSelectNew.hide();
-        managerOption.val("");
-        managerOption.removeAttr("required");
-        staffSelectNew.show();
-        staffOption.attr("required", "true");
-        externalStaffSelectNew.hide();
-        externalStaffOption.val("");
-        externalStaffOption.removeAttr("required");
-      } else if ($(this).val() == "3") {
-        managerSelectNew.hide();
-        managerOption.val("");
-        managerOption.removeAttr("required");
-        staffSelectNew.hide();
-        staffOption.val("");
-        staffOption.removeAttr("required");
-        externalStaffSelectNew.show();
-        externalStaffOption.attr("required", "true");
-      } else {
-        managerSelectNew.hide();
-        managerOption.val("");
-        managerOption.removeAttr("required");
-        staffSelectNew.hide();
-        staffOption.val("");
-        staffOption.removeAttr("required");
-        externalStaffSelectNew.hide();
-        externalStaffOption.val("");
-        externalStaffOption.removeAttr("required");
-      };
-    });
+  // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
+  $("#employee-type").change(function() {
+    if($(this).val() == "1"){
+      managerSelectNew.show();
+      managerOption.attr("required", "true");
+      staffSelectNew.hide();
+      staffOption.val("");
+      staffOption.removeAttr("required");
+      externalStaffSelectNew.hide();
+      externalStaffOption.val("");
+      externalStaffOption.removeAttr("required");
+    } else if ($(this).val() == "2") {
+      managerSelectNew.hide();
+      managerOption.val("");
+      managerOption.removeAttr("required");
+      staffSelectNew.show();
+      staffOption.attr("required", "true");
+      externalStaffSelectNew.hide();
+      externalStaffOption.val("");
+      externalStaffOption.removeAttr("required");
+    } else if ($(this).val() == "3") {
+      managerSelectNew.hide();
+      managerOption.val("");
+      managerOption.removeAttr("required");
+      staffSelectNew.hide();
+      staffOption.val("");
+      staffOption.removeAttr("required");
+      externalStaffSelectNew.show();
+      externalStaffOption.attr("required", "true");
+    } else {
+      managerSelectNew.hide();
+      managerOption.val("");
+      managerOption.removeAttr("required");
+      staffSelectNew.hide();
+      staffOption.val("");
+      staffOption.removeAttr("required");
+      externalStaffSelectNew.hide();
+      externalStaffOption.val("");
+      externalStaffOption.removeAttr("required");
+    };
   });
 </script>
