@@ -208,6 +208,9 @@ Rails.application.routes.draw do
         post :edit, on: :member
       end
     end
+
+    resources :estimate_matters do
+    end
     
     namespace :settings do
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy]
