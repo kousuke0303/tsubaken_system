@@ -204,9 +204,6 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-    end
-
-    resources :matters do
       resources :images do
         post :edit, on: :member
       end
@@ -218,7 +215,6 @@ Rails.application.routes.draw do
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
   

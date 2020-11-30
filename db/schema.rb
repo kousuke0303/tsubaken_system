@@ -102,6 +102,17 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.string "actual_spot"
+    t.string "zip_code"
+    t.integer "status", default: 0, null: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_estimate_matters_on_client_id"
+  end
+
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "external_staff", null: false
     t.string "name", default: "", null: false
@@ -191,7 +202,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   end
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
+    t.string "title", default: "", null: false
     t.string "actual_spot"
     t.string "zip_code"
     t.integer "status"
@@ -201,10 +212,10 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.bigint "client_id"
+    t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_matters_on_client_id"
+    t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -290,6 +301,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
+  add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
@@ -300,7 +312,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-  add_foreign_key "matters", "clients"
+  add_foreign_key "matters", "estimate_matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
