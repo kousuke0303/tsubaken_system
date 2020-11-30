@@ -35,7 +35,7 @@ class Task < ApplicationRecord
 
   # sort_orderを+1に更新
   def self.increment_sort_order(matter, status, sort_order)
-    matter.tasks.where(status: status).where("sort_order >= ?", sort_order).each do |task|
+    matter.tasks.where("status >= ?", status).where("sort_order >= ?", sort_order).each do |task|
       new_sort_order = task.sort_order.to_i + 1
       task.update(sort_order: new_sort_order)
     end
@@ -43,7 +43,7 @@ class Task < ApplicationRecord
 
   # sort_orderを-1に更新
   def self.decrement_sort_order(matter, status, sort_order)
-    matter.tasks.where(status: status).where("sort_order <= ?", sort_order).each do |task|
+    matter.tasks.where("status >= ?", status).where("sort_order <= ?", sort_order).each do |task|
       unless task.sort_order == 0
         new_sort_order = task.sort_order.to_i - 1
         task.update(sort_order: new_sort_order)
@@ -54,7 +54,7 @@ class Task < ApplicationRecord
   # 使用回数を保存
   def self.count_default_tasks(default_tasks)
     default_tasks.each do |default_task|
-      count = Task.where(default_task_id: default_task.default_task_id).count - 1
+      count = Task.where("default_task_id = ?", default_task.default_task_id).count - 1
       default_task.update(default_task_id_count: count)
     end
   end

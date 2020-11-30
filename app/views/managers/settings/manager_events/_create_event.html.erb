@@ -105,7 +105,7 @@ $(".event_select_form").on("click", function(){
   $('[name="manager_event[event_name]"]').change(function() {
     var element = $('[name="manager_event[event_name]"]').val();
     let base = [];
-    <% ManagerEventTitle.where(manager_id: current_manager.id).each do |event|  %>
+    <% ManagerEventTitle.where("manager_id = ?", current_manager.id).each do |event|  %>
       base.push(["<%= event.event_name%>","<%= event.note%>"]) 
     <% end %>
     for (let i = 0; i < base.length; i++) {
