@@ -15,8 +15,8 @@ class Manager < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
 
-  scope :enrolled, -> { where("resigned_on = ?", nil) }
-  scope :retired, -> { where.not("resigned_on = ?", nil) }
+  scope :enrolled, -> { where(resigned_on: nil) }
+  scope :retired, -> { where.not(resigned_on: nil) }
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
@@ -43,7 +43,7 @@ class Manager < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login_id = conditions.delete(:login_id)
-      where(conditions).where("login_id = ?", login_id).first
+      where(conditions).where(login_id: login_id).first
     else
       where(conditions).first
     end
