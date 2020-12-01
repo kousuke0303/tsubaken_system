@@ -37,27 +37,27 @@ RSpec.describe ExternalStaff, type: :model do
     
     # validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
     it "login_idが存在し、なおかつ8文字未満の時、無効" do
-      @external_staff.login_id = "SP#{@supplier.id}-"
+      @external_staff.login_id = "SP#{@external_staff.supplier_id}-"
       expect(@external_staff.valid?).to eq(false)
     end
     
     # validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
     it "login_idが存在し、なおかつ12文字より多い時、無効" do
-      @external_staff.login_id = "SP#{@supplier.id}-supsup-1222"
+      @external_staff.login_id = "SP#{@external_staff.supplier_id}-supsup-1222"
       expect(@external_staff.valid?).to eq(false)
     end
     
     # validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
     it "login_idが一意でない時、無効" do
-      FactoryBot.create(:external_staff, login_id: "SP#{@supplier.id}-sup-1", supplier: @supplier)
-      @external_staff.login_id = "SP#{@supplier.id}-sup-1"
+      FactoryBot.create(:external_staff, login_id: "SP#{@external_staff.supplier_id}-sup-1", supplier: @supplier)
+      @external_staff.login_id = "SP#{@external_staff.supplier_id}-sup-1"
       expect(@external_staff.valid?).to eq(false)
     end
     
     # validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
     # validate :external_staff_login_id_is_correct?
     it "login_idが存在しているが、SP(外注先ID)から始まっていない時、無効" do
-      @external_staff.login_id = "su#{@supplier.id}-sup-9"
+      @external_staff.login_id = "su#{@external_staff.supplier_id}-sup-9"
       expect(@external_staff.valid?).to eq(false)
     end
     
