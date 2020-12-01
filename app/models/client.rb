@@ -2,6 +2,7 @@ class Client < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
+  validates :kana, presence: true, length: { maximum: 30 }
   validates :phone_1, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :phone_2, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :fax, format: { with: VALID_FAX_REGEX }, allow_blank: true
