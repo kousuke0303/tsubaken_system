@@ -6,6 +6,19 @@ ja:
         female: "女性"
     estimate_matter:
       status:
+        other: その他
+        appointment: アポイント
+        inspection: 現場調査
+        calculation: 見積算出
+        immediately: 契約直前
+        contract: 契約
+        contemplation_month: "長考 (３ヶ月)"
+        contemplation_year: "長考 (１年)"
+        lost: 失注
+        lost_by_other: 失注 (他社)
+        chasing: 追客
+        waiting_insurance: 火災保険申請待ち
+        consideration: 相見積検討中
     matter:
       status:
         not_started: "未着手"
