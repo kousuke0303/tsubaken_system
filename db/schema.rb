@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_082459) do
+ActiveRecord::Schema.define(version: 2020_12_02_120242) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -184,6 +184,13 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
   end
 
+  create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "service_life"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "matter_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "matter_id", null: false
     t.bigint "manager_id"
@@ -203,7 +210,9 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   end
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title"
+    t.string "actual_spot"
+    t.string "zip_code"
     t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
@@ -211,10 +220,21 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.string "estimate_matter_id"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
+    t.index ["client_id"], name: "index_matters_on_client_id"
+  end
+
+  create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "kind_id"
+    t.string "title"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_quotations_on_client_id"
+    t.index ["kind_id"], name: "index_quotations_on_kind_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -284,14 +304,12 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.integer "default_task_id"
     t.integer "default_task_id_count"
     t.boolean "notification", default: false
-    t.string "estimate_matter_id"
     t.string "matter_id"
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
     t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
@@ -313,11 +331,12 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-  add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "matters", "clients"
+  add_foreign_key "quotations", "clients"
+  add_foreign_key "quotations", "kinds"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
-  add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
   add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"

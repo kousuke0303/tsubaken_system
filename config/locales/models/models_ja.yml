@@ -17,6 +17,7 @@ ja:
       kind: 見積書タイプ
       image: 画像
       construction: 工事
+      material: 素材
     attributes:
         admin:
           name: 名前
@@ -77,7 +78,10 @@ ja:
           content: 内容
           images: 写真
           shooted_on: 撮影日
-        construction: 
+        construction:
+        material:
+          name: 名前
+          service_life: 耐用年数
   attributes:
     id: ID
     login_id: ログインID
