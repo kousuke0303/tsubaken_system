@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
