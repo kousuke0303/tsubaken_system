@@ -93,9 +93,22 @@ SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件２",
                                              status: 0,
                                              actual_spot: "東京都渋谷区神宮町１−２−１",
                                              client_id: 2,
-                                             )
+                                             )                                          
 
 puts "CREATE! ESTIMATE_MATTER"
+
+SeedMatter1 = Matter.create!(title: "案件１",
+                             status: 0,
+                             actual_spot: "東京都渋谷区神宮町１−１−１",
+                             estimate_matter_id: SeedEstimateMatter1.id
+                             )
+
+SeedMatter2 = Matter.create!(title: "案件2",
+                             status: 0,
+                             actual_spot: "東京都渋谷区神宮町１−１−１",
+                             estimate_matter_id: SeedEstimateMatter2.id
+                             )
+puts "CREATE! MATTER"
 
 # -----------------------------------------------------
       # TASK
@@ -107,12 +120,17 @@ end
 
 puts "CREATE! DEFALTE_TASK"
 
-# 3.times do |n|
-#   Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
-#   Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
-# end
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+end
 
-# puts "CREATE! TASK"
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter2.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter2.id)
+end
+
+puts "CREATE! TASK"
 
 first_day = Date.current.beginning_of_month
 last_day = first_day.end_of_month
