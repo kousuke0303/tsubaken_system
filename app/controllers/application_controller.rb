@@ -65,15 +65,15 @@ class ApplicationController < ActionController::Base
         # TASK関係
   # --------------------------------------------------------
 
-  # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
-  def set_classified_tasks(matter)
+  # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
+  def set_classified_tasks(resource)
     @default_tasks = Task.default.order(default_task_id_count: :desc)
     Task.reload_sort_order(@default_tasks)
-    @relevant_tasks = matter.tasks.are_relevant
+    @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
-    @ongoing_tasks = matter.tasks.are_ongoing
+    @ongoing_tasks = resource.tasks.are_ongoing
     Task.reload_sort_order(@ongoing_tasks)
-    @finished_tasks = matter.tasks.are_finished
+    @finished_tasks = resource.tasks.are_finished
     Task.reload_sort_order(@finished_tasks)
   end
     

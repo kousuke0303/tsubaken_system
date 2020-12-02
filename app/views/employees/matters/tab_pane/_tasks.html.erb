@@ -1,11 +1,10 @@
-<div class="col-sm-12 text-right mb-1e">
+<div class="col-12 text-right mb-1e">
   <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
-
 <div id="kanban-tasks"></div>
 
 <script>
-// タスク移動関連
+// タスク関連
 $(document).ready(function(){
   //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
@@ -69,9 +68,9 @@ $(document).ready(function(){
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
     element         : '#kanban-tasks',  //タスク管理ボードを表示するHTML要素
-    gutter          : '13px',       //ボード同士の間隔
-    widthBoard      : '220px',      //ボードのサイズ
-    boards          : defaultBoards,//初期状態のJSONデータ
+    gutter          : '13px',           //ボード同士の間隔
+    widthBoard      : '220px',          //ボードのサイズ
+    boards          : defaultBoards,    //初期状態のJSONデータ
     
     dropEl: function(el, target, a, b){
       var task = el.getAttribute("data-eid");
@@ -147,17 +146,6 @@ $(document).ready(function(){
           cache: false,
           data: { remote: true }
         });
-        
-//         let matterId = "<%= @matter.id %>"
-//         let taskId = this.getAttribute("data-eid");
-//         let taskTitle = this.getAttribute("data-task-title");
-//         let taskContent = this.getAttribute("data-task-content");
-//         $("#task-edit").modal();
-//         $("#task-title").val(taskTitle);
-//         $("#task-content").val(taskContent);
-//         $('h4').removeClass();
-//         $('h4').addClass("modal-header-<%= task.status %> text-center");
-//         $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
       });
     });
   <% end %>
