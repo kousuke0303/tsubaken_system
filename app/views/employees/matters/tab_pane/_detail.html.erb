@@ -37,14 +37,6 @@
   <% end %>
 
   <tr>
-    <th>郵便番号</th>
-    <td><%= @matter.zip_code %></td>
-  </tr>
-  <tr>
-    <th>現場住所</th>
-    <td><%= @matter.actual_spot %></td>
-  </tr>
-  <tr>
     <th>進行状況</th>
     <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>
   </tr>

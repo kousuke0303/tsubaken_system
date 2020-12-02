@@ -3,7 +3,7 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
 
   def index
-    @estimate_matters = EstimateMatter.all
+    @estimate_matters = EstimateMatter.includes(:client)
   end
 
   def new
@@ -27,6 +27,7 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def edit
+    @clients = Client.all
   end
 
   def update
@@ -51,6 +52,6 @@ class Employees::EstimateMattersController < ApplicationController
     end
 
     def estimate_matter_params
-      params.require(:estimate_matter).permit(:title, :client_id, :status)
+      params.require(:estimate_matter).permit(:title, :content, :zip_code, :address, :client_id, :status)
     end
 end

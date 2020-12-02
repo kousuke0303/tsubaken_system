@@ -104,8 +104,9 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.string "actual_spot"
     t.string "zip_code"
+    t.string "address"
+    t.string "content"
     t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.datetime "created_at", null: false
@@ -203,8 +204,6 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.string "actual_spot"
-    t.string "zip_code"
     t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"

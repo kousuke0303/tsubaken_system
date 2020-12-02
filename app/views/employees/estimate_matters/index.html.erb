@@ -18,8 +18,8 @@
         <% @estimate_matters.each do |estimate_matter| %>
           <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
             <td><%= estimate_matter.title %></td>
-            <td><%=  %></td>
-            <td><%= estimate_matter.status %></td>
+            <td><%= estimate_matter.client.name %></td>
+            <td><%= I18n.t("enums.estimate_matter.status.#{estimate_matter.status}") %></td>
           </tr>
         <% end %>
       </table>

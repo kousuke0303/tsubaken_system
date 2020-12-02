@@ -85,13 +85,15 @@ puts "CREATE! CLIENT"
 
 SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件１",
                                              status: 0,
-                                             actual_spot: "東京都渋谷区神宮町１−１−１",
+                                             zip_code: "5845151",
+                                             address: "東京都渋谷区神宮町１−１−１",
                                              client_id: 1,
                                              )
 
 SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件２",
                                              status: 0,
-                                             actual_spot: "東京都渋谷区神宮町１−２−１",
+                                             zip_code: "5845151",
+                                             address: "東京都渋谷区神宮町１−２−１",
                                              client_id: 2,
                                              )                                          
 
@@ -99,13 +101,11 @@ puts "CREATE! ESTIMATE_MATTER"
 
 SeedMatter1 = Matter.create!(title: "案件１",
                              status: 0,
-                             actual_spot: "東京都渋谷区神宮町１−１−１",
                              estimate_matter_id: SeedEstimateMatter1.id
                              )
 
 SeedMatter2 = Matter.create!(title: "案件2",
                              status: 0,
-                             actual_spot: "東京都渋谷区神宮町１−１−１",
                              estimate_matter_id: SeedEstimateMatter2.id
                              )
 puts "CREATE! MATTER"
