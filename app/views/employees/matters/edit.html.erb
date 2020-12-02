@@ -17,16 +17,6 @@
       </div>
     </div>
     
-    <!--STEP2-->
-    <div class="card mt-1e">
-      <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
-      <div class="card-body">
-
-        <%= f.label :client %>
-        <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
-      </div>
-    </div>
-    
     <!--STEP3-->
     <div class="card mt-1e">
       <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>

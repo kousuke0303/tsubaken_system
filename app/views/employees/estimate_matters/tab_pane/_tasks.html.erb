@@ -81,7 +81,7 @@ $(document).ready(function(){
 
       $.ajax({
         type: "POST",
-        url: "<%= move_employees_matter_tasks_path(@matter) %>",
+        url: "<%= move_employees_matter_tasks_path(@estimate_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });
@@ -100,7 +100,7 @@ $(document).ready(function(){
 
       $.ajax({
         type: "POST",
-        url: "<%= employees_matter_tasks_path(@matter) %>",
+        url: "<%= employees_estimate_matter_tasks_path(@estimate_matter) %>",
         cache: false,
         data: { title: title, remote: true }
       });
@@ -126,7 +126,7 @@ $(document).ready(function(){
     });
   <% end %>
 
-  <% @matter.tasks.each do |task| %>
+  <% @estimate_matter.tasks.each do |task| %>
     $(function(){
       <% if task.manager %>
         $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
@@ -142,7 +142,7 @@ $(document).ready(function(){
       $("[data-eid=<%= task.id %>]").on("click",function(){
         $.ajax({
           type: "GET",
-          url: "<%= edit_employees_matter_task_path(@matter, task) %>",
+          url: "<%= edit_employees_estimate_matter_task_path(@estimate_matter, task) %>",
           cache: false,
           data: { remote: true }
         });

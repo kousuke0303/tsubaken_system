@@ -14,13 +14,10 @@
 
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
-  <!--スタッフnew-->
+  <!--スタッフnew・edit-->
   <% if controller_name == "staffs" && action_name == "index" %>
     <div id="staff-new" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--スタッフedit-->
-  <% if controller_name == "staffs" && action_name == "show" %>
+  <% elsif controller_name == "staffs" && action_name == "show" %>
     <div id="staff-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
@@ -66,34 +63,29 @@
     <div id="kind-new" class="modal fade" role="dialog"></div>
     <div id="kind-edit" class="modal fade" role="dialog"></div>
   <% end %>
-
-  <!--工事new・edit-->
-  <% if controller_name == "constructions" && action_name == "index" %>
-    <div id="construction-new" class="modal fade" role="dialog"></div>
-    <div id="construction-edit" class="modal fade" role="dialog"></div>
-  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
-  <!--顧客new-->
+  <!--顧客new・edit-->
   <% if controller_name == "clients" && action_name == "index" %>
     <div id="client-new" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--顧客edit-->
-  <% if controller_name == "clients" && action_name == "show" %>
+  <% elsif controller_name == "clients" && action_name == "show" %>
     <div id="client-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--外注先new-->
+  <!--外注先new・edit-->
   <% if controller_name == "suppliers" && action_name == "index" %>
     <div id="supplier-new" class="modal fade" role="dialog"></div>
+  <% elsif controller_name == "suppliers" && action_name == "show" %>
+    <div id="supplier-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--外注先edit-->
-  <% if controller_name == "suppliers" && action_name == "show" %>
-    <div id="supplier-edit" class="modal fade" role="dialog"></div>
+  <!--見積案件new・edit-->
+  <% if controller_name == "estimate_matters" && action_name == "index" %>
+    <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
+  <% elsif controller_name == "estimate_matters" && action_name == "show" %> 
+    <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--タスクedit-->
