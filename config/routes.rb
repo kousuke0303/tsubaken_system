@@ -199,7 +199,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :matters do
+    resources :estimate_matters do
       resources :tasks, only: [:edit, :update, :destroy] do
         post :move, on: :collection
         post :create, on: :collection
@@ -209,7 +209,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :estimate_matters do
+    resources :matters do
+      resources :tasks, only: [:edit, :update, :destroy] do
+        post :move, on: :collection
+        post :create, on: :collection
+      end
+      resources :images do
+        post :edit, on: :member
+      end
     end
     
     namespace :settings do
