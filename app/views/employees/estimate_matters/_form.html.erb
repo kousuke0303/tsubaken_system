@@ -1,0 +1,14 @@
+<%= f.label :title %>
+<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code, class: "form-control", maxlength: 7 %>
+
+<%= f.label :address %>
+<%= f.text_field :address, class: "form-control", maxlength: 100 %>
+
+<%= f.label :status %>
+<%= f.select :status, EstimateMatter.statuses.keys.map {|k| [I18n.t("enums.estimate_matter.status.#{k}"), k]}, {}, class: "form-control" %>
+
+<%= f.label :client_id %>
+<%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>

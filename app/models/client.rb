@@ -9,7 +9,7 @@ class Client < ApplicationRecord
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validate :client_login_id_is_correct?
   
-  has_many :matters, dependent: :destroy
+  has_many :estimate_matters, dependent: :destroy
   has_many :quotations, dependent: :destroy
   
   enum gender: {male: 0, female: 1}

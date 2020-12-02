@@ -1,0 +1,15 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>タイトル</th>
+    <td><%= @estimate_matter.title %></td>
+  </tr>
+  <tr>
+    <th>顧客</th>
+    <td><%= @estimate_matter.client.name %></td>
+  </tr>
+</table>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
+  <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>

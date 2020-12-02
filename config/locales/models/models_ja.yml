@@ -8,6 +8,7 @@ ja:
       external_staff: 外部スタッフ
       supplier: 外注先
       attendance: 勤怠
+      estimate_matter: 見積案件
       matter: 案件
       task: タスク
       industry: 業種
@@ -52,6 +53,10 @@ ja:
           before_status: 前回のステータス
           sort_order: 優先順位
           limited_on: 期限
+        estimate_matter:
+          title: 見積案件名
+          status: 進行状況
+          actual_spot: 現場住所
         matter:
           title: 案件名
           status: 進行状況
