@@ -200,11 +200,11 @@ Rails.application.routes.draw do
     end
 
     resources :estimate_matters do
-      resources :tasks, only: [:edit, :update, :destroy] do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
       end
-      resources :images do
+      resources :images, controller: "estimate_matters/images" do
         post :edit, on: :member
       end
     end

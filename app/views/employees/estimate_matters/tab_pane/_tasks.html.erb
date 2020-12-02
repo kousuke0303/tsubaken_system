@@ -81,7 +81,7 @@ $(document).ready(function(){
 
       $.ajax({
         type: "POST",
-        url: "<%= move_employees_matter_tasks_path(@estimate_matter) %>",
+        url: "<%= move_employees_estimate_matter_tasks_path(@estimate_matter) %>",
         cache: false,
         data: { task: task, status: status, item_index: item_index, remote: true }
       });

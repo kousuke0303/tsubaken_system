@@ -133,9 +133,11 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.date "shooted_on"
+    t.string "estimate_matter_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_images_on_estimate_matter_id"
     t.index ["matter_id"], name: "index_images_on_matter_id"
   end
 
@@ -304,6 +306,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
   add_foreign_key "attendances", "staffs"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
+  add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
