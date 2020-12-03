@@ -117,9 +117,11 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.string "estimate_matter_id"
+    t.bigint "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
+    t.index ["kind_id"], name: "index_estimates_on_kind_id"
   end
 
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -332,6 +334,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
   add_foreign_key "estimate_matters", "clients"
+  add_foreign_key "estimates", "kinds"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
