@@ -212,9 +212,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "actual_spot"
-    t.string "zip_code"
+    t.string "title", default: "", null: false
     t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
@@ -222,21 +220,10 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.bigint "client_id"
+    t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_matters_on_client_id"
-  end
-
-  create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "client_id"
-    t.bigint "kind_id"
-    t.string "title"
-    t.string "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_quotations_on_client_id"
-    t.index ["kind_id"], name: "index_quotations_on_kind_id"
+    t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -306,12 +293,14 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.integer "default_task_id"
     t.integer "default_task_id_count"
     t.boolean "notification", default: false
+    t.string "estimate_matter_id"
     t.string "matter_id"
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
     t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
@@ -334,12 +323,11 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-  add_foreign_key "matters", "clients"
-  add_foreign_key "quotations", "clients"
-  add_foreign_key "quotations", "kinds"
+  add_foreign_key "matters", "estimate_matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
+  add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
   add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
