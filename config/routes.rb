@@ -208,6 +208,7 @@ Rails.application.routes.draw do
       end
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
+      end
       resources :images, controller: "estimate_matters/images" do
         post :edit, on: :member
       end
