@@ -3,7 +3,8 @@ class CreateKinds < ActiveRecord::Migration[5.2]
     create_table :kinds do |t|
       t.string :title
       t.string :amount
-      t.references :category, foreign_key: true
+      t.boolean :default,        default: false
+      t.references :category,    foreign_key: true
 
       t.timestamps
     end

@@ -4,6 +4,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
 
   def new
     @estimate = @estimate_matter.estimates.new
+    @kinds = Kind.all
   end
 
   def create
