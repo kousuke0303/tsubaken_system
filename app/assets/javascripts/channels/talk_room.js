@@ -6,14 +6,15 @@ App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
   },
    
   received: function(data) {
+    
     const current_name = document.getElementById('current_name');
     // 受け取った送信者の名前とチャットルームの投稿者の名前が一致・不一致による非同期処理
     if (current_name.textContent != data["sender"]){
-      const messages = document.getElementById('message_container');
-      messages.insertAdjacentHTML('beforeend', data['recieve_html']);
+      const messages_area = document.getElementById('chat');
+      messages_area.insertAdjacentHTML('beforeend', data['recieve_html']);
     } else {
-      const messages = document.getElementById('message_container');
-      messages.insertAdjacentHTML('beforeend', data['sender_html']);
+      const messages_area = document.getElementById('chat');
+      messages_area.insertAdjacentHTML('beforeend', data['sender_html']);
     };
     // const add_current_name = document.getElementById('add_current_name');
     // add_current_name.textContent = current_name.textContent;
@@ -22,17 +23,23 @@ App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
     // var recieve_massage = message["message"] 
   },
   
-  speak: function(message, file, matter_id, admin_id, manager_id, staff_id, external_staff_id) {
-    if(admin_id != null) {
-      return this.perform('speak', {message: message, file: file, matter_id: matter_id, admin_id: admin_id});
-    }else if (manager_id != null) {
-      return this.perform('speak', {message: message, file: file, matter_id: matter_id, manager_id: manager_id});
-    }else if (staff_id != null) {
-      return this.perform('speak', {message: message, file: file, matter_id: matter_id, staff_id: staff_id});
-    }else if (external_staff_id != null) {
-      return this.perform('speak', {message: message, file: file, matter_id: matter_id, external_staff_id: external_staff_id});
-    }
+  speak: function(formData) {
+    // return this.perform('speak', formData);
+    // if(formData.get("admin_id") != null) {
+    //   return this.perform('speak', { 
+    //     message: formData.get("message"),
+    //     admin_id: formData.get("admin_id"),
+    //     photo_name: formData.get("photo").name
+    //   });
+    // }else if (formData.get("manager_id") != null) {
+    //   return this.perform('speak', {formData});
+    // }else if (formData.get("staff_id") != null) {
+    //   return this.perform('speak', {formData});
+    // }else if (formData.get("external_staff_id") != null) {
+    //   return this.perform('speak', {formData});
+    // }
   },
+  
 });
   
   // $(document).on 'keypress', '[data-behavior~=speak_talk_rooms]', (event) ->

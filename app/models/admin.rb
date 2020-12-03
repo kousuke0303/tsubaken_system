@@ -10,6 +10,8 @@ class Admin < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
+  has_one_attached :avator
+  
   def admin_is_only
     if Admin.exists? && self.id != 1
       errors.add(:base, "管理者アカウントは既に存在します")
@@ -44,4 +46,5 @@ class Admin < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
 end

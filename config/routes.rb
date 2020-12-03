@@ -207,7 +207,7 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-      resources :talkrooms, only: :index do
+      resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
     end

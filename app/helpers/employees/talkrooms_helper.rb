@@ -51,15 +51,19 @@ module Employees::TalkroomsHelper
     end
   end
   
-  def sender_name(message)
-    if message.admin_id
-      Admin.find_by(id: message.admin_id).name
-    elsif message.manager_id
-      Manager.find_by(id: message.manager_id).name
-    elsif
-      Staff.find_by(id: message.staff_id).name
-    elsif
-      ExternalStaff.find_by(id: message.external_staff_id).name
+  def sender(message)
+    if message.admin_id.present?
+      Admin.find_by(id: message.admin_id)
+    elsif message.manager_id.present?
+      Manager.find_by(id: message.manager_id)
+    elsif message.staff_id.present?
+      Staff.find_by(id: message.staff_id)
+    elsif message.external_staff_id.present?
+      ExternalStaff.find_by(id: message.external_staff_id)
     end
+  end
+  
+  def sender_detail(message)
+    [sender(message).name, sender(message).auth]
   end      
 end

@@ -19,7 +19,9 @@ class Manager < ApplicationRecord
   scope :retired, -> { where.not(resigned_on: nil) }
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
-
+  
+  has_one_attached :avator
+  
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_login_id_is_correct?
     errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
@@ -62,4 +64,5 @@ class Manager < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
 end

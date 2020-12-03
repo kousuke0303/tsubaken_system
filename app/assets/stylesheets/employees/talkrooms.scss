@@ -126,14 +126,14 @@
 /* 自分以外のメッセージ */
 .balloon_l{
   margin: 1em 0;
-  display:flex;
+  display: flex;
   justify-content: flex-start;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .faceicon img{
-  width: 60px; /*任意のサイズ*/
-  height: auto;
+  width: 60px;
+  height: 60px;
 }
 
 .balloon_l .faceicon{
@@ -142,6 +142,7 @@
 
 .name_container {
   margin-left: -20px!important;
+  margin-bottom: 0!important;
   font-size: 14px;
   color: black;
 }
@@ -165,8 +166,8 @@
 // .says p{
 //   margin:8px 0 0 !important; 
 // }
-.says p:first-child{
-  margin-top:0 !important;
+.says p {
+  margin-top: 0 !important;
 }
 .says:after {
   content: "";
@@ -176,3 +177,6 @@
   border-right: 22px solid #ecedef;
 }
 
+.ajax_img {
+  max-width: 250px;
+}

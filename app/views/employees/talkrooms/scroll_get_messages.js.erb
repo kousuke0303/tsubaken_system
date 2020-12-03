@@ -1,4 +1,4 @@
 <% if @search == "true" %>
-  $('#chat').prepend('<%= escape_javascript(render partial: 'chat', locals: {messages_by_date: @messages_by_date}) %>');
+  $('#chat').prepend('<%= escape_javascript(render partial: 'prev_chat', locals: {messages_by_date: @messages_by_date}) %>');
   $("#chat").scrollTop(20);
 <% end %>
