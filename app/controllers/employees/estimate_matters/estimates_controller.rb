@@ -9,11 +9,13 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
   def create
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save
-      flash[:success] = "見積を作成しました。"
+      @response = "success"
+      @estimates = @estimate_matter.estimates
     else
-      respond_to do |format|
-        format.js
-      end
+      @response = "false"
+    end
+    respond_to do |format|
+      format.js
     end
   end
 

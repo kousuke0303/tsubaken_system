@@ -10,7 +10,7 @@
   <% @estimates.each do |estimate| %>
     <tr>
       <td><%= estimate.title %></td>
-      <td><%= estimate.created_at %></td>
+      <td><%= l(estimate.created_at.to_time, format: :long) %></td>
     </tr>
   <% end %>
 </table>
