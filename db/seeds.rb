@@ -164,7 +164,7 @@ end
 puts "CREATE! ATTENDANCE"
 
 3.times do |n|
-  Category.create(title: "テストカテゴリ#{ n + 1 }")
+  Category.create(name: "テスト工事カテゴリ#{ n + 1 }", default: true)
 end
 
 puts "CREATE! CATEGORIE"
