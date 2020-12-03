@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   belongs_to :external_staff, optional: true
 
   validates :title, presence: true, length: { maximum: 30 }
-  validates :content, presence: true, length: { maximum: 300 }
+  validates :content, length: { maximum: 300 }
   validate :only_in_charge
   
   enum status: {default: 0, relevant: 1, ongoing: 2, finished: 3}

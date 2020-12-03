@@ -10,7 +10,8 @@ class Employees::EstimateMatters::TasksController < ApplicationController
     # 追加するタスクのsort_orderを定義
     sort_order = relevant_tasks.length
     title = params[:title]
-    @a = @estimate_matter.tasks.create(title: title, status: 1, sort_order: sort_order)
+    @estimate_matter.tasks.create!(title: title, status: 1, sort_order: sort_order)
+    @a = @estimate_matter.tasks.length
     set_classified_tasks(@estimate_matter)
     respond_to do |format|
       format.js
@@ -46,5 +47,23 @@ class Employees::EstimateMatters::TasksController < ApplicationController
 
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    # paramsで送られてきたstatusをenumの数値に変換
+    def convert_to_status_num(status)
+      case status
+      when "default-tasks"
+        0
+      when "relevant-tasks"
+        1
+      when "ongoing-tasks"
+        2
+      when "finished-tasks"
+        3
+      end
+    end
+        
+    def task_params
+      params.require(:task).permit(:title, :content, :manager_id, :staff_id, :external_staff_id)
     end
 end
