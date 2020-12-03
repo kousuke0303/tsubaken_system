@@ -161,16 +161,22 @@ ExternalStaff.all.each do |external_staff|
                                                                                  finished_at: "#{year}-#{month}-#{day} 17:00:00")
 end
 
-puts "CREATE! ATTENDANCES"
+puts "CREATE! ATTENDANCE"
 
 3.times do |n|
   Category.create(title: "テストカテゴリ#{ n + 1 }")
 end
 
-puts "CREATE! CATEGORIES"
+puts "CREATE! CATEGORIE"
 
 3.times do |n|
   Kind.create(title: "テストタイプ#{ n + 1 }", category_id: 1, amount: "10000")
 end
 
-puts "CREATE! KINDS"
+puts "CREATE! KIND"
+
+3.times do |n|
+  Material.create(name: "テスト素材#{ n + 1 }", service_life: "10000")
+end
+
+puts "CREATE! MATERIAL"

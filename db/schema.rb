@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_082459) do
+ActiveRecord::Schema.define(version: 2020_12_02_120242) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -184,6 +184,13 @@ ActiveRecord::Schema.define(version: 2020_11_30_082459) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_managers_on_department_id"
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
+  end
+
+  create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "service_life"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "matter_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
