@@ -6,6 +6,7 @@ class Matter < ApplicationRecord
   has_many :staffs, through: :matter_staffs
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :messages
   has_many :supplier_matters, dependent: :destroy
   has_many :suppliers, through: :supplier_matters
   accepts_nested_attributes_for :matter_managers, allow_destroy: true

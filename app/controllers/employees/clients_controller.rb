@@ -19,7 +19,7 @@ class Employees::ClientsController < ApplicationController
   end
 
   def show
-    @matters = @client.matters
+    @estimate_matters = @client.estimate_matters
   end
 
   def edit

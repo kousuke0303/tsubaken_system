@@ -234,6 +234,18 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "message"
+    t.integer "admin_id"
+    t.integer "manager_id"
+    t.integer "staff_id"
+    t.integer "external_staff_id"
+    t.string "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_messages_on_matter_id"
+  end
+
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "staff_id"
     t.integer "event_title_id"
@@ -332,6 +344,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "messages", "matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
