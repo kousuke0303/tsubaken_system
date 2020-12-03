@@ -30,7 +30,6 @@ class Employees::MattersController < ApplicationController
   end
 
   def show
-    @managers = @matter.managers
     @staffs = @matter.staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
@@ -61,13 +60,12 @@ class Employees::MattersController < ApplicationController
     end
 
     def set_matter_support
-      @managers = Manager.all
       @staffs = Staff.all
       @suppliers = Supplier.all
     end
 
     def matter_params
       params.require(:matter).permit(:title, :scheduled_started_on, :scheduled_finished_on, :status,
-                                     :started_on, :finished_on, :maintenanced_on, { manager_ids: [] }, { staff_ids: [] }, { supplier_ids: [] })
+                                     :started_on, :finished_on, :maintenanced_on, { staff_ids: [] }, { supplier_ids: [] })
     end
 end

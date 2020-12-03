@@ -36,14 +36,6 @@
       <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
       <div class="card-body">
         <div>
-          <%= f.label :manager %>
-          <div>
-            <%= f.collection_check_boxes(:manager_ids, @managers, :id, :name) do |m| %>
-              <%= m.check_box %><%= m.text %>
-            <% end %> 
-          </div>
-        </div>
-        <div>
           <%= f.label :staff %>
           <div>
             <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>

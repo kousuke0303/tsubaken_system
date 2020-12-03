@@ -10,8 +10,6 @@ class Manager < ApplicationRecord
   validate :resigned_is_since_joined
   
   belongs_to :department
-  has_many :matter_managers, dependent: :destroy
-  has_many :matters, through: :matter_managers
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
 
