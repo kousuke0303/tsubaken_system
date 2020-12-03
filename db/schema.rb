@@ -343,12 +343,8 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-<<<<<<< HEAD
-  add_foreign_key "matters", "clients"
-  add_foreign_key "messages", "matters"
-=======
   add_foreign_key "matters", "estimate_matters"
->>>>>>> 01f2486f59b730f4c1aebcce1a8c4b00a33bedc4
+  add_foreign_key "messages", "matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"

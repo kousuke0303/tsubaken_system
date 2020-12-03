@@ -8,7 +8,7 @@
           <a class="nav-link active" href="#client-detail" data-toggle="tab" role="tab" aria-controls="client-detail" aria-selected="true">個人情報</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#matters" data-toggle="tab" role="tab" aria-controls="matters" aria-selected="false">案件一覧</a>
+          <a class="nav-link" href="#estimate-matters" data-toggle="tab" role="tab" aria-controls="matters" aria-selected="false">見積案件一覧</a>
         </li>
       </ul>
     </div>
@@ -20,8 +20,8 @@
           <%= render "employees/clients/tab_pane/detail" %>
         </div>
           
-        <div class="tab-pane fade bg-white" id="person_in_charge" role="tabpanel">
-          <%= render "employees/clients/tab_pane/matters" %>
+        <div class="tab-pane fade bg-white" id="estimate-matters" role="tabpane2">
+          <%= render "employees/clients/tab_pane/estimate_matters" %>
         </div>
       </div>
     </div>

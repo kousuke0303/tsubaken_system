@@ -1,0 +1,12 @@
+<table class="table table-sm common-table">
+  <tr>
+    <th>タイトル</th>
+    <th>現場住所</th>
+  </tr>
+  <% @estimate_matters.each do |estimate_matter| %>
+    <tr class="tr-link" data-link="<%=  %>">
+      <td><%= estimate_matter.title %></td>
+      <td><%= estimate_matter.address %></td>
+    </tr>
+  <% end %>
+</table>
