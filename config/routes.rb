@@ -206,7 +206,7 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-      
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates"
       resources :images, controller: "estimate_matters/images" do
         post :edit, on: :member
       end
