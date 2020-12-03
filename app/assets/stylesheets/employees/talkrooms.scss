@@ -19,13 +19,13 @@
 .chat_container {
   overflow: auto;
   height: 80vh;
-  padding-right: 1em;
+  padding-left: 1em;
+  padding-right: 2em;
   padding-bottom: 2em;
   background: #b6d5ec;
 }
 
 .message_container {
-  padding: 0 1em 0 1em;
   span {
     font-size: 12px;
     margin: 2px 4px;
@@ -33,7 +33,6 @@
 }
 
 .before_message_container {
-  padding: 0 1em 0 1em;
   span {
     font-size: 12px;
     margin: 2px 4px;
@@ -61,6 +60,10 @@
   background: #dcddde;
   padding: 1em;
   margin: 0;
+}
+
+.for_mobile {
+  display: none;
 }
 
 /* -----------------------------------------------------------------------------------
@@ -179,4 +182,39 @@
 
 .ajax_img {
   max-width: 250px;
+}
+
+
+@media screen and (max-width: 480px) { 
+  .for_pc {
+    display: none;
+  }
+  
+  .for_mobile {
+    display: block;
+  }
+  
+  .col-sm-12 {
+    padding: 0!important;  
+  }
+  
+  .chat_container {
+    overflow: auto;
+    height: 80vh;
+    padding-left: 0.5em;
+    padding-right: 1.5em;
+    padding-bottom: 1em;
+    background: #b6d5ec;
+  }
+  
+  .line__title {
+    p {
+      color: white;
+      margin-bottom: 0.5em;
+    }
+  }
+  
+  .ajax_img {
+    max-width: 120px;
+  }
 }

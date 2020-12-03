@@ -1,10 +1,15 @@
 <div class="container-fluid talk_room_framework">
-  <div class="col-sm-10 offset-sm-1">
+  <div class="col-md-10 offset-md-1 col-sm-12">
     <div class="talk_room_container">
       <!-- タイトル -->
       <div class="line__container">
-        <div class="line__title">
+        <div class="line__title for_pc">
           <span><%= @matter.title %>のROOM</span><span class="ml-2e">投稿ネーム：</span><span id="current_name"><%= current_name %></span>
+        </div>
+        <!--▼mobile-->
+        <div class="line__title for_mobile">
+          <p><%= @matter.title %>のROOM</p>
+          <span>投稿ネーム：</span><span id="current_name"><%= current_name %></span>
         </div>
       </div>
       <!-- ▼会話エリア -->

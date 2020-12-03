@@ -11,7 +11,7 @@
     <div class="balloon_r">
       <span><%= message.created_at.strftime("%H:%M") %></span>
       <div class="my_says">
-        <p id="<%= message.id %>"><%= image_tag message.photo.variant(resize:'470x300').processed %></p>
+        <p id="<%= message.id %>"><%= image_tag message.photo, class: "ajax_img" %></p>
       </div>
     </div>
   <% end %>
@@ -29,7 +29,7 @@
     <div class="balloon_r">
       <span><%= message.created_at.strftime("%H:%M") %></span>
       <div class="my_says">
-        <p id="<%= message.id %>"><%= image_tag message.photo.variant(resize:'470x400').processed %></p>
+        <p id="<%= message.id %>"><%= image_tag message.photo, class: "ajax_img"%></p>
       </div>
     </div>
   <% end %>
@@ -55,7 +55,7 @@
       </div>
       <div>
         <span class="name_container"><%= sender_detail(message)[0] %></span>
-        <p id="<%= message.id %>"><%= image_tag message.photo.variant(resize:'470x300').processed, class: "says" %></p>
+        <p id="<%= message.id %>" class="says"><%= image_tag message.photo, class: "ajax_img" %></p>
       </div>
       <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
     </div>
@@ -81,7 +81,7 @@
         </div>
         <div>
           <span class="name_container"><%= sender_detail(message)[0] %></span>
-          <p id="<%= message.id %>"><%= image_tag message.photo.variant(resize:'470x300').processed, class: "says" %></p>
+          <p id="<%= message.id %>" class="says"><%= image_tag message.photo, class: "ajax_img" %></p>
         </div>
         <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
       </div>

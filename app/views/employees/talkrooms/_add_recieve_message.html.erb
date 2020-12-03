@@ -1,26 +1,25 @@
-<div style="padding: 0 1em 0 1em;">
-  <% if message.message.present? && photo.present? %>
-    <div class="balloon_l">
-      <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
-        <%= avator(sender(message)) %>
-      </div>
-      <div>
-        <span class="name_container"><%= sender_detail(message)[0] %></span>
-        <%= simple_format message.message, id: "#{ message.id }", class: "says" %></p>
-      </div>
-      <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+<% if message.message.present? && photo.present? %>
+  <div class="balloon_l">
+    <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+      <%= avator(sender(message)) %>
     </div>
-    <div class="balloon_l">
-      <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
-        <%= avator(sender(message)) %>
-      </div>
-      <div>
-        <span class="name_container"><%= sender_detail(message)[0] %></span>
-        <p id="<%= message.id %>"><%= image_tag photo, class: "says ajax_img" %></p>
-      </div>
-      <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+    <div>
+      <span class="name_container"><%= sender_detail(message)[0] %></span>
+      <%= simple_format message.message, id: "#{ message.id }", class: "says" %></p>
     </div>
-  <% end %>
+    <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+  </div>
+  <div class="balloon_l">
+    <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+      <%= avator(sender(message)) %>
+    </div>
+    <div>
+      <span class="name_container"><%= sender_detail(message)[0] %></span>
+      <p id="<%= message.id %>" class="says"><%= image_tag photo, class: "ajax_img" %></p>
+    </div>
+    <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+  </div>
+<% end %>
       
   <% if message.message.present? && !message.photo.attached? %>          
     <div class="balloon_l">
@@ -42,7 +41,7 @@
       </div>
       <div>
         <span class="name_container"><%= sender_detail(message)[0] %></span>
-        <p id="<%= message.id %>"><%= image_tag photo, class: "says ajax_img" %></p>
+        <p id="<%= message.id %>" class="says"><%= image_tag photo, class: "ajax_img" %></p>
       </div>
       <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
     </div>
