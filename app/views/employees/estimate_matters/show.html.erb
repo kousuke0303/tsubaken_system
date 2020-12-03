@@ -11,7 +11,7 @@
           <a class="nav-link" href="#tasks" data-toggle="tab" role="tab" aria-controls="tasks" aria-selected="true">タスク一覧</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="tab" role="tab" aria-controls="estimates" aria-selected="true">見積一覧</a>
+          <a class="nav-link" href="#estimates" data-toggle="tab" role="tab" aria-controls="estimates" aria-selected="true">見積一覧</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="tab" role="tab" aria-controls="images" aria-selected="true">写真一覧</a>
@@ -29,7 +29,8 @@
             <%= render "employees/estimate_matters/tab_pane/tasks" %>
           </div>          
         </div>
-        <div class="tab-pane fade bg-white" id="estimates" role="tabpane3">       
+        <div class="tab-pane fade bg-white" id="estimates" role="tabpane3">   
+          <%= render "employees/estimate_matters/tab_pane/estimates" %>    
         </div>
       </div>
     </div>
