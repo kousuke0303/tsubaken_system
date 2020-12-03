@@ -1,0 +1,16 @@
+<%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-dark float-r" do %>
+  <i class="fas fa-plus"></i> 新規見積
+<% end %>
+
+<table class="table table-sm common-table">
+  <tr>
+    <th>見積名</th>
+    <th>作成日時</th>
+  </tr>
+  <% @estimates.each do |estimate| %>
+    <tr>
+      <td><%= estimate.title %></td>
+      <td><%= estimate.created_at %></td>
+    </tr>
+  <% end %>
+</table>
