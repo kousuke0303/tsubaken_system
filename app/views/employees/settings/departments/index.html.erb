@@ -1,7 +1,9 @@
 <div class="col-lg-12 col-md-12">
   <h2>
     部署一覧
-    <button class="btn btn-dark float-r" data-toggle="modal" data-target="#department-new"><i class="fas fa-plus"></i> 新規部署</button>
+    <%= link_to new_employees_settings_department_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> 新規部署
+    <% end %>
   </h2>
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark"></div>
@@ -17,10 +19,7 @@
             <td><%= department.name %></td>
             <td>
               <div hidden><%= department.id %></div>
-              <button class="btn btn-sm btn-dark to-edit-department" data-toggle="modal" data-target="#department-edit"
-                      data-id="<%= department.id %>" data-name="<%= department.name %>">
-                編集
-              </button>
+              <%= link_to "編集", edit_employees_settings_department_path(department), remote: true, class: "btn btn-sm btn-dark" %>
               <%= link_to "削除", employees_settings_department_path(department), method: :delete, data: { confirm: "この部署を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>
@@ -29,14 +28,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on("turbolinks:load", function() {
-    $(".to-edit-department").click(function() {
-      let name = $(this).data("name");
-      let departmentId = $(this).data("id");
-      $("#department-name").val(name);
-      $("#edit-department-form").attr("action", "/employees/settings/departments/" + departmentId);
-    });
-  });
-</script>

@@ -1,0 +1,34 @@
+<div style="padding: 0 1em 0 1em;">
+  <% if message.message.present? && photo.present? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <%= simple_format message.message, id: "#{ message.id}" %>
+      </div>
+    </div>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= image_tag photo, class: "ajax_img" %></p>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if message.message.present? && !message.photo.attached? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <%= simple_format message.message, id: "#{ message.id }" %>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if message.message == "" && message.photo.attached? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= image_tag photo, class: "ajax_img" %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

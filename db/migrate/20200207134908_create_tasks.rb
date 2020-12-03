@@ -10,6 +10,7 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.integer :default_task_id
       t.integer :default_task_id_count
       t.boolean :notification, default: false
+      t.string :estimate_matter_id
       t.string :matter_id
       t.references :manager,          foreign_key: true
       t.references :staff,            foreign_key: true
@@ -17,7 +18,9 @@ class CreateTasks < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_foreign_key :tasks, :matters
     add_index  :tasks, :matter_id
+    add_index  :tasks, :estimate_matter_id
+    add_foreign_key :tasks, :matters
+    add_foreign_key :tasks, :estimate_matters
   end
 end

@@ -10,7 +10,7 @@ class Employees::Settings::CategoriesController < ApplicationController
     @category = Category.new(category_params)
     if @category.save
       flash[:success] = "見積書カテゴリを作成しました。"
-      redirect_to employees_settings_categories_path
+      redirect_to employees_settings_categories_url
     else
       respond_to do |format|
         format.js

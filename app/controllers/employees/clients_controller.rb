@@ -1,6 +1,10 @@
 class Employees::ClientsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :set_client, only: [:show, :update, :destroy]
+  before_action :set_client, only: [:show, :edit, :update, :destroy]
+
+  def new
+    @client = Client.new
+  end
 
   def create
     @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
@@ -15,12 +19,14 @@ class Employees::ClientsController < ApplicationController
   end
 
   def show
-    @matters = @client.matters
+    @estimate_matters = @client.estimate_matters
+  end
+
+  def edit
   end
 
   def index
     @clients = Client.all
-    @client = Client.new
   end
 
   def update

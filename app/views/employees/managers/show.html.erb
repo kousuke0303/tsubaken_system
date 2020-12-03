@@ -5,25 +5,24 @@
     <div class="card-header bg-dark">
       <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="manager-show-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" href="#manager-detail" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">詳細情報</a>
+          <a class="nav-link active" href="#manager-detail" data-toggle="tab" role="tab" aria-controls="manager-detail" aria-selected="true">詳細情報</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#matters" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">案件一覧</a>
+          <a class="nav-link" href="#matters" data-toggle="tab" role="tab" aria-controls="matters" aria-selected="false">案件一覧</a>
         </li>
       </ul>
     </div>
 
     <div class="card-body">
       <div class="tab-content" id="manager-show-tab">
-
         <div class="tab-pane fade show active bg-white" id="manager-detail" role="tabpanel">
           <%= render "employees/managers/tab_pane/detail" %>
         </div>
 
-        <div class="tab-pane fade show active bg-white" id="matters" role="tabpanel">
+        <div class="tab-pane fade bg-white" id="matters" role="tabpane2">
           <%= render "employees/managers/tab_pane/matters" %>  
         </div>
-
+      </div>
     </div>
   </div>
 </div>

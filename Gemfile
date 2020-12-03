@@ -33,6 +33,10 @@ gem 'enum_help'
 gem 'fast_jsonapi'
 # 環境変数設定用
 gem 'dotenv-rails'
+# AWS S3を利用するためのgem
+gem "aws-sdk-s3", require: false
+# 画像のリサイズのためのgem
+gem 'mini_magick', '~> 4.8'
 
 group :development, :test do
   gem 'mysql2'

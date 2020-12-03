@@ -4,18 +4,7 @@ class Employees::MattersController < ApplicationController
   before_action :set_matter_support, only: [:new, :edit]
 
   def index
-    # 案件を持っている顧客のみを選択しにする
-    @clients = Client.joins(:matters).distinct
-
-    # 全案件を顧客情報と一緒に取得
-    @matters = Matter.includes(:client)
-
-    # 顧客での絞り込みがあった場合
-    if params[:client_id] && params[:client_id].present?
-      client = Client.find(params[:client_id])
-      @matters = client.matters 
-    end
-
+    @matters = Matter.all
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "not_started"
       @matters = @matters.not_started
@@ -28,7 +17,6 @@ class Employees::MattersController < ApplicationController
   
   def new
     @matter = Matter.new
-    @clients = Client.all
   end
 
   def create
@@ -73,14 +61,13 @@ class Employees::MattersController < ApplicationController
     end
 
     def set_matter_support
-      @clients = Client.all
       @managers = Manager.all
       @staffs = Staff.all
       @suppliers = Supplier.all
     end
 
     def matter_params
-      params.require(:matter).permit(:title, :client_id, :zip_code, :actual_spot, :scheduled_started_on, :scheduled_finished_on, :status,
+      params.require(:matter).permit(:title, :scheduled_started_on, :scheduled_finished_on, :status,
                                      :started_on, :finished_on, :maintenanced_on, { manager_ids: [] }, { staff_ids: [] }, { supplier_ids: [] })
     end
 end

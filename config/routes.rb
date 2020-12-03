@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  # mount ActionCable.server => '/cable'
   root "static_pages#login_index"
 
   # API関連
@@ -76,20 +78,20 @@ Rails.application.routes.draw do
         # 外部スタッフCRUD
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
-        post "self_update_external_staff", to: "external_staffs#self_update"
 
         # 従業員自身の勤怠関連
         post "index_attendances", to: "attendances#index"
         post "register_attendance", to: "attendances#register"
       end
 
-      # 管理者Update
+      # 顧客が自身のアカウントを更新
       namespace :clients do
         namespace :registrations do
           post "update_self"
         end
       end
 
+      # 外部スタッフが自身のアカウントを更新
       namespace :external_staffs do
         namespace :registrations do
           post "update_self"
@@ -135,15 +137,15 @@ Rails.application.routes.draw do
 
   # Admin関係
   scope module: :admins do
-    resources :admins, only: [:show] do
-      get :top, on: :member
+    namespace :admins do
+      get :top
     end
   end
   
   # Manager関係
   scope module: :managers do
-    resources :managers, only: [:index] do
-      get :top, on: :member
+    namespace :managers do
+      get :top
     end
   end
 
@@ -153,8 +155,8 @@ Rails.application.routes.draw do
   
   # Client関係
   scope module: :clients do
-    resources :clients, only: [:index] do
-      get :top, on: :member
+    namespace :clients do
+      get :top
     end
   end
 
@@ -164,8 +166,8 @@ Rails.application.routes.draw do
 
   # Staff関係
   scope module: :staffs do
-    resources :staffs, only: [:index] do
-      get :top, on: :member
+    namespace :staffs do
+      get :top
     end
   end
 
@@ -175,8 +177,8 @@ Rails.application.routes.draw do
 
   # ExternalStaff関係
   scope module: :external_staffs do
-    resources :external_staffs, only: [:index] do
-      get :top, on: :member
+    namespace :external_staffs do
+      get :top
     end
   end
 
@@ -190,31 +192,46 @@ Rails.application.routes.draw do
     resources :staffs
     resources :clients
     resources :suppliers do
-      resources :external_staffs, only: [:create, :show, :update, :destroy]
+      resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update, :destroy] do
-      patch :erase, on: :member
+    resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily
         get :individual
       end
     end
 
-    resources :quotations, only: [:new, :create, :edit, :update, :index, :destroy]
-
-    resources :matters do
-      resources :tasks, only: [:update, :destroy] do
+    resources :estimate_matters do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
+      end
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates"
+      resources :images, controller: "estimate_matters/images" do
+        post :edit, on: :member
+      end
+    end
+
+    resources :matters do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
+        post :move, on: :collection
+        post :create, on: :collection
+      end
+      resources :images do
+        post :edit, on: :member
+      end
+      resources :talkrooms, only: [:index, :create] do
+        get :scroll_get_messages, on: :collection
       end
     end
     
     namespace :settings do
-      resources :industries, only: [:create, :index, :update, :destroy]
-      resources :departments, only: [:create, :index, :update, :destroy]
-      resources :tasks, only: [:create, :index, :update, :destroy]
+      resources :industries, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
   

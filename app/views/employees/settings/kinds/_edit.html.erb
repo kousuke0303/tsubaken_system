@@ -7,12 +7,7 @@
         <div class="card-body">
           <%= form_with(model: kind, url: employees_settings_kind_path(kind), method: :patch, remote: true) do |f| %>
             <div class="kind-update-errors"></div>
-            <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
-            <%= f.label :category_id %>
-            <%= f.collection_select :category_id, @categories, :id, :title, { include_blank: "カテゴリを選択" }, class: "form-control", required: true %>
-            
+            <%= render "form", f: f, categories: @categories %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
@@ -23,17 +18,4 @@
   </div>
 </div>
 
-<script>
-  $("form").submit(function(){
-    $("label").each(function(index, element){
-      if($(element).parent().hasClass("field-with-errors")){
-        $(element).unwrap();
-      }
-    })
-    $("input").each(function(index, element){
-      if($(element).parent().hasClass("field-with-errors")){
-        $(element).unwrap();
-      }
-    })
-  });
-</script>
+<%= render "shared/reset_errors_jq" %>

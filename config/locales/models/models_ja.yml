@@ -8,115 +8,102 @@ ja:
       external_staff: 外部スタッフ
       supplier: 外注先
       attendance: 勤怠
+      estimate_matter: 見積案件
+      estimate: 見積
       matter: 案件
       task: タスク
       industry: 業種
       department: 部署
+      category: 見積書カテゴリ
+      kind: 見積書タイプ
+      image: 画像
+      construction: 工事
+      material: 素材
     attributes:
         admin:
-          id: ID
           name: 名前
-          phone: 電話番号
-          email: メールアドレス
-          login_id: ログインID
-          password: パスワード
-          password_confirmation: パスワード再入力
-          created_at: 作成日
-          updated_at: 更新日
         manager:
-          id: ID
           name: 名前
-          login_id: ログインID
-          phone: 電話番号
-          email: メールアドレス
-          birthed_on: 生年月日
-          zip_code: 郵便番号
-          address: 住所
           joined_on: 入社日
           department_id: 部署
           resigned_on: 退社日
-          password: パスワード
-          password_confirmation: パスワード再入力
-          created_at: 作成日
-          updated_at: 更新日
         staff:
-          id: ID
           name: 名前
-          login_id: ログインID
-          phone: 電話番号
-          email: メールアドレス
-          birthed_on: 生年月日
-          zip_code: 郵便番号
-          address: 住所
           department_id: 部署
           joined_on: 入社日
           resigned_on: 退社日
-          password: パスワード
-          password_confirmation: パスワード再入力
-          created_at: 作成日
-          updated_at: 更新日
-        client:
-          id: ID
+        external_staff:
           name: 名前
-          kana: フリガナ
-          login_id: ログインID
+        client:
+          name: 名前
           gender: 性別
-          phone_1: 電話番号①
-          phone_2: 電話番号②
           fax: FAX番号
-          zip_code: 郵便番号
-          address: 住所
-          birthed_on: 生年月日
-          email: メールアドレス
-          created_at: 作成日
-          updated_at: 更新日
-          password: パスワード
-          password_confirmation: パスワード再入力
         supplier:
-          id: ID
           name: 業者名
-          kana: フリガナ
-          phone_1: 電話番号①
-          phone_2: 電話番号②
           fax: FAX番号
-          email: メールアドレス
           representative: 代表者名
-          zip_code: 郵便番号
-          address: 住所
-          created_at: 作成日
-          updated_at: 更新日
+          industries: 業種
         attendance:
           started_at: 出勤時間
           finished_at: 退勤時間
-          created_at: 作成日
-          updated_at: 更新日
+          worked_on: 出勤日
         task:
-          title: タイトル
+          title: タスク名
           content: 内容
           moved_on: 移動日
           status: ステータス
           before_status: 前回のステータス
           sort_order: 優先順位
-          created_at: 作成日
-          updated_at: 更新日
           limited_on: 期限
-          note: 備考
+        estimate_matter:
+          title: 見積案件名
+          status: 進行状況
+          actual_spot: 現場住所
+        estimate:
+          title: 見積名
         matter:
           title: 案件名
           status: 進行状況
-          created_at: 作成日
-          updated_at: 更新日
           actual_spot: 現場住所
-          zip_code: 郵便番号
           scheduled_started_on: 着工予定日
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
         industry:
           name: 業種名
-          created_at: 作成日
-          updated_at: 更新日
         department:
           name: 名前
-          created_at: 作成日
-          updated_at: 更新日
+        category:
+          title: タイトル
+        kind:
+          title: タイトル
+        image:
+          content: 内容
+          images: 写真
+          shooted_on: 撮影日
+        construction:
+        material:
+          name: 名前
+          service_life: 耐用年数
+  attributes:
+    id: ID
+    login_id: ログインID
+    phone: 電話番号
+    email: メールアドレス
+    auth: 権限
+    kana: フリガナ
+    phone_1: 電話番号①
+    phone_2: 電話番号②
+    zip_code: 郵便番号
+    note: 備考
+    address: 住所
+    content: 内容
+    birthed_on: 生年月日
+    created_at: 作成日
+    updated_at: 更新日
+    password: パスワード
+    password_confirmation: パスワード再入力
+    client: 顧客
+    manager: マネージャー
+    staff: スタッフ
+    supplier: 外注先

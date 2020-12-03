@@ -21,7 +21,7 @@
       <h5>詳細</h5>
       <div class="default_manager_event_showarea">
         <div class="ajax_show_area">
-          <%= render partial: 'manager/settings/manager_event_titles/ajax_manager_event_title/show', locals: { default_manager_event_titles: @default_manager_event_titles } %>
+          <%= render "manager/settings/manager_event_titles/ajax_manager_event_title/show", default_manager_event_titles: @default_manager_event_titles %>
         </div>
         
         <table class="table default_manager_event_title_new_form" style="display: none;">

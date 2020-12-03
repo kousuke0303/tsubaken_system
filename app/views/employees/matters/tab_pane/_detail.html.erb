@@ -3,10 +3,6 @@
     <th>タイトル</th>
     <td><%= @matter.title %></td>
   </tr>
-  <tr>
-    <th>顧客</th>
-    <td><%= @matter.client.name %></td>
-  </tr>
 
   <% if @managers.exists? %>
     <% @managers.each_with_index do |manager, index| %>
@@ -40,14 +36,6 @@
     </tr>
   <% end %>
 
-  <tr>
-    <th>郵便番号</th>
-    <td><%= @matter.zip_code %></td>
-  </tr>
-  <tr>
-    <th>現場住所</th>
-    <td><%= @matter.actual_spot %></td>
-  </tr>
   <tr>
     <th>進行状況</th>
     <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>

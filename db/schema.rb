@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_003308) do
+ActiveRecord::Schema.define(version: 2020_12_03_010858) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
+    t.boolean "default", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -87,10 +88,39 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
+  create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "note"
+    t.string "unit"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.string "zip_code"
+    t.string "address"
+    t.string "content"
+    t.integer "status", default: 0, null: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_estimate_matters_on_client_id"
+  end
+
+  create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.string "estimate_matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
   end
 
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -107,6 +137,17 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_external_staffs_on_login_id", unique: true
     t.index ["supplier_id"], name: "index_external_staffs_on_supplier_id"
+  end
+
+  create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "content"
+    t.date "shooted_on"
+    t.string "estimate_matter_id"
+    t.string "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_images_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_images_on_matter_id"
   end
 
   create_table "industries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -128,6 +169,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "amount"
+    t.boolean "default", default: false
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -154,6 +196,14 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
     t.index ["login_id"], name: "index_managers_on_login_id", unique: true
   end
 
+  create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.boolean "default", default: false
+    t.string "service_life"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "matter_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "matter_id", null: false
     t.bigint "manager_id"
@@ -173,9 +223,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   end
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "actual_spot"
-    t.string "zip_code"
+    t.string "title", default: "", null: false
     t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
@@ -183,21 +231,22 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
     t.date "scheduled_finished_on"
     t.date "finished_on"
     t.date "maintenanced_on"
-    t.bigint "client_id"
+    t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_matters_on_client_id"
+    t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
-  create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "client_id"
-    t.bigint "kind_id"
-    t.string "title"
-    t.string "amount"
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "message"
+    t.integer "admin_id"
+    t.integer "manager_id"
+    t.integer "staff_id"
+    t.integer "external_staff_id"
+    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_quotations_on_client_id"
-    t.index ["kind_id"], name: "index_quotations_on_kind_id"
+    t.index ["matter_id"], name: "index_messages_on_matter_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -267,12 +316,14 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
     t.integer "default_task_id"
     t.integer "default_task_id_count"
     t.boolean "notification", default: false
+    t.string "estimate_matter_id"
     t.string "matter_id"
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
     t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
@@ -283,7 +334,10 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
+  add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
+  add_foreign_key "images", "estimate_matters"
+  add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "kinds", "categories"
@@ -292,12 +346,12 @@ ActiveRecord::Schema.define(version: 2020_11_23_003308) do
   add_foreign_key "matter_managers", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
-  add_foreign_key "matters", "clients"
-  add_foreign_key "quotations", "clients"
-  add_foreign_key "quotations", "kinds"
+  add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "messages", "matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
+  add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
   add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
