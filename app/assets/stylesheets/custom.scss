@@ -452,13 +452,13 @@ a.article, a.article:hover {
 .flash {
   color: white;
   padding: 1em;
-  &_alert {
+  &-alert {
     background-color: #dc3545;
   }
-  &_success {
+  &-success {
     background-color: #20c997;
   }
-  &_notice {
+  &-notice {
     background-color: #17a2b8;
   }
 }

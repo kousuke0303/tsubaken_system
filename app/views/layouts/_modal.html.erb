@@ -96,4 +96,9 @@
     <div id="industry-new" class="modal fade" role="dialog"></div>
     <div id="industry-edit" class="modal fade" role="dialog"></div>
   <% end %>
+
+  <!--見積new・edit-->
+  <% if controller_name == "estimate_matters" && action_name == "show" %>
+    <div id="estimate-new" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
