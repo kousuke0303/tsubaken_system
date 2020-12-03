@@ -83,22 +83,35 @@ puts "CREATE! CLIENT"
       # MATTER
 # -----------------------------------------------------
 
-SeedMatter1 = Matter.create!(title: "案件１",
-              status: 0,
-              actual_spot: "東京都渋谷区神宮町１−１−１",
-              scheduled_started_on:  "2020-07-01",
-              scheduled_finished_on: "2020-7-15",
-              client_id: '1',
-              )
+SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
+                                             content: "見積案件1の内容",
+                                             status: 0,
+                                             zip_code: "5845151",
+                                             address: "東京都渋谷区神宮町１−１−１",
+                                             client_id: 1,
+                                             )
 
-SeedMatter2 = Matter.create!(title: "案件２",
-              status: 1,
-              actual_spot: "東京都渋谷区神宮町１−２−１",
-              scheduled_started_on: "2020-07-20",
-              scheduled_finished_on: "2020-08-30",
-              client_id: '2',
-              )
+SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
+                                             content: "見積案件2の内容",
+                                             status: 0,
+                                             zip_code: "5845151",
+                                             address: "東京都渋谷区神宮町１−２−１",
+                                             client_id: 2,
+                                             )                                          
 
+puts "CREATE! ESTIMATE_MATTER"
+
+SeedMatter1 = Matter.create!(title: "案件1",
+                             content: "案件1の内容",
+                             status: 0,
+                             estimate_matter_id: SeedEstimateMatter1.id
+                             )
+
+SeedMatter2 = Matter.create!(title: "案件2",
+                             content: "案件2の内容",
+                             status: 0,
+                             estimate_matter_id: SeedEstimateMatter2.id
+                             )
 puts "CREATE! MATTER"
 
 # -----------------------------------------------------
@@ -112,8 +125,13 @@ end
 puts "CREATE! DEFALTE_TASK"
 
 3.times do |n|
-  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
-  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, estimate_matter_id: SeedEstimateMatter1.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, estimate_matter_id: SeedEstimateMatter2.id)
+end
+
+3.times do |n|
+  Task.create!(title: "TASK#{ n + 1 }", status: 1, title: "当該タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter2.id)
+  Task.create!(title: "TASK#{ n + 1 }", status: 2, title: "進行中タスク#{ n + 1 }", content: "テスト内容", sort_order: n, matter_id: SeedMatter2.id)
 end
 
 puts "CREATE! TASK"
@@ -143,16 +161,22 @@ ExternalStaff.all.each do |external_staff|
                                                                                  finished_at: "#{year}-#{month}-#{day} 17:00:00")
 end
 
-puts "CREATE! ATTENDANCES"
+puts "CREATE! ATTENDANCE"
 
 3.times do |n|
   Category.create(title: "テストカテゴリ#{ n + 1 }")
 end
 
-puts "CREATE! CATEGORIES"
+puts "CREATE! CATEGORIE"
 
 3.times do |n|
   Kind.create(title: "テストタイプ#{ n + 1 }", category_id: 1, amount: "10000")
 end
 
-puts "CREATE! KINDS"
+puts "CREATE! KIND"
+
+3.times do |n|
+  Material.create(name: "テスト素材#{ n + 1 }", service_life: "10000")
+end
+
+puts "CREATE! MATERIAL"

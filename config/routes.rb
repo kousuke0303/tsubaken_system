@@ -194,25 +194,30 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update, :destroy] do
-      patch :erase, on: :member
+    resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily
         get :individual
       end
     end
 
-    resources :matters do
-      resources :tasks, only: [:update, :destroy] do
+    resources :estimate_matters do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
       end
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
+      resources :images, controller: "estimate_matters/images" do
+        post :edit, on: :member
       end
     end
 
     resources :matters do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
+        post :move, on: :collection
+        post :create, on: :collection
+      end
       resources :images do
         post :edit, on: :member
       end
@@ -224,6 +229,7 @@ Rails.application.routes.draw do
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
   

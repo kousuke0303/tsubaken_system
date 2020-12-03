@@ -1,0 +1,106 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h4>タスク編集</h4>
+
+        <div class="card-body">
+          <%= form_with(model: task, url: employees_estimate_matter_task_path(estimate_matter, task), method: :patch, remote: true, id: "edit-task-form") do |f| %>
+            <div class="task-update-errors"></div>
+
+            <%= f.label :title %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-title" %>
+
+            <%= f.label :content %>
+            <%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+
+            <h5 class="text-center mt-1e">担当者</h5>
+            <div class="flex mt-1e">
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button" id="manager-btn">Manager</button>
+              </div>
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button" id="staff-btn">Staff</button>
+              </div>
+              <div class="pl-05e pr-05e" style="width: calc(100% / 3);">
+                <button class="btn btn-dark btn-block" type="button" id="external-staff-btn">外部Staff</button>
+              </div>
+            </div>
+
+            <div>
+              <div id="manager-select">
+                <%= f.label :manager_id %>
+                <%= f.collection_select :manager_id, Manager.all, :id, :name, { include_blank: "担当Managerなし" }, class: "form-control", id: "manager" %>
+              </div>
+              <div id="staff-select">
+                <%= f.label :staff_id %>
+                <%= f.collection_select :staff_id, Staff.all, :id, :name, { include_blank: "担当Staffなし" }, class: "form-control", id: "staff" %>
+              </div>
+              <div id="external-staff-select">
+                <%= f.label :external_staff_id %>
+                <%= f.collection_select :external_staff_id, ExternalStaff.all, :id, :name, { include_blank: "担当外部Staffなし" }, class: "form-control", id: "external-staff" %>
+              </div>
+            </div>
+            
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= link_to "削除", employees_estimate_matter_task_path(estimate_matter, task), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// タスクの担当者設定フォームの表示切替
+  var managerSelect = $("#manager-select");
+  var staffSelect = $("#staff-select");
+  var externalStaffSelect = $("#external-staff-select");
+  var manager = $("#manager");
+  var staff = $("#staff");
+  var externalStaff = $("#external-staff");
+
+  managerSelect.hide();
+  staffSelect.hide();
+  externalStaffSelect.hide();
+
+  $("#manager-btn").click(function() {
+    managerSelect.show();
+    staffSelect.hide();
+    externalStaffSelect.hide();
+  });
+
+  $("#staff-btn").click(function() {
+    managerSelect.hide();
+    staffSelect.show();
+    externalStaffSelect.hide();
+  });
+
+  $("#external-staff-btn").click(function() {
+    managerSelect.hide();
+    staffSelect.hide();
+    externalStaffSelect.show();
+  });
+
+  manager.change(function() {
+    if($(this).val() != "") {
+      $("#staff").val("");
+      $("#external-staff").val("");
+    }
+  });
+  staff.change(function() {
+    if($(this).val() != "") {
+      $("#manager").val("");
+      $("#external-staff").val("");
+    }
+  });
+  externalStaff.change(function() {
+    if($(this).val() != "") {
+      $("#manager").val("");
+      $("#staff").val("");
+    }
+  });
+</script>
