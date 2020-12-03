@@ -2,6 +2,7 @@ class EstimateMatter < ApplicationRecord
   belongs_to :client
   has_one :matter
   has_many :tasks, dependent: :destroy
+  has_many :estimates, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }
