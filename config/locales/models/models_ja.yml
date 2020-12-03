@@ -9,6 +9,7 @@ ja:
       supplier: 外注先
       attendance: 勤怠
       estimate_matter: 見積案件
+      estimate: 見積
       matter: 案件
       task: タスク
       industry: 業種
@@ -58,6 +59,8 @@ ja:
           title: 見積案件名
           status: 進行状況
           actual_spot: 現場住所
+        estimate:
+          title: 見積名
         matter:
           title: 案件名
           status: 進行状況
