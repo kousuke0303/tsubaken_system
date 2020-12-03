@@ -1,4 +1,4 @@
-class Employees::TasksController < ApplicationController
+class Employees::Matters::TasksController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter
   before_action :set_task, only: [:edit, :update, :destroy]
