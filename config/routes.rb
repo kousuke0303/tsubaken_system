@@ -217,7 +217,7 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-      resources :images do
+      resources :images, controller: "matters/images" do
         post :edit, on: :member
       end
       resources :talkrooms, only: [:index, :create] do
