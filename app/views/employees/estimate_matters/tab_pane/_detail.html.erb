@@ -22,6 +22,12 @@
 </table>
 
 <div class="btn-area">
+  <% if matter %>
+    <%= link_to "案件詳細", employees_matter_path(matter), class: "btn btn-dark" %>
+  <% else %>
+    <%= link_to "案件作成", employees_estimate_matter_matters_path(@estimate_matter), method: :post,
+                            data: { confirm: "この見積案件から案件を作成をしてよろしいですか？" }, class: "btn btn-dark" %>
+  <% end %>
   <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>

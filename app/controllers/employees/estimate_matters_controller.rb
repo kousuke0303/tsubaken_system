@@ -27,6 +27,7 @@ class Employees::EstimateMattersController < ApplicationController
     @tasks = @estimate_matter.tasks
     set_classified_tasks(@estimate_matter)
     @estimates = @estimate_matter.estimates
+    @matter = @estimate_matter.matter
   end
 
   def edit

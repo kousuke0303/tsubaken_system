@@ -202,6 +202,7 @@ Rails.application.routes.draw do
     end
 
     resources :estimate_matters do
+      resources :matters, only: :create
       resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -212,7 +213,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :matters do
+    resources :matters, only: [:show, :edit, :update, :destroy, :index] do
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
