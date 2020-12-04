@@ -1,5 +1,5 @@
 <%= f.label :client_id %>
-<%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
+<%= f.collection_select :client_id, clients, :id, :name, {}, class: "form-control" %>
 
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
@@ -19,7 +19,7 @@
 <div>
   <%= f.label :staff %>
   <div>
-    <%= f.collection_check_boxes(:staff_ids, Staff.all, :id, :name) do |s| %>
+    <%= f.collection_check_boxes(:staff_ids, staffs, :id, :name) do |s| %>
       <%= s.check_box %><%= s.text %>
     <% end %> 
   </div>
@@ -28,7 +28,7 @@
 <div>
   <%= f.label :external_staff %>
   <div>
-    <%= f.collection_check_boxes(:external_staff_ids, ExternalStaff.all, :id, :name) do |e| %>
+    <%= f.collection_check_boxes(:external_staff_ids, external_staffs, :id, :name) do |e| %>
       <%= e.check_box %><%= e.text %>
     <% end %> 
   </div>

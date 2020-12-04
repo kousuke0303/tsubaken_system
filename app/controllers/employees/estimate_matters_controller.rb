@@ -1,6 +1,7 @@
 class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
+  before_action :set_employees, only: [:new, :edit]
 
   def index
     @estimate_matters = EstimateMatter.includes(:client)
@@ -8,7 +9,6 @@ class Employees::EstimateMattersController < ApplicationController
 
   def new
     @estimate_matter = EstimateMatter.new
-    @clients = Client.all
   end
 
   def create
@@ -31,9 +31,6 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def edit
-    @clients = Client.all
-    @staffs = Staff.all
-    @suppliers = Supplier.all
   end
 
   def update
@@ -55,6 +52,12 @@ class Employees::EstimateMattersController < ApplicationController
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])
+    end
+
+    def set_employees
+      @clients = Client.all
+      @staffs = Staff.all
+      @external_staffs = ExternalStaff.all
     end
 
     def estimate_matter_params
