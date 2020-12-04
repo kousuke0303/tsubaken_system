@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "estimate_matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id", null: false
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_estimate_matter_external_staffs_on_estimate_matter_id"
+    t.index ["external_staff_id"], name: "index_estimate_matter_external_staffs_on_external_staff_id"
+  end
+
   create_table "estimate_matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id", null: false
     t.bigint "staff_id"
@@ -335,6 +344,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "estimates"
+  add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
+  add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_staffs", "staffs"
   add_foreign_key "estimate_matters", "clients"

@@ -24,3 +24,12 @@
     <% end %> 
   </div>
 </div>
+
+<div>
+  <%= f.label :external_staff %>
+  <div>
+    <%= f.collection_check_boxes(:external_staff_ids, ExternalStaff.all, :id, :name) do |e| %>
+      <%= e.check_box %><%= e.text %>
+    <% end %> 
+  </div>
+</div>
