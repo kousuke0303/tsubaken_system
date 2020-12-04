@@ -95,6 +95,6 @@ class Employees::Matters::TasksController < ApplicationController
     end
     
     def task_params
-      params.require(:task).permit(:title, :content, :manager_id, :staff_id, :external_staff_id)
+      params.require(:task).permit(:title, :content, :staff_id, :external_staff_id)
     end
 end

@@ -43,7 +43,6 @@ class Employees::EstimateMatters::TasksController < ApplicationController
     sort_order = relevant_tasks.length
     title = params[:title]
     @estimate_matter.tasks.create!(title: title, status: 1, sort_order: sort_order)
-    @a = @estimate_matter.tasks.length
     set_classified_tasks(@estimate_matter)
     respond_to do |format|
       format.js
@@ -96,6 +95,6 @@ class Employees::EstimateMatters::TasksController < ApplicationController
     end
         
     def task_params
-      params.require(:task).permit(:title, :content, :manager_id, :staff_id, :external_staff_id)
+      params.require(:task).permit(:title, :content, :staff_id, :external_staff_id)
     end
 end
