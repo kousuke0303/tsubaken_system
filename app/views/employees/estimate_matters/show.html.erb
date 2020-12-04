@@ -1,4 +1,9 @@
 <div class="col-12">
+  
+  <div class="text-right">
+    <%= link_to "画像一覧", employees_estimate_matter_images_path(current_estimate_matter), target: :_blank, rel: :noopener, rel: :noreferrer, class: "btn btn-dark" %>
+  </div>
+
   <h2><i class="fas fa-clipboard"></i> 見積案件詳細</h2>
 
   <div class="card text-center tab-wrapper">
@@ -12,9 +17,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#estimates" data-toggle="tab" role="tab" aria-controls="estimates" aria-selected="true">見積一覧</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="tab" role="tab" aria-controls="images" aria-selected="true">写真一覧</a>
         </li>
       </ul>
     </div>
