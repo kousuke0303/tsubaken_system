@@ -5,12 +5,12 @@
 <table class="table table-sm common-table">
   <tr>
     <th>見積名</th>
-    <th>作成日時</th>
+    <th>工事カテゴリ名</th>
   </tr>
   <% @estimates.each do |estimate| %>
     <tr>
       <td><%= estimate.title %></td>
-      <td><%= l(estimate.created_at.to_time, format: :long) %></td>
+      <td><%= estimate.name %></td>
     </tr>
   <% end %>
 </table>

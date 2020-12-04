@@ -16,7 +16,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
         @estimate.categories.create(name: default_category.name)
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      @estimates = @estimate_matter.estimates.with_categories
     else
       @response = "false"
     end
