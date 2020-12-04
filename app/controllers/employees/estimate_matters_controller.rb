@@ -32,6 +32,8 @@ class Employees::EstimateMattersController < ApplicationController
 
   def edit
     @clients = Client.all
+    @staffs = Staff.all
+    @suppliers = Supplier.all
   end
 
   def update

@@ -1,7 +1,6 @@
 class Employees::MattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
-  before_action :set_matter_support, only: :edit
 
   # 見積案件から案件を作成
   def create
@@ -31,6 +30,8 @@ class Employees::MattersController < ApplicationController
   end
 
   def edit
+    @staffs = Staff.all
+    @suppliers = Supplier.all
   end
 
   def update
@@ -50,11 +51,6 @@ class Employees::MattersController < ApplicationController
   private
     def set_matter
       @matter = Matter.find(params[:id])
-    end
-
-    def set_matter_support
-      @staffs = Staff.all
-      @suppliers = Supplier.all
     end
 
     def matter_params
