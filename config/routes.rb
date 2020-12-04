@@ -202,6 +202,7 @@ Rails.application.routes.draw do
     end
 
     resources :estimate_matters do
+      resources :matters, only: :create
       resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -212,7 +213,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :matters do
+    resources :matters, only: [:show, :edit, :update, :destroy, :index] do
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -233,13 +234,5 @@ Rails.application.routes.draw do
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
     end
-  end
-  
-  scope "(:manager_public_uid)" do
-    get 'prefecture_index', to: 'addresses#prefecture_index'
-    get 'city_index', to: 'addresses#city_index'
-    get 'town_index', to: 'addresses#town_index'
-    get 'block_index', to: 'addresses#block_index'
-    get 'selected_block', to: 'addresses#selected_block'
   end
 end

@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true) do |f| %>
             <div class="estimate-create-errors"></div>
-              <%= render "form", f: f, kinds: @kinds %>
+              <%= render "form", f: f, categories: categories %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark" %>
             </div>

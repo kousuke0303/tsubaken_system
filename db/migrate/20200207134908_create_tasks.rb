@@ -12,7 +12,6 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.boolean :notification, default: false
       t.string :estimate_matter_id
       t.string :matter_id
-      t.references :manager,          foreign_key: true
       t.references :staff,            foreign_key: true
       t.references :external_staff,   foreign_key: true
 

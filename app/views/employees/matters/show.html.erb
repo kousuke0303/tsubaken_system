@@ -14,9 +14,6 @@
           <a class="nav-link active" href="#detail" data-toggle="tab" role="tab" aria-controls="detail" aria-selected="true">詳細情報</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#employees" data-toggle="tab" role="tab" aria-controls="employees" aria-selected="false">担当者</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#clients" data-toggle="tab" role="tab" aria-controls="clients" aria-selected="false">顧客情報</a>
         </li>
         <li class="nav-item">
@@ -33,11 +30,9 @@
         <div class="tab-pane fade show active bg-white" id="detail" role="tabpanel">
           <%= render "employees/matters/tab_pane/detail" %>
         </div>
-        <div class="tab-pane fade show bg-white" id="employees" role="tabpane2">
+        <div class="tab-pane fade bg-white" id="clients" role="tabpane2">
         </div>
-        <div class="tab-pane fade show bg-white" id="clients" role="tabpane3">
-        </div>
-        <div class="tab-pane fade show bg-white", id="tasks" role="tabpane4">
+        <div class="tab-pane fade bg-white", id="tasks" role="tabpane3">
           <div class="tasks-index">
             <%= render "employees/matters/tab_pane/tasks" %>
           </div>
