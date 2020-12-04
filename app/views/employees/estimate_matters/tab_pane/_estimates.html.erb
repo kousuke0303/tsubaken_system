@@ -6,11 +6,24 @@
   <tr>
     <th>見積名</th>
     <th>工事カテゴリ名</th>
+    <th></th>
   </tr>
-  <% @estimates.each do |estimate| %>
-    <tr>
-      <td><%= estimate.title %></td>
-      <td><%= estimate.name %></td>
-    </tr>
+  <% @estimates.group_by{ |estimate| [estimate[:id]] }.each do |categories| %>
+    <% categories = categories[1] %>
+    <% categories.each_with_index do |category, index| %>
+      <% if index == 0 %>
+        <tr>
+          <td><%= category.title %></td>
+          <td><%= category.name %></td>
+          <td></td>
+        </tr>
+      <% else %>
+        <tr>
+          <td></td>
+          <td><%= category.name %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    <% end %>
   <% end %>
 </table>
