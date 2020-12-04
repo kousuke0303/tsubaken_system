@@ -1,6 +1,8 @@
 class EstimateMatter < ApplicationRecord
   belongs_to :client
   has_one :matter
+  has_many :estimate_matter_staffs, dependent: :destroy
+  has_many :staffs, through: :estimate_matter_staffs
   has_many :tasks, dependent: :destroy
   has_many :estimates, dependent: :destroy
 

@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "estimate_matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id", null: false
+    t.bigint "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_estimate_matter_staffs_on_estimate_matter_id"
+    t.index ["staff_id"], name: "index_estimate_matter_staffs_on_staff_id"
+  end
+
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.string "zip_code"
@@ -311,14 +320,12 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.boolean "notification", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
-    t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
-    t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
     t.index ["staff_id"], name: "index_tasks_on_staff_id"
   end
@@ -328,6 +335,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "estimates"
+  add_foreign_key "estimate_matter_staffs", "estimate_matters"
+  add_foreign_key "estimate_matter_staffs", "staffs"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
@@ -345,7 +354,6 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
-  add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
   add_foreign_key "tasks", "staffs"
 end
