@@ -1,5 +1,4 @@
-class Employees::Matters::TasksController < ApplicationController
-  before_action :authenticate_employee!
+class Employees::Matters::TasksController < Employees::TasksController
   before_action :set_matter
   before_action :set_task, only: [:edit, :update, :destroy]
 
@@ -50,6 +49,8 @@ class Employees::Matters::TasksController < ApplicationController
   end
 
   def edit
+    @staffs = @matter.staffs
+    @external_staffs = @matter.external_staffs
   end
   
   def update
@@ -70,31 +71,9 @@ class Employees::Matters::TasksController < ApplicationController
       end
     end
   end
-  
+
   private
     def set_matter
       @matter = Matter.find(params[:matter_id])
-    end
-
-    def set_task
-      @task = Task.find(params[:id])
-    end
-
-    # paramsで送られてきたstatusをenumの数値に変換
-    def convert_to_status_num(status)
-      case status
-      when "default-tasks"
-        0
-      when "relevant-tasks"
-        1
-      when "ongoing-tasks"
-        2
-      when "finished-tasks"
-        3
-      end
-    end
-    
-    def task_params
-      params.require(:task).permit(:title, :content, :manager_id, :staff_id, :external_staff_id)
     end
 end

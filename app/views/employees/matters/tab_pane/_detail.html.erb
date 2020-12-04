@@ -20,6 +20,22 @@
     </tr>
   <% end %>
 
+  <% if @external_staffs.exists? %>
+    <% @external_staffs.each_with_index do |external_staff, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
+        <% end %>
+        <td><%= external_staff.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>担当外部Staff</th>
+      <td></td>
+    </tr>
+  <% end %>
+
   <tr>
     <th>進行状況</th>
     <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>

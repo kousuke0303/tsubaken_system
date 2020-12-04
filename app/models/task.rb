@@ -1,7 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
-  belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
 
@@ -18,13 +17,7 @@ class Task < ApplicationRecord
 
   # 担当者は一名に制限
   def only_in_charge
-    if self.manager
-      errors.add(:base, "担当者は一名までです") if self.staff || self.external_staff
-    elsif self.staff
-      errors.add(:base, "担当者は一名までです") if self.manager || self.external_staff
-    elsif self.external_staff
-      errors.add(:base, "担当者は一名までです") if self.manager || self.staff
-    end
+    errors.add(:base, "担当者は一名までです") if self.staff && self.external_staff
   end
 
   # sort_orderを正しい連番に更新
