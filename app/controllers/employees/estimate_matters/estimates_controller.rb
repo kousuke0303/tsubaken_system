@@ -4,12 +4,18 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
 
   def new
     @estimate = @estimate_matter.estimates.new
-    @kinds = Kind.all
+    @categories = Category.all.where(default: true)
   end
 
   def create
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save
+      params[:estimate]["category_ids"].each do |category_id|
+        if category_id.present?
+          default_category = Category.find(category_id)
+          @estimate.categories.create(name: default_category.name)
+        end
+      end
       @response = "success"
       @estimates = @estimate_matter.estimates
     else

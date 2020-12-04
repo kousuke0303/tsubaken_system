@@ -235,12 +235,4 @@ Rails.application.routes.draw do
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
-  
-  scope "(:manager_public_uid)" do
-    get 'prefecture_index', to: 'addresses#prefecture_index'
-    get 'city_index', to: 'addresses#city_index'
-    get 'town_index', to: 'addresses#town_index'
-    get 'block_index', to: 'addresses#block_index'
-    get 'selected_block', to: 'addresses#selected_block'
-  end
 end
