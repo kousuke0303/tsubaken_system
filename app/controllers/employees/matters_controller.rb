@@ -24,6 +24,7 @@ class Employees::MattersController < ApplicationController
 
   def show
     @staffs = @matter.staffs
+    @external_staffs = @matter.external_staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
     set_classified_tasks(@matter)
@@ -31,6 +32,7 @@ class Employees::MattersController < ApplicationController
 
   def edit
     @staffs = Staff.all
+    @external_staffs = ExternalStaff.all
     @suppliers = Supplier.all
   end
 
@@ -55,6 +57,6 @@ class Employees::MattersController < ApplicationController
 
     def matter_params
       params.require(:matter).permit(:title, :scheduled_started_on, :scheduled_finished_on, :status,
-                                     :started_on, :finished_on, :maintenanced_on, { staff_ids: [] }, { supplier_ids: [] })
+                                     :started_on, :finished_on, :maintenanced_on, { staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     end
 end

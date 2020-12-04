@@ -36,7 +36,7 @@ class Employees::EstimateMattersController < ApplicationController
   def update
     if @estimate_matter.update(estimate_matter_params)
       flash[:success] = "見積案件を更新しました。"
-      redirect_to employees_estimate_matters_url(@estimate_matter)
+      redirect_to employees_estimate_matter_url(@estimate_matter)
     else
       respond_to do |format|
         format.js

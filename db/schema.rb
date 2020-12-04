@@ -224,6 +224,15 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_staff_id"], name: "index_matter_external_staffs_on_external_staff_id"
+    t.index ["matter_id"], name: "index_matter_external_staffs_on_matter_id"
+  end
+
   create_table "matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "matter_id", null: false
     t.bigint "staff_id"
@@ -356,6 +365,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
+  add_foreign_key "matter_external_staffs", "external_staffs"
+  add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
