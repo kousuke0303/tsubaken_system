@@ -2,6 +2,7 @@ class CreateMaterials < ActiveRecord::Migration[5.2]
   def change
     create_table :materials do |t|
       t.string :name
+      t.boolean :default,        default: false
       t.string :service_life
 
       t.timestamps

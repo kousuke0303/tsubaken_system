@@ -4,22 +4,6 @@
     <td><%= @matter.title %></td>
   </tr>
 
-  <% if @managers.exists? %>
-    <% @managers.each_with_index do |manager, index| %>
-      <tr>
-        <% if index == 0 %>
-          <th rowspan="<%= @managers.count %>">担当Manager</th>
-        <% end %>
-        <td><%= manager.name %></td>
-      </tr>
-    <% end %>
-  <% else %>
-    <tr>
-      <th>担当Manager</th>
-      <td></td>
-    </tr>
-  <% end %>
-
   <% if @staffs.exists? %>
     <% @staffs.each_with_index do |staff, index| %>
       <tr>
@@ -32,6 +16,22 @@
   <% else %>
     <tr>
       <th>担当Staff</th>
+      <td></td>
+    </tr>
+  <% end %>
+
+  <% if @external_staffs.exists? %>
+    <% @external_staffs.each_with_index do |external_staff, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
+        <% end %>
+        <td><%= external_staff.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>担当外部Staff</th>
       <td></td>
     </tr>
   <% end %>

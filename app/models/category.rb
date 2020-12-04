@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   has_many :kinds, dependent: :destroy
+  belongs_to :estimate, optional: true
 
-  validates :title, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 30 }
 end

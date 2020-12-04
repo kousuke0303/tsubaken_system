@@ -4,13 +4,19 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
 
   def new
     @estimate = @estimate_matter.estimates.new
+    @categories = Category.all.where(default: true)
   end
 
   def create
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save
+      # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
+      params[:estimate]["category_ids"].each do |category_id|
+        default_category = Category.find(category_id)
+        @estimate.categories.create(name: default_category.name)
+      end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      @estimates = @estimate_matter.estimates.with_categories
     else
       @response = "false"
     end
