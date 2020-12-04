@@ -17,11 +17,7 @@ class Task < ApplicationRecord
 
   # 担当者は一名に制限
   def only_in_charge
-    if self.staff
-      errors.add(:base, "担当者は一名までです") if self.manager || self.external_staff
-    elsif self.external_staff
-      errors.add(:base, "担当者は一名までです") if self.manager || self.staff
-    end
+    errors.add(:base, "担当者は一名までです") if self.staff && self.external_staff
   end
 
   # sort_orderを正しい連番に更新

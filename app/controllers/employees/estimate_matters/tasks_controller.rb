@@ -47,6 +47,11 @@ class Employees::EstimateMatters::TasksController < Employees::TasksController
       format.js
     end
   end
+
+  def edit
+    @staffs = @estimate_matter.staffs
+    @external_staffs = @estimate_matter.external_staffs
+  end
   
   def update
     if @task.update(task_params)
