@@ -10,11 +10,10 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
   def create
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save
+      # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
       params[:estimate]["category_ids"].each do |category_id|
-        if category_id.present?
-          default_category = Category.find(category_id)
-          @estimate.categories.create(name: default_category.name)
-        end
+        default_category = Category.find(category_id)
+        @estimate.categories.create(name: default_category.name)
       end
       @response = "success"
       @estimates = @estimate_matter.estimates
