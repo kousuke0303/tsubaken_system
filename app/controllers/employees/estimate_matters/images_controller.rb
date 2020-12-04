@@ -3,6 +3,7 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
   
   before_action :set_images, only: [:index, :edit]
   before_action :current_estimate_matter
+  before_action :authenticate_estimate_matter!
 
   def new
     @image = Image.new

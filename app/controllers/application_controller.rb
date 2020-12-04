@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_matter
   helper_method :current_estimate_matter
   helper_method :current_admin
+  helper_method :current_client
 
   # ---------------------------------------------------------
         # FORMAT関係
@@ -55,11 +56,24 @@ class ApplicationController < ActionController::Base
   end
   
   # --------------------------------------------------------
+        # CLIENT関係
+  # --------------------------------------------------------
+  
+  def current_client
+    Client.find_by(id: params[:client_id]) || Client.find_by(id: params[:id])
+  end
+  
+  # --------------------------------------------------------
         # MATTER関係
   # --------------------------------------------------------
   
   def current_matter
     Matter.find_by(id: params[:matter_id]) || Matter.find_by(id: params[:id])
+  end
+  
+  # 案件に関わる者以外はログインページに遷移する
+  def authenticate_matter!
+    redirect_to root_url unless current_matter
   end
   
   # --------------------------------------------------------
@@ -68,6 +82,11 @@ class ApplicationController < ActionController::Base
 
   def current_estimate_matter
     EstimateMatter.find_by(id: params[:estimate_matter_id]) || EstimateMatter.find_by(id: params[:id])
+  end
+  
+  # 見積案件に関わる者以外はログインページに遷移する
+  def authenticate_estimate_matter!
+    redirect_to root_url unless current_estimate_matter
   end
 
   # --------------------------------------------------------

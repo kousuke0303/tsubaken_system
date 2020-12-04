@@ -1,5 +1,6 @@
 class Employees::EstimateMatters::EstimatesController < ApplicationController
   before_action :authenticate_employee!
+  before_action :authenticate_estimate_matter!
   before_action :set_estimate_matter
 
   def new

@@ -1,5 +1,6 @@
 class Employees::MattersController < ApplicationController
   before_action :authenticate_employee!
+  before_action :authenticate_matter!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
 
   # 見積案件から案件を作成
