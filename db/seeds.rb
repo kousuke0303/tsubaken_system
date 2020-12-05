@@ -163,7 +163,7 @@ end
 
 puts "CREATE! ATTENDANCE"
 
-Category.create(name: "屋根", default: true)
+SeedCategory1 = Category.create(name: "屋根", default: true)
 Category.create(name: "外壁", default: true)
 Category.create(name: "玄関", default: true)
 
@@ -175,8 +175,8 @@ end
 
 puts "CREATE! KIND"
 
-3.times do |n|
-  Material.create(name: "テスト素材#{ n + 1 }", service_life: "10000")
-end
+Material.create(name: "瓦", service_life: "10年", default: true, category_id: SeedCategory1)
+Material.create(name: "ソーラーパネル", service_life: "15年", default: true, category_id: SeedCategory1)
+Material.create(name: "レンガ", service_life: "20年", default: true, category_id: SeedCategory1)
 
 puts "CREATE! MATERIAL"

@@ -1,3 +1,6 @@
+<%= f.label :category_id %>
+<%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control" %>
+
 <%= f.label :name %>
 <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
 
