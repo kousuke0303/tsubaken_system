@@ -1,0 +1,26 @@
+<% messages_by_date.each do |date, messages| %>
+  <div class="before_message_container">
+    <div class="text-center">
+      <div class="date_container">
+        <span><%= chat_day_display(date) %></span>
+      </div>
+    </div>
+          
+    <% messages.each do |message| %> 
+      <% if my_message?(message) %>
+        
+        <!--自分のメッセージ-->
+        <%= render partial: "add_own_message", locals: {message: message, photo: message.photo} %>
+            
+      <% else %>
+        
+        <!--自分以外のメッセージ-->
+        <%= render partial: "add_recieve_message", locals: {message: message, photo: message.photo } %>
+              
+      <% end %>
+    <% end %>
+
+  </div>             
+<% end %>
+
+

@@ -1,11 +1,10 @@
-<div class="col-sm-12 text-right mb-1e">
+<div class="col-12 text-right mb-1e">
   <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
 </div>
-
 <div id="kanban-tasks"></div>
 
 <script>
-// タスク移動関連
+// タスク関連
 $(document).ready(function(){
   //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
@@ -18,8 +17,6 @@ $(document).ready(function(){
           { 
             "title": "<%= task.title %>",
             "id": "<%= task.id %>",
-            "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -34,8 +31,6 @@ $(document).ready(function(){
           {
             "title": "<%= task.title %>",
             "id": "<%= task.id %>",
-            "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -50,8 +45,6 @@ $(document).ready(function(){
           {
             "title": "<%= task.title %>",
             "id": "<%= task.id %>",
-            "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -66,8 +59,6 @@ $(document).ready(function(){
           { 
             "title": "<%= task.title %>",
             "id": "<%= task.id %>",
-            "task-title": "<%= task.title %>",
-            "task-content": "<%= task.content %>"
           },
         <% end %>
       ]
@@ -77,9 +68,9 @@ $(document).ready(function(){
   //jKanbanのインスタンス作成
   var kanban = new jKanban({
     element         : '#kanban-tasks',  //タスク管理ボードを表示するHTML要素
-    gutter          : '13px',       //ボード同士の間隔
-    widthBoard      : '220px',      //ボードのサイズ
-    boards          : defaultBoards,//初期状態のJSONデータ
+    gutter          : '13px',           //ボード同士の間隔
+    widthBoard      : '220px',          //ボードのサイズ
+    boards          : defaultBoards,    //初期状態のJSONデータ
     
     dropEl: function(el, target, a, b){
       var task = el.getAttribute("data-eid");
@@ -97,21 +88,21 @@ $(document).ready(function(){
     }
   });
 
-    var addTaskButton = document.getElementById("add-task");
-    addTaskButton.addEventListener("click",function(){
-      
-      const formItem = document.createElement("form");
-      formItem.innerHTML = '<input type="text", id="new-task-form">';
-      kanban.addForm("relevant-tasks", formItem);
-  
-      $("#new-task-form").blur(function(){
-        var title = $("#new-task-form").val();
+  var addTaskButton = document.getElementById("add-task");
+  addTaskButton.addEventListener("click",function(){
+    
+    const formItem = document.createElement("form");
+    formItem.innerHTML = '<input type="text", id="new-task-form">';
+    kanban.addForm("relevant-tasks", formItem);
 
-        $.ajax({
-          type: "POST",
-          url: "<%= employees_matter_tasks_path(@matter) %>",
-          cache: false,
-          data: { title: title, remote: true }
+    $("#new-task-form").blur(function(){
+      var title = $("#new-task-form").val();
+
+      $.ajax({
+        type: "POST",
+        url: "<%= employees_matter_tasks_path(@matter) %>",
+        cache: false,
+        data: { title: title, remote: true }
       });
     });
   });
@@ -137,9 +128,7 @@ $(document).ready(function(){
 
   <% @matter.tasks.each do |task| %>
     $(function(){
-      <% if task.manager %>
-        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.manager.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
-      <% elsif task.staff %>
+      <% if task.staff %>
         $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
       <% elsif task.external_staff %>
         $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
@@ -149,16 +138,12 @@ $(document).ready(function(){
 
       // タスク編集モーダル
       $("[data-eid=<%= task.id %>]").on("click",function(){
-        let matterId = "<%= @matter.id %>"
-        let taskId = this.getAttribute("data-eid");
-        let taskTitle = this.getAttribute("data-task-title");
-        let taskContent = this.getAttribute("data-task-content");
-        $("#task-edit").modal();
-        $("#task-title").val(taskTitle);
-        $("#task-content").val(taskContent);
-        $('h4').removeClass();
-　　　　$('h4').addClass("modal-header-<%= task.status %> text-center");
-        $("#edit-task-form").attr("action", "/employees/matters/" + matterId + "/tasks/" + taskId);
+        $.ajax({
+          type: "GET",
+          url: "<%= edit_employees_matter_task_path(@matter, task) %>",
+          cache: false,
+          data: { remote: true }
+        });
       });
     });
   <% end %>

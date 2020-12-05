@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  # mount ActionCable.server => '/cable'
   root "static_pages#login_index"
 
   # API関連
@@ -192,24 +194,38 @@ Rails.application.routes.draw do
     resources :suppliers do
       resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
     end
-    resources :attendances, only: [:create, :update, :destroy] do
-      patch :erase, on: :member
+    resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily
         get :individual
       end
     end
 
-    resources :matters do
-      resources :tasks, only: [:update, :destroy] do
+    resources :estimate_matters do
+      resources :matters, only: :create
+      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
       end
+      resources :talkrooms, only: [:index, :create] do
+        get :scroll_get_messages, on: :collection
+      end
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates"
+      resources :images, controller: "estimate_matters/images" do
+        post :edit, on: :member
+      end
     end
 
-    resources :matters do
-      resources :images do
+    resources :matters, only: [:show, :edit, :update, :destroy, :index] do
+      resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
+        post :move, on: :collection
+        post :create, on: :collection
+      end
+      resources :images, controller: "matters/images" do
         post :edit, on: :member
+      end
+      resources :talkrooms, only: [:index, :create] do
+        get :scroll_get_messages, on: :collection
       end
     end
     
@@ -219,14 +235,7 @@ Rails.application.routes.draw do
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
     end
-  end
-  
-  scope "(:manager_public_uid)" do
-    get 'prefecture_index', to: 'addresses#prefecture_index'
-    get 'city_index', to: 'addresses#city_index'
-    get 'town_index', to: 'addresses#town_index'
-    get 'block_index', to: 'addresses#block_index'
-    get 'selected_block', to: 'addresses#selected_block'
   end
 end

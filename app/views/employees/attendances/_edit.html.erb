@@ -16,7 +16,7 @@
             <%= f.label :finished_at %>
             <%= f.time_field :finished_at, class: "form-control", required: true, id: "edit-attendance-finished-at" %>
 
-            <input name="prev_url" hidden>
+            <input name="prev_action" hidden>
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
@@ -31,6 +31,6 @@
 
 <script>
   $(document).on("turbolinks:load", function() {
-    $('[name="prev_url"]').val("<%= controller.action_name %>");
+    $('[name="prev_action"]').val("<%= controller.action_name %>");
   });
 </script>

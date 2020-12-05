@@ -1,0 +1,35 @@
+<%= f.label :client_id %>
+<%= f.collection_select :client_id, clients, :id, :name, {}, class: "form-control" %>
+
+<%= f.label :title %>
+<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+
+<%= f.label :zip_code %>
+<%= f.text_field :zip_code, class: "form-control", maxlength: 7 %>
+
+<%= f.label :address %>
+<%= f.text_field :address, class: "form-control", maxlength: 100 %>
+
+<%= f.label :status %>
+<%= f.select :status, EstimateMatter.statuses.keys.map {|k| [I18n.t("enums.estimate_matter.status.#{k}"), k]}, {}, class: "form-control" %>
+
+<%= f.label :content %>
+<%= f.text_area :content, required: true, class: "form-control", maxlength: 300 %>
+
+<div>
+  <%= f.label :staff %>
+  <div>
+    <%= f.collection_check_boxes(:staff_ids, staffs, :id, :name) do |s| %>
+      <%= s.check_box %><%= s.text %>
+    <% end %> 
+  </div>
+</div>
+
+<div>
+  <%= f.label :external_staff %>
+  <div>
+    <%= f.collection_check_boxes(:external_staff_ids, external_staffs, :id, :name) do |e| %>
+      <%= e.check_box %><%= e.text %>
+    <% end %> 
+  </div>
+</div>

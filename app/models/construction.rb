@@ -1,0 +1,2 @@
+class Construction < ApplicationRecord
+end
