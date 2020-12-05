@@ -1,3 +1,49 @@
 <div class="col-lg-12 col-md-12">
-  <h1>MANAGER TOP</h1>
+  <!--▼出退勤ボタンの表示-->
+  <ul class="nav nav-tabs title_tab_bar">
+    <li class="nav-item">
+      <a class="nav-link attendance_tab">本日の出退勤</a>
+    </li>
+  </ul>
+  <div class="mt-1e text-center">
+    <%= link_to "出勤", "#", class: "btn btn-primary btn-attendance" %>
+  </div>
+  
+  <!--▼新着情報コンテナ-->
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">新着情報</a>
+    </li>
+  </ul>
+  
+  <div class="news_container">
+    新着情報なしの場合
+    <p>新着情報はありません</p>
+    新着情報ありの場合
+    <div class="top_page_contents">
+      <p><i class="fas fa-exclamation-circle fa-blue"></i>
+        <span>新規顧客が追加されました</span>
+      </p>
+      <p><i class="fas fa-exclamation-circle fa-blue"></i>
+        <span>新規案件が登録されました</span>
+      </p>
+      <p><i class="fas fa-exclamation-circle"></i>
+        <span>○○が現場に到着しました</span>
+      </p>
+      <p><i class="fas fa-exclamation-circle fa-orange"></i>
+        <span>案件○○のタスク○○が完了しました</span>
+      </p>
+    </div>
+  </div>
+  
+  <!--ghanttcart-->
+  <ul class="nav nav-tabs title_tab_bar">
+    <li class="nav-item">
+      <a class="nav-link title_tab">GanttChart</a>
+    </li>
+  </ul>
+  <div class="mt-1e">
+    <!--<!%= render 'matter/ganttchart/index' %>-->
+  </div>
+
 </div>

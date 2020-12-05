@@ -5,36 +5,99 @@
   </div>
 
   <h2><i class="fas fa-clipboard"></i> 見積案件詳細</h2>
-
-  <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="matters-show-tab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#detail" data-toggle="tab" role="tab" aria-controls="detail" aria-selected="true">詳細情報</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#tasks" data-toggle="tab" role="tab" aria-controls="tasks" aria-selected="true">タスク一覧</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#estimates" data-toggle="tab" role="tab" aria-controls="estimates" aria-selected="true">見積一覧</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="card-body">
-      <div class="tab-content" id="matter-show-tab">
-        <div class="tab-pane fade show active bg-white" id="detail" role="tabpanel">
-          <%= render "employees/estimate_matters/tab_pane/detail", matter: @matter %>
-        </div>
-        <div class="tab-pane fade bg-white" id="tasks" role="tabpane2">
-          <div class="tasks-index">
-            <%= render "employees/estimate_matters/tab_pane/tasks" %>
-          </div>          
-        </div>
-        <div class="tab-pane fade bg-white" id="estimates" role="tabpane3">
-          <div class="estimates-index">
-            <%= render "employees/estimate_matters/tab_pane/estimates" %>
+  <div class="text-right mb-1e">
+    <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, class: "btn btn-dark" %>
+    <%= link_to "チャットルーム", "#", target: :_blank, class: "btn btn-primary" %>
+  </div>
+  
+  <table class="table table-bordered table_column_type">
+    <tr>
+      <th>状況</th>
+      <td class="alert">テスト</td>
+    </tr>
+    <tr>
+      <th>タイトル</th>
+      <td><%= @estimate_matter.title %></td>
+    </tr>
+    <tr>
+      <th>顧客</th>
+      <td><%= @estimate_matter.client.name %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @estimate_matter.zip_code %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @estimate_matter.address %></td>
+    </tr>
+    <tr>
+      <th>内容</th>
+      <td><%= @estimate_matter.content %></td>
+    </tr>
+  </table>
+  <div class="btn-area mb-1e">
+    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
+    <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
+  
+  
+  <div class="accordion" id="accordionExample">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          営業履歴
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <div class="text-right mb-05e">
+            <%= link_to "営業記録作成", "#", class: "btn btn-success" %>
           </div>
+          <table class="table table-bordered table_line_type">
+            <tr>
+              <th>日付</th>
+              <th>内容</th>
+              <th>担当者</th>
+              <th>備考</th>
+              <th>結果</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="accordion mt-1e" id="accordionExample">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          見積作成
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <div class="text-right mb-05e">
+            <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
+              <i class="fas fa-plus"></i> 新規見積
+            <% end %>
+          </div>
+          <table class="table table-bordered table_line_type">
+            <tr>
+              <th>TYPE</th>
+              <th>作成日</th>
+              <th>担当者</th>
+              <th>備考</th>
+            </tr>
+          </table>
         </div>
       </div>
     </div>

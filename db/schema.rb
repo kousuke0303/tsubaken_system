@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "default", default: false
     t.bigint "estimate_id"
     t.datetime "created_at", null: false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title", null: false
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -217,11 +217,13 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "default", default: false
     t.string "service_life"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_materials_on_category_id"
   end
 
   create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -365,6 +367,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
+  add_foreign_key "materials", "categories"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"
