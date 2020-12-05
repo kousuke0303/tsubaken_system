@@ -17,16 +17,6 @@
       </div>
     </div>
     
-    <!--STEP2-->
-    <div class="card mt-1e">
-      <h5 class="card-header">STEP.2 <span class="ml-1e text-nowrap">顧客情報の入力</span></h5>
-      <div class="card-body">
-
-        <%= f.label :client %>
-        <%= f.collection_select :client_id, @clients, :id, :name, {}, class: "form-control" %>
-      </div>
-    </div>
-    
     <!--STEP3-->
     <div class="card mt-1e">
       <h5 class="card-header">STEP.3 <span class="ml-1e text-nowrap">着工予定日・完了予定日の入力</span></h5>
@@ -48,18 +38,18 @@
       <h5 class="card-header">STEP.4 <span class="ml-1e text-nowrap">担当者の入力</span></h5>
       <div class="card-body">
         <div>
-          <%= f.label :manager %>
-          <div>
-            <%= f.collection_check_boxes(:manager_ids, @managers, :id, :name) do |m| %>
-              <%= m.check_box %><%= m.text %>
-            <% end %> 
-          </div>
-        </div>
-        <div>
           <%= f.label :staff %>
           <div>
             <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>
               <%= s.check_box %><%= s.text %>
+            <% end %> 
+          </div>
+        </div>
+        <div>
+          <%= f.label :external_staff %>
+          <div>
+            <%= f.collection_check_boxes(:external_staff_ids, @external_staffs, :id, :name) do |e| %>
+              <%= e.check_box %><%= e.text %>
             <% end %> 
           </div>
         </div>

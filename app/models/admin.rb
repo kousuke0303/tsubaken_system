@@ -10,6 +10,8 @@ class Admin < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
+  has_one_attached :avator
+  
   def admin_is_only
     if Admin.exists? && self.id != 1
       errors.add(:base, "管理者アカウントは既に存在します")
@@ -25,7 +27,7 @@ class Admin < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login_id = conditions.delete(:login_id)
-      where(conditions).where(login_id: login_id).first
+      where(conditions).where("login_id = ?", login_id).first
     else
       where(conditions).first
     end
@@ -44,4 +46,5 @@ class Admin < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
 end

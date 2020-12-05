@@ -1,5 +1,6 @@
 class Image < ApplicationRecord
   has_many_attached :images
+  belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
    
   validates :images, :shooted_on, presence: true

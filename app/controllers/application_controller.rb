@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_manager
   helper_method :current_matter
+  helper_method :current_estimate_matter
   helper_method :current_admin
 
   # ---------------------------------------------------------
@@ -62,18 +63,26 @@ class ApplicationController < ActionController::Base
   end
   
   # --------------------------------------------------------
+        # ESTIMATE_MATTER関係
+  # --------------------------------------------------------
+
+  def current_estimate_matter
+    EstimateMatter.find_by(id: params[:estimate_matter_id]) || EstimateMatter.find_by(id: params[:id])
+  end
+
+  # --------------------------------------------------------
         # TASK関係
   # --------------------------------------------------------
 
-  # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
-  def set_classified_tasks(matter)
+  # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
+  def set_classified_tasks(resource)
     @default_tasks = Task.default.order(default_task_id_count: :desc)
     Task.reload_sort_order(@default_tasks)
-    @relevant_tasks = matter.tasks.are_relevant
+    @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
-    @ongoing_tasks = matter.tasks.are_ongoing
+    @ongoing_tasks = resource.tasks.are_ongoing
     Task.reload_sort_order(@ongoing_tasks)
-    @finished_tasks = matter.tasks.are_finished
+    @finished_tasks = resource.tasks.are_finished
     Task.reload_sort_order(@finished_tasks)
   end
     
@@ -113,4 +122,5 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
   end
+  
 end

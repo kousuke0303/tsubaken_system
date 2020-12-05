@@ -3,26 +3,6 @@
     <th>タイトル</th>
     <td><%= @matter.title %></td>
   </tr>
-  <tr>
-    <th>顧客</th>
-    <td><%= @matter.client.name %></td>
-  </tr>
-
-  <% if @managers.exists? %>
-    <% @managers.each_with_index do |manager, index| %>
-      <tr>
-        <% if index == 0 %>
-          <th rowspan="<%= @managers.count %>">担当Manager</th>
-        <% end %>
-        <td><%= manager.name %></td>
-      </tr>
-    <% end %>
-  <% else %>
-    <tr>
-      <th>担当Manager</th>
-      <td></td>
-    </tr>
-  <% end %>
 
   <% if @staffs.exists? %>
     <% @staffs.each_with_index do |staff, index| %>
@@ -40,14 +20,22 @@
     </tr>
   <% end %>
 
-  <tr>
-    <th>郵便番号</th>
-    <td><%= @matter.zip_code %></td>
-  </tr>
-  <tr>
-    <th>現場住所</th>
-    <td><%= @matter.actual_spot %></td>
-  </tr>
+  <% if @external_staffs.exists? %>
+    <% @external_staffs.each_with_index do |external_staff, index| %>
+      <tr>
+        <% if index == 0 %>
+          <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
+        <% end %>
+        <td><%= external_staff.name %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <th>担当外部Staff</th>
+      <td></td>
+    </tr>
+  <% end %>
+
   <tr>
     <th>進行状況</th>
     <td><%= I18n.t("enums.matter.status.#{@matter.status}") %></td>

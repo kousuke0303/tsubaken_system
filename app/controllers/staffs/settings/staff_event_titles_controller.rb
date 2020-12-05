@@ -20,7 +20,7 @@ class Staffs::Settings::StaffEventTitlesController < ApplicationController
 
   def update
     @staff_event_title = StaffEventTitle.find(params[:id])
-    @staff_event_titles = StaffEventTitle.where(event_name: @staff_event_title.event_name)
+    @staff_event_titles = StaffEventTitle.where("event_name = ?", @staff_event_title.event_name)
     @staff_event_titles.each { |staff_event_title| staff_event_title.update(default_staff_event_titles_params) }
     @staff_event_title = StaffEventTitle.find(params[:id])
     @default_staff_event_titles = current_staff.staff_event_titles.order(:event_name).order(created_at: "DESC")
@@ -31,7 +31,7 @@ class Staffs::Settings::StaffEventTitlesController < ApplicationController
 
   def destroy
     @staff_event_title = StaffEventTitle.find(params[:id])
-    @staff_event_titles = StaffEventTitle.where(event_name: @staff_event_title.event_name)
+    @staff_event_titles = StaffEventTitle.where("event_name = ?", @staff_event_title.event_name)
     @staff_event_titles.each { |staff_event_title| staff_event_title.destroy }
     flash[:success] = "イベント：#{@staff_event_title.event_name}を削除しました"
     redirect_to new_staff_settings_staff_event_title_url(current_staff)

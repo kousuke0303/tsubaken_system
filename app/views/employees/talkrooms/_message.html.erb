@@ -1,0 +1,90 @@
+<% if my_message?(message) %>
+  
+<!--▼自分のメッセージ-->
+  <% if message.message.present? && message.photo.attached? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= simple_format message.message %></p>
+      </div>
+    </div>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= image_tag message.photo, class: "ajax_img" %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if message.message.present? && !message.photo.attached? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= simple_format message.message %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if message.message == "" && message.photo.attached? %>
+    <div class="balloon_r">
+      <span><%= message.created_at.strftime("%H:%M") %></span>
+      <div class="my_says">
+        <p id="<%= message.id %>"><%= image_tag message.photo, class: "ajax_img"%></p>
+      </div>
+    </div>
+  <% end %>
+            
+<% else %>
+        
+<!--▼自分以外のメッセージ-->
+  <% if message.message.present? && message.photo.attached? %>
+    <div class="balloon_l">
+      <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+        <%= avator(sender(message)) %>
+        <!--<img src="https://stand-4u.com/stand-4u/wp-content/uploads/2019/09/s4man.png" alt="" >-->
+      </div>
+      <div style="margin-top: 0;">
+        <span class="name_container"><%= sender_detail(message)[0] %></span>
+        <%= simple_format message.message, class: "says", id: "#{ message.id }" %>
+      </div>
+      <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+    </div>
+    <div class="balloon_l">
+      <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+        <%= avator(sender(message)) %>
+      </div>
+      <div>
+        <span class="name_container"><%= sender_detail(message)[0] %></span>
+        <p id="<%= message.id %>" class="says"><%= image_tag message.photo, class: "ajax_img" %></p>
+      </div>
+      <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+    </div>
+    <% end %>
+    
+    <% if message.message.present? && !message.photo.attached? %>          
+      <div class="balloon_l">
+        <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+          <%= avator(sender(message)) %>
+        </div>
+        <div>
+          <span class="name_container"><%= sender_detail(message)[0] %></span>
+          <%= simple_format message.message, class: "says", id: "#{ message.id }" %>
+        </div>
+        <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+      </div>
+    <% end %>
+    
+    <% if message.message == "" && message.photo.attached? %>
+      <div class="balloon_l">
+        <div class="faceicon default_avator_<%= sender_detail(message)[1] %>">
+          <%= avator(sender(message)) %>
+        </div>
+        <div>
+          <span class="name_container"><%= sender_detail(message)[0] %></span>
+          <p id="<%= message.id %>" class="says"><%= image_tag message.photo, class: "ajax_img" %></p>
+        </div>
+        <span class="mt-2e"><%= message.created_at.strftime("%H:%M") %></span>
+      </div>
+    <% end %>
+    
+<% end %>

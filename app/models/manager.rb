@@ -1,4 +1,8 @@
 class Manager < ApplicationRecord
+  belongs_to :department
+  has_many :attendances, dependent: :destroy
+  has_one_attached :avator
+
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -8,18 +12,12 @@ class Manager < ApplicationRecord
   validate :manager_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
-  
-  belongs_to :department
-  has_many :matter_managers, dependent: :destroy
-  has_many :matters, through: :matter_managers
-  has_many :attendances, dependent: :destroy
-  has_many :tasks, dependent: :destroy
 
   scope :enrolled, -> { where(resigned_on: nil) }
   scope :retired, -> { where.not(resigned_on: nil) }
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
-
+  
   # マネージャーの従業員IDは「MN-」から始めさせる
   def manager_login_id_is_correct?
     errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
@@ -62,4 +60,5 @@ class Manager < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
 end

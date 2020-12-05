@@ -10,7 +10,7 @@
       <p>Staff専用ページ</p>
       <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li><%= link_to "顧客管理", employees_clients_path %></li>
-      <li><%= link_to "見積案件管理", "#" %></li>
+      <li><%= link_to "見積案件管理", employees_estimate_matters_path %></li>
       <li><%= link_to "案件管理", employees_matters_path %></li>
       <li><%= link_to "カレンダー", "#" %></li>
       <li>
@@ -59,7 +59,7 @@
                 </li>
                 <li class="nav-item"><%= link_to "出退勤", staffs_attendances_path, class: "nav-link" %></li>
                 <div class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a href="#" class="nav-link dropdown-toggle session_name" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-alt"></i> <%= current_staff.name %>
                   </a>
                   <div class="dropdown-menu dropdown-position account_dropdown_menu">

@@ -1,19 +1,21 @@
 class Staff < ApplicationRecord
-  before_save { self.email = email.downcase if email.present? }
-
-  validates :name, presence: true, length: { maximum: 30 }
-  validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
-  validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
-  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
-  validate :staff_login_id_is_correct?
-
   belongs_to :department
+  has_many :estimate_matter_staffs, dependent: :destroy
   has_many :matter_staffs, dependent: :destroy
+  has_many :estimate_matters, through: :estimate_matter_staffs
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  
+  before_save { self.email = email.downcase if email.present? }
+
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :login_id, presence: true, length: { in: 8..12 }
+  validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
+  validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
+  validate :staff_login_id_is_correct?
 
   scope :enrolled, -> { where(resigned_on: nil) }
   scope :retired, -> { where.not(resigned_on: nil) }
