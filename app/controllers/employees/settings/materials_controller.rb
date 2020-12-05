@@ -45,7 +45,7 @@ class Employees::Settings::MaterialsController < ApplicationController
 
   private
     def material_params
-      params.require(:material).permit(:name, :service_life, :category_id)
+      params.require(:material).permit(:name, :service_life, :unit, :price, :category_id)
     end
 
     def set_material
