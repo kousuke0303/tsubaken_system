@@ -12,12 +12,14 @@
       <table class="table table-sm table-bordered common-table">
         <tr>
           <th>素材名</th>
-          <th></th>
+          <th>耐用年数</th>
+          <th>カテゴリ名</th>
           <th></th>
         </tr>
         <% @materials.each do |material| %>
           <tr>
             <td><%= material.name %></td>
+            <td><%= material.service_life %></td>
             <td><%= material.category_name %></td>
             <td>
               <%= link_to "編集", edit_employees_settings_material_path(material), remote: true, class: "btn btn-sm btn-dark" %>
