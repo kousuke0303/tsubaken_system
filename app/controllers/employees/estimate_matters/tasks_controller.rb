@@ -1,6 +1,5 @@
 class Employees::EstimateMatters::TasksController < Employees::TasksController
   before_action :set_estimate_matter
-  # before_action :authenticate_estimate_matter!
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def move

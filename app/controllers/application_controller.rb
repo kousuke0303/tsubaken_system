@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
       flash[:alert] = "アクセス権限がありません。"
-      redirect_to root_path
+      redirect_to root_url
     end
   end
 
@@ -71,9 +71,11 @@ class ApplicationController < ActionController::Base
     Matter.find_by(id: params[:matter_id]) || Matter.find_by(id: params[:id])
   end
   
-  # 案件に関わる者以外はログインページに遷移する
+  # 案件に関わらない者は、案件詳細ページが閲覧できないようにする
   def authenticate_matter!
-    redirect_to root_url unless current_matter
+    if current_matter.present? && !current_matter
+      redirect_to root_url
+    end
   end
   
   # --------------------------------------------------------
@@ -82,11 +84,6 @@ class ApplicationController < ActionController::Base
 
   def current_estimate_matter
     EstimateMatter.find_by(id: params[:estimate_matter_id]) || EstimateMatter.find_by(id: params[:id])
-  end
-  
-  # 見積案件に関わる者以外はログインページに遷移する
-  def authenticate_estimate_matter!
-    redirect_to root_url unless current_estimate_matter
   end
 
   # --------------------------------------------------------
