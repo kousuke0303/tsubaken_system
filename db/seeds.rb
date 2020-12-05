@@ -175,8 +175,8 @@ end
 
 puts "CREATE! KIND"
 
-Material.create(name: "瓦", service_life: "10年", default: true, category_id: SeedCategory1)
-Material.create(name: "ソーラーパネル", service_life: "15年", default: true, category_id: SeedCategory1)
-Material.create(name: "レンガ", service_life: "20年", default: true, category_id: SeedCategory1)
+Material.create(name: "瓦", service_life: "10年", default: true, category_id: SeedCategory1.id)
+Material.create(name: "ソーラーパネル", service_life: "15年", default: true, category_id: SeedCategory1.id)
+Material.create(name: "レンガ", service_life: "20年", default: true, category_id: SeedCategory1.id)
 
 puts "CREATE! MATERIAL"

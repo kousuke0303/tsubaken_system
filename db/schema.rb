@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.boolean "default", default: false
     t.bigint "estimate_id"
     t.datetime "created_at", null: false

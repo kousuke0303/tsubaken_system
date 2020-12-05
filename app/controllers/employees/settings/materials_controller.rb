@@ -33,7 +33,9 @@ class Employees::Settings::MaterialsController < ApplicationController
   end
 
   def index
-    @materials = Material.all.where(default: true)
+    @materials = Material.all.where(default: true).left_joins(:category).select("categories.*",
+                                                                                "materials.*",
+                                                                                "categories.name AS category_name").order(category_id: "ASC")
   end
 
   def destroy
