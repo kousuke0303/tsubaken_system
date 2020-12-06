@@ -1,14 +1,10 @@
-<%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-dark float-r" do %>
-  <i class="fas fa-plus"></i> 新規見積
-<% end %>
-
 <table class="table table-sm common-table">
   <tr>
     <th>見積名</th>
     <th>工事カテゴリ名</th>
     <th></th>
   </tr>
-  <% @estimates.group_by{ |estimate| [estimate[:id]] }.each do |categories| %>
+  <% estimates.group_by{ |estimate| [estimate[:id]] }.each do |categories| %>
     <% categories = categories[1] %>
     <% categories.each_with_index do |category, index| %>
       <% if index == 0 %>
