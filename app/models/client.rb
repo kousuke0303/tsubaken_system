@@ -17,6 +17,9 @@ class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
+
+  # 名前検索
+  scope :get_by_name, ->(name) { where("name like ?", "%#{name}%") }
          
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?
@@ -36,9 +39,4 @@ class Client < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
-
-  # 名前検索
-  scope :get_by_name, ->(name) {
-    where("name like ?", "%#{name}%")
-  }
 end
