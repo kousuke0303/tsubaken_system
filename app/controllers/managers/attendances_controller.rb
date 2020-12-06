@@ -5,7 +5,6 @@ class Managers::AttendancesController < ApplicationController
   end
 
   def update
-    debugger
     @attendance = current_manager.attendances.find(params[:id])
     if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update(started_at: Time.now)
       flash[:success] = "出勤しました。"

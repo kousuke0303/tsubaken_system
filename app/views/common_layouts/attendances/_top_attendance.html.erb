@@ -2,7 +2,7 @@
   <%= link_to "出勤", send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-primary btn-attendance" %>
 <% elsif attendance.finished_at.nil? %>
   <p>本日の出勤時間：<span><%= attendance.started_at.strftime("%H時%M分") %></span></p>
-  <%= link_to "退勤", managers_attendance_path(attendance.id, page: "top"), method: :patch, class: "btn btn-danger btn-attendance" %>
+  <%= link_to "退勤", send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-danger btn-attendance" %>
 <% else %>
   <p class="text-dark">本日もお疲れ様でした。</p>
   <i class="fas fa-exclamation-triangle text-danger mr-05e"></i>個人情報漏洩防止のため、ログアウトを忘れずに!!
