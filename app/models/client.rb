@@ -36,4 +36,9 @@ class Client < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+
+  # 名前検索
+  scope :get_by_name, ->(name) {
+    where("name like ?", "%#{name}%")
+  }
 end
