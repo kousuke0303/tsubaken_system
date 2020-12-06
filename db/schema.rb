@@ -220,6 +220,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.string "name", null: false
     t.boolean "default", default: false
     t.string "service_life"
+    t.string "unit"
+    t.integer "price"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

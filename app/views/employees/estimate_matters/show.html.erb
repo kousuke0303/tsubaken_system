@@ -85,14 +85,9 @@
               <i class="fas fa-plus"></i> 新規見積
             <% end %>
           </div>
-          <table class="table table-bordered table_line_type">
-            <tr>
-              <th>TYPE</th>
-              <th>作成日</th>
-              <th>担当者</th>
-              <th>備考</th>
-            </tr>
-          </table>
+          <div class="estimates-index">
+            <%= render "employees/estimate_matters/tab_pane/estimates", estimates: @estimates %>
+          </div>
         </div>
       </div>
     </div>

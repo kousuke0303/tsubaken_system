@@ -6,7 +6,7 @@
     </li>
   </ul>
   <div class="mt-1e text-center">
-    <%= link_to "出勤", "#", class: "btn btn-primary btn-attendance" %>
+    <%= render partial: "common_layouts/attendances/top_attendance", locals: { attendance: @attendance, path: :external_staffs_attendance_path } %>
   </div>
   
   <!--▼新着情報コンテナ-->

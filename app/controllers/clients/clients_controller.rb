@@ -3,5 +3,4 @@ class Clients::ClientsController < ApplicationController
   
   def top
   end
-
 end
