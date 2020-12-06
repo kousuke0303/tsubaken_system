@@ -24,6 +24,14 @@ class ApplicationController < ActionController::Base
     @one_month = [*@first_day..@last_day]
   end
 
+  # ---------------------------------------------------------
+        # ATTENDANCE関係
+  # ---------------------------------------------------------
+
+  def set_today_attendance(employee)
+    @attendance = employee.attendances.where(worked_on: Date.current).first
+  end
+  
   # Attendance用、マネージャー・スタッフ・外部スタッフ、それぞれの一月分勤怠レコードを生成
   def create_monthly_attendances(resource)
     @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
@@ -49,10 +57,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-
-  def set_today_attendance(employee)
-    @attendance = employee.attendances.where(worked_on: Date.current).first
-  end
+  
   
   # --------------------------------------------------------
         # MATTER関係
