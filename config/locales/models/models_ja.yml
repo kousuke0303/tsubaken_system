@@ -82,6 +82,7 @@ ja:
           images: 写真
           shooted_on: 撮影日
         construction:
+          name: 工事名
         material:
           name: 素材名
           service_life: 耐用年数

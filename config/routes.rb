@@ -236,6 +236,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end
