@@ -7,7 +7,7 @@ class Employees::Settings::MaterialsController < ApplicationController
   end
 
   def create
-    @material = Material.new(material_params)
+    @material = Material.new(material_params.merge(default: true))
     if @material.save
       flash[:success] = "素材を作成しました。"
       redirect_to employees_settings_materials_url
@@ -33,7 +33,9 @@ class Employees::Settings::MaterialsController < ApplicationController
   end
 
   def index
-    @materials = Material.all
+    @materials = Material.all.where(default: true).left_joins(:category).select("categories.*",
+                                                                                "materials.*",
+                                                                                "categories.name AS category_name").order(category_id: "ASC")
   end
 
   def destroy
@@ -43,7 +45,7 @@ class Employees::Settings::MaterialsController < ApplicationController
 
   private
     def material_params
-      params.require(:material).permit(:name, :service_life)
+      params.require(:material).permit(:name, :service_life, :unit, :price, :category_id)
     end
 
     def set_material

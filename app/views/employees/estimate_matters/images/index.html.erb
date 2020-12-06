@@ -1,0 +1,10 @@
+<div>
+  <div style="margin-left: 620px;">
+    <h1>写真一覧</h1>
+
+    <div class="margin-bottom-index-posision">
+      <%= link_to '新規写真登録', new_employees_estimate_matter_image_path(current_estimate_matter), class: "btn btn-md btn-primary" %>
+    </div>
+  </div>
+  <%= render @images %>
+</div>
