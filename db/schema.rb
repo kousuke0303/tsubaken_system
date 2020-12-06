@@ -91,12 +91,15 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.boolean "default", default: false
     t.string "note"
     t.string "unit"
     t.integer "price"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_constructions_on_category_id"
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -186,16 +189,6 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
-  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "amount"
-    t.boolean "default", default: false
-    t.bigint "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_kinds_on_category_id"
-  end
-
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
@@ -220,6 +213,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.string "name", null: false
     t.boolean "default", default: false
     t.string "service_life"
+    t.string "note"
     t.string "unit"
     t.integer "price"
     t.bigint "category_id"
@@ -357,6 +351,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "estimates"
+  add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
@@ -367,7 +362,6 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
-  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "categories"
   add_foreign_key "matter_external_staffs", "external_staffs"
