@@ -43,7 +43,8 @@ class Employees::AttendancesController < ApplicationController
     @external_staffs = ExternalStaff.all
     @prev_action = params[:prev_action]
   end
-
+  
+  # 管理者からの勤怠作成
   def create
     case params[:attendance]["employee_type"]
     when "1"

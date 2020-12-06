@@ -1,6 +1,9 @@
 class Staffs::StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :not_current_staff_return_login!  
+  before_action :not_current_staff_return_login! 
+  # before_action :set_one_month
+  # before_action ->{ create_monthly_attendances(current_staff) }
+  # before_action ->{ set_today_attendance(current_staff) }
 
   def top
   end
