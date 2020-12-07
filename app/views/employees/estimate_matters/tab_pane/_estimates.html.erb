@@ -1,6 +1,7 @@
 <table class="table table-sm common-table">
   <tr>
     <th>見積名</th>
+    <th></th>
     <th>工事カテゴリ名</th>
     <th></th>
   </tr>
@@ -10,11 +11,16 @@
       <% if index == 0 %>
         <tr>
           <td><%= category.title %></td>
+          <td>
+            <%= link_to "見積削除", employees_estimate_matter_estimate_path(estimate_matter, category.id), method: :delete, remote: true,
+                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
           <td><%= category.name %></td>
           <td></td>
         </tr>
       <% else %>
         <tr>
+          <td></td>
           <td></td>
           <td><%= category.name %></td>
           <td></td>
