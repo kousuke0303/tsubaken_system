@@ -3,7 +3,7 @@ class Employees::Settings::ConstructionsController < ApplicationController
   before_action :set_construction, only: [:edit, :update, :destroy]
 
   def index
-    @constructions = Construction.all.where(default: true)
+    @constructions = Construction.are_default
   end
 
   def new
