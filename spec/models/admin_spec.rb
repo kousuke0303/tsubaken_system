@@ -11,11 +11,11 @@ RSpec.describe Admin, type: :model do
   # validates :email, allow_blank: true
   # validates :login_id, presence: true
   # validate :admin_login_id_is_correct?
-  it "nameとlogin_idが存在すれば有効、phoneとemailは存在しなくても有効、nameが30文字以内の場合有効、login_idが8から12文字以内の場合有効、login_idがAD-から始まっていれば有効" do 
-    @admin.phone = ""
-    @admin.email = ""
-    expect(@admin.valid?).to eq(true)
-  end
+  # it "nameとlogin_idが存在すれば有効、phoneとemailは存在しなくても有効、nameが30文字以内の場合有効、login_idが8から12文字以内の場合有効、login_idがAD-から始まっていれば有効" do 
+  #   @admin.phone = ""
+  #   @admin.email = ""
+  #   expect(@admin.valid?).to eq(true)
+  # end
 
   # 次のバリデーションの確認
   # validates :name, presence: true
