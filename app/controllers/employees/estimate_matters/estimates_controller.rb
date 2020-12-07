@@ -43,7 +43,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
   end
 
   def destroy
-    @estimate.destroy ? flash[:success] = "見積を削除しました。" : flash[:alert] = "見積を削除できませんでした。"
+    @estimate.destroy
     @estimates = @estimate_matter.estimates.with_categories
   end
 
