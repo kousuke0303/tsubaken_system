@@ -67,20 +67,21 @@ puts "CREATE! INDUSTRY"
 
 3.times do |n|
   Client.create!(name: "テスト顧客#{ n + 1 }",
-                login_id: "CL-client-#{ n + 1 }",
-                phone_1: "08011112222",
-                phone_2: "08011113333",
-                email: "client-#{ n + 1 }@email.com",
-                zip_code: "5940088",
-                address: "大阪府テスト市",
-                password: "password",
-                password_confirmation: "password")
+                 kana: "テストコキャク",
+                 login_id: "CL-client-#{ n + 1 }",
+                 phone_1: "08011112222",
+                 phone_2: "08011113333",
+                 email: "client-#{ n + 1 }@email.com",
+                 zip_code: "5940088",
+                 address: "大阪府テスト市",
+                 password: "password",
+                 password_confirmation: "password")
 end
 
 puts "CREATE! CLIENT"
 
 # -----------------------------------------------------
-      # MATTER
+      # 案件関連
 # -----------------------------------------------------
 
 SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
@@ -169,8 +170,13 @@ Category.create(name: "玄関", default: true)
 
 puts "CREATE! CATEGORY"
 
-Material.create(name: "瓦", service_life: "10年", default: true, category_id: SeedCategory1.id)
-Material.create(name: "ソーラーパネル", service_life: "15年", default: true, category_id: SeedCategory1.id)
-Material.create(name: "レンガ", service_life: "20年", default: true, category_id: SeedCategory1.id)
+Material.create(name: "瓦", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory1.id)
+Material.create(name: "ソーラーパネル", service_life: "15年", unit: "枚", price: 10000, default: true, category_id: SeedCategory1.id)
+Material.create(name: "レンガ", service_life: "20年", unit: "個", price: 5000, default: true, category_id: SeedCategory1.id)
 
 puts "CREATE! MATERIAL"
+
+Construction.create(name: "屋根の工事1", default: true, price: "100000", unit: "日", default: true, category_id: SeedCategory1.id)
+Construction.create(name: "屋根の工事2", default: true, price: "150000", unit: "日", category_id: SeedCategory1.id)
+
+puts "CREATE! CONSTRUCTION"
