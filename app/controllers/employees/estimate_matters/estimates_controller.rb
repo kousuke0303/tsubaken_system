@@ -1,6 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter
+  before_action :set_estimate, only: [:destroy]
 
   def new
     @estimate = @estimate_matter.estimates.new
@@ -42,7 +43,8 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
   end
 
   def destroy
-    @estimate.destroy ? flash[:success] = "見積を削除しました。" : flash[:alert] = "見積を削除できませんでした。"
+    @estimate.destroy
+    @estimates = @estimate_matter.estimates.with_categories
   end
 
   private

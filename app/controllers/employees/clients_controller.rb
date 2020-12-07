@@ -27,6 +27,9 @@ class Employees::ClientsController < ApplicationController
 
   def index
     @clients = Client.all
+    if params[:name].present?
+      @clients = @clients.get_by_name params[:name]
+    end
   end
 
   def update

@@ -2,6 +2,7 @@ class Client < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
+  validates :kana, presence: true, length: { maximum: 30 }
   validates :phone_1, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :phone_2, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :fax, format: { with: VALID_FAX_REGEX }, allow_blank: true
@@ -17,6 +18,9 @@ class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
+
+  # 名前検索
+  scope :get_by_name, ->(name) { where("name like ?", "%#{name}%") }
          
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?

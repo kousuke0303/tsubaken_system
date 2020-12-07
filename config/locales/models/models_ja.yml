@@ -82,8 +82,9 @@ ja:
           images: 写真
           shooted_on: 撮影日
         construction:
+          name: 工事名
         material:
-          name: 名前
+          name: 素材名
           service_life: 耐用年数
   attributes:
     id: ID
@@ -98,6 +99,8 @@ ja:
     note: 備考
     address: 住所
     content: 内容
+    unit: 単位
+    price: 単価
     birthed_on: 生年月日
     created_at: 作成日
     updated_at: 更新日

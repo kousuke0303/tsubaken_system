@@ -1,7 +1,7 @@
 class TalkRoomChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    stream_from 'talk_room_channel'
+    stream_from "talk_room_channel_#{params['matter']}"
   end
 
   def unsubscribed
@@ -27,4 +27,8 @@ class TalkRoomChannel < ApplicationCable::Channel
     # messages_by_date = messages.group_by{|list| list.created_at.to_date} 
     # ActionCable.server.broadcast("talk_room_channel", message: message)
   end
+  
+  private
+    def rrrr
+    end
 end

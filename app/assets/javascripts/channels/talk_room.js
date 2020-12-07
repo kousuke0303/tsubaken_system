@@ -1,29 +1,31 @@
-App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
-  connected: function() {
-  },
+$(function() {
+  const elem = document.getElementById('talk_room');
+  App.talk_room = App.cable.subscriptions.create({ channel: "TalkRoomChannel", matter: elem.dataset.matter_id }, {
+    connected: function() {
+      alert(elem.dataset.matter_id);
+    },
 
-  disconnected: function() {
-  },
+    disconnected: function() {
+    },
    
-  received: function(data) {
-    
-    const current_name = document.getElementById('current_name');
-    // 受け取った送信者の名前とチャットルームの投稿者の名前が一致・不一致による非同期処理
-    if (current_name.textContent != data["sender"]){
-      const messages_area = document.getElementById('chat');
-      messages_area.insertAdjacentHTML('beforeend', data['recieve_html']);
-    } else {
-      const messages_area = document.getElementById('chat');
-      messages_area.insertAdjacentHTML('beforeend', data['sender_html']);
-    };
-    // const add_current_name = document.getElementById('add_current_name');
-    // add_current_name.textContent = current_name.textContent;
-    var obj = document.getElementById("chat");
-    obj.scrollTop = obj.scrollHeight;
-    // var recieve_massage = message["message"] 
-  },
+    received: function(data) {
+      const current_name = document.getElementById('current_name');
+      // 受け取った送信者の名前とチャットルームの投稿者の名前が一致・不一致による非同期処理
+      if (current_name.textContent != data["sender"]){
+        const messages_area = document.getElementById('chat');
+        messages_area.insertAdjacentHTML('beforeend', data['recieve_html']);
+      } else {
+        const messages_area = document.getElementById('chat');
+        messages_area.insertAdjacentHTML('beforeend', data['sender_html']);
+      };
+      // const add_current_name = document.getElementById('add_current_name');
+      // add_current_name.textContent = current_name.textContent;
+      var obj = document.getElementById("chat");
+      obj.scrollTop = obj.scrollHeight;
+      // var recieve_massage = message["message"] 
+    },
   
-  speak: function(formData) {
+    speak: function(formData) {
     // return this.perform('speak', formData);
     // if(formData.get("admin_id") != null) {
     //   return this.perform('speak', { 
@@ -38,8 +40,8 @@ App.talk_room = App.cable.subscriptions.create("TalkRoomChannel", {
     // }else if (formData.get("external_staff_id") != null) {
     //   return this.perform('speak', {formData});
     // }
-  },
-  
+    },
+  }); 
 });
   
   // $(document).on 'keypress', '[data-behavior~=speak_talk_rooms]', (event) ->
