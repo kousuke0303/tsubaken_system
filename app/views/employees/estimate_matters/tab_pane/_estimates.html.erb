@@ -16,7 +16,7 @@
                                    data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
           </td>
           <td><%= category.name %></td>
-          <td></td>
+          <td><%= link_to "工事・素材追加", edit_employees_estimate_matter_category_path(estimate_matter, 1), remote: true, class: "btn btn-sm btn-dark" %></td>
         </tr>
       <% else %>
         <tr>

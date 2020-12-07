@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">工事・素材選択</h5>
+        <div class="card-body">
+          <%= form_with(model: category, url: employees_estimate_matter_category_path(category), method: :post, remote: true) do |f| %>
+            <div class="estimate-category-update-errors"></div>
+              
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/reset_errors_jq" %>
