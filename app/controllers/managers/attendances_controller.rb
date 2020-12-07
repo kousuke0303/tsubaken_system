@@ -1,13 +1,11 @@
 class Managers::AttendancesController < ApplicationController
   before_action :authenticate_manager!
-  before_action :set_one_month
-  before_action ->{ create_monthly_attendances(current_manager) }
-  before_action ->{ set_today_attendance(current_manager) }
   
   def index
   end
 
   def update
+    @attendance = current_manager.attendances.find(params[:id])
     if @attendance.started_at.blank? && @attendance.finished_at.blank? && @attendance.update(started_at: Time.now)
       flash[:success] = "出勤しました。"
     elsif @attendance.started_at.present? && @attendance.finished_at.blank? && @attendance.update(finished_at: Time.now)
@@ -15,6 +13,10 @@ class Managers::AttendancesController < ApplicationController
     else
       flash[:success] = "エラーが発生しました。"
     end
-    redirect_to managers_attendances_url
+    if params[:page] == "top"
+      redirect_to managers_top_url(current_manager)
+    else
+      redirect_to managers_attendances_ur
+    end
   end
 end

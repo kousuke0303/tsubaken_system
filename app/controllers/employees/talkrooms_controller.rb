@@ -32,7 +32,7 @@ class Employees::TalkroomsController < ApplicationController
         recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: {message: message, sender: @sender, photo: photo })
         sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: {message: message, sender: @sender, photo: photo})
       end
-      ActionCable.server.broadcast "talk_room_channel", recieve_html: recieve_html, sender_html: sender_html, sender: @sender
+      ActionCable.server.broadcast "talk_room_channel_#{@matter.id}", recieve_html: recieve_html, sender_html: sender_html, sender: @sender
     end
   end
   

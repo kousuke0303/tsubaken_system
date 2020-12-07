@@ -52,10 +52,16 @@
     <div id="default-task-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--見積書カテゴリnew・edit-->
+  <!--工事カテゴリnew・edit-->
   <% if controller_name == "categories" && action_name == "index" %>
     <div id="category-new" class="modal fade" role="dialog"></div>
     <div id="category-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+
+  <!--工事new・edit-->
+  <% if controller_name == "constructions" && action_name == "index" %>
+    <div id="construction-new" class="modal fade" role="dialog"></div>
+    <div id="construction-edit" class="modal fade" role="dialog"></div>
   <% end %>
   
   <!--素材new・edit-->

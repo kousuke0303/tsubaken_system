@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_010858) do
+ActiveRecord::Schema.define(version: 2020_12_02_120242) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -62,9 +62,12 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
+    t.string "name", null: false
+    t.boolean "default", default: false
+    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_id"], name: "index_categories_on_estimate_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -88,18 +91,39 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.boolean "default", default: false
     t.string "note"
     t.string "unit"
     t.integer "price"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_constructions_on_category_id"
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "estimate_matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id", null: false
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_estimate_matter_external_staffs_on_estimate_matter_id"
+    t.index ["external_staff_id"], name: "index_estimate_matter_external_staffs_on_external_staff_id"
+  end
+
+  create_table "estimate_matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id", null: false
+    t.bigint "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_estimate_matter_staffs_on_estimate_matter_id"
+    t.index ["staff_id"], name: "index_estimate_matter_staffs_on_staff_id"
   end
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -115,7 +139,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title", null: false
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -165,15 +189,6 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
-  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "amount"
-    t.bigint "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_kinds_on_category_id"
-  end
-
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
@@ -195,19 +210,25 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.boolean "default", default: false
     t.string "service_life"
+    t.string "note"
+    t.string "unit"
+    t.integer "price"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_materials_on_category_id"
   end
 
-  create_table "matter_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "matter_id", null: false
-    t.bigint "manager_id"
+    t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_matter_managers_on_manager_id"
-    t.index ["matter_id"], name: "index_matter_managers_on_matter_id"
+    t.index ["external_staff_id"], name: "index_matter_external_staffs_on_external_staff_id"
+    t.index ["matter_id"], name: "index_matter_external_staffs_on_matter_id"
   end
 
   create_table "matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -315,14 +336,12 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
     t.boolean "notification", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
-    t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
-    t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
     t.index ["staff_id"], name: "index_tasks_on_staff_id"
   end
@@ -331,16 +350,22 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
+  add_foreign_key "categories", "estimates"
+  add_foreign_key "constructions", "categories"
+  add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
+  add_foreign_key "estimate_matter_external_staffs", "external_staffs"
+  add_foreign_key "estimate_matter_staffs", "estimate_matters"
+  add_foreign_key "estimate_matter_staffs", "staffs"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
-  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
-  add_foreign_key "matter_managers", "managers"
-  add_foreign_key "matter_managers", "matters"
+  add_foreign_key "materials", "categories"
+  add_foreign_key "matter_external_staffs", "external_staffs"
+  add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
@@ -350,7 +375,6 @@ ActiveRecord::Schema.define(version: 2020_12_03_010858) do
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
-  add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
   add_foreign_key "tasks", "staffs"
 end

@@ -14,7 +14,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
     if @client.update(client_params)
       sign_in(@client, :bypass => true)
       flash[:alert] = "アカウント情報を更新しました。"
-      redirect_to top_client_url(@client)
+      redirect_to clients_top_url
     else
       render :edit
     end

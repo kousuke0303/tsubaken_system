@@ -163,20 +163,14 @@ end
 
 puts "CREATE! ATTENDANCE"
 
-3.times do |n|
-  Category.create(title: "テストカテゴリ#{ n + 1 }")
-end
+SeedCategory1 = Category.create(name: "屋根", default: true)
+Category.create(name: "外壁", default: true)
+Category.create(name: "玄関", default: true)
 
-puts "CREATE! CATEGORIE"
+puts "CREATE! CATEGORY"
 
-3.times do |n|
-  Kind.create(title: "テストタイプ#{ n + 1 }", category_id: 1, amount: "10000")
-end
-
-puts "CREATE! KIND"
-
-3.times do |n|
-  Material.create(name: "テスト素材#{ n + 1 }", service_life: "10000")
-end
+Material.create(name: "瓦", service_life: "10年", default: true, category_id: SeedCategory1.id)
+Material.create(name: "ソーラーパネル", service_life: "15年", default: true, category_id: SeedCategory1.id)
+Material.create(name: "レンガ", service_life: "20年", default: true, category_id: SeedCategory1.id)
 
 puts "CREATE! MATERIAL"
