@@ -2,7 +2,7 @@
 <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control" %>
 
 <%= f.label :name %>
-<%= f.text_field :name, required: true, class: "form-control", maxlength: 40 %>
+<%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
 
 <%= f.label :price %>
 <%= f.number_field :price, class: "form-control", maxlength: 30 %>
