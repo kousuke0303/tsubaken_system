@@ -1,5 +1,5 @@
 $(function() {
-  const elem = document.getElementById('talk_room');
+  var elem = document.getElementById('talk_room');
   App.talk_room = App.cable.subscriptions.create({ channel: "TalkRoomChannel", matter: elem.dataset.matter_id }, {
     connected: function() {
       alert(elem.dataset.matter_id);
