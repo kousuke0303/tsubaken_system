@@ -14,6 +14,9 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
       @category.materials.create(name: default_material.name, unit: default_material.unit, price: default_material.price,
                                  service_life: default_material.service_life, parent_id: default_material.id)
     end
+    params[:category]["construction_ids"].each do |construction_id|
+      default_construction = Construction.find(construction_id)
+    end
     @estimates = @estimate_matter.estimates.with_categories
     respond_to do |format|
       format.js
