@@ -214,6 +214,7 @@ Rails.application.routes.draw do
       resources :images, controller: "estimate_matters/images" do
         post :edit, on: :member
       end
+      resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do
