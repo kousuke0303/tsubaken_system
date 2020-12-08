@@ -8,5 +8,6 @@ class Estimate < ApplicationRecord
 
   scope :with_categories, -> { left_joins(:categories).select("estimates.*",
                                                               "categories.*",
-                                                              "estimates.id AS id") }
+                                                              "estimates.id AS id",
+                                                              "categories.id AS category_id") }
 end

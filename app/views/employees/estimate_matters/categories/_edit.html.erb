@@ -7,7 +7,20 @@
         <div class="card-body">
           <%= form_with(model: category, url: employees_estimate_matter_category_path(category), method: :post, remote: true) do |f| %>
             <div class="estimate-category-update-errors"></div>
-              
+
+            <%= f.label :category_ids, "素材" %>
+            <div>
+              <%= f.collection_check_boxes(:material_ids, materials, :id, :name, include_hidden: false) do |m| %>
+                <%= m.check_box %><%= m.text %>
+              <% end %> 
+            </div>
+
+            <%= f.label :category_ids, "工事" %>
+            <div>
+              <%= f.collection_check_boxes(:construction_ids, constructions, :id, :name, include_hidden: false) do |c| %>
+                <%= c.check_box %><%= c.text %>
+              <% end %> 
+            </div>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>

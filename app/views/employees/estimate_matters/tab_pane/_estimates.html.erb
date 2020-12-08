@@ -5,27 +5,18 @@
     <th>工事カテゴリ名</th>
     <th></th>
   </tr>
-  <% estimates.group_by{ |estimate| [estimate[:id]] }.each do |categories| %>
-    <% categories = categories[1] %>
-    <% categories.each_with_index do |category, index| %>
-      <% if index == 0 %>
-        <tr>
-          <td><%= category.title %></td>
-          <td>
-            <%= link_to "見積削除", employees_estimate_matter_estimate_path(estimate_matter, category.id), method: :delete, remote: true,
-                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-          </td>
-          <td><%= category.name %></td>
-          <td><%= link_to "工事・素材追加", edit_employees_estimate_matter_category_path(estimate_matter, 1), remote: true, class: "btn btn-sm btn-dark" %></td>
-        </tr>
-      <% else %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><%= category.name %></td>
-          <td></td>
-        </tr>
-      <% end %>
-    <% end %>
+  <% estimates.each do |estimate| %>
+    <tr>
+      <td><%= estimate.title %></td>
+      <td>
+        <%= link_to "見積削除", employees_estimate_matter_estimate_path(estimate_matter, estimate.id), method: :delete, remote: true,
+                                data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+      </td>
+      <td><%= estimate.name %></td>
+      <td>
+        <%= link_to "工事・素材追加", edit_employees_estimate_matter_category_path(estimate_matter, estimate.category_id), remote: true, class: "btn btn-sm btn-dark" %>
+        <%= link_to "カテゴリ削除", employees_estimate_matter_category_path(estimate_matter, estimate.category_id), method: :delete, remote: true, class: "btn btn-sm btn-danger" %>
+      </td>
+    </tr>
   <% end %>
 </table>
