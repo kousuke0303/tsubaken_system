@@ -165,18 +165,23 @@ end
 puts "CREATE! ATTENDANCE"
 
 SeedCategory1 = Category.create(name: "屋根", default: true)
-Category.create(name: "外壁", default: true)
-Category.create(name: "玄関", default: true)
+SeedCategory2 = Category.create(name: "外壁", default: true)
+SeedCategory3 = Category.create(name: "玄関", default: true)
 
 puts "CREATE! CATEGORY"
 
-Material.create(name: "瓦", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory1.id)
-Material.create(name: "ソーラーパネル", service_life: "15年", unit: "枚", price: 10000, default: true, category_id: SeedCategory1.id)
-Material.create(name: "レンガ", service_life: "20年", unit: "個", price: 5000, default: true, category_id: SeedCategory1.id)
+3.times do |n|
+  Material.create(name: "屋根素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory1.id)
+  Material.create(name: "外壁素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory2.id)
+  Material.create(name: "玄関素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory3.id)
+end
 
 puts "CREATE! MATERIAL"
 
-Construction.create(name: "屋根の工事1", default: true, price: "100000", unit: "日", default: true, category_id: SeedCategory1.id)
-Construction.create(name: "屋根の工事2", default: true, price: "150000", unit: "日", category_id: SeedCategory1.id)
+3.times do |n|
+  Construction.create(name: "屋根工事#{ n + 1 }", default: true, price: "100000", unit: "日", category_id: SeedCategory1.id)
+  Construction.create(name: "外壁工事#{ n + 1 }", default: true, price: "150000", unit: "日", category_id: SeedCategory2.id)
+  Construction.create(name: "玄関工事#{ n + 1 }", default: true, price: "150000", unit: "日", category_id: SeedCategory3.id)
+end
 
 puts "CREATE! CONSTRUCTION"

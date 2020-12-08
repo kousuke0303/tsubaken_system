@@ -4,8 +4,8 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
   before_action :set_category
 
   def edit
-    @materials = Material.are_default
-    @constructions = Construction.are_default
+    @materials = @category.parent.materials
+    @constructions = @category.parent.constructions
   end
 
   def update
