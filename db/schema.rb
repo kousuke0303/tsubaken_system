@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.string "content"
     t.date "scheduled_started_on"
     t.date "started_on"

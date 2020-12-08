@@ -2,7 +2,7 @@ class CreateMatters < ActiveRecord::Migration[5.1]
   def change
     create_table :matters, id: :string do |t|
       t.string :title,                      null: false, default: ""
-      t.integer :status
+      t.integer :status,                    null: false, default: 0
       t.string :content
       t.date :scheduled_started_on
       t.date :started_on
