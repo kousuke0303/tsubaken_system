@@ -89,6 +89,7 @@ ja:
         material:
           name: 素材名
           service_life: 耐用年数
+          category_id: カテゴリ
   attributes:
     id: ID
     login_id: ログインID

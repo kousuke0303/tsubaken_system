@@ -14,8 +14,9 @@ class Task < ApplicationRecord
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
-  scope :are_default_task, -> { default.group(:title).order(:sort_order) }
+  scope :are_default_task, -> { default.where.not("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").group(:title).order(:sort_order) }
   scope :are_default_tasks, -> { default.group(:title) }
+  scope :are_default_task_request, -> { default.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").group(:title) }
 
   # 担当者は一名に制限
   def only_in_charge

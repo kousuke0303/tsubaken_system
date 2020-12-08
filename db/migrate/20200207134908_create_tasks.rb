@@ -9,8 +9,6 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.string :content
       t.integer :default_task_id
       t.integer :default_task_id_count
-      t.string :default_task_request_1
-      t.string :default_task_request_2
       t.boolean :notification, default: false
       t.string :estimate_matter_id
       t.string :matter_id

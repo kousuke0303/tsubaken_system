@@ -67,6 +67,11 @@ class ApplicationController < ActionController::Base
     Matter.find_by(id: params[:matter_id]) || Matter.find_by(id: params[:id])
   end
   
+   def matter_default_task_requests
+     @matter_default_task_scaffolding_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "足場架設依頼")
+     @matter_default_task_order_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "発注依頼")
+   end
+  
   # --------------------------------------------------------
         # ESTIMATE_MATTER関係
   # --------------------------------------------------------
