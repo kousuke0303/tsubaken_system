@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">工事・素材選択</h5>
         <div class="card-body">
-          <%= form_with(model: category, url: employees_estimate_matter_category_path(category), method: :post, remote: true) do |f| %>
+          <%= form_with(model: category, url: employees_estimate_matter_category_path(estimate_matter, category), method: :patch, remote: true) do |f| %>
             <div class="estimate-category-update-errors"></div>
 
             <%= f.label :category_ids, "素材" %>

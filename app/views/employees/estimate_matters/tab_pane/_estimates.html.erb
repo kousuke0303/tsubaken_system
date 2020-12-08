@@ -4,6 +4,12 @@
     <th></th>
     <th>工事カテゴリ名</th>
     <th></th>
+    <th>工事・素材名</th>
+    <th>耐用年数</th>
+    <th>単価</th>
+    <th>単位</th>
+    <th>数量</th>
+    <th>合計金額</th>
   </tr>
   <% estimates.each do |estimate| %>
     <tr>
@@ -17,6 +23,14 @@
         <%= link_to "工事・素材追加", edit_employees_estimate_matter_category_path(estimate_matter, estimate.category_id), remote: true, class: "btn btn-sm btn-dark" %>
         <%= link_to "カテゴリ削除", employees_estimate_matter_category_path(estimate_matter, estimate.category_id), method: :delete, remote: true, class: "btn btn-sm btn-danger" %>
       </td>
+      <% if estimate.material_id.present? %>
+        <td><%= estimate.material_name %></td>
+        <td><%= estimate.service_life %></td>
+        <td><%= estimate.material_price %></td>
+        <td><%= estimate.material_unit %></td>
+        <td></td>
+        <td></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

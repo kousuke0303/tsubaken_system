@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.string "note"
     t.string "unit"
     t.integer "price"
+    t.integer "amount"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -216,6 +217,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.string "note"
     t.string "unit"
     t.integer "price"
+    t.integer "amount"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
