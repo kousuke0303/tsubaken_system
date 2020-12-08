@@ -8,13 +8,15 @@
 
     <ul class="list-unstyled components">
       <p>Manager専用ページ</p>
+      <li><%= link_to "着工案件管理", employees_matters_path %></li>
+      <li><%= link_to "営業案件管理", employees_estimate_matters_path %></li>
+      <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li>
         <a href="#employees-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">従業員管理</a>
         <ul class="collapse list-unstyled" id="employees-menu">
           <li><%= link_to "Staff", employees_staffs_path %></li>
         </ul>
       </li>
-      <li><%= link_to "外注先管理", employees_suppliers_path %></li>
       <li>
         <a href="#attendances-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">勤怠管理</a>
         <ul class="collapse list-unstyled" id="attendances-menu">
@@ -23,8 +25,6 @@
         </ul>
       </li>
       <li><%= link_to "顧客管理", employees_clients_path %></li>
-      <li><%= link_to "見積案件管理", employees_estimate_matters_path %></li>
-      <li><%= link_to "案件管理", employees_matters_path %></li>
       <li><%= link_to "カレンダー", "#" %></li>
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
