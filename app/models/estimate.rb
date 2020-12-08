@@ -11,6 +11,7 @@ class Estimate < ApplicationRecord
                                                               "materials.*",
                                                               "estimates.id AS id",
                                                               "categories.id AS category_id",
+                                                              "categories.name AS category_name",
                                                               "materials.id AS material_id",
                                                               "materials.name AS material_name",
                                                               "materials.price AS material_price",

@@ -215,6 +215,8 @@ Rails.application.routes.draw do
         post :edit, on: :member
       end
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
+      resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
+      resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do

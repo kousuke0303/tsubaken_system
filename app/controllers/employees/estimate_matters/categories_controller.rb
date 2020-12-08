@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::CategoriesController < ApplicationController
   before_action :authenticate_employee!
-  before_action :set_estimate_matter, only: [:edit, :update, :destroy]
+  before_action :set_estimate_matter
   before_action :set_category
 
   def edit
