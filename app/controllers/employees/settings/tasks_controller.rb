@@ -4,8 +4,7 @@ class Employees::Settings::TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
-    @default_tasks = Task.are_default
-    @default_task_requests = Task.are_default_task_request
+    @default_tasks = Task.are_default_task
   end
 
   def new
@@ -15,8 +14,12 @@ class Employees::Settings::TasksController < ApplicationController
   def create
     sort_order = Task.are_default.length
     @default_task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
-    if @default_task.save
+    @default_task_1 = Task.new(title: "足場架設依頼", status: 0, sort_order: sort_order)
+    @default_task_2 = Task.new(title: "発注依頼" , status: 0, sort_order: sort_order)
+    if @default_task.save && @default_task_1.save && @default_task_2.save
       @default_task.update(default_task_id: @default_task.id)
+      @default_task_1.update(default_task_id: @default_task.id)
+      @default_task_2.update(default_task_id: @default_task.id)
       flash[:success] = "デフォルトタスクを作成しました。"
       redirect_to employees_settings_tasks_url
     else

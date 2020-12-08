@@ -16,22 +16,6 @@
           <th>内容</th>
           <th></th>
         </tr>
-        <% @default_task_requests.each do |default_task_request| %>
-          <tr>
-            <td></td>
-            <td><%= default_task_request.default_task_request_1 %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
-        <% @default_task_requests.each do |default_task_request| %>
-          <tr>
-            <td></td>
-            <td><%= default_task_request.default_task_request_2 %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
         <% @default_tasks.each do |default_task| %>
           <tr>
             <td><%= Task.where("default_task_id = ?", default_task.default_task_id).count - 1 %></td>

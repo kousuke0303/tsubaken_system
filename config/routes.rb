@@ -139,6 +139,7 @@ Rails.application.routes.draw do
   scope module: :admins do
     namespace :admins do
       get :top
+      get :index
     end
   end
   

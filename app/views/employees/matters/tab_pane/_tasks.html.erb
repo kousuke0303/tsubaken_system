@@ -19,18 +19,6 @@ $(document).ready(function(){
             "id": "<%= task.id %>",
           },
         <% end %>
-        <% @default_task_requests.each do |task| %>    
-          { 
-            "title": "<%= task.default_task_request_1 %>",
-            "id": "<%= task.id %>",
-          },
-        <% end %>
-        <% @default_task_requests.each do |task| %>    
-          { 
-            "title": "<%= task.default_task_request_2 %>",
-            "id": "<%= task.id %>",
-          },
-        <% end %>
       ]
     },
     
