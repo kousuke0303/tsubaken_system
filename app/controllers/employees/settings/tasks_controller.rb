@@ -5,6 +5,7 @@ class Employees::Settings::TasksController < ApplicationController
 
   def index
     @default_tasks = Task.are_default
+    @default_task_requests = Task.are_default_task_request
   end
 
   def new
@@ -55,6 +56,6 @@ class Employees::Settings::TasksController < ApplicationController
     end
 
     def set_task
-      @default_task= Task.find(params[:id])
+      @default_task = Task.find(params[:id])
     end
 end

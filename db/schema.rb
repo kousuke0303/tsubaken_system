@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_120242) do
+ActiveRecord::Schema.define(version: 2020_12_07_123401) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -102,6 +102,22 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.index ["category_id"], name: "index_constructions_on_category_id"
   end
 
+  create_table "default_task_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "default_task_request_id"
+    t.integer "before_status"
+    t.datetime "moved_on"
+    t.integer "sort_order"
+    t.integer "status"
+    t.string "default_task_request_1"
+    t.string "default_task_request_2"
+    t.string "estimate_matter_id"
+    t.string "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_default_task_requests_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_default_task_requests_on_matter_id"
+  end
+
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
@@ -187,16 +203,6 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
-  end
-
-  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "amount"
-    t.boolean "default", default: false
-    t.bigint "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_kinds_on_category_id"
   end
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -343,6 +349,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.string "content"
     t.integer "default_task_id"
     t.integer "default_task_id_count"
+    t.string "default_task_request_1"
+    t.string "default_task_request_2"
     t.boolean "notification", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
@@ -362,6 +370,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "estimates"
   add_foreign_key "constructions", "categories"
+  add_foreign_key "default_task_requests", "estimate_matters"
+  add_foreign_key "default_task_requests", "matters"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"

@@ -83,6 +83,8 @@ class ApplicationController < ActionController::Base
   def set_classified_tasks(resource)
     @default_tasks = Task.default.order(default_task_id_count: :desc)
     Task.reload_sort_order(@default_tasks)
+    @default_task_requests = Task.are_default_task_request
+    Task.reload_sort_order(@default_task_requests)
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
     @ongoing_tasks = resource.tasks.are_ongoing

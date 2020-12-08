@@ -5,8 +5,15 @@ class Employees::MattersController < ApplicationController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+    sort_order = Task.are_default.length
     @matter = Matter.new(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id)
-    @matter.save ? flash[:alert] = "案件を作成しました。" : flash[:alert] = "案件の作成に失敗しました。"
+    @default_task_request = Task.new(default_task_request_1: "足場架設依頼", default_task_request_2: "発注依頼", status: 0, sort_order: sort_order)
+    if @matter.save && @default_task_request.save  
+      @default_task_request.update(default_task_request_id: @default_task_request.id) 
+      flash[:alert] = "案件を作成しました。"
+    else
+      flash[:alert] = "案件の作成に失敗しました。"
+    end
     redirect_to employees_estimate_matter_path(estimate_matter)
   end
 
