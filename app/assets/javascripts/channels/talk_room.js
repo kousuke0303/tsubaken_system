@@ -9,13 +9,13 @@ $(function() {
     },
    
     received: function(data) {
-      const current_name = document.getElementById('current_name');
+      var current_name = document.getElementById('current_name');
       // 受け取った送信者の名前とチャットルームの投稿者の名前が一致・不一致による非同期処理
       if (current_name.textContent != data["sender"]){
-        const messages_area = document.getElementById('chat');
+        var messages_area = document.getElementById('chat');
         messages_area.insertAdjacentHTML('beforeend', data['recieve_html']);
       } else {
-        const messages_area = document.getElementById('chat');
+        var messages_area = document.getElementById('chat');
         messages_area.insertAdjacentHTML('beforeend', data['sender_html']);
       };
       // const add_current_name = document.getElementById('add_current_name');
