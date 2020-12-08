@@ -6,7 +6,13 @@ class Estimate < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
 
-  scope :with_categories, -> { left_joins(:categories).select("estimates.*",
+  scope :with_categories, -> { left_joins(categories: :materials).select("estimates.*",
                                                               "categories.*",
-                                                              "estimates.id AS id") }
+                                                              "materials.*",
+                                                              "estimates.id AS id",
+                                                              "categories.id AS category_id",
+                                                              "materials.id AS material_id",
+                                                              "materials.name AS material_name",
+                                                              "materials.price AS material_price",
+                                                              "materials.unit AS material_unit") }
 end

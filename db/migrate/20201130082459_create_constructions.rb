@@ -6,6 +6,7 @@ class CreateConstructions < ActiveRecord::Migration[5.2]
       t.string :note
       t.string :unit
       t.integer :price
+      t.integer :amount
       t.references :category,    foreign_key: true
 
       t.timestamps
