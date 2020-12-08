@@ -15,5 +15,6 @@ class Estimate < ApplicationRecord
                                                               "materials.id AS material_id",
                                                               "materials.name AS material_name",
                                                               "materials.price AS material_price",
-                                                              "materials.unit AS material_unit") }
+                                                              "materials.unit AS material_unit",
+                                                              "materials.amount AS material_amount") }
 end

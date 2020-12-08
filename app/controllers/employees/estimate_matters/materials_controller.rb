@@ -23,6 +23,6 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
     end
 
     def set_material
-      @material = Materail.find(params[:id])
+      @material = Material.find(params[:id])
     end
 end
