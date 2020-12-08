@@ -33,7 +33,7 @@
         <td><%= estimate.material_amount %></td>
         <td></td>
         <td>
-          <%= link_to "素材編集", edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), class: "btn btn-sm btn-dark" %>
+          <%= link_to "素材編集", edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true, class: "btn btn-sm btn-dark" %>
           <%= link_to "素材削除", employees_estimate_matter_material_path(estimate_matter, estimate.material_id), method: :delete,
                                  data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-sm btn-danger" %>
         </td>

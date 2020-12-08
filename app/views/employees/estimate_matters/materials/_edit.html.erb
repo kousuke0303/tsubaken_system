@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">素材編集</h5>
+        <div class="card-body">
+          <%= form_with(model: material, url: employees_estimate_matter_material_path(estimate_matter, material), method: :patch, remote: true) do |f| %>
+            <div class="estimate-material-update-errors"></div>
+            <%= f.label :price %>
+            <%= f.number_field :price, required: true, class: "form-control" %>
+
+            <%= f.label :amount %>
+            <%= f.number_field :amount, required: true, class: "form-control" %>
+
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/reset_errors_jq" %>
