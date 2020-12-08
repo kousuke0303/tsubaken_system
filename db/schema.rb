@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_140249) do
+ActiveRecord::Schema.define(version: 2020_12_08_144802) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -102,7 +102,9 @@ ActiveRecord::Schema.define(version: 2020_12_08_140249) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
     t.index ["category_id"], name: "index_constructions_on_category_id"
+    t.index ["parent_id"], name: "index_constructions_on_parent_id"
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -359,6 +361,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_140249) do
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categories", "estimates"
   add_foreign_key "constructions", "categories"
+  add_foreign_key "constructions", "constructions", column: "parent_id"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
