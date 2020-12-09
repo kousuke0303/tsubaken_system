@@ -15,9 +15,10 @@
   <% estimates.each do |estimate| %>
     <tr>
       <td><%= estimate.title %></td>
-      <td>
-        <%= link_to "見積削除", employees_estimate_matter_estimate_path(estimate_matter, estimate.id), method: :delete, remote: true,
-                                data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+      <td>      
+        <%= link_to(edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true) do %>
+          <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+        <% end %>         
       </td>
       <td><%= estimate.category_name %></td>
       <td>
