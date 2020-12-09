@@ -1,7 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:destroy]
+  before_action :set_estimate, only: [:edit, :update, :destroy]
 
   def new
     @estimate = @estimate_matter.estimates.new
@@ -28,19 +28,26 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
+    @categories = Category.all.where(default: true)
   end
 
   def update
     if @estimate.update(estimate_params)
-      flash[:success] = "見積を作成しました。"
-    else
-      respond_to do |format|
-        format.js
+      # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
+      if params[:estimate]["category_ids"].present?
+        params[:estimate]["category_ids"].each do |category_id|
+          default_category = Category.find(category_id)
+          @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+        end
       end
+      @response = "success"
+      @estimates = @estimate_matter.estimates.with_categories
+    else
+      @response = "false"
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
