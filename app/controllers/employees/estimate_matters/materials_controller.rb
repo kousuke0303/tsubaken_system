@@ -11,10 +11,10 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
 
   def destroy
     @material.destroy
+    @estimates = @estimate_matter.estimates.with_categories
     respond_to do |format|
       format.js
     end
-    @estimates = @estimate_matter.estimates.with_categories
   end
 
   private

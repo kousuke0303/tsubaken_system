@@ -10,7 +10,7 @@
     <th>単位</th>
     <th>数量</th>
     <th>合計金額</th>
-    <th>工事・素材編集</th>
+    <th>編集</th>
   </tr>
   <% estimates.each do |estimate| %>
     <tr>
@@ -37,9 +37,9 @@
         <td></td>
         <td>
           <% if estimate.material_id.present? %>
-            <%= link_to "素材編集", edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "素材削除", employees_estimate_matter_material_path(estimate_matter, estimate.material_id), method: :delete,
-                                 data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-sm btn-danger" %>
+            <%= link_to(edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true) do %>
+              <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+            <% end %>   
           <% end %>
         </td>
       <% elsif estimate.construction_id.present? %>

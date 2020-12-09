@@ -15,6 +15,8 @@
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= link_to "削除", employees_estimate_matter_material_path(estimate_matter, material), method: :delete,
+                                     data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
