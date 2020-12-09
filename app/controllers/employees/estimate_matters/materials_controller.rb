@@ -7,6 +7,15 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
   end
 
   def update
+    if @material.update(material_params)
+      @response = "success"
+      @estimates = @estimate_matter.estimates.with_categories
+    else
+      @response = "false"
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
@@ -24,5 +33,9 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
 
     def set_material
       @material = Material.find(params[:id])
+    end
+
+    def material_params
+      params.require(:material).permit(:name, :price, :amount)
     end
 end

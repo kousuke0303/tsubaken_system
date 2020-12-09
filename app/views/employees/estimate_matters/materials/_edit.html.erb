@@ -7,11 +7,14 @@
         <div class="card-body">
           <%= form_with(model: material, url: employees_estimate_matter_material_path(estimate_matter, material), method: :patch, remote: true) do |f| %>
             <div class="estimate-material-update-errors"></div>
+            <%= f.label :name %>
+            <%= f.text_field :name, required: true, maxlength: 30, class: "form-control" %>
+
             <%= f.label :price %>
             <%= f.number_field :price, required: true, class: "form-control" %>
 
             <%= f.label :amount %>
-            <%= f.number_field :amount, required: true, class: "form-control" %>
+            <%= f.number_field :amount, class: "form-control" %>
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
