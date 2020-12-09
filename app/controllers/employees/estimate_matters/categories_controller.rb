@@ -9,10 +9,12 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
   end
 
   def update
-    params[:category]["material_ids"].each do |material_id|
-      default_material = Material.find(material_id)
-      @category.materials.create(name: default_material.name, unit: default_material.unit, price: default_material.price,
-                                 service_life: default_material.service_life, parent_id: default_material.id)
+    if params[:category]["material_ids"].present?
+      params[:category]["material_ids"].each do |material_id|
+        default_material = Material.find(material_id)
+        @category.materials.create(name: default_material.name, unit: default_material.unit, price: default_material.price,
+                                  service_life: default_material.service_life, parent_id: default_material.id)
+      end
     end
     params[:category]["construction_ids"].each do |construction_id|
       default_construction = Construction.find(construction_id)

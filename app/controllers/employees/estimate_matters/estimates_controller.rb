@@ -12,9 +12,11 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save
       # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
-      params[:estimate]["category_ids"].each do |category_id|
-        default_category = Category.find(category_id)
-        @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+      if params[:estimate]["category_ids"].present?
+        params[:estimate]["category_ids"].each do |category_id|
+          default_category = Category.find(category_id)
+          @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+        end
       end
       @response = "success"
       @estimates = @estimate_matter.estimates.with_categories
