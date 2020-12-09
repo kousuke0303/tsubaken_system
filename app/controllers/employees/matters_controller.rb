@@ -7,11 +7,11 @@ class Employees::MattersController < ApplicationController
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     sort_order = Task.are_default.length
     @matter = Matter.new(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id)
-    @default_task_scaffolding_request = Task.new(title: "足場架設依頼", status: 0, sort_order: sort_order)
-    @default_task_order_request = Task.new(title: "発注依頼" , status: 0, sort_order: sort_order)
+    @default_task_scaffolding_request = Task.new(title: "足場架設依頼", status: 1, sort_order: sort_order)
+    @default_task_order_request = Task.new(title: "発注依頼", status: 1, sort_order: sort_order)
     if @matter.save && @default_task_scaffolding_request.save && @default_task_order_request.save
-      @default_task_scaffolding_request.update(default_task_id: @default_task_scaffolding_request.id) 
-      @default_task_order_request.update(default_task_id: @default_task_order_request.id) 
+      @default_task_scaffolding_request.update(default_task_id: @default_task_scaffolding_request.id, matter_id: @matter.id) 
+      @default_task_order_request.update(default_task_id: @default_task_order_request.id, matter_id: @matter.id) 
       flash[:alert] = "案件を作成しました。"
     else
       flash[:alert] = "案件の作成に失敗しました。"
