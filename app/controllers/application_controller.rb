@@ -67,6 +67,11 @@ class ApplicationController < ActionController::Base
     Matter.find_by(id: params[:matter_id]) || Matter.find_by(id: params[:id])
   end
   
+  def matter_default_task_requests
+    @matter_default_task_scaffolding_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "足場架設依頼")
+    @matter_default_task_order_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "発注依頼")
+  end
+  
   # --------------------------------------------------------
         # ESTIMATE_MATTER関係
   # --------------------------------------------------------
@@ -81,7 +86,7 @@ class ApplicationController < ActionController::Base
 
   # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
-    @default_tasks = Task.default.order(default_task_id_count: :desc)
+    @default_tasks = Task.are_default_tasks.order(default_task_id_count: :desc)
     Task.reload_sort_order(@default_tasks)
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)

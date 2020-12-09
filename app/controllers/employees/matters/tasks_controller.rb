@@ -11,7 +11,7 @@ class Employees::Matters::TasksController < Employees::TasksController
       sort_order = params[:item_index].to_i
       # 同ステータス内で上に移動時
       if task.status_before_type_cast == new_status && task.sort_order < sort_order
-        # 対象タスクより、優先順位が上の全タスクのsort_orderを-1
+        # 対象タスクより、優先順位が上のtask_params全タスクのsort_orderを-1
         Task.decrement_sort_order(@matter, new_status, sort_order)
         task.update(moved_on: Time.current, sort_order: sort_order)
       # ステータス移動、又は下に移動時

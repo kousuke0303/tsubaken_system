@@ -139,6 +139,7 @@ Rails.application.routes.draw do
   scope module: :admins do
     namespace :admins do
       get :top
+      get :index
     end
   end
   
@@ -146,6 +147,7 @@ Rails.application.routes.draw do
   scope module: :managers do
     namespace :managers do
       get :top
+      get :index
     end
   end
 
@@ -157,6 +159,7 @@ Rails.application.routes.draw do
   scope module: :clients do
     namespace :clients do
       get :top
+      get :index
     end
   end
 
@@ -168,6 +171,7 @@ Rails.application.routes.draw do
   scope module: :staffs do
     namespace :staffs do
       get :top
+      get :index
     end
   end
 
@@ -179,6 +183,7 @@ Rails.application.routes.draw do
   scope module: :external_staffs do
     namespace :external_staffs do
       get :top
+      get :index
     end
   end
 
