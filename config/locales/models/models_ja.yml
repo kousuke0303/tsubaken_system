@@ -106,6 +106,7 @@ ja:
     unit: 単位
     price: 単価
     birthed_on: 生年月日
+    amount: 数量
     created_at: 作成日
     updated_at: 更新日
     password: パスワード

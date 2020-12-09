@@ -23,6 +23,8 @@
             </div>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= link_to "削除", employees_estimate_matter_category_path(estimate_matter, category), method: :delete, remote: true,
+                                  data: { confirm: "この工事カテゴリを削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>

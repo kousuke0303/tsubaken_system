@@ -1,33 +1,63 @@
 <table class="table table-sm common-table">
   <tr>
     <th>見積名</th>
-    <th></th>
+    <th>編集</th>
     <th>工事カテゴリ名</th>
-    <th></th>
+    <th>編集</th>
     <th>工事・素材名</th>
     <th>耐用年数</th>
     <th>単価</th>
     <th>単位</th>
     <th>数量</th>
     <th>合計金額</th>
+    <th>編集</th>
   </tr>
   <% estimates.each do |estimate| %>
     <tr>
       <td><%= estimate.title %></td>
-      <td>
-        <%= link_to "見積削除", employees_estimate_matter_estimate_path(estimate_matter, estimate.id), method: :delete, remote: true,
-                                data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+      <td>      
+        <%= link_to(edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true) do %>
+          <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+        <% end %>         
       </td>
-      <td><%= estimate.name %></td>
+      <td><%= estimate.category_name %></td>
       <td>
-        <%= link_to "工事・素材追加", edit_employees_estimate_matter_category_path(estimate_matter, estimate.category_id), remote: true, class: "btn btn-sm btn-dark" %>
-        <%= link_to "カテゴリ削除", employees_estimate_matter_category_path(estimate_matter, estimate.category_id), method: :delete, remote: true, class: "btn btn-sm btn-danger" %>
+        <% if estimate.category_id.present? %>
+          <%= link_to(edit_employees_estimate_matter_category_path(estimate_matter, estimate.category_id), remote: true) do %>
+            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+          <% end %>          
+        <% end %>
       </td>
       <% if estimate.material_id.present? %>
         <td><%= estimate.material_name %></td>
         <td><%= estimate.service_life %></td>
         <td><%= estimate.material_price %></td>
         <td><%= estimate.material_unit %></td>
+        <td><%= estimate.material_amount %></td>
+        <td></td>
+        <td>
+          <%= link_to(edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true) do %>
+            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+          <% end %>
+        </td>
+      <% elsif estimate.construction_id.present? %>
+        <td><%= estimate.construction_name %></td>
+        <td></td>
+        <td><%= estimate.construction_price %></td>
+        <td><%= estimate.construction_unit %></td>
+        <td><%= estimate.construction_amount %></td>
+        <td></td>
+        <td>
+          <%= link_to(edit_employees_estimate_matter_construction_path(estimate_matter, estimate.construction_id), remote: true) do %>
+            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+          <% end %>
+        </td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
       <% end %>

@@ -8,14 +8,14 @@
 
     <ul class="list-unstyled components">
       <p>Staff専用ページ</p>
-      <li><%= link_to "案件管理", employees_matters_path %></li>
-      <li><%= link_to "外注先管理", employees_suppliers_path %></li>
-      <li><%= link_to "顧客管理", employees_clients_path %></li>
-      <li><%= link_to "見積案件管理", employees_estimate_matters_path %></li>
-      
-      <li><%= link_to "カレンダー", "#" %></li>
+      <li><%= link_to "着工案件管理", employees_matters_path, class: "fas fa-clipboard" %></li>
+      <li><%= link_to "営業案件管理", employees_estimate_matters_path, class: "fas fa-paste" %></li>
+      <li><%= link_to "外注先管理", employees_suppliers_path, class: "fas fa-user-lock"  %></li>
+      <li><%= link_to "顧客管理", employees_clients_path, class: "fas fa-user-edit" %></li>
+
+      <li><%= link_to "カレンダー", "#", class: "far fa-calendar-alt" %></li>
       <li>
-        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
+        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fas fa-cog">設定</a>
         <ul class="collapse list-unstyled" id="settings-menu">
           <li><%= link_to "業種", employees_settings_industries_path %></li>
         </ul>

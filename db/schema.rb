@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_120242) do
+ActiveRecord::Schema.define(version: 2020_12_08_144802) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -67,7 +67,9 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
     t.index ["estimate_id"], name: "index_categories_on_estimate_id"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -100,7 +102,9 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
     t.index ["category_id"], name: "index_constructions_on_category_id"
+    t.index ["parent_id"], name: "index_constructions_on_parent_id"
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -221,7 +225,9 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
     t.index ["category_id"], name: "index_materials_on_category_id"
+    t.index ["parent_id"], name: "index_materials_on_parent_id"
   end
 
   create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -352,8 +358,10 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categories", "estimates"
   add_foreign_key "constructions", "categories"
+  add_foreign_key "constructions", "constructions", column: "parent_id"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
@@ -366,6 +374,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_120242) do
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "categories"
+  add_foreign_key "materials", "materials", column: "parent_id"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"
