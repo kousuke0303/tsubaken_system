@@ -42,12 +42,12 @@
                                  data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-sm btn-danger" %>
           <% end %>
         </td>
-      <% else %>
+      <% elsif estimate.construction_id.present? %>
+        <td><%= estimate.construction_name %></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= estimate.construction_price %></td>
+        <td><%= estimate.construction_unit %></td>
+        <td><%= estimate.construction_amount %></td>
         <td></td>
         <td></td>
       <% end %>

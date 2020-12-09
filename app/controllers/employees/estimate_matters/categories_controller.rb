@@ -16,8 +16,12 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
                                   service_life: default_material.service_life, parent_id: default_material.id)
       end
     end
-    params[:category]["construction_ids"].each do |construction_id|
-      default_construction = Construction.find(construction_id)
+    if params[:category]["construction_ids"].present?
+      params[:category]["construction_ids"].each do |construction_id|
+        default_construction = Construction.find(construction_id)
+        @category.constructions.create(name: default_construction.name, unit: default_construction.unit, price: default_construction.price,
+                                       parent_id: default_construction.id)
+      end
     end
     @estimates = @estimate_matter.estimates.with_categories
     respond_to do |format|

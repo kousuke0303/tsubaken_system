@@ -21,5 +21,6 @@ class Estimate < ApplicationRecord
                                                               "constructions.id AS construction_id",
                                                               "constructions.name AS construction_name",
                                                               "constructions.price AS construction_price",
+                                                              "constructions.unit AS construction_unit",
                                                               "constructions.amount AS construction_amount") }
 end
