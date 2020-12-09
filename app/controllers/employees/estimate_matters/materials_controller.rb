@@ -36,6 +36,6 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
     end
 
     def material_params
-      params.require(:material).permit(:name, :price, :amount)
+      params.require(:material).permit(:name, :service_life, :price, :amount)
     end
 end

@@ -36,10 +36,8 @@
         <td><%= estimate.material_amount %></td>
         <td></td>
         <td>
-          <% if estimate.material_id.present? %>
-            <%= link_to(edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true) do %>
-              <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-            <% end %>   
+          <%= link_to(edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true) do %>
+            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
           <% end %>
         </td>
       <% elsif estimate.construction_id.present? %>
@@ -48,6 +46,18 @@
         <td><%= estimate.construction_price %></td>
         <td><%= estimate.construction_unit %></td>
         <td><%= estimate.construction_amount %></td>
+        <td></td>
+        <td>
+          <%= link_to(edit_employees_estimate_matter_construction_path(estimate_matter, estimate.construction_id), remote: true) do %>
+            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
+          <% end %>
+        </td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
       <% end %>
