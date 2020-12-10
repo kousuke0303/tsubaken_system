@@ -11,6 +11,7 @@ class Client < ApplicationRecord
   
   has_many :estimate_matters, dependent: :destroy
   has_many :quotations, dependent: :destroy
+  has_one_attached :avator
   
   enum gender: {male: 0, female: 1}
 
