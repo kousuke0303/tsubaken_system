@@ -176,7 +176,9 @@ Rails.application.routes.draw do
   end
 
   namespace :staffs do
-    resources :attendances, only: [:index, :update]
+    resources :attendances, only: [:index, :update] do
+      get :change_month, on: :collection
+    end
   end
 
   # ExternalStaff関係
@@ -188,7 +190,9 @@ Rails.application.routes.draw do
   end
 
   namespace :external_staffs do
-    resources :attendances, only: [:index, :update]
+    resources :attendances, only: [:index, :update] do
+      get :change_month, on: :collection
+    end
   end
 
   # 従業員が行う操作
