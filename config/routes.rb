@@ -139,6 +139,7 @@ Rails.application.routes.draw do
   scope module: :admins do
     namespace :admins do
       get :top
+      get :index
     end
   end
   
@@ -146,6 +147,7 @@ Rails.application.routes.draw do
   scope module: :managers do
     namespace :managers do
       get :top
+      get :index
     end
   end
 
@@ -157,6 +159,7 @@ Rails.application.routes.draw do
   scope module: :clients do
     namespace :clients do
       get :top
+      get :index
     end
   end
 
@@ -168,6 +171,7 @@ Rails.application.routes.draw do
   scope module: :staffs do
     namespace :staffs do
       get :top
+      get :index
     end
   end
 
@@ -181,6 +185,7 @@ Rails.application.routes.draw do
   scope module: :external_staffs do
     namespace :external_staffs do
       get :top
+      get :index
     end
   end
 
@@ -218,6 +223,9 @@ Rails.application.routes.draw do
       resources :images, controller: "estimate_matters/images" do
         post :edit, on: :member
       end
+      resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
+      resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
+      resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do
@@ -240,6 +248,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end

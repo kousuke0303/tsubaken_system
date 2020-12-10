@@ -37,6 +37,11 @@
     </tr>
   </table>
   <div class="btn-area mb-1e">
+    <% if @estimate_matter.matter %>
+      <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), class: "btn btn-dark" %>
+    <% else %>
+      <%= link_to "案件作成", employees_estimate_matter_matters_path(@estimate_matter), method: :post, class: "btn btn-dark" %>
+    <% end %>
     <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
     <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
@@ -91,7 +96,7 @@
             <% end %>
           </div>
           <div class="estimates-index">
-            <%= render "employees/estimate_matters/tab_pane/estimates", estimates: @estimates %>
+            <%= render "employees/estimate_matters/tab_pane/estimates", estimate_matter: @estimate_matter, estimates: @estimates %>
           </div>
         </div>
       </div>

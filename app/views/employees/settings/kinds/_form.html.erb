@@ -1,8 +1,0 @@
-<%= f.label :title %>
-<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
-<%= f.label :amount %>
-<%= f.text_field :amount, required: true, class: "form-control", maxlength: 10 %>
-
-<%= f.label :category_id %>
-<%= f.collection_select :category_id, categories, :id, :title, { include_blank: "カテゴリを選択" }, class: "form-control", required: true %>

@@ -1,0 +1,6 @@
+$("#estimate-construction-edit").modal("hide");
+$(".flash-wrapper").html('<div class="flash flash-notice time-limit">素材を削除しました。</div>');
+  $(".estimates-index").html('<%= escape_javascript(render "employees/estimate_matters/tab_pane/estimates", estimate_matter: @estimate_matter, estimates: @estimates) %>');
+  $(function(){
+    setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
+  })
