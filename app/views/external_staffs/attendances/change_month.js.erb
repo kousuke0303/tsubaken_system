@@ -1,0 +1,6 @@
+$('#month_attendance').html('<%= escape_javascript(render partial: "common_layouts/attendances/show",
+                                                          locals: {target: current_external_staff, 
+                                                                   first_day: @first_day, 
+                                                                   attendances: @attendances,
+                                                                   path: :change_month_external_staffs_attendances_path
+                                                                  }) %>');

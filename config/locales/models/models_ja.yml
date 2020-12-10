@@ -59,6 +59,8 @@ ja:
           title: 見積案件名
           status: 進行状況
           actual_spot: 現場住所
+          client_id: 顧客
+          external_staff: 外部スタッフ
         estimate:
           title: 見積名
         matter:
@@ -69,6 +71,7 @@ ja:
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
+          external_staff: 外部スタッフ
         industry:
           name: 業種名
         department:
@@ -82,9 +85,11 @@ ja:
           images: 写真
           shooted_on: 撮影日
         construction:
+          name: 工事名
         material:
           name: 素材名
           service_life: 耐用年数
+          category_id: カテゴリ
   attributes:
     id: ID
     login_id: ログインID
@@ -101,6 +106,7 @@ ja:
     unit: 単位
     price: 単価
     birthed_on: 生年月日
+    amount: 数量
     created_at: 作成日
     updated_at: 更新日
     password: パスワード

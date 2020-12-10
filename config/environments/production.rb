@@ -31,7 +31,7 @@ Rails.application.configure do
   config.assets.compile = true
   
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :amazon
+  config.active_storage.service = :local
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -45,7 +45,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  config.action_cable.allowed_request_origins = [ /http:\/\/.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -78,7 +78,6 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
