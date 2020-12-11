@@ -11,7 +11,7 @@
         <div class="card mb-3">
           <h5 class="card-header">Event/新規作成</h5>
             <div class="card-body">
-              <%= form_with(model: [:current_manager, current_manager.events.build ], url: settings_events_path(current_manager), method: :post, remote: true) do |f| %>
+              <%= form_with(model: [:current_manager, current_manager.manager_events.build ], url: manager_settings_manager_events_path(current_manager), method: :post, remote: true) do |f| %>
     
               <div class="user_create_error"></div>
 

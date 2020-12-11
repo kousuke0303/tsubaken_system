@@ -9,7 +9,7 @@
       <%= link_to "#" do %>
         <span class="mr-05e ml-1e">次月へ</span><i class="fas fa-angle-double-right"></i>
       <% end %>
-    <% elsif signed_in? %>
+    <% elsif manager_signed_in? %>
       <%= link_to "#" do %>
         <i class="fas fa-angle-double-left"></i><span class="ml-05e mr-1e">前月へ</span>
       <% end %>
