@@ -8,6 +8,7 @@ class CreateMaterials < ActiveRecord::Migration[5.2]
       t.string :unit
       t.integer :price
       t.integer :amount
+      t.string :total
       t.references :category,    foreign_key: true
 
       t.timestamps
