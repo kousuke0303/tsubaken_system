@@ -3,7 +3,7 @@ class Api::V1::Managers::RegistrationsController < Api::V1::ApplicationControlle
   before_action :check_token_and_key_to_api
 
   def update_self
-    @manager = Manager.find(manager_params[:id])
+    @manager = Manager.find(params[:id])
     if @manager.update(manager_params)
       render json: @manager, serializer: ManagerSerializer
     else

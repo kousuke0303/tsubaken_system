@@ -25,7 +25,7 @@
         </div>
         
         <table class="table default_matter_task_new_form" style="display: none;">
-          <%= form_with(model: @matter_task, url: settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
+          <%= form_with(model: @matter_task, url: manager_settings_tasks_path(current_manager), method: :post, remote: true) do |f| %>
           <tr>
             <th>タイトル</th>
           </tr>

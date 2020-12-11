@@ -30,8 +30,8 @@
 
                 <div id="select_event_title" style="display: none">
                   <%= f.label :event_name, "イベントタイトル" %>
-                  <% if @event_title.present?%>
-                    <%= f.select :event_name, @event_title ,{ prompt: "登録したイベント名から選択する"}, { class: "form-control" } %>
+                  <% if @manager_event_title.present?%>
+                    <%= f.select :event_name, @manager_event_title ,{ prompt: "登録したイベント名から選択する"}, { class: "form-control" } %>
                   <% end %>
                 </div>
                 <div id="new_event_title" style="display: none">
@@ -51,7 +51,7 @@
                   <%= f.text_area :note, class: "form-control" %>
                 </div>
 
-                <%= f.hidden_field :id, :value => current_manager.id %>
+                <%= f.hidden_field :manager_id, :value => current_manager.id %>
               
                 <%= f.submit "作成", class: "btn btn-dark" %>
               <% end %>
@@ -77,7 +77,7 @@ $(".event_select_form").on("click", function(){
   $('#select_event').click(function(){
     if ( $(this).prop("checked") == true) {
       $('#select_event_title').show();
-      $('[name="event[note]"]').val(note);
+      $('[name="manager_event[note]"]').val(note);
       $('#new_event_title').hide();
     }
     else {
@@ -88,7 +88,7 @@ $(".event_select_form").on("click", function(){
   $('#select_new_event').click(function(){
     if ( $(this).prop("checked") == true) {
       $('#new_event_title').show();
-      $('[name="event[note]"]').val("");
+      $('[name="manager_event[note]"]').val("");
       $('#select_event_title').hide();
     }
     else {
@@ -102,10 +102,10 @@ $(".event_select_form").on("click", function(){
     }
   });
 
-  $('[name="event[event_name]"]').change(function() {
-    var element = $('[name="event[event_name]"]').val();
+  $('[name="manager_event[event_name]"]').change(function() {
+    var element = $('[name="manager_event[event_name]"]').val();
     let base = [];
-    <% ManagerEventTitle.where("id = ?", current_manager.id).each do |event|  %>
+    <% ManagerEventTitle.where("manager_id = ?", current_manager.id).each do |event|  %>
       base.push(["<%= event.event_name%>","<%= event.note%>"]) 
     <% end %>
     for (let i = 0; i < base.length; i++) {
@@ -113,7 +113,7 @@ $(".event_select_form").on("click", function(){
         note = base[i][1]
       }
     }
-    $('[name="event[note]"]').val(note);
+    $('[name="manager_event[note]"]').val(note);
   });
 
 </script>

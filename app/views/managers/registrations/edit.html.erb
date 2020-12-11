@@ -4,7 +4,7 @@
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark"></div>
     <div class="card-body">
-      <%= form_with(model: @manager, url: registration_path, local: true) do |f| %>
+      <%= form_with(model: @manager, url: manager_registration_path, local: true) do |f| %>
         <%= render "shared/error_messages", resource: resource %>
 
         <%= f.label :name %>
