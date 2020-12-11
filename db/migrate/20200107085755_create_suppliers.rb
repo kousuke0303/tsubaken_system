@@ -3,8 +3,8 @@ class CreateSuppliers < ActiveRecord::Migration[5.1]
     create_table :suppliers do |t|
       t.string :name
       t.string :kana
-      t.integer :postal_code
-      t.integer :prefecture_code
+      t.string :postal_code
+      t.string :prefecture_code
       t.string :address_city 
       t.string :address_street
       t.string :representative

@@ -135,8 +135,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.integer "postal_code"
-    t.integer "prefecture_code"
+    t.string "postal_code"
+    t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.string "content"
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.integer "postal_code"
-    t.integer "prefecture_code"
+    t.string "postal_code"
+    t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.date "joined_on"
@@ -300,8 +300,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.integer "postal_code"
-    t.integer "prefecture_code"
+    t.string "postal_code"
+    t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.date "joined_on"
@@ -328,8 +328,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "kana"
-    t.integer "postal_code"
-    t.integer "prefecture_code"
+    t.string "postal_code"
+    t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.string "representative"
