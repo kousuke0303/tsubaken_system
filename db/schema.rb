@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.boolean "default", default: false
     t.bigint "estimate_id"
     t.datetime "created_at", null: false
@@ -93,17 +93,13 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.boolean "default", default: false
+    t.string "name"
     t.string "note"
     t.string "unit"
     t.integer "price"
-    t.integer "amount"
-    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
-    t.index ["category_id"], name: "index_constructions_on_category_id"
     t.index ["parent_id"], name: "index_constructions_on_parent_id"
   end
 
@@ -144,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", default: "", null: false
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -194,6 +190,16 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
+  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "amount"
+    t.boolean "default", default: false
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_kinds_on_category_id"
+  end
+
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
@@ -215,18 +221,12 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.boolean "default", default: false
     t.string "service_life"
-    t.string "note"
-    t.string "unit"
-    t.integer "price"
-    t.integer "amount"
-    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
-    t.index ["category_id"], name: "index_materials_on_category_id"
     t.index ["parent_id"], name: "index_materials_on_parent_id"
   end
 
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.integer "status", default: 0, null: false
+    t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
     t.date "started_on"
@@ -360,7 +360,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categories", "estimates"
-  add_foreign_key "constructions", "categories"
   add_foreign_key "constructions", "constructions", column: "parent_id"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
@@ -372,8 +371,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
-  add_foreign_key "materials", "categories"
   add_foreign_key "materials", "materials", column: "parent_id"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"

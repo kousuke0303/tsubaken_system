@@ -46,16 +46,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
   
-  # ---------------------------------------------------------
-        # STAFF関係
-  # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
-  def not_current_staff_return_login!
-    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません。"
-      redirect_to root_path
-    end
+  def attendance_notification
+      yesterday = Date.today - 1
+      @error_attendances = Attendance.where("(worked_on = ?)", yesterday)
+                                     .where.not(started_at: nil)
+                                     .where(finished_at: nil)
   end
   
   
@@ -131,6 +126,18 @@ class ApplicationController < ActionController::Base
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
+  end
+  
+  # ---------------------------------------------------------
+        # STAFF関係
+  # ---------------------------------------------------------
+  
+  # ログインstaff以外のページ非表示
+  def not_current_staff_return_login!
+    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
+      flash[:alert] = "アクセス権限がありません。"
+      redirect_to root_path
+    end
   end
   
 end
