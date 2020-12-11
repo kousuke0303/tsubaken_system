@@ -11,8 +11,8 @@ class TalkRoomChannel < ApplicationCable::Channel
   def speak(data)
     #   if data["admin_id"]
     #     message = Message.new(message: data["message"], matter_id: data["matter_id"], admin_id: data["admin_id"])
-    #   elsif data['id']
-    #     message = Message.new(message: data["message"], matter_id: data["matter_id"], id: data["id"])
+    #   elsif data['manager_id']
+    #     message = Message.new(message: data["message"], matter_id: data["matter_id"], manager_id: data["manager_id"])
     #   elsif data["staff_id"]
     #     message = Message.new(message: data["message"], matter_id: data["matter_id"], staff_id: data["staff_id"])
     #   elsif data['external_staff_id']

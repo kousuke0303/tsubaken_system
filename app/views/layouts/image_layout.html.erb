@@ -29,8 +29,8 @@
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/image_admin_layout" %>
-      <% elsif signed_in? %>
-        <%= render "layouts/layout_type/image_layout" %>
+      <% elsif manager_signed_in? %>
+        <%= render "layouts/layout_type/image_manager_layout" %>
       <% elsif staff_signed_in? %>
         <%= render "layouts/layout_type/image_staff_layout" %>
       <% elsif client_signed_in? %>

@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
     def reject_signed_in
       if admin_signed_in?
         redirect_to admins_top_path
-      elsif signed_in?
+      elsif manager_signed_in?
         redirect_to managers_top_path
       elsif staff_signed_in?
         redirect_to staffs_top_path

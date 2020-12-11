@@ -12,8 +12,8 @@
             <%= f.select :employee_type, Constants::EMPLOYEES_TYPE_HASH, { include_blank: "従業員タイプを選択" }, { class: "form-control", required: true } %>
             
             <div id="manager-select">
-              <%= f.label :id %>
-              <%= f.collection_select :id, managers, :id, :name, { include_blank: "Managerを選択" }, class: "form-control" %>
+              <%= f.label :manager_id %>
+              <%= f.collection_select :manager_id, managers, :id, :name, { include_blank: "Managerを選択" }, class: "form-control" %>
             </div>
 
             <div id="staff-select">
@@ -49,7 +49,7 @@
 
 <script>
   var managerSelectNew = $("#manager-select");
-  var managerOption = $('select[name="attendance[id]"]');
+  var managerOption = $('select[name="attendance[manager_id]"]');
   var staffSelectNew = $("#staff-select");
   var staffOption = $('select[name="attendance[staff_id]"]');
   var externalStaffSelectNew = $("#external-staff-select");

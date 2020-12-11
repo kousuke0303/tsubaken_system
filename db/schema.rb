@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "fax"
     t.string "email"
     t.date "birthed_on"
-    t.integer "postal_code"
-    t.integer "prefecture_code"
+    t.string "postal_code"
+    t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.string "login_id", default: "", null: false
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message"
     t.integer "admin_id"
+    t.integer "manager_id"
     t.integer "staff_id"
     t.integer "external_staff_id"
     t.string "matter_id"

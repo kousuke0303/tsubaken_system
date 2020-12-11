@@ -30,7 +30,7 @@
           </div>
 
           <div class="col-lg-3 col-md-3 pl-5 pr-5" id="manager">
-            <%= f.collection_select :id, @managers, :id, :name, { selected: params[:id], include_blank: "Managerを選択" }, class: "form-control" %>
+            <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
           </div>
 
           <div class="col-lg-3 col-md-3 pl-5 pr-5" id="staff">
@@ -103,7 +103,7 @@
 <script>
   $(document).on("turbolinks:load", function() {
     const manager = $("#manager");
-    const managerSelect = $('select[name="id"]');
+    const managerSelect = $('select[name="manager_id"]');
     const staff = $("#staff");
     const staffSelect = $('select[name="staff_id"]');
     const externalStaff = $("#external-staff");

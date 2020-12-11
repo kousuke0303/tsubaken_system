@@ -1,6 +1,6 @@
 class Managers::Settings::TasksController < ApplicationController
   before_action :authenticate_manager!
-  before_action :not_current_return_login!
+  before_action :not_current_manager_return_login!
   
   def new
     @default_matter_tasks = current_manager.tasks
@@ -31,7 +31,7 @@ class Managers::Settings::TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:success] = "タスク：#{@task.title}を削除しました"
-    redirect_to new_settings_task_url(current_manager)
+    redirect_to new_manager_settings_task_url(current_manager)
   end
   
   private

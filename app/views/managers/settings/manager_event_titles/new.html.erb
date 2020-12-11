@@ -9,23 +9,23 @@
           <h5 class="pt-05e">イベントタイトル</h5>
         </div>
         <div class="col-sm-4 text-right">
-          <botton class="btn btn-dark default_event_title_new_btn mb-1e">追加</botton>
+          <botton class="btn btn-dark default_manager_event_title_new_btn mb-1e">追加</botton>
         </div>
       </div>
       <div class="ajax_title_area">
-        <%= render partial: 'manager/settings/event_titles/ajax_event_title/title_index', locals: { default_event_titles: @default_event_titles } %>
+        <%= render partial: 'manager/settings/manager_event_titles/ajax_manager_event_title/title_index', locals: { default_manager_event_titles: @default_manager_event_titles } %>
       </div>
     </div>
     
     <div class="col-md-8">
       <h5>詳細</h5>
-      <div class="default_event_showarea">
+      <div class="default_manager_event_showarea">
         <div class="ajax_show_area">
-          <%= render "manager/settings/event_titles/ajax_event_title/show", default_event_titles: @default_event_titles %>
+          <%= render "manager/settings/manager_event_titles/ajax_manager_event_title/show", default_manager_event_titles: @default_manager_event_titles %>
         </div>
         
-        <table class="table default_event_title_new_form" style="display: none;">
-          <%= form_with(model: @event_titles, url: settings_event_titles_path(current_manager), method: :post, remote: true) do |f| %>
+        <table class="table default_manager_event_title_new_form" style="display: none;">
+          <%= form_with(model: @event_titles, url: manager_settings_manager_event_titles_path(current_manager), method: :post, remote: true) do |f| %>
           <tr>
             <th>タイトル</th>
           </tr>
@@ -52,23 +52,23 @@
 </div>
 
 <script>
-<% @default_event_titles.each do |event_title| %>
-  $('#default_event_title_<%= event_title.id %>_title').on('click', function(){
-    $('#default_event_title_<%= event_title.id %>_show').show();
-    $('.default_event_title_show:not(#default_event_title_<%= event_title.id %>_show)').hide();
-    $('#default_event_title_<%= event_title.id %>_title').addClass('active');
-    $('.default_event_title_title:not(#default_event_title_<%= event_title.id %>_title)').removeClass('active');
+<% @default_manager_event_titles.each do |manager_event_title| %>
+  $('#default_manager_event_title_<%= manager_event_title.id %>_title').on('click', function(){
+    $('#default_manager_event_title_<%= manager_event_title.id %>_show').show();
+    $('.default_manager_event_title_show:not(#default_manager_event_title_<%= manager_event_title.id %>_show)').hide();
+    $('#default_manager_event_title_<%= manager_event_title.id %>_title').addClass('active');
+    $('.default_manager_event_title_title:not(#default_manager_event_title_<%= manager_event_title.id %>_title)').removeClass('active');
   });
 <% end %>
 </script>
 
 <script>
-  $('.default_event_title_new_btn').on('click', function(){
-    $('.default_event_title_new_form').show();
-    $('.default_event_show').hide();
+  $('.default_manager_event_title_new_btn').on('click', function(){
+    $('.default_manager_event_title_new_form').show();
+    $('.default_manager_event_show').hide();
   });
   
   $('.return_btn').on('click', function(){
-    $('.default_event_title_new_form').hide();
+    $('.default_manager_event_title_new_form').hide();
   });
 </script>
