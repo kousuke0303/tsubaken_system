@@ -12,7 +12,7 @@ class Employees::AttendancesController < ApplicationController
     params[:day] && params[:day].present? ? @day = params[:day].to_date : @day = Date.current
     # 勤怠モデルと、マネージャー・スタッフ・外部スタッフ(所属の外注先を含めて)を事前に読み込む
     attendances = Attendance.where(worked_on: @day).where.not(started_at: nil).includes(:manager).includes(:staff).includes(external_staff: :supplier)
-    @manager_attendances = attendances.where.not(manager_id: nil)
+    @attendances = attendances.where.not(id: nil)
     @staff_attendances = attendances.where.not(staff_id: nil)
     @external_staff_attendances = attendances.where.not(external_staff_id: nil)
   end
@@ -23,9 +23,9 @@ class Employees::AttendancesController < ApplicationController
       @first_day = "#{params[:year]}-#{params[:month]}-01".to_date
       @last_day = @first_day.end_of_month
     end
-    if params[:type] && params[:type] == "1" && params[:manager_id] && params[:manager_id].present?
-      manager_id = params[:manager_id]
-      @resource = Manager.find(manager_id)
+    if params[:type] && params[:type] == "1" && params[:id] && params[:id].present?
+      id = params[:id]
+      @resource = Manager.find(id)
     elsif params[:type] && params[:type] == "2" && params[:staff_id] && params[:staff_id].present?
       staff_id = params[:staff_id]
       @resource = Staff.find(staff_id)
@@ -48,8 +48,8 @@ class Employees::AttendancesController < ApplicationController
   def create
     case params[:attendance]["employee_type"]
     when "1"
-      manager_id = params[:attendance]["manager_id"]
-      resource = Manager.find(manager_id)
+      id = params[:attendance]["id"]
+      resource = Manager.find(id)
     when "2"
       staff_id = params[:attendance]["staff_id"]
       resource = Staff.find(staff_id)
@@ -73,7 +73,7 @@ class Employees::AttendancesController < ApplicationController
   end
 
   def update
-    if @attendance.update(employee_attendance_params.except(:worked_on, :manager_id, :staff_id, :external_staff_id))
+    if @attendance.update(employee_attendance_params.except(:worked_on, :id, :staff_id, :external_staff_id))
       flash[:success] = "勤怠を更新しました。"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
@@ -120,7 +120,7 @@ class Employees::AttendancesController < ApplicationController
     end
 
     def employee_attendance_params
-      params.require(:attendance).permit(:employee_type, :manager_id, :staff_id, :external_staff_id, :worked_on, :started_at, :finished_at)
+      params.require(:attendance).permit(:employee_type, :id, :staff_id, :external_staff_id, :worked_on, :started_at, :finished_at)
     end
 
     def create_monthly_attendance_by_date(resource, date)

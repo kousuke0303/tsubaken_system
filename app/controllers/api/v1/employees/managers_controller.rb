@@ -20,7 +20,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   end
 
   def create
-    manager = Nanager.new(manager_params.merge(password: "password", password_confirmation: "password"))
+    manager = Nanager.new(params.merge(password: "password", password_confirmation: "password"))
     if manager.save
       render json: manager, serializer: ManagerSerializer
     else
@@ -29,7 +29,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   end
 
   def update
-    if @manager.update(manager_params)
+    if @manager.update(params)
       render json: @manager, serializer: ManagerSerializer
     else
       render json: { status: "false", message: @manager.errors.full_messages }
@@ -45,7 +45,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   end
 
   private
-    def manager_params
+    def params
       params.permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :department_id, :joined_on, :resigned_on)
     end
 

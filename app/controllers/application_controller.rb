@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def non_approval_layout
     @type = "log_in"
   end
-  
+
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance
   # ---------------------------------------------------------
@@ -132,5 +132,6 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
   end
+  
   
 end

@@ -82,8 +82,10 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "fax"
     t.string "email"
     t.date "birthed_on"
-    t.string "zip_code"
-    t.string "address"
+    t.integer "postal_code"
+    t.integer "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -133,8 +135,10 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.string "zip_code"
-    t.string "address"
+    t.integer "postal_code"
+    t.integer "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
     t.string "content"
     t.integer "status", default: 0, null: false
     t.bigint "client_id"
@@ -200,8 +204,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.string "postal_code"
-    t.string "prefecture_code"
+    t.integer "postal_code"
+    t.integer "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.date "joined_on"
@@ -268,7 +272,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message"
     t.integer "admin_id"
-    t.integer "manager_id"
     t.integer "staff_id"
     t.integer "external_staff_id"
     t.string "matter_id"
@@ -297,8 +300,10 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.string "zip_code"
-    t.string "address"
+    t.integer "postal_code"
+    t.integer "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
     t.bigint "department_id"
@@ -323,8 +328,10 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "kana"
-    t.string "address"
-    t.string "zip_code"
+    t.integer "postal_code"
+    t.integer "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
     t.string "representative"
     t.string "phone_1"
     t.string "phone_2"

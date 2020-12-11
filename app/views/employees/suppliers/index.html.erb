@@ -13,13 +13,17 @@
         <tr>
           <th>名前</th>
           <th>電話番号①</th>
-          <th>住所</th>
+          <th>都道府県</th>
+          <th>市町村区</th>
+          <th>町名番地</th>
         </tr>
         <% @suppliers.each do |supplier| %>
           <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
             <td><%= supplier.name %></td>
             <td><%= supplier.phone_1 %></td>
-            <td><%= supplier.address %></td>
+            <td><%= supplier.prefecture_code %></td>
+            <td><%= supplier.address_city %></td>
+            <td><%= supplier.address_street %></td>
           </tr>
         <% end %>
       </table>

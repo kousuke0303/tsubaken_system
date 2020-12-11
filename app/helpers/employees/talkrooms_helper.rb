@@ -8,8 +8,8 @@ module Employees::TalkroomsHelper
       else 
         return false
       end
-    elsif manager_signed_in?
-      if message.manager_id == current_manager.id
+    elsif signed_in?
+      if message.id == current_manager.id
         return true
       else
         return false
@@ -42,7 +42,7 @@ module Employees::TalkroomsHelper
   def current_name
     if admin_signed_in?
       current_admin.name
-    elsif manager_signed_in?
+    elsif signed_in?
       current_manager.name
     elsif staff_signed_in?
       current_staff.name
@@ -54,8 +54,8 @@ module Employees::TalkroomsHelper
   def sender(message)
     if message.admin_id.present?
       Admin.find_by(id: message.admin_id)
-    elsif message.manager_id.present?
-      Manager.find_by(id: message.manager_id)
+    elsif message.id.present?
+      Manager.find_by(id: message.id)
     elsif message.staff_id.present?
       Staff.find_by(id: message.staff_id)
     elsif message.external_staff_id.present?

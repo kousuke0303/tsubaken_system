@@ -4,7 +4,7 @@ class Api::V1::Managers::RegistrationsController < Api::V1::ApplicationControlle
 
   def update_self
     @manager = Manager.find(params[:id])
-    if @manager.update(manager_params)
+    if @manager.update(params)
       render json: @manager, serializer: ManagerSerializer
     else
       render json: { status: "false", message: @manager.errors.full_messages }
@@ -12,7 +12,7 @@ class Api::V1::Managers::RegistrationsController < Api::V1::ApplicationControlle
   end
 
   private
-    def manager_params
-      params.permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :department_id, :joined_on, :resigned_on)
+    def params
+      params.permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :department_id, :joined_on, :resigned_on)
     end
 end

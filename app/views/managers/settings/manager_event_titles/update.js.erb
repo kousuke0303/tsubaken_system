@@ -1,4 +1,4 @@
-$('.ajax_title_area').html('<%= escape_javascript(render partial: './manager/settings/manager_event_titles/ajax_manager_event_title/title_index', locals: { default_manager_event_titles: @default_manager_event_titles }) %>');
-$('.ajax_show_area').html('<%= escape_javascript(render partial: './manager/settings/manager_event_titles/ajax_manager_event_title/show', locals: { default_manager_event_titles: @default_manager_event_titles }) %>');
-$('#default_manager_event_<%= @manager_event_title.id %>_show').show();
-$('#default_manager_event_<%= @manager_event_title.id %>_edit').hide();
+$('.ajax_title_area').html('<%= escape_javascript(render partial: './manager/settings/event_titles/ajax_event_title/title_index', locals: { default_event_titles: @default_event_titles }) %>');
+$('.ajax_show_area').html('<%= escape_javascript(render partial: './manager/settings/event_titles/ajax_event_title/show', locals: { default_event_titles: @default_event_titles }) %>');
+$('#default_event_<%= @event_title.id %>_show').show();
+$('#default_event_<%= @event_title.id %>_edit').hide();

@@ -13,7 +13,7 @@
 <% end %>
 
 <!--アドミン・マネージャー用-->
-<% if admin_signed_in? || manager_signed_in? %>
+<% if admin_signed_in? || signed_in? %>
   <!--スタッフnew・edit-->
   <% if controller_name == "staffs" && action_name == "index" %>
     <div id="staff-new" class="modal fade" role="dialog"></div>
@@ -72,7 +72,7 @@
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
-<% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+<% if admin_signed_in? || signed_in? || staff_signed_in? %>
   <!--顧客new・edit-->
   <% if controller_name == "clients" && action_name == "index" %>
     <div id="client-new" class="modal fade" role="dialog"></div>

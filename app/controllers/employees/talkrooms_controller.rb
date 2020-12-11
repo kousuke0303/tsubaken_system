@@ -11,7 +11,7 @@ class Employees::TalkroomsController < ApplicationController
     if message = @matter.messages.create(message_params)
       if admin_signed_in?
         @sender =  current_admin.name
-      elsif manager_signed_in?
+      elsif signed_in?
         @sender = current_manager.name
       elsif staff_signed_in?
         @sender = staff_signed_in.name
@@ -68,7 +68,7 @@ class Employees::TalkroomsController < ApplicationController
   
   private
    def message_params
-     params.permit(:message, :photo, :matter_id, :admin_id, :manager_id, :staff_id, :external_staff_id)
+     params.permit(:message, :photo, :matter_id, :admin_id, :id, :staff_id, :external_staff_id)
    end
     
 end

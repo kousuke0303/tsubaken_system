@@ -1,10 +1,10 @@
-<table class="table table-bordered default_manager_event_table">
+<table class="table table-bordered default_event_table">
   <% old_event_name = ""%>
-  <% default_manager_event_titles.each do |event_title| %>
+  <% default_event_titles.each do |event_title| %>
     <% new_event_name = event_title.event_name %>
     <% if old_event_name != new_event_name%>
       <tr>
-        <td id="default_manager_event_title_<%= event_title.id %>" class="default_manager_event_title"><%= event_title.event_name %></td>
+        <td id="default_event_title_<%= event_title.id %>" class="default_event_title"><%= event_title.event_name %></td>
       </tr>
       <% old_event_name = new_event_name%>
     <% end %>
@@ -12,13 +12,13 @@
 </table>
 
 <script>
-<% default_manager_event_titles.each do |event_title| %>
-  $('#default_manager_event_title_<%= event_title.id %>').on('click', function(){
-    $('#default_manager_event_<%= event_title.id %>_show').show();
-    $('.default_manager_event_show:not(#default_manager_event_<%= event_title.id %>_show)').hide();
-    $('#default_manager_event_title_<%= event_title.id %>').addClass('active');
-    $('.default_manager_event_title:not(#default_manager_event_title_<%= event_title.id %>)').removeClass('active');
-    $('.default_manager_event_title_new_form').hide();
+<% default_event_titles.each do |event_title| %>
+  $('#default_event_title_<%= event_title.id %>').on('click', function(){
+    $('#default_event_<%= event_title.id %>_show').show();
+    $('.default_event_show:not(#default_event_<%= event_title.id %>_show)').hide();
+    $('#default_event_title_<%= event_title.id %>').addClass('active');
+    $('.default_event_title:not(#default_event_title_<%= event_title.id %>)').removeClass('active');
+    $('.default_event_title_new_form').hide();
   });
 <% end %>
 </script>

@@ -27,6 +27,10 @@ ja:
           joined_on: 入社日
           department_id: 部署
           resigned_on: 退社日
+          postal_code: 郵便番号
+          prefecture_code: 都道府県
+          address_city: 市区町村
+          address_street: 町名番地
         staff:
           name: 名前
           department_id: 部署
@@ -99,9 +103,11 @@ ja:
     kana: フリガナ
     phone_1: 電話番号①
     phone_2: 電話番号②
-    zip_code: 郵便番号
+    postal_code: 郵便番号
+    prefecture_code: 都道府県
+    address_city: 市区町村
+    address_street: 町名番地
     note: 備考
-    address: 住所
     content: 内容
     unit: 単位
     price: 単価

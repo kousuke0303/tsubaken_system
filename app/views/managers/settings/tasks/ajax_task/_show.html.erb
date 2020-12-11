@@ -16,14 +16,14 @@
       <tr>
         <td class="text-right">
           <button class="btn btn-primary" id="default_matter_task_<%= task.id %>_edit_btn">編集</button>
-          <%= link_to "削除", manager_settings_task_path(current_manager, task), method: :delete, class: "btn btn-danger" %>
+          <%= link_to "削除", settings_task_path(current_manager, task), method: :delete, class: "btn btn-danger" %>
         </td>
       </tr>
     </table>
   </div>
   
   <div id="default_matter_task_<%= task.id %>_edit_form">
-    <%= form_with(model: task, url: manager_settings_task_path(current_manager, task), remote: true, method: :patch) do |fi| %>
+    <%= form_with(model: task, url: settings_task_path(current_manager, task), remote: true, method: :patch) do |fi| %>
       <table class="table table-bordered mt-1e default_matter_task_edit" id="default_matter_task_<%= task.id %>_edit" style="display: none;">     
         <tr>
           <th>タイトル</th>

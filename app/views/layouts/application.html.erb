@@ -30,7 +30,7 @@
     <body>
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/admin_layout" %>
-      <% elsif manager_signed_in? %>
+      <% elsif signed_in? %>
         <%= render "layouts/layout_type/manager_layout" %>
       <% elsif staff_signed_in? %>
         <%= render "layouts/layout_type/staff_layout" %>

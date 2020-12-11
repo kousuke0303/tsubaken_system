@@ -15,8 +15,8 @@ class TalkRoomBroadcastJob < ApplicationJob
     # # 送信者・受信者のレイアウトを分けるため、送信者の名前を送信
     # if message.admin_id
     #   @sender =  Admin.find(message.admin_id).name
-    # elsif message.manager_id
-    #   @sender = Manager.find(message.manager_id).name
+    # elsif message.id
+    #   @sender = Manager.find(message.id).name
     # elsif message.staff_id
     #   @sender = Staff.find(message.staff_id).name
     # elsif message.external_staff_id

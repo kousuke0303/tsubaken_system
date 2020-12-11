@@ -12,7 +12,7 @@ module Employees::MattersHelper
         event_type: "D",
         date: matter.scheduled_start_at,
         note: "",
-        manager_id: dependent_manager.id,
+        id: dependent_manager.id,
         matter_id: matter.id
       )
     end
@@ -21,7 +21,7 @@ module Employees::MattersHelper
         event_type: "D",
         date: matter.scheduled_finish_at,
         note: "",
-        manager_id: dependent_manager.id,
+        id: dependent_manager.id,
         matter_id: matter.id
       )
     end
@@ -31,7 +31,7 @@ module Employees::MattersHelper
     event_scheduled_start_at = 
         Event.find_by(event_name: "着工予定日",
         event_type: "D",
-        manager_id: dependent_manager.id,
+        id: dependent_manager.id,
         matter_id: matter.id)
     if matter.scheduled_start_at.present?
       if event_scheduled_start_at.present?
@@ -41,7 +41,7 @@ module Employees::MattersHelper
             event_type: "D",
             date: matter.scheduled_start_at,
             note: "",
-            manager_id: dependent_manager.id,
+            id: dependent_manager.id,
             matter_id: matter.id
           )
       end
@@ -54,7 +54,7 @@ module Employees::MattersHelper
     event_scheduled_finish_at = 
         Event.find_by(event_name: "完了予定日",
         event_type: "D",
-        manager_id: dependent_manager.id,
+        id: dependent_manager.id,
         matter_id: matter.id)
     if matter.scheduled_finish_at.present?
       if event_scheduled_finish_at.present?
@@ -64,7 +64,7 @@ module Employees::MattersHelper
           event_type: "D",
           date: matter.scheduled_finish_at,
           note: "",
-          manager_id: dependent_manager.id,
+          id: dependent_manager.id,
           matter_id: matter.id
         )
       end

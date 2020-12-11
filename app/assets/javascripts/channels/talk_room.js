@@ -33,7 +33,7 @@ $(function() {
     //     admin_id: formData.get("admin_id"),
     //     photo_name: formData.get("photo").name
     //   });
-    // }else if (formData.get("manager_id") != null) {
+    // }else if (formData.get("id") != null) {
     //   return this.perform('speak', {formData});
     // }else if (formData.get("staff_id") != null) {
     //   return this.perform('speak', {formData});
@@ -55,11 +55,11 @@ $(function() {
 //     var message = $("#chat-input").val();
 //     var matter_id = $('#matter_id').val();
 //     var admin_id = $("#admin_id").val();
-//     var manager_id = $("#manager_id").val();
+//     var id = $("#id").val();
 //     var staff_id = $("#staff_id").val();
 //     var external_staff_id = $("external_staff_id").val();
     
-//     App.talk_room.speak(message, matter_id, admin_id, manager_id, staff_id, external_staff_id);
+//     App.talk_room.speak(message, matter_id, admin_id, id, staff_id, external_staff_id);
 //     $(".chat-input").val("");
 //   });
 // });
