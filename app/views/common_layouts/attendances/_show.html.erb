@@ -31,9 +31,21 @@
   <tr>
     <td><%= attendance.worked_on.strftime("%d").to_i %>日</td>
     <!--<td><!%= attendance.matter.title %></td>-->
-    <td><%= attendance.started_at.strftime("%H:%M") %></td>
-    <td><%= attendance.finished_at.strftime("%H:%M") if attendance.finished_at.present?%></td>
-    <td class="day_working_time"><%= working_calculation(attendance) %></td>
+    <% if finished_nil?(attendance) %> 
+      <td><%= attendance.started_at.strftime("%H:%M") %></td>
+      <td class="text-danger">
+        <% if target == current_staff %>
+          退勤未処理
+        <% elsif target == current_external_staff %>
+          作業終了未処理
+        <% end %>
+      </td>
+      <td class="day_working_time"><%= working_calculation(attendance) %></td>
+    <% else %>
+      <td><%= attendance.started_at.strftime("%H:%M") %></td>
+      <td><%= attendance.finished_at.strftime("%H:%M") if attendance.finished_at.present?%></td>
+      <td class="day_working_time"><%= working_calculation(attendance) %></td>
+    <% end %>
   </tr>
   <% end %>
 </table>

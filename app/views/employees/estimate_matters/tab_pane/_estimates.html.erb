@@ -40,18 +40,6 @@
             <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
           <% end %>
         </td>
-      <% elsif estimate.construction_id.present? %>
-        <td><%= estimate.construction_name %></td>
-        <td></td>
-        <td><%= estimate.construction_price %></td>
-        <td><%= estimate.construction_unit %></td>
-        <td><%= estimate.construction_amount %></td>
-        <td></td>
-        <td>
-          <%= link_to(edit_employees_estimate_matter_construction_path(estimate_matter, estimate.construction_id), remote: true) do %>
-            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-          <% end %>
-        </td>
       <% else %>
         <td></td>
         <td></td>
@@ -64,3 +52,36 @@
     </tr>
   <% end %>
 </table>
+
+<% estimates.group_by {|estimate| estimate.id }.each do |estimate| %>
+  <% estimate = estimate[1] %>
+  <div class="estimate-box flex mt-1e">
+    <!-- 見積のプラン名 -->
+    <div style="width: 20%; border: 1px solid black"><%= estimate[0].title %></div>
+
+    <div style="width: 80%;">
+      <% estimate.group_by { |category| category.category_id }.each do |category| %>
+        <% category = category[1] %>
+        <% if category[0].category_id %>
+          <div class="flex" style="border:1px solid black;">
+            <div style="width: 20%; border: 1px solid black"><%= category[0].category_name %></div>
+            <div style="width: 80%;">
+              <% category.group_by { |materials| materials.material_id }.each do |materials| %>
+                <% materials = materials[1] %>
+                <% materials.each do |material| %>
+                  <div class="flex" style="border:1px solid black;">
+                    <div style="width: 20%; border: 1px solid black"><%= material.material_name %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.material_price %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.material_unit %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.material_amount %></div>
+                    <div style="width: 20%;"><%=  %></div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

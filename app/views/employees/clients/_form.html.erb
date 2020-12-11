@@ -27,7 +27,6 @@
 <%= f.text_field :postal_code, autocomplete: "postal_code", id: "postcode", class: "form-control" %>
 
 <%= f.label :prefecture_code %>
-<br>
 <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: '選択してください' }, id: "prefecture_code", class: "form-control" %>
 
 <%= f.label :address_city %>

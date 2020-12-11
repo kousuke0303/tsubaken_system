@@ -1,13 +1,9 @@
 <div class="col-12">
-  
-  <div class="text-right">
-    <%= link_to "画像一覧", employees_estimate_matter_images_path(current_estimate_matter), target: :_blank, rel: :noopener, rel: :noreferrer, class: "btn btn-dark" %>
-  </div>
 
   <h2><i class="fas fa-clipboard"></i> 見積案件詳細</h2>
   <div class="text-right mb-1e">
-    <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, class: "btn btn-dark" %>
-    <%= link_to "チャットルーム", "#", target: :_blank, class: "btn btn-primary" %>
+    <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, rel: :noopener, rel: :noreferrer, class: "btn btn-dark" %>
+    <%= link_to "チャットルーム", "#", target: :_blank, rel: :noopener, rel: :noreferrer, class: "btn btn-primary" %>
   </div>
   
   <table class="table table-bordered table_column_type">

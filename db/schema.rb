@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "unit"
     t.integer "price"
     t.integer "amount"
+    t.string "total"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -228,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.string "unit"
     t.integer "price"
     t.integer "amount"
+    t.string "total"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
