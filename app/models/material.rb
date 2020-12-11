@@ -12,4 +12,7 @@ class Material < ApplicationRecord
                                                                             "materials.*",
                                                                             "categories.name AS category_name").order(category_id: "ASC")
                           }
+
+  # 引数に入れた見積案件の持つ工事のみを返す
+  scope :of_estimate_matter, -> (estimate_matter_id) { left_joins(category: :estimate).where(estimates: { estimate_matter_id: estimate_matter_id }) }
 end

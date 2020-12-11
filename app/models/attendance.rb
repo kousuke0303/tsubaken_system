@@ -11,7 +11,12 @@ class Attendance < ApplicationRecord
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
-
+  
+  # scope
+  scope :start_exist, -> { where.not(started_at: nil) }
+  scope :finish_exist, -> { where.not(finished_at: nil) }
+  
+  
   # 出勤の無い退勤は無効
   def started_is_with_finished
     errors.add(:started_at, "を入力してください") if started_at.blank? && finished_at.present? 

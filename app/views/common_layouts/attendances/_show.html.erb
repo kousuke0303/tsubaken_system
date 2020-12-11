@@ -1,0 +1,68 @@
+<h5><%= target.name %>の出勤表</h5>
+
+<div>
+  <%= link_to send(path, date: first_day.prev_month), remote: true do %>
+    <i class="fas fa-angle-double-left"></i><span class="ml-05e">前月へ</span>
+  <% end %>
+  <span class="ml-05e" style="font-size: 25px;"><%= first_day.strftime("%m").to_i %>月</span>
+    
+  <%= link_to send(path, date: first_day.next_month), remote: true do %>
+    <span class="mr-05e ml-1e">次月へ</span><i class="fas fa-angle-double-right"></i>
+  <% end %>
+</div>
+
+<table class="table table-bordered table_column_type">
+  <tr>
+    <th>出勤日数：</th>
+    <td><%= attendances.count %>日</td>
+    <th>総労働時間：</th>
+    <td id="total_working_time"></td>
+  </tr>
+</table>
+  
+<table class="table table-bordered table_column_type">
+  <tr>
+    <th>日付</th>
+    <th>出勤時間</th>
+    <th>退社時間</th>
+    <th>勤務時間</th>
+  </tr>
+  <% attendances.each do |attendance| %>
+  <tr>
+    <td><%= attendance.worked_on.strftime("%d").to_i %>日</td>
+    <!--<td><!%= attendance.matter.title %></td>-->
+    <% if finished_nil?(attendance) %> 
+      <td><%= attendance.started_at.strftime("%H:%M") %></td>
+      <td class="text-danger">
+        <% if target == current_staff %>
+          退勤未処理
+        <% elsif target == current_external_staff %>
+          作業終了未処理
+        <% end %>
+      </td>
+      <td class="day_working_time"><%= working_calculation(attendance) %></td>
+    <% else %>
+      <td><%= attendance.started_at.strftime("%H:%M") %></td>
+      <td><%= attendance.finished_at.strftime("%H:%M") if attendance.finished_at.present?%></td>
+      <td class="day_working_time"><%= working_calculation(attendance) %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+
+<script>
+$(function(){
+  var total_working_time = 0;
+  $('.day_working_time').each( function(index, element){
+    // 勤務時間が計算されているか否かで場合分
+    if ($(element).text().length > 0){
+      var day_working_time = parseFloat($(element).text());
+      total_working_time += day_working_time;
+    } else {
+      var day_working_time = 0
+      total_working_time += day_working_time;
+    }
+  });
+  $("#total_working_time").text(String(total_working_time) + '時間');
+});
+</script>

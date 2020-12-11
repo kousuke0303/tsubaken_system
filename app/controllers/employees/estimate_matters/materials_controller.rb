@@ -10,6 +10,8 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
     if @material.update(material_params)
       @response = "success"
       @estimates = @estimate_matter.estimates.with_categories
+      @materials = Material.of_estimate_matter(@estimate_matter.id)
+      @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     else
       @response = "false"
     end
