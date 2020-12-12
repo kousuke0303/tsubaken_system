@@ -21,18 +21,21 @@
               <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(estimate_matter, category[0].category_id), remote: true, class: "btn btn-dark" %>
             </div>
             <div style="width: 80%;">
-              <% @materials.where(categories: { id: category_id }).each do |material| %>
-                <div class="flex" style="border:1px solid black;">
-                  <div style="width: 20%; border: 1px solid black">
-                    <%= link_to material.name, edit_employees_estimate_matter_material_path(estimate_matter, material.id),
-                                               remote: true, class: "btn btn-sm btn-dark" %>
+              <% if @materials %>
+                <% @materials.where(categories: { id: category_id }).each do |material| %>
+                  <div class="flex" style="border:1px solid black;">
+                    <div style="width: 20%; border: 1px solid black">
+                      <%= link_to material.name, edit_employees_estimate_matter_material_path(estimate_matter, material.id),
+                                                remote: true, class: "btn btn-sm btn-dark" %>
+                    </div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.price %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.unit %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.amount %></div>
+                    <div style="width: 20%;"><%= material.total %></div>
                   </div>
-                  <div style="width: 20%; border: 1px solid black"><%= material.price %></div>
-                  <div style="width: 20%; border: 1px solid black"><%= material.unit %></div>
-                  <div style="width: 20%; border: 1px solid black"><%= material.amount %></div>
-                  <div style="width: 20%;"><%= material.total %></div>
-                </div>
+                <% end %>
               <% end %>
+              <% if @constructions %>
               <% @constructions.where(categories: { id: category_id }).each do |construction| %>
                 <div class="flex" style="border:1px solid black;">
                   <div style="width: 20%; border: 1px solid black">
@@ -45,6 +48,7 @@
                   <div style="width: 20%;"><%= construction.total %></div>
                 </div>
               <% end %>
+            <% end %>
             </div>
           </div>
         <% end %>
