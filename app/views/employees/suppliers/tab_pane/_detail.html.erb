@@ -29,11 +29,19 @@
   </tr>
   <tr>
     <th>郵便番号</th>
-    <td><%= @supplier.zip_code %></td>
+    <td><%= @supplier.postal_code %></td>
   </tr>
   <tr>
-    <th>住所</th>
-    <td><%= @supplier.address %></td>
+    <th>都道府県</th>
+    <td><%= @supplier.prefecture_code %></td>
+  </tr>
+  <tr>
+    <th>市区町村</th>
+    <td><%= @supplier.address_city %></td>
+  </tr>
+  <tr>
+    <th>町名番地</th>
+    <td><%= @supplier.address_street %></td>
   </tr>
 </table>
 

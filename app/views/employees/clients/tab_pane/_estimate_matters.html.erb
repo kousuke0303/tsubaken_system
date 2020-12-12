@@ -6,7 +6,9 @@
   <% @estimate_matters.each do |estimate_matter| %>
     <tr class="tr-link" data-link="<%=  %>">
       <td><%= estimate_matter.title %></td>
-      <td><%= estimate_matter.address %></td>
+      <td><%= estimate_matter.prefecture_code %></td>
+      <td><%= estimate_matter.address_city %></td>
+      <td><%= estimate_matter.address_street %></td>
     </tr>
   <% end %>
 </table>

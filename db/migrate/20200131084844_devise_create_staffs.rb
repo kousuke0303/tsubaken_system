@@ -8,8 +8,10 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
       t.string :phone
       t.string :email
       t.date :birthed_on
-      t.string :zip_code
-      t.string :address
+      t.string :postal_code
+      t.string :prefecture_code
+      t.string :address_city 
+      t.string :address_street
       t.date :joined_on
       t.date :resigned_on
       t.references :department, foreign_key: true

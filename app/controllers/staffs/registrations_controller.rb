@@ -20,6 +20,6 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
 
   private
     def staff_params
-      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :joined_on, :resigned_on, :password, :password_confirmation)
+      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :joined_on, :resigned_on, :password, :password_confirmation)
     end
 end

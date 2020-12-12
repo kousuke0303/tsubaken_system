@@ -20,7 +20,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
   end
 
   def create
-    manager = Nanager.new(manager_params.merge(password: "password", password_confirmation: "password"))
+    manager = Manager.new(manager_params.merge(password: "password", password_confirmation: "password"))
     if manager.save
       render json: manager, serializer: ManagerSerializer
     else
@@ -46,7 +46,7 @@ class Api::V1::Employees::ManagersController < Api::V1::ApplicationController
 
   private
     def manager_params
-      params.permit(:name, :login_id, :phone, :email, :birthed_on, :zipcode, :address, :department_id, :joined_on, :resigned_on)
+      params.permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :department_id, :joined_on, :resigned_on)
     end
 
     def set_manager

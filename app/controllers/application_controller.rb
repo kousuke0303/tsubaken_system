@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def non_approval_layout
     @type = "log_in"
   end
-  
+
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance
   # ---------------------------------------------------------
@@ -89,6 +89,10 @@ class ApplicationController < ActionController::Base
     Task.reload_sort_order(@ongoing_tasks)
     @finished_tasks = resource.tasks.are_finished
     Task.reload_sort_order(@finished_tasks)
+  end
+  
+  def scaffolding_and_order_requests_relevant_or_ongoing
+    @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").where("(status = ?) OR (status = ?)", 1, 2)
   end
     
   private

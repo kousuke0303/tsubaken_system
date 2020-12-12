@@ -3,4 +3,21 @@ class ApplicationRecord < ActiveRecord::Base
   VALID_PHONE_REGEX = /\A0\d{9,10}\z/i
   VALID_FAX_REGEX = /\A0\d{9,10}\z/i
   self.abstract_class = true
+  
+  # 住所機能
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+  
+  # ---------------------------------------------------------
+        # 住所自動入力
+  # ---------------------------------------------------------
+  # 郵便番号(postal_code)から都道府県名(prefecture_name)に変換するメソッド
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+  
+  # 郵便番号(postal_code)から都道府県名(prefecture_name)に変換するメソッド
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
 end

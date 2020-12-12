@@ -9,11 +9,19 @@
   </tr>
   <tr>
     <th>郵便番号</th>
-    <td><%= @estimate_matter.zip_code %></td>
+    <td><%= @estimate_matter.postal_code %></td>
   </tr>
   <tr>
-    <th>住所</th>
-    <td><%= @estimate_matter.address %></td>
+    <th>都道府県</th>
+    <td><%= @estimate_matter.prefecture_code %></td>
+  </tr>
+  <tr>
+    <th>市区町村</th>
+    <td><%= @estimate_matter.address_city %></td>
+  </tr>
+  <tr>
+    <th>町名番地</th>
+    <td><%= @estimate_matter.address_street %></td>
   </tr>
   <tr>
     <th>内容</th>
