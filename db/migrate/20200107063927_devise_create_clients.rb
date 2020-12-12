@@ -12,8 +12,10 @@ class DeviseCreateClients < ActiveRecord::Migration[5.1]
       t.string :fax
       t.string :email
       t.date :birthed_on
-      t.string :zip_code
-      t.string :address
+      t.string :postal_code
+      t.string :prefecture_code
+      t.string :address_city
+      t.string :address_street
 
       ## Database authenticatable
       t.string :login_id,           null: false, default: ""

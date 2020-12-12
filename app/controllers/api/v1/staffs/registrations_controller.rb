@@ -13,6 +13,6 @@ class Api::V1::Staffs::RegistrationsController < Api::V1::ApplicationController
 
   private
     def staff_params
-      params.permit(:name, :login_id, :phone, :email, :birthed_on, :zip_code, :address, :joined_on, :resigned_on)
+      params.permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :joined_on, :resigned_on)
     end
 end

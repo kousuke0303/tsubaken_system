@@ -18,15 +18,21 @@
 
         <%= f.label :email %>
         <%= f.email_field :email, maxlength: 254, required: true, class: "form-control" %>
-
-        <%= f.label :zip_code %>
-        <%= f.text_field :zip_code, maxlength: 7, pattern: "^[0-9]{7}$", class: "form-control", placeholder: "半角数字(ハイフンなし)" %>
-
+        
         <%= f.label :birthed_on %>
         <%= f.date_field :birthed_on, class: "form-control" %>
 
-        <%= f.label :address %>
-        <%= f.text_field :address, maxlength: 50, class: "form-control" %>
+        <%= f.label :postal_code %>
+        <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", autocomplete: "postal_code", id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+        
+        <%= f.label :prefecture_code %>
+        <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: '選択してください' }, id: "prefecture_code", class: "form-control" %>
+        
+        <%= f.label :address_city %>
+        <%= f.text_field :address_city, autocomplete: "address_city", id: "address_city", class: "form-control" %>
+         
+        <%= f.label :address_street %>
+        <%= f.text_field :address_street, autocomplete: "address_street", id: "address_street", class: "form-control" %>
 
         <%= f.label :joined_on %>
         <%= f.date_field :joined_on, class: "form-control" %>
@@ -52,6 +58,27 @@
   <script>
     $(document).ready(function() {
       history.pushState("", "", location.href + "/edit")
+    });
+  </script>
+<% else %>
+  <script type="text/javascript">
+    $(function () {       
+      $("#postcode").jpostal({
+        //  郵便番号の入力欄が１つの場合
+        //  111-1111と1111111のどちらの入力形式でも住所を自動入力してくれる
+        postcode : [ "#postcode" ],
+        //  入力項目フォーマット
+        //   %3  都道府県
+        //   %4  市区町村
+        //   %5  町域
+        //   %6  大口事業所の番地
+        //   %7  大口事業所の名称
+        address  : {
+                      "#prefecture_code" : "%3", // 都道府県が入力される
+                      "#address_city"    : "%4%5", // 市区町村と町域が入力される
+                      "#address_street"  : "%6%7" // 大口事務所の番地と名称が入力される
+                   }
+      });
     });
   </script>
 <% end %>
