@@ -41,8 +41,10 @@ puts "CREATE! STAFF"
                   kana: "テストガイチュウサキ",
                   phone_1: "08054545454",
                   email: "testsupplier-#{ n + 1 }@email.com",
-                  zip_code: "5940088",
-                  address: "大阪府テスト市")
+                  postal_code: "5940088",
+                  prefecture_code: "神奈川県",
+                  address_city: "テスト市テスト町",
+                  address_street: "1-1-1")
 end
 
 puts "CREATE! Supplier"
@@ -72,8 +74,10 @@ puts "CREATE! INDUSTRY"
                  phone_1: "08011112222",
                  phone_2: "08011113333",
                  email: "client-#{ n + 1 }@email.com",
-                 zip_code: "5940088",
-                 address: "大阪府テスト市",
+                 postal_code: "5940088",
+                 prefecture_code: "神奈川県",
+                 address_city: "テスト市テスト町",
+                 address_street: "1-1-1",
                  password: "password",
                  password_confirmation: "password")
 end
@@ -87,16 +91,20 @@ puts "CREATE! CLIENT"
 SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
                                              content: "見積案件1の内容",
                                              status: 0,
-                                             zip_code: "5845151",
-                                             address: "東京都渋谷区神宮町１−１−１",
+                                             postal_code: "5940088",
+                                             prefecture_code: "神奈川県",
+                                             address_city: "テスト市テスト町",
+                                             address_street: "1-1-1",
                                              client_id: 1,
                                              )
 
 SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
                                              content: "見積案件2の内容",
                                              status: 0,
-                                             zip_code: "5845151",
-                                             address: "東京都渋谷区神宮町１−２−１",
+                                             postal_code: "5940088",
+                                             prefecture_code: "神奈川県",
+                                             address_city: "テスト市テスト町",
+                                             address_street: "1-1-1",
                                              client_id: 2,
                                              )                                          
 

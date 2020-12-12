@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def non_approval_layout
     @type = "log_in"
   end
-  
+
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance
   # ---------------------------------------------------------

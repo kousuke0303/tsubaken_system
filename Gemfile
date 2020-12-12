@@ -37,6 +37,8 @@ gem 'dotenv-rails'
 gem "aws-sdk-s3", require: false
 # 画像のリサイズのためのgem
 gem 'mini_magick', '~> 4.8'
+# 都道府県取得のためのgem
+gem 'jp_prefecture'
 
 group :development, :test do
   gem 'mysql2'
