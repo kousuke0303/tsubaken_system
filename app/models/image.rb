@@ -10,7 +10,7 @@ class Image < ApplicationRecord
     images.each do |image|
       if !image.blob.content_type.in?(%('image/jpeg image/png image/gif image/bmp image/psd image/tiff'))
         image.purge
-        errors.add(:images, 'データをアップロードしてください')
+        errors.add(:image, 'データをアップロードしてください')
       end
     end
   end
