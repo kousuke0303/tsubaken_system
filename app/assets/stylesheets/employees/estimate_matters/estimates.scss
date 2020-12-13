@@ -1,4 +1,31 @@
 .estimate-box {
   border: 1px solid black;
   box-sizing: border-box;
+  text-align: center;
+  .estimate-name {
+    border-right: 1px solid black;
+    width: 20%;
+  }
+  .category-name {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    width: 20%;
+  }
+  .category-name-last {
+    border-bottom: none;
+  }
+  .construction-material {
+    border-bottom: 1px solid black;
+    width: 80%;
+  }
+  .construction-material-last {
+    border-bottom: none;
+  }
+  .construction-material-item {
+    border-right: 1px solid black;
+    width: 20%;
+  }
+  .construction-material-item-total {
+    width: 20%;
+  }
 }
