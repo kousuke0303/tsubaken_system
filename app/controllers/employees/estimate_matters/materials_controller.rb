@@ -23,6 +23,8 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
   def destroy
     @material.destroy
     @estimates = @estimate_matter.estimates.with_categories
+    @materials = Material.of_estimate_matter(@estimate_matter.id)
+    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     respond_to do |format|
       format.js
     end
