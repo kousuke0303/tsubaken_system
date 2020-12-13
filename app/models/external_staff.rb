@@ -13,6 +13,7 @@ class ExternalStaff < ApplicationRecord
   belongs_to :supplier
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  has_one_attached :avator
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
