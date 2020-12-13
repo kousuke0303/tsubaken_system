@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def non_approval_layout
     @type = "log_in"
   end
-  
+
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance
   # ---------------------------------------------------------
@@ -46,16 +46,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
   
-  # ---------------------------------------------------------
-        # STAFF関係
-  # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
-  def not_current_staff_return_login!
-    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません。"
-      redirect_to root_path
-    end
+  def attendance_notification
+      yesterday = Date.today - 1
+      @error_attendances = Attendance.where("(worked_on = ?)", yesterday)
+                                     .where.not(started_at: nil)
+                                     .where(finished_at: nil)
   end
   
   
@@ -95,6 +90,10 @@ class ApplicationController < ActionController::Base
     @finished_tasks = resource.tasks.are_finished
     Task.reload_sort_order(@finished_tasks)
   end
+  
+  def scaffolding_and_order_requests_relevant_or_ongoing
+    @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").where("(status = ?) OR (status = ?)", 1, 2)
+  end
     
   private
   
@@ -131,6 +130,18 @@ class ApplicationController < ActionController::Base
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
+  end
+  
+  # ---------------------------------------------------------
+        # STAFF関係
+  # ---------------------------------------------------------
+  
+  # ログインstaff以外のページ非表示
+  def not_current_staff_return_login!
+    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
+      flash[:alert] = "アクセス権限がありません。"
+      redirect_to root_path
+    end
   end
   
 end

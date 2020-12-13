@@ -25,11 +25,19 @@
   </tr>
   <tr>
     <th>郵便番号</th>
-    <td><%= @manager.zip_code %></td>
+    <td><%= @manager.postal_code %></td>
   </tr>
   <tr>
-    <th>住所</th>
-    <td><%= @manager.address %></td>
+    <th>都道府県</th>
+    <td><%= @manager.prefecture_code %></td>
+  </tr>
+  <tr>
+    <th>市区町村</th>
+    <td><%= @manager.address_city %></td>
+  </tr>
+  <tr>
+    <th>町名番地</th>
+    <td><%= @manager.address_street %></td>
   </tr>
   <tr>
     <th>入社日</th>

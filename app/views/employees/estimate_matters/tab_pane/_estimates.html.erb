@@ -1,66 +1,58 @@
-<table class="table table-sm common-table">
-  <tr>
-    <th>見積名</th>
-    <th>編集</th>
-    <th>工事カテゴリ名</th>
-    <th>編集</th>
-    <th>工事・素材名</th>
-    <th>耐用年数</th>
-    <th>単価</th>
-    <th>単位</th>
-    <th>数量</th>
-    <th>合計金額</th>
-    <th>編集</th>
-  </tr>
-  <% estimates.each do |estimate| %>
-    <tr>
-      <td><%= estimate.title %></td>
-      <td>      
-        <%= link_to(edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true) do %>
-          <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-        <% end %>         
-      </td>
-      <td><%= estimate.category_name %></td>
-      <td>
-        <% if estimate.category_id.present? %>
-          <%= link_to(edit_employees_estimate_matter_category_path(estimate_matter, estimate.category_id), remote: true) do %>
-            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-          <% end %>          
+<% estimates.group_by {|estimate| estimate.id }.each do |estimate| %>
+  <div class="flex mt-1e">
+    <div style="width: 20%;">見積名</div>
+    <div style="width: 80%;" class="flex">
+      <div style="width: 20%;">見積カテゴリ名</div>
+    </div>
+  </div>
+  <% estimate = estimate[1] %>
+  <div class="estimate-box flex">
+    <!-- 見積のプラン名 -->
+    <div style="width: 20%; border: 1px solid black;">
+      <%= link_to estimate[0].title,edit_employees_estimate_matter_estimate_path(estimate_matter, estimate[0].id), remote: true, class: "btn btn-dark" %>
+    </div>
+
+    <div style="width: 80%;">
+      <% estimate.group_by { |category| category.category_id }.each do |category| %>
+        <% category = category[1] %>
+        <% if category_id = category[0].category_id %>
+          <div class="flex" style="border:1px solid black;">
+            <div style="width: 20%; border: 1px solid black">
+              <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(estimate_matter, category[0].category_id), remote: true, class: "btn btn-dark" %>
+            </div>
+            <div style="width: 80%;">
+              <% if @materials %>
+                <% @materials.where(categories: { id: category_id }).each do |material| %>
+                  <div class="flex" style="border:1px solid black;">
+                    <div style="width: 20%; border: 1px solid black">
+                      <%= link_to material.name, edit_employees_estimate_matter_material_path(estimate_matter, material.id),
+                                                remote: true, class: "btn btn-sm btn-dark" %>
+                    </div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.price %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.unit %></div>
+                    <div style="width: 20%; border: 1px solid black"><%= material.amount %></div>
+                    <div style="width: 20%;"><%= material.total %></div>
+                  </div>
+                <% end %>
+              <% end %>
+              <% if @constructions %>
+              <% @constructions.where(categories: { id: category_id }).each do |construction| %>
+                <div class="flex" style="border:1px solid black;">
+                  <div style="width: 20%; border: 1px solid black">
+                    <%= link_to construction.name, edit_employees_estimate_matter_construction_path(estimate_matter, construction.id),
+                                                   remote: true, class: "btn btn-sm btn-dark" %>
+                  </div>
+                  <div style="width: 20%; border: 1px solid black"><%= construction.price %></div>
+                  <div style="width: 20%; border: 1px solid black"><%= construction.unit %></div>
+                  <div style="width: 20%; border: 1px solid black"><%= construction.amount %></div>
+                  <div style="width: 20%;"><%= construction.total %></div>
+                </div>
+              <% end %>
+            <% end %>
+            </div>
+          </div>
         <% end %>
-      </td>
-      <% if estimate.material_id.present? %>
-        <td><%= estimate.material_name %></td>
-        <td><%= estimate.service_life %></td>
-        <td><%= estimate.material_price %></td>
-        <td><%= estimate.material_unit %></td>
-        <td><%= estimate.material_amount %></td>
-        <td></td>
-        <td>
-          <%= link_to(edit_employees_estimate_matter_material_path(estimate_matter, estimate.material_id), remote: true) do %>
-            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-          <% end %>
-        </td>
-      <% elsif estimate.construction_id.present? %>
-        <td><%= estimate.construction_name %></td>
-        <td></td>
-        <td><%= estimate.construction_price %></td>
-        <td><%= estimate.construction_unit %></td>
-        <td><%= estimate.construction_amount %></td>
-        <td></td>
-        <td>
-          <%= link_to(edit_employees_estimate_matter_construction_path(estimate_matter, estimate.construction_id), remote: true) do %>
-            <button class="btn btn-sm btn-dark"><i class="fa fa-edit"></i></button>
-          <% end %>
-        </td>
-      <% else %>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
       <% end %>
-    </tr>
-  <% end %>
-</table>
+    </div>
+  </div>
+<% end %>

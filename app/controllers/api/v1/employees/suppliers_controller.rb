@@ -35,7 +35,7 @@ class Api::V1::Employees::SuppliersController < Api::V1::ApplicationController
 
   private
     def supplier_params
-      params.permit(:name, :address, :zip_code, :representative, :phone_1, :phone_2, :fax, :email)
+      params.permit(:name, :postal_code, :prefecture_code, :address_city, :address_street, :representative, :phone_1, :phone_2, :fax, :email)
     end
 
     def set_supplier
