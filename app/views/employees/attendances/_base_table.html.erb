@@ -1,4 +1,4 @@
-<div class="text-center"><h5><%= employee_type %></h5></div>
+<div class="text-left"><h5><%= employee_type %></h5></div>
 
 <table class="table table-sm common-table">
   <tr>
@@ -31,6 +31,11 @@
         <td><%= attendance.external_staff.supplier.name %></td>
       <% end %>
       <td><%= l(attendance.started_at, format: :time) %></td>
+      <% if finished_nil?(attendance) %>
+        <td class="text-danger">
+            退勤未処理
+        </td>
+      <% end %>
       <td><%= finished_at if attendance.finished_at.present? %></td>
       <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
     </tr>
