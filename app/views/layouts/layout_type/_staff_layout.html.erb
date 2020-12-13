@@ -7,13 +7,13 @@
     </div>
 
     <ul class="list-unstyled components">
-      <p>Staff専用ページ</p>
+      <h4>Staff専用ページ</h4>
       <li><%= link_to "&nbsp;着工案件管理".html_safe, employees_matters_path, class: "fas fa-clipboard" %></li>
       <li><%= link_to "&nbsp;営業案件管理".html_safe, employees_estimate_matters_path, class: "fas fa-paste" %></li>
       <li><%= link_to "&nbsp;外注先管理".html_safe, employees_suppliers_path, class: "fas fa-user-tie"  %></li>
       <li><%= link_to "&nbsp;顧客管理".html_safe, employees_clients_path, class: "fa-user-edit" %></li>
       <li><%= link_to "&nbsp;勤怠管理".html_safe, staffs_attendances_path, class:"fas fa-clock" %></li>
-      <li><%= link_to "&nbsp;カレンダー".html_safe, "#", class: "far fa-calendar-alt" %></li>
+      <li><%= link_to "&nbsp;カレンダー".html_safe, "#", class: "fas fa-calendar-alt" %></li>
       <li>
         <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fas fa-cog">設定</a>
         <ul class="collapse list-unstyled" id="settings-menu">
