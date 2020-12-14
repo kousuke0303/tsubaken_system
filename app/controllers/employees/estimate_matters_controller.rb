@@ -24,7 +24,6 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
-    set_classified_tasks(@estimate_matter)
     @estimates = @estimate_matter.estimates.with_categories
     @matter = @estimate_matter.matter
     @materials = Material.of_estimate_matter(@estimate_matter.id)
