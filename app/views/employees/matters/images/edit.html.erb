@@ -1,20 +1,14 @@
-<%= form_with(url: edit_employees_matter_image_path(current_matter, @image.id), local: true) do |f| %>
-  <p>内容</p>
+<%= form_with(model: @image, url: employees_matter_image_path(current_matter, @image.id), method: :patch, local: true) do |f| %>
   <div class="edit-image-content-position">
-    <h2><%= @image.content %></h2>
-  </div>
-
-  <p>写真追加</p>
-  <div class="margin-bottom-posision">
-    <%= f.file_field :images, multiple: true, class: "file-input" %>
-    <% if @image.errors.any? %>
-      <div id="error_explanation">
-        <% @image.errors.full_messages.each do |message| %>
-          <li class="image-error-color"><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= f.label :content %>
+    <div>
+      <%= f.text_area :content, maxlength: 300 %>
+    </div>
+    
+    <%= f.label :shooted_on %>
+    <div>
+      <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
+    </div>
   </div>
   
   <div>
@@ -23,17 +17,9 @@
   </div>
 
   <% if @image.images.attached? %>
-    <div class="margin-top-posision">
-      <p>削除するものはチェックしてください</p>
-    </div>
     <% @image.images.each do |image| %>
-      <figure class="images-partial">
-        <% if !image.blob.content_type.in?(%('image/jpeg image/png image/gif image/bmp image/psd image/tiff')) %>
-          <% image.purge %>
-        <% else %>
-          <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-          <%= image_tag image.variant(resize: "400x400") %>
-        <% end %>
+      <figure class="images-partial" style="margin-top: 20px;">
+        <%= image_tag image.variant(resize: "400x400") %>
       </figure>
     <% end %>
   <% end %>

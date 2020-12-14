@@ -5,7 +5,8 @@
       <%= image.content %>
       <%= image.shooted_on %>
       <div class="margin-left-posision">
-        <%= link_to '編集', edit_employees_estimate_matter_image_path(current_estimate_matter, image.id), class: "btn btn-sm btn-primary" %>
+        <%= link_to icon('fas', 'edit'), edit_employees_estimate_matter_image_path(current_estimate_matter, image.id) %>
+        <%= link_to icon('fas', 'trash-alt'), employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' } %>
       </div>
     </div>
   </figure>
