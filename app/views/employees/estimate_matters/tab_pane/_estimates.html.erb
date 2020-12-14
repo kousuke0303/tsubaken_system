@@ -34,8 +34,12 @@
               <% if @materials %>
                 <% materials = @materials.where(categories: { id: category_id }) %>
                 <% materials.each_with_index do |material, index| %>
-                  <% last = "last" if index == estimate.size - 1 %>
-                  <div class="flex construction-material-item">
+                  <% if index == materials.size - 1 %>
+                    <% last = "last" %>
+                  <% else %>
+                    <% last = "" %>
+                  <% end %>
+                  <div class="flex construction-material-item construction-material-item-<%= last %>">
                     <div class="construction-material-detail">
                       <%= link_to material.name, edit_employees_estimate_matter_material_path(@estimate_matter, material.id),
                                                 remote: true, class: "btn btn-sm btn-dark" %>
@@ -50,21 +54,27 @@
                 <% end %>
               <% end %>
               <% if @constructions %>
-              <% @constructions.where(categories: { id: category_id }).each do |construction| %>
-                <div class="flex construction-material-item">
-                  <div class="construction-material-detail">
-                    <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
-                                                   remote: true, class: "btn btn-sm btn-dark" %>
+                <% constructions = @constructions.where(categories: { id: category_id }) %>
+                <% constructions.each_with_index do |construction, index| %>
+                  <% if index == constructions.size - 1 %>
+                    <% last = "last" %>
+                  <% else %>
+                    <% last = "" %>
+                  <% end %>
+                  <div class="flex construction-material-item construction-material-item-<%= last %>">
+                    <div class="construction-material-detail">
+                      <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
+                                                    remote: true, class: "btn btn-sm btn-dark" %>
+                    </div>
+                    <div class="construction-material-detail"></div>
+                    <div class="construction-material-detail"><%= construction.price %></div>
+                    <div class="construction-material-detail"><%= construction.unit %></div>
+                    <div class="construction-material-detail"><%= construction.amount %></div>
+                    <% total_price = total_price.to_i + construction.total.to_i %>
+                    <div class="construction-material-detail-total"><%= "#{ construction.total }円" if construction.total.present? %></div>
                   </div>
-                  <div class="construction-material-detail"></div>
-                  <div class="construction-material-detail"><%= construction.price %></div>
-                  <div class="construction-material-detail"><%= construction.unit %></div>
-                  <div class="construction-material-detail"><%= construction.amount %></div>
-                  <% total_price = total_price.to_i + construction.total.to_i %>
-                  <div class="construction-material-detail-total"><%= "#{ construction.total }円" if construction.total.present? %></div>
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
             </div>
           </div>
         <% end %>
