@@ -1,4 +1,24 @@
-.estimate-box {
+.estimate-table-header {
+  background: #eeeeee;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  font-weight: bold;
+  text-align: center;
+  .estimate-name {
+    border-right: 1px solid black;
+    width: 20%;
+  }
+  .category-name {
+    border-right: 1px solid black;
+    width: 20%;
+  }
+  .construction-material {
+    width: 80%;
+  }
+}
+
+.estimate-table-body {
   border: 1px solid black;
   box-sizing: border-box;
   text-align: center;
