@@ -18,10 +18,10 @@
   }
   .construction-material-item {
     border-right: 1px solid black;
-    width: 20%;
+    width: calc(100% / 6);
   }
   .construction-material-item-total {
-    width: 20%;
+    width: calc(100% / 6);
   }
 }
 
@@ -50,9 +50,9 @@
   }
   .construction-material-item {
     border-right: 1px solid black;
-    width: 20%;
+    width: calc(100% / 6);
   }
   .construction-material-item-total {
-    width: 20%;
+    width: calc(100% / 6);
   }
 }

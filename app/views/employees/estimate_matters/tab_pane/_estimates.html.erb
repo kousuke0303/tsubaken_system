@@ -4,6 +4,7 @@
     <div style="width: 80%;" class="flex">
       <div class="category-name">見積カテゴリ名</div>
       <div class="construction-material flex">
+        <div class="construction-material-item">素材・工事名</div>
         <div class="construction-material-item">耐用年数</div>
         <div class="construction-material-item">単価</div>
         <div class="construction-material-item">単位</div>
@@ -36,10 +37,11 @@
                       <%= link_to material.name, edit_employees_estimate_matter_material_path(@estimate_matter, material.id),
                                                 remote: true, class: "btn btn-sm btn-dark" %>
                     </div>
+                    <div class="construction-material-item"><%= material.service_life %></div>
                     <div class="construction-material-item"><%= material.price %></div>
                     <div class="construction-material-item"><%= material.unit %></div>
                     <div class="construction-material-item"><%= material.amount %></div>
-                    <div class="construction-material-item-total"><%= material.total %></div>
+                    <div class="construction-material-item-total"><%= "#{ material.total }円" if material.total.present? %></div>
                   </div>
                 <% end %>
               <% end %>
@@ -50,10 +52,11 @@
                     <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
                                                    remote: true, class: "btn btn-sm btn-dark" %>
                   </div>
+                  <div class="construction-material-item"></div>
                   <div class="construction-material-item"><%= construction.price %></div>
                   <div class="construction-material-item"><%= construction.unit %></div>
                   <div class="construction-material-item"><%= construction.amount %></div>
-                  <div class="construction-material-item-total"><%= construction.total %></div>
+                  <div class="construction-material-item-total"><%= "#{ construction.total }円" if construction.total.present? %></div>
                 </div>
               <% end %>
             <% end %>
