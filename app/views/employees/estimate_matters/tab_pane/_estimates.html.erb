@@ -1,15 +1,14 @@
 <% @estimates.group_by {|estimate| estimate.id }.each do |estimate| %>
   <div class="flex estimate-table-header mt-1e">
     <div class="estimate-name">見積名</div>
-    <div style="width: 80%;">
-      <div class="flex">
-        <div class="category-name">見積カテゴリ名</div>
-        <div class="construction-material flex">
-          <div class="construction-material-item">耐用年数</div>
-          <div class="construction-material-item">単価</div>
-          <div class="construction-material-item">単位</div>
-          <div class="construction-material-item">数量</div>
-          <div class="construction-material-item-total">合計金額</div></div>
+    <div style="width: 80%;" class="flex">
+      <div class="category-name">見積カテゴリ名</div>
+      <div class="construction-material flex">
+        <div class="construction-material-item">耐用年数</div>
+        <div class="construction-material-item">単価</div>
+        <div class="construction-material-item">単位</div>
+        <div class="construction-material-item">数量</div>
+        <div class="construction-material-item-total">合計金額</div>
       </div>
     </div>
   </div>
