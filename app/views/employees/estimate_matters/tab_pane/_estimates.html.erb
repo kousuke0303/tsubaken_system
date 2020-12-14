@@ -1,4 +1,5 @@
 <% @estimates.group_by {|estimate| estimate.id }.each do |estimate| %>
+  <% total_price = 0 %>
   <div class="flex estimate-table-header mt-1e">
     <div class="estimate-name">見積名</div>
     <div style="width: 80%;" class="flex">
@@ -17,7 +18,7 @@
   <div class="estimate-table-body flex">
     <!-- 見積のプラン名 -->
     <div class="estimate-name">
-      <%= link_to estimate[0].title,edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), remote: true, class: "btn btn-dark" %>
+      <%= link_to estimate[0].title,edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), remote: true, class: "btn btn-sm btn-dark" %>
     </div>
 
     <div style="width: 80%;">
@@ -27,9 +28,9 @@
           <% last = "last" if index == estimate.size - 1 %>
           <div class="flex">
             <div class="category-name category-name-<%= last %>">
-              <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-dark" %>
+              <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-sm btn-dark" %>
             </div>
-            <div class="construction-material construction-material-<%= last %>">
+            <div class="construction-material construction-material-<%= last %>">              
               <% if @materials %>
                 <% @materials.where(categories: { id: category_id }).each do |material| %>
                   <div class="flex">
@@ -41,6 +42,7 @@
                     <div class="construction-material-item"><%= material.price %></div>
                     <div class="construction-material-item"><%= material.unit %></div>
                     <div class="construction-material-item"><%= material.amount %></div>
+                    <% total_price = total_price.to_i + material.total.to_i %>
                     <div class="construction-material-item-total"><%= "#{ material.total }円" if material.total.present? %></div>
                   </div>
                 <% end %>
@@ -56,6 +58,7 @@
                   <div class="construction-material-item"><%= construction.price %></div>
                   <div class="construction-material-item"><%= construction.unit %></div>
                   <div class="construction-material-item"><%= construction.amount %></div>
+                  <% total_price = total_price.to_i + construction.total.to_i %>
                   <div class="construction-material-item-total"><%= "#{ construction.total }円" if construction.total.present? %></div>
                 </div>
               <% end %>
@@ -66,4 +69,5 @@
       <% end %>
     </div>
   </div>
+  <div class="estimate-table-footer">合計見積金額 <%= total_price %>円</div>
 <% end %>
