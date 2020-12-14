@@ -16,11 +16,11 @@
   .construction-material {
     width: 80%;
   }
-  .construction-material-item {
+  .construction-material-detail {
     border-right: 1px solid black;
     width: calc(100% / 6);
   }
-  .construction-material-item-total {
+  .construction-material-detail-total {
     width: calc(100% / 6);
   }
 }
@@ -33,8 +33,13 @@
     border-right: 1px solid black;
     width: 20%;
   }
-  .category-name {
+  .category-item {
     border-bottom: 1px solid black;
+  }
+  .category-item-last {
+    border-bottom: none;
+  }
+  .category-name {
     border-right: 1px solid black;
     width: 20%;
   }
@@ -42,17 +47,18 @@
     border-bottom: none;
   }
   .construction-material {
-    border-bottom: 1px solid black;
     width: 80%;
+  }
+  .construction-material-item {
   }
   .construction-material-last {
     border-bottom: none;
   }
-  .construction-material-item {
+  .construction-material-detail {
     border-right: 1px solid black;
     width: calc(100% / 6);
   }
-  .construction-material-item-total {
+  .construction-material-detail-total {
     width: calc(100% / 6);
   }
 }
