@@ -6,7 +6,7 @@ class Estimate < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
 
-  scope :with_categories, -> { 
+  scope :with_details, -> { 
     left_joins(:categories).select(
       "estimates.*",
       "categories.*",

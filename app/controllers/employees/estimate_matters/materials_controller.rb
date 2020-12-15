@@ -9,7 +9,7 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
   def update
     if @material.update(material_params)
       @response = "success"
-      @estimates = @estimate_matter.estimates.with_categories
+      @estimates = @estimate_matter.estimates.with_details
       @materials = Material.of_estimate_matter(@estimate_matter.id)
       @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     else
@@ -22,7 +22,7 @@ class Employees::EstimateMatters::MaterialsController < ApplicationController
 
   def destroy
     @material.destroy
-    @estimates = @estimate_matter.estimates.with_categories
+    @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     respond_to do |format|

@@ -23,7 +23,7 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
                                        parent_id: default_construction.id)
       end
     end
-    @estimates = @estimate_matter.estimates.with_categories
+    @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     respond_to do |format|
@@ -34,7 +34,7 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
   def destroy
     @category.destroy
     @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    @estimates = @estimate_matter.estimates.with_categories
+    @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     respond_to do |format|

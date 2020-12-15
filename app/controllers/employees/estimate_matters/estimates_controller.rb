@@ -1,7 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:edit, :update, :destroy]
+  before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
 
   def new
     @estimate = @estimate_matter.estimates.new
@@ -19,7 +19,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates.with_categories
+      @estimates = @estimate_matter.estimates.with_details
     else
       @response = "false"
     end
@@ -42,7 +42,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates.with_categories
+      @estimates = @estimate_matter.estimates.with_details
       @materials = Material.of_estimate_matter(@estimate_matter.id)
       @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     else
@@ -55,7 +55,31 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
 
   def destroy
     @estimate.destroy
-    @estimates = @estimate_matter.estimates.with_categories
+    @estimates = @estimate_matter.estimates.with_details
+    @materials = Material.of_estimate_matter(@estimate_matter.id)
+    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+  end
+
+  # 見積複製アクション
+  def copy
+    new_estimate = @estimate_matter.estimates.create(title: @estimate.title)
+    @estimate.categories.each do |category|
+      new_category = new_estimate.categories.create(name: category.name, parent_id: category.parent_id)
+      category.materials.each do |material|
+        new_category.materials.create(name: material.name, service_life: material.service_life, price: material.price,
+                                      unit: material.unit, amount: material.amount, total: material.total)
+      end
+      category.constructions.each do |construction|
+        new_category.constructions.create(name: construction.name, price: construction.price, unit: construction.unit,
+                                          amount: construction.amount, total: construction.total)
+      end
+    end
+    @estimates = @estimate_matter.estimates.with_details
+    @materials = Material.of_estimate_matter(@estimate_matter.id)
+    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
