@@ -20,6 +20,7 @@ class Employees::Matters::ImagesController < ApplicationController
 
   def index
     @images = Image.all.order('shooted_on DESC')
+    @messages = current_matter.messages.select { |m| m.photo.attached? }
   end
   
   def edit
