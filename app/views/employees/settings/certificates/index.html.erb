@@ -1,0 +1,31 @@
+<div class="col-lg-12 col-md-12">
+  <h2>
+    診断書一覧
+    <%= link_to new_employees_settings_certificate_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> 新規診断書
+    <% end %>
+  </h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-header bg-dark"></div>
+
+    <div class="card-body">
+      <table class="table table-sm table-bordered common-table">
+        <tr>
+          <th>診断書名</th>
+          <th>内容</th>
+          <th></th>
+        </tr>
+        <% @certificates.each do |certificate| %>
+          <tr>
+            <td><%= certificate.title %></td>
+            <td><%= certificate.content %></td>
+            <td>
+              <%= link_to "編集", edit_employees_settings_certificate_path(certificate), remote: true, class: "btn btn-sm btn-dark" %>
+              <%= link_to "削除", employees_settings_certificate_path(certificate), method: :delete, data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

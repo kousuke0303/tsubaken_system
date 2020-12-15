@@ -90,10 +90,16 @@ ja:
           shooted_on: 撮影日
         construction:
           name: 工事名
+          category_id: カテゴリ
         material:
           name: 素材名
           service_life: 耐用年数
           category_id: カテゴリ
+        certificate:
+          title: 診断書名
+          content: 内容
+          category_id: カテゴリ
+          default: デフォルト
   attributes:
     id: ID
     login_id: ログインID

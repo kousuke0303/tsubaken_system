@@ -193,3 +193,9 @@ puts "CREATE! MATERIAL"
 end
 
 puts "CREATE! CONSTRUCTION"
+
+Certificate.create(title: "テスト診断書1", content: "テスト1", default: true)
+Certificate.create(title: "テスト診断書2", content: "テスト2", default: true)
+Certificate.create(title: "テスト診断書3", content: "テスト3", default: true)
+
+puts "CREATE! CERTIFICATE"

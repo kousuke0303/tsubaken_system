@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
 
   # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
-    @default_tasks = Task.are_default.order(default_task_id_count: :desc)
+    @default_tasks = Task.are_default
     Task.reload_sort_order(@default_tasks)
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
