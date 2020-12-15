@@ -4,7 +4,7 @@ class Employees::Settings::TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
-    @default_tasks = Task.are_default_task
+    @default_tasks = Task.are_default
   end
 
   def new
