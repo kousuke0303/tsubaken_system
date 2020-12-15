@@ -10,12 +10,10 @@ class Task < ApplicationRecord
   
   enum status: {default: 0, relevant: 1, ongoing: 2, finished: 3}
    
-  scope :are_default, -> { default.order(:sort_order) }
+  scope :are_default, -> { default.order(default_task_id_count: :desc) }
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
-  scope :are_default_task, -> { default.where.not("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").order(:sort_order) }
-  scope :are_default_tasks, -> { default.group(:default_task_id, :id) }
 
   # 担当者は一名に制限
   def only_in_charge

@@ -2,6 +2,7 @@ class Image < ApplicationRecord
   has_many_attached :images
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
+  has_many :certificates, dependent: :destroy
    
   validates :images, :shooted_on, presence: true
   validate :image_type

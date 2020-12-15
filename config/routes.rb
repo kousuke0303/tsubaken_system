@@ -219,7 +219,9 @@ Rails.application.routes.draw do
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
-      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates"
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
+        post :copy, on: :member
+      end
       resources :images, controller: "estimate_matters/images"
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
@@ -245,6 +247,7 @@ Rails.application.routes.draw do
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end

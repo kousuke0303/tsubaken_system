@@ -110,4 +110,10 @@
     <div id="industry-new" class="modal fade" role="dialog"></div>
     <div id="industry-edit" class="modal fade" role="dialog"></div>
   <% end %>
+  
+  <!--診断書new・edit-->
+  <% if controller_name == "certificates" && action_name == "index" %>
+    <div id="certificate-new" class="modal fade" role="dialog"></div>
+    <div id="certificate-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
