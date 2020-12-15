@@ -42,9 +42,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates.with_details
-      @materials = Material.of_estimate_matter(@estimate_matter.id)
-      @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+      set_estimates_details(@estimate_matter)
     else
       @response = "false"
     end
@@ -55,9 +53,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
 
   def destroy
     @estimate.destroy
-    @estimates = @estimate_matter.estimates.with_details
-    @materials = Material.of_estimate_matter(@estimate_matter.id)
-    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    set_estimates_details(@estimate_matter)
   end
 
   # 見積複製アクション
@@ -74,9 +70,7 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
                                           amount: construction.amount, total: construction.total)
       end
     end
-    @estimates = @estimate_matter.estimates.with_details
-    @materials = Material.of_estimate_matter(@estimate_matter.id)
-    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    set_estimates_details(@estimate_matter)
     respond_to do |format|
       format.js
     end
