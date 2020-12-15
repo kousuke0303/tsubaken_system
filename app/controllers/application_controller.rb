@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_manager
   helper_method :current_matter
   helper_method :current_estimate_matter
-  helper_method :current_admin
 
   # ---------------------------------------------------------
         # FORMAT関係
@@ -52,7 +50,6 @@ class ApplicationController < ActionController::Base
                                      .where.not(started_at: nil)
                                      .where(finished_at: nil)
   end
-  
   
   # --------------------------------------------------------
         # MATTER関係
@@ -143,5 +140,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
 end
