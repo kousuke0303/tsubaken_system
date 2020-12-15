@@ -24,8 +24,8 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
-    @estimates = @estimate_matter.estimates.with_details
     @matter = @estimate_matter.matter
+    @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
   end
