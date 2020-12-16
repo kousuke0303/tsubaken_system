@@ -11,3 +11,12 @@
     </div>
   </figure>
 <% end %>
+<% @messages.each do |message| %>
+  <figure class="images-partial">
+    <%= image_tag(message.photo, width:400) %>
+    <div class=img-display-area>
+      投函者：<%= message.mailer %>
+      <%= message.created_at.strftime("%Y-%m-%d") %>
+    </div>
+  </figure>
+<% end %>
