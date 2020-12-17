@@ -3,16 +3,8 @@
     <div class="modal-content">
       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
       <div class="modal-body pa-2e">
-        <%= form_with(model: @image, url: employees_estimate_matter_images_path(current_estimate_matter), local: true) do |f| %>
-          <% if @image.errors.any? %>
-            <div id="error_explanation">
-              <% @image.errors.full_messages.each do |message| %>
-                <li class="image-error-color"><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-        
+      <div class="image-create-errors"></div>
+        <%= form_with(model: @image, url: employees_estimate_matter_images_path(current_estimate_matter), remote: true) do |f| %>
           <%= f.label :content %>
           <div>
             <%= f.text_area :content, maxlength: 300 %>
@@ -25,7 +17,7 @@
           
           <%= f.label :images %>
           <div class="margin-bottom-posision">
-            <%= f.file_field :images, class: "file-input" %>
+            <%= f.file_field :images, accept: 'image/jpeg, image/png, image/gif, image/bmp, image/psd, image/tiff', class: "file-input" %>
           </div>
         
           <%= f.submit class: "btn btn-dark" %>

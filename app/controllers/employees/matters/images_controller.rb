@@ -37,7 +37,7 @@ class Employees::Matters::ImagesController < ApplicationController
   end
   
   def update
-    if @image.update(image_params)
+    if @image.update(image_content_and_shooted_on_params)
       flash[:success] = "写真を編集しました。"
       redirect_to employees_matter_images_url(current_matter, @image)
     else

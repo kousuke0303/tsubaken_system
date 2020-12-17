@@ -37,7 +37,7 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
   end
   
   def update
-    if @image.update(image_params)
+    if @image.update(image_content_and_shooted_on_params)
       flash[:success] = "写真を編集しました。"
       redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
     else
@@ -56,6 +56,10 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
   private
     def image_params
       params.require(:image).permit(:content, :shooted_on, :images, :estimate_matter_id)
+    end
+    
+    def image_content_and_shooted_on_params
+      params.require(:image).permit(:content, :shooted_on)
     end
     
     def set_image

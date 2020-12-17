@@ -1,6 +1,6 @@
-<div style="text-align: center">
+<div class="text-center">
   <h1><%= current_matter.title %>:案件画像一覧</h1>
-  <div style="text-align: right; margin-bottom: 10px;">
+  <div class="text-right" style="margin-bottom: 10px;">
     <%= link_to 'チャットルーム画像一覧', employees_matter_messages_path(current_matter), local: true, class: "btn btn-md btn-primary" %>
     <%= link_to '画像追加', new_employees_matter_image_path(current_matter), remote: true, class: "btn btn-md btn-primary" %>
   </div>
