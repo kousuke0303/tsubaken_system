@@ -30,7 +30,7 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
   end
 
   def index
-    @images = current_estimate_matter.images.select { |image| image.images.attached? }
+    @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
   
   def edit
