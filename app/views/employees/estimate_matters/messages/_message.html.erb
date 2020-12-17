@@ -1,0 +1,47 @@
+<table class="table table-bordered table_line_type">
+  <div>
+    <% if admin_signed_in? %>
+      <input type="hidden" name="admin_id" value="<%= current_admin.id %>" id="admin_id">
+    <% elsif manager_signed_in? %>
+      <input type="hidden" name="manager_id" value="<%= current_manager.id %>" id="manager_id">
+    <% elsif staff_signed_in? %>
+      <input type="hidden" name="staff_id" value="<%= current_staff.id %>" id="staff_id">
+    <% elsif external_staff_signed_in? %>
+      <input type="hidden" name="external_staff_id" value="<%= current_external_staff.id %>" id="external_staff_id">   
+    <% end %>
+  </div>
+
+  <thead>
+    <tr>
+      <th class="text-center">写真</th>
+      <th class="text-center">投函者</th>
+      <th class="text-center">メッセージ内容</th>
+      <th class="text-center">画像編集・削除</th>
+    </tr>
+  </thead>
+  <% @messages.each do |message| %>
+    <tr>
+      <td>
+        <div style="text-align: center;">
+          <%= image_tag message.photo.variant(resize: "300x300") %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 90px;">
+          <%= message.poster %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 90px;">
+          <%= message.message %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 85px;">
+          <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
+          <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

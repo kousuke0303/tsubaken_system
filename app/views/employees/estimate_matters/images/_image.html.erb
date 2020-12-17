@@ -1,13 +1,53 @@
-<% image.images.each do |images| %>
-  <figure class="images-partial">
-    <%= image_tag(images, width:400) %>
-    <div class=img-display-area>
-      <%= image.content %>
-      <%= image.shooted_on %>
-      <div class="margin-left-posision">
-        <%= link_to icon('fas', 'edit'), edit_employees_estimate_matter_image_path(current_estimate_matter, image.id) %>
-        <%= link_to icon('fas', 'trash-alt'), employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' } %>
-      </div>
-    </div>
-  </figure>
-<% end %>
+<table class="table table-bordered table_line_type">
+  <div>
+    <% if admin_signed_in? %>
+      <input type="hidden" name="admin_id" value="<%= current_admin.id %>" id="admin_id">
+    <% elsif manager_signed_in? %>
+      <input type="hidden" name="manager_id" value="<%= current_manager.id %>" id="manager_id">
+    <% elsif staff_signed_in? %>
+      <input type="hidden" name="staff_id" value="<%= current_staff.id %>" id="staff_id">
+    <% elsif external_staff_signed_in? %>
+      <input type="hidden" name="external_staff_id" value="<%= current_external_staff.id %>" id="external_staff_id">   
+    <% end %>
+  </div>
+
+  <thead>
+    <tr>
+      <th class="text-center">写真</th>
+      <th class="text-center">投函者</th>
+      <th class="text-center">内容</th>
+      <th class="text-center">撮影日</th>
+      <th class="text-center">画像編集・削除</th>
+    </tr>
+  </thead>
+  <% image.images.each do |images| %>
+    <tr>
+      <td>
+        <div style="text-align: center;">
+          <%= image_tag images.variant(resize: "300x300") %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 90px;">
+          <%= image.poster %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 90px;">
+          <%= image.content %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 90px;">
+          <%= image.shooted_on %>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: center; margin-top: 85px;">
+          <%= link_to "編集", edit_employees_estimate_matter_image_path(current_estimate_matter, image.id), remote: true, class: "btn btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

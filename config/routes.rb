@@ -223,6 +223,7 @@ Rails.application.routes.draw do
         post :copy, on: :member
       end
       resources :images, controller: "estimate_matters/images"
+      resources :messages, only: [:index], controller: "estimate_matters/messages"
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
@@ -234,6 +235,7 @@ Rails.application.routes.draw do
         post :create, on: :collection
       end
       resources :images, controller: "matters/images"
+      resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end

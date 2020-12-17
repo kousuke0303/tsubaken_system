@@ -10,6 +10,7 @@ class EstimateMatter < ApplicationRecord
   has_many :tasks, dependent: :destroy  # タスクと1対多
   has_many :estimates, dependent: :destroy  # 見積と1対多
   has_many :images, dependent: :destroy #画像と1対多
+  has_many :messages, dependent: :destroy #チャットルーム内のメッセージと1対多
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }

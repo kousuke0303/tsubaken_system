@@ -6,10 +6,13 @@ class CreateMessages < ActiveRecord::Migration[5.2]
       t.integer :manager_id
       t.integer :staff_id
       t.integer :external_staff_id
+      t.string :estimate_matter_id
       t.string :matter_id
       t.timestamps
     end
+    add_foreign_key :messages, :estimate_matters
     add_foreign_key :messages, :matters
+    add_index :messages, :estimate_matter_id
     add_index :messages, :matter_id
   end
 end

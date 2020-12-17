@@ -1,10 +1,8 @@
-<div>
-  <div style="margin-left: 620px;">
-    <h1>写真一覧</h1>
-
-    <div class="margin-bottom-index-posision">
-      <%= link_to '新規写真登録', new_employees_estimate_matter_image_path(current_estimate_matter), class: "btn btn-md btn-primary" %>
-    </div>
+<div style="text-align: center">
+  <h1><%= current_estimate_matter.title %>:見積案件画像一覧</h1>
+  <div style="text-align: right; margin-bottom: 10px;">
+    <%= link_to 'チャットルーム画像一覧', employees_estimate_matter_messages_path(current_estimate_matter), local: true, class: "btn btn-md btn-primary" %>
+    <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
   </div>
   <%= render @images %>
 </div>

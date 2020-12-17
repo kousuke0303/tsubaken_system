@@ -3,6 +3,10 @@ class CreateImages < ActiveRecord::Migration[5.2]
     create_table :images do |t|
       t.text :content
       t.date :shooted_on
+      t.integer :admin_id
+      t.integer :manager_id
+      t.integer :staff_id
+      t.integer :external_staff_id
       t.string :estimate_matter_id
       t.string :matter_id
 
