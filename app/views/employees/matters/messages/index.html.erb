@@ -1,0 +1,7 @@
+<div style="text-align: center">
+  <h1><%= current_matter.title %>:チャットルーム画像一覧</h1>
+  <div style="text-align: right; margin-bottom: 10px;">
+    <%= link_to '案件画像一覧', employees_matter_images_path(current_matter), local: true, class: "btn btn-md btn-primary" %>
+  </div>
+  <%= render @messages %>
+</div>

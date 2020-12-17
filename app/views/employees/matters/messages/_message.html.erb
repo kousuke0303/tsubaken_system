@@ -1,0 +1,50 @@
+<table class="table table-bordered table_line_type">
+  <div>
+    <% if admin_signed_in? %>
+      <input type="hidden" name="admin_id" value="<%= current_admin.id %>" id="admin_id">
+    <% elsif manager_signed_in? %>
+      <input type="hidden" name="manager_id" value="<%= current_manager.id %>" id="manager_id">
+    <% elsif staff_signed_in? %>
+      <input type="hidden" name="staff_id" value="<%= current_staff.id %>" id="staff_id">
+    <% elsif external_staff_signed_in? %>
+      <input type="hidden" name="external_staff_id" value="<%= current_external_staff.id %>" id="external_staff_id">   
+    <% end %>
+  </div>
+  <thead>
+    <tr>
+      <th class="text-center">写真</th>
+      <th class="text-center">投函者</th>
+      <th class="text-center">メッセージ内容</th>
+      <th class="text-center">投稿日</th>
+      <th class="text-center">画像編集・削除</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>
+      <div style="text-align: center;">
+        <%= image_tag url_for(message.photo.variant(resize: "400x400")) %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.poster %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.message %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 125px;">
+        <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
+        <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+      </div>
+    </td>
+  </tr>
+</table>

@@ -1,6 +1,6 @@
 <% if message.message.present? && photo.present? %>
   <div class="balloon_r">
-    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <span><%= message.created_at%></span>
     <div class="my_says">
       <%= simple_format message.message, id: "#{ message.id}" %>
     </div>

@@ -185,6 +185,10 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.date "shooted_on"
+    t.integer "admin_id"
+    t.integer "manager_id"
+    t.integer "staff_id"
+    t.integer "external_staff_id"
     t.string "estimate_matter_id"
     t.string "matter_id"
     t.datetime "created_at", null: false

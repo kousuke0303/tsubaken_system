@@ -1,10 +1,8 @@
-<div>
-  <div style="margin-left: 620px;">
-    <h1>写真一覧</h1>
-
-    <div class="margin-bottom-index-posision">
-      <%= link_to '新規写真登録', new_employees_matter_image_path(current_matter), class: "btn btn-md btn-primary" %>
-    </div>
+<div class="text-center">
+  <h1><%= current_matter.title %>:案件画像一覧</h1>
+  <div class="text-right" style="margin-bottom: 10px;">
+    <%= link_to 'チャットルーム画像一覧', employees_matter_messages_path(current_matter), local: true, class: "btn btn-md btn-primary" %>
+    <%= link_to '画像追加', new_employees_matter_image_path(current_matter), remote: true, class: "btn btn-md btn-primary" %>
   </div>
   <%= render @images %>
 </div>
