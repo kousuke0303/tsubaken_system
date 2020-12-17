@@ -4,7 +4,6 @@ class Message < ApplicationRecord
   # after_create_commit { TalkRoomBroadcastJob.perform_later self }
   
   belongs_to :matter, dependent: :destroy
-  belongs_to :estimate_matter, dependent: :destroy
   has_many :certificates
   has_one_attached :photo
 

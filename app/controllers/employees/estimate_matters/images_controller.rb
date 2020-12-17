@@ -23,18 +23,17 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
       flash[:success] = "写真を作成しました"
       redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
     else
-      flash[:success] = "写真の作成に失敗しました"
-      redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
     @images = current_estimate_matter.images.select { |image| image.images.attached? }
-    @messages = current_estimate_matter.messages.select { |message| message.photo.attached? }
   end
   
   def edit
-    
   end
   
   def update
@@ -42,8 +41,9 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
       flash[:success] = "写真を編集しました。"
       redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
     else
-      flash[:danger] = "写真の編集に失敗しました。"
-      redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
+      respond_to do |format|
+        format.js
+      end
     end
   end
   

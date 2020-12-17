@@ -19,29 +19,32 @@
       <th class="text-center">画像編集・削除</th>
     </tr>
   </thead>
-  <% @messages.each do |message| %>
-    <tr>
-      <td>
-        <div style="text-align: center;">
-          <%= image_tag message.photo.variant(resize: "300x300") %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 90px;">
-          <%= message.poster %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 90px;">
-          <%= message.message %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 85px;">
-          <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
-          <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
-        </div>
-      </td>
-    </tr>
-  <% end %>
+  <tr>
+    <td>
+      <div style="text-align: center;">
+        <%= image_tag message.photo.variant(resize: "300x300") %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 90px;">
+        <%= message.poster %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 90px;">
+        <%= message.message %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 85px;">
+        <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
+        <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+      </div>
+    </td>
+  </tr>
 </table>

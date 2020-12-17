@@ -23,7 +23,7 @@
   <% image.images.each do |images| %>
     <tr>
       <td>
-        <div style="text-align: center;">
+        <div class="text-align: center;">
           <%= image_tag url_for(images.variant(resize: "400x400")) %>
         </div>
       </td>

@@ -23,14 +23,14 @@ class Employees::Matters::ImagesController < ApplicationController
       flash[:success] = "写真を作成しました"
       redirect_to employees_matter_images_url(current_matter, @image)
     else
-      flash[:success] = "写真の作成に失敗しました"
-      redirect_to employees_matter_images_url(current_matter, @image)
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def index
     @images = current_matter.images.select { |image| image.images.attached? }
-    @messages = current_matter.messages.select { |m| m.photo.attached? }
   end
   
   def edit
@@ -41,8 +41,9 @@ class Employees::Matters::ImagesController < ApplicationController
       flash[:success] = "写真を編集しました。"
       redirect_to employees_matter_images_url(current_matter, @image)
     else
-      flash[:danger] = "写真の編集に失敗しました。"
-      redirect_to employees_matter_images_url(current_matter, @image)
+      respond_to do |format|
+        format.js
+      end
     end
   end
   

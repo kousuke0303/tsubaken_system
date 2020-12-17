@@ -10,7 +10,6 @@
       <input type="hidden" name="external_staff_id" value="<%= current_external_staff.id %>" id="external_staff_id">   
     <% end %>
   </div>
-
   <thead>
     <tr>
       <th class="text-center">写真</th>
@@ -20,34 +19,32 @@
       <th class="text-center">画像編集・削除</th>
     </tr>
   </thead>
-  <% @messages.each do |message| %>
-    <tr>
-      <td>
-        <div style="text-align: center;">
-          <%= image_tag url_for(message.variant(resize: "400x400")) %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 130px;">
-          <%= message.poster %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 130px;">
-          <%= message.message %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 130px;">
-          <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
-        </div>
-      </td>
-      <td>
-        <div style="text-align: center; margin-top: 125px;">
-          <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
-          <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
-        </div>
-      </td>
-    </tr>
-  <% end %>
+  <tr>
+    <td>
+      <div style="text-align: center;">
+        <%= image_tag url_for(message.photo.variant(resize: "400x400")) %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.poster %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.message %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 130px;">
+        <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
+      </div>
+    </td>
+    <td>
+      <div style="text-align: center; margin-top: 125px;">
+        <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
+        <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+      </div>
+    </td>
+  </tr>
 </table>

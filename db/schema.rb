@@ -291,11 +291,9 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
     t.integer "manager_id"
     t.integer "staff_id"
     t.integer "external_staff_id"
-    t.string "estimate_matter_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_messages_on_estimate_matter_id"
     t.index ["matter_id"], name: "index_messages_on_matter_id"
   end
 
@@ -408,7 +406,6 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
-  add_foreign_key "messages", "estimate_matters"
   add_foreign_key "messages", "matters"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
