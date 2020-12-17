@@ -230,6 +230,7 @@ ja:
       default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
+      short_time: "%H:%M"
       date: "%Y年%m月%d日"
       short_date: "%Y/%m/%d"
       datetime: "%Y年%m月%d日 %H:%M"

@@ -1,12 +1,12 @@
 <% if message.message.present? && photo.present? %>
   <div class="balloon_r">
-    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <span><%= message.created_at%></span>
     <div class="my_says">
       <%= simple_format message.message, id: "#{ message.id}" %>
     </div>
   </div>
   <div class="balloon_r">
-    <span><%= message.created_at.strftime("%H:%M") %></span>
+    <span><%= message.created_at.strftime("%H:%M")  l user.created_at, format: :short%></span>
     <div class="my_says">
       <p id="<%= message.id %>"><%= image_tag photo, class: "ajax_img" %></p>
     </div>

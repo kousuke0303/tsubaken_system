@@ -24,26 +24,26 @@
     <tr>
       <td>
         <div style="text-align: center;">
-          <%= image_tag message.variant(resize: "300x300") %>
+          <%= image_tag url_for(message.variant(resize: "400x400")) %>
         </div>
       </td>
       <td>
-        <div style="text-align: center; margin-top: 90px;">
+        <div style="text-align: center; margin-top: 130px;">
           <%= message.poster %>
         </div>
       </td>
       <td>
-        <div style="text-align: center; margin-top: 90px;">
+        <div style="text-align: center; margin-top: 130px;">
           <%= message.message %>
         </div>
       </td>
       <td>
-        <div style="text-align: center; margin-top: 90px;">
-          <%= message.created_at.strftime('%Y/%m/%d') %>
+        <div style="text-align: center; margin-top: 130px;">
+          <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
         </div>
       </td>
       <td>
-        <div style="text-align: center; margin-top: 85px;">
+        <div style="text-align: center; margin-top: 125px;">
           <%= link_to "編集", "#", remote: true, class: "btn btn-dark" %>
           <%= link_to "削除", "#", method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
         </div>

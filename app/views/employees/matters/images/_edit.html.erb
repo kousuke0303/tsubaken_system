@@ -24,7 +24,7 @@
           <% if @image.images.attached? %>
             <% @image.images.each do |image| %>
               <figure class="images-partial" style="margin-top: 20px;">
-                <%= image_tag image.variant(resize: "400x400") %>
+                <%= image_tag url_for(image.variant(resize: "400x400")) %>
               </figure>
             <% end %>
           <% end %>
