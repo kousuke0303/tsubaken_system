@@ -20,6 +20,10 @@
       <td><%= @estimate_matter.client.name %></td>
     </tr>
     <tr>
+      <th>集客方法</th>
+      <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
+    </tr>
+    <tr>
       <th>郵便番号</th>
       <td><%= @estimate_matter.postal_code %></td>
     </tr>

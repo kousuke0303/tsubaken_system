@@ -66,6 +66,7 @@ ja:
           actual_spot: 現場住所
           client_id: 顧客
           external_staff: 外部スタッフ
+          attract_method_id: 集客方法
         estimate:
           title: 見積名
         matter:

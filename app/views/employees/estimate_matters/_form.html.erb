@@ -1,6 +1,9 @@
 <%= f.label :client_id %>
 <%= f.collection_select :client_id, clients, :id, :name, {}, class: "form-control" %>
 
+<%= f.label :attract_method_id %>
+<%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
+
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
 
