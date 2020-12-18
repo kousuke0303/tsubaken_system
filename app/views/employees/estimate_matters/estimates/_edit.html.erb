@@ -5,12 +5,12 @@
       <div class="card mb-3">
         <h5 class="card-header">見積編集</h5>
         <div class="card-body">
-          <%= form_with(model: estimate, url: employees_estimate_matter_estimate_path(estimate_matter, estimate), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true) do |f| %>
             <div class="estimate-update-errors"></div>
-            <%= render "form", f: f, categories: categories %>
+            <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
-              <%= link_to "削除", employees_estimate_matter_estimate_path(estimate_matter, estimate), method: :delete, remote: true,
+              <%= link_to "削除", employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :delete, remote: true,
                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>

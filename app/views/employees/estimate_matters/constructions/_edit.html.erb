@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">工事編集</h5>
         <div class="card-body">
-          <%= form_with(model: construction, url: employees_estimate_matter_construction_path(estimate_matter, construction), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: @construction, url: employees_estimate_matter_construction_path(@estimate_matter, @construction), method: :patch, remote: true) do |f| %>
             <div class="estimate-construction-update-errors"></div>
             <%= f.label :name %>
             <%= f.text_field :name, required: true, maxlength: 30, class: "form-control" %>
@@ -18,8 +18,8 @@
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
-              <%= link_to "削除", employees_estimate_matter_construction_path(estimate_matter, construction), method: :delete,
-                                     data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
+              <%= link_to "削除", employees_estimate_matter_construction_path(@estimate_matter, @construction), method: :delete,
+                                  data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
