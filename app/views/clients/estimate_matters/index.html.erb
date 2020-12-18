@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>案件一覧</h2>
+  <h2>見積案件一覧</h2>
   <div class="card text-center tab-wrapper">
     <div class="card-header bg-dark">
     </div>
@@ -11,10 +11,10 @@
             <th>タイトル</th>
             <th>進行状況</th>
           </tr>
-          <% @matters.each do |matter| %>
-            <tr class="tr-link" data-link="<%= clients_matter_path(matter) %>">
-              <td><%= matter.title %></td>
-              <td><%= matter.status %></td>
+          <% @estimate_matters.each do |estimate_matter| %>
+            <tr class="tr-link" data-link="<%= clients_estimate_matter_path(estimate_matter) %>">
+              <td><%= estimate_matter.title %></td>
+              <td><%= estimate_matter.status %></td>
             </tr>
           <% end %>
         </table>

@@ -14226,12 +14226,12 @@ a.article, a.article:hover {
 }
 
 /* line 2, app/assets/stylesheets/table.scss */
-.table_column_type th {
+.table-column-type th {
   background-color: #eeeeee;
 }
 
 /* line 5, app/assets/stylesheets/table.scss */
-.table_column_type .alert {
+.table-column-type .alert {
   color: #dc3545;
   font-weight: bold;
 }
@@ -17451,12 +17451,12 @@ a.article, a.article:hover {
   }
 }
 /* line 2, app/assets/stylesheets/table.scss */
-.table_column_type th {
+.table-column-type th {
   background-color: #eeeeee;
 }
 
 /* line 5, app/assets/stylesheets/table.scss */
-.table_column_type .alert {
+.table-column-type .alert {
   color: #dc3545;
   font-weight: bold;
 }

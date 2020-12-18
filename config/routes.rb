@@ -164,7 +164,7 @@ Rails.application.routes.draw do
   end
 
   namespace :clients do
-    resources :matters, only: [:index, :show]
+    resources :estimate_matters, only: [:index, :show]
   end
 
   # Staff関係
