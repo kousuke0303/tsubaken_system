@@ -413,19 +413,6 @@ a.article, a.article:hover {
   border: none;
 }
 
-.account_dropdown_menu {
-  // margin-left: -93px!important;
-  // width: 120%;
-  margin-top: 15px!important;
-  background-color: #eaebef;
-  a:hover {
-    background-color: #eaebef;
-  }
-  .dropdown-divider {
-    border-top-color: white;
-  }
-}
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -526,8 +513,44 @@ a.article, a.article:hover {
 
 /*------------------------------ MEDIAQUERIES ------------------------------*/
 @media screen and (min-width: 992px) {
-  .account_dropdown_menu {
+  .admin_dropdown_menu {
     margin-left: -93px!important;
+    margin-top: 15px!important;
+    background-color: #eaebef;
+    a:hover {
+      background-color: #eaebef;
+    }
+    .dropdown-divider {
+      border-top-color: white;
+    }
+  }
+
+  .manager_external_staff_dropdown_menu {
+    margin-left: -13px!important;
+    margin-top: 15px!important;
+    background-color: #eaebef;
+    a:hover {
+      background-color: #eaebef;
+    }
+    .dropdown-divider {
+      border-top-color: white;
+    }
+  }
+
+  .staff_dropdown_menu {
+    margin-left: -43px!important;
+    margin-top: 15px!important;
+    background-color: #eaebef;
+    a:hover {
+      background-color: #eaebef;
+    }
+    .dropdown-divider {
+      border-top-color: white;
+    }
+  }
+
+  .client_dropdown_menu {
+    margin-left: -50px!important;
     margin-top: 15px!important;
     background-color: #eaebef;
     a:hover {
