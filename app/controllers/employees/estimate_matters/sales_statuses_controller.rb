@@ -4,7 +4,7 @@ class Employees::EstimateMatters::SalesStatusesController < ApplicationControlle
   before_action :set_sales_status, only: [:edit, :update, :destroy]
 
   def new
-    @sales_status = @estimate_matter.sales_statuses.new  
+    @sales_status = @estimate_matter.sales_statuses.new
   end
 
   def create

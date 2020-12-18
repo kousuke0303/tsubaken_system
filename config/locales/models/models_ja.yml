@@ -104,6 +104,9 @@ ja:
           default: デフォルト
         attract_method:
           name: 集客方法
+        sales_status:
+          status: ステータス
+          conducted_on: 実施日
   attributes:
     id: ID
     login_id: ログインID
