@@ -164,7 +164,7 @@ Rails.application.routes.draw do
   end
 
   namespace :clients do
-    resources :matters, only: [:index, :show]
+    resources :estimate_matters, only: [:index, :show]
   end
 
   # Staff関係
@@ -219,11 +219,15 @@ Rails.application.routes.draw do
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
-      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates"
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
+        post :copy, on: :member
+      end
       resources :images, controller: "estimate_matters/images"
+      resources :messages, only: [:index], controller: "estimate_matters/messages"
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
+      resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do
@@ -232,6 +236,7 @@ Rails.application.routes.draw do
         post :create, on: :collection
       end
       resources :images, controller: "matters/images"
+      resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
@@ -245,6 +250,8 @@ Rails.application.routes.draw do
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end

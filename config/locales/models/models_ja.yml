@@ -19,6 +19,7 @@ ja:
       image: 画像
       construction: 工事
       material: 素材
+      attract_method: 集客方法
     attributes:
         admin:
           name: 名前
@@ -65,6 +66,7 @@ ja:
           actual_spot: 現場住所
           client_id: 顧客
           external_staff: 外部スタッフ
+          attract_method_id: 集客方法
         estimate:
           title: 見積名
         matter:
@@ -90,10 +92,21 @@ ja:
           shooted_on: 撮影日
         construction:
           name: 工事名
+          category_id: カテゴリ
         material:
           name: 素材名
           service_life: 耐用年数
           category_id: カテゴリ
+        certificate:
+          title: 診断書名
+          content: 内容
+          category_id: カテゴリ
+          default: デフォルト
+        attract_method:
+          name: 集客方法
+        sales_status:
+          status: ステータス
+          conducted_on: 実施日
   attributes:
     id: ID
     login_id: ログインID

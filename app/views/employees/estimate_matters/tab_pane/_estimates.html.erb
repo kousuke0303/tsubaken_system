@@ -18,7 +18,10 @@
   <div class="estimate-table-body flex">
     <!-- 見積のプラン名 -->
     <div class="estimate-name">
-      <%= link_to estimate[0].title,edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), remote: true, class: "btn btn-sm btn-dark" %>
+      <%= link_to estimate[0].title, edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id),
+                                     remote: true, class: "btn btn-sm btn-dark" %>
+      <%= link_to "複製", copy_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), method: :post, remote: true,
+                          data: { confirm: "この見積を複製してよろしいですか？" }, class: "btn btn-sm btn-success ml-1e" %>      
     </div>
 
     <div style="width: 80%;">

@@ -1,6 +1,9 @@
 <%= f.label :client_id %>
 <%= f.collection_select :client_id, clients, :id, :name, {}, class: "form-control" %>
 
+<%= f.label :attract_method_id %>
+<%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
+
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
 
@@ -15,9 +18,6 @@
  
 <%= f.label :address_street %>
 <%= f.text_field :address_street, autocomplete: "address_street", id: "address_street", class: "form-control" %>
-
-<%= f.label :status %>
-<%= f.select :status, EstimateMatter.statuses.keys.map {|k| [I18n.t("enums.estimate_matter.status.#{k}"), k]}, {}, class: "form-control" %>
 
 <%= f.label :content %>
 <%= f.text_area :content, required: true, class: "form-control", maxlength: 300 %>

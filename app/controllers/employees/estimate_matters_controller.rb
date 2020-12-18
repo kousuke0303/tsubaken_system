@@ -9,6 +9,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def new
     @estimate_matter = EstimateMatter.new
+    @attract_methods = AttractMethod.all
   end
 
   def create
@@ -24,13 +25,14 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
-    @estimates = @estimate_matter.estimates.with_categories
     @matter = @estimate_matter.matter
+    @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
   end
 
   def edit
+    @attract_methods = AttractMethod.all
   end
 
   def update
@@ -61,6 +63,7 @@ class Employees::EstimateMattersController < ApplicationController
     end
 
     def estimate_matter_params
-      params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :address_street, :client_id, :status, { staff_ids: [] }, { external_staff_ids: [] })
+      params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
+                                              :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
     end
 end

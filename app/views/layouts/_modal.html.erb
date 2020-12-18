@@ -69,6 +69,12 @@
     <div id="material-new" class="modal fade" role="dialog"></div>
     <div id="material-edit" class="modal fade" role="dialog"></div>
   <% end %>
+
+  <!--集客方法new・edit-->
+  <% if controller_name == "attract_methods" && action_name == "index" %>
+    <div id="attract-method-new" class="modal fade" role="dialog"></div>
+    <div id="attract-method-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
@@ -92,22 +98,36 @@
     <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
   <% elsif controller_name == "estimate_matters" && action_name == "show" %> 
     <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>
+    <!--営業ステータスnew・edit-->
+    <div id="sales-status-new" class="modal fade" role="dialog"></div>
+    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
+    <!--見積関連-->
     <div id="estimate-new" class="modal fade" role="dialog"></div>
     <div id="estimate-edit" class="modal fade" role="dialog"></div>
     <div id="estimate-category-edit" class="modal fade" role="dialog"></div>
     <div id="estimate-material-edit" class="modal fade" role="dialog"></div>
     <div id="estimate-construction-edit" class="modal fade" role="dialog"></div>
   <% end %>
+  
+  <!--写真new・edit-->
+  <div id="image-new" class="modal fade" role="dialog"></div>
+  <div id="image-edit" class="modal fade" role="dialog"></div>
 
   <!--タスクedit-->
   <div id="task-edit" class="modal fade" role="dialog"></div>
   
   <!--タスクindex-->
-  <div id="index" class="modal fade" tabindex="-1" rule="dialog" area-hidden="true"></div>
+  <div id="task-index" class="modal fade" role="dialog"></div>
 
   <!--業種new・edit-->
   <% if controller_name == "industries" && action_name == "index" %>
     <div id="industry-new" class="modal fade" role="dialog"></div>
     <div id="industry-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+  
+  <!--診断書new・edit-->
+  <% if controller_name == "certificates" && action_name == "index" %>
+    <div id="certificate-new" class="modal fade" role="dialog"></div>
+    <div id="certificate-edit" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>

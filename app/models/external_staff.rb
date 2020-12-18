@@ -1,4 +1,10 @@
 class ExternalStaff < ApplicationRecord
+  belongs_to :supplier
+  has_many :attendances, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+  has_many :sales_statuses, dependent: :destroy
+  has_one_attached :avator
+  
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -9,11 +15,6 @@ class ExternalStaff < ApplicationRecord
   validate :external_staff_login_id_is_correct?
 
   attr_accessor :login_id_body
-
-  belongs_to :supplier
-  has_many :attendances, dependent: :destroy
-  has_many :tasks, dependent: :destroy
-  has_one_attached :avator
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 

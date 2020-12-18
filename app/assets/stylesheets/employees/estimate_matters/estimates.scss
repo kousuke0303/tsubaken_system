@@ -30,7 +30,10 @@
   box-sizing: border-box;
   text-align: center;
   .estimate-name {
+    align-items: center;
     border-right: 1px solid black;
+    display: flex;
+    justify-content: center;    
     width: 20%;
   }
   .category-item {
@@ -40,7 +43,10 @@
     border-bottom: none;
   }
   .category-name {
+    align-items: center;
     border-right: 1px solid black;
+    display: flex;
+    justify-content: center;    
     width: 20%;
   }
   .category-name-last {
@@ -59,6 +65,9 @@
     border-top: 1px solid black;
   }
   .construction-material-detail {
+    align-items: center;
+    display: flex;
+    justify-content: center;    
     border-right: 1px solid black;
     width: calc(100% / 6);
   }

@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">素材作成</h5>
+        <div class="card-body">
+          <%= form_with(model: certificate, url: employees_settings_certificates_path, method: :post, remote: true) do |f| %>
+            <div class="certificate-create-errors"></div>
+            <%= render "form", f: f %>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/reset_errors_jq" %>

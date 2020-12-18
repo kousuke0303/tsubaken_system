@@ -1,0 +1,8 @@
+<%= f.label :status %>
+<%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, {}, class: "form-control" %>
+
+<%= f.label :conducted_on %>
+<%= f.date_field :conducted_on, presence: true, class: "form-control" %>
+
+<%= f.label :note %>
+<%= f.text_area :note, maxlength: 300, class: "form-control" %>

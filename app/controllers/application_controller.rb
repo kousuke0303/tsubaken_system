@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_manager
   helper_method :current_matter
   helper_method :current_estimate_matter
-  helper_method :current_admin
 
   # ---------------------------------------------------------
         # FORMAT関係
@@ -53,7 +51,6 @@ class ApplicationController < ActionController::Base
                                      .where(finished_at: nil)
   end
   
-  
   # --------------------------------------------------------
         # MATTER関係
   # --------------------------------------------------------
@@ -75,13 +72,20 @@ class ApplicationController < ActionController::Base
     EstimateMatter.find_by(id: params[:estimate_matter_id]) || EstimateMatter.find_by(id: params[:id])
   end
 
+  # 見積案件の持つ見積カテゴリ、工事、素材を全て取得
+  def set_estimates_details(estimate_matter)
+    @estimates = estimate_matter.estimates.with_details
+    @materials = Material.of_estimate_matter(estimate_matter.id)
+    @constructions = Construction.of_estimate_matter(estimate_matter.id)
+  end
+
   # --------------------------------------------------------
         # TASK関係
   # --------------------------------------------------------
 
   # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
-    @default_tasks = Task.are_default_tasks.order(default_task_id_count: :desc)
+    @default_tasks = Task.are_default
     Task.reload_sort_order(@default_tasks)
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
@@ -143,5 +147,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
 end

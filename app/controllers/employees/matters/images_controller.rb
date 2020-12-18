@@ -9,25 +9,42 @@ class Employees::Matters::ImagesController < ApplicationController
   end
 
   def create
-    @image = Image.new(image_params)
+    @image = current_matter.images.new(image_params)
     if @image.save
-      @image.update(matter_id: params[:matter_id])
+      if admin_signed_in?
+        @image.update(admin_id: current_admin.id)
+      elsif manager_signed_in?
+        @image.update(manager_id: current_manager.id)
+      elsif staff_signed_in?
+        @image.update(staff_id: current_staff.id)
+      elsif external_staff_signed_in?
+        @image.update(external_staff_id: current_external_staff.id)
+      end
+      flash[:success] = "写真を作成しました"
       redirect_to employees_matter_images_url(current_matter, @image)
     else
-      render :new
-    end 
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   def index
-    @images = Image.all.order('shooted_on DESC')
+    @images = current_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
   
   def edit
   end
   
   def update
-    @image.update(image_content_and_shooted_on_params)
-    redirect_to employees_matter_images_url(current_matter, @image)
+    if @image.update(image_content_and_shooted_on_params)
+      flash[:success] = "写真を編集しました。"
+      redirect_to employees_matter_images_url(current_matter, @image)
+    else
+      respond_to do |format|
+        format.js
+      end
+    end
   end
   
   def destroy
@@ -37,7 +54,7 @@ class Employees::Matters::ImagesController < ApplicationController
   
   private
     def image_params
-      params.require(:image).permit(:content, :shooted_on, :images)
+      params.require(:image).permit(:content, :shooted_on, :images, :matter_id)
     end
     
     def image_content_and_shooted_on_params

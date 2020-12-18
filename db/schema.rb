@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_144802) do
+ActiveRecord::Schema.define(version: 2020_12_18_041900) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.index ["staff_id"], name: "index_attendances_on_staff_id"
   end
 
+  create_table "attract_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "default", default: false
@@ -70,6 +76,16 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.bigint "parent_id"
     t.index ["estimate_id"], name: "index_categories_on_estimate_id"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
+  end
+
+  create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "content"
+    t.boolean "default", default: false
+    t.integer "image_id"
+    t.integer "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -135,16 +151,17 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   end
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title", null: false
     t.string "postal_code"
     t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
     t.string "content"
-    t.integer "status", default: 0, null: false
     t.bigint "client_id"
+    t.bigint "attract_method_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
   end
 
@@ -175,6 +192,10 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.date "shooted_on"
+    t.integer "admin_id"
+    t.integer "manager_id"
+    t.integer "staff_id"
+    t.integer "external_staff_id"
     t.string "estimate_matter_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
@@ -283,6 +304,20 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
     t.index ["matter_id"], name: "index_messages_on_matter_id"
   end
 
+  create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "status", null: false
+    t.date "conducted_on", null: false
+    t.string "note"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.string "estimate_matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
+    t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
+    t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
+  end
+
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "staff_id"
     t.integer "event_title_id"
@@ -378,6 +413,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_staffs", "staffs"
+  add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
@@ -393,6 +429,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_144802) do
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
   add_foreign_key "messages", "matters"
+  add_foreign_key "sales_statuses", "external_staffs"
+  add_foreign_key "sales_statuses", "staffs"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
