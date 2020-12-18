@@ -69,17 +69,11 @@
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
           <div class="text-right mb-05e">
-            <%= link_to "営業記録作成", "#", class: "btn btn-success" %>
+            <%= link_to "営業記録作成", new_employees_estimate_matter_sales_status_path(@estimate_matter), remote: true, class: "btn btn-success" %>
           </div>
-          <table class="table table-bordered table_line_type">
-            <tr>
-              <th>日付</th>
-              <th>内容</th>
-              <th>担当者</th>
-              <th>備考</th>
-              <th>結果</th>
-            </tr>
-          </table>
+          <div class="estimates-index">
+            <%= render "employees/estimate_matters/tab_pane/sales_statuses" %>
+          </div>
         </div>
       </div>
     </div>
