@@ -250,6 +250,7 @@ Rails.application.routes.draw do
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end

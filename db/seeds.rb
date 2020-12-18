@@ -199,3 +199,9 @@ Certificate.create(title: "テスト診断書2", content: "テスト2", default:
 Certificate.create(title: "テスト診断書3", content: "テスト3", default: true)
 
 puts "CREATE! CERTIFICATE"
+
+%w(タウンページ web 紹介).each do |name|
+  AttractMethod.create(name: name)
+end
+
+puts "CREATE! ATTRACTIVE METHOD"

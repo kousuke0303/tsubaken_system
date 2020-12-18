@@ -1,7 +1,7 @@
 class CreateEstimateMatters < ActiveRecord::Migration[5.2]
   def change
     create_table :estimate_matters, id: :string do |t|
-      t.string :title,                      null: false, default: ""      
+      t.string :title,                      null: false  
       t.string :postal_code
       t.string :prefecture_code
       t.string :address_city
@@ -9,6 +9,7 @@ class CreateEstimateMatters < ActiveRecord::Migration[5.2]
       t.string :content
       t.integer :status,                    null: false, default: 0
       t.references :client, foreign_key: true
+      t.references :attract_method, foreign_key: true
 
       t.timestamps
     end

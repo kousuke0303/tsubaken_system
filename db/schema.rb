@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
     t.index ["staff_id"], name: "index_attendances_on_staff_id"
   end
 
+  create_table "attract_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "default", default: false
@@ -145,7 +151,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   end
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.string "title", null: false
     t.string "postal_code"
     t.string "prefecture_code"
     t.string "address_city"
@@ -153,8 +159,10 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
     t.string "content"
     t.integer "status", default: 0, null: false
     t.bigint "client_id"
+    t.bigint "attract_method_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
   end
 
@@ -392,6 +400,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_staffs", "staffs"
+  add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
