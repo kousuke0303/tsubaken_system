@@ -6,7 +6,7 @@
         <h5 class="card-header">集客方法編集</h5>
         <div class="card-body">
           <%= form_with(model: attract_method, url: employees_settings_attract_method_path(attract_method), method: :patch, remote: true) do |f| %>
-            <div class="attract_method-update-errors"></div>
+            <div class="attract-method-update-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>

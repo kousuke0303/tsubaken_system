@@ -19,6 +19,7 @@ ja:
       image: 画像
       construction: 工事
       material: 素材
+      attract_method: 集客方法
     attributes:
         admin:
           name: 名前
@@ -100,6 +101,8 @@ ja:
           content: 内容
           category_id: カテゴリ
           default: デフォルト
+        attract_method:
+          name: 集客方法
   attributes:
     id: ID
     login_id: ログインID

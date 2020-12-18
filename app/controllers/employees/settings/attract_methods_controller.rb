@@ -1,16 +1,16 @@
 class Employees::Settings::AttractMethodsController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_attarct_method, only: [:edit, :update, :destroy]
+  before_action :set_attract_method, only: [:edit, :update, :destroy]
 
   def new
-    @attarct_method = AttarctMethod.new
+    @attract_method = AttractMethod.new
   end
 
   def create
-    @attarct_method = AttarctMethod.new(attarct_method_params)
-    if @attarct_method.save
+    @attract_method = AttractMethod.new(attract_method_params)
+    if @attract_method.save
       flash[:success] = "集客方法を作成しました。"
-      redirect_to employees_settings_attarct_methods_url
+      redirect_to employees_settings_attract_methods_url
     else
       respond_to do |format|
         format.js
@@ -22,9 +22,9 @@ class Employees::Settings::AttractMethodsController < ApplicationController
   end
 
   def update
-    if @attarct_method.update(attarct_method_params)
+    if @attract_method.update(attract_method_params)
       flash[:success] = "集客方法を更新しました。"
-      redirect_to employees_settings_attarct_methods_url
+      redirect_to employees_settings_attract_methods_url
     else
       respond_to do |format|
         format.js
@@ -33,20 +33,20 @@ class Employees::Settings::AttractMethodsController < ApplicationController
   end
 
   def index
-    @attarct_methods = AttarctMethod.all
+    @attract_methods = AttractMethod.all
   end
 
   def destroy
-    @attarct_method.destroy ? flash[:success] = "集客方法を削除しました。" : flash[:alert] = "集客方法を削除できませんでした。"
-    redirect_to employees_settings_attarct_methods_url
+    @attract_method.destroy ? flash[:success] = "集客方法を削除しました。" : flash[:alert] = "集客方法を削除できませんでした。"
+    redirect_to employees_settings_attract_methods_url
   end
 
   private
-    def attarct_method_params
-      params.require(:attarct_method).permit(:name)
+    def attract_method_params
+      params.require(:attract_method).permit(:name)
     end
 
-    def set_attarct_method
-      @attarct_method = AttarctMethod.find(params[:id])
+    def set_attract_method
+      @attract_method = AttractMethod.find(params[:id])
     end
 end
