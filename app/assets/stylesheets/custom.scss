@@ -414,7 +414,9 @@ a.article, a.article:hover {
 }
 
 .account_dropdown_menu {
-  margin-left: -45px!important;
+  // margin-left: -93px!important;
+  // width: 120%;
+  margin-top: 15px!important;
   background-color: #eaebef;
   a:hover {
     background-color: #eaebef;
@@ -523,6 +525,20 @@ a.article, a.article:hover {
 }
 
 /*------------------------------ MEDIAQUERIES ------------------------------*/
+@media screen and (min-width: 992px) {
+  .account_dropdown_menu {
+    margin-left: -93px!important;
+    margin-top: 15px!important;
+    background-color: #eaebef;
+    a:hover {
+      background-color: #eaebef;
+    }
+    .dropdown-divider {
+      border-top-color: white;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
