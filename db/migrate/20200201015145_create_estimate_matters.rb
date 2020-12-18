@@ -7,7 +7,6 @@ class CreateEstimateMatters < ActiveRecord::Migration[5.2]
       t.string :address_city
       t.string :address_street
       t.string :content
-      t.integer :status,                    null: false, default: 0
       t.references :client, foreign_key: true
       t.references :attract_method, foreign_key: true
 

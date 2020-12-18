@@ -64,6 +64,6 @@ class Employees::EstimateMattersController < ApplicationController
 
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :client_id, :status, { staff_ids: [] }, { external_staff_ids: [] })
+                                              :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
     end
 end

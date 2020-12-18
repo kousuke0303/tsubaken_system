@@ -90,7 +90,6 @@ puts "CREATE! CLIENT"
 
 SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
                                              content: "見積案件1の内容",
-                                             status: 0,
                                              postal_code: "5940088",
                                              prefecture_code: "神奈川県",
                                              address_city: "テスト市テスト町",
@@ -100,7 +99,6 @@ SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
 
 SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
                                              content: "見積案件2の内容",
-                                             status: 0,
                                              postal_code: "5940088",
                                              prefecture_code: "神奈川県",
                                              address_city: "テスト市テスト町",
