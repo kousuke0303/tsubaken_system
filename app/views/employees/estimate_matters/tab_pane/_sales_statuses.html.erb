@@ -5,4 +5,12 @@
     <th>実施者</th>
     <th>備考</th>
   </tr>
+  <% @sales_statuses.each do |sales_status| %>
+    <tr>
+      <td><%= sales_status.status %></td>
+      <td><%= sales_status.conducted_on %></td>
+      <td></td>
+      <td><%= sales_status.note %></td>
+    </tr>
+  <% end %>
 </table>

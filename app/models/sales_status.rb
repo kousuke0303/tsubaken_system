@@ -3,7 +3,7 @@ class SalesStatus < ApplicationRecord
   belongs_to :staff,             optional: true
   belongs_to :external_staff,    optional: true
 
-  validates :name, presence: true
+  validates :status, presence: true
   validates :conducted_on, presence: true
   validates :note, length: { maximum: 300 }
 

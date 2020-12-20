@@ -26,6 +26,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def show
     @matter = @estimate_matter.matter
+    @sales_statuses = @estimate_matter.sales_statuses
     @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)

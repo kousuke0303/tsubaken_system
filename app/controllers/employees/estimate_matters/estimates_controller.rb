@@ -1,5 +1,4 @@
-class Employees::EstimateMatters::EstimatesController < ApplicationController
-  before_action :authenticate_employee!
+class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
 
@@ -79,10 +78,6 @@ class Employees::EstimateMatters::EstimatesController < ApplicationController
   private
     def set_estimate
       @estimate = Estimate.find(params[:id])
-    end
-
-    def set_estimate_matter
-      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
 
     def estimate_params

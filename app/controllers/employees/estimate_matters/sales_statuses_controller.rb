@@ -1,5 +1,4 @@
-class Employees::EstimateMatters::SalesStatusesController < ApplicationController
-  before_action :authenticate_employee!
+class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_sales_status, only: [:edit, :update, :destroy]
 
@@ -37,15 +36,11 @@ class Employees::EstimateMatters::SalesStatusesController < ApplicationControlle
   end
 
   private
-    def set_estimate_matter
-      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    end
-
     def set_sales_status
       @sales_status = SalesStatus.find(params[:id])
     end
 
     def sales_status_params
-      params.require(:sales_status).permit(:name, :conducted_on, :note, :staff_id, :external_staff_id)
+      params.require(:sales_status).permit(:status, :conducted_on, :note, :staff_id, :external_staff_id)
     end
 end
