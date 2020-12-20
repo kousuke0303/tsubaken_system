@@ -212,10 +212,6 @@ Rails.application.routes.draw do
 
     resources :estimate_matters do
       resources :matters, only: :create
-      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
-        post :move, on: :collection
-        post :create, on: :collection
-      end
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
