@@ -10,7 +10,9 @@
     <tr>
       <td><%= I18n.t("enums.sales_status.status.#{ sales_status.status }") %></td>
       <td><%= l(sales_status.conducted_on, format: :long) %></td>
-      <td></td>
+      <td>
+        
+      </td>
       <td><%= sales_status.note %></td>
       <td>
         <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
