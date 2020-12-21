@@ -22,7 +22,7 @@
               <td><%= matter.title %></td>
               <td><%= matter.scheduled_started_on %></td>
               <td><%= matter.scheduled_finished_on %></td>
-              <td><%= I18n.t("enums.matter.status.#{matter.status}") %></td>
+              <td><%= I18n.t("enums.matter.status.#{ matter.status }") %></td>
             </tr>
           <% end %>
         </table>

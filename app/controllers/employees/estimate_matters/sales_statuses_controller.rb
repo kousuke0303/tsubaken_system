@@ -11,6 +11,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)
     if @sales_status.save
       @response = "success"
+      @sales_statuses = @estimate_matter.sales_statuses
     else
       @response = "false"
     end
@@ -25,6 +26,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   def update
     if @sales_status.update(sales_status_params)
       @response = "success"
+      @sales_statuses = @estimate_matter.sales_statuses
     else
       @response = "false"
     end
@@ -34,6 +36,11 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   end
 
   def destroy
+    @sales_status.destroy
+    @sales_statuses = @estimate_matter.sales_statuses
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
