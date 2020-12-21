@@ -16,7 +16,7 @@ class Matter < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }
 
-  enum status: { not_started: 0,progress: 1, completed: 2 }
+  enum status: { not_started: 0, progress: 1, completed: 2 }
   
   before_create :identify
 

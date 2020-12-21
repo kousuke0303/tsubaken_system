@@ -212,10 +212,6 @@ Rails.application.routes.draw do
 
     resources :estimate_matters do
       resources :matters, only: :create
-      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
-        post :move, on: :collection
-        post :create, on: :collection
-      end
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
@@ -227,6 +223,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
+      resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates"
     end
 

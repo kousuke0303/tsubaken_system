@@ -1,5 +1,4 @@
-class Employees::EstimateMatters::ConstructionsController < ApplicationController
-  before_action :authenticate_employee!
+class Employees::EstimateMatters::ConstructionsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_construction
 
@@ -27,10 +26,6 @@ class Employees::EstimateMatters::ConstructionsController < ApplicationControlle
   end
 
   private
-    def set_estimate_matter
-      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    end
-
     def set_construction
       @construction = Construction.find(params[:id])
     end

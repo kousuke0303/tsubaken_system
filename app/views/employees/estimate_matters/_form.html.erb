@@ -19,9 +19,6 @@
 <%= f.label :address_street %>
 <%= f.text_field :address_street, autocomplete: "address_street", id: "address_street", class: "form-control" %>
 
-<%= f.label :status %>
-<%= f.select :status, EstimateMatter.statuses.keys.map {|k| [I18n.t("enums.estimate_matter.status.#{k}"), k]}, {}, class: "form-control" %>
-
 <%= f.label :content %>
 <%= f.text_area :content, required: true, class: "form-control", maxlength: 300 %>
 

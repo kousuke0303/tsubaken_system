@@ -3,7 +3,7 @@ class Message < ApplicationRecord
   # messegeの新規インスタンスをそのままTalkRoomBroadcastJobに渡す
   # after_create_commit { TalkRoomBroadcastJob.perform_later self }
   
-  belongs_to :matter, dependent: :destroy
+  belongs_to :matter
   has_many :certificates
   has_one_attached :photo
 

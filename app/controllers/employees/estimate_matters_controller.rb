@@ -27,6 +27,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def show
     @matter = @estimate_matter.matter
+    @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
     @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
@@ -67,6 +68,6 @@ class Employees::EstimateMattersController < ApplicationController
 
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :client_id, :status, { staff_ids: [] }, { external_staff_ids: [] })
+                                              :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
     end
 end

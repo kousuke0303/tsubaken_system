@@ -1,5 +1,4 @@
-class Employees::EstimateMatters::CategoriesController < ApplicationController
-  before_action :authenticate_employee!
+class Employees::EstimateMatters::CategoriesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_category
 
@@ -38,10 +37,6 @@ class Employees::EstimateMatters::CategoriesController < ApplicationController
   end
 
   private
-    def set_estimate_matter
-      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    end
-
     def set_category
       @category = Category.find(params[:id])
     end

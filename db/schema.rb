@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_091052) do
+ActiveRecord::Schema.define(version: 2020_12_18_041900) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   end
 
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "content"
     t.boolean "default", default: false
     t.integer "image_id"
@@ -159,7 +159,6 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
     t.string "address_city"
     t.string "address_street"
     t.string "content"
-    t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.bigint "attract_method_id"
     t.datetime "created_at", null: false
@@ -307,6 +306,20 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
     t.index ["matter_id"], name: "index_messages_on_matter_id"
   end
 
+  create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "status", null: false
+    t.date "conducted_on", null: false
+    t.string "note"
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.string "estimate_matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
+    t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
+    t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
+  end
+
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "staff_id"
     t.integer "event_title_id"
@@ -419,6 +432,8 @@ ActiveRecord::Schema.define(version: 2020_12_15_091052) do
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
   add_foreign_key "messages", "matters"
+  add_foreign_key "sales_statuses", "external_staffs"
+  add_foreign_key "sales_statuses", "staffs"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
