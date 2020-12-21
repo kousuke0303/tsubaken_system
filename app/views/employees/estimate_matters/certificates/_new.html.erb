@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">診断書作成</h5>
         <div class="card-body">
-          <%= form_with(model: certificate, url: employees_settings_certificates_path, method: :post, remote: true) do |f| %>
+          <%= form_with(model: @certificate, url: employees_estimate_matter_certificates_path(current_estimate_matter), method: :post, remote: true) do |f| %>
             <div class="certificate-create-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">

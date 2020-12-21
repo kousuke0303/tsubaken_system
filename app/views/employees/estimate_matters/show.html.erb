@@ -110,4 +110,25 @@
       </div>
     </div>
   </div>
+  
+  <div class="accordion mt-1e" id="accordionExample">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingThree">
+        <h5 class="text-light">
+          診断書一覧
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+          <div class="estimates-index">
+            <%= render "employees/estimate_matters/certificates/certificates" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

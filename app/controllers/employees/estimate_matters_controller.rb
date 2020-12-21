@@ -2,6 +2,7 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:new, :edit]
+  before_action :current_estimate_matter
 
   def index
     @estimate_matters = EstimateMatter.includes(:client)
@@ -29,6 +30,8 @@ class Employees::EstimateMattersController < ApplicationController
     @estimates = @estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    @certificates = current_estimate_matter.certificates.where(default: true).order(created_at: "DESC")
+    @images = current_estimate_matter.images.select { |image| image.images.attached? }
   end
 
   def edit

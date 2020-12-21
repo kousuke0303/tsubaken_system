@@ -30,6 +30,7 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
   end
 
   def index
+    @certificates = current_estimate_matter.certificates.where(default: true)
     @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
   

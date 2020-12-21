@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_matter
   helper_method :current_estimate_matter
+  helper_method :posted_images
 
   # ---------------------------------------------------------
         # FORMAT関係

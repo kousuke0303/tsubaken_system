@@ -3,6 +3,7 @@ class Employees::Matters::ImagesController < ApplicationController
   
   before_action :set_image, only: [:edit, :update, :destroy]
   before_action :current_matter
+  before_action :posted_images
 
   def new
     @image = Image.new
@@ -30,7 +31,6 @@ class Employees::Matters::ImagesController < ApplicationController
   end
 
   def index
-    @images = current_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
   
   def edit

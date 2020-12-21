@@ -1,0 +1,33 @@
+<%= f.label :title %>
+<select class="form-control" id="content_id" name="certificate[title]">
+  <option>選択してください</option>
+  <% @certificates.distinct.select(:title).each do |certificate| %>
+    <option><%= certificate.title %></option>
+  <% end %>
+</select>
+
+<%= f.label :content %>
+<%= f.text_area :content, id: "content", value: "", maxlength: 1000 , class: "form-control" %>
+
+<%= f.hidden_field :image_id, value: params[:image_id] %>
+
+<script>
+ (function () {
+    const auto_content = {
+      'content': [
+        <% @certificates.each do |certificate| %>
+          "<%= certificate.content %>",
+        <% end %>
+      ]
+    };
+    document.getElementById('content_id').addEventListener('change', select_action, false);
+    function select_action() {
+      const selected_content = document.getElementById('content_id').selectedIndex -1;
+      if (selected_content === -1) {
+        document.getElementById('content').value = '';
+      } else {
+        document.getElementById('content').value = auto_content['content'][selected_content];
+      }
+    }
+ }());
+</script>
