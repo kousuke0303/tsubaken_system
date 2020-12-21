@@ -1,6 +1,7 @@
 class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_sales_status, only: [:edit, :update, :destroy]
+  before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
 
   def new
     @sales_status = @estimate_matter.sales_statuses.new

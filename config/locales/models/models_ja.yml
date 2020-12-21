@@ -64,8 +64,7 @@ ja:
           title: 見積案件名
           status: 進行状況
           actual_spot: 現場住所
-          client_id: 顧客
-          external_staff: 外部スタッフ
+          client_id: 顧客          
           attract_method_id: 集客方法
         estimate:
           title: 見積名
@@ -77,7 +76,6 @@ ja:
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
-          external_staff: 外部スタッフ
         industry:
           name: 業種名
         department:
@@ -131,6 +129,8 @@ ja:
     password: パスワード
     password_confirmation: パスワード再入力
     client: 顧客
-    manager: マネージャー
-    staff: スタッフ
+    manager: Manager
+    staff: Staff
     supplier: 外注先
+    staff_id: Staff
+    external_staff_id: 外部Staff
