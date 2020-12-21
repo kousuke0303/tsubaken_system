@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.string "content"
     t.boolean "default", default: false
     t.integer "image_id"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
     t.string "address_city"
     t.string "address_street"
     t.string "content"
+    t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.bigint "attract_method_id"
     t.datetime "created_at", null: false
