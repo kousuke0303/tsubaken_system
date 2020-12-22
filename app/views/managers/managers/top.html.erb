@@ -28,15 +28,7 @@
         <% end %>
       <!--出退勤関係-->
         <% if @error_attendances %>
-          <% @error_attendances.each do |error_attendance| %>
-            <p><i class="fas fa-exclamation-circle fa-orange"></i>
-              <span>
-                <%= link_to daily_employees_attendances_path(date: Date.today - 1) do %>
-                  <%= object_user_name(error_attendance) %>さんの昨日の退勤処理が未処理です
-                <% end %>
-              </span>
-            </p>
-          <% end %>
+          <%= render 'common_layouts/attendances/error_attendances' %>
         <% end %>
       </div>
     </div>

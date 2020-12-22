@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.boolean "default", default: false
     t.bigint "estimate_id"
     t.datetime "created_at", null: false
@@ -98,10 +98,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
     t.string "fax"
     t.string "email"
     t.date "birthed_on"
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
+    t.string "zip_code"
+    t.string "address"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -111,18 +109,13 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.boolean "default", default: false
+    t.string "name"
     t.string "note"
     t.string "unit"
     t.integer "price"
-    t.integer "amount"
-    t.string "total"
-    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
-    t.index ["category_id"], name: "index_constructions_on_category_id"
     t.index ["parent_id"], name: "index_constructions_on_parent_id"
   end
 
@@ -151,22 +144,19 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
+    t.string "title", default: "", null: false
+    t.string "zip_code"
+    t.string "address"
     t.string "content"
+    t.integer "status", default: 0, null: false
     t.bigint "client_id"
-    t.bigint "attract_method_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", default: "", null: false
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -192,10 +182,6 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.date "shooted_on"
-    t.integer "admin_id"
-    t.integer "manager_id"
-    t.integer "staff_id"
-    t.integer "external_staff_id"
     t.string "estimate_matter_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
@@ -220,16 +206,24 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
+  create_table "kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "amount"
+    t.boolean "default", default: false
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_kinds_on_category_id"
+  end
+
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
+    t.string "zip_code"
+    t.string "address"
     t.date "joined_on"
     t.date "resigned_on"
     t.bigint "department_id"
@@ -243,19 +237,12 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.boolean "default", default: false
     t.string "service_life"
-    t.string "note"
-    t.string "unit"
-    t.integer "price"
-    t.integer "amount"
-    t.string "total"
-    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
-    t.index ["category_id"], name: "index_materials_on_category_id"
     t.index ["parent_id"], name: "index_materials_on_parent_id"
   end
 
@@ -279,7 +266,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.integer "status", default: 0, null: false
+    t.integer "status"
     t.string "content"
     t.date "scheduled_started_on"
     t.date "started_on"
@@ -338,10 +325,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
+    t.string "zip_code"
+    t.string "address"
     t.date "joined_on"
     t.date "resigned_on"
     t.bigint "department_id"
@@ -366,10 +351,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "kana"
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
+    t.string "address"
+    t.string "zip_code"
     t.string "representative"
     t.string "phone_1"
     t.string "phone_2"
@@ -407,21 +390,19 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categories", "estimates"
-  add_foreign_key "constructions", "categories"
   add_foreign_key "constructions", "constructions", column: "parent_id"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_staffs", "staffs"
-  add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "kinds", "categories"
   add_foreign_key "managers", "departments"
-  add_foreign_key "materials", "categories"
   add_foreign_key "materials", "materials", column: "parent_id"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"
