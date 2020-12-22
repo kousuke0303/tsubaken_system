@@ -1,3 +1,4 @@
+<h4>タイトル選択</h4>
 <%= f.label :title %>
 <select class="form-control" id="content_id" name="certificate[title]">
   <option>選択してください</option>
@@ -5,6 +6,12 @@
     <option><%= certificate.title %></option>
   <% end %>
 </select>
+
+<div style="margin-top: 15px;">
+  <h4>タイトル編集</h4>
+</div>
+<%= f.label :title %>
+<%= f.text_field :title, maxlength: 300, class: "form-control" %>
 
 <%= f.label :content %>
 <%= f.text_area :content, id: "content", value: "", maxlength: 300, class: "form-control" %>

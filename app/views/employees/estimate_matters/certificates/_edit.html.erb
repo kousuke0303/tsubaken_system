@@ -7,12 +7,7 @@
         <%= form_with(model: @certificate, url: employees_estimate_matter_certificate_path(current_estimate_matter, @certificate.id), method: :patch, remote: true) do |f| %>
           <div class="edit-image-content-position">
             <%= f.label :title %>
-            <select class="form-control" id="content_id" name="certificate[title]">
-              <option>選択してください</option>
-              <% @certificates.distinct.select(:title).each do |certificate| %>
-                <option><%= certificate.title %></option>
-              <% end %>
-            </select>
+            <%= f.text_field :title, maxlength: 30, class: "form-control" %>
           </div>
 
           <div class="edit-image-content-position">
@@ -23,6 +18,14 @@
             <%= f.submit '編集する', class: "btn btn-md btn-dark" %>
           </div>
         <% end %> 
+        
+        <% if @image.images.attached? %>
+          <% @image.images.each do |image| %>
+            <figure class="images-partial" style="margin-top: 20px;">
+              <%= image_tag url_for(image.variant(resize: "400x400")) %>
+            </figure>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

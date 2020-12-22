@@ -21,6 +21,7 @@ class Employees::EstimateMatters::CertificatesController < ApplicationController
   end
 
   def edit
+    @image = Image.find_by(params[:image_id])
   end
 
   def update
