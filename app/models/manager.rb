@@ -9,6 +9,10 @@ class Manager < ApplicationRecord
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
+  validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+  validates :prefecture_code, presence: true
+  validates :address_city, presence: true
+  validates :address_street, presence: true
   validate :manager_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
