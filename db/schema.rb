@@ -79,13 +79,15 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   end
 
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.string "content"
     t.boolean "default", default: false
     t.integer "image_id"
     t.integer "message_id"
+    t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_certificates_on_estimate_matter_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -390,6 +392,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   add_foreign_key "attendances", "staffs"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categories", "estimates"
+  add_foreign_key "certificates", "estimate_matters"
+  add_foreign_key "constructions", "categories"
   add_foreign_key "constructions", "constructions", column: "parent_id"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"

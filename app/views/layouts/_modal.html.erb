@@ -126,8 +126,10 @@
   <% end %>
   
   <!--診断書new・edit-->
-  <% if controller_name == "certificates" && action_name == "index" %>
-    <div id="certificate-new" class="modal fade" role="dialog"></div>
-    <div id="certificate-edit" class="modal fade" role="dialog"></div>
-  <% end %>
+  <div id="certificate-new" class="modal fade" role="dialog"></div>
+  <div id="certificate-edit" class="modal fade" role="dialog"></div>
+  
+  <!--見積案件に紐づいている写真に対しての診断書new・edit-->
+  <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
+  <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
 <% end %>

@@ -192,9 +192,8 @@ end
 
 puts "CREATE! CONSTRUCTION"
 
-Certificate.create(title: "テスト診断書1", content: "テスト1", default: true)
-Certificate.create(title: "テスト診断書2", content: "テスト2", default: true)
-Certificate.create(title: "テスト診断書3", content: "テスト3", default: true)
+Certificate.create(title: "テスト診断書1", content: "テスト1", default: true, estimate_matter_id: SeedEstimateMatter1.id)
+Certificate.create(title: "テスト診断書2", content: "テスト2", default: true, estimate_matter_id: SeedEstimateMatter2.id)
 
 puts "CREATE! CERTIFICATE"
 

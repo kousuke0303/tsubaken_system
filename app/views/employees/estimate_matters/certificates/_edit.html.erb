@@ -1,0 +1,32 @@
+<div style="text-align: center;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+      <div class="modal-body pa-2e">
+      <div class="certificate-update-errors"></div>
+        <%= form_with(model: @certificate, url: employees_estimate_matter_certificate_path(current_estimate_matter, @certificate.id), method: :patch, remote: true) do |f| %>
+          <div class="edit-image-content-position">
+            <%= f.label :title %>
+            <%= f.text_field :title, maxlength: 30, class: "form-control" %>
+          </div>
+
+          <div class="edit-image-content-position">
+            <%= f.label :content %>
+            <%= f.text_area :content, maxlength: 300, class: "form-control" %>
+          </div>
+          <div>
+            <%= f.submit '編集する', class: "btn btn-md btn-dark" %>
+          </div>
+        <% end %> 
+        
+        <% if @image.images.attached? %>
+          <% @image.images.each do |image| %>
+            <figure class="images-partial" style="margin-top: 20px;">
+              <%= image_tag url_for(image.variant(resize: "400x400")) %>
+            </figure>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

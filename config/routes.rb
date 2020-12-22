@@ -224,6 +224,7 @@ Rails.application.routes.draw do
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
+      resources :certificates, controller: "estimate_matters/certificates"
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do

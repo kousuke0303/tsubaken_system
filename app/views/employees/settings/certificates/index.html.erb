@@ -15,7 +15,7 @@
           <th>内容</th>
           <th></th>
         </tr>
-        <% @certificates.each do |certificate| %>
+        <% @certificates.group("certificates.title").each do |certificate| %>
           <tr>
             <td><%= certificate.title %></td>
             <td><%= certificate.content %></td>
