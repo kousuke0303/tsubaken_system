@@ -1,7 +1,6 @@
 <h4>タイトル選択</h4>
 <%= f.label :title %>
 <select class="form-control" id="content_id" name="certificate[title]">
-  <option>選択してください</option>
   <% @certificates.distinct.select(:title).each do |certificate| %>
     <option><%= certificate.title %></option>
   <% end %>
@@ -14,7 +13,7 @@
 <%= f.text_field :title, maxlength: 300, class: "form-control" %>
 
 <%= f.label :content %>
-<%= f.text_area :content, id: "content", value: "", maxlength: 300, class: "form-control" %>
+<%= f.text_area :content, id: "content", value: "#{@certificates.first.content}", maxlength: 300, class: "form-control" %>
 
 <%= f.hidden_field :image_id, value: params[:image_id] %>
 
@@ -29,12 +28,8 @@
     };
     document.getElementById('content_id').addEventListener('change', select_action, false);
     function select_action() {
-      const selected_content = document.getElementById('content_id').selectedIndex -1;
-      if (selected_content === -1) {
-        document.getElementById('content').value = '';
-      } else {
-        document.getElementById('content').value = auto_content['content'][selected_content];
-      }
+      const selected_content = document.getElementById('content_id').selectedIndex;
+      document.getElementById('content').value = auto_content['content'][selected_content];
     }
  }());
 </script>
