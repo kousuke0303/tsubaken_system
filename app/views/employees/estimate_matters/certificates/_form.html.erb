@@ -1,6 +1,6 @@
 <h4>タイトル選択</h4>
 <%= f.label :title %>
-<select class="form-control" id="content_id" name="certificate[title]">
+<select class="form-control" id="certificate_id" name="certificate[title]">
   <% @certificates.distinct.select(:title).each do |certificate| %>
     <option><%= certificate.title %></option>
   <% end %>
@@ -10,7 +10,7 @@
   <h4>タイトル編集</h4>
 </div>
 <%= f.label :title %>
-<%= f.text_field :title, maxlength: 300, class: "form-control" %>
+<%= f.text_field :title, id: "title", value: "#{@certificates.first.title}", maxlength: 300, class: "form-control" %>
 
 <%= f.label :content %>
 <%= f.text_area :content, id: "content", value: "#{@certificates.first.content}", maxlength: 300, class: "form-control" %>
@@ -26,10 +26,25 @@
         <% end %>
       ]
     };
-    document.getElementById('content_id').addEventListener('change', select_action, false);
+    document.getElementById('certificate_id').addEventListener('change', select_action, false);
     function select_action() {
-      const selected_content = document.getElementById('content_id').selectedIndex;
+      const selected_content = document.getElementById('certificate_id').selectedIndex;
       document.getElementById('content').value = auto_content['content'][selected_content];
+    }
+ }());
+
+ (function () {
+    const auto_content = {
+      'title': [
+        <% @certificates.each do |certificate| %>
+          "<%= certificate.title %>",
+        <% end %>
+      ]
+    };
+    document.getElementById('certificate_id').addEventListener('change', select_action, false);
+    function select_action() {
+      const selected_content = document.getElementById('certificate_id').selectedIndex;
+      document.getElementById('title').value = auto_content['title'][selected_content];
     }
  }());
 </script>
