@@ -44,11 +44,24 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
   
-  def attendance_notification
-      yesterday = Date.today - 1
-      @error_attendances = Attendance.where("(worked_on = ?)", yesterday)
-                                     .where.not(started_at: nil)
-                                     .where(finished_at: nil)
+  def employee_attendance_notification
+    yesterday = Date.today - 1
+    @error_attendances = Attendance.where("(worked_on <= ?)", yesterday)
+                                   .where.not(started_at: nil)
+                                   .where(finished_at: nil)
+  end
+  
+  def own_attendance_notification
+    yesterday = Date.today - 1
+    if current_staff
+      @own_error_attendances = current_staff.attendances.where("(worked_on <= ?)", yesterday)
+                                   .where.not(started_at: nil)
+                                   .where(finished_at: nil)
+    elsif current_external_staff
+      @own_error_attendances = current_external_staff.attendances.where("(worked_on <= ?)", yesterday)
+                                   .where.not(started_at: nil)
+                                   .where(finished_at: nil)
+    end
   end
   
   # --------------------------------------------------------
