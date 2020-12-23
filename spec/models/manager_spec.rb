@@ -122,4 +122,54 @@ RSpec.describe Manager, type: :model do
     @manager.resigned_on = "2015-04-01"
     expect(@manager.valid?).to eq(false)
   end
+  
+  # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が存在し、なおかつハイフンなしの7桁で設定されていたら、有効" do
+      expect(@manager.valid?).to eq(true)
+    end
+    
+    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が存在しなければ、無効" do
+      @manager.postal_code = ""
+      expect(@manager.valid?).to eq(false)
+    end
+    
+    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が7桁でなければ、無効" do
+       @manager.postal_code = "11122"
+      expect(@manager.valid?).to eq(false)
+    end
+    
+    # validates :prefecture_code, presence: true
+    it "都道府県が存在していたら、有効" do
+      expect(@manager.valid?).to eq(true)
+    end
+    
+    # validates :prefecture_code, presence: true
+    it "都道府県が存在していなかったら、無効" do
+      @manager.prefecture_code = ""
+      expect(@manager.valid?).to eq(false)
+    end
+    
+    # validates :address_city, presence: true
+    it "市区町村が存在していたら、有効" do
+      expect(@manager.valid?).to eq(true)
+    end
+    
+    # validates :address_city, presence: true
+    it "市区町村が存在していなかったら、無効" do
+      @manager.address_city = ""
+      expect(@manager.valid?).to eq(false)
+    end
+    
+    # validates :address_street, presence: true
+    it "町名番地が存在していたら、有効" do
+      expect(@manager.valid?).to eq(true)
+    end
+    
+    # validates :address_street, presence: true
+    it "町名番地が存在していなかったら、無効" do
+      @manager.address_street = ""
+      expect(@manager.valid?).to eq(false)
+    end
 end

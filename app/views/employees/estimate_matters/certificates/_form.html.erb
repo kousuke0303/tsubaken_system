@@ -10,7 +10,7 @@
   <h4>タイトル編集</h4>
 </div>
 <%= f.label :title %>
-<%= f.text_field :title, id: "title", value: "#{@certificates.first.title}", maxlength: 300, class: "form-control" %>
+<%= f.text_field :title, id: "title", value: "#{@certificates.first.title}", maxlength: 30, class: "form-control" %>
 
 <%= f.label :content %>
 <%= f.text_area :content, id: "content", value: "#{@certificates.first.content}", maxlength: 300, class: "form-control" %>

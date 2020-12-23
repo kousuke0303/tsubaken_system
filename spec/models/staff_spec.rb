@@ -77,5 +77,55 @@ RSpec.describe Staff, type: :model do
       @staff.email = "test_formattest.com"
       expect(@staff.valid?).to eq(false)
     end
+    
+    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が存在し、なおかつハイフンなしの7桁で設定されていたら、有効" do
+      expect(@staff.valid?).to eq(true)
+    end
+    
+    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が存在しなければ、無効" do
+      @staff.postal_code = ""
+      expect(@staff.valid?).to eq(false)
+    end
+    
+    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
+    it "郵便番号が7桁でなければ、無効" do
+       @staff.postal_code = "11122"
+      expect(@staff.valid?).to eq(false)
+    end
+    
+    # validates :prefecture_code, presence: true
+    it "都道府県が存在していたら、有効" do
+      expect(@staff.valid?).to eq(true)
+    end
+    
+    # validates :prefecture_code, presence: true
+    it "都道府県が存在していなかったら、無効" do
+      @staff.prefecture_code = ""
+      expect(@staff.valid?).to eq(false)
+    end
+    
+    # validates :address_city, presence: true
+    it "市区町村が存在していたら、有効" do
+      expect(@staff.valid?).to eq(true)
+    end
+    
+    # validates :address_city, presence: true
+    it "市区町村が存在していなかったら、無効" do
+      @staff.address_city = ""
+      expect(@staff.valid?).to eq(false)
+    end
+    
+    # validates :address_street, presence: true
+    it "町名番地が存在していたら、有効" do
+      expect(@staff.valid?).to eq(true)
+    end
+    
+    # validates :address_street, presence: true
+    it "町名番地が存在していなかったら、無効" do
+      @staff.address_street = ""
+      expect(@staff.valid?).to eq(false)
+    end
   end
 end
