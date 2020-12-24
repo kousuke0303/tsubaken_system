@@ -18,6 +18,10 @@ puts "CREATE! Department"
                   phone: "08011112222",
                   email: "manager-#{ n + 1 }@email.com",
                   department_id: 2,
+                  postal_code: "1112222",
+                  prefecture_code: "テスト県",
+                  address_city: "テスト市",
+                  address_street: "テスト町1-1-1",
                   password: "password",
                   password_confirmation: "password")
 end
@@ -30,6 +34,10 @@ puts "CREATE! MANAGER"
                 phone: "08011112222",
                 email: "staff-#{ n + 1 }@email.com",
                 department_id: 2,
+                postal_code: "1112222",
+                prefecture_code: "テスト県",
+                address_city: "テスト市",
+                address_street: "テスト町1-1-1",
                 password: "password",
                 password_confirmation: "password")
 end

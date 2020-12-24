@@ -7,39 +7,8 @@
     </div>
 
     <ul class="list-unstyled components">
-      <h4>Manager専用ページ</h4>
-      <li><%= link_to "&nbsp;着工案件管理".html_safe, employees_matters_path, class: "fas fa-clipboard" %></li>
-      <li><%= link_to "&nbsp;営業案件管理".html_safe, employees_estimate_matters_path, class: "fas fa-paste" %></li>
-      <li><%= link_to "&nbsp;外注先管理".html_safe, employees_suppliers_path, class: "fas fa-user-tie" %></li>
-      <li>
-        <a href="#employees-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fas fa-user">&nbsp;従業員管理</a>
-        <ul class="collapse list-unstyled" id="employees-menu">
-          <li><%= link_to "Staff", employees_staffs_path %></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#attendances-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fas fa-clock">&nbsp;勤怠管理</a>
-        <ul class="collapse list-unstyled" id="attendances-menu">
-          <li><%= link_to "日別", daily_employees_attendances_path %></li>
-          <li><%= link_to "個別", individual_employees_attendances_path %></li>
-        </ul>
-      </li>
-      <li><%= link_to "&nbsp;顧客管理".html_safe, employees_clients_path, class: "fas fa-user-edit" %></li>
-      <li><%= link_to "&nbsp;カレンダー".html_safe, "#", class: "fas fa-calendar-alt" %></li>
-      <li>
-        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fas fa-cog">&nbsp;設定</a>
-        <ul class="collapse list-unstyled" id="settings-menu">
-          <li><%= link_to "部署", employees_settings_departments_path %></li>
-          <li><%= link_to "業種", employees_settings_industries_path %></li>
-          <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
-          <li><%= link_to "工事カテゴリ", employees_settings_categories_path %></li>
-          <li><%= link_to "工事", employees_settings_constructions_path %></li>
-          <li><%= link_to "素材", employees_settings_materials_path %></li>
-          <li><%= link_to "診断書", employees_settings_certificates_path %></li>
-          <li><%= link_to "集客方法", employees_settings_attract_methods_path %></li>
-        </ul>
-      </li>
-      <li><a href="#">未定</a></li>
+      <h4><%= current_manager.name %>PAGE</h4>
+      <%= render 'layouts/layout_type/sidebar_item' %>
     </ul>
 
     <ul class="list-unstyled CTAs">
