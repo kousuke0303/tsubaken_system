@@ -1,0 +1,134 @@
+<% if current_admin || current_manager %>
+  <li>
+    <%= link_to employees_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_estimate_matters_path do %>
+      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-user"></i><span class="ml-1e">従業員管理</span>
+    <% end %>
+    <ul class="collapse list-unstyled" id="employees-menu">
+      <li><%= link_to "Manager", employees_managers_path %></li>
+      <li><%= link_to "Staff", employees_staffs_path %></li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to employees_suppliers_path do %>
+      <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+    <% end %>
+    <ul class="collapse list-unstyled" id="attendances-menu">
+      <li><%= link_to "日別", daily_employees_attendances_path %></li>
+      <li><%= link_to "個別", individual_employees_attendances_path %></li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to employees_clients_path do %>
+      <i class="fa-user-edit"></i><span class="ml-1e">顧客管理</span>
+   <% end %>
+  </li>
+  <li>
+    <%= link_to "#" do %>
+     <i class="fas fa-calendar-alt"></i><span class="ml-1e">カレンダー</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
+    <% end %>
+    <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
+    <ul class="collapse list-unstyled" id="settings-menu">
+      <li><%= link_to "部署", employees_settings_departments_path %></li>
+      <li><%= link_to "業種", employees_settings_industries_path %></li>
+      <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
+      <li><%= link_to "工事カテゴリ", employees_settings_categories_path %></li>
+      <li><%= link_to "工事", employees_settings_constructions_path %></li>
+      <li><%= link_to "素材", employees_settings_materials_path %></li>
+      <li><%= link_to "診断書", employees_settings_certificates_path %></li>
+      <li><%= link_to "集客方法", employees_settings_attract_methods_path %></li>
+    </ul>
+  </li>
+  <li><a href="#">未定</a></li>
+  <li><a href="#">未定</a></li>
+  
+<% elsif current_staff %>
+  <li>
+    <%= link_to employees_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_estimate_matters_path do %>
+      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_suppliers_path do %>
+      <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_clients_path do %>
+      <i class="fa-user-edit"></i><span class="ml-1e">顧客管理</span>
+   <% end %>
+  </li>
+  <li>
+    <%= link_to staffs_attendances_path do %>
+      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#" do %>
+     <i class="fas fa-calendar-alt"></i><span class="ml-1e">カレンダー</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'true', class: "dropdown-toggle" do %>
+      <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
+    <% end %>
+    <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
+    <ul class="collapse list-unstyled" id="settings-menu">
+      <li><%= link_to "業種", employees_settings_industries_path %></li>
+    </ul>
+  </li>
+  <li><a href="#">未定</a></li>
+  <li><a href="#">未定</a></li>
+  
+<% elsif current_external_staff %>
+  <li>
+    <%= link_to employees_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#" do %>
+     <i class="fas fa-calendar-alt"></i><span class="ml-1e">カレンダー</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to staffs_attendances_path do %>
+      <i class="fas fa-clock"></i><span class="ml-1e">勤怠情報</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'true', class: "dropdown-toggle" do %>
+      <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
+    <% end %>
+    <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
+    <ul class="collapse list-unstyled" id="settings-menu">
+      <li><%= link_to "業種", employees_settings_industries_path %></li>
+    </ul>
+  </li>
+  <li><a href="#">未定</a></li>
+  <li><a href="#">未定</a></li>
+<% end %>
