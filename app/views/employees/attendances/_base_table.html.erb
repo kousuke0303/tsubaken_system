@@ -1,43 +1,48 @@
 <div class="text-left"><h5><%= employee_type %></h5></div>
 
-<table class="table table-sm common-table">
-  <tr>
-    <th>名前</th>
-    <% if employee_type == "外部Staff" %>
-      <th width=20%>外注先名</th>
-    <% end %>
-    <th width=20%>出勤</th>
-    <th width=20%>退勤</th>
-    <th width=20%>勤務</th>
-  </tr>
-  <% attendances.each do |attendance| %>
-    <% if attendance.finished_at.present? %>
-      <% finished_at = l(attendance.finished_at, format: :time) %>
-    <% else %>
-      <% finished_at = "not-entered" %>
-    <% end %>
-    <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
-        data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
-      <td class="name">
-        <% if attendance.manager %>
-          <%= attendance.manager.name %>
-        <% elsif attendance.staff %>
-          <%= attendance.staff.name %>
-        <% elsif attendance.external_staff %>
-          <%= attendance.external_staff.name %>
-        <% end %>
-      </td>
+<% if employee_type == "Manager" && attendances.count == 0 %>
+  <h6>出勤なし</h6>
+<% else %>
+  <table class="table table-sm common-table">
+    <tr>
+      <th>名前</th>
       <% if employee_type == "外部Staff" %>
-        <td><%= attendance.external_staff.supplier.name %></td>
+        <th width=20%>外注先名</th>
       <% end %>
-      <td><%= l(attendance.started_at, format: :time) %></td>
-      <% if finished_nil?(attendance) %>
-        <td class="text-danger">
-            退勤未処理
-        </td>
-      <% end %>
-      <td><%= finished_at if attendance.finished_at.present? %></td>
-      <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+      <th width=20%>出勤</th>
+      <th width=20%>退勤</th>
+      <th width=20%>勤務</th>
     </tr>
-  <% end %>
-</table>
+    <% attendances.each do |attendance| %>
+      <% if attendance.finished_at.present? %>
+        <% finished_at = l(attendance.finished_at, format: :time) %>
+      <% else %>
+        <% finished_at = "not-entered" %>
+      <% end %>
+      <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
+         data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+        <td class="name">
+          <% if attendance.manager %>
+            <%= attendance.manager.name %>
+          <% elsif attendance.staff %>
+            <%= attendance.staff.name %>
+          <% elsif attendance.external_staff %>
+            <%= attendance.external_staff.name %>
+          <% end %>
+        </td>
+        <% if employee_type == "外部Staff" %>
+          <td width=20%><%= attendance.external_staff.supplier.name %></td>
+        <% end %>
+        <td width=20%><%= l(attendance.started_at, format: :time) %></td>
+        <% if finished_nil?(attendance) %>
+          <td class="text-danger" width=20%>
+              退勤未処理
+          </td>
+        <% else %>
+          <td width=20%><%= finished_at if attendance.finished_at.present? %></td>
+        <% end %>
+        <td width=20%><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
