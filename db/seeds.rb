@@ -104,6 +104,8 @@ SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
                                              address_street: "1-1-1",
                                              client_id: 1,
                                              )
+SeedEstimateMatter1.created_at = Date.current.prev_month
+SeedEstimateMatter1.save
 
 SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
                                              content: "見積案件2の内容",

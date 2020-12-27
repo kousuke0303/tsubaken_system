@@ -1,0 +1,113 @@
+<% target_est_matters.each do |month, est_matters| %>
+  <tr>
+    <td><%= month %>月</td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "appointment" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "inspection" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "calculation" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "waiting_insurance" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "immediately" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "other" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "chasing" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "contract" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "other" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "lost" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "lost_by_other" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% est_matters.each do |est_matter| %>
+        <% if est_matter.sales_statuses.last.status == "other" %>
+          <div class="husen">
+            <%= est_matter.title %><span class="ml-1e"><%= est_matter.created_at.strftime("%m/%d") %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
