@@ -200,8 +200,10 @@ end
 
 puts "CREATE! CONSTRUCTION"
 
-Certificate.create(title: "テスト診断書1", content: "テスト1", default: true, estimate_matter_id: SeedEstimateMatter1.id)
-Certificate.create(title: "テスト診断書2", content: "テスト2", default: true, estimate_matter_id: SeedEstimateMatter2.id)
+2.times do |n|
+  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter1.id)
+  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter2.id)
+end 
 
 puts "CREATE! CERTIFICATE"
 
