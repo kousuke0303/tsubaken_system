@@ -8,7 +8,7 @@
   </tr>
   <% @sales_statuses.each do |sales_status| %>
     <tr>
-      <td><%= I18n.t("enums.sales_status.status.#{ sales_status.status }") %></td>
+      <td><%= sales_status.status_i18n %></td>
       <td><%= l(sales_status.conducted_on, format: :long) %></td>
       <td>
         <%= sales_status.staff_name %>

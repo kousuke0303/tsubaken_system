@@ -6,6 +6,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def index
     @estimate_matters = EstimateMatter.includes(:client)
+    @sales_statuses = SalesStatus.with_practitioner
   end
 
   def new
