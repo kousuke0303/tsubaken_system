@@ -8,8 +8,8 @@ class SalesStatus < ApplicationRecord
   validates :note, length: { maximum: 300 }
   validate :require_only_practitioner
 
-  enum status: { other: 0, appointment: 1, inspection: 2, calculation: 3, immediately: 4, contract: 5, contemplation_month: 6,
-                 contemplation_year: 7, lost: 8, lost_by_other: 9, chasing: 10, waiting_insurance: 11, consideration: 12 }
+  enum status: { not_set:0, other: 1, appointment: 2, inspection: 3, calculation: 4, immediately: 5, contract: 6, contemplation_month: 7,
+                 contemplation_year: 8, lost: 9, lost_by_other: 10, chasing: 11, waiting_insurance: 12, consideration: 13 }
 
   scope :with_practitioner, -> { 
     left_joins(:staff, :external_staff).select(
@@ -19,12 +19,11 @@ class SalesStatus < ApplicationRecord
       ).order(created_at: "DESC")
   }
 
-  # 一名の実施者を必須にする
+  # 未設定のステータス以外は、一名の実施者を必須にする
   def require_only_practitioner
-    if staff_id.nil? && external_staff_id.nil?
-      errors.add(:base, "実施者を入力してください")
-    elsif staff_id.present? && external_staff_id.present?
-      errors.add(:base, "実施者は一名のみ入力可能です")
+    unless status == "not_set"      
+      errors.add(:base, "実施者を入力してください") if staff_id.nil? && external_staff_id.nil?    
+      errors.add(:base, "実施者は一名のみ入力可能です") if staff_id.present? && external_staff_id.present?
     end
   end
 end
