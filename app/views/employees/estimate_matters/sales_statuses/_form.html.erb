@@ -20,7 +20,7 @@
 <div>
   <div id="staff-select">
     <%= f.label :staff_id %>
-    <%= f.collection_select :staff_id, Staff.all, :id, :name, { include_blank: "担当Staffなし" }, class: "form-control", id: "staff" %>
+    <%= f.collection_select :staff_id, @staffs, :id, :name, { include_blank: "担当Staffなし" }, class: "form-control", id: "staff" %>
   </div>
   <div id="external-staff-select">
     <%= f.label :external_staff_id %>
