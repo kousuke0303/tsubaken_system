@@ -1,12 +1,12 @@
 class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
-  before_action :set_employees, only: [:new, :edit]
+  before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
   before_action :current_estimate_matter
 
   def index
-    @estimate_matters = EstimateMatter.includes(:client)
     @sales_statuses = SalesStatus.with_practitioner
+    current_person_in_charge
   end
 
   def new
@@ -27,6 +27,7 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
+    current_person_in_charge
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
     @estimates = @estimate_matter.estimates.with_details
@@ -55,6 +56,10 @@ class Employees::EstimateMattersController < ApplicationController
     @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました。" : flash[:alert] = "見積案件を削除できませんでした。"
     redirect_to employees_estimate_matters_url
   end
+  
+  # 見積案件から案件を作成する前に、担当者を設定する
+  def person_in_charge
+  end
 
   private
     def set_estimate_matter
@@ -70,5 +75,17 @@ class Employees::EstimateMattersController < ApplicationController
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
                                               :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
+    end
+    
+    def current_person_in_charge
+      if current_admin || current_manager
+        @estimate_matters = EstimateMatter.all
+      elsif current_staff
+        @staff_estimate_matters = current_staff.estimate_matters
+      elsif current_external_staff
+        @external_staff_estimate_matters = current_external_staff.estimate_matters
+      elsif current_client
+        @client_estimate_matters = current_client.estimate_matters
+      end
     end
 end

@@ -73,8 +73,33 @@ class ApplicationController < ActionController::Base
   end
   
   def matter_default_task_requests
-    @matter_default_task_scaffolding_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "足場架設依頼")
-    @matter_default_task_order_requests = Matter.joins(:tasks).where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2).where("tasks.title = ?", "発注依頼")
+    if current_admin || current_manager
+      @matter_default_task_scaffolding_requests = Matter.joins(:tasks)
+                                                        .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                        .where("tasks.title = ?", "足場架設依頼")
+    elsif current_staff
+      @matter_default_task_scaffolding_requests = current_staff.matters.joins(:tasks)
+                                                                       .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                                       .where("tasks.title = ?", "足場架設依頼")
+    elsif current_external_staff
+      @matter_default_task_scaffolding_requests = current_external_staff.matters.joins(:tasks)
+                                                                                .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                                                .where("tasks.title = ?", "足場架設依頼")
+    end
+    
+    if current_admin || current_manager
+      @matter_default_task_order_requests = Matter.joins(:tasks)
+                                                  .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                  .where("tasks.title = ?", "発注依頼")
+    elsif current_staff
+      @staff_matter_default_task_scaffolding_requests = current_staff.matters.joins(:tasks)
+                                                                             .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                                             .where("tasks.title = ?", "発注依頼")
+    elsif current_external_staff
+      @external_staff_matter_default_task_scaffolding_requests = current_external_staff.matters.joins(:tasks)
+                                                                                               .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+                                                                                               .where("tasks.title = ?", "発注依頼")
+    end
   end
   
   # --------------------------------------------------------
@@ -109,7 +134,18 @@ class ApplicationController < ActionController::Base
   end
   
   def scaffolding_and_order_requests_relevant_or_ongoing
-    @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼").where("(status = ?) OR (status = ?)", 1, 2)
+    if current_admin || current_manager
+      @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼")
+                                                                .where("(status = ?) OR (status = ?)", 1, 2)
+    elsif current_staff
+      @staff_scaffolding_and_order_requests_relevant_or_ongoing = current_staff.matters.joins(:tasks)
+                                                                                       .where("(tasks.title = ?) OR (tasks.title = ?)", "足場架設依頼", "発注依頼")
+                                                                                       .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+    elsif current_external_staff
+      @external_staff_scaffolding_and_order_requests_relevant_or_ongoing = current_external_staff.matters.joins(:tasks)
+                                                                                                         .where("(tasks.title = ?) OR (tasks.title = ?)", "足場架設依頼", "発注依頼")
+                                                                                                         .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
+    end
   end
     
   private
@@ -142,7 +178,7 @@ class ApplicationController < ActionController::Base
 
   # 従業員以外はアクセス制限
   def authenticate_employee!
-    redirect_to root_url unless current_admin || current_manager || current_staff
+    redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
   end
   
   def configure_permitted_parameters

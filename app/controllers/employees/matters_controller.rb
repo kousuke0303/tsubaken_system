@@ -9,9 +9,17 @@ class Employees::MattersController < ApplicationController
     @matter = Matter.new(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id)
     @default_task_scaffolding_request = Task.new(title: "足場架設依頼", status: 1, sort_order: sort_order)
     @default_task_order_request = Task.new(title: "発注依頼", status: 1, sort_order: sort_order)
+
     if @matter.save && @default_task_scaffolding_request.save && @default_task_order_request.save
       @default_task_scaffolding_request.update(default_task_id: @default_task_scaffolding_request.id, matter_id: @matter.id) 
-      @default_task_order_request.update(default_task_id: @default_task_order_request.id, matter_id: @matter.id) 
+      @default_task_order_request.update(default_task_id: @default_task_order_request.id, matter_id: @matter.id)
+      if current_admin || current_manager
+        @matter.update(matter_staff_external_staff_client_params)
+      elsif current_staff
+        MatterStaff.create(matter_id: @matter.id, staff_id: current_staff.id)
+      elsif current_external_staff
+        MatterExternalStaff.create(matter_id: @matter.id, external_staff_id: current_external_staff.id)
+      end
       flash[:alert] = "案件を作成しました。"
     else
       flash[:alert] = "案件の作成に失敗しました。"
@@ -20,7 +28,13 @@ class Employees::MattersController < ApplicationController
   end
 
   def index
-    @matters = Matter.all
+    if current_admin || current_manager
+      @matters = Matter.all
+    elsif current_staff
+      @staff_matters = current_staff.matters
+    elsif current_external_staff
+      @external_staff_matters = current_external_staff.matters
+    end
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "not_started"
       @matters = @matters.not_started
@@ -67,5 +81,9 @@ class Employees::MattersController < ApplicationController
     def matter_params
       params.require(:matter).permit(:title, :scheduled_started_on, :scheduled_finished_on, :status,
                                      :started_on, :finished_on, :maintenanced_on, { staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
+    end
+    
+    def matter_staff_external_staff_client_params
+      params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     end
 end
