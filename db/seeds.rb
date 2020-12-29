@@ -104,6 +104,8 @@ SeedEstimateMatter1 = EstimateMatter.create!(title: "見積案件1",
                                              address_street: "1-1-1",
                                              client_id: 1,
                                              )
+SeedEstimateMatter1.update!(created_at: Date.current.prev_month)
+SeedEstimateMatter1.sales_statuses.create!(status: "not_set", conducted_on: Date.current)
 
 SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
                                              content: "見積案件2の内容",
@@ -112,7 +114,9 @@ SeedEstimateMatter2 = EstimateMatter.create!(title: "見積案件2",
                                              address_city: "テスト市テスト町",
                                              address_street: "1-1-1",
                                              client_id: 2,
-                                             )                                          
+                                             )
+                                             
+SeedEstimateMatter2.sales_statuses.create!(status: "not_set", conducted_on: Date.current)                                             
 
 puts "CREATE! ESTIMATE_MATTER"
 

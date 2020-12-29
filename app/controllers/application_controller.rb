@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
   def non_approval_layout
     @type = "log_in"
   end
+  
+  def other_tab_display
+    @type = "other_tab"
+  end
 
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance

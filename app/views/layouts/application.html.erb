@@ -23,7 +23,14 @@
         <%= yield %>
       </div>
     </body>
-  
+    
+  <% elsif @type == "other_tab" %>
+    <body>
+      <div class="container_fluid">
+        <%= yield %>
+      </div>
+    </body>
+
   <!--通常ページのレイアウト-->
   <% else %>
     <%= render "layouts/modal" %>
