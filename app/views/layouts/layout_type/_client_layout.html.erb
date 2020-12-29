@@ -7,33 +7,14 @@
     </div>
 
     <ul class="list-unstyled components">
-      <h4>顧客専用ページ</h4>
-      <li><%= link_to "見積案件一覧", clients_estimate_matters_path %></li>
-      <li>
-        <a href="#employees-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">未定</a>
-        <ul class="collapse list-unstyled" id="employees-menu">
-          <li><%= link_to "未定", "#" %></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">設定</a>
-        <ul class="collapse list-unstyled" id="settings-menu">
-          <li><%= link_to "未定", "#" %></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">カレンダー</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu">
-          <li><a href="#">Page 1</a></li>
-          <li><a href="#">Page 2</a></li>
-          <li><a href="#">Page 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">未定</a></li>
+      <h4><%= current_client.name %>PAGE</h4>
+      <%= render 'layouts/layout_type/sidebar_item' %>
     </ul>
 
     <ul class="list-unstyled CTAs">
-      <li><a href="＃" class="download">Download</a></li>
+      <li>
+        <a href="＃" class="download">Download</a>
+      </li>
       <li><a href="#" class="article">未定</a></li>
     </ul>
   </nav>

@@ -17,7 +17,7 @@
               <th>進行状況</th>
             </tr>
           </thead>
-          <% @matter_default_task_scaffolding_requests.each do |matter| %>
+          <% @external_staff_matter_default_task_scaffolding_requests.each do |matter| %>
             <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
               <td><%= matter.title %></td>
               <td><%= matter.scheduled_started_on %></td>
@@ -40,7 +40,7 @@
               <th>進行状況</th>
             </tr>
           </thead>
-          <% @matter_default_task_order_requests.each do |matter| %>
+          <% @external_staff_matter_default_task_scaffolding_requests.each do |matter| %>
             <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
               <td><%= matter.title %></td>
               <td><%= matter.scheduled_started_on %></td>

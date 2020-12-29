@@ -120,6 +120,16 @@ SeedEstimateMatter2.sales_statuses.create!(status: "not_set", conducted_on: Date
 
 puts "CREATE! ESTIMATE_MATTER"
 
+EstimateMatterStaff.create!(estimate_matter_id: SeedEstimateMatter1.id, staff_id: 1)
+EstimateMatterStaff.create!(estimate_matter_id: SeedEstimateMatter2.id, staff_id: 2)
+
+puts "CREATE! ESTIMATE_MATTER_STAFF"
+
+EstimateMatterExternalStaff.create!(estimate_matter_id: SeedEstimateMatter1.id, external_staff_id: 1)
+EstimateMatterExternalStaff.create!(estimate_matter_id: SeedEstimateMatter2.id, external_staff_id: 2)
+
+puts "CREATE! ESTIMATE_MATTER_EXTERNAL_STAFF"
+
 SeedMatter1 = Matter.create!(title: "案件1",
                              content: "案件1の内容",
                              status: 0,
@@ -132,6 +142,16 @@ SeedMatter2 = Matter.create!(title: "案件2",
                              estimate_matter_id: SeedEstimateMatter2.id
                              )
 puts "CREATE! MATTER"
+
+MatterStaff.create!(matter_id: SeedMatter1.id, staff_id: 1)
+MatterStaff.create!(matter_id: SeedMatter2.id, staff_id: 2)
+
+puts "CREATE! MATTER_STAFF"
+
+MatterExternalStaff.create!(matter_id: SeedMatter1.id, external_staff_id: 1)
+MatterExternalStaff.create!(matter_id: SeedMatter2.id, external_staff_id: 2)
+
+puts "CREATE! MATTER_EXTERNAL_STAFF"
 
 # -----------------------------------------------------
       # TASK
@@ -204,8 +224,10 @@ end
 
 puts "CREATE! CONSTRUCTION"
 
-Certificate.create(title: "テスト診断書1", content: "テスト1", default: true, estimate_matter_id: SeedEstimateMatter1.id)
-Certificate.create(title: "テスト診断書2", content: "テスト2", default: true, estimate_matter_id: SeedEstimateMatter2.id)
+2.times do |n|
+  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter1.id)
+  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter2.id)
+end 
 
 puts "CREATE! CERTIFICATE"
 

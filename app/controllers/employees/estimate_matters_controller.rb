@@ -1,15 +1,15 @@
 class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
-  before_action :set_employees, only: [:new, :edit]
+  before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
   before_action :current_estimate_matter
   before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
 
   def index
-    @estimate_matters = EstimateMatter.includes(:client)
     @sales_statuses = SalesStatus.with_practitioner
+    current_person_in_charge
   end
 
   def new
@@ -31,6 +31,7 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
+    current_person_in_charge
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
     @estimates = @estimate_matter.estimates.with_details
@@ -60,6 +61,10 @@ class Employees::EstimateMattersController < ApplicationController
     redirect_to employees_estimate_matters_url
   end
   
+  # 見積案件から案件を作成する前に、担当者を設定する
+  def person_in_charge
+  end
+
   def progress_table
     @table_type = "three_month"
     est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
@@ -131,6 +136,18 @@ class Employees::EstimateMattersController < ApplicationController
                                               :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
     end
     
+    def current_person_in_charge
+      if current_admin || current_manager
+        @estimate_matters = EstimateMatter.all
+      elsif current_staff
+        @staff_estimate_matters = current_staff.estimate_matters
+      elsif current_external_staff
+        @external_staff_estimate_matters = current_external_staff.estimate_matters
+      elsif current_client
+        @client_estimate_matters = current_client.estimate_matters
+      end
+    end
+
     def set_three_month
       @last_day = params[:date].nil? ? Date.current.end_of_month : params[:date].to_date.end_of_month
       @first_day = @last_day.ago(2.month).beginning_of_month

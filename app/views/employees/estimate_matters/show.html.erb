@@ -1,3 +1,29 @@
+<div>
+  <% if current_admin || current_manager %>
+    <input type="hidden" name="estimate_matter_id" value="<%= @estimate_matter.id %>" id="estimate_matter_id">
+    <input type="hidden" name="staff_id" value="<%= @estimate_matter.staffs.ids %>" id="staff_id">
+    <input type="hidden" name="external_staff_id" value="<%= @estimate_matter.external_staffs.ids %>" id="external_staff_id">
+  <% end %>
+
+  <% if current_staff %>
+    <% @staff_estimate_matters.each do |staff_estimate_matter| %>
+      <input type="hidden" name="staff_id" value="<%= staff_estimate_matter.id %>" id="staff_id">
+    <% end %>
+  <% end %>
+
+  <% if current_external_staff %>
+    <% @external_staff_estimate_matters.each do |external_staff_estimate_matter| %>
+      <input type="hidden" name="external_staff_id" value="<%= external_staff_estimate_matter.id %>" id="external_staff_id">
+    <% end %>
+  <% end %>
+  
+  <% if current_client %>
+    <% @client_estimate_matters.each do |client_estimate_matter| %>
+      <input type="hidden" name="external_staff_id" value="<%= client_estimate_matter.id %>" id="external_staff_id">
+    <% end %>
+  <% end %>
+</div>
+
 <div class="col-12">
   <div class="text-right mb-1e">
     <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
@@ -48,7 +74,7 @@
     <% if @estimate_matter.matter %>
       <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), class: "btn btn-dark" %>
     <% else %>
-      <%= link_to "案件作成", employees_estimate_matter_matters_path(@estimate_matter), method: :post, class: "btn btn-dark" %>
+      <%= link_to "案件作成", employees_estimate_matter_person_in_charge_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
     <% end %>
     <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
     <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>

@@ -115,9 +115,6 @@
 
   <!--タスクedit-->
   <div id="task-edit" class="modal fade" role="dialog"></div>
-  
-  <!--タスクindex-->
-  <div id="task-index" class="modal fade" role="dialog"></div>
 
   <!--業種new・edit-->
   <% if controller_name == "industries" && action_name == "index" %>
@@ -133,3 +130,13 @@
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
   <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
 <% end %>
+
+<!--アドミン・マネージャー・スタッフ・外部スタッフ用-->
+<% if admin_signed_in? || manager_signed_in? || staff_signed_in? || external_staff_signed_in? %>
+  <!-- 見積案件から案件設定の際に、担当者を選択するモーダル -->
+  <div id="person_in_charge" class="modal fade" role="dialog"></div>
+  
+  <!--タスクindex-->
+  <div id="task-index" class="modal fade" role="dialog"></div>
+<% end %>
+  

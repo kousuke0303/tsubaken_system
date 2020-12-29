@@ -16,19 +16,66 @@
           <th>最新ステータス</th>
           <th>担当者</th>
         </tr>
-        <% @estimate_matters.each do |estimate_matter| %>
-          <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
-            <td><%= estimate_matter.title %></td>
-            <td><%= estimate_matter.client.name %></td>
-            <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
-            <% if sales_status %>
-              <td><%= sales_status.status_i18n %></td>
-              <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
-            <% else %>
-              <td></td>
-              <td></td>
-            <% end %>
-          </tr>
+        <% if current_admin || current_manager %>
+          <% @estimate_matters.each do |estimate_matter| %>
+            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
+              <td><%= estimate_matter.title %></td>
+              <td><%= estimate_matter.client.name %></td>
+              <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
+              <% if sales_status %>
+                <td><%= sales_status.status_i18n %></td>
+                <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% elsif current_staff %>
+          <% @staff_estimate_matters.each do |staff_estimate_matter| %>
+            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(staff_estimate_matter) %>">
+              <td><%= staff_estimate_matter.title %></td>
+              <td><%= staff_estimate_matter.client.name %></td>
+              <% sales_status = @sales_statuses.where(estimate_matter_id: staff_estimate_matter.id).first %>
+              <% if sales_status %>
+                <td><%= sales_status.status_i18n %></td>
+                <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+         <% elsif current_external_staff %>
+           <% @external_staff_estimate_matters.each do |external_staff_estimate_matter| %>
+            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(external_staff_estimate_matter) %>">
+              <td><%= external_staff_estimate_matter.title %></td>
+              <td><%= external_staff_estimate_matter.client.name %></td>
+              <% sales_status = @sales_statuses.where(estimate_matter_id: external_staff_estimate_matter.id).first %>
+              <% if sales_status %>
+                <td><%= sales_status.status_i18n %></td>
+                <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% else %>
+          <% @client_estimate_matters.each do |client_estimate_matter| %>
+            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(client_estimate_matter) %>">
+              <td><%= client_estimate_matter.title %></td>
+              <td><%= client_estimate_matter.client.name %></td>
+              <% sales_status = @sales_statuses.where(estimate_matter_id: client_estimate_matter.id).first %>
+              <% if sales_status %>
+                <td><%= sales_status.status_i18n %></td>
+                <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+              <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
         <% end %>
       </table>
     </div>
