@@ -61,7 +61,7 @@
   <li><a href="#">未定</a></li>
   <li><a href="#">未定</a></li>
   
-<% elsif current_staff %>
+<% elsif current_staff || current_external_staff %>
   <li>
     <%= link_to employees_matters_path do %>
       <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
@@ -83,8 +83,14 @@
    <% end %>
   </li>
   <li>
-    <%= link_to staffs_attendances_path do %>
-      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+    <% if current_staff %> 
+      <%= link_to staffs_attendances_path do %>
+        <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+      <% end %>
+    <% elsif current_external_staff  %>
+      <%= link_to external_staffs_attendances_path do %>
+        <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+      <% end %>
     <% end %>
   </li>
   <li>
@@ -103,21 +109,16 @@
   </li>
   <li><a href="#">未定</a></li>
   <li><a href="#">未定</a></li>
-  
-<% elsif current_external_staff %>
+
+<% elsif current_client %>
   <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <%= link_to clients_estimate_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
   <li>
     <%= link_to "#" do %>
      <i class="fas fa-calendar-alt"></i><span class="ml-1e">カレンダー</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to staffs_attendances_path do %>
-      <i class="fas fa-clock"></i><span class="ml-1e">勤怠情報</span>
     <% end %>
   </li>
   <li>

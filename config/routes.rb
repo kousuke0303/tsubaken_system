@@ -213,6 +213,12 @@ Rails.application.routes.draw do
     end
 
     resources :estimate_matters do
+      get :progress_table, on: :collection
+      get :progress_table_for_six_month, on: :collection
+      get :progress_table_for_three_month, on: :collection
+      get :prev_progress_table, on: :collection
+      get :next_progress_table, on: :collection
+      
       resources :matters, only: :create
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
@@ -227,6 +233,7 @@ Rails.application.routes.draw do
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates"
+      get :person_in_charge
     end
 
     resources :matters, only: [:show, :edit, :update, :destroy, :index] do

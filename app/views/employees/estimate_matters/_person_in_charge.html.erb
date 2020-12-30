@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">担当者を選択してください</h5>
+        <div class="card-body">
+          <%= form_with(model: estimate_matter, url: employees_estimate_matter_matters_path, method: :post, remote: true) do |f| %>
+            <div class="estimate-matter-create-errors"></div>
+            <div>
+              <%= f.label "スタッフ" %>
+              <div>
+                <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>
+                  <%= s.check_box %><%= s.text %>
+                <% end %> 
+              </div>
+            </div>
+             
+            <div>
+              <%= f.label "外部スタッフ" %>
+              <div>
+                <%= f.collection_check_boxes(:external_staff_ids, @external_staffs, :id, :name) do |e| %>
+                  <%= e.check_box %><%= e.text %>
+                <% end %> 
+              </div>
+            </div>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/reset_errors_jq" %>

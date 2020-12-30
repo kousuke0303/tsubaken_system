@@ -6,6 +6,7 @@ ja:
         female: "女性"
     sales_status:
       status:
+        not_set: 未設定
         other: その他
         appointment: アポイント
         inspection: 現場調査
@@ -33,7 +34,6 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
   date:
     abbr_day_names:
-    -
     - 日
     - 月
     - 火
