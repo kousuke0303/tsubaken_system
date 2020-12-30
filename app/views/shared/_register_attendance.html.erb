@@ -13,6 +13,7 @@
 
     <div class="card-body">
       <div class="text-center">
+        <% debugger %>
         <% if @attendance.started_at.blank? && @attendance.finished_at.blank? %>
           <%= link_to "出勤", yield(:register_attendance_url), method: :patch, class: "btn btn-dark btn-lg" %>
         <% elsif @attendance.started_at.present? && @attendance.finished_at.blank? %>

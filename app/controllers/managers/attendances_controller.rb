@@ -1,8 +1,16 @@
 class Managers::AttendancesController < ApplicationController
   before_action :authenticate_manager!
-  before_action :set_one_month, only: :index
+  before_action :set_one_month, only: [:index, :change_month]
   
   def index
+    @attendances = current_manager.attendances.where(worked_on: @first_day..@last_day).start_exist
+  end
+
+  def change_month
+    @attendances = current_manager.attendances.where(worked_on: @first_day..@last_day).start_exist
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update

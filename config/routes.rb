@@ -152,7 +152,9 @@ Rails.application.routes.draw do
   end
 
   namespace :managers do
-    resources :attendances, only: [:index, :update]
+    resources :attendances, only: [:index, :update] do
+      get :change_month, on: :collection
+    end
   end
   
   # Client関係
