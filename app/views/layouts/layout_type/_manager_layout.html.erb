@@ -43,7 +43,11 @@
                     <i class="fas fa-home"></i> Home
                   <% end %>
                 </li>
-                <li class="nav-item"><%= link_to "出退勤", managers_attendances_path, class: "nav-link" %></li>
+                <li class="nav-item">
+                  <%= link_to managers_attendances_path, class: "nav-link" do %>
+                    <i class="fas fa-clock"></i> 出退勤
+                  <% end %>
+                </li>
                 <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle session_name" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-alt"></i> <%= current_manager.name %>
