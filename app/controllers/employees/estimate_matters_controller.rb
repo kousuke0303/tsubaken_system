@@ -32,7 +32,6 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def show
-    current_person_in_charge
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
     @estimates = @estimate_matter.estimates.with_details
@@ -141,11 +140,9 @@ class Employees::EstimateMattersController < ApplicationController
       if current_admin || current_manager
         @estimate_matters = EstimateMatter.all
       elsif current_staff
-        @staff_estimate_matters = current_staff.estimate_matters
+        @estimate_matters = current_staff.estimate_matters
       elsif current_external_staff
-        @external_staff_estimate_matters = current_external_staff.estimate_matters
-      elsif current_client
-        @client_estimate_matters = current_client.estimate_matters
+        @estimate_matters = current_external_staff.estimate_matters
       end
     end
 
