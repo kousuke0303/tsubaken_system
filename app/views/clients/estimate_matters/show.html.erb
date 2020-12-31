@@ -27,4 +27,44 @@
       <td><%= @estimate_matter.content %></td>
     </tr>
   </table>
+
+  <div class="accordion mt-1e" id="accordion-estimates">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          見積一覧
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimates">
+        <div class="card-body">
+          <% @estimates.each do |estimate| %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion mt-1e" id="accordion-certificates">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          見積一覧
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-certificates">
+        <div class="card-body">
+          <% @certificates.each do |certificate| %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
