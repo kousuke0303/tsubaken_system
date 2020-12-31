@@ -6,6 +6,7 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
+  before_action :can_access_only_estimate_matter_of_being_in_charge
 
   def index
     @sales_statuses = SalesStatus.with_practitioner

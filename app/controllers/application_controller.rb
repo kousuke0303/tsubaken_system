@@ -106,6 +106,21 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # 案件を担当しているユーザーのみアクセス可能
+  def can_access_only_matter_of_being_in_charge
+    if current_staff && (params[:id].present? || params[:matter_id].present?)
+      unless params[:id].to_s.in?(current_staff.matters.ids) || params[:matter_id].to_s.in?(current_staff.matters.ids)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    elsif current_external_staff && (params[:id].present? || params[:matter_id].present?)
+      unless params[:id].to_s.in?(current_external_staff.matters.ids) || params[:matter_id].to_s.in?(current_external_staff.matters.ids)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    end
+  end
+  
   # --------------------------------------------------------
         # ESTIMATE_MATTER関係
   # --------------------------------------------------------
@@ -119,6 +134,26 @@ class ApplicationController < ActionController::Base
     @estimates = estimate_matter.estimates.with_details
     @materials = Material.of_estimate_matter(estimate_matter.id)
     @constructions = Construction.of_estimate_matter(estimate_matter.id)
+  end
+  
+  # 見積案件を担当しているユーザーのみアクセス可能
+  def can_access_only_estimate_matter_of_being_in_charge
+    if current_staff && (params[:id].present? || params[:estimate_matter_id].present?)
+      unless params[:id].to_s.in?(current_staff.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_staff.estimate_matters.ids)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    elsif current_external_staff && (params[:id].present? || params[:estimate_matter_id].present?)
+      unless params[:id].to_s.in?(current_external_staff.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_external_staff.estimate_matters.ids)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    elsif current_client && (params[:id].present? || params[:estimate_matter_id].present?)
+      unless params[:id].to_s.in?(current_client.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_client.estimate_matters.ids)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    end
   end
 
   # --------------------------------------------------------

@@ -1,6 +1,7 @@
 class Employees::MattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
+  before_action :can_access_only_matter_of_being_in_charge
 
   # 見積案件から案件を作成
   def create
