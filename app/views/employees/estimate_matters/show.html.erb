@@ -81,18 +81,18 @@
   </div>
   
   
-  <div class="accordion" id="accordionExample">
+  <div class="accordion" id="accordion-estimate-matter">
     <div class="card">
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
           営業履歴
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-sales" aria-expanded="true" aria-controls="collapse-sales">
             詳細
           </button>
         </h5>
       </div>
   
-      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapse-sales" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate-matter">
         <div class="card-body">
           <div class="text-right mb-05e">
             <%= link_to "営業記録作成", new_employees_estimate_matter_sales_status_path(@estimate_matter), remote: true, class: "btn btn-success" %>
@@ -105,18 +105,18 @@
     </div>
   </div>
   
-  <div class="accordion mt-1e" id="accordionExample">
+  <div class="accordion mt-1e" id="accordion-estimate-matter">
     <div class="card">
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
           見積作成
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
             詳細
           </button>
         </h5>
       </div>
   
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate-matter">
         <div class="card-body">
           <div class="text-right mb-05e">
             <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
@@ -131,18 +131,18 @@
     </div>
   </div>
   
-  <div class="accordion mt-1e" id="accordionExample">
+  <div class="accordion mt-1e" id="accordion-estimate-matter">
     <div class="card">
       <div class="card-header bg-dark" id="headingThree">
         <h5 class="text-light">
           診断書一覧
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-certificates" aria-expanded="true" aria-controls="collapse-certificates">
             詳細
           </button>
         </h5>
       </div>
   
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-estimate-matter">
         <div class="card-body">
           <div class="estimates-index">
             <%= render "employees/estimate_matters/certificates/certificates" %>
