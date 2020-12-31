@@ -55,7 +55,7 @@
   </div>
   
   
-  <div class="accordion" id="accordion-estimate-matter">
+  <div class="accordion" id="accordion-sales">
     <div class="card">
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
@@ -66,7 +66,7 @@
         </h5>
       </div>
   
-      <div id="collapse-sales" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate-matter">
+      <div id="collapse-sales" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-sales">
         <div class="card-body">
           <div class="text-right mb-05e">
             <%= link_to "営業記録作成", new_employees_estimate_matter_sales_status_path(@estimate_matter), remote: true, class: "btn btn-success" %>
@@ -79,7 +79,7 @@
     </div>
   </div>
   
-  <div class="accordion mt-1e" id="accordion-estimate-matter">
+  <div class="accordion mt-1e" id="accordion-estimate">
     <div class="card">
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
@@ -90,7 +90,7 @@
         </h5>
       </div>
   
-      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate-matter">
+      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate">
         <div class="card-body">
           <div class="text-right mb-05e">
             <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
@@ -105,7 +105,7 @@
     </div>
   </div>
   
-  <div class="accordion mt-1e" id="accordion-estimate-matter">
+  <div class="accordion mt-1e" id="accordion-certificates">
     <div class="card">
       <div class="card-header bg-dark" id="headingThree">
         <h5 class="text-light">
@@ -116,7 +116,7 @@
         </h5>
       </div>
   
-      <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-estimate-matter">
+      <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-certificates">
         <div class="card-body">
           <div class="estimates-index">
             <%= render "employees/estimate_matters/certificates/certificates" %>
