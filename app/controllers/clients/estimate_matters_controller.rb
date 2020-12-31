@@ -9,6 +9,8 @@ class Clients::EstimateMattersController < ApplicationController
   def show
     @estimate_matter = EstimateMatter.find(params[:id])
     @estimates = @estimate_matter.estimates
+    @materials = Material.of_estimate_matter(@estimate_matter.id)
+    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     @certificates = @estimate_matter.certificates
   end
 end
