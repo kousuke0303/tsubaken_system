@@ -23,22 +23,35 @@
 <%= f.text_area :content, required: true, class: "form-control", maxlength: 300 %>
 
 <div>
-  <%= f.label :staff %>
+  <%= f.label "担当スタッフ" %>
   <div>
-    <%= f.collection_check_boxes(:staff_ids, staffs, :id, :name) do |s| %>
-      <%= s.check_box %><%= s.text %>
-    <% end %> 
+    <%= f.collection_select :staff_ids, staffs, :id, :name, {include_hidden: false}, {class: 'form-control members', multiple: true} %>
   </div>
 </div>
 
 <div>
-  <%= f.label :external_staff %>
+  <%= f.label "担当外部スタッフ" %>
   <div>
-    <%= f.collection_check_boxes(:external_staff_ids, external_staffs, :id, :name) do |e| %>
-      <%= e.check_box %><%= e.text %>
-    <% end %> 
+    <%= f.collection_select :external_staff_ids, external_staffs, :id, :name, {include_hidden: false}, {class: 'form-control members', multiple: true} %>
   </div>
 </div>
+
+<!--<div>-->
+<!--  <!%= f.label :external_staff %>-->
+<!--  <div>-->
+<!--    <!%= f.collection_check_boxes(:external_staff_ids, external_staffs, :id, :name) do |e| %>-->
+<!--      <!%= e.check_box %><!%= e.text %>-->
+<!--    <!% end %> -->
+<!--  </div>-->
+<!--</div>-->
+
+<script>
+$(document).ready(function() {
+  $('.members').select2({
+    theme: "bootstrap"
+  });
+});
+</script>
 
 <script type="text/javascript">
 $(function () {       

@@ -22,6 +22,7 @@ class Employees::EstimateMattersController < ApplicationController
     @estimate_matter = EstimateMatter.new(estimate_matter_params)
     if @estimate_matter.save
       @estimate_matter.sales_statuses.create!(status: "not_set", conducted_on: Date.current)
+      set_estimate_matter_members
       flash[:success] = "見積案件を作成しました。"
       redirect_to employees_estimate_matters_url(@estimate_matter)
     else
@@ -47,6 +48,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def update
     if @estimate_matter.update(estimate_matter_params)
+      set_estimate_matter_members
       flash[:success] = "見積案件を更新しました。"
       redirect_to employees_estimate_matter_url(@estimate_matter)
     else
@@ -156,4 +158,24 @@ class Employees::EstimateMattersController < ApplicationController
       @first_day = @last_day.ago(5.month).beginning_of_month
     end
     
+    def set_estimate_matter_members
+      # 更新用(一度削除しないと重複する)
+      if @estimate_matter.estimate_matter_staffs.present?
+        @estimate_matter.estimate_matter_staffs.destroy_all
+      end
+      if @estimate_matter.estimate_matter_external_staffs.present?
+        @estimate_matter.estimate_matter_external_staffs.destroy_all
+      end
+      
+      if params[:estimate_matter][:staff_ids].present?
+        params[:estimate_matter][:staff_ids].each do |params_staff|
+          @estimate_matter.estimate_matter_staffs.create(staff_id: params_staff.to_i) 
+        end
+      end
+      if params[:estimate_matter][:external_staff_ids].present?
+        params[:estimate_matter][:external_staff_ids].each do |params_external_staff|
+          @estimate_matter.estimate_matter_external_staffs.create(external_staff_id: params_external_staff.to_i) 
+        end
+      end
+    end
 end
