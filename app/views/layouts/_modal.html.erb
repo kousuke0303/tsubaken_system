@@ -129,6 +129,11 @@
   <!--見積案件に紐づいている写真に対しての診断書new・edit-->
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
   <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
+
+  <!--案件edit-->
+  <% if controller_name == "matters" && action_name == "show" %>
+    <div id="matter-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ・外部スタッフ用-->

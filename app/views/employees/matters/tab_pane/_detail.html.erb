@@ -67,6 +67,6 @@
 </table>
 
 <div class="btn-area">
-  <%= link_to "編集", edit_employees_matter_path(@matter), class: "btn btn-dark" %>
+  <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>
