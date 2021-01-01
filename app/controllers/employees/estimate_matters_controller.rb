@@ -34,7 +34,7 @@ class Employees::EstimateMattersController < ApplicationController
   def show
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
-    @estimates = @estimate_matter.estimates.with_details
+    @estimates = @estimate_matter.estimates.with_categories
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     @certificates = current_estimate_matter.certificates.where(default: true).order(created_at: "DESC")
