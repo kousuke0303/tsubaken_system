@@ -11,7 +11,8 @@ module ApplicationHelper
   def working_calculation(attendance)
     if attendance.finished_at.present?
       day_working_calc = (attendance.finished_at - attendance.started_at) / 3600
-      return sprintf("%.2f", day_working_calc)
+      disp_day_working_calc = day_working_calc.floor(2) 
+      return sprintf("%.2f", disp_day_working_calc)
     end
   end
   

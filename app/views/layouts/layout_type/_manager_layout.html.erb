@@ -13,7 +13,9 @@
 
     <ul class="list-unstyled CTAs">
       <li><a href="＃" class="download">Download</a></li>
-      <li><a href="#" class="article">未定</a></li>
+      <li>
+        <%= link_to "現況一覧", progress_table_employees_estimate_matters_path, class: "current_situatuin", target: :_blank %>
+      </li>
     </ul>
   </nav>
 
@@ -41,7 +43,11 @@
                     <i class="fas fa-home"></i> Home
                   <% end %>
                 </li>
-                <li class="nav-item"><%= link_to "出退勤", managers_attendances_path, class: "nav-link" %></li>
+                <li class="nav-item">
+                  <%= link_to managers_attendances_path, class: "nav-link" do %>
+                    <i class="fas fa-clock"></i> 出退勤
+                  <% end %>
+                </li>
                 <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle session_name" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-alt"></i> <%= current_manager.name %>

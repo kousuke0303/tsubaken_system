@@ -185,13 +185,13 @@ day = today.day
 Manager.all.each do |manager|
   one_month.each { |day| manager.attendances.create!(worked_on: day) }
   manager.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
-                                                                          finished_at: "#{year}-#{month}-#{day} 17:00:00")
+                                                                          finished_at: "#{year}-#{month}-#{day} 17:13:23")
 end
 
 Staff.all.each do |staff|
   one_month.each { |day| staff.attendances.create!(worked_on: day) }
   staff.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
-                                                                        finished_at: "#{year}-#{month}-#{day} 17:00:00")
+                                                                        finished_at: "#{year}-#{month}-#{day} 17:13:23")
 end
 
 ExternalStaff.all.each do |external_staff|

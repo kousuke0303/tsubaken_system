@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
 
   # 見積案件の持つ見積カテゴリ、工事、素材を全て取得
   def set_estimates_details(estimate_matter)
-    @estimates = estimate_matter.estimates.with_details
+    @estimates = estimate_matter.estimates.with_categories
     @materials = Material.of_estimate_matter(estimate_matter.id)
     @constructions = Construction.of_estimate_matter(estimate_matter.id)
   end
