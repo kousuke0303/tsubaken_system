@@ -33,7 +33,7 @@
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
           見積一覧
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-estimates">
             詳細
           </button>
         </h5>
@@ -141,13 +141,13 @@
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
           診断書一覧
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-certificates" aria-expanded="true" aria-controls="collapse-certificates">
             詳細
           </button>
         </h5>
       </div>
   
-      <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-certificates">
+      <div id="collapse-certificates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-certificates">
         <div class="card-body">
           <% @certificates.each do |certificate| %>
           <% end %>
