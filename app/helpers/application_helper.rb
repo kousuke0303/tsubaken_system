@@ -2,7 +2,27 @@ module ApplicationHelper
   
   def avator(login_user)
     login_user.avator.attached? ? login_user.avator : login_user.name[0, 1]
-  end  
+  end 
+  
+  def all_members
+    all_members = []
+    Admin.all.each do |admin|
+      all_members << { auth: admin.auth, id: admin.id, name: admin.name }
+    end
+    Manager.all.each do |manager|
+      all_members << { auth: manager.auth, id: manager.id, name: manager.name }
+    end
+    Staff.all.each do |staff|
+      all_members << { auth: staff.auth, id: staff.id, name: staff.name }
+    end
+    ExternalStaff.all.each do |external_staff|
+      all_members << { auth: external_staff.auth, id: external_staff.id, name: external_staff.name }
+    end
+    return all_members
+  end
+      
+      
+    
     
   # ---------------------------------------------------------
       # ATTENDANCE

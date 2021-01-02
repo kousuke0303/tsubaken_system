@@ -11,19 +11,18 @@
         <tr>
           <th>タイトル</th>
           <th>顧客</th>
-          <th>最新ステータス</th>
-          <th>担当者</th>
+          <th>最新ステータス／担当者</th>
         </tr>
         <% @estimate_matters.each do |estimate_matter| %>
           <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
             <td><%= estimate_matter.title %></td>
             <td><%= estimate_matter.client.name %></td>
             <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
-            <% if sales_status %>
+            <% if sales_status.status == "not_set" %>
               <td><%= sales_status.status_i18n %></td>
-              <td><%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+            <% elsif sales_status %>
+              <td><%= sales_status.status_i18n %>／<%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
             <% else %>
-              <td></td>
               <td></td>
             <% end %>
           </tr>

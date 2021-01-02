@@ -9,7 +9,7 @@
   <table class="table table-bordered table-column-type">
     <tr>
       <th>状況</th>
-      <td class="alert">テスト</td>
+      <td><%= @sales_statuses.first.status_i18n %></td>
     </tr>
     <tr>
       <th>タイトル</th>
@@ -17,31 +17,32 @@
     </tr>
     <tr>
       <th>顧客</th>
-      <td><%= @estimate_matter.client.name %></td>
-    </tr>
-    <tr>
-      <th>集客方法</th>
-      <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
+      <td>
+        <%= @estimate_matter.client.name %>
+        <span class="float-r mr-1e">
+          <a href="tel:<%= @estimate_matter.client.phone_1 %>" class="btn btn-success">電話する</a>
+        </span>
+      </td>
     </tr>
     <tr>
       <th>郵便番号</th>
       <td><%= @estimate_matter.postal_code %></td>
     </tr>
     <tr>
-      <th>都道府県</th>
-      <td><%= @estimate_matter.prefecture_code %></td>
+      <th>現場住所</th>
+      <td><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></td>
     </tr>
     <tr>
-      <th>市区町村</th>
-      <td><%= @estimate_matter.address_city %></td>
-    </tr>
-    <tr>
-      <th>町名番地</th>
-      <td><%= @estimate_matter.address_street %></td>
+      <th>集客方法</th>
+      <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
     </tr>
     <tr>
       <th>内容</th>
       <td><%= @estimate_matter.content %></td>
+    </tr>
+    <tr>
+      <th>担当スタッフ</th>
+      <td><%= member_name(@estimate_matter) %></td>
     </tr>
   </table>
   <div class="btn-area mb-1e">
