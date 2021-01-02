@@ -1,5 +1,4 @@
 class Certificate < ApplicationRecord
-  has_many_attached :images
   belongs_to :image, optional: true
   belongs_to :message, optional: true
   belongs_to :estimate_matters, optional: true
