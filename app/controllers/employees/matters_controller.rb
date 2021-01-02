@@ -65,7 +65,9 @@ class Employees::MattersController < ApplicationController
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)
     else
-      render :edit
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
