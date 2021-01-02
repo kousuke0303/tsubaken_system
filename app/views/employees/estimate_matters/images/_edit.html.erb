@@ -2,33 +2,32 @@
   <div class="modal-content text-center">
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
-    <div class="image-update-errors"></div>
-      <%= form_with(model: @image, url: employees_estimate_matter_image_path(current_estimate_matter, @image), method: :patch, remote: true) do |f| %>
-        <div class="edit-image-content-position">
-          <%= f.label :content %>
-          <div>
-            <%= f.text_area :content, maxlength: 300 %>
+      <div class="image-update-errors"></div>
+        <%= form_with(model: @image, url: employees_estimate_matter_image_path(current_estimate_matter, @image), method: :patch, remote: true) do |f| %>
+          <div class="edit-image-content-position">
+            <%= f.label :content %>
+            <div>
+              <%= f.text_area :content, maxlength: 300 %>
+            </div>
+            
+            <%= f.label :shooted_on %>
+            <div>
+              <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
+            </div>
           </div>
           
-          <%= f.label :shooted_on %>
           <div>
-            <%= f.date_field :shooted_on, class: "btn btn-secondary" %>
+            <%= f.submit "更新", class: "btn btn-md btn-dark" %>
+            <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
           </div>
-        </div>
         
-        <div>
-          <%= f.submit "更新", class: "btn btn-md btn-dark" %>
-          <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
-        </div>
-      
-        <% if @image.images.attached? %>
           <% @image.images.each do |image| %>
             <figure class="images-partial mt-20">
               <%= image_tag url_for(image.variant(resize: "400x400")) %>
             </figure>
           <% end %>
-        <% end %>
-      <% end %> 
+        <% end %> 
+      </div>
     </div>
   </div>
 </div>
