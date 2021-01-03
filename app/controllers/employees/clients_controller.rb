@@ -34,8 +34,10 @@ class Employees::ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      flash[:success] = "顧客情報を更新しました。"
-      redirect_to employees_client_url(@client)
+      @client_success_flash = "顧客情報を更新しました。"
+      respond_to do |format|
+        format.js
+      end
     else
       respond_to do |format|
         format.js

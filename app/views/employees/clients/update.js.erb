@@ -1,7 +1,17 @@
-$(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
-<% @client.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="client[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="client[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @client.errors.messages.keys.present? %>
+  $(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
+  <% @client.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="client[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="client[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
+<% else%>
+  $("#client-edit").modal("hide");
+  $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/tab_pane/profile") %>');
+  $(".success_flash").html('<div class="alert alert-success"><%= @client_success_flash %></div>')
+
+  $("#client-edit").modal("hide");
+  $(".clients-index").html('<%= escape_javascript(render "employees/clients/tab_pane/detail") %>');
+  $(".success_flash").html('<div class="alert alert-success"><%= @client_success_flash %></div>')
 <% end %>
