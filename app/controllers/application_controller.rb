@@ -186,8 +186,6 @@ class ApplicationController < ActionController::Base
                                                                                                          .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
     end
   end
-    
-  private
   
   # --------------------------------------------------------
         # DEVISE関係

@@ -1,7 +1,14 @@
-$(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
-<% @client.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="client[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="client[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $("#client-edit").modal("hide");
+  $(".flash-wrapper").html('<div class="alert alert-success">顧客情報を更新しました。</div>')
+  $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/tab_pane/profile") %>');
+  $(".clients-index").html('<%= escape_javascript(render "employees/clients/tab_pane/detail") %>');
+<% else %>
+  $(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
+  <% @client.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="client[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="client[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
 <% end %>
