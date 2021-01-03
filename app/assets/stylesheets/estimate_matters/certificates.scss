@@ -1,0 +1,29 @@
+.certificate-item {
+  margin-top: 1em;
+  padding: 0 15px;
+  .image-wrapper {
+    align-items: center;
+    background: black;
+    display: flex;
+    height: 300px;
+    justify-content: center;
+    .image {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+  .explanation {
+    padding: 0;
+    .title {
+      background: silver;
+      font-weight: bold;
+      padding: 10px 15px;
+      text-align: center;
+    }
+    .content {
+      background: whitesmoke;
+      height: 100%;
+      padding: 10px 15px;
+    }
+  }
+}

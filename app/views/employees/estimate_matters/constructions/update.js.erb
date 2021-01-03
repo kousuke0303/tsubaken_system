@@ -1,7 +1,7 @@
 <% if @response == "success" %>
   $("#estimate-construction-edit").modal("hide");
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">素材を更新しました。</div>');
-  $(".estimates-index").html('<%= escape_javascript(render "shared/estimate_matters/estimates_table") %>');
+  $(".estimates-index").html('<%= escape_javascript(render "shared/estimate_matters/estimates_index") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })

@@ -1,10 +1,14 @@
-<div class="row">
+<div class="row certificates-wrapper">
   <% @certificates.each do |certificate| %>
-    <div class="col-lg-6 col-12 flex">
-      <div width="50%"><%= certificate.image %></div>
-      <div width="50%">
-        <div><%= certificate.title %></div>
-        <div><%= certificate.content %></div>
+    <div class="col-lg-6 col-12">
+      <div class="row certificate-item">
+        <div class="col-lg-6 col-12 image-wrapper">
+          <%= image_tag url_for(certificate.image.images[0]), class: "image" %>
+        </div>
+        <div class="col-lg-6 col-12 explanation">
+          <div class="title"><%= certificate.title %></div>
+          <div class="content"><%= certificate.content %></div>
+        </div>
       </div>
     </div>
   <% end %>
