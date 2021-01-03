@@ -33,15 +33,9 @@ class Employees::ClientsController < ApplicationController
   end
 
   def update
-    if @client.update(client_params)
-      @client_success_flash = "顧客情報を更新しました。"
-      respond_to do |format|
-        format.js
-      end
-    else
-      respond_to do |format|
-        format.js
-      end
+    @client.update(client_params) ? @responce = "success" : @responce = "failed"
+    respond_to do |format|
+      format.js
     end
   end
 
