@@ -1,0 +1,41 @@
+<div class="row">
+  <% @certificates.each do |certificate| %>
+    <div class="col-lg-6 col-12 flex">
+      <div width="50%"><%= certificate.image %></div>
+      <div width="50%">
+        <div><%= certificate.title %></div>
+        <div><%= certificate.content %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-bordered table_line_type">
+  <thead>
+    <tr>
+      <th class="text-center">内容</th>
+      <th class="text-center">タイトル</th>
+      <th class="text-center">診断書内容</th>
+      <th class="text-center">診断書編集・削除</th>
+    </tr>
+  </thead>
+  <% @certificates.each do |certificate| %>
+    <% @images.each do |image| %>
+      <tr>
+        <td style="vertical-align: middle" class="text-center">
+          <%= image.content %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= certificate.title %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= certificate.content %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= link_to "編集", edit_employees_estimate_matter_certificate_path(current_estimate_matter, certificate.id), remote: true, class: "btn btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_certificate_path(current_estimate_matter, certificate.id), method: :delete, data: { confirm: 'この診断書を削除してよろしいですか?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
