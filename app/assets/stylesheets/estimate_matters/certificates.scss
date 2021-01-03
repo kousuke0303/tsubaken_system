@@ -1,3 +1,9 @@
+.certificates-wrapper {
+  a {
+    color: black !important;
+    text-decoration: none;
+  }
+}
 .certificate-item {
   margin-top: 1em;
   padding: 0 15px;
@@ -15,14 +21,17 @@
   .explanation {
     padding: 0;
     .title {
+      align-items: center;
       background: silver;
+      display: flex;
       font-weight: bold;
-      padding: 10px 15px;
-      text-align: center;
+      justify-content: center;
+      height: 3em;
+      padding: 0 15px;
     }
     .content {
       background: whitesmoke;
-      height: 100%;
+      height: calc(100% - 3em);
       padding: 10px 15px;
     }
   }

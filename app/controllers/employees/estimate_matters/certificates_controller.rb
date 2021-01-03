@@ -1,4 +1,4 @@
-class Employees::EstimateMatters::CertificatesController < ApplicationController
+class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :current_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
   before_action :set_certificates, only: [:new, :edit]
