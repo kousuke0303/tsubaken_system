@@ -17,7 +17,10 @@
       <div class="tab-content" id="client-show-tab">
             
         <div class="tab-pane fade show active bg-white" id="client-detail" role="tabpanel">
-          <%= render "employees/clients/tab_pane/detail" %>
+          <div class= "success_flash"></div>
+          <div class="clients-matter-index ">
+            <%= render "employees/clients/tab_pane/detail" %>
+          </div>
         </div>
           
         <div class="tab-pane fade bg-white" id="estimate-matters" role="tabpane2">
@@ -27,3 +30,4 @@
     </div>
   </div>
 </div>
+

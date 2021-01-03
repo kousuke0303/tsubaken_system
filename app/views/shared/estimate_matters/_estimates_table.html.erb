@@ -18,10 +18,14 @@
   <div class="estimate-table-body flex">
     <!-- 見積のプラン名 -->
     <div class="estimate-name">
-      <%= link_to estimate[0].title, edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id),
-                                     remote: true, class: "btn btn-sm btn-dark" %>
-      <%= link_to "複製", copy_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), method: :post, remote: true,
-                          data: { confirm: "この見積を複製してよろしいですか？" }, class: "btn btn-sm btn-success ml-1e" %>      
+      <% if current_client %>
+        <%= estimate[0].title %>
+      <% else %>    
+        <%= link_to estimate[0].title, edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id),
+                                      remote: true, class: "btn btn-sm btn-dark" %>
+        <%= link_to "複製", copy_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id), method: :post, remote: true,
+                            data: { confirm: "この見積を複製してよろしいですか？" }, class: "btn btn-sm btn-success ml-1e" %>
+      <% end %>  
     </div>
 
     <div style="width: 80%;">
@@ -31,7 +35,11 @@
           <% last = "last" if index == estimate.size - 1 %>
           <div class="flex category-item category-item-<%= last %>">
             <div class="category-name category-name-<%= last %>">
-              <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-sm btn-dark" %>
+              <% if current_client %>
+                <%= category[0].category_name %>
+              <% else %>   
+                <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-sm btn-dark" %>
+              <% end %>
             </div>
             <div class="construction-material construction-material-<%= last %>">              
               <% if @materials %>
@@ -49,8 +57,12 @@
                   <% end %>
                   <div class="flex construction-material-item construction-material-item-<%= last %>">
                     <div class="construction-material-detail">
-                      <%= link_to material.name, edit_employees_estimate_matter_material_path(@estimate_matter, material.id),
-                                                remote: true, class: "btn btn-sm btn-dark" %>
+                      <% if current_client %>
+                        <%= material.name %>
+                      <% else %>
+                        <%= link_to material.name, edit_employees_estimate_matter_material_path(@estimate_matter, material.id),
+                                                   remote: true, class: "btn btn-sm btn-dark" %>
+                      <% end %>
                     </div>
                     <div class="construction-material-detail"><%= material.service_life %></div>
                     <div class="construction-material-detail"><%= material.price %></div>
@@ -76,8 +88,12 @@
                   <% end %>
                   <div class="flex construction-material-item <%= with_border_top %> construction-material-item-<%= last %>">
                     <div class="construction-material-detail">
-                      <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
-                                                    remote: true, class: "btn btn-sm btn-dark" %>
+                      <% if current_client %>
+                        <%= construction.name %>
+                      <% else %>
+                        <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
+                                                      remote: true, class: "btn btn-sm btn-dark" %>
+                      <% end %>
                     </div>
                     <div class="construction-material-detail"></div>
                     <div class="construction-material-detail"><%= construction.price %></div>
