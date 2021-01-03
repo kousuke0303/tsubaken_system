@@ -1,11 +1,10 @@
-<div>
+<div class="col-md-6 offset-md-3 col-12">
   <h2>アカウント編集</h2>
   <div class = "show_avator_external_staff mx-auto my-2">
     <%= avator(current_external_staff) %>
   </div>
 
   <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark"></div>
     <div class="card-body">
       <%= form_with(model: @external_staff, url: external_staff_registration_path(@external_staff), local: true) do |f| %>
         <%= render "shared/error_messages", resource: resource %>
