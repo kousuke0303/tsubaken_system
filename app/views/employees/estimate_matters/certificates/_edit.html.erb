@@ -1,33 +1,27 @@
-<div style="text-align: center;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-      <div class="modal-body pa-2e">
-      <div class="certificate-update-errors"></div>
-        <%= form_with(model: @certificate, url: employees_estimate_matter_certificate_path(current_estimate_matter, @certificate), method: :patch, remote: true) do |f| %>
-          <div class="edit-image-content-position">
-            <%= f.label :title %>
-            <%= f.text_field :title, maxlength: 30, class: "form-control" %>
-          </div>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+    <div class="certificate-update-errors"></div>
+      <%= form_with(model: @certificate, url: employees_estimate_matter_certificate_path(@estimate_matter, @certificate), method: :patch, remote: true) do |f| %>
+        <%= f.label :title %>
+        <%= f.text_field :title, maxlength: 30, class: "form-control" %>
 
-          <div class="edit-image-content-position">
-            <%= f.label :content %>
-            <%= f.text_area :content, maxlength: 300, class: "form-control" %>
-          </div>
-          <div>
-            <%= f.submit "更新", class: "btn btn-md btn-dark" %>
-            <%= link_to "削除", employees_estimate_matter_certificate_path(current_estimate_matter, @certificate), method: :delete, data: { confirm: "この診断書を削除してよろしいですか?" }, class: "btn btn-danger" %>
-          </div>
-        <% end %> 
-        
-        <% if @image.images.attached? %>
-          <% @image.images.each do |image| %>
-            <figure class="images-partial mt-20">
-              <%= image_tag url_for(image.variant(resize: "400x400")) %>
-            </figure>
-          <% end %>
-        <% end %>
-      </div>
+        <%= f.label :content %>
+        <%= f.text_area :content, maxlength: 300, class: "form-control" %>
+
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-md btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, @certificate), method: :delete,
+                             remote: true, data: { confirm: "この診断書を削除してよろしいですか?" }, class: "btn btn-danger" %>
+        </div>
+      <% end %> 
+      
+      <% if @image %>
+        <div class="preview-image-wrapper">
+          <%= image_tag url_for(@image.images.first), class: "preview-image" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

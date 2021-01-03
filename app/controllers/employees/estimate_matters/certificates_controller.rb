@@ -2,7 +2,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   before_action :set_estimate_matter
   before_action :current_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
-  before_action :set_certificates, only: [:new, :edit]
+  before_action :set_certificates, only: [:new]
 
   def new
     @certificate = Certificate.new
@@ -22,12 +22,12 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   end
 
   def edit
-    @image = Image.find_by(params[:image_id])
+    @image = @certificate.image
   end
 
   def update
     @certificate.update(certificate_params) ? @responce = "success" : @responce = "false"
-    @certificates = @estimate_matter.certificates
+    set_certificates
     respond_to do |format|
       format.js
     end
@@ -53,6 +53,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     end
     
     def set_certificates
-      @certificates = Certificate.all
+      @certificates = @estimate_matter.certificates
     end
 end
