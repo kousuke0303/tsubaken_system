@@ -1,6 +1,6 @@
 <% if @responce == "success" %>
   $("#client-edit").modal("hide");
-  $(".flash-wrapper").html('<div class="alert alert-success">顧客情報を更新しました。</div>')
+  $(".flash-wrapper").html('<div class="flash flash-success">顧客情報を更新しました。</div>')
   $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/tab_pane/profile") %>');
   $(".clients-index").html('<%= escape_javascript(render "employees/clients/tab_pane/detail") %>');
 <% else %>

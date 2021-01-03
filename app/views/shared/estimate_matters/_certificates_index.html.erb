@@ -4,14 +4,16 @@
       <%= link_to edit_employees_estimate_matter_certificate_path(@estimate_matter, certificate), remote: true, class: "aaa" do  %>
         <div class="row certificate-item">
           <div class="col-lg-6 col-12 image-wrapper">
-            <%= image_tag url_for(certificate.image.images[0]), class: "image" %>
+            <% if certificate.image %>
+              <%= image_tag url_for(certificate.image.images[0]), class: "image" %>
+            <% end %>
           </div>
           <div class="col-lg-6 col-12 explanation">
             <div class="title"><%= certificate.title %></div>
             <div class="content"><%= certificate.content %></div>
           </div>
         </div>
-        <% end %>
+      <% end %>
     </div>
   <% end %>
 </div>

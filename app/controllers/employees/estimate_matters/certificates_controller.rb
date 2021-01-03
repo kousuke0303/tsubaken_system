@@ -1,4 +1,5 @@
 class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
+  before_action :set_estimate_matter
   before_action :current_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
   before_action :set_certificates, only: [:new, :edit]
@@ -25,13 +26,10 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   end
 
   def update
-    if @certificate.update(certificate_params)
-      flash[:success] = "診断書を更新しました。"
-      redirect_to employees_estimate_matter_url(current_estimate_matter)
-    else
-      respond_to do |format|
-        format.js
-      end
+    @certificate.update(certificate_params) ? @responce = "success" : @responce = "false"
+    @certificates = @estimate_matter.certificates
+    respond_to do |format|
+      format.js
     end
   end
 
