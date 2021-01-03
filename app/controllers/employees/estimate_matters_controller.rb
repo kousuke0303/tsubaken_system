@@ -11,6 +11,9 @@ class Employees::EstimateMattersController < ApplicationController
   def index
     @sales_statuses = SalesStatus.with_practitioner
     current_person_in_charge
+    if params[:name].present?
+      @estimate_matters = @estimate_matters.get_id_by_name params[:name]
+    end
   end
 
   def new
