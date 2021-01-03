@@ -1,19 +1,18 @@
 class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :current_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
-  before_action :set_certificates, only: [:new]
 
   def new
     @certificate = Certificate.new
-    @images = current_estimate_matter.images.select { |image| image.images.attached? }
+    @certificates = Certificate.where(default: true)
+    @images = @estimate_matter.images.select { |image| image.images.attached? }
   end
 
   def create
-    @certificate = current_estimate_matter.certificates.new(certificate_params.merge(default: true))
+    @certificate = @estimate_matter.certificates.new(certificate_params)
     if @certificate.save
       flash[:success] = "診断書を作成しました。"
-      redirect_to employees_estimate_matter_images_url(current_estimate_matter)
+      redirect_to employees_estimate_matter_images_url(@estimate_matter)
     else
       respond_to do |format|
         format.js
@@ -34,13 +33,16 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   end
 
   def index
-    @certificates = current_estimate_matter.certificates.where(default: true).order(created_at: "DESC")
-    @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+    @certificates = @estimate_matter.certificates.where(default: false).order(created_at: "DESC")
+    @images = @estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
 
   def destroy
-    @certificate.destroy ? flash[:success] = "診断書を削除しました。" : flash[:alert] = "診断書を削除できませんでした。"
-    redirect_to employees_estimate_matter_url(current_estimate_matter)
+    @certificate.destroy
+    set_certificates
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
