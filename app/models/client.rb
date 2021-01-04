@@ -25,7 +25,7 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # 名前検索
-  scope :get_by_name, ->(name) { where("name like ?", "%#{name}%") }
+  scope :get_by_name, ->(name) { where("name like ?", "%#{ name }%") }
          
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?

@@ -224,9 +224,8 @@ end
 
 puts "CREATE! CONSTRUCTION"
 
-2.times do |n|
-  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter1.id)
-  Certificate.create(title: "テスト診断書#{ n + 1 }", content: "テスト#{ n + 1 }", default: true, estimate_matter_id: SeedEstimateMatter2.id)
+%w(屋根 外壁 玄関).each do |name|
+  Certificate.create(title: "診断書#{ name }の診断書", content: "#{ name }の診断内容", default: true)
 end 
 
 puts "CREATE! CERTIFICATE"
