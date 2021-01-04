@@ -16,7 +16,8 @@
     </div>
   </div>
   
-
+  <input type="hidden" name="estimate_matter_id" value="<%= params[:estimate_matter_id] %>" id="estimate_matter_id">
+    
   <div class="text-center mt-1e">
     <div>
       <div class="table-responsive">
@@ -53,15 +54,6 @@
               <td><%= external_staff_matter.scheduled_started_on %></td>
               <td><%= external_staff_matter.scheduled_finished_on %></td>
               <td><%= I18n.t("enums.matter.status.#{external_staff_matter.status}") %></td>
-              </tr>
-            <% end %>
-          <% else %>
-            <% @client_matters.each do |client_matter| %>
-              <tr class="tr-link" data-link="<%= employees_matter_path(client_matter_matter) %>">
-              <td><%= client_matter.title %></td>
-              <td><%= client_matter.scheduled_started_on %></td>
-              <td><%= client_matter.scheduled_finished_on %></td>
-              <td><%= I18n.t("enums.matter.status.#{client_matter.status}") %></td>
               </tr>
             <% end %>
           <% end %>

@@ -1,19 +1,16 @@
-<h4>タイトル選択</h4>
-<%= f.label :title %>
+<h4 class="mb-15">デフォルト診断書選択</h4>
 <select class="form-control" id="certificate_id" name="certificate[title]">
   <% @certificates.distinct.select(:title).each do |certificate| %>
     <option><%= certificate.title %></option>
   <% end %>
 </select>
 
-<div style="margin-top: 15px;">
-  <h4>タイトル編集</h4>
-</div>
+<h4 class="mt-15">タイトル編集</h4>
 <%= f.label :title %>
-<%= f.text_field :title, id: "title", value: "#{@certificates.first.title}", maxlength: 30, class: "form-control" %>
+<%= f.text_field :title, id: "title", value: "#{ @certificates.first.title }", maxlength: 30, class: "form-control" %>
 
 <%= f.label :content %>
-<%= f.text_area :content, id: "content", value: "#{@certificates.first.content}", maxlength: 300, class: "form-control" %>
+<%= f.text_area :content, id: "content", value: "#{ @certificates.first.content }", maxlength: 300, class: "form-control" %>
 
 <%= f.hidden_field :image_id, value: params[:image_id] %>
 

@@ -32,4 +32,6 @@
   <%= f.select :member, options_for_select(@members.map{|member|[member[:name], member[:auth] + "#" + member[:id].to_s]}), {include_blank: "選択してください"}, required: true, class: "form-control" %>
 </div>
 
+
 <!--<!%= render "shared/person_in_charge_jq" %>-->
+

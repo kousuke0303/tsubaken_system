@@ -1,7 +1,13 @@
-$(".certificate-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @certificate) %>');
-<% @certificate.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $("#certificate-edit").modal("hide");
+  $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を更新しました。</div>')
+  $(".certificates-index").html('<%= escape_javascript(render "shared/estimate_matters/certificates_index") %>');
+<% else %>
+  $(".certificate-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @certificate) %>');
+  <% @certificate.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
 <% end %>

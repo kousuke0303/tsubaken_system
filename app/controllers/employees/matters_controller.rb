@@ -52,6 +52,8 @@ class Employees::MattersController < ApplicationController
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
     set_classified_tasks(@matter)
+    @client_id = EstimateMatter.joins(:matter).find_by(id: @matter.estimate_matter_id).client_id
+    @client = Client.find_by(id: @client_id)
   end
 
   def edit

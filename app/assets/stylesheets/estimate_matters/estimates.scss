@@ -1,0 +1,89 @@
+// 見積一覧テーブル
+.estimates-index {
+  .estimate-table-header {
+    background: #eeeeee;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+    .estimate-name {
+      border-right: 1px solid black;
+      width: 20%;
+    }
+    .category-name {
+      border-right: 1px solid black;
+      width: 20%;
+    }
+    .construction-material {
+      width: 80%;
+    }
+    .construction-material-detail {
+      border-right: 1px solid black;
+      width: calc(100% / 6);
+    }
+    .construction-material-detail-total {
+      width: calc(100% / 6);
+    }
+  }
+  
+  .estimate-table-body {
+    border: 1px solid black;
+    box-sizing: border-box;
+    text-align: center;
+    .estimate-name {
+      align-items: center;
+      border-right: 1px solid black;
+      display: flex;
+      justify-content: center;    
+      width: 20%;
+    }
+    .category-item {
+      border-bottom: 1px solid black;
+    }
+    .category-item-last {
+      border-bottom: none;
+    }
+    .category-name {
+      align-items: center;
+      border-right: 1px solid black;
+      display: flex;
+      justify-content: center;    
+      width: 20%;
+    }
+    .category-name-last {
+      border-bottom: none;
+    }
+    .construction-material {
+      width: 80%;
+    }
+    .construction-material-item {
+      border-bottom: 1px solid black;
+    }
+    .construction-material-item-last {
+      border-bottom: none;
+    }
+    .with-border-top {
+      border-top: 1px solid black;
+    }
+    .construction-material-detail {
+      align-items: center;
+      display: flex;
+      justify-content: center;    
+      border-right: 1px solid black;
+      width: calc(100% / 6);
+    }
+    .construction-material-detail-total {
+      width: calc(100% / 6);
+    }
+  }
+  
+  .estimate-table-footer {
+    background: #eeeeee;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+  }  
+}

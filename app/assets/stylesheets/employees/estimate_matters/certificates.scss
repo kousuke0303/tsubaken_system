@@ -1,0 +1,15 @@
+// 診断書編集モーダルのプレビュー画像表示
+.preview-image-wrapper {
+  align-items: center;
+  background: black;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  margin-top: 1em;
+  width: 100%；
+}
+
+.preview-image {
+  max-height: 100%;
+  max-width: 100%;
+}
