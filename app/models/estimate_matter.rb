@@ -21,6 +21,7 @@ class EstimateMatter < ApplicationRecord
   before_create :identify
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{name}").ids) }
+  scope :get_id_by_status, ->(sales_status, status) { joins(:sales_statuses).where(id: sales_status.where("status = ?", "#{status}").pluck(:estimate_matter_id)).distinct }
 
   private
     def identify(num = 16)

@@ -14,6 +14,9 @@ class Employees::EstimateMattersController < ApplicationController
     if params[:name].present?
       @estimate_matters = @estimate_matters.get_id_by_name params[:name]
     end
+    if params[:status].present?
+      @estimate_matters = @estimate_matters.get_id_by_status @sales_statuses, params[:status]
+    end
   end
 
   def new
