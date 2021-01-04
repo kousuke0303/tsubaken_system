@@ -1,7 +1,7 @@
-<%= link_to new_employees_supplier_external_staff_path(@supplier), remote: true, class: "btn btn-dark float-r" do %>
-  <i class="fas fa-plus"></i> 新規外部Staff
+<%= link_to new_employees_supplier_external_staff_path(@supplier), remote: true, class: "btn btn-success float-r mb-1e" do %>
+  <i class="fas fa-plus"></i> <%= @supplier.name %>の新規STAFF登録
 <% end %>
-<table class="table table-sm common-table">
+<table class="table table-bordered common-table">
   <tr>
     <th>名前</th>
     <th>ログインID</th>

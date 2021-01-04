@@ -19,10 +19,15 @@
     </ul>
   </li>
   <li>
-    <%= link_to employees_suppliers_path do %>
-      <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
+    <%= link_to "#supplier-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-building"></i><span class="ml-1e">外注先管理</span>
     <% end %>
+    <ul class="collapse list-unstyled" id="supplier-menu">
+      <li><%= link_to "企業", employees_suppliers_path %></li>
+      <li><%= link_to "個人", individual_employees_attendances_path %></li>
+    </ul>
   </li>
+  
   <li>
     <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
       <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
