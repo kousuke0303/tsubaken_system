@@ -1,31 +1,35 @@
 <%= f.label :status %>
-<%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, {}, class: "form-control" %>
+<%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, {}, required: true, class: "form-control" %>
 
 <%= f.label :conducted_on %>
-<%= f.date_field :conducted_on, presence: true, class: "form-control" %>
+<%= f.date_field :conducted_on, required: true, class: "form-control" %>
 
 <%= f.label :note %>
 <%= f.text_area :note, maxlength: 300, class: "form-control" %>
 
-<h5 class="text-center mt-1e">実施者</h5>
-<div class="flex mt-1e">
-  <div class="pl-05e pr-05e" style="width: 50%;">
-    <button class="btn btn-dark btn-block" type="button" id="staff-btn">Staff</button>
-  </div>
-  <div class="pl-05e pr-05e" style="width: 50%;">
-    <button class="btn btn-dark btn-block" type="button" id="external-staff-btn">外部Staff</button>
-  </div>
-</div>
+<h6 class="mt-1e">担当者</h6>
+<!--<div class="flex mt-1e">-->
+<!--  <div class="pl-05e pr-05e" style="width: 50%;">-->
+<!--    <button class="btn btn-dark btn-block" type="button" id="staff-btn">Staff</button>-->
+<!--  </div>-->
+<!--  <div class="pl-05e pr-05e" style="width: 50%;">-->
+<!--    <button class="btn btn-dark btn-block" type="button" id="external-staff-btn">外部Staff</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--  <div id="staff-select">-->
+<!--    <!%= f.label :staff_id %>-->
+<!--    <!%= f.collection_select :staff_id, @staffs, :id, :name, { include_blank: "担当Staffなし" }, class: "form-control", id: "staff" %>-->
+<!--  </div>-->
+<!--  <div id="external-staff-select">-->
+<!--    <!%= f.label :external_staff_id %>-->
+<!--    <!%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { include_blank: "担当外部Staffなし" }, class: "form-control", id: "external-staff" %>-->
+<!--  </div>-->
+<!--</div>-->
 
 <div>
-  <div id="staff-select">
-    <%= f.label :staff_id %>
-    <%= f.collection_select :staff_id, @staffs, :id, :name, { include_blank: "担当Staffなし" }, class: "form-control", id: "staff" %>
-  </div>
-  <div id="external-staff-select">
-    <%= f.label :external_staff_id %>
-    <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { include_blank: "担当外部Staffなし" }, class: "form-control", id: "external-staff" %>
-  </div>
+  <%= f.select :member, options_for_select(@members.map{|member|[member[:name], member[:auth] + "#" + member[:id].to_s]}), {include_blank: "選択してください"}, required: true, class: "form-control" %>
 </div>
 
-<%= render "shared/person_in_charge_jq" %>
+<!--<!%= render "shared/person_in_charge_jq" %>-->

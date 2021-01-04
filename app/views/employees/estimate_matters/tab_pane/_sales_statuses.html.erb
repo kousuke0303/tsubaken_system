@@ -1,19 +1,20 @@
-<table class="table table-sm common-table">
+<table class="table table-sm common-table" id="sales_status_index">
   <tr>
     <th>ステータス</th>
-    <th>実施日</th>
-    <th>実施者</th>
+    <th>予定日</th>
+    <th>担当者</th>
+    <th>更新者</th>
+    <th>更新日</th>
     <th>備考</th>
     <th></th>
   </tr>
   <% @sales_statuses.each do |sales_status| %>
     <tr>
       <td><%= sales_status.status_i18n %></td>
-      <td><%= l(sales_status.conducted_on, format: :long) %></td>
-      <td>
-        <%= sales_status.staff_name %>
-        <%= sales_status.external_staff_name %>
-      </td>
+      <td><%= l(sales_status.conducted_on, format: :short) %></td>
+      <td><%= status_member_name(sales_status) if sales_status.sales_status_member.present? %></td>
+      <td><%= editor_name(sales_status) if sales_status.sales_status_editor.present? %></td>
+      <td><%= l(sales_status.updated_at, format: :day) %></td>
       <td><%= sales_status.note %></td>
       <td>
         <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
@@ -24,3 +25,9 @@
     </tr>
   <% end %>
 </table>
+
+<script>
+  $(document).ready( function(){
+    $('#sales_status_index td').slice(0, 7).addClass("now_status");
+  });
+</script>
