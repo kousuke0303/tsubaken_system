@@ -7,6 +7,7 @@
           <div style="display: inline-flex">
             <%= f.text_field :name, class: "form-control mx-2 mg-0", placeholder: "顧客名検索" %>
             <%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), SalesStatus.statuses.values_at(k).first] }, { include_blank: "ステータス別検索" }, class: "form-control mx-2 mg-0" %>
+            <%= f.date_select :created_at, {:discard_day => true, :start_year => Time.now.year, :end_year => 2000, :prompt => "作成月別検索"}, class: "form-control mx-2 mg-0" %>
             <%= f.submit "検索", class: "btn btn-md btn-primary" %>
           </div>
         <% end %>
