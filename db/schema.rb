@@ -338,15 +338,6 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
     t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
   end
 
-  create_table "sales_statuses_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "authority"
-    t.integer "member_id"
-    t.bigint "sales_status_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sales_status_id"], name: "index_sales_statuses_members_on_sales_status_id"
-  end
-
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "staff_id"
     t.integer "event_title_id"
@@ -463,7 +454,6 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   add_foreign_key "sales_status_members", "sales_statuses"
   add_foreign_key "sales_statuses", "external_staffs"
   add_foreign_key "sales_statuses", "staffs"
-  add_foreign_key "sales_statuses_members", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
