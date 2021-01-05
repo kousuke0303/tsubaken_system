@@ -1,7 +1,5 @@
 class SalesStatus < ApplicationRecord
   belongs_to :estimate_matter
-  belongs_to :staff,             optional: true
-  belongs_to :external_staff,    optional: true
   has_one :sales_status_editor, dependent: :destroy
   has_one :sales_status_member, dependent: :destroy
 
