@@ -1,6 +1,6 @@
 <div class="col-lg-12 col-md-12">
   <h2>
-    見積案件一覧
+    <i class="fas fa-paste"></i> 見積案件一覧
     <%= link_to new_employees_estimate_matter_path, remote: true, class: "btn btn-dark float-r" do %>
       <i class="fas fa-plus"></i> 新規見積案件
     <% end %>
@@ -21,7 +21,7 @@
             <% if sales_status.status == "not_set" %>
               <td><%= sales_status.status_i18n %></td>
             <% elsif sales_status %>
-              <td><%= sales_status.status_i18n %>／<%= sales_status.staff_name %><%= sales_status.external_staff_name %></td>
+              <td><%= sales_status.status_i18n %>／<%= status_member_name(sales_status) %></td>
             <% else %>
               <td></td>
             <% end %>
