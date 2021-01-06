@@ -1,7 +1,7 @@
 <div class="col-lg-12 col-md-12">
   <h2>
     <div style="display: inline-flex">
-      <span class="mr-1e">顧客一覧</span>
+      <span class="mr-1e"><i class="fas fa-address-book"></i> 顧客一覧</span>
         <form class="form-inline">
           <%= form_with(model: @client, method: :get, local: true) do |f| %>
             <div style="display: inline-flex">
@@ -15,47 +15,63 @@
       <i class="fas fa-plus"></i> 新規顧客
     <% end %>
   </h2>
-  <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="clients-index" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#having-matter" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">依頼あり</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#no-matter" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false">依頼なし</a>
-        </li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <div class="tab-content" id="clients-index">
-
-        <div class="tab-pane fade show active bg-white" id="having-matter" role="tabpanel">
-          <table class="table table-bordered common-table">
-            <tr>
-              <th>名前</th>
-              <th>顧客ID</th>
-              <th>性別</th>
-              <th>電話番号①</th>
-              <th>電話番号②</th>
-              <th>メールアドレス</th>
-            </tr>
-            <% @clients.each do |client| %>
-              <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-                <td><%= client.name %></td>
-                <td><%= client.login_id %></td>
-                <td><%= client.gender_i18n %></td>
-                <td><%= client.phone_1 %></td>
-                <td><%= client.phone_2 %></td>
-                <td><%= client.email %></td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
-
-        <div class="tab-pane fade show active bg-white" id="no-matter" role="tabpanel">
-        </div>
-
-      </div>
-    </div>
+  
+  <div class="select_switch">
+    <input type="radio" name="switch" id="radio1" checked>
+    <label for="radio1">成約済顧客</label>
+    <input type="radio" name="switch" id="radio2">
+    <label for="radio2">未成約顧客</label>
+  </div>
+  
+  <div>
+    <table class="table table-bordered common-table">
+      <thead>
+      <tr>
+        <th>名前</th>
+        <th>顧客ID</th>
+        <th>性別</th>
+        <th>電話番号①</th>
+        <th>電話番号②</th>
+        <th>メールアドレス</th>
+      </tr>
+      </thead>
+      <tbody id="has_matter">
+      <% @clients.each do |client| %>
+        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+          <td><%= client.name %></td>
+          <td><%= client.login_id %></td>
+          <td><%= client.gender_i18n %></td>
+          <td><%= client.phone_1 %></td>
+          <td><%= client.phone_2 %></td>
+          <td><%= client.email %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      <tbody id="no_matter" style="display: none;">
+      <tr>
+        <% @no_matter_clients.each do |client| %>
+        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+          <td><%= client.name %></td>
+          <td><%= client.login_id %></td>
+          <td><%= client.gender_i18n %></td>
+          <td><%= client.phone_1 %></td>
+          <td><%= client.phone_2 %></td>
+          <td><%= client.email %></td>
+        </tr>
+      <% end %>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
+<script>
+  $('#radio2').on('click', function(){
+    $('#no_matter').show();
+    $('#has_matter').hide();
+  });
+  $('#radio1').on('click', function(){
+    $('#no_matter').hide();
+    $('#has_matter').show();
+  });
+</script>

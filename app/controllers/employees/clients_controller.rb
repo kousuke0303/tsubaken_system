@@ -26,7 +26,8 @@ class Employees::ClientsController < ApplicationController
   end
 
   def index
-    @clients = Client.all
+    @clients = Client.has_matter
+    @no_matter_clients = Client.not_have_matter
     if params[:name].present?
       @clients = @clients.get_by_name params[:name]
     end
