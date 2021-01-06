@@ -202,9 +202,8 @@ Rails.application.routes.draw do
     resources :managers
     resources :staffs
     resources :clients
-    resources :suppliers do
-      resources :external_staffs, only: [:new, :create, :show, :edit, :update, :destroy]
-    end
+    resources :suppliers
+    resources :external_staffs
     resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily

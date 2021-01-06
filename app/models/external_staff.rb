@@ -1,5 +1,5 @@
 class ExternalStaff < ApplicationRecord
-  belongs_to :supplier
+  belongs_to :supplier, optional: true
   has_many :attendances, dependent: :destroy
   has_many :estimate_matter_external_staffs, dependent: :destroy
   has_many :matter_external_staffs, dependent: :destroy
@@ -23,14 +23,7 @@ class ExternalStaff < ApplicationRecord
 
   # ログインIDは「SP(外注先ID)-」から始めさせる
   def external_staff_login_id_is_correct?
-    correct_login_id_lead = "SP" + self.supplier_id.to_s + "-"
-    errors.add(:login_id, "は「SP(外注先ID)-」から始めてください") if login_id.present? && !login_id.start_with?(correct_login_id_lead)
-  end
-
-  # login_idの先頭部分以外を取得
-  def login_id_body
-    login_id_lead_count = self.supplier_id.to_s.length + 3
-    return self.login_id.slice(login_id_lead_count, 12)
+    errors.add(:login_id, "は「ES-」から始めてください") if login_id.present? && !login_id.start_with?("ES-")
   end
 
   # ------------------------------以下devise関連------------------------------
