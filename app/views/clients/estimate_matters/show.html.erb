@@ -62,8 +62,7 @@
   
       <div id="collapse-certificates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-certificates">
         <div class="card-body">
-          <% @certificates.each do |certificate| %>
-          <% end %>
+          <%= render "shared/estimate_matters/certificates_index" %>
         </div>
       </div>
     </div>

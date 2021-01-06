@@ -9,7 +9,7 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :can_access_only_estimate_matter_of_being_in_charge
 
   def index
-    @sales_statuses = SalesStatus.with_practitioner
+    @sales_statuses = SalesStatus.order(created_at: "DESC")
     current_person_in_charge
     if params[:name].present?
       @estimate_matters = @estimate_matters.get_id_by_name params[:name]
@@ -40,7 +40,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def show
     @matter = @estimate_matter.matter
-    @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
+    @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     @estimates = @estimate_matter.estimates.with_categories
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)

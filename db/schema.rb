@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_041900) do
+ActiveRecord::Schema.define(version: 2021_01_03_144323) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -306,6 +306,24 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
     t.index ["matter_id"], name: "index_messages_on_matter_id"
   end
 
+  create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "authority"
+    t.integer "member_id"
+    t.bigint "sales_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sales_status_id"], name: "index_sales_status_editors_on_sales_status_id"
+  end
+
+  create_table "sales_status_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "authority"
+    t.integer "member_id"
+    t.bigint "sales_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sales_status_id"], name: "index_sales_status_members_on_sales_status_id"
+  end
+
   create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", null: false
     t.date "conducted_on", null: false
@@ -432,6 +450,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_041900) do
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
   add_foreign_key "messages", "matters"
+  add_foreign_key "sales_status_editors", "sales_statuses"
+  add_foreign_key "sales_status_members", "sales_statuses"
   add_foreign_key "sales_statuses", "external_staffs"
   add_foreign_key "sales_statuses", "staffs"
   add_foreign_key "staffs", "departments"
