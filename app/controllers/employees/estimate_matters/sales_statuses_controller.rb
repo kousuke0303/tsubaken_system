@@ -10,6 +10,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
 
   def create
     @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)
+    
     ActiveRecord::Base.transaction do
       @sales_status.save
       member_in_charge
@@ -33,6 +34,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   def update
     ActiveRecord::Base.transaction do
       @sales_status.update(sales_status_params)
+      member_in_charge
       save_editor
     end
       @response = "success"
@@ -88,18 +90,34 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
       if params[:commit] == "作成"
         @sales_status.create_sales_status_member(authority: params_authority, member_id: params_member_id)
       elsif params[:commit] == "更新"
+        @sales_status_member = @sales_status.sales_status_member
+        @sales_status_member.update(authority: params_authority, member_id: params_member_id)
       end
     end
     
     def save_editor
-      if current_admin
-        @sales_status.create_sales_status_editor(authority: current_admin.auth, member_id: current_admin.id)
-      elsif current_manager
-        @sales_status.create_sales_status_editor(authority: current_manager.auth, member_id: current_manager.id)
-      elsif current_staff
-        @sales_status.create_sales_status_editor(authority: current_staff.auth, member_id: current_staff.id)
-      elsif current_external_staff
-        @sales_status.create_sales_status_editor(authority: current_external_staff.auth, member_id: current_external_staff.id)
+      if params[:commit] == "作成"
+        if current_admin
+          @sales_status.create_sales_status_editor(authority: current_admin.auth, member_id: current_admin.id)
+        elsif current_manager
+          @sales_status.create_sales_status_editor(authority: current_manager.auth, member_id: current_manager.id)
+        elsif current_staff
+          @sales_status.create_sales_status_editor(authority: current_staff.auth, member_id: current_staff.id)
+        elsif current_external_staff
+          @sales_status.create_sales_status_editor(authority: current_external_staff.auth, member_id: current_external_staff.id)
+        end
+      elsif params[:commit] == "更新"
+        @sales_status_editor = @sales_status.sales_status_editor
+        if current_admin
+          @sales_status_editor.update(authority: current_admin.auth, member_id: current_admin.id)
+        elsif current_manager
+          @sales_status_editor.update(authority: current_manager.auth, member_id: current_manager.id)
+        elsif current_staff
+          @sales_status_editor.update(authority: current_staff.auth, member_id: current_staff.id)
+        elsif current_external_staff
+          @sales_status_editor.update(authority: current_external_staff.auth, member_id: current_external_staff.id)
+        end
       end
+        
     end
 end
