@@ -39,6 +39,7 @@ ja:
           resigned_on: 退社日
         external_staff:
           name: 名前
+          supplier_id: 外注先
         client:
           name: 名前
           gender: 性別
