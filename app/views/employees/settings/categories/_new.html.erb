@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">診断書作成</h5>
         <div class="card-body">
-          <%= form_with(model: category, url: employees_settings_categories_path, method: :post, remote: true) do |f| %>
+          <%= form_with(model: @category, url: employees_settings_categories_path, method: :post, remote: true) do |f| %>
             <div class="category-create-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">
