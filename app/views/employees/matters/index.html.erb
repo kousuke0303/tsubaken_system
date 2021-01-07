@@ -1,9 +1,9 @@
-<div class="col-lg-12 col-md-12">
+<div class="col-12">
   <div class="row">
-    <div class="col-lg-9 col-md-8 col-7">
+    <div class="col-lg-9 col-md-8 col-12">
       <h2><i class="fas fa-paint-roller"></i> 案件一覧</h2>
     </div>
-    <div class="col-lg-3 col-md-4 col-5">  
+    <div class="col-lg-3 col-md-4 col-12">  
       <%= form_with(url: employees_matters_path, method: :get, local: true) do |f| %>
         <div class="input-group">
           <%= f.select :status, options_for_select(Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{ k }"), k]},params[:status]), { include_blank: "全ての進行状況" }, { class: "form-control" } %>
@@ -18,8 +18,8 @@
   
   <input type="hidden" name="estimate_matter_id" value="<%= params[:estimate_matter_id] %>" id="estimate_matter_id">
     
-  <div class="text-center mt-1e">
-    <div>
+  <div class="card mt-1e">
+    <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered text-nowrap common-table">
           <tr>
