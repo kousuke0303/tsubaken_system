@@ -1,14 +1,16 @@
-<table class="table table-sm common-table">
-  <tr>
-    <th>タイトル</th>
-    <th>現場住所</th>
-  </tr>
-  <% @estimate_matters.each do |estimate_matter| %>
-    <tr class="tr-link" data-link="<%=  %>">
-      <td><%= estimate_matter.title %></td>
-      <td><%= estimate_matter.prefecture_code %></td>
-      <td><%= estimate_matter.address_city %></td>
-      <td><%= estimate_matter.address_street %></td>
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th>タイトル</th>
+      <th>現場住所</th>
     </tr>
-  <% end %>
-</table>
+    <% @estimate_matters.each do |estimate_matter| %>
+      <tr class="tr-link" data-link="<%=  %>">
+        <td><%= estimate_matter.title %></td>
+        <td><%= estimate_matter.prefecture_code %></td>
+        <td><%= estimate_matter.address_city %></td>
+        <td><%= estimate_matter.address_street %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

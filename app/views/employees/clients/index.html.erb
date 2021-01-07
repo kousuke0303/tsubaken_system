@@ -1,67 +1,52 @@
 <div class="col-lg-12 col-md-12">
-  <h2>
-    <div style="display: inline-flex">
-      <span class="mr-1e"><i class="fas fa-address-book"></i> 顧客一覧</span>
-        <form class="form-inline">
-          <%= form_with(model: @client, method: :get, local: true) do |f| %>
-            <div style="display: inline-flex">
-              <%= f.text_field :name, class: "form-control mx-2 mg-0", placeholder: "名前検索" %>
-              <%= f.submit "検索", class: "btn btn-md btn-primary" %>
-            </div>
-          <% end %>
-        </form>
-    </div>
-    <%= link_to new_employees_client_path, remote: true, class: "btn btn-dark float-r" do %>
-      <i class="fas fa-plus"></i> 新規顧客
-    <% end %>
-  </h2>
+  
+  <h2><span class="mr-1e"><i class="fas fa-address-book"></i> 顧客一覧</span></h2>
   
   <div class="select_switch">
     <input type="radio" name="switch" id="radio1" checked>
     <label for="radio1">成約済顧客</label>
     <input type="radio" name="switch" id="radio2">
     <label for="radio2">未成約顧客</label>
+    <div class="search_window">
+      <div class="form-inline">
+        <%= form_with(url: search_index_employees_clients_path, method: :post, remote: true) do |f| %>
+          <div style="display: inline-flex">
+            <%= f.text_field :name, class: "form-control mx-2 mg-0", id: "search_name", placeholder: "名前検索", required: true %>
+            <%= f.submit "検索", class: "btn btn-md btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="client_new">
+    <%= link_to new_employees_client_path, remote: true, class: "btn btn-dark client_new_btn" do %>
+      <i class="fas fa-plus"></i> 新規顧客
+    <% end %>
   </div>
   
   <div>
-    <table class="table table-bordered common-table">
-      <thead>
-      <tr>
-        <th>名前</th>
-        <th>顧客ID</th>
-        <th>性別</th>
-        <th>電話番号①</th>
-        <th>電話番号②</th>
-        <th>メールアドレス</th>
-      </tr>
-      </thead>
-      <tbody id="has_matter">
-      <% @clients.each do |client| %>
-        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-          <td><%= client.name %></td>
-          <td><%= client.login_id %></td>
-          <td><%= client.gender_i18n %></td>
-          <td><%= client.phone_1 %></td>
-          <td><%= client.phone_2 %></td>
-          <td><%= client.email %></td>
+    <div class="table-responsive">
+      <table class="table table-bordered text-nowrap common-table">
+        <thead>
+        <tr>
+          <th>名前</th>
+          <th>顧客ID</th>
+          <th>性別</th>
+          <th>電話番号①</th>
+          <th>電話番号②</th>
+          <th>メールアドレス</th>
         </tr>
-      <% end %>
-      </tbody>
-      <tbody id="no_matter" style="display: none;">
-      <tr>
-        <% @no_matter_clients.each do |client| %>
-        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-          <td><%= client.name %></td>
-          <td><%= client.login_id %></td>
-          <td><%= client.gender_i18n %></td>
-          <td><%= client.phone_1 %></td>
-          <td><%= client.phone_2 %></td>
-          <td><%= client.email %></td>
-        </tr>
-      <% end %>
-      </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="has_matter">
+          <%= render partial: "index_table", locals: { objects: @clients, display_type: @display_type } %>
+        </tbody>
+        <tbody id="no_matter" style="display: none;">
+          <%= render partial: "index_table", locals: { objects: @no_matter_clients, display_type: @display_type } %>
+        </tbody>
+        <tbody id="search_clients"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -69,9 +54,11 @@
   $('#radio2').on('click', function(){
     $('#no_matter').show();
     $('#has_matter').hide();
+    $('#search_clients').hide();
   });
   $('#radio1').on('click', function(){
     $('#no_matter').hide();
     $('#has_matter').show();
+    $('#search_clients').hide();
   });
 </script>
