@@ -14,8 +14,8 @@ class Employees::EstimateMattersController < ApplicationController
     if params[:name].present?
       @estimate_matters = @estimate_matters.get_id_by_name params[:name]
     end
-    if params["created_at(1i)"].present? && params["created_at(2i)"].present?
-      @estimate_matters = @estimate_matters.get_by_created_at params["created_at(1i)"], params["created_at(2i)"]
+    if params[:year].present? && params[:month].present?
+      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month]
     end
   end
 
