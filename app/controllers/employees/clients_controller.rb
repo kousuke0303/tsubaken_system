@@ -19,7 +19,8 @@ class Employees::ClientsController < ApplicationController
   end
 
   def show
-    @estimate_matters = @client.estimate_matters
+    @client_estimate_matters = EstimateMatter.left_joins(:matter).where(matters: {estimate_matter_id: nil}).where(client_id: @client.id)
+    @client_matters =  Matter.joins(:estimate_matter).where(estimate_matters: { client_id: @client.id }).select("matters.*, estimate_matters.*")
   end
 
   def edit

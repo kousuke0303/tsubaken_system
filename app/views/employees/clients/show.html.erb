@@ -2,55 +2,37 @@
   <h2><i class="fas fa-address-book"></i> <%= @client.name %>詳細</h2>
   
   <nav class="mt-1e">
-  <ul id="main">
-    <li>情報詳細</li>
-    <li>関連案件
-      <ul class="drop">
-        <div>
-          <li class="sublist">成約案件</li>
-          <li class="sublist">未成約案件</li>
-        </div>
-      </ul>
-    </li>
-    <div id="marker"></div>
-  </ul>
+    <ul id="main">
+      <li id="client_detail">情報詳細</li>
+      <li id="client_matter">関連案件
+        <!--<ul class="drop">-->
+        <!--  <div>-->
+        <!--    <li class="sublist">成約案件</li>-->
+        <!--    <li class="sublist">未成約案件</li>-->
+        <!--  </div>-->
+        <!--</ul>-->
+      </li>
+      <div id="marker"></div>
+    </ul>
   </nav>
   
-  <div class="clients-matter-index ">
+  <div class="client_info">
     <%= render "employees/clients/tab_pane/detail" %>
   </div>
   
-  <div class="tab-pane fade bg-white" id="estimate-matters" role="tabpane2">
+  <div class="client_matters" style="display: none;">
     <%= render "employees/clients/tab_pane/estimate_matters" %>
-  </div>
-      
-  <div class="card">
-    <div class="card-header bg-dark tab-wrapper">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="client-show-tab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#client-detail" data-toggle="tab" role="tab" aria-controls="client-detail" aria-selected="true">個人情報</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#estimate-matters" data-toggle="tab" role="tab" aria-controls="matters" aria-selected="false">見積案件一覧</a>
-        </li>
-      </ul>
-    </div>
-        
-    <div class="card-body">
-      <div class="tab-content" id="client-show-tab">
-            
-        <div class="tab-pane fade show active bg-white" id="client-detail" role="tabpanel">
-          <div class= "success_flash"></div>
-          <div class="clients-matter-index ">
-            <%= render "employees/clients/tab_pane/detail" %>
-          </div>
-        </div>
-          
-        <div class="tab-pane fade bg-white" id="estimate-matters" role="tabpane2">
-          <%= render "employees/clients/tab_pane/estimate_matters" %>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
+<script>
+  $('#client_matter').on('click', function(){
+    $('.client_matters').show();
+    $('.client_info').hide();
+  });
+  
+  $('#client_detail').on('click', function(){
+    $('.client_matters').hide();
+    $('.client_info').show();
+  });
+</script>
