@@ -28,7 +28,7 @@ class Employees::SuppliersController < ApplicationController
 
   def update
     if @supplier.update(supplier_params)
-      flash[:success] = "外注先情報を更新しました。"
+      flash[:success] = "外注先を更新しました。"
       redirect_to employees_supplier_url(@supplier)
     else
       respond_to do |format|
