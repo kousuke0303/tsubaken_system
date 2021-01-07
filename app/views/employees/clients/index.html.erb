@@ -1,71 +1,78 @@
 <div class="col-12">
   <div class="row">
-    <div class="col-lg-4 col-md-6 col-12">
+    <div class="col-md-6 col-12">
       <h2><i class="fas fa-address-book"></i> 顧客一覧</h2>
     </div>
-    <div class="col-lg-4 col-md-6 col-12">
-      <form class="form-inline">
-        <%= form_with(model: @client, method: :get, local: true) do |f| %>
-          <div style="display: inline-flex">
-            <%= f.text_field :name, class: "form-control mx-2 mg-0", placeholder: "名前検索" %>
-            <%= f.submit "検索", class: "btn btn-md btn-primary" %>
-          </div>
-        <% end %>
-      </form>
-    </div>
-    <div class="col-lg-4 col-md-6 col-12">
+
+    <div class="col-md-6 col-12">
       <%= link_to new_employees_client_path, remote: true, class: "btn btn-dark float-r" do %>
         <i class="fas fa-plus"></i> 新規顧客
       <% end %>
     </div>
+
+    <div class="col-lg-9 col-md-6 col-12">
+      <input type="radio" name="switch" id="radio1" checked>
+      <label for="radio1">成約済顧客</label>
+      <input type="radio" name="switch" id="radio2">
+      <label for="radio2">未成約顧客</label>
+    </div>
+
+
+    <div class="col-lg-3 col-md-6 col-12">
+        <%= form_with(model: @client, method: :get, local: true) do |f| %>
+          <div class="input-group">
+            <%= f.text_field :name, class: "form-control", placeholder: "名前検索" %>
+            <div class="input-group-append">            
+              <input type="submit" value="&#xf002;" class="fas btn btn-primary" style="padding: 0 0.5em;">
+            </div>
+          </div>
+        <% end %>
+    </div>
   </div>
   
-  <div class="select_switch">
-    <input type="radio" name="switch" id="radio1" checked>
-    <label for="radio1">成約済顧客</label>
-    <input type="radio" name="switch" id="radio2">
-    <label for="radio2">未成約顧客</label>
-  </div>
-  
-  <div>
-    <table class="table table-bordered common-table">
-      <thead>
-      <tr>
-        <th>名前</th>
-        <th>顧客ID</th>
-        <th>性別</th>
-        <th>電話番号①</th>
-        <th>電話番号②</th>
-        <th>メールアドレス</th>
-      </tr>
-      </thead>
-      <tbody id="has_matter">
-      <% @clients.each do |client| %>
-        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-          <td><%= client.name %></td>
-          <td><%= client.login_id %></td>
-          <td><%= client.gender_i18n %></td>
-          <td><%= client.phone_1 %></td>
-          <td><%= client.phone_2 %></td>
-          <td><%= client.email %></td>
-        </tr>
-      <% end %>
-      </tbody>
-      <tbody id="no_matter" style="display: none;">
-      <tr>
-        <% @no_matter_clients.each do |client| %>
-        <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-          <td><%= client.name %></td>
-          <td><%= client.login_id %></td>
-          <td><%= client.gender_i18n %></td>
-          <td><%= client.phone_1 %></td>
-          <td><%= client.phone_2 %></td>
-          <td><%= client.email %></td>
-        </tr>
-      <% end %>
-      </tr>
-      </tbody>
-    </table>
+  <div class="card mt-1e">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap common-table">
+          <thead>
+          <tr>
+            <th>名前</th>
+            <th>顧客ID</th>
+            <th>性別</th>
+            <th>電話番号①</th>
+            <th>電話番号②</th>
+            <th>メールアドレス</th>
+          </tr>
+          </thead>
+          <tbody id="has_matter">
+          <% @clients.each do |client| %>
+            <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+              <td><%= client.name %></td>
+              <td><%= client.login_id %></td>
+              <td><%= client.gender_i18n %></td>
+              <td><%= client.phone_1 %></td>
+              <td><%= client.phone_2 %></td>
+              <td><%= client.email %></td>
+            </tr>
+          <% end %>
+          </tbody>
+          <tbody id="no_matter" style="display: none;">
+          <tr>
+            <% @no_matter_clients.each do |client| %>
+            <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+              <td><%= client.name %></td>
+              <td><%= client.login_id %></td>
+              <td><%= client.gender_i18n %></td>
+              <td><%= client.phone_1 %></td>
+              <td><%= client.phone_2 %></td>
+              <td><%= client.email %></td>
+            </tr>
+          <% end %>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
