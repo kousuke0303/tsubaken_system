@@ -60,7 +60,7 @@ puts "CREATE! Supplier"
 3.times do |n|
 ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       kana: "ガイブスタッフ",
-                      login_id: "SP1-sup-#{ n + 1 }",
+                      login_id: "ES-exstaff#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       supplier_id: 1,
