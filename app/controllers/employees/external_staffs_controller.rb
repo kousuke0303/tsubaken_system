@@ -24,6 +24,7 @@ class Employees::ExternalStaffsController < ApplicationController
   end
 
   def show
+    @supplier = @external_staff.supplier
   end
 
   def edit
@@ -31,7 +32,7 @@ class Employees::ExternalStaffsController < ApplicationController
 
   def update
     if @external_staff.update(external_staff_params)
-      flash[:success] = "外部Staff情報を更新しました。"
+      flash[:success] = "外部Staffを更新しました。"
       redirect_to employees_external_staff_url
     else
       respond_to do |format|
@@ -42,7 +43,7 @@ class Employees::ExternalStaffsController < ApplicationController
 
   def destroy
     @external_staff.destroy ? flash[:success] = "外部Staffを削除しました。" : flash[:alert] = "外部Staffを削除できませんでした。"
-    redirect_to redirect_to employees_external_staff_url
+    redirect_to employees_external_staffs_url
   end
 
   private
