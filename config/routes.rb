@@ -201,7 +201,9 @@ Rails.application.routes.draw do
   namespace :employees do
     resources :managers
     resources :staffs
-    resources :clients
+    resources :clients do
+      post :search_index, on: :collection
+    end
     resources :suppliers
     resources :external_staffs
     resources :attendances, only: [:new, :create, :update, :destroy] do

@@ -19,7 +19,8 @@ class Employees::ClientsController < ApplicationController
   end
 
   def show
-    @estimate_matters = @client.estimate_matters
+    @client_estimate_matters = EstimateMatter.left_joins(:matter).where(matters: {estimate_matter_id: nil}).where(client_id: @client.id)
+    @client_matters =  Matter.joins(:estimate_matter).where(estimate_matters: { client_id: @client.id }).select("matters.*, estimate_matters.*")
   end
 
   def edit
@@ -28,8 +29,17 @@ class Employees::ClientsController < ApplicationController
   def index
     @clients = Client.has_matter
     @no_matter_clients = Client.not_have_matter
-    if params[:name].present?
-      @clients = @clients.get_by_name params[:name]
+  end
+  
+  def search_index
+    @search_clients = Client.get_by_name params[:name]
+    if @search_clients.present?
+      @display_type = "success"
+    else
+      @display_type = "failure"
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
