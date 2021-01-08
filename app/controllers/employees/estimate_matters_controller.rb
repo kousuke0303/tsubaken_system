@@ -2,7 +2,6 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
-  before_action :current_estimate_matter
   before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
@@ -39,7 +38,7 @@ class Employees::EstimateMattersController < ApplicationController
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     @certificates = @estimate_matter.certificates.order(created_at: "DESC")
-    @images = current_estimate_matter.images.select { |image| image.images.attached? }
+    @images = @estimate_matter.images.select { |image| image.images.attached? }
   end
 
   def edit

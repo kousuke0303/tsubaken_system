@@ -23,9 +23,6 @@
   <% image.images.each do |images| %>
     <tr>
       <td style="vertical-align: middle" class="text-center">
-        <div class="text-center" style="margin-bottom: 10px;">
-          <%= link_to "診断書作成", new_employees_estimate_matter_certificate_path(current_estimate_matter, image_id: image.id), remote: true, class: "btn btn-dark" %>
-        </div>
         <%= image_tag url_for(images.variant(resize: "400x400")) %>
       </td>
       <td style="vertical-align: middle" class="text-center">

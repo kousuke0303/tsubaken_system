@@ -49,3 +49,23 @@
 .edit-button-position {
   position: relative;
 }
+
+.image-item {
+  margin-top: 1em;
+  padding: 0 15px;
+  .image-wrapper {
+    align-items: center;
+    background: black;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+  }
+}
+
+.employees-image-item:hover {
+  opacity: 0.8;
+}
+
+.employees-image-item:active {
+  opacity: 0.6;
+}
