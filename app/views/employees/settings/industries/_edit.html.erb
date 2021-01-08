@@ -6,7 +6,7 @@
         <h5 class="card-header">業種編集</h5>
 
         <div class="card-body">
-          <%= form_with(model: industry, url: employees_settings_industry_path(industry), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: @industry, url: employees_settings_industry_path(@industry), method: :patch, remote: true) do |f| %>
             <div class="industry-update-errors"></div>
             <%= render "form", f: f %>    
             <div class="btn-area">

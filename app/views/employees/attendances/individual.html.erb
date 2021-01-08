@@ -1,17 +1,21 @@
-<div class="col-lg-12 col-md-12">
-  <h2>
-    個別勤怠
-    <%= link_to new_employees_attendance_path(prev_action: controller.action_name), remote: true, class: "btn btn-dark float-r" do %>
-      <i class="fas fa-plus"></i> 新規勤怠
-    <% end %>
-  </h2>
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <h2>個別勤怠</h2>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= link_to new_employees_attendance_path(prev_action: controller.action_name), remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> 新規勤怠
+      <% end %>
+    </div>
+  </div>
       
-  <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark">
+  <div class="card mt-1e">
+    <div class="card-header bg-dark tab-wrapper">
       <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
 
-          <div class="col-lg-3 col-md-3 flex pl-5 pr-5">
+          <div class="col-lg-3 col-md-3 flex pl-0 pr-0">
             <div class="pl-5 pr-5" style="width: 60%;">
               <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
             </div>
@@ -52,53 +56,53 @@
       <% if @resource %>
         <h5><%= @resource.name %></h5>
       <% end %>
-      <table class="table table-sm common-table">
-        <tr>
-          <th>日付</th>
-          <th>出勤時間</th>
-          <th>退勤時間</th>
-          <th>勤務時間</th>
-        </tr>
-        <% if @attendances %>
-          <% @total_working_minutes = 0 %>
-          <% @attendances.each do |attendance| %>
-            <% if attendance.finished_at.present? %>
-              <% finished_at = l(attendance.finished_at, format: :time) %>
-            <% else %>
-              <% finished_at = "not-entered" %>
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap common-table">
+          <tr>
+            <th>日付</th>
+            <th>出勤時間</th>
+            <th>退勤時間</th>
+            <th>勤務時間</th>
+          </tr>
+          <% if @attendances %>
+            <% @total_working_minutes = 0 %>
+            <% @attendances.each do |attendance| %>
+              <% if attendance.finished_at.present? %>
+                <% finished_at = l(attendance.finished_at, format: :time) %>
+              <% else %>
+                <% finished_at = "not-entered" %>
+              <% end %>
+              <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>" data-name="<%= @resource.name %>"
+                  data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+                <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
+                <td><%= l(attendance.started_at, format: :time) %></td>
+                <td><%= finished_at if attendance.finished_at.present? %></td>
+                <td>
+                  <% if attendance.working_minutes.present? %>
+                    <%= daily_working_time(attendance.working_minutes) %>
+                    <% @total_working_minutes += attendance.working_minutes.to_i %>
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
-            <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>" data-name="<%= @resource.name %>"
-                data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
-              <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
-              <td><%= l(attendance.started_at, format: :time) %></td>
-              <td><%= finished_at if attendance.finished_at.present? %></td>
-              <td>
-                <% if attendance.working_minutes.present? %>
-                  <%= daily_working_time(attendance.working_minutes) %>
-                  <% @total_working_minutes += attendance.working_minutes.to_i %>
-                <% end %>
-              </td>
+            <tr>
+              <th>出勤回数</th>
+              <th></th>
+              <th></th>
+              <th>合計勤務時間</th>
+            </tr>
+            <tr>
+              <td><%= @attendances.length %>日</td>
+              <td></td>
+              <td></td>
+              <td><%= monthly_working_time(@total_working_minutes) %></td>
             </tr>
           <% end %>
-          <tr>
-            <th>出勤回数</th>
-            <th></th>
-            <th></th>
-            <th>合計勤務時間</th>
-          </tr>
-          <tr>
-            <td><%= @attendances.length %>日</td>
-            <td></td>
-            <td></td>
-            <td><%= monthly_working_time(@total_working_minutes) %></td>
-          </tr>
-        <% end %>
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-
-
 
 <script>
   $(document).on("turbolinks:load", function() {

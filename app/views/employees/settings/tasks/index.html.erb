@@ -1,33 +1,38 @@
-<div class="col-lg-12 col-md-12">
-  <h2>
-    デフォルトタスク一覧
-    <%= link_to new_employees_settings_task_path, remote: true, class: "btn btn-dark float-r" do %>
-      <i class="fas fa-plus"></i> デフォルトタスク
-    <% end %>
-  </h2>
-  <div class="card text-center tab-wrapper">
-    <div class="card-header bg-dark"></div>
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <h2>デフォルトタスク一覧</h2>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= link_to new_employees_settings_task_path, remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> デフォルトタスク
+      <% end %>
+    </div>
+  </div>
 
+  <div class="card mt-1e">
     <div class="card-body">
-      <table class="table table-sm table common-table">
-        <tr>
-          <th>コピー回数</th>
-          <th>名前</th>
-          <th>内容</th>
-          <th></th>
-        </tr>
-        <% @default_tasks.each do |default_task| %>
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap common-table">
           <tr>
-            <td><%= Task.where("default_task_id = ?", default_task.default_task_id).count - 1 %></td>
-            <td><%= default_task.title %></td>
-            <td><%= default_task.content %></td>
-            <td>
-              <%= link_to "編集", edit_employees_settings_task_path(default_task), remote: true, class: "btn btn-sm btn-dark" %>
-              <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-            </td>
+            <th>コピー回数</th>
+            <th>名前</th>
+            <th>内容</th>
+            <th></th>
           </tr>
-        <% end %>
-      </table>
+          <% @default_tasks.each do |default_task| %>
+            <tr>
+              <td><%= Task.where("default_task_id = ?", default_task.default_task_id).count - 1 %></td>
+              <td><%= default_task.title %></td>
+              <td><%= default_task.content %></td>
+              <td>
+                <%= link_to "編集", edit_employees_settings_task_path(default_task), remote: true, class: "btn btn-sm btn-dark" %>
+                <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 </div>

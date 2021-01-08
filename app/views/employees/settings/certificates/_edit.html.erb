@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">診断書編集</h5>
         <div class="card-body">
-          <%= form_with(model: certificate, url: employees_settings_certificate_path(certificate), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: @certificate, url: employees_settings_certificate_path(@certificate), method: :patch, remote: true) do |f| %>
             <div class="certificate-update-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">

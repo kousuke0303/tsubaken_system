@@ -1,17 +1,16 @@
-<%= link_to new_employees_supplier_external_staff_path(@supplier), remote: true, class: "btn btn-success float-r mb-1e" do %>
-  <i class="fas fa-plus"></i> <%= @supplier.name %>の新規STAFF登録
-<% end %>
-<table class="table table-bordered common-table">
-  <tr>
-    <th>名前</th>
-    <th>ログインID</th>
-    <th>電話番号</th>
-  </tr>
-  <% @external_staffs.each do |external_staff| %>
-    <tr class="tr-link" data-link="<%= employees_supplier_external_staff_path(@supplier, external_staff) %>">
-      <td><%= external_staff.name %></td>
-      <td><%= external_staff.login_id %></td>
-      <td><%= external_staff.phone %></td>
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th>名前</th>
+      <th>ログインID</th>
+      <th>電話番号</th>
     </tr>
-  <% end %>
-</table>
+    <% @external_staffs.each do |external_staff| %>
+      <tr class="tr-link" data-link="<%= employees_external_staff_path(external_staff) %>">
+        <td><%= external_staff.name %></td>
+        <td><%= external_staff.login_id %></td>
+        <td><%= external_staff.phone %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

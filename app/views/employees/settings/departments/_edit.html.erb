@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">部署編集</h5>
         <div class="card-body">
-          <%= form_with(model: department, url: employees_settings_department_path(department), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: @department, url: employees_settings_department_path(@department), method: :patch, remote: true) do |f| %>
             <div class="department-update-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">

@@ -10,6 +10,12 @@ class Employees::EstimateMattersController < ApplicationController
   def index
     @sales_statuses = SalesStatus.order(created_at: "DESC")
     current_person_in_charge
+    if params[:name].present?
+      @estimate_matters = @estimate_matters.get_id_by_name params[:name]
+    end
+    if params[:year].present? && params[:month].present?
+      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month]
+    end
   end
 
   def new

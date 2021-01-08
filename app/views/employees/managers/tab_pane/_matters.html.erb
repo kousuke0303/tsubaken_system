@@ -1,14 +1,9 @@
-<table class="table table-sm common-table">
-  <tr>
-    <th>タイトル</th>
-    <th>内容</th>
-    <th>進行状況</th>
-  </tr>
-  <% @manager.matters.each do |matter| %>
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
     <tr>
-      <td><%= matter.title %></td>
-      <td><%= matter.content %></td>
-      <td><%= matter.status %></td>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th>進行状況</th>
     </tr>
-  <% end %>
-</table>
+  </table>
+</div>
