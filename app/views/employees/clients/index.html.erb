@@ -1,6 +1,5 @@
-<div class="col-lg-12 col-md-12">
-  
-  <h2><span class="mr-1e"><i class="fas fa-address-book"></i> 顧客一覧</span></h2>
+<div class="col-12">
+  <h2><i class="fas fa-address-book"></i> 顧客一覧</h2>
   
   <div class="select_switch">
     <input type="radio" name="switch" id="radio1" checked>
@@ -39,10 +38,10 @@
         </tr>
         </thead>
         <tbody id="has_matter">
-          <%= render partial: "index_table", locals: { objects: @clients, display_type: @display_type } %>
+          <%= render "index_table", objects: @clients, display_type: @display_type %>
         </tbody>
         <tbody id="no_matter" style="display: none;">
-          <%= render partial: "index_table", locals: { objects: @no_matter_clients, display_type: @display_type } %>
+          <%= render "index_table", objects: @no_matter_clients, display_type: @display_type %>
         </tbody>
         <tbody id="search_clients"></tbody>
       </table>
