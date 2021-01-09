@@ -4,8 +4,10 @@
       <h2>Manager一覧</h2>
     </div>
     <div class="col-md-6 col-12">
-      <%= link_to new_employees_manager_path, remote: true, class: "btn btn-dark float-r" do %>
-        <i class="fas fa-plus"></i> 新規Manager
+      <% if current_admin %>
+        <%= link_to new_employees_manager_path, remote: true, class: "btn btn-dark float-r" do %>
+          <i class="fas fa-plus"></i> 新規Manager
+        <% end %>
       <% end %>
     </div>
   </div>
