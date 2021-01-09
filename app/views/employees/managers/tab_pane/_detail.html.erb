@@ -50,8 +50,10 @@
     </tr>
   </table>
 
-  <div class="btn-area">
-    <%= link_to "編集", edit_employees_manager_path(@manager), remote: true, class: "btn btn-dark" %>
-    <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このManagerを削除してよろしいですか？" }, class: "btn btn-danger" %>
-  </div>
+  <% if current_admin %>
+    <div class="btn-area">
+      <%= link_to "編集", edit_employees_manager_path(@manager), remote: true, class: "btn btn-dark" %>
+      <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このManagerを削除してよろしいですか？" }, class: "btn btn-danger" %>
+    </div>
+  <% end %>
 </div>
