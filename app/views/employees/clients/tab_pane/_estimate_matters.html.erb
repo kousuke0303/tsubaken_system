@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+<div class="table-responsive">
+  <table class="table table-sm common-table text-nowrap">
+    <tr>
+      <th>タイトル</th>
+      <th>現場住所</th>
+    </tr>
+    <% @estimate_matters.each do |estimate_matter| %>
+      <tr class="tr-link" data-link="<%=  %>">
+        <td><%= estimate_matter.title %></td>
+        <td><%= estimate_matter.prefecture_code %></td>
+        <td><%= estimate_matter.address_city %></td>
+        <td><%= estimate_matter.address_street %></td>
+=======
 <ul class="nav nav-tabs title_tab_bar">
   <li class="nav-item">
     <span class="nav-link title_tab" style="font-size: 18px">未成約案件</span>
@@ -15,10 +29,13 @@
         <td><%= estimate_matter.title %></td>
         <td><%= estimate_matter.prefecture_code %><%= estimate_matter.address_city %><%= estimate_matter.address_street %></td>
         <td><%= estimate_matter.sales_statuses.last.status_i18n %></td>
+>>>>>>> b50f3d497bb7f7ea5923827acde827222fb59edd
       </tr>
     <% end %>
   </table>
 </div>
+<<<<<<< HEAD
+=======
 
 <ul class="nav nav-tabs title_tab_bar">
   <li class="nav-item">
@@ -40,3 +57,4 @@
   </table>
 </div>
   
+>>>>>>> b50f3d497bb7f7ea5923827acde827222fb59edd

@@ -13,6 +13,14 @@
       <td><%= @client.login_id %></td>
     </tr>
     <tr>
+      <th>郵便番号</th>
+      <td><%= @client.postal_code %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
+    </tr>
+    <tr>
       <th>電話番号①</th>
       <td><%= @client.phone_1 %></td>
     </tr>
@@ -27,22 +35,6 @@
     <tr>
       <th>生年月日</th>
       <td><%= @client.birthed_on %></td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= @client.postal_code %></td>
-    </tr>
-    <tr>
-      <th>都道府県</th>
-      <td><%= @client.prefecture_code %></td>
-    </tr>
-    <tr>
-      <th>市区町村</th>
-      <td><%= @client.address_city %></td>
-    </tr>
-    <tr>
-      <th>町名番地</th>
-      <td><%= @client.address_street %></td>
     </tr>
   </table>
 </div>
