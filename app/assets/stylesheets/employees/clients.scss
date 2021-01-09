@@ -20,26 +20,11 @@
   input[type="radio"]:checked + label {
     background-color:#C7243A;
   }
-  .search_window {
-  margin-top: 10px;
-  margin-left: 10px;
-  }
-}
-
-.client_new_btn {
-  float: right;
 }
 
 @media screen and (max-width: 480px) { 
   .select_switch {
     display: block;
-    .search_window {
-      margin-left: 0; 
-    }
-  }
-  .client_new {
-    float: left;
-    margin-top: 0.5em;
   }
 }
 
