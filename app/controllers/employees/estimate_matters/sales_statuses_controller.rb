@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_sales_status, only: [:edit, :update, :destroy]
+  before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
   before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
   before_action :estimate_matter_members, only: [:new, :edit]
   
@@ -26,6 +26,9 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     respond_to do |format|
       format.js
     end
+  end
+
+  def show
   end
   
   def edit
