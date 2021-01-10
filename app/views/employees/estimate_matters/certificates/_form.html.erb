@@ -1,3 +1,6 @@
+<div class="mb-15">
+  <%= image_tag url_for(@image.images[0].variant(resize: "425x425")) %>
+</div>
 <h4 class="mb-15">デフォルト診断書選択</h4>
 <select class="form-control" id="certificate_id" name="certificate[title]">
   <% @certificates.distinct.select(:title).each do |certificate| %>

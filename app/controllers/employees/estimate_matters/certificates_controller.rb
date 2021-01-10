@@ -5,18 +5,16 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def new
     @certificate = Certificate.new
     @certificates = Certificate.where(default: true)
-    @images = @estimate_matter.images.select { |image| image.images.attached? }
+    @image = Image.find(params[:image_id])
   end
 
   def create
     @certificate = @estimate_matter.certificates.new(certificate_params)
-    if @certificate.save
-      flash[:success] = "診断書を作成しました。"
-      redirect_to employees_estimate_matter_images_url(@estimate_matter)
-    else
-      respond_to do |format|
-        format.js
-      end
+    @certificate.save ? @responce = "success" : @responce = "false"
+    set_images
+    @certificates = @estimate_matter.certificates.order(created_at: "DESC")
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -56,5 +54,9 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     
     def set_certificates
       @certificates = @estimate_matter.certificates
+    end
+    
+    def set_images
+      @images = @estimate_matter.images
     end
 end

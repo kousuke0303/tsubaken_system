@@ -23,33 +23,29 @@
     </div>
   <% end %>
   
-  <div class="card mt-1e">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered text-nowrap common-table">
-          <tr>
-            <th>タイトル</th>
-            <th>顧客</th>
-            <th>最新ステータス／担当者</th>
-          </tr>
-          <% @estimate_matters.each do |estimate_matter| %>
-            <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
-            <% if !params[:status].present? || sales_status.status == params[:status] %>
-              <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
-                <td><%= estimate_matter.title %></td>
-                <td><%= estimate_matter.client.name %></td>
-                <% if sales_status.status == "not_set" %>
-                  <td><%= sales_status.status_i18n %></td>
-                <% elsif sales_status %>
-                  <td><%= sales_status.status_i18n %>／<%= status_member_name(sales_status) %></td>
-                <% else %>
-                  <td></td>
-                <% end %>
-              </tr>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>タイトル</th>
+        <th>顧客</th>
+        <th>最新ステータス／担当者</th>
+      </tr>
+      <% @estimate_matters.each do |estimate_matter| %>
+        <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
+        <% if !params[:status].present? || sales_status.status == params[:status] %>
+          <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
+            <td><%= estimate_matter.title %></td>
+            <td><%= estimate_matter.client.name %></td>
+            <% if sales_status.status == "not_set" %>
+              <td><%= sales_status.status_i18n %></td>
+            <% elsif sales_status %>
+              <td><%= sales_status.status_i18n %>／<%= status_member_name(sales_status) %></td>
+            <% else %>
+              <td></td>
             <% end %>
-          <% end %>
-        </table>
-      </div>
-    </div>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
   </div>
 </div>

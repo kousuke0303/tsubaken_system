@@ -1,7 +1,14 @@
-$(".certificate-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @certificate) %>');
-<% @certificate.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $("#estimate-matter-certificate-new").modal("hide");
+  $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を作成しました。</div>')
+  $(".images-index").html('<%= escape_javascript(render "shared/estimate_matters/images_index") %>');
+  $(".certificates-index").html('<%= escape_javascript(render "shared/estimate_matters/certificates_index") %>');
+<% else %>
+  $(".certificate-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @certificate) %>');
+  <% @certificate.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
 <% end %>

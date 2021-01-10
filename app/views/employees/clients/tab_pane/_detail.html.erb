@@ -9,6 +9,10 @@
       <td><%= @client.kana %></td>
     </tr>
     <tr>
+      <th>ログインID</th>
+      <td><%= @client.login_id %></td>
+    </tr>
+    <tr>
       <th>郵便番号</th>
       <td><%= @client.postal_code %></td>
     </tr>
@@ -16,7 +20,6 @@
       <th>住所</th>
       <td><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
     </tr>
-    
     <tr>
       <th>電話番号①</th>
       <td><%= @client.phone_1 %></td>
@@ -32,10 +35,6 @@
     <tr>
       <th>生年月日</th>
       <td><%= @client.birthed_on %></td>
-    </tr>
-    <tr>
-      <th>ログインID</th>
-      <td><%= @client.login_id %></td>
     </tr>
   </table>
 </div>

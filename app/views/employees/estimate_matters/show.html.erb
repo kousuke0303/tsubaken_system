@@ -110,7 +110,7 @@
     <div class="card">
       <div class="card-header bg-dark" id="headingThree">
         <h5 class="text-light">
-          診断書一覧
+          画像一覧
           <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-certificates" aria-expanded="true" aria-controls="collapse-certificates">
             詳細
           </button>
@@ -119,11 +119,22 @@
   
       <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-certificates">
         <div class="card-body">
-          <div class="certificates-index">
-            <%= render "shared/estimate_matters/certificates_index" %>
+          <div class="images-index">
+            <%= render "shared/estimate_matters/images_index" %>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="card  mt-1e">
+    <div class="card-header bg-dark" id="headingThree">
+      <h5 class="text-light">
+        診断書一覧
+      </h5>
+    </div>
+    <div class="certificates-index">
+      <%= render "shared/estimate_matters/certificates_index" %>
     </div>
   </div>
 </div>
