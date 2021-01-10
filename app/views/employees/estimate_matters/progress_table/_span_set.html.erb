@@ -1,27 +1,47 @@
-<% if table_type == "three_month" %>
-  <%= link_to prev_progress_table_employees_estimate_matters_path(date: first_day.prev_month, table_type: "three_month"), remote: true do %>
-    <i class="fas fa-angle-double-left"></i><span class="ml-05e">前３ヶ月分</span>
-  <% end %>
-  <span class="ml-05e" style="font-size: 25px;"><%= first_day.strftime('%y/%m') %>月 - <%= last_day.strftime('%y/%m') %>月</span>
-        
-  <%= link_to next_progress_table_employees_estimate_matters_path(date: last_day.since(3.month), table_type: "three_month"), remote: true do %>
-    <span class="mr-05e ml-1e">次３ヶ月分</span><i class="fas fa-angle-double-right"></i>
-  <% end %>
-
-<% elsif table_type == "six_month" %>
-  <%= link_to prev_progress_table_employees_estimate_matters_path(date: first_day.prev_month, table_type: "six_month"), remote: true do %>
-    <i class="fas fa-angle-double-left"></i><span class="ml-05e">前６ヶ月分</span>
-  <% end %>
-  <span class="ml-05e" style="font-size: 25px;"><%= first_day.strftime('%y/%m') %>月 - <%= last_day.strftime('%y/%m') %>月</span>
-        
-  <%= link_to next_progress_table_employees_estimate_matters_path(date: last_day.since(6.month), table_type: "six_month"), remote: true do %>
-    <span class="mr-05e ml-1e">次６ヶ月分</span><i class="fas fa-angle-double-right"></i>
-  <% end %>
-<% end %>
-  
-<button id="six_month", class="btn btn-dark float-r mr-1e mb-05e">６ヶ月表示</button>
-<button id="three_month", class="btn btn-dark float-r mr-1e mb-05e" style="display: none;">３ヶ月表示</button>
-
+<div class="row">
+  <!--PAGENATION-->
+  <% if table_type == "three_month" %>
+    <div class="col-sm-8 progress_table_pager">
+      <ul class="pagination">
+        <li>
+          <%= link_to prev_progress_table_employees_estimate_matters_path(date: first_day.prev_month, table_type: "three_month"), remote: true do %>
+            <span class="fas fa-angle-double-left"></span>
+          <% end %>
+        </li>
+        <li class="span_disp"><span><%= first_day.strftime('%y/%m') %>月 - <%= last_day.strftime('%y/%m') %>月</span></li>
+        <li>
+          <%= link_to  next_progress_table_employees_estimate_matters_path(date: last_day.since(3.month), table_type: "three_month"), remote: true do  %>
+            <span class="fas fa-angle-double-right"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <button id="six_month", class="btn btn-dark float-r mt-1e mr-1e mb-05e">６ヶ月表示</button>
+    </div>
+    
+    <% elsif table_type == "six_month" %>
+      <div class="col-sm-8 progress_table_pager">
+        <ul class="pagination">
+          <li>
+            <%= link_to prev_progress_table_employees_estimate_matters_path(date: first_day.prev_month, table_type: "six_month"), remote: true do %>
+              <i class="fas fa-angle-double-left"></i><span class="ml-05e">前６ヶ月分</span>
+            <% end %>
+          </li>
+          <li><span class="span_disp"><%= first_day.strftime('%y/%m') %>月 - <%= last_day.strftime('%y/%m') %>月</span></li>
+          <li>
+            <%= link_to next_progress_table_employees_estimate_matters_path(date: last_day.since(6.month), table_type: "six_month"), remote: true do %>
+              <span class="mr-05e ml-1e">次６ヶ月分</span><i class="fas fa-angle-double-right"></i>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <button id="three_month", class="btn btn-dark float-r mt-1e mr-1e mb-05e" style="display: none;">３ヶ月表示</button>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <!--6月表示に切り替え-->
 <script>

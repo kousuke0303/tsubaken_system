@@ -1,41 +1,33 @@
-<div class="col-sm-12 mt-1e">
-  <div class="row">
-    <h3 class="col-sm-4"><i class="fas fa-chalkboard"></i> 現況一覧</h3>
-    <div class="col-sm-8">
-      <div>
-        <div style="width: 11em" class="husen_sample float-r text-center mb-05e">
-          <span style="font-weight: bold;">タイトル<span class="ml-1e">予定日</span></span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="col-sm-12 ml-1e mr-1e">
   
   <div id="span_set">
     <%= render partial: 'employees/estimate_matters/progress_table/span_set', locals: { table_type: @table_type, first_day: @first_day, last_day: @last_day } %>
   </div>
   
-  <table class="table table-bordered">
-    <thead style="background-color: #f1f0f0">
-      <tr>
-        <th></th>
-        <th>アポイント</th>
-        <th>現調</th>
-        <th>見積作成</th>
-        <th>火災保険</th>
-        <th>商談</th>
-        <th>提出済</th>
-        <th>追客</th>
-        <th>契約</th>
-        <th>着工</th>
-        <th>失注</th>
-        <th>失注（他社）</th>
-        <th>その他</th>
-      </tr>
-    </thead>
-    <tbody id="progress_table">
-      <%= render partial: 'employees/estimate_matters/progress_table/progress_table', locals: { target_est_matters: @target_est_matters } %>
-    </tbody>
-  </table>
+  <div class="table-responsive progress_table_design">
+    <table class="table text-nowrap">
+      <thead>
+        <tr>
+          <th></th>
+          <th>アポイント</th>
+          <th>現調</th>
+          <th>見積作成</th>
+          <th>火災保険</th>
+          <th>商談</th>
+          <th>提出済</th>
+          <th>追客</th>
+          <th>契約</th>
+          <th>着工</th>
+          <th>失注</th>
+          <th>失注（他社）</th>
+          <th>その他</th>
+        </tr>
+      </thead>
+      <tbody id="progress_table">
+        <%= render partial: 'employees/estimate_matters/progress_table/progress_table', locals: { target_est_matters: @target_est_matters } %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!--6月表示に切り替え-->

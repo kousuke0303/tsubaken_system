@@ -75,7 +75,7 @@
     </td>
     <td>
       <% est_matters.each do |est_matter| %>
-        <% if est_matter.sales_statuses.last.status == "other" %>
+        <% if est_matter.sales_statuses.last.status == "start_of_construction" %>
           <div class="husen">
             <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
           </div>
