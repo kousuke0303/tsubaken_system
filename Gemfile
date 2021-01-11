@@ -42,6 +42,7 @@ gem 'jp_prefecture'
 # 複数選択可能プルダウン
 gem "select2-rails"
 
+
 group :development, :test do
   gem 'mysql2'
   # gem 'byebug',  '9.0.6', platform: :mri
