@@ -232,7 +232,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
-      resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
+      resources :sales_statuses, only: [:new, :create, :show, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates"
       get :person_in_charge
     end
