@@ -17,7 +17,7 @@
       <td><%= l(sales_status.updated_at, format: :day) %></td>
       <td>
         <% if sales_status.note %>
-          <%= link_to sales_status.note, employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), remote: true %>
+          <%= link_to sales_status.note.custom_truncate(10), employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), remote: true %>
         <% end %>
       </td>
       <td>
