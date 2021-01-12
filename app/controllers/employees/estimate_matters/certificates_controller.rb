@@ -1,6 +1,16 @@
 class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
+  
+  def sort
+    certificate = @estimate_matter.certificates.find_by(params[:from])
+    if certificate.present?
+      certificate.insert_at(params[:to].to_i + 1)
+    else
+      @estimate_matter.certificates.first.update(position: params[:to].to_i)
+    end
+    @certificates = @estimate_matter.certificates.order(position: :desc)
+  end
 
   def new
     @certificate = Certificate.new
@@ -12,7 +22,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     @certificate = @estimate_matter.certificates.new(certificate_params)
     @certificate.save ? @responce = "success" : @responce = "false"
     set_images
-    @certificates = @estimate_matter.certificates.order(created_at: "DESC")
+    set_certificates
     respond_to do |format|
       format.js
     end
@@ -53,7 +63,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     end
     
     def set_certificates
-      @certificates = @estimate_matter.certificates
+      @certificates = @estimate_matter.certificates.order(created_at: "DESC")
     end
     
     def set_images
