@@ -9,28 +9,25 @@
       <% end %>
     </div>
   </div>
-  <div class="card mt-1e">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered text-nowrap common-table">
-          <tr>
-            <th>名前</th>
-            <th>電話番号①</th>
-            <th>都道府県</th>
-            <th>市町村区</th>
-            <th>町名番地</th>
-          </tr>
-          <% @suppliers.each do |supplier| %>
-            <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
-              <td><%= supplier.name %></td>
-              <td><%= supplier.phone_1 %></td>
-              <td><%= supplier.prefecture_code %></td>
-              <td><%= supplier.address_city %></td>
-              <td><%= supplier.address_street %></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>名前</th>
+        <th>電話番号①</th>
+        <th>都道府県</th>
+        <th>市町村区</th>
+        <th>町名番地</th>
+      </tr>
+      <% @suppliers.each do |supplier| %>
+        <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
+          <td><%= supplier.name %></td>
+          <td><%= supplier.phone_1 %></td>
+          <td><%= supplier.prefecture_code %></td>
+          <td><%= supplier.address_city %></td>
+          <td><%= supplier.address_street %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
