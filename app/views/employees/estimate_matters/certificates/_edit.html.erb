@@ -4,6 +4,12 @@
     <div class="modal-body pa-2e">
     <div class="certificate-update-errors"></div>
       <%= form_with(model: @certificate, url: employees_estimate_matter_certificate_path(@estimate_matter, @certificate), method: :patch, remote: true) do |f| %>
+        <% if @image %>
+          <div class="preview-image-wrapper">
+            <%= image_tag url_for(@image.images.first.variant(resize: "400x400")), class: "preview-image" %>
+          </div>
+        <% end %>
+
         <%= f.label :title %>
         <%= f.text_field :title, maxlength: 30, class: "form-control" %>
 
@@ -16,12 +22,6 @@
                              remote: true, data: { confirm: "この診断書を削除してよろしいですか?" }, class: "btn btn-danger" %>
         </div>
       <% end %> 
-      
-      <% if @image %>
-        <div class="preview-image-wrapper">
-          <%= image_tag url_for(@image.images.first.variant(resize: "400x400")), class: "preview-image" %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
