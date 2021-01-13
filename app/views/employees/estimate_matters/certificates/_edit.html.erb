@@ -19,7 +19,7 @@
       
       <% if @image %>
         <div class="preview-image-wrapper">
-          <%= image_tag url_for(@image.images.first), class: "preview-image" %>
+          <%= image_tag url_for(@image.images.first.variant(resize: "400x400")), class: "preview-image" %>
         </div>
       <% end %>
     </div>
