@@ -29,7 +29,7 @@ class Employees::EstimateMattersController < ApplicationController
       @estimate_matter.sales_statuses.create!(status: "not_set", conducted_on: Date.current)
       set_estimate_matter_members
       flash[:success] = "見積案件を作成しました。"
-      redirect_to employees_estimate_matters_url(@estimate_matter)
+      redirect_to employees_estimate_matters_url(id: @estimate_matter.id)
     else
       respond_to do |format|
         format.js
