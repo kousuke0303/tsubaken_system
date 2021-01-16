@@ -17,14 +17,16 @@
       <td><%= l(sales_status.updated_at, format: :day) %></td>
       <td>
         <% if sales_status.note %>
-          <%= link_to sales_status.note, employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), remote: true %>
+          <%= link_to sales_status.note.custom_truncate(10), employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), remote: true %>
         <% end %>
       </td>
       <td>
-        <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
-                            remote: true, class: "btn btn-sm btn-dark" %>
-        <%= link_to "削除", employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), method: :delete, remote: true,
-                            data: { confirm: "この営業ステータスを削除してよろしいですか？" },class: "btn btn-sm btn-danger"  %>
+        <% unless sales_status.status == "not_set" %>
+          <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
+                              remote: true, class: "btn btn-sm btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), method: :delete, remote: true,
+                              data: { confirm: "この営業ステータスを削除してよろしいですか？" },class: "btn btn-sm btn-danger"  %>
+        <% end %>
       </td>
     </tr>
   <% end %>

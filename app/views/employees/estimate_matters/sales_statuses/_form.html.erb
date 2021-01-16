@@ -1,5 +1,5 @@
 <%= f.label :status %>
-<%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, {}, required: true, class: "form-control" %>
+<%= f.select :status, @statuses, {}, required: true, class: "form-control" %>
 
 <%= f.label :conducted_on %>
 <%= f.date_field :conducted_on, required: true, class: "form-control" %>
@@ -9,7 +9,7 @@
 
 <h6 class="mt-1e">担当者</h6>
 <div>
-  <%= f.select :member, options_for_select(@members.map{|member|[member[:name], member[:auth] + "#" + member[:id].to_s]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+  <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
 
 <!--<!%= render "shared/person_in_charge_jq" %>-->

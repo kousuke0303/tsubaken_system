@@ -1,0 +1,14 @@
+<div class="col-md-6 offset-md-3 col-12">
+  <h2>顧客作成</h2>
+  <div>
+    <%= form_with(model: @client, url: employees_clients_path, method: :post, remote: true) do |f| %>
+      <div class="client-create-errors"></div>
+      <%= render "form", f: f %>
+      <div class="btn-area">
+        <%= f.submit "作成", class: "btn btn-dark" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render "shared/jq/reset_errors_jq" %>
