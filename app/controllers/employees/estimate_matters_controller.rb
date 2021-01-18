@@ -43,7 +43,7 @@ class Employees::EstimateMattersController < ApplicationController
     @estimates = @estimate_matter.estimates.with_categories
     @materials = Material.of_estimate_matter(@estimate_matter.id)
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
-    @certificates = @estimate_matter.certificates
+    @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
   end
 
