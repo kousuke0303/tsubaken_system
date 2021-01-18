@@ -41,6 +41,8 @@ gem 'mini_magick', '~> 4.8'
 gem 'jp_prefecture'
 # 複数選択可能プルダウン
 gem "select2-rails"
+# グラフ
+gem 'chartkick'
 # ドラック&ドロップで並び替えするときのgem
 gem 'acts_as_list'
 

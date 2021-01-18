@@ -18,6 +18,8 @@
 //= require popper
 //= require jquery.jpostal
 //= require select2
+//= require chartkick
+//= require Chart.bundle
 //= require turbolinks
 //= require_tree .
 

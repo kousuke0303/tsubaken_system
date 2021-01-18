@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="news_container">
+      <div class="top_page_contents">
+        <span>広告別営業件数</span>
+        <%= pie_chart graph_date_for_attract_count, colors: ["#26bed6", "#e83e8c", "#9c27b0", "#9e9e9e", "#ff9800"] %>
+      </div>
+    </div>
+  </div>
+      
+  <div class="col-md-6">
+    <div class="table-responsive">
+      <table class="table text-nowrap table-bordered table-column-type">
+        <tr>
+          <th>種類</th>
+          <th>案件数</th>
+          <th>成約数</th>
+          <th>成約率</th>
+        </tr>
+        <% @total_est_number = 0 %>
+        <% @total_contract = 0 %>
+        <% table_date_for_attract_count.each do |key, value| %>
+          <tr>
+            <td><%= key %></td>
+            <% if value.instance_of?(Array) %>
+              <td><%= value[0] %><% @total_est_number += value[0] %></td>
+              <td><%= value[1] %><% @total_contract += value[1] %></td>
+              <td><%= contract_rate(value[1], value[0]) %>%</td>
+            <% else %>
+              <td><%= value %><% @total_est_number += value %></td>
+              <td><%= 0 %><% @total_contract += 0 %></td>
+              <td><%= 0 %>%</td>
+            <% end %>
+          </tr>
+        <% end %>
+        <tr class="total">
+          <td>合計</td>
+          <td><%= @total_est_number %></td>
+          <td><%= @total_contract %></td>
+          <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
