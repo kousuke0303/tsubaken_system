@@ -7,9 +7,9 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     if certificate.present?
       certificate.insert_at(params[:to].to_i + 1)
     else
-      @estimate_matter.certificates.first.update(position: params[:to].to_i)
+      @estimate_matter.certificates.first.update(position: params[:to].to_i + 1)
     end
-    @certificates = @estimate_matter.certificates.order(position: :desc)
+    @certificates = @estimate_matter.certificates.order(position: :asc)
   end
 
   def new

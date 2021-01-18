@@ -2,7 +2,7 @@
   $("#estimate-matter-certificate-new").modal("hide");
   $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を作成しました。</div>')
   $(".images-index").html('<%= escape_javascript(render "shared/estimate_matters/images_index") %>');
-  $(".certificates-index").html('<%= escape_javascript(render "shared/estimate_matters/certificates_index") %>');
+  $(".certificates-index").html('<%= escape_javascript(render "employees/estimate_matters/tab_panes/certificates") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })

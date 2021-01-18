@@ -12,7 +12,7 @@ class EstimateMatter < ApplicationRecord
   has_many :estimates, dependent: :destroy  # 見積と1対多
   has_many :images, dependent: :destroy #画像と1対多
   has_many :sales_statuses, dependent: :destroy
-  has_many :certificates, -> { order(position: :desc) }, dependent: :destroy #診断書と1対多
+  has_many :certificates, -> { order(position: :asc) }, dependent: :destroy #診断書と1対多
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }

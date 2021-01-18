@@ -1,0 +1,42 @@
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered table-column-type mt-2e">
+    <thead>
+      <tr>
+        <th>画像</th>
+        <th>診断書名</th>
+        <th>診断内容</th>
+      </tr>
+    </thead>
+    <tbody id="sortable-list">
+      <% @certificates.each do |certificate| %>
+        <tr class="tr-sortable">
+          <td><%= certificate.position %></td>
+          <td><%= certificate.title %></td>
+          <td><%= certificate.content %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(function() {
+    const el = document.getElementById("sortable-list")
+    if (el != null) {
+      const sortable = Sortable.create(el, {
+        animation: 150,
+        delay: 100,
+        onUpdate: function(evt) {
+          $.ajax({
+            type: "PATCH",
+            url: "<%= sort_employees_estimate_matter_certificates_path(@estimate_matter.id) %>",
+            cache: false,
+            data: { from: evt.oldIndex, 
+                    to: evt.newIndex, 
+                    remote: true }
+          });
+        }
+      });
+    }
+  });
+</script>
