@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   # mount ActionCable.server => '/cable'
   root "static_pages#login_index"
+  
+  get "postcode_search", to: "addresses#search_postcode"
 
   # API関連
   namespace :api do
