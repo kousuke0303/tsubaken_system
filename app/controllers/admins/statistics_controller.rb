@@ -1,4 +1,5 @@
 class Admins::StatisticsController < ApplicationController
+  before_action :authenticate_admin!
   
   def index
     # 月別営業カウント
