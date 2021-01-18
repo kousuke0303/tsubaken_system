@@ -11,13 +11,17 @@
     <tbody id="sortable-list">
       <% @certificates.each do |certificate| %>
         <tr class="tr-sortable">
-          <td><%= certificate.position %></td>
+          <td>
+            <% if image = certificate.image %>
+              <%= image_tag url_for(image.images[0].variant(resize: "50x50"))%>
+            <% end %>
+          </td>
           <td><%= certificate.title %></td>
           <td><%= certificate.content %></td>
           <td>
             <%= link_to "編集", edit_employees_estimate_matter_certificate_path(@estimate_matter, certificate),remote: true, class: "btn btn-sm btn-dark" %>
-          <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, certificate), method: :delete, remote: true,
-                             data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
+            <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, certificate), method: :delete, remote: true,
+                              data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
           </td>
         </tr>
       <% end %>
