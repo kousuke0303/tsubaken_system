@@ -5,7 +5,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "appointment" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -14,7 +20,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "inspection" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -23,7 +35,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "calculation" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -32,7 +50,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "waiting_insurance" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -41,7 +65,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "immediately" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -50,7 +80,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "other" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %><
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -59,7 +95,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "chasing" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -68,16 +110,28 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "contract" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
     </td>
     <td>
       <% est_matters.each do |est_matter| %>
-        <% if est_matter.sales_statuses.last.status == "other" %>
+        <% if est_matter.sales_statuses.last.status == "start_of_construction" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -86,7 +140,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "lost" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -95,7 +155,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "lost_by_other" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -104,7 +170,13 @@
       <% est_matters.each do |est_matter| %>
         <% if est_matter.sales_statuses.last.status == "other" %>
           <div class="husen">
-            <%= est_matter.title %><span class="ml-1e"><%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %></span>
+            <%= est_matter.title %>
+            <div>
+              <span style="font-size: 12px;">
+                <%= est_matter.sales_statuses.last.conducted_on.strftime("%m/%d") %>
+                <%= status_member_name(est_matter.sales_statuses.last) %>
+              </span>
+            </div>
           </div>
         <% end %>
       <% end %>

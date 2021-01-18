@@ -1,11 +1,12 @@
 class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
+  before_action :set_statuses, only: [:new, :edit]
   before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
   before_action :estimate_matter_members, only: [:new, :edit]
   
   def new
-    @sales_status = @estimate_matter.sales_statuses.new
+    @sales_status = @estimate_matter.sales_statuses.new    
   end
 
   def create
@@ -68,6 +69,10 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     def sales_status_params
       params.require(:sales_status).permit(:status, :conducted_on, :note, :staff_id, :external_staff_id)
     end
+
+    def set_statuses
+      @statuses = SalesStatus.statuses.except("not_set").keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }
+    end
     
     def estimate_matter_members
       @members = []
@@ -120,7 +125,6 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
         elsif current_external_staff
           @sales_status_editor.update(authority: current_external_staff.auth, member_id: current_external_staff.id)
         end
-      end
-        
+      end        
     end
 end

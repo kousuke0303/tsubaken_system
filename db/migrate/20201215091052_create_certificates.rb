@@ -3,6 +3,7 @@ class CreateCertificates < ActiveRecord::Migration[5.2]
     create_table :certificates do |t|
       t.string :title,           null: false
       t.string :content
+      t.integer :position
       t.boolean :default,        default: false
       t.integer :image_id
       t.integer :message_id

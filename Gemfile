@@ -43,6 +43,8 @@ gem 'jp_prefecture'
 gem "select2-rails"
 # グラフ
 gem 'chartkick'
+# ドラック&ドロップで並び替えするときのgem
+gem 'acts_as_list'
 
 
 group :development, :test do

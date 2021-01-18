@@ -4,6 +4,7 @@ class Clients::EstimateMattersController < ApplicationController
 
   def index
     @estimate_matters = current_client.estimate_matters
+    @client_matters =  Matter.joins(:estimate_matter).where(estimate_matters: { client_id: current_client.id })
   end
 
   def show

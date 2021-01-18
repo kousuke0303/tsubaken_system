@@ -32,7 +32,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
       else
         render json: { status: "false" }
       end
-    when "SP"
+    when "ES"
       external_staff = ExternalStaff.find_by(login_id: login_id)
       if external_staff && external_staff.valid_password?(password)
         render json: external_staff, serializer: ExternalStaffSerializer

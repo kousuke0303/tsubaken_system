@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.string "content"
+    t.integer "position"
     t.boolean "default", default: false
     t.integer "image_id"
     t.integer "message_id"
