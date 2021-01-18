@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="news_container">
+      <div class="top_page_contents">
+        <span>エリア別営業件数</span>
+        <%= pie_chart area_date_of_est %>
+      </div>
+    </div>
+  </div>
+      
+  <div class="col-md-6">
+    <div class="table-responsive">
+      <table class="table text-nowrap table-bordered table-column-type">
+        <tr>
+          <th>エリア</th>
+          <th>担当数</th>
+          <th>成約数</th>
+          <th>成約率</th>
+        </tr>
+        <% @total_est_number = 0 %>
+        <% @total_contract = 0 %>
+        <% area_date_of_est_for_table.each do |key, value| %>
+          <tr>
+            <td><%= key %></td>
+            <td><%= value[0] %><% @total_est_number += value[0] %></td>
+            <td><%= value[1] %><% @total_contract += value[1] %></td>
+            <td><%= contract_rate(value[1], value[0]) %>%</td>
+          </tr>
+        <% end %>
+        <tr class="total">
+          <td>合計</td>
+          <td><%= @total_est_number %></td>
+          <td><%= @total_contract %></td>
+          <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -141,6 +141,9 @@ Rails.application.routes.draw do
       get :top
       get :index
     end
+    resources :statistics, only: :index do
+      get :change_span, on: :collection
+    end
   end
   
   # Manager関係

@@ -9,7 +9,7 @@
         <%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, { include_blank: "ステータス別検索", selected: params[:status] }, class: "form-control" %>
       </div>
       <div class="col-lg-2 col-6 pr-0">
-        <%= f.select :year, (1970..Time.now.year).reverse_each, { include_blank: "作成月別検索(年)", selected: params[:year] }, class: "form-control" %>
+        <%= f.select :year, (2000..Time.now.year).reverse_each, { include_blank: "作成月別検索(年)", selected: params[:year] }, class: "form-control" %>
       </div>
       <div class="col-lg-2 col-6 pl-0">
         <%= f.select :month, 1..12, { include_blank: "作成月別検索(月)", selected: params[:month] }, class: "form-control" %>

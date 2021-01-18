@@ -2,7 +2,6 @@ class EstimateMatter < ApplicationRecord
   belongs_to :attract_method, optional: true
   belongs_to :client
   has_one :matter  # 案件と1対1
-  has_many :estimate_matter_members, dependent: :destroy
   # Staffと多対多
   has_many :estimate_matter_staffs, dependent: :destroy
   has_many :staffs, through: :estimate_matter_staffs
@@ -22,7 +21,7 @@ class EstimateMatter < ApplicationRecord
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{name}").ids) }
   scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{year + "-" + format('%02d', month)}%") }
-
+  
   private
     def identify(num = 16)
       self.id ||= SecureRandom.hex(num)

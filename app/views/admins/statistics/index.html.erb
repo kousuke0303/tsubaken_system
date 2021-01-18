@@ -1,0 +1,48 @@
+<div class="col-sm-12">
+  <h2><i class="fas fa-chart-pie"></i> 統計データ</h2>
+  
+  <div class="row mt-1e mb-1e">
+    <div class="col-md-6">
+      <span>月別営業件数</span>
+      <%= bar_chart @hash_est_count_for_month %>
+    </div>
+    <div class="col-md-6">
+      <span>月別売上高</span>
+    </div>
+  </div>
+  
+  <table class="table table-bordered">
+    <tr>
+      <th class="estimate_matter_tab">
+        <span class="ml-1e">営業詳細分析</span>
+        <span>
+          <button type="button" class="btn btn-light btn-sm float-r m-0" data-toggle="collapse" data-target="#collapse-est" aria-expanded="false" aria-controls="collapse-overview">詳細</button>
+        </span>
+      </th>
+    </tr>
+  </table>
+  <div class="collapse" id="collapse-est">
+    <%= form_with(url: change_span_statistics_path, method: :get, remote: true) do |f| %>
+      <table class="mb-05e">
+        <tr>
+          <td>開始日</td>
+          <td>終了日</td>
+        </tr>
+        <tr>
+          <td><%= f.date_field :start_date, value: @first_day, class: "form-control" %></td>
+          <td><%= f.date_field :end_date, value: @last_day, class: "form-control" %></td>
+          <td><%= f.submit "変更", class: "btn btn-dark" %></td>
+        </tr>
+      </table>
+    <% end %>
+    <div id="est_date_of_staff">
+      <%= render partial: 'admins/statistics/date_forms/est_matters', locals: {est_matter_date_for_graph: @est_matter_date_for_graph, est_matter_date_for_table: @est_matter_date_for_table} %>
+    </div>
+    <div id="est_area">
+      <%= render partial: 'admins/statistics/date_forms/est_matters_area', locals: {area_date_of_est: @area_date_of_est, area_date_of_est_for_table: @area_date_of_est_for_table} %>
+    </div>
+    <div id="est_attract">
+      <%= render partial: 'admins/statistics/date_forms/est_matters_attractmethod', locals: { graph_date_for_attract_count: @graph_date_for_attract_count, table_date_for_attract_count: @table_date_for_attract_count} %>
+    </div>
+  </div>
+</div>
