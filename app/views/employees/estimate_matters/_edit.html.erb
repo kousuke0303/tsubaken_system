@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @estimate_matter, url: employees_estimate_matter_path(@estimate_matter), method: :patch, remote: true) do |f| %>
             <div class="estimate-matter-update-errors"></div>
-            <%= render "form", f: f, clients: @clients, staffs: @staffs, external_staffs: @external_staffs %>
+            <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark" %>
             </div>
