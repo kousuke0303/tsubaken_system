@@ -5,6 +5,7 @@
         <th>画像</th>
         <th>診断書名</th>
         <th>診断内容</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="sortable-list">
@@ -13,6 +14,11 @@
           <td><%= certificate.position %></td>
           <td><%= certificate.title %></td>
           <td><%= certificate.content %></td>
+          <td>
+            <%= link_to "編集", edit_employees_estimate_matter_certificate_path(@estimate_matter, certificate),remote: true, class: "btn btn-sm btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, certificate), method: :delete, remote: true,
+                             data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
+          </td>
         </tr>
       <% end %>
     </tbody>
