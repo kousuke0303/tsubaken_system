@@ -14,4 +14,21 @@
       </table>
     </div>
   </div>
+
+  <h2>案件一覧</h2>
+  <div class="card text-center tab-wrapper">
+    <div class="card-body">
+    <table class="table table-sm common-table">
+        <tr>
+          <th>タイトル</th>
+        </tr>
+        <% @client_matters.each do |client_matters| %>
+        <%# 一旦clients_estimate_matter_pathを仮置 %>
+          <tr class="tr-link" data-link="<%= clients_estimate_matter_path(client_matters) %>">
+            <td><%= client_matters.title %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>
