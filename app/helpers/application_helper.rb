@@ -39,4 +39,5 @@ module ApplicationHelper
       return ExternalStaff.find(attendance.external_staff_id).name
     end
   end
+  
 end
