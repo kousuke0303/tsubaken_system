@@ -195,6 +195,21 @@ class AddressesController < ApplicationController
     end
   end
   
+  # ---------------------------------------------------------
+        # 郵便番号登録
+  # ---------------------------------------------------------
+  
+  def search_postcode
+    address = params[:address_city]
+    agent = Mechanize.new
+    page = agent.get("https://api.nipponsoft.co.jp/zipcode/#{address}")
+    @postcode = page.search('.zip a').text.delete!('-')
+    @result = @postcode.present? ? true : false
+    respond_to do |format|
+      format.js { render 'shared/javascript/postcode.js.erb' }
+    end
+  end
+  
   private
    def addresssearch_tokun
      @token = 'yPRgv43UY9aHiBcieWaVv774'

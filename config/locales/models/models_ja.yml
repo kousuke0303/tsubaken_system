@@ -30,8 +30,8 @@ ja:
           resigned_on: 退社日
           postal_code: 郵便番号
           prefecture_code: 都道府県
-          address_city: 市区町村
-          address_street: 町名番地
+          address_city: 市区町村及び町名
+          address_street: 番地以下
         staff:
           name: 名前
           department_id: 部署
@@ -119,8 +119,8 @@ ja:
     phone_2: 電話番号②
     postal_code: 郵便番号
     prefecture_code: 都道府県
-    address_city: 市区町村
-    address_street: 町名番地
+    address_city: 市区町村及び町名
+    address_street: 番地以下
     note: 備考
     content: 内容
     unit: 単位

@@ -1,0 +1,15 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#address_city").on('change', function(){
+      if(!$("#postcode").val()){
+        var address = $("#address_city").val()
+        $.ajax({
+          type: "GET",
+          url: "<%= postcode_search_path %>",
+          cache: false,
+          data: { address_city: address, remote: true }
+        })  
+      }
+    });
+  });
+</script>

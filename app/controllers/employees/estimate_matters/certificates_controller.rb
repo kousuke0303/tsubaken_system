@@ -3,13 +3,13 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   before_action :set_certificate, only: [:edit, :update, :destroy]
   
   def sort
-    certificate = @estimate_matter.certificates.find_by(params[:from])
-    if certificate.present?
-      certificate.insert_at(params[:to].to_i + 1)
-    else
-      @estimate_matter.certificates.first.update(position: params[:to].to_i)
+    from = params[:from].to_i + 1
+    certificate = @estimate_matter.certificates.find_by(position: from)
+    certificate.insert_at(params[:to].to_i + 1)
+    @certificates = @estimate_matter.certificates.order(position: :asc)
+    respond_to do |format|
+      format.js
     end
-    @certificates = @estimate_matter.certificates.order(position: :desc)
   end
 
   def new

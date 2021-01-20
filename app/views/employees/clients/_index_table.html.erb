@@ -1,10 +1,15 @@
 <% objects.each do |client| %>
-  <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
-    <td><%= client.name %></td>
+  <tr>
+    <td><%= link_to client.name, employees_client_path(client) %></td>
     <td><%= client.login_id %></td>
     <td><%= client.gender_i18n %></td>
     <td><%= client.phone_1 %></td>
     <td><%= client.phone_2 %></td>
     <td><%= client.email %></td>
+    <td>
+      <%= link_to new_employees_estimate_matter_path(client_id: client.id), remote: true, class: "btn btn-dark" do %>
+        <i class="fas fa-plus"></i> 新規見積案件
+      <% end %>
+    </td>
   </tr>
 <% end %>

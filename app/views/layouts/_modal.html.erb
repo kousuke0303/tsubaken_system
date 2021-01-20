@@ -94,9 +94,12 @@
   <% end %>
 
   <!--見積案件new・edit-->
-  <% if controller_name == "estimate_matters" && action_name == "index" %>
-    <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
-  <% elsif controller_name == "estimate_matters" && action_name == "show" %> 
+  <% if controller_name == "estimate_matters" || controller_name == "clients" %>
+    <% if action_name == "index" %>
+      <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
+    <% end %>
+  <% end %>
+  <% if controller_name == "estimate_matters" && action_name == "show" %> 
     <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>
     <!--営業ステータスnew・edit-->
     <div id="sales-status-new" class="modal fade" role="dialog"></div>

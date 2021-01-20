@@ -73,7 +73,7 @@
             <%= link_to "営業記録作成", new_employees_estimate_matter_sales_status_path(@estimate_matter), remote: true, class: "btn btn-success" %>
           </div>
           <div class="sales-statuses-index">
-            <%= render "employees/estimate_matters/tab_pane/sales_statuses" %>
+            <%= render "employees/estimate_matters/tab_panes/sales_statuses" %>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">
           見積作成
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-sales">
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimates" aria-expanded="true" aria-controls="collapse-estimates">
             詳細
           </button>
         </h5>
@@ -110,7 +110,7 @@
     <div class="card">
       <div class="card-header bg-dark" id="headingThree">
         <h5 class="text-light">
-          画像一覧
+          診断書一覧
           <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-certificates" aria-expanded="true" aria-controls="collapse-certificates">
             詳細
           </button>
@@ -119,22 +119,22 @@
   
       <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-certificates">
         <div class="card-body">
-          <div class="images-index">
-            <%= render "shared/estimate_matters/images_index" %>
+          <h3>画像一覧</h3>
+          <div class="row">
+            <% @images.each do |image| %>
+              <div class="col-sm-2 col-12">
+                <%= link_to new_employees_estimate_matter_certificate_path(@estimate_matter, image_id: image.id), remote: true do %>
+                  <div class="row image-item employees-image-item">
+                    <%= image_tag url_for(image.images[0].variant(resize: "150x150"))%>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
           </div>
+          <h3 class="mt-1e">診断書一覧</h3>
+          <div class="certificates-index"><%= render "/employees/estimate_matters/tab_panes/certificates" %></div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="card  mt-1e">
-    <div class="card-header bg-dark" id="headingThree">
-      <h5 class="text-light">
-        診断書一覧
-      </h5>
-    </div>
-    <div class="certificates-index">
-      <%= render "/employees/estimate_matters/tab_pane/certificates" %>
     </div>
   </div>
 </div>
