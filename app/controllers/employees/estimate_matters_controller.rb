@@ -21,6 +21,14 @@ class Employees::EstimateMattersController < ApplicationController
   def new
     @estimate_matter = EstimateMatter.new
     @attract_methods = AttractMethod.all
+    if params[:client_id]
+      client = Client.find(params[:client_id])
+      @id = client.id
+      @postal_code = client.postal_code
+      @prefecture_code = client.prefecture_code
+      @address_city = client.address_city
+      @address_street = client.address_street
+    end
   end
 
   def create
@@ -49,6 +57,11 @@ class Employees::EstimateMattersController < ApplicationController
 
   def edit
     @attract_methods = AttractMethod.all
+    @id = @estimate_matter.client_id
+    @postal_code = @estimate_matter.postal_code
+    @prefecture_code = @estimate_matter.prefecture_code
+    @address_city = @estimate_matter.address_city
+    @address_street = @estimate_matter.address_street
   end
 
   def update
@@ -125,7 +138,6 @@ class Employees::EstimateMattersController < ApplicationController
       format.js
     end
   end
-    
 
   private
     def set_estimate_matter
