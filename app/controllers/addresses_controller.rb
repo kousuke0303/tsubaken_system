@@ -204,7 +204,11 @@ class AddressesController < ApplicationController
     agent = Mechanize.new
     page = agent.get("https://api.nipponsoft.co.jp/zipcode/#{address}")
     @postcode = page.search('.zip a').text.delete!('-')
-    @result = @postcode.present? ? true : false
+    if @postcode.present? && @postcode.length == 7
+      @result =  true
+    else
+      @result = false
+    end
     respond_to do |format|
       format.js { render 'shared/javascript/postcode.js.erb' }
     end
