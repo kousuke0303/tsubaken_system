@@ -157,11 +157,11 @@ class Employees::EstimateMattersController < ApplicationController
     
     def current_person_in_charge
       if current_admin || current_manager
-        @estimate_matters = EstimateMatter.all
+        @estimate_matters = EstimateMatter.all.order(created_at: :desc)
       elsif current_staff
-        @estimate_matters = current_staff.estimate_matters
+        @estimate_matters = current_staff.estimate_matters.order(created_at: :desc)
       elsif current_external_staff
-        @estimate_matters = current_external_staff.estimate_matters
+        @estimate_matters = current_external_staff.estimate_matters.order(created_at: :desc)
       end
     end
 
