@@ -8,7 +8,7 @@
           <%= form_with(model: estimate_matter, url: employees_estimate_matter_matters_path, method: :post, remote: true) do |f| %>
             <div class="estimate-matter-create-errors"></div>
             <div>
-              <%= f.label "スタッフ" %>
+              <%= f.label "担当スタッフ" %>
               <div>
                 <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control members", multiple: true } %>
               </div>
