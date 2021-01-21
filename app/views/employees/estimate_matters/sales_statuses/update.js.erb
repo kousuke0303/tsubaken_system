@@ -1,7 +1,7 @@
 <% if @response == "success" %>
   $("#sales-status-edit").modal("hide");
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">営業ステータスを更新しました。</div>');
-  $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/tab_pane/sales_statuses") %>');
+  $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/tab_panes/sales_statuses") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })
