@@ -53,6 +53,7 @@ class Employees::EstimateMattersController < ApplicationController
     @constructions = Construction.of_estimate_matter(@estimate_matter.id)
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
+    @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
   end
 
   def edit
