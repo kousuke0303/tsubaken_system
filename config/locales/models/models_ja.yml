@@ -20,6 +20,7 @@ ja:
       construction: 工事
       material: 素材
       attract_method: 集客方法
+      plan_name: プラン名
     attributes:
         admin:
           name: 名前
@@ -105,6 +106,8 @@ ja:
           default: デフォルト
         attract_method:
           name: 集客方法
+        plan_name:
+          name: プラン名
         sales_status:
           status: ステータス
           conducted_on: 予定日

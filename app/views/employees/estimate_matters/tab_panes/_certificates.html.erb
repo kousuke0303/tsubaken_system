@@ -8,7 +8,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody id="sortable-list">
+    <tbody id="sortable-certificates">
       <% @certificates.each do |certificate| %>
         <tr class="tr-sortable">
           <td>
@@ -31,7 +31,7 @@
 
 <script>
   $(function() {
-    const el = document.getElementById("sortable-list")
+    let el = document.getElementById("sortable-certificates");
     if (el != null) {
       const sortable = Sortable.create(el, {
         animation: 150,

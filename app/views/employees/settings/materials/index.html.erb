@@ -10,33 +10,29 @@
     </div>
   </div>
 
-  <div class="card mt-1e">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered text-nowrap common-table">
-          <tr>
-            <th>素材名</th>
-            <th>耐用年数</th>
-            <th>カテゴリ名</th>
-            <th>単価</th>
-            <th>単位</th>
-            <th></th>
-          </tr>
-          <% @materials.each do |material| %>
-            <tr>
-              <td><%= material.name %></td>
-              <td><%= material.service_life %></td>
-              <td><%= material.category_name %></td>
-              <td><%= material.price %></td>
-              <td><%= material.unit %></td>
-              <td>
-                <%= link_to "編集", edit_employees_settings_material_path(material), remote: true, class: "btn btn-sm btn-dark" %>
-                <%= link_to "削除", employees_settings_material_path(material), method: :delete, data: { confirm: "この素材を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>素材名</th>
+        <th>耐用年数</th>
+        <th>カテゴリ名</th>
+        <th>単価</th>
+        <th>単位</th>
+        <th></th>
+      </tr>
+      <% @materials.each do |material| %>
+        <tr>
+          <td><%= material.name %></td>
+          <td><%= material.service_life %></td>
+          <td><%= material.category_name %></td>
+          <td><%= material.price %></td>
+          <td><%= material.unit %></td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_material_path(material), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_material_path(material), method: :delete, data: { confirm: "この素材を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
