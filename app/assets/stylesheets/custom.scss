@@ -48,17 +48,6 @@ label {
   display: flex;
 }
 
-.login-id-lead {
-  font-weight: bold;
-  padding-top: 7px;
-  text-align: center;
-  margin-right: 0.5em;
-}
-
-.login-id-body {
-  width: 100%;
-}
-
 .btn-area {
   margin-top: 20px;
   text-align: center;
@@ -70,10 +59,6 @@ label {
   }
 }
 
-.flex {
-  display: flex;
-}
-
 .common-table {
   margin-top: 1em;
   th {
@@ -81,7 +66,7 @@ label {
   }
 }
 
-/*------------------------------ ERROR MESSAGE ------------------------------*/
+/* ------------------------------ ERROR MESSAGE ------------------------------ */
 .custom-error {
   h5 {
     background-color: #dc3545;
@@ -108,9 +93,7 @@ label {
 $color: #000;
 $color-bg: #eae9e9;
 
-/* -----------------------------------------------------------------------------------
-    LOGIN
------------------------------------------------------ */
+/* ------------------------------ LOGIN ------------------------------ */
 
 .login-wrapper {
   background: $color-bg;
@@ -224,18 +207,6 @@ $color-bg: #eae9e9;
     background: #343a40;
 }
 
-.sign_in_link {
-  margin-top: 1em;
-  text-align: center;
-  a {
-    color: #007bff;
-  }
-}
-
-//////////////////////////////////////////////
-
-/* ---------- ALIGN ---------- */
-
 .align {
   align-items: center;
   display: flex;
@@ -243,9 +214,7 @@ $color-bg: #eae9e9;
   justify-content: center;
 }
 
-/* -----------------------------------------------------------------------------------
-    ADMIN & MANAGER///FLAMEWORK
------------------------------------------------------ */
+/* ------------------------------ ADMIN & MANAGER///FLAMEWORK ------------------------------ */
 
 .entire-wrapper {
   display: flex;
@@ -264,7 +233,7 @@ ul ul a {
     background: #6c757d;
 }
 
-/* sidebar */
+/* ------------------------------ sidebar ------------------------------ */
 
 #sidebar {
   min-width: 250px;
@@ -321,6 +290,7 @@ ul ul a {
   font-size: 1.1em;
   display: block;
 }
+
 #sidebar ul li a:hover {
   color: #343a40;
   background: #fff;
@@ -403,7 +373,6 @@ a.article, a.article:hover {
   margin: 5px auto;
 }
 
-
 /* ---------------------------------------------------
     ALL HEADER STYLE
 ----------------------------------------------------- */
@@ -427,9 +396,7 @@ a.article, a.article:hover {
   border: none;
 }
 
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
+/* ------------------------------ CONTENT STYLE ------------------------------ */
 #content {
   width: 100%;
   padding: 20px;
@@ -466,12 +433,13 @@ a.article, a.article:hover {
   }
 }
 
-/*------------------------------ DEBUG ------------------------------*/
+/* ------------------------------ DEBUG ------------------------------ */
+
 .debug {
   padding-left: 1em;
 }
 
-/*------------------------------ 背景色 ------------------------------*/
+/* ------------------------------ 背景色 ------------------------------ */
 
 .bg-purple {
   background-color: #8695d6;
@@ -493,7 +461,7 @@ a.article, a.article:hover {
   background-color: #b7b7b7;
 }
 
-//* BUTTON *//
+/* ------------------------------ BUTTON  ------------------------------ */
 
 .btn-gray {
   background-color: gainsboro;
@@ -525,7 +493,8 @@ a.article, a.article:hover {
   color: white;
 }
 
-/*------------------------------ MEDIAQUERIES ------------------------------*/
+/* ------------------------------ MEDIAQUERIES ------------------------------ */
+
 @media screen and (min-width: 992px) {
   .admin_dropdown_menu {
     margin-left: -93px!important;
@@ -637,6 +606,3 @@ a.article, a.article:hover {
     }
   }
 }
-
-
-
