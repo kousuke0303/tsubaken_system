@@ -98,6 +98,7 @@ ja:
           name: 素材名
           service_life: 耐用年数
           category_id: カテゴリ
+          note: 摘要
         certificate:
           title: 診断書名
           content: 内容
