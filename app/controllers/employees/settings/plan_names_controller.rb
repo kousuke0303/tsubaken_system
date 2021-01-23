@@ -33,12 +33,22 @@ class Employees::Settings::PlanNamesController < ApplicationController
   end
 
   def index
-    @plan_names = PlanName.all
+    @plan_names = PlanName.order(position: :asc)
   end
 
   def destroy
     @plan_name.destroy ? flash[:success] = "プラン名を削除しました。" : flash[:alert] = "プラン名を削除できませんでした。"
     redirect_to employees_settings_plan_names_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    plan_name = PlanName.find_by(position: from)
+    plan_name.insert_at(params[:to].to_i + 1)
+    @plan_names = PlanName.order(position: :asc)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
