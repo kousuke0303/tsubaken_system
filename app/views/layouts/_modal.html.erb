@@ -75,6 +75,12 @@
     <div id="attract-method-new" class="modal fade" role="dialog"></div>
     <div id="attract-method-edit" class="modal fade" role="dialog"></div>
   <% end %>
+
+  <!--プラン名new・edit-->
+  <% if controller_name == "plan_names" && action_name == "index" %>
+    <div id="plan-name-new" class="modal fade" role="dialog"></div>
+    <div id="plan-name-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->

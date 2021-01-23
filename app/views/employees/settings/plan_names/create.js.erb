@@ -1,0 +1,7 @@
+$(".plan-name-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @plan_name) %>');
+<% @plan_name.errors.messages.keys.each do |key_attribute| %>
+  var addDiv = $('<div class="field-with-errors">');
+  var addLabel = $('[name="plan_name[<%= key_attribute.intern.to_s %>]"]').prev();
+  $('[name="plan_name[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+  addLabel.wrap(addDiv);
+<% end %>
