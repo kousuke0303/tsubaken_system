@@ -196,4 +196,25 @@ class Employees::EstimateMattersController < ApplicationController
         end
       end
     end
+    
+    def estimate_index_display_date
+      est_matter_estimate_hash = Hash.new()
+      category_hash = Hash.new()
+      line_hash_3 = Hash.new()
+      @estimates.each do |estimate|
+        est_matter_estimate_hash.store(estimate.id, category_hash)
+         
+        estimate.categories.each do |category|
+          category_hash.store(category.id, line_hash_3)
+          
+          category.materials.each do |material|
+            line_hash_3.push(material)
+          end
+          category.constructions.each do |constructions|
+            line_hash_3.push(constructions)
+          end
+        end
+      end
+      @hash_date = est_matter_estimate_hash
+    end
 end

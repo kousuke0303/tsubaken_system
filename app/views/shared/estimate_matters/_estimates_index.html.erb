@@ -2,6 +2,7 @@
   <% total_price = 0 %>
   <p class="mt-1e mb-0"><%= estimate_type(index) %> TYPE</p>
    
+  
   <div class="flex estimate-table-header">
     <div class="estimate-name">プラン名</div>
     <div style="width: 80%;" class="flex">
@@ -48,7 +49,7 @@
               <% if current_client %>
                 <%= category[0].category_name %>
               <% else %>   
-                <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-sm btn-dark" %>
+                <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true %>
               <% end %>
             </div>
             <div class="construction-material construction-material-<%= last %>">              
@@ -129,4 +130,88 @@
                               data: { confirm: "この見積を複製してよろしいですか？" }, class: "btn btn-sm btn-primary" %>
     <% end %>
     </div>
+<% end %>
+
+<% @estimate_matter.estimates.each do |estimate| %>
+
+  <table class="table table-bordered table_line_type">
+    <thead>
+      <tr>
+        <th>プラン名</th>
+        <th>項目</th>
+        <th>工事名称・素材</th>
+        <th>耐用年数</th>
+        <th>単価</th>
+        <th>単位</th>
+        <th>数値</th>
+        <th>計</th>
+      </tr>
+      <tr>
+        <td rowspan="<%= plan_row_span(estimate.id) %>">
+          <div class= home_icon_2>
+            <div class="triangle" style="border-bottom-color: #dc3545"></div>
+            <div class="square" style="background: #dc3545">
+              <div class="window">
+                <div><p>■■</p><p>■■</p></div>
+              </div>
+              <div class="text">
+                <% if current_client %>
+                  <%= estimate.title %>
+                <% else %>
+                  <%= link_to estimate.title, edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id),
+                                          remote: true %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </td>
+        <% @first_category = estimate.categories.first %>
+        <td rowspan="<%= category_row_span(@first_category) %>">
+          <%= category_name(@first_category.id) %>
+        </td>
+        <% @first_material = @first_category.materials.first if @first_category.materials.present? %>
+        <td><%= @first_material.name %></td>
+        <td><%= @first_material.service_life %></td>
+        <td><%= @first_material.price %></td>
+        <td><%= @first_material.unit %></td>
+        <td><%= @first_material.amount %></td>
+        <td><%= %></td>
+      </tr>
+      <% if @first_category.materials.count > 1 %>
+        <% @first_category.materials.offset(1).each do |material| %>
+          <tr>
+            <td><%= material.name %></td>
+            <td><%= material.service_life %></td>
+            <td><%= material.price %></td>
+            <td><%= material.unit %></td>
+            <td><%= material.amount %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% if estimate.categories.count > 1 %>
+        <% estimate.categories.offset(1).each do |category| %>
+          <tr>
+            <td rowspan="<%= category_row_span(category) %>"><%= category_name(category.id) %></td>
+            <td><%= category.materials.first.name if category.materials.present? %></td>
+            <td>年数</td>
+            <td>単価</td>
+            <td>単位</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% category.materials.offset(1).each do |material| %>
+            <tr>
+              <td><%= material.name %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </thead>
+  </table>
 <% end %>

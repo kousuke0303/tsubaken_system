@@ -12,7 +12,8 @@ class Estimate < ApplicationRecord
       "categories.*",
       "estimates.id AS id",
       "categories.id AS category_id",
-      "categories.name AS category_name"
-    ) 
+      "categories.name AS category_name",
+      "categories.sort_number AS category_number"
+    ).order(:category_number)
   }
 end

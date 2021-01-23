@@ -12,9 +12,10 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     if @estimate.save
       # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
       if params[:estimate]["category_ids"].present?
-        params[:estimate]["category_ids"].each do |category_id|
+        params_categories = params[:estimate]["category_ids"].split(",")
+        params_categories.each.with_index(1) do |category_id, i|
           default_category = Category.find(category_id)
-          @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+          @estimate.categories.create(name: default_category.name, parent_id: default_category.id, sort_number: i)
         end
       end
       @response = "success"
@@ -29,16 +30,30 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
 
   def edit
     @categories = Category.all.where(default: true)
+    @estimate_categories = @estimate.categories.all
   end
 
   def update
     if @estimate.update(estimate_params)
       # 送られてきたデフォルトカテゴリを、見積の持つカテゴリとしてコピー
       if params[:estimate]["category_ids"].present?
-        params[:estimate]["category_ids"].each do |category_id|
-          default_category = Category.find(category_id)
-          @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+        prerequisite_processing_for_update
+        # 増加カテゴリの処理
+        if @add_categories.present?
+          @add_categories.each do |category_id|
+            default_category = Category.find(category_id)
+            @estimate.categories.create(name: default_category.name, parent_id: default_category.id)
+          end
         end
+        # 現象カテゴリの処理
+        if @delete_categories.present?
+          @delete_categories.each do |category_id|
+            object = Category.where(parent_id: category_id).find_by(estimate_id: @estimate.id)
+            object.destroy
+          end
+        end
+        # 順番変更
+        change_category_order
       end
       @response = "success"
       set_estimates_details(@estimate_matter)
@@ -82,5 +97,34 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
 
     def estimate_params
       params.require(:estimate).permit(:title)
+    end
+    
+    def prerequisite_processing_for_update
+      # カテゴリの差分
+      before_category_arrey = @estimate.categories.pluck(:parent_id)
+      params_categories = params[:estimate]["category_ids"].split(",").map(&:to_i)
+      @after_category_arrey = []
+      # 空欄を除く
+      params_categories.each do |params_categopry|
+        unless params_categopry == 0
+          @after_category_arrey << params_categopry
+        end
+      end
+      
+      # カテゴリが増えている場合
+      if (params_categories - before_category_arrey).present?
+        @add_categories = @after_category_arrey - before_category_arrey
+      end
+      # カテゴリが減っている場合
+      if (before_category_arrey - params_categories).present?
+        @delete_categories = before_category_arrey - @after_category_arrey
+      end
+    end
+    
+    def change_category_order
+      sort_categories = @estimate.categories.sort_by{|category| @after_category_arrey.index(category.parent_id)}
+      sort_categories.each.with_index(1) do |sort_category, i|
+        sort_category.update(sort_number: i)
+      end
     end
 end

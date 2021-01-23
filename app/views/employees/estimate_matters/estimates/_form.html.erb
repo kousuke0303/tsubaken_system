@@ -1,9 +1,64 @@
-<%= f.label :title %>
+<%= f.label "タイプ名" %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
 
-<%= f.label :category_ids, "カテゴリ" %>
-<div>
-  <%= f.collection_check_boxes(:category_ids, @categories, :id, :name, include_hidden: false) do |c| %>
-    <%= c.check_box %><%= c.text %>
-  <% end %> 
-</div>
+<%= f.label :category_ids, "カテゴリ選択" %>
+<% if type == "new" %>
+  <table class="table table-striped" id="estimate_form_category">
+    <tr>
+      <td style="width: 4em">順番</td>
+      <td>カテゴリ選択</td>
+      <td style="width: 5em"></td>
+    </tr>
+    <tr>
+      <td class="number">1</td>
+      <td>
+        <%= f.select :category_id, @categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
+      <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+    </tr>
+  </table>
+  
+<% elsif type == "edit" %>
+  <table class="table table-striped" id="estimate_form_category">
+    <tr>
+      <td style="width: 4em">順番</td>
+      <td>カテゴリ選択</td>
+      <td style="width: 5em"></td>
+    </tr>
+    <% @estimate_categories.each.with_index(1) do |category, index| %>
+      <tr>
+        <td class="number"><%= index %></td>
+        <td>
+          <%= f.select :category_id, @categories.map{ |cate| [cate.name, cate.id] }, {selected: category.parent_id, include_blank: true}, {class: "form-control"} %>
+        </td>
+        <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<%= f.hidden_field :category_ids, id: "category_ids" %>
+
+<script>
+  $('.add_btn').on("click", function(){
+    var add_html = $('#estimate_form_category tr:last').clone(true);
+    $('#estimate_form_category').append(add_html);// 末尾追加
+    var number = $('.number').last().text();
+    $('.number').last().text(Number(number) + 1);
+    var attr_name = "estimate[category_id_" + number + "]"
+    $('select').last().attr('name', attr_name);
+    $('select').last().val('');
+  });
+</script>
+
+<script>
+  $('#submit').on('click', function(){
+    category_ids = []
+    $('select').each(function(i, element){
+      var value = $(element).val();
+      category_ids.push(Number(value));
+    });
+    $('#category_ids').val(category_ids);
+    $('#estimate_form').submit;
+  });
+</script>
+
