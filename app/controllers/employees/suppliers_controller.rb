@@ -39,6 +39,7 @@ class Employees::SuppliersController < ApplicationController
 
   def show
     @matters = @supplier.matters.all
+    @addresses = EstimateMatter.get_address @matters.pluck(:estimate_matter_id)
     @external_staffs = @supplier.external_staffs.all
   end
 
