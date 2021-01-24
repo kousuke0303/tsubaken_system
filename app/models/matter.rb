@@ -20,6 +20,8 @@ class Matter < ApplicationRecord
   
   before_create :identify
 
+  scope :join_estimate_matter, ->() { joins(:estimate_matter) }
+
   private
     def identify(num = 16)
       self.id ||= SecureRandom.hex(num)

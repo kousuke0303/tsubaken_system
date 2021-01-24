@@ -21,7 +21,6 @@ class EstimateMatter < ApplicationRecord
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{name}").ids) }
   scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{year + "-" + format('%02d', month)}%") }
-  scope :get_address, ->(estimate_matter_id) { where("id IN (?)", estimate_matter_id).select(:prefecture_code, :address_city, :address_street) }
   
   private
     def identify(num = 16)
