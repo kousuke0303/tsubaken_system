@@ -53,7 +53,7 @@ class Employees::Settings::PlanNamesController < ApplicationController
 
   private
     def plan_name_params
-      params.require(:plan_name).permit(:name)
+      params.require(:plan_name).permit(:name, :color)
     end
 
     def set_plan_name

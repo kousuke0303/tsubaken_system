@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_024204) do
+ActiveRecord::Schema.define(version: 2021_01_03_144323) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -171,9 +171,11 @@ ActiveRecord::Schema.define(version: 2021_01_22_024204) do
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.string "estimate_matter_id"
+    t.bigint "plan_name_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
+    t.index ["plan_name_id"], name: "index_estimates_on_plan_name_id"
   end
 
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -310,6 +312,7 @@ ActiveRecord::Schema.define(version: 2021_01_22_024204) do
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "position"
+    t.integer "color", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -444,6 +447,7 @@ ActiveRecord::Schema.define(version: 2021_01_22_024204) do
   add_foreign_key "estimate_matter_staffs", "staffs"
   add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
+  add_foreign_key "estimates", "plan_names"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
