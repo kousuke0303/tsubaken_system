@@ -28,7 +28,7 @@
                   <%= f.text_area :note, class: "form-control" %>
                 </div>
 
-                <%= f.submit "更新", class: "btn btn-dark" %>
+                <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
                 <%= link_to "削除", manager_settings_manager_event_path(event), data: {confirm: "#{event.event_name}を削除しますか？"}, method: :delete,class: "btn btn-destroy" %>
               <% end %>          
             </div>
@@ -39,3 +39,4 @@
   </div>
 </div>
 
+<%= javascript_include_tag "reset_errors.js" %>

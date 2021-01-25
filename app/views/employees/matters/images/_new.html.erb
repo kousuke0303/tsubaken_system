@@ -20,7 +20,7 @@
             <%= f.file_field :images, accept: 'image/jpeg, image/png, image/gif, image/bmp, image/psd, image/tiff', class: "file-input" %>
           </div>
         
-          <%= f.submit class: "btn btn-dark" %>
+          <%= f.submit class: "btn btn-dark reset-errors" %>
         <% end %>
       </div>   
     </div>
@@ -35,5 +35,5 @@
   </script>
 <% end %>
 
-
+<%= javascript_include_tag "reset_errors.js" %>
   

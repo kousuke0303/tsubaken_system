@@ -19,7 +19,7 @@
             <input name="prev_action" hidden>
 
             <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
               <%= link_to "削除", "#", method: :delete, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger", id: "to-destroy-attendance" %>
             </div>
           <% end %>
@@ -28,6 +28,8 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "reset_errors.js" %>
 
 <script>
   $(document).on("turbolinks:load", function() {

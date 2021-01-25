@@ -37,7 +37,7 @@
             </div>
             
             <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= f.submit "更新", class: "btn btn-dark reset-erros" %>
               <%= link_to "削除", employees_matter_task_path(matter, task), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
             </div>
           <% end %>

@@ -9,7 +9,7 @@
             <div class="estimate-update-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
               <%= link_to "削除", employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :delete, remote: true,
                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
@@ -20,4 +20,4 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>

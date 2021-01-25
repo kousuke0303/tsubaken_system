@@ -10,7 +10,7 @@
             <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
             <%= render "form", f: f, categories: categories %>
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
           <% end %>
         </div>
@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>
 
 <script>
   $('[name="estimate[plan_name]"]').change(function() {

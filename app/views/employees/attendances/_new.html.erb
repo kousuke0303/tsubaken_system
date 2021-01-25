@@ -38,7 +38,7 @@
             <input name="prev_action" value="<%= @prev_action %>" hidden>
 
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark", id: "create-attendance-submit" %>
+              <%= f.submit "作成", class: "btn btn-dark reset-errors", id: "create-attendance-submit" %>
             </div>
           <% end %>
         </div>
@@ -46,6 +46,8 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "reset_errors.js" %>
 
 <script>
   var managerSelectNew = $("#manager-select");

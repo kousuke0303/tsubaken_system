@@ -1,0 +1,20 @@
+/* line 2, app/assets/stylesheets/table.scss */
+.table-column-type th {
+  background-color: #f6f6f6;
+}
+
+/* line 5, app/assets/stylesheets/table.scss */
+.table-column-type .alert {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* line 9, app/assets/stylesheets/table.scss */
+.table-column-type .total td {
+  background: #f6f6f6;
+}
+
+/* line 15, app/assets/stylesheets/table.scss */
+.table_line_type th {
+  background-color: #eeeeee;
+}

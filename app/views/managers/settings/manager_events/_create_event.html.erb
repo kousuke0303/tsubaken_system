@@ -53,7 +53,7 @@
 
                 <%= f.hidden_field :manager_id, :value => current_manager.id %>
               
-                <%= f.submit "作成", class: "btn btn-dark" %>
+                <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
               <% end %>
             </div>
           </div>
@@ -63,13 +63,14 @@
   </div>
 </div>
 
+<%= javascript_include_tag "reset_errors.js" %>
 
 <!--チェックボックス 複数選択不可-->
 <script>
-$(".event_select_form").on("click", function(){
-  $('.event_select_form').prop('checked', false);
-  $(this).prop('checked', true);
-});
+  $(".event_select_form").on("click", function(){
+    $('.event_select_form').prop('checked', false);
+    $(this).prop('checked', true);
+  });
 </script>
 
 <!--イベントフォーム切替-->

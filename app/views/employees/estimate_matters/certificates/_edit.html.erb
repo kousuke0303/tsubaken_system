@@ -17,7 +17,7 @@
         <%= f.text_area :content, maxlength: 300, class: "form-control" %>
 
         <div class="btn-area">
-          <%= f.submit "更新", class: "btn btn-md btn-dark" %>
+          <%= f.submit "更新", class: "btn btn-md btn-dark reset-errors" %>
           <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, @certificate), method: :delete,
                              remote: true, data: { confirm: "この診断書を削除してよろしいですか?" }, class: "btn btn-danger" %>
         </div>
@@ -25,3 +25,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "reset_errors.js" %>
