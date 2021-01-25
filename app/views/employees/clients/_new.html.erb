@@ -11,7 +11,7 @@
             <div class="client-create-errors"></div>
             <%= render "form", f: f %>
             <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark" %>
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
           <% end %>
         </div>
@@ -20,4 +20,4 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>

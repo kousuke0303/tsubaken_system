@@ -33,7 +33,7 @@ class Employees::Settings::PlanNamesController < ApplicationController
   end
 
   def index
-    @plan_names = PlanName.all
+    @plan_names = PlanName.order(position: :asc)
   end
 
   def destroy
@@ -41,9 +41,19 @@ class Employees::Settings::PlanNamesController < ApplicationController
     redirect_to employees_settings_plan_names_url
   end
 
+  def sort
+    from = params[:from].to_i + 1
+    plan_name = PlanName.find_by(position: from)
+    plan_name.insert_at(params[:to].to_i + 1)
+    @plan_names = PlanName.order(position: :asc)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def plan_name_params
-      params.require(:plan_name).permit(:name)
+      params.require(:plan_name).permit(:name, :color)
     end
 
     def set_plan_name

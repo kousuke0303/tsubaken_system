@@ -17,7 +17,7 @@
           </div>
           
           <div>
-            <%= f.submit "更新", class: "btn btn-md btn-dark" %>
+            <%= f.submit "更新", class: "btn btn-md btn-dark reset-errors" %>
             <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
           </div>
         
@@ -31,3 +31,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "reset_errors.js" %>

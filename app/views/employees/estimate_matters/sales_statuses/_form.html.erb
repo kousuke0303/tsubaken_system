@@ -12,8 +12,6 @@
   <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
 
-<!--<!%= render "shared/person_in_charge_jq" %>-->
-
 <% if @sales_status.sales_status_member.present? %>
   <script>
     $(document).ready( function(){

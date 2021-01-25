@@ -6,6 +6,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   def new
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
+    @plan_names = PlanName.order(position: :asc)
   end
 
   def create

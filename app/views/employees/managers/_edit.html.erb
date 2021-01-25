@@ -8,7 +8,7 @@
           <%= form_with(model: @manager, url: employees_manager_path(@manager), method: :patch, remote: true) do |f| %>
             <div class="manager-update-errors"></div>
             <%= render "form", f: f %>
-            <div class="btn-area"><%= f.submit "更新", class: "btn btn-dark" %></div>
+            <div class="btn-area"><%= f.submit "更新", class: "btn btn-dark reset-errors" %></div>
           <% end %>
         </div>
       </div>
@@ -16,4 +16,4 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>

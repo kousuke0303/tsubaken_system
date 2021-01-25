@@ -38,7 +38,7 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def show
-    @matters = @supplier.matters.all
+    @matters = @supplier.matters.all.join_estimate_matter
     @external_staffs = @supplier.external_staffs.all
   end
 

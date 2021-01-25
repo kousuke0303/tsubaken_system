@@ -12,7 +12,7 @@
             <div class="estimate-create-errors"></div>
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
+            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
             <%= f.label :category_ids, "カテゴリ選択" %>
             <table class="table table-striped" id="estimate_form_category">
               <tr>
@@ -30,7 +30,8 @@
             <%= f.hidden_field :category_ids, id: "category_ids" %>
             <div class="btn-area">
               <button type="submit" id="submit" class="btn btn-primary">作成</button>
-            </div>
+            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
+            
           <% end %>
         </div>
       </div>
@@ -39,7 +40,7 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>
 
 <script>
   $('.add_btn').on("click", function(){
@@ -65,4 +66,10 @@
   });
 </script>
 
-
+<script>
+  $('[name="estimate[plan_name]"]').change(function() {
+    if($(this).val() != "") {
+      $('[name="estimate[title]"]').val($(this).val());
+    }
+  });
+</script>

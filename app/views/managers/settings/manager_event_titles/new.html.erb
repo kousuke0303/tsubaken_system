@@ -40,7 +40,7 @@
           </tr>
           <tr>
             <td>
-              <%= f.submit "登録", class: "btn btn-dark" %>
+              <%= f.submit "登録", class: "btn btn-dark reset-errors" %>
               <button type="button" class="float-r return_btn">戻る</button>
             </td>
           </tr>
@@ -51,15 +51,17 @@
   </div>
 </div>
 
+<%= javascript_include_tag "reset_errors.js" %>
+
 <script>
-<% @default_manager_event_titles.each do |manager_event_title| %>
-  $('#default_manager_event_title_<%= manager_event_title.id %>_title').on('click', function(){
-    $('#default_manager_event_title_<%= manager_event_title.id %>_show').show();
-    $('.default_manager_event_title_show:not(#default_manager_event_title_<%= manager_event_title.id %>_show)').hide();
-    $('#default_manager_event_title_<%= manager_event_title.id %>_title').addClass('active');
-    $('.default_manager_event_title_title:not(#default_manager_event_title_<%= manager_event_title.id %>_title)').removeClass('active');
-  });
-<% end %>
+  <% @default_manager_event_titles.each do |manager_event_title| %>
+    $('#default_manager_event_title_<%= manager_event_title.id %>_title').on('click', function(){
+      $('#default_manager_event_title_<%= manager_event_title.id %>_show').show();
+      $('.default_manager_event_title_show:not(#default_manager_event_title_<%= manager_event_title.id %>_show)').hide();
+      $('#default_manager_event_title_<%= manager_event_title.id %>_title').addClass('active');
+      $('.default_manager_event_title_title:not(#default_manager_event_title_<%= manager_event_title.id %>_title)').removeClass('active');
+    });
+  <% end %>
 </script>
 
 <script>

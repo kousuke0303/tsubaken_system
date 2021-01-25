@@ -1,0 +1,88 @@
+/* line 1, app/assets/stylesheets/images.scss */
+.img-display-area {
+  align-items: left;
+  border: 2px solid;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* line 10, app/assets/stylesheets/images.scss */
+.image-error-color {
+  color: red;
+}
+
+/* line 14, app/assets/stylesheets/images.scss */
+.top-new-image {
+  margin-left: 580px;
+}
+
+/* line 18, app/assets/stylesheets/images.scss */
+.margin-top-posision {
+  margin-top: 10px;
+}
+
+/* line 22, app/assets/stylesheets/images.scss */
+.margin-bottom-posision {
+  margin-bottom: 17px;
+  margin-left: 100px;
+}
+
+/* line 27, app/assets/stylesheets/images.scss */
+.margin-bottom-index-posision {
+  margin-bottom: 17px;
+  margin-left: 500px;
+}
+
+/* line 32, app/assets/stylesheets/images.scss */
+.margin-left-posision {
+  margin-left: 10px;
+}
+
+/* line 36, app/assets/stylesheets/images.scss */
+.images-partial {
+  float: left;
+  margin-left: 40px;
+}
+
+/* line 41, app/assets/stylesheets/images.scss */
+.edit-image-content-position {
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+/* line 45, app/assets/stylesheets/images.scss */
+.link-to-image-edit-buttom-position {
+  margin-bottom: 10px;
+}
+
+/* line 49, app/assets/stylesheets/images.scss */
+.edit-button-position {
+  position: relative;
+}
+
+/* line 53, app/assets/stylesheets/images.scss */
+.image-item {
+  margin-top: 1em;
+  padding: 0 15px;
+}
+
+/* line 56, app/assets/stylesheets/images.scss */
+.image-item .image-wrapper {
+  align-items: center;
+  background: black;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+/* line 65, app/assets/stylesheets/images.scss */
+.employees-image-item:hover {
+  opacity: 0.8;
+}
+
+/* line 69, app/assets/stylesheets/images.scss */
+.employees-image-item:active {
+  opacity: 0.6;
+}

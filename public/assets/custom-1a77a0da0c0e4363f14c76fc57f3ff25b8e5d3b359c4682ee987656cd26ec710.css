@@ -1,0 +1,704 @@
+@charset "UTF-8";
+/* line 2, app/assets/stylesheets/custom.scss */
+* {
+  box-sizing: inherit;
+}
+
+/* line 6, app/assets/stylesheets/custom.scss */
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+/* line 11, app/assets/stylesheets/custom.scss */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fafafa;
+}
+
+/* line 16, app/assets/stylesheets/custom.scss */
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+/* line 24, app/assets/stylesheets/custom.scss */
+input {
+  background-image: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  transition: all .3s;
+}
+
+/* line 33, app/assets/stylesheets/custom.scss */
+label {
+  margin-top: 10px;
+}
+
+/* line 37, app/assets/stylesheets/custom.scss */
+.tr-link:hover {
+  background: #e8e8e8;
+  cursor: pointer;
+}
+
+/* line 42, app/assets/stylesheets/custom.scss */
+.tr-sortable:hover {
+  background: #e8e8e8;
+  cursor: pointer;
+}
+
+/* line 47, app/assets/stylesheets/custom.scss */
+.flex {
+  display: flex;
+}
+
+/* line 51, app/assets/stylesheets/custom.scss */
+.btn-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* line 57, app/assets/stylesheets/custom.scss */
+.tab-wrapper ul li a {
+  color: white;
+}
+
+/* line 62, app/assets/stylesheets/custom.scss */
+.common-table {
+  margin-top: 1em;
+}
+
+/* line 64, app/assets/stylesheets/custom.scss */
+.common-table th {
+  background-color: #f5f5f5;
+}
+
+/* ------------------------------ ERROR MESSAGE ------------------------------ */
+/* line 71, app/assets/stylesheets/custom.scss */
+.custom-error h5 {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+/* line 79, app/assets/stylesheets/custom.scss */
+.error-message {
+  color: #dc3545 !important;
+}
+
+/* line 83, app/assets/stylesheets/custom.scss */
+.field-with-errors {
+  background-color: #dc3545;
+  padding: 2px;
+}
+
+/* line 86, app/assets/stylesheets/custom.scss */
+.field-with-errors label {
+  color: white;
+  margin-top: 0;
+  padding: 2px;
+}
+
+/* ------------------------------ LOGIN ------------------------------ */
+/* line 98, app/assets/stylesheets/custom.scss */
+.login-wrapper {
+  background: #eae9e9;
+  color: #000;
+  font-family: 'Varela Round', sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100%;
+}
+
+/* line 107, app/assets/stylesheets/custom.scss */
+.header-login {
+  background-color: white;
+  padding: 0.5em;
+}
+
+/* line 110, app/assets/stylesheets/custom.scss */
+.header-login header {
+  height: 20Vh;
+}
+
+/* line 115, app/assets/stylesheets/custom.scss */
+.login-menu {
+  height: 20vh;
+}
+
+/* line 119, app/assets/stylesheets/custom.scss */
+.login-button {
+  position: absolute;
+  right: 1em;
+  bottom: 0;
+}
+
+/* line 125, app/assets/stylesheets/custom.scss */
+.login-content {
+  height: 88Vh;
+  background-image: url(/assets/images/login_background.jpeg);
+  background-size: cover;
+}
+
+/* line 131, app/assets/stylesheets/custom.scss */
+.modal {
+  display: none;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* line 139, app/assets/stylesheets/custom.scss */
+.modal__bg {
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0.5;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 147, app/assets/stylesheets/custom.scss */
+.grid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* line 158, app/assets/stylesheets/custom.scss */
+#login h2 {
+  background: #dea111;
+  border-radius: 20px 20px 0 0;
+  color: #fff;
+  font-size: 28px;
+  padding: 20px 26px;
+  margin-bottom: 0;
+}
+
+/* line 167, app/assets/stylesheets/custom.scss */
+#login h2 span[class*="fontawesome-"] {
+  margin-right: 14px;
+}
+
+/* line 171, app/assets/stylesheets/custom.scss */
+#login fieldset {
+  background: #fff;
+  border-radius: 0 0 20px 20px;
+  padding: 20px 26px;
+}
+
+/* line 177, app/assets/stylesheets/custom.scss */
+#login fieldset p {
+  color: black;
+  margin-bottom: 14px;
+}
+
+/* line 182, app/assets/stylesheets/custom.scss */
+#login fieldset p:last-child {
+  margin-bottom: 0;
+}
+
+/* line 186, app/assets/stylesheets/custom.scss */
+#login fieldset input {
+  border-radius: 3px;
+}
+
+/* line 190, app/assets/stylesheets/custom.scss */
+#login fieldset input[type="text"], #login fieldset input[type="password"] {
+  background: #d8d6d6;
+  color: black;
+  padding: 4px 10px;
+  width: 100%;
+}
+
+/* line 197, app/assets/stylesheets/custom.scss */
+#login fieldset input[type="submit"] {
+  background: #6c757d;
+  color: #fff;
+  display: block;
+  margin: 0 auto;
+  padding: 4px 0;
+  width: 100px;
+}
+
+/* line 206, app/assets/stylesheets/custom.scss */
+#login fieldset input[type="submit"]:hover {
+  background: #343a40;
+}
+
+/* line 210, app/assets/stylesheets/custom.scss */
+.align {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ------------------------------ ADMIN & MANAGER///FLAMEWORK ------------------------------ */
+/* line 219, app/assets/stylesheets/custom.scss */
+.entire-wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  perspective: 1500px;
+}
+
+/* line 226, app/assets/stylesheets/custom.scss */
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+/* line 230, app/assets/stylesheets/custom.scss */
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #6c757d;
+}
+
+/* ------------------------------ sidebar ------------------------------ */
+/* line 238, app/assets/stylesheets/custom.scss */
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: #343a40;
+  color: #fff;
+  transition: all 0.6s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+  transform-origin: bottom left;
+}
+
+/* line 245, app/assets/stylesheets/custom.scss */
+#sidebar h4 {
+  font-size: 20px;
+  border-bottom: solid 1px white;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+/* line 252, app/assets/stylesheets/custom.scss */
+#sidebar .sidebar-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: white;
+}
+
+/* line 258, app/assets/stylesheets/custom.scss */
+#sidebar .dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+/* line 266, app/assets/stylesheets/custom.scss */
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+/* line 271, app/assets/stylesheets/custom.scss */
+#sidebar a, #sidebar a:hover, #sidebar a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+/* line 278, app/assets/stylesheets/custom.scss */
+#sidebar.active {
+  margin-left: -250px;
+  transform: rotateY(100deg);
+}
+
+/* line 283, app/assets/stylesheets/custom.scss */
+#sidebar ul p {
+  color: #fff;
+  padding: 10px 15px;
+}
+
+/* line 288, app/assets/stylesheets/custom.scss */
+#sidebar ul li a {
+  padding: 10px 10px 10px 20px;
+  font-size: 1.1em;
+  display: block;
+}
+
+/* line 294, app/assets/stylesheets/custom.scss */
+#sidebar ul li a:hover {
+  color: #343a40;
+  background: #fff;
+}
+
+/* line 299, app/assets/stylesheets/custom.scss */
+#sidebar ul li.active > a {
+  color: #343a40;
+  background: #6c757d;
+}
+
+/* line 304, app/assets/stylesheets/custom.scss */
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #343a40 !important;
+  background: #6c757d;
+}
+
+/* line 309, app/assets/stylesheets/custom.scss */
+ul ul a {
+  font-size: 1em !important;
+}
+
+/* line 313, app/assets/stylesheets/custom.scss */
+ul.CTAs {
+  padding: 20px;
+  color: black;
+}
+
+/* line 318, app/assets/stylesheets/custom.scss */
+ul.CTAs a {
+  text-align: center;
+  font-size: 1em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 10px !important;
+}
+
+/* line 327, app/assets/stylesheets/custom.scss */
+a.download {
+  background: #fff;
+  color: #7386D5;
+}
+
+/* line 332, app/assets/stylesheets/custom.scss */
+a.current_situatuin, a.current_situatuin:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+/* line 338, app/assets/stylesheets/custom.scss */
+a.article, a.article:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+/* line 343, app/assets/stylesheets/custom.scss */
+#sidebar-collapse {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+/* line 350, app/assets/stylesheets/custom.scss */
+#sidebar-collapse span {
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375);
+  transition-delay: 0.2s;
+}
+
+/* line 360, app/assets/stylesheets/custom.scss */
+#sidebar-collapse span:first-of-type {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+
+/* line 363, app/assets/stylesheets/custom.scss */
+#sidebar-collapse span:nth-of-type(2) {
+  opacity: 0;
+}
+
+/* line 366, app/assets/stylesheets/custom.scss */
+#sidebar-collapse span:last-of-type {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+/* line 370, app/assets/stylesheets/custom.scss */
+#sidebar-collapse.active span {
+  transform: none;
+  opacity: 1;
+  margin: 5px auto;
+}
+
+/* ---------------------------------------------------
+    ALL HEADER STYLE
+----------------------------------------------------- */
+/* line 379, app/assets/stylesheets/custom.scss */
+.navbar {
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 388, app/assets/stylesheets/custom.scss */
+.header-nav ul li.active a, a[aria-expanded="true"] {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+/* line 393, app/assets/stylesheets/custom.scss */
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+}
+
+/* ------------------------------ CONTENT STYLE ------------------------------ */
+/* line 400, app/assets/stylesheets/custom.scss */
+#content {
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+
+/* line 407, app/assets/stylesheets/custom.scss */
+.line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
+}
+
+/* line 414, app/assets/stylesheets/custom.scss */
+.line-sm {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid #ddd;
+  margin: 1em 0;
+}
+
+/*------------------------------ FLASH ------------------------------*/
+/* line 422, app/assets/stylesheets/custom.scss */
+.flash {
+  color: white;
+  padding: 1em;
+}
+
+/* line 425, app/assets/stylesheets/custom.scss */
+.flash-alert {
+  background-color: #dc3545;
+}
+
+/* line 428, app/assets/stylesheets/custom.scss */
+.flash-success {
+  background-color: #20c997;
+}
+
+/* line 431, app/assets/stylesheets/custom.scss */
+.flash-notice {
+  background-color: #17a2b8;
+}
+
+/* ------------------------------ DEBUG ------------------------------ */
+/* line 438, app/assets/stylesheets/custom.scss */
+.debug {
+  padding-left: 1em;
+}
+
+/* ------------------------------ 背景色 ------------------------------ */
+/* line 444, app/assets/stylesheets/custom.scss */
+.bg-purple {
+  background-color: #8695d6;
+}
+
+/* line 448, app/assets/stylesheets/custom.scss */
+.bg-blue {
+  background-color: #007bffc7;
+}
+
+/* line 452, app/assets/stylesheets/custom.scss */
+.bg-pink {
+  background-color: #d686bd;
+}
+
+/* line 456, app/assets/stylesheets/custom.scss */
+.bg-brown {
+  background-color: #8a7a74;
+}
+
+/* line 460, app/assets/stylesheets/custom.scss */
+.bg-gray {
+  background-color: #b7b7b7;
+}
+
+/* ------------------------------ BUTTON  ------------------------------ */
+/* line 466, app/assets/stylesheets/custom.scss */
+.btn-gray {
+  background-color: gainsboro;
+  color: black;
+}
+
+/* line 471, app/assets/stylesheets/custom.scss */
+.btn-gray:hover {
+  background-color: silver;
+  color: black;
+}
+
+/* line 476, app/assets/stylesheets/custom.scss */
+.btn-purple {
+  background-color: #6d7fcc;
+  color: white;
+}
+
+/* line 481, app/assets/stylesheets/custom.scss */
+.btn-purple:hover {
+  background-color: #5163b1;
+  color: white;
+}
+
+/* line 486, app/assets/stylesheets/custom.scss */
+.btn-destroy {
+  background-color: #c53644d9;
+  color: white;
+}
+
+/* line 491, app/assets/stylesheets/custom.scss */
+.btn-destroy:hover {
+  background-color: #e02839f2;
+  color: white;
+}
+
+/* ------------------------------ MEDIAQUERIES ------------------------------ */
+@media screen and (min-width: 992px) {
+  /* line 499, app/assets/stylesheets/custom.scss */
+  .admin_dropdown_menu {
+    margin-left: -93px !important;
+    margin-top: 15px !important;
+    background-color: #eaebef;
+  }
+  /* line 503, app/assets/stylesheets/custom.scss */
+  .admin_dropdown_menu a:hover {
+    background-color: #eaebef;
+  }
+  /* line 506, app/assets/stylesheets/custom.scss */
+  .admin_dropdown_menu .dropdown-divider {
+    border-top-color: white;
+  }
+  /* line 511, app/assets/stylesheets/custom.scss */
+  .manager_external_staff_dropdown_menu {
+    margin-left: -13px !important;
+    margin-top: 15px !important;
+    background-color: #eaebef;
+  }
+  /* line 515, app/assets/stylesheets/custom.scss */
+  .manager_external_staff_dropdown_menu a:hover {
+    background-color: #eaebef;
+  }
+  /* line 518, app/assets/stylesheets/custom.scss */
+  .manager_external_staff_dropdown_menu .dropdown-divider {
+    border-top-color: white;
+  }
+  /* line 523, app/assets/stylesheets/custom.scss */
+  .staff_dropdown_menu {
+    margin-left: -43px !important;
+    margin-top: 15px !important;
+    background-color: #eaebef;
+  }
+  /* line 527, app/assets/stylesheets/custom.scss */
+  .staff_dropdown_menu a:hover {
+    background-color: #eaebef;
+  }
+  /* line 530, app/assets/stylesheets/custom.scss */
+  .staff_dropdown_menu .dropdown-divider {
+    border-top-color: white;
+  }
+  /* line 535, app/assets/stylesheets/custom.scss */
+  .client_dropdown_menu {
+    margin-left: -50px !important;
+    margin-top: 15px !important;
+    background-color: #eaebef;
+  }
+  /* line 539, app/assets/stylesheets/custom.scss */
+  .client_dropdown_menu a:hover {
+    background-color: #eaebef;
+  }
+  /* line 542, app/assets/stylesheets/custom.scss */
+  .client_dropdown_menu .dropdown-divider {
+    border-top-color: white;
+  }
+}
+
+@media (max-width: 768px) {
+  /* line 549, app/assets/stylesheets/custom.scss */
+  #sidebar {
+    margin-left: -250px;
+    transform: rotateY(90deg);
+  }
+  /* line 553, app/assets/stylesheets/custom.scss */
+  #sidebar.active {
+    margin-left: 0;
+    transform: none;
+  }
+  /* line 557, app/assets/stylesheets/custom.scss */
+  #sidebar-collapse span:first-of-type,
+#sidebar-collapse span:nth-of-type(2),
+#sidebar-collapse span:last-of-type {
+    transform: none;
+    opacity: 1;
+    margin: 5px auto;
+  }
+  /* line 564, app/assets/stylesheets/custom.scss */
+  #sidebar-collapse.active span {
+    margin: 0 auto;
+  }
+  /* line 567, app/assets/stylesheets/custom.scss */
+  #sidebar-collapse.active span:first-of-type {
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  /* line 570, app/assets/stylesheets/custom.scss */
+  #sidebar-collapse.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  /* line 573, app/assets/stylesheets/custom.scss */
+  #sidebar-collapse.active span:last-of-type {
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* line 579, app/assets/stylesheets/custom.scss */
+  .navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  /* line 588, app/assets/stylesheets/custom.scss */
+  #content {
+    width: 100vw;
+    padding: 10px;
+    min-height: 100vh;
+    transition: all 0.3s;
+  }
+  /* line 595, app/assets/stylesheets/custom.scss */
+  .smp-center {
+    text-align: center;
+    margin-top: 1.5em;
+  }
+  /* line 599, app/assets/stylesheets/custom.scss */
+  .navi-custom {
+    background-color: #eef1f3;
+    padding-left: 1em;
+  }
+  /* line 604, app/assets/stylesheets/custom.scss */
+  .tab-wrapper ul li a {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,68 @@
+/* -----------------------------------------------------------------------------------
+    TOPPAGE
+----------------------------------------------------- */
+/* line 5, app/assets/stylesheets/top_page.scss */
+.attendance_container {
+  float: right;
+  margin-bottom: 2em;
+  margin-right: 2em;
+  padding: 1em;
+}
+
+/* line 13, app/assets/stylesheets/top_page.scss */
+.title_tab_bar {
+  border-bottom: 3px solid #343a40 !important;
+}
+
+/* line 17, app/assets/stylesheets/top_page.scss */
+.title_tab {
+  background-color: #343a40 !important;
+  color: white !important;
+  font-size: 1.3em;
+}
+
+/* line 23, app/assets/stylesheets/top_page.scss */
+.warning_tab {
+  background-color: #e63989;
+  color: white !important;
+  font-size: 1.3em;
+}
+
+/* line 29, app/assets/stylesheets/top_page.scss */
+.attendance_tab {
+  background-color: #e3e6e6 !important;
+  font-size: 1.3em;
+}
+
+/* line 34, app/assets/stylesheets/top_page.scss */
+.news_container {
+  border: 1px solid #343a40;
+  padding: 15px;
+  margin-bottom: 2em;
+}
+
+/* line 41, app/assets/stylesheets/top_page.scss */
+.top_page_contents p {
+  margin: 3px;
+}
+
+/* line 44, app/assets/stylesheets/top_page.scss */
+.top_page_contents span {
+  color: #343a40;
+}
+
+/* line 49, app/assets/stylesheets/top_page.scss */
+.fa-blue {
+  color: #17a2b8;
+}
+
+/* line 53, app/assets/stylesheets/top_page.scss */
+.fa-orange {
+  color: #fd7e14;
+}
+
+/* line 57, app/assets/stylesheets/top_page.scss */
+.btn-attendance {
+  width: 10em;
+  margin-top: 0.5em;
+}

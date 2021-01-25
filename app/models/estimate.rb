@@ -1,7 +1,10 @@
 class Estimate < ApplicationRecord
   belongs_to :estimate_matter
   has_many :estimate_details, dependent: :destroy
+  belongs_to :plan_name, optional: true
+  has_many :categories, dependent: :destroy
 
+  attr_accessor :plan_name  # デフォルトプラン名選択用
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
 
   validates :title, presence: true, length: { maximum: 30 }

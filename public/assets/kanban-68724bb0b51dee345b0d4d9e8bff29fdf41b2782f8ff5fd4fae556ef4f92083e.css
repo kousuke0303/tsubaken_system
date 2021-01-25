@@ -1,0 +1,271 @@
+@charset "UTF-8";
+/* ボード全体 */
+/* line 3, app/assets/stylesheets/kanban.scss */
+.kanban-container {
+  position: relative;
+  box-sizing: border-box;
+  width: auto;
+  display: flex;
+}
+
+/* line 10, app/assets/stylesheets/kanban.scss */
+.kanban-container * {
+  box-sizing: border-box;
+}
+
+/* line 14, app/assets/stylesheets/kanban.scss */
+.kanban-container:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+/* line 20, app/assets/stylesheets/kanban.scss */
+.kanban-board {
+  position: relative;
+  float: left;
+  background: #e2e4e6;
+  width: 30%;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* line 28, app/assets/stylesheets/kanban.scss */
+.kanban-board.disabled-board {
+  opacity: 0.3;
+}
+
+/* line 32, app/assets/stylesheets/kanban.scss */
+.kanban-board.is-moving.gu-mirror {
+  transform: rotate(3deg);
+}
+
+/* line 36, app/assets/stylesheets/kanban.scss */
+.kanban-board.is-moving.gu-mirror .kanban-drag {
+  overflow: hidden;
+  padding-right: 50px;
+}
+
+/* line 41, app/assets/stylesheets/kanban.scss */
+.kanban-board header {
+  font-size: 16px;
+  padding: 15px;
+}
+
+/* line 46, app/assets/stylesheets/kanban.scss */
+.kanban-board header .kanban-title-board {
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+/* line 53, app/assets/stylesheets/kanban.scss */
+.kanban-board header .kanban-title-button {
+  float: right;
+}
+
+/* line 57, app/assets/stylesheets/kanban.scss */
+.kanban-board .kanban-drag {
+  min-height: 200px;
+  padding: 20px;
+}
+
+/* line 62, app/assets/stylesheets/kanban.scss */
+.kanban-board:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+/* タスクを表示するアイテム */
+/* line 69, app/assets/stylesheets/kanban.scss */
+.kanban-item {
+  background: #fff;
+  display: flex;
+  padding: 0;
+  height: 2.7em;
+  margin-bottom: 15px;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* line 77, app/assets/stylesheets/kanban.scss */
+.kanban-item .in-charge-icon {
+  border: 1px solid black;
+  border-radius: 50%;
+  font-size: 0.7em;
+  height: 2.6em;
+  margin: auto 0.5em;
+  position: relative;
+  text-align: center;
+  width: 2.6em;
+}
+
+/* line 86, app/assets/stylesheets/kanban.scss */
+.kanban-item .in-charge-icon div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  letter-spacing: -2px;
+  transform: translateY(-50%) translateX(-50%);
+  white-space: nowrap;
+}
+
+/* line 95, app/assets/stylesheets/kanban.scss */
+.kanban-item .default-task-title {
+  position: relative;
+}
+
+/* line 97, app/assets/stylesheets/kanban.scss */
+.kanban-item .default-task-title div {
+  position: absolute;
+  margin-left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+/* line 105, app/assets/stylesheets/kanban.scss */
+.kanban-item .task-title {
+  position: relative;
+}
+
+/* line 107, app/assets/stylesheets/kanban.scss */
+.kanban-item .task-title div {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+/* line 116, app/assets/stylesheets/kanban.scss */
+.kanban-item:hover {
+  cursor: move;
+}
+
+/* line 120, app/assets/stylesheets/kanban.scss */
+.kanban-item:last-child {
+  margin: 0;
+}
+
+/* line 124, app/assets/stylesheets/kanban.scss */
+.kanban-item.is-moving.gu-mirror {
+  transform: rotate(3deg);
+  height: auto !important;
+}
+
+/* Dragula CSS  */
+/* line 130, app/assets/stylesheets/kanban.scss */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* line 136, app/assets/stylesheets/kanban.scss */
+.gu-hide {
+  display: none !important;
+}
+
+/* line 140, app/assets/stylesheets/kanban.scss */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* line 147, app/assets/stylesheets/kanban.scss */
+.gu-transit {
+  opacity: 0.2 !important;
+  transform: rotate(0deg) !important;
+}
+
+/* line 152, app/assets/stylesheets/kanban.scss */
+.drag_handler {
+  background: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  float: left;
+  top: -3px;
+  margin-right: 4px;
+}
+
+/* line 163, app/assets/stylesheets/kanban.scss */
+.drag_handler:hover {
+  cursor: move;
+}
+
+/* line 167, app/assets/stylesheets/kanban.scss */
+.drag_handler_icon {
+  position: relative;
+  display: block;
+  background: #000;
+  width: 24px;
+  height: 2px;
+  top: 12px;
+  transition: .5s ease-in-out;
+}
+
+/* line 177, app/assets/stylesheets/kanban.scss */
+.drag_handler_icon:before,
+.drag_handler_icon:after {
+  background: #000;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: .5s ease-in-out;
+}
+
+/* line 188, app/assets/stylesheets/kanban.scss */
+.drag_handler_icon:before {
+  top: 6px;
+}
+
+/* line 192, app/assets/stylesheets/kanban.scss */
+.drag_handler_icon:after {
+  bottom: 6px;
+}
+
+/* line 196, app/assets/stylesheets/kanban.scss */
+.default {
+  color: white;
+  background: #343a40;
+}
+
+/* line 201, app/assets/stylesheets/kanban.scss */
+.relevant {
+  color: white;
+  background: #dc3545;
+}
+
+/* line 206, app/assets/stylesheets/kanban.scss */
+.ongoing {
+  color: white;
+  background: #17a2b8;
+}
+
+/* line 211, app/assets/stylesheets/kanban.scss */
+.finished {
+  color: white;
+  background: #28a745;
+}
+
+/* タスク作成フォーム */
+/* line 218, app/assets/stylesheets/kanban.scss */
+#kanban-tasks form {
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 15px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* line 224, app/assets/stylesheets/kanban.scss */
+#kanban-tasks input {
+  font: 16px;
+  width: 165px;
+}

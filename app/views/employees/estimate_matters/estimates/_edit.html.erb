@@ -62,8 +62,6 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
-
 <script>
   $('.add_btn').on("click", function(){
     var add_html = $('#estimate_form_category tr:last').clone(true);
@@ -89,3 +87,4 @@
 </script>
 
 
+<%= javascript_include_tag "reset_errors.js" %>

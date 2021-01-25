@@ -10,21 +10,7 @@
     </div>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>プラン名</th>
-        <th></th>
-      </tr>
-      <% @plan_names.each do |plan_name| %>
-        <tr>
-          <td><%= plan_name.name %></td>
-          <td>
-            <%= link_to "編集", edit_employees_settings_plan_name_path(plan_name), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_settings_plan_name_path(plan_name), method: :delete, data: { confirm: "このプラン名を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+  <div class="plan-names-index">
+    <%= render "index_table" %>
   </div>
 </div>

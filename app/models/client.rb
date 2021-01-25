@@ -18,7 +18,7 @@ class Client < ApplicationRecord
   has_many :quotations, dependent: :destroy
   has_one_attached :avator
   
-  enum gender: {male: 0, female: 1}
+  enum gender: { male: 0, female: 1 }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -154,3 +154,9 @@ puts "CREATE! CERTIFICATE"
 end
 
 puts "CREATE! ATTRACTIVE METHOD"
+
+%w(プランA プランB プランC).each do |name|
+  PlanName.create(name: name)
+end
+
+puts "CREATE! Plan Name"

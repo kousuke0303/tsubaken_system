@@ -17,7 +17,7 @@
             <%= f.number_field :amount, class: "form-control" %>
 
             <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark" %>
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
               <%= link_to "削除", employees_estimate_matter_construction_path(@estimate_matter, @construction), method: :delete,
                                   data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
             </div>
@@ -28,4 +28,4 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>

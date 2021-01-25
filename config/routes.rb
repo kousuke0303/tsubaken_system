@@ -267,7 +267,9 @@ Rails.application.routes.draw do
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
     end
   end
 end

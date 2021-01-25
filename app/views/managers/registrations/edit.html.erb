@@ -56,12 +56,14 @@
         <%= f.password_field :password_confirmation, maxlength: 12, class: "form-control" %>
 
         <div class="btn-area">
-          <%= f.submit "更新", class: "btn btn-dark" %>
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "reset_errors.js" %>
 
 <% if @manager.errors.any? %>
   <script>
