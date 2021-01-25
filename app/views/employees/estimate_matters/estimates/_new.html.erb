@@ -7,6 +7,7 @@
         <div class="card-body">
           <%= form_with(model: estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true) do |f| %>
             <div class="estimate-create-errors"></div>
+            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
             <%= render "form", f: f, categories: categories %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark" %>
@@ -19,3 +20,11 @@
 </div>
 
 <%= render "shared/jq/reset_errors_jq" %>
+
+<script>
+  $('[name="estimate[plan_name]"]').change(function() {
+    if($(this).val() != "") {
+      $('[name="estimate[title]"]').val($(this).val());
+    }
+  });
+</script>

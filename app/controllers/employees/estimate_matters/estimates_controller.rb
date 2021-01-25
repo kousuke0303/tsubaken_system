@@ -4,6 +4,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
 
   def new
     @estimate = @estimate_matter.estimates.new
+    @plan_names = PlanName.order(position: :asc)
     @categories = Category.all.where(default: true)
   end
 
