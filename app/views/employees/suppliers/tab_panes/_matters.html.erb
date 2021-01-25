@@ -6,10 +6,10 @@
       <th>着工予定日</th>
       <th>完了予定日</th>
     </tr>
-    <% @matters.each do |matter| %>
+    <% @matters.each_with_index do |matter, i| %>
       <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
         <td><%= matter.title %></td>
-        <td><%= matter.actual_spot %></td>
+        <td><%= @matters.pluck(:prefecture_code, :address_city, :address_street)["#{i}".to_i].join %></td>
         <td><%= matter.scheduled_started_on %></td>
         <td><%= matter.scheduled_finished_on %></td>
       </tr>
