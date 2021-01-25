@@ -8,33 +8,51 @@
       <div class="card mb-3">
         <h5 class="card-header">見積編集</h5>
         <div class="card-body">
-          <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true, id: "estimate_form") do |f| %>
+          <%= form_with(model: estimate, url: employees_estimate_matter_estimate_path(estimate_matter, estimate), method: :patch, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-update-errors"></div>
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
+            
             <%= f.label :category_ids, "カテゴリ選択" %>
-            <table class="table table-striped" id="estimate_form_category">
-              <tr>
-                <td style="width: 4em">順番</td>
-                <td>カテゴリ選択</td>
-                <td style="width: 5em"></td>
-              </tr>
-              <% @estimate_categories.each.with_index(1) do |category, index| %>
+            
+            <% if type == "category_presence" %>
+              <table class="table table-striped" id="estimate_form_category">
                 <tr>
-                  <td class="number"><%= index %></td>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                
+                <% estimate_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="number"><%= index %></td>
+                    <td>
+                      <%= f.select :category_id, categories.map{ |category| [category.name, category.id] }, {selected: detail.category_id, include_blank:  "---削除する---"}, {class: "form-control"} %>
+                    </td>
+                    <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+            <% else %>
+              <table class="table table-striped" id="estimate_form_category">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <tr>
+                  <td class="number">1</td>
                   <td>
-                    <%= f.select :category_id, @categories.map{ |cate| [cate.name, cate.id] }, {selected: category.parent_id, include_blank: true}, {class: "form-control"} %>
-                  </td>
+                    <%= f.select :category_id, categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
                   <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
                 </tr>
-              <% end %>
-            </table>
+              </table>
+            <% end %>
             <%= f.hidden_field :category_ids, id: "category_ids" %>
             
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="submit">更新</button>
-              <%= link_to "削除", employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :delete, remote: true,
+              <%= link_to "削除", employees_estimate_matter_estimate_path(@estimate_matter, estimate), method: :delete, remote: true,
                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>

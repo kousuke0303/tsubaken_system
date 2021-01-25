@@ -1,6 +1,6 @@
 class Estimate < ApplicationRecord
   belongs_to :estimate_matter
-  has_many :categories, dependent: :destroy
+  has_many :estimate_details, dependent: :destroy
 
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
 
@@ -16,4 +16,5 @@ class Estimate < ApplicationRecord
       "categories.sort_number AS category_number"
     ).order(:category_number)
   }
+  
 end

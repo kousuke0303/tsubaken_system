@@ -48,9 +48,8 @@ class Employees::EstimateMattersController < ApplicationController
   def show
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-    @estimates = @estimate_matter.estimates.with_categories
-    @materials = Material.of_estimate_matter(@estimate_matter.id)
-    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    @estimates = @estimate_matter.estimates
+    
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
@@ -195,26 +194,5 @@ class Employees::EstimateMattersController < ApplicationController
           @estimate_matter.estimate_matter_external_staffs.create(external_staff_id: params_external_staff.to_i) 
         end
       end
-    end
-    
-    def estimate_index_display_date
-      est_matter_estimate_hash = Hash.new()
-      category_hash = Hash.new()
-      line_hash_3 = Hash.new()
-      @estimates.each do |estimate|
-        est_matter_estimate_hash.store(estimate.id, category_hash)
-         
-        estimate.categories.each do |category|
-          category_hash.store(category.id, line_hash_3)
-          
-          category.materials.each do |material|
-            line_hash_3.push(material)
-          end
-          category.constructions.each do |constructions|
-            line_hash_3.push(constructions)
-          end
-        end
-      end
-      @hash_date = est_matter_estimate_hash
     end
 end

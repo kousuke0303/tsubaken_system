@@ -50,21 +50,21 @@ puts "CREATE! MATERIAL"
 
 # 工事内容
 
-Construction.create(name: "足場仮設工事", default: true, price: "650", unit: "㎡", category_id: SeedCategory8.id)
-Construction.create(name: "高圧洗浄", default: true, price: "30,000", unit: "式", category_id: SeedCategory8.id)
-Construction.create(name: "開口部三角打ち", default: true, price: "800", unit: "m", category_id: SeedCategory8.id)
-Construction.create(name: "タスペーサー挿入", default: true, price: "30", unit: "個", category_id: SeedCategory8.id)
-Construction.create(name: "タスマジック補修", default: true, price: "6,000", unit: "式", category_id: SeedCategory8.id)
-Construction.create(name: "FRP樹脂密着防水", default: true, price: "130,000", unit: "式", category_id: SeedCategory8.id)
-Construction.create(name: "雨樋防護ネット", default: true, price: "1,600", unit: "m", category_id: SeedCategory8.id)
-Construction.create(name: "樹木栽定・処分", default: true, price: "28,000", unit: "式", category_id: SeedCategory8.id)
+Construction.create(name: "足場仮設工事", default: true, price: 650, unit: "㎡", category_id: SeedCategory8.id)
+Construction.create(name: "高圧洗浄", default: true, price: 30000, unit: "式", category_id: SeedCategory8.id)
+Construction.create(name: "開口部三角打ち", default: true, price: 800, unit: "m", category_id: SeedCategory8.id)
+Construction.create(name: "タスペーサー挿入", default: true, price: 30, unit: "個", category_id: SeedCategory8.id)
+Construction.create(name: "タスマジック補修", default: true, price: 6000, unit: "式", category_id: SeedCategory8.id)
+Construction.create(name: "FRP樹脂密着防水", default: true, price: 130000, unit: "式", category_id: SeedCategory8.id)
+Construction.create(name: "雨樋防護ネット", default: true, price: 1600, unit: "m", category_id: SeedCategory8.id)
+Construction.create(name: "樹木栽定・処分", default: true, price: 28000, unit: "式", category_id: SeedCategory8.id)
 
-Construction.create(name: "軒天塗装", default: true, price: "1,100", unit: "㎡", category_id: SeedCategory9.id)
-Construction.create(name: "破風板・幕板・鼻隠し塗装", default: true, price: "900", unit: "m", category_id: SeedCategory9.id)
-Construction.create(name: "雨樋塗装", default: true, price: "900", unit: "m", category_id: SeedCategory9.id)
-Construction.create(name: "霧除け庇・出窓上部塗装", default: true, price: "3,000", unit: "ヶ所", category_id: SeedCategory9.id)
-Construction.create(name: "雨戸・戸袋塗装", default: true, price: "2,800", unit: "㎡", category_id: SeedCategory9.id)
-Construction.create(name: "水切り塗装", default: true, price: "18,000", unit: "式", category_id: SeedCategory9.id)
+Construction.create(name: "軒天塗装", default: true, price: 1100, unit: "㎡", category_id: SeedCategory9.id)
+Construction.create(name: "破風板・幕板・鼻隠し塗装", default: true, price: 900, unit: "m", category_id: SeedCategory9.id)
+Construction.create(name: "雨樋塗装", default: true, price: 900, unit: "m", category_id: SeedCategory9.id)
+Construction.create(name: "霧除け庇・出窓上部塗装", default: true, price: 3000, unit: "ヶ所", category_id: SeedCategory9.id)
+Construction.create(name: "雨戸・戸袋塗装", default: true, price: 2800, unit: "㎡", category_id: SeedCategory9.id)
+Construction.create(name: "水切り塗装", default: true, price: 18000, unit: "式", category_id: SeedCategory9.id)
 
 3.times do |n|
   Construction.create(name: "屋根工事#{ n + 1 }", default: true, price: "100000", unit: "日", category_id: SeedCategory5.id)

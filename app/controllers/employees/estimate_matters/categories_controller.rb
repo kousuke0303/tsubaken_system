@@ -1,10 +1,10 @@
 class Employees::EstimateMatters::CategoriesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_category
+  before_action :set_estimate_detail
 
   def edit
-    @materials = @category.parent.materials
-    @constructions = @category.parent.constructions
+    @materials = Material.where(category_id: @estimate_detail.category_id)
+    @constructions = Construction.where(category_id: @estimate_detail.category_id)
   end
 
   def update
@@ -37,7 +37,7 @@ class Employees::EstimateMatters::CategoriesController < Employees::EstimateMatt
   end
 
   private
-    def set_category
-      @category = Category.find(params[:id])
+    def set_estimate_detail
+      @estimate_detail = EstimateDetail.find(params[:id])
     end
 end

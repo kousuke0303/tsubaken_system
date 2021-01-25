@@ -107,32 +107,8 @@
   display: flex;
 }
 
-.home_icon {
-  transform: rotate( -90deg );
-  .square {
-    position:relative;
-    height: 180px;
-    width:26px;
-    .window {
-      display: block;
-      font-size: 6px;
-      color: white;
-      margin-left: 2px;
-      padding-top: 2px;
-    }
-  }
- 
-  .square::before {
-    position:absolute;
-    content:"";
-    border:solid 18px transparent;
-    border-left:solid 13px #d01137;
-    left:26px;
-  }
-}
 
-.home_icon_2 {
-   margin-left: 1em;
+.home_icon {
    margin-top: 0.5em;
    margin-bottom: 0.5em;
  

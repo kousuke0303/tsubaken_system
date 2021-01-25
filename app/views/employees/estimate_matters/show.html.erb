@@ -99,7 +99,7 @@
             <% end %>
           </div>
           <div class="estimates-index">
-            <%= render "shared/estimate_matters/estimates_index" %>
+            <%= render partial: "shared/estimate_matters/estimates_index", locals: { estimates: @estimates } %>
           </div>
         </div>
       </div>
@@ -145,7 +145,7 @@
 
 ---------色見本--------------
 
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #dc3545"></div>
     <div class="square" style="background: #dc3545">
       <div class="window">
@@ -157,7 +157,7 @@
     </div>
   </div>
   
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #28a745"></div>
     <div class="square" style="background: #28a745">
       <div class="window">
@@ -169,7 +169,7 @@
     </div>
   </div>
   
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #8b66cd"></div>
     <div class="square" style="background: #8b66cd">
       <div class="window">
@@ -181,7 +181,7 @@
     </div>
   </div>
   
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #fd7e14"></div>
     <div class="square" style="background: #fd7e14">
       <div class="window">
@@ -193,7 +193,7 @@
     </div>
   </div>
   
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #17a2b8"></div>
     <div class="square" style="background: #17a2b8">
       <div class="window">
@@ -205,7 +205,7 @@
     </div>
   </div>
   
-  <div class= home_icon_2>
+  <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #6c757d"></div>
     <div class="square" style="background: #6c757d">
       <div class="window">
