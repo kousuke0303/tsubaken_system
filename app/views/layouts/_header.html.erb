@@ -1,11 +1,11 @@
 <header class="header-login smp-center">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4 col-sm-12 smp_center">
-        <%= image_tag "logo_image.png", size: "300x75", alt:"ロゴ" %>
+      <div class="col-md-4 col-12 smp_center">
+        <%= image_tag "logo_image.png", size: "300x75", alt: "ロゴ" %>
       </div>
       <div class="col-sm-8 login_menu">
-        <button class="btn btn-lg btn-dark login-button smp_none" id="login_modal">ログイン</button>
+        <button class="btn btn-lg btn-dark login-button" id="login_modal">ログイン</button>
       </div>
     </div>
           
@@ -22,7 +22,7 @@
 </header>
 
 <script>
-$(function(){
+  $(function(){
     $('#login_modal').on('click',function(){
         $('.login_form').fadeIn();
         return false;
@@ -32,5 +32,5 @@ $(function(){
         $('.login_form').fadeOut();
         return false;
     });
-});
+  });
 </script>
