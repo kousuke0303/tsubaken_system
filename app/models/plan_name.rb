@@ -1,7 +1,7 @@
 class PlanName < ApplicationRecord
   has_many :estimates, dependent: :nullify
 
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 30 }, uniqueness: true
   validates :label_color, presence: true
   acts_as_list
 
