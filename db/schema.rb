@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "position"
-    t.integer "color", default: 0, null: false
+    t.integer "label_color", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
