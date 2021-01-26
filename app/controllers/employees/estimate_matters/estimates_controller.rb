@@ -9,6 +9,16 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @label_color = PlanName.label_colors.keys[0]
   end
 
+  # デフォルトのプラン名に合わせて、ラベルカラーをajaxで変更
+  def change_label_color
+    id = params[:id].to_i
+    plan_name = PlanName.find(id)
+    @sample_color = plan_name.label_color
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     @estimate = @estimate_matter.estimates.new(estimate_params)
     if @estimate.save

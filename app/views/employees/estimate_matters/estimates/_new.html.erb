@@ -5,16 +5,16 @@
       <div class="card mb-3">
         <h5 class="card-header">見積作成</h5>
         <div class="card-body">
-          <%= form_with(model: estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true) do |f| %>
+          <%= form_with(model: @estimate, url: employees_estimate_matter_estimates_path(@estimate_matter), method: :post, remote: true) do |f| %>
             <div class="estimate-create-errors"></div>
             <%= f.label :plan_name_id, "デフォルトプラン名" %>
             <div class="input-group">
-              <%= f.collection_select :plan_name_id, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
+              <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "デフォルトから選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
                 <span class="input-group-text" style="width: 3em; background: <%= @label_color %>;" id="color-sample"></span>
               </div>
             </div>
-            <%= render "form", f: f, categories: categories %>
+            <%= render "form", f: f %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
@@ -28,9 +28,19 @@
 <%= javascript_include_tag "reset_errors.js" %>
 
 <script>
-  $('[name="estimate[plan_name]"]').change(function() {
-    if($(this).val() != "") {
-      $('[name="estimate[title]"]').val($(this).val());
+  $('#default-plan-names').change(function() {
+    var name = $('#default-plan-names option:selected').text();
+    var id = $(this).val();
+    if(id != "") {
+      $('[name="estimate[title]"]').val(name);
+      $.ajax({
+        type: "GET",
+        url: "<%= change_label_color_employees_estimate_matter_estimates_path(@estimate_matter) %>",
+        cache: false,
+        data: { id: id, remote: true }
+      });
+    } else {
+      $("#color-sample").css("background", "<%= @label_color %>");
     }
   });
 </script>
