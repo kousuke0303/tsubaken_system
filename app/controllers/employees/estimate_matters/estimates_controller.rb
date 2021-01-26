@@ -6,6 +6,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimate = @estimate_matter.estimates.new
     @plan_names = PlanName.order(position: :asc)
     @categories = Category.all.where(default: true)
+    @label_color = PlanName.label_colors.keys[0]
   end
 
   def create
@@ -82,6 +83,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     end
 
     def estimate_params
-      params.require(:estimate).permit(:title)
+      params.require(:estimate).permit(:title, :plan_name_id)
     end
 end

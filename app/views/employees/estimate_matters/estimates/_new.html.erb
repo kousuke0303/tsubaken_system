@@ -7,7 +7,13 @@
         <div class="card-body">
           <%= form_with(model: estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true) do |f| %>
             <div class="estimate-create-errors"></div>
-            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
+            <%= f.label :plan_name_id, "デフォルトプラン名" %>
+            <div class="input-group">
+              <%= f.collection_select :plan_name_id, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
+              <div class="input-group-append">        
+                <span class="input-group-text" style="width: 3em; background: <%= @label_color %>;" id="color-sample"></span>
+              </div>
+            </div>
             <%= render "form", f: f, categories: categories %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
