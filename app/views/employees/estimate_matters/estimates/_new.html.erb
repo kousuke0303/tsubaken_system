@@ -12,8 +12,9 @@
             <div class="estimate-create-errors"></div>
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
-            <%= f.label :category_ids, "カテゴリ選択" %>
+            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "登録プランから選択" }, class: "form-control" %>
+            
+            <%= f.label "カテゴリ選択" %>
             <table class="table table-striped" id="estimate_form_category">
               <tr>
                 <td style="width: 4em">順番</td>
@@ -30,8 +31,7 @@
             <%= f.hidden_field :category_ids, id: "category_ids" %>
             <div class="btn-area">
               <button type="submit" id="submit" class="btn btn-primary">作成</button>
-            <%= f.collection_select :plan_name, @plan_names, :name, :name, { include_blank: "デフォルトから選択" }, class: "form-control" %>
-            
+            </div>
           <% end %>
         </div>
       </div>
@@ -43,12 +43,13 @@
 <%= javascript_include_tag "reset_errors.js" %>
 
 <script>
-  $('.add_btn').on("click", function(){
+  $('#estimate_form .add_btn').on("click", function(){
     var add_html = $('#estimate_form_category tr:last').clone(true);
     $('#estimate_form_category').append(add_html);// 末尾追加
     var number = $('.number').last().text();
-    $('.number').last().text(Number(number) + 1);
-    var attr_name = "estimate[category_id_" + number + "]"
+    var add_number = Number(number) + 1
+    $('.number').last().text(add_number);
+    var attr_name = "estimate[category_id_" + add_number + "]"
     $('select').last().attr('name', attr_name);
     $('select').last().val('');
   });
@@ -57,10 +58,11 @@
 <script>
   $('#submit').on('click', function(){
     category_ids = []
-    $('select').each(function(i, element){
+    $('#estimate_form_category select').each(function(i, element){
       var value = $(element).val();
       category_ids.push(Number(value));
     });
+    console.log(category_ids);
     $('#category_ids').val(category_ids);
     $('#estimate_form').submit;
   });

@@ -1,5 +1,8 @@
 $(".flash-wrapper").html('<div class="flash flash-notice time-limit">見積を複製しました。</div>');
-$(".estimates-index").html('<%= escape_javascript(render "shared/estimate_matters/estimates_index") %>');
+$(".estimates-index").html('<%= escape_javascript(render partial: "shared/estimate_matters/estimates_index", 
+                                                         locals: {estimates: @estimates, 
+                                                                  estimate_matter: @estimate_matter,
+                                                                  estimate_details: @estimate_details}) %>');
 $(function(){
   setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
 })

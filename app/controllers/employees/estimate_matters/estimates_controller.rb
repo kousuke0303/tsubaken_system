@@ -7,6 +7,9 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
     @plan_names = PlanName.order(position: :asc)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -40,6 +43,9 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     # カテゴリがない場合
     else
       @type = "no_category"
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -80,19 +86,16 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
 
   # 見積複製アクション
   def copy
-    new_estimate = @estimate_matter.estimates.create(title: @estimate.title)
-    @estimate.categories.each do |category|
-      new_category = new_estimate.categories.create(name: category.name, parent_id: category.parent_id)
-      category.materials.each do |material|
-        new_category.materials.create(name: material.name, service_life: material.service_life, price: material.price,
-                                      unit: material.unit, amount: material.amount, total: material.total)
-      end
-      category.constructions.each do |construction|
-        new_category.constructions.create(name: construction.name, price: construction.price, unit: construction.unit,
-                                          amount: construction.amount, total: construction.total)
-      end
+    new_estimate = @estimate.deep_dup
+    new_estimate.title = "C:" + new_estimate.title
+    new_estimate.save
+    
+    @estimate.estimate_details.each do |detail|
+      new_detail = detail.deep_dup
+      new_detail.estimate_id = new_estimate.id
+      new_detail.save
     end
-    set_estimates_details(@estimate_matter)
+    @estimates = @estimate_matter.estimates
     respond_to do |format|
       format.js
     end
@@ -153,10 +156,11 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       end
     end
     
+    # 順番変更
     def change_category_order
-      sort_categories = @estimate.estimate_details.sort_by{|detail| @after_category_arrey.index(detail.category_id)}
-      sort_categories.each.with_index(1) do |sort_category, i|
-        sort_category.update(sort_number: i * 100)
+      details = @estimate.estimate_details.sort_by{|detail| @after_category_arrey.index(detail.category_id)}
+      details.each.with_index(1) do |detail, i|
+        detail.update(sort_number: i * 100)
       end
     end
 end

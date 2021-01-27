@@ -8,30 +8,6 @@
           <%= form_with(model: estimate_detail, url: employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail), method: :patch, remote: true, id: "detail_form") do |f| %>
             <div class="estimate-category-update-errors"></div>
 
-            <%= f.label "素材" %>
-            <% if materials.present? %>
-              <table class="table table-striped" id="material_index">
-                <tr>
-                  <td style="width: 4em">順番</td>
-                  <td>素材選択</td>
-                  <td style="width: 5em"></td>
-                </tr>
-                <% estimate_details.each.with_index(1) do |detail, index| %>
-                  <tr>
-                    <td class="number"><%= index %></td>
-                    <td>
-                      <%= f.select "material_id_#{index}".intern, @materials.map{ |material| [material.name, material.id] }, {include_blank: "選択してください", value: detail.material_id}, {class: "form-control", id: "material_#{index}"} %></td>
-                    <td><button type="button", class="btn btn-sm btn-dark material_add_btn">追加</button></td>
-                  </tr>
-                <% end %>
-              </table>
-              
-              <%= f.hidden_field :material_ids, id: "material_ids" %>
-            
-            <% else %>
-             <p><%= estimate_detail.category_name %>に関する素材の登録がありません</p>
-            <% end %>
-
             <%= f.label "工事" %>
             <% if constructions.present? %>
               <table class="table table-striped" id="construction_index">
@@ -55,8 +31,32 @@
               <p><%= estimate_detail.category_name %>に関する工事名称の登録がありません</p>
             <% end %>
             
+            <%= f.label "素材" %>
+            <% if materials.present? %>
+              <table class="table table-striped" id="material_index">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>素材選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <% estimate_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="number"><%= index %></td>
+                    <td>
+                      <%= f.select "material_id_#{index}".intern, @materials.map{ |material| [material.name, material.id] }, {include_blank: "選択してください", value: detail.material_id}, {class: "form-control", id: "material_#{index}"} %></td>
+                    <td><button type="button", class="btn btn-sm btn-dark material_add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+              
+              <%= f.hidden_field :material_ids, id: "material_ids" %>
+            
+            <% else %>
+             <p><%= estimate_detail.category_name %>に関する素材の登録がありません</p>
+            <% end %>
+            
             <div class="btn-area">
-              <button type="submit" class="btn btn-dark" id="submit">作成</button>
+              <button type="submit" class="btn btn-dark" id="submit_<%= estimate_detail.id %>">作成</button>
               <%= link_to "削除", employees_estimate_matter_estimate_detail_path(@estimate_matter, @estimate_detail), method: :delete, remote: true,
                                   data: { confirm: "この工事カテゴリを削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<%= render "shared/jq/reset_errors_jq" %>
+<%= javascript_include_tag "reset_errors.js" %>
 
 <!--セレクト初期値-->
 <script>
@@ -89,44 +89,52 @@
     var add_html = $('#material_index tr:last').clone(true);
     $('#material_index').append(add_html);// 末尾追加
     var number = $('.number').last().text();
-    $('.number').last().text(Number(number) + 1);
-    var attr_name = "estimate_detail[material_id_" + number + "]"
-    $('select').last().attr('name', attr_name);
-    $('select').last().val('');
+    var add_number = Number(number) + 1
+    $('.number').last().text(add_number);
+    var attr_name = "estimate_detail[material_id_" + add_number + "]"
+    $('#material_index select').last().attr('name', attr_name);
+    $('#material_index select').last().val('');
   });
 </script>
 
-<!--送信アクション-->
 <script>
   $('.construction_add_btn').on("click", function(){
     var add_html = $('#construction_index tr:last').clone(true);
     $('#construction_index').append(add_html);// 末尾追加
     var number = $('.number').last().text();
-    $('.number').last().text(Number(number) + 1);
-    var attr_name = "estimate_detail[construction_id_" + number + "]"
-    $('select').last().attr('name', attr_name);
-    $('select').last().val('');
+    var add_number = Number(number) + 1
+    $('.number').last().text(add_number);
+    var attr_name = "estimate_detail[construction_id_" + add_number + "]"
+    $('#construction_index select').last().attr('name', attr_name);
+    $('#construction_index select').last().val('');
   });
 </script>
 
+<!--送信アクション-->
 <script>
-  $('#submit').on('click', function(){
-    material_ids = []
-    $('#material_index select').each(function(i, element){
-      var value = $(element).val();
-      material_ids.push(Number(value));
-    });
-    console.log(material_ids);
-    $('#material_ids').val(material_ids);
+  $('#submit_<%= estimate_detail.id %>').on('click', function(){
+    <% if materials.present? %>
+      material_ids = []
+      $('#material_index select').each(function(i, element){
+        var value = $(element).val();
+        material_ids.push(Number(value));
+      });
+      console.log(material_ids);
+      $('#material_ids').val(material_ids);
+    <% end %>
     
-    construction_ids = []
-    $('#construction_index select').each(function(i, element){
-      var value = $(element).val();
-      construction_ids.push(Number(value));
-    });
-    console.log(construction_ids);
-    $('#construction_ids').val(construction_ids);
+    <% if constructions.present? %>
+      construction_ids = []
+      $('#construction_index select').each(function(i, element){
+        var value = $(element).val();
+        construction_ids.push(Number(value));
+      });
+      console.log(construction_ids);
+      $('#construction_ids').val(construction_ids);
+    <% end %>
+      
     $('#detail_form').submit;
+   
   });
 </script>
 

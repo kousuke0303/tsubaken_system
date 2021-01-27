@@ -155,7 +155,7 @@ end
 
 puts "CREATE! ATTRACTIVE METHOD"
 
-%w(プランA プランB プランC).each do |name|
+%w(シリコン チッ素 断熱ガイナ 無機).each do |name|
   PlanName.create(name: name)
 end
 

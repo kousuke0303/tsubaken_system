@@ -97,9 +97,12 @@
             <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
               <i class="fas fa-plus"></i> 新規見積
             <% end %>
+            <% if @estimate_matter.estimates.present? %>
+              <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
+            <% end %>
           </div>
           <div class="estimates-index">
-            <%= render partial: "shared/estimate_matters/estimates_index", locals: { estimates: @estimates } %>
+            <%= render partial: "shared/estimate_matters/estimates_index", locals: { estimates: @estimates, estimate_matter: @estimate_matter } %>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 <% estimates.each do |estimate| %>
-  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
 
+  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
+  <% @total_detail_calculation = 0 %>
+  
   <div class= home_icon>
     <div class="triangle" style="border-bottom-color: #dc3545"></div>
     <div class="square" style="background: #dc3545">
@@ -11,45 +13,62 @@
         <% if current_client %>
           <%= estimate.title %>
         <% else %>
-          <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
+          <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
             <%= estimate.title %>
           <% end %>
         <% end %>
       </div>
     </div>
   </div>
-    
+  
   <table class="table table-bordered table_line_type">
     <tr>
       <th>項目</th>
       <th>工事名称・素材</th>
       <th>耐用年数</th>
-      <th>単価</th>
-      <th>単位</th>
-      <th>数値</th>
-      <th>計</th>
+      <th colspan="2">単価</th>
+      <th>数量</th>
+      <th>計(円)</th>
     </tr>
     <% @estimate_detail_hash.each do |category_id, details| %>
       <tr>
         <td rowspan="<%= category_row_span(estimate, category_id) %>">
-          <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
-            <%= category_name(category_id) %>
+          <%= link_to edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true do %>
+            <%= details[0].category_name %>
           <% end %>
         </td>
         <% if details[0].material_id.present? %>
-          <td><%= details[0].material_name %></td>
+          <td>
+            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= details[0].material_name %>
+            <% end %>
+          </td>
           <td><%= details[0].service_life %></td>
           <td><%= details[0].price %></td>
           <td><%= details[0].unit %></td>
           <td><%= details[0].amount %></td>
-          <td><%= %></td>
+          <td>
+            <% if details[0].amount.present? && details[0].price.present? %>
+              <%= detail_calculation(details[0]) %>
+              <% @total_detail_calculation += detail_calculation(details[0]) %>
+            <% end %>
+          </td>
         <% elsif details[0].construction_id.present? %>
-            <td><%= details[0].construction_name %></td>
+            <td>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                <%= details[0].construction_name %>
+              <% end %>
+            </td>
             <td></td>
             <td><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
-            <td></td>
+            <td>
+              <% if details[0].amount.present? && details[0].price.present? %>
+                <%= detail_calculation(details[0]) %>
+                <% @total_detail_calculation += detail_calculation(details[0]) %>
+              <% end %>
+            </td>
           <% else %>
             <td></td>
             <td></td>
@@ -62,19 +81,37 @@
         <% details.from(1).each do |detail| %>
           <tr>
             <% if detail.material_id.present? %>
-              <td><%= detail.material_name %></td>
+              <td>
+                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.material_name %>
+                 <% end %> 
+              </td>
               <td><%= detail.service_life %></td>
               <td><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td><%= %></td>
+              <td>
+                <% if detail.amount.present? && detail.price.present? %>
+                  <%= detail_calculation(detail) %>
+                  <% @total_detail_calculation += detail_calculation(detail) %>
+                <% end %>
+              </td>
             <% elsif detail.construction_id.present? %>
-              <td><%= detail.construction_name %></td>
+              <td>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.construction_name %>
+                <% end %>
+              </td>
               <td></td>
               <td><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td></td>
+              <td>
+                <% if detail.amount.present? && detail.price.present? %>
+                  <%= detail_calculation(detail) %>
+                  <% @total_detail_calculation += detail_calculation(detail) %>
+                <% end %>
+              </td>
             <% else %>
               <td></td>
               <td></td>
@@ -85,8 +122,13 @@
             <% end %>
           </tr>
         <% end %>
-      </tr>
     <% end %>
+    <tr>
+      <tfoot>
+        <th colspan="6">合計</th>
+        <th><%= @total_detail_calculation %></th>
+      </tfooter>
+    </tr>
   </table>
   
 <% end %>
