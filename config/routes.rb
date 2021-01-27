@@ -230,11 +230,16 @@ Rails.application.routes.draw do
         get :scroll_get_messages, on: :collection
       end
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
+<<<<<<< HEAD
         get :copy, on: :member
       end
       resources :estimate_details, only: [:edit, :update, :destroy], controller: "estimate_matters/estimate_details" do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
+=======
+        get :change_label_color, on: :collection
+        post :copy, on: :member
+>>>>>>> 3943ddbba4a80cb519b01fc897228560b6d6717c
       end
       resources :images, controller: "estimate_matters/images"
       resources :messages, only: [:index], controller: "estimate_matters/messages"

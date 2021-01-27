@@ -109,6 +109,7 @@ ja:
           name: 集客方法
         plan_name:
           name: プラン名
+          label_color: ラベルカラー
         sales_status:
           status: ステータス
           conducted_on: 予定日

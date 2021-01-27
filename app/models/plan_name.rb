@@ -1,9 +1,9 @@
 class PlanName < ApplicationRecord
   has_many :estimates, dependent: :nullify
 
-  validates :name, presence: true, length: { maximum: 30 }
-  validates :color, presence: true
+  validates :name, presence: true, length: { maximum: 30 }, uniqueness: true
+  validates :label_color, presence: true
   acts_as_list
 
-  enum color: { gray: 0, red: 1, green: 2, purple: 3, orange: 4, blue: 5 }
+  enum label_color: { "#6c757d": 0, "#17a2b8": 1, "#fd7e14": 2, "#8b66cd": 3, "#28a745": 4, "#dc3545": 5 }
 end
