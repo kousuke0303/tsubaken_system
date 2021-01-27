@@ -19,10 +19,10 @@
   <% estimate = estimate[1] %>
   <div class="estimate-table-body flex">
     <!-- 見積のプラン名 -->
-    <div class="estimate-name">
-      <div class= home_icon_2>
-        <div class="triangle" style="border-bottom-color: #dc3545"></div>
-        <div class="square" style="background: #dc3545">
+    <div class="estimate-name">    
+      <div class="home_icon_2">
+        <div class="triangle" style="border-bottom-color: <%= label_color_of_estimate(estimate[0].label_color) %>"></div>
+        <div class="square" style="background: <%= label_color_of_estimate(estimate[0].label_color) %>">
           <div class="window">
             <div><p>■■</p><p>■■</p></div>
           </div>
@@ -48,7 +48,8 @@
               <% if current_client %>
                 <%= category[0].category_name %>
               <% else %>   
-                <%= link_to category[0].category_name ,edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id), remote: true, class: "btn btn-sm btn-dark" %>
+                <%= link_to category[0].category_name, edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id),
+                                                       remote: true, class: "btn btn-sm btn-dark" %>
               <% end %>
             </div>
             <div class="construction-material construction-material-<%= last %>">              
