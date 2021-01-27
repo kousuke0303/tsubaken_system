@@ -7,8 +7,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
     @plan_names = PlanName.order(position: :asc)
-<<<<<<< HEAD
-=======
     @categories = Category.all.where(default: true)
     @label_color = PlanName.label_colors.keys[0]
   end
@@ -18,7 +16,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     id = params[:id].to_i
     plan_name = PlanName.find(id)
     @sample_color = plan_name.label_color
->>>>>>> 3943ddbba4a80cb519b01fc897228560b6d6717c
+
     respond_to do |format|
       format.js
     end
