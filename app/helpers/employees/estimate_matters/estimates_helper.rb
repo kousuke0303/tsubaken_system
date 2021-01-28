@@ -13,7 +13,11 @@ module Employees::EstimateMatters::EstimatesHelper
   end
   
   def estimate_color(estimate)
-    estimate.plan_name.label_color
+    if estimate.plan_name_id.present?
+      estimate.plan_name.label_color
+    else
+      PlanName.label_colors.keys[0]
+    end
   end
 
   # 見積のラベルカラーを返す

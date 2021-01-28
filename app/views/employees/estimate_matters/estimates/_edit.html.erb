@@ -82,7 +82,7 @@
         data: { id: id, remote: true }
       });
     } else {
-      $("#color-sample").css("background", "<%= @label_color %>");
+      $("#color-sample").css("background", "<%= @default_color %>");
     }
   });
 </script>
@@ -119,7 +119,6 @@
     $('select').last().val('');
   });
 </script>
-
 
 <!--送信アクション-->
 <script>
