@@ -1,8 +1,19 @@
 module Employees::EstimateMatters::EstimatesHelper
   
-  def estimate_type(number)
-    type = ["A", "B", "C", "D", "E", "F", "G", "H"]
-    return type[number]
+  def plan_row_span(estimate)
+    estimate.estimate_details.count
+  end
+  
+  def category_row_span(estimate, category_id)
+    estimate.estimate_details.where(category_id: category_id).count
+  end
+  
+  def detail_calculation(detail)
+    return detail.amount * detail.price
+  end
+  
+  def estimate_color(estimate)
+    estimate.plan_name.label_color
   end
 
   # 見積のラベルカラーを返す
@@ -13,4 +24,5 @@ module Employees::EstimateMatters::EstimatesHelper
       PlanName.label_colors.keys[0]
     end
   end
+  
 end

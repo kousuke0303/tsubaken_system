@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_144323) do
+ActiveRecord::Schema.define(version: 2021_01_23_180908) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -70,12 +70,9 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "default", default: false
-    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "parent_id"
-    t.index ["estimate_id"], name: "index_categories_on_estimate_id"
-    t.index ["parent_id"], name: "index_categories_on_parent_id"
+    t.integer "sort_number"
   end
 
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -124,15 +121,36 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "parent_id"
     t.index ["category_id"], name: "index_constructions_on_category_id"
-    t.index ["parent_id"], name: "index_constructions_on_parent_id"
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "estimate_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "estimate_id"
+    t.integer "sort_number"
+    t.bigint "category_id"
+    t.string "category_name"
+    t.bigint "material_id"
+    t.string "material_name"
+    t.bigint "construction_id"
+    t.string "construction_name"
+    t.string "service_life"
+    t.string "note"
+    t.string "unit"
+    t.integer "price"
+    t.integer "amount"
+    t.string "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_estimate_details_on_category_id"
+    t.index ["construction_id"], name: "index_estimate_details_on_construction_id"
+    t.index ["estimate_id"], name: "index_estimate_details_on_estimate_id"
+    t.index ["material_id"], name: "index_estimate_details_on_material_id"
   end
 
   create_table "estimate_matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -259,9 +277,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "parent_id"
     t.index ["category_id"], name: "index_materials_on_category_id"
-    t.index ["parent_id"], name: "index_materials_on_parent_id"
   end
 
   create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -436,11 +452,12 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
-  add_foreign_key "categories", "categories", column: "parent_id"
-  add_foreign_key "categories", "estimates"
   add_foreign_key "certificates", "estimate_matters"
   add_foreign_key "constructions", "categories"
-  add_foreign_key "constructions", "constructions", column: "parent_id"
+  add_foreign_key "estimate_details", "categories"
+  add_foreign_key "estimate_details", "constructions"
+  add_foreign_key "estimate_details", "estimates"
+  add_foreign_key "estimate_details", "materials"
   add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
   add_foreign_key "estimate_matter_external_staffs", "external_staffs"
   add_foreign_key "estimate_matter_staffs", "estimate_matters"
@@ -455,7 +472,6 @@ ActiveRecord::Schema.define(version: 2021_01_03_144323) do
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "categories"
-  add_foreign_key "materials", "materials", column: "parent_id"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"

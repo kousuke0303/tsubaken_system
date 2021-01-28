@@ -1,16 +1,64 @@
 <div class="modal-dialog">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
     <div class="modal-body pa-2e">
       <div class="card mb-3">
         <h5 class="card-header">見積編集</h5>
         <div class="card-body">
-          <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: estimate, url: employees_estimate_matter_estimate_path(estimate_matter, estimate), method: :patch, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-update-errors"></div>
-            <%= render "form", f: f %>
+            
+            <%= f.label "タイプ名" %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <div class="input-group">
+              <%= f.collection_select :plan_name_id, plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
+              <div class="input-group-append">        
+                <span class="input-group-text" style="width: 3em; background: <%= estimate_color(estimate) %>;" id="color-sample"></span>
+              </div>
+            </div>
+            
+            <%= f.label :category_ids, "カテゴリ選択" %>
+            <% if type == "category_presence" %>
+              <table class="table table-striped" id="estimate_form_category">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                
+                <% estimate_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="number"><%= index %></td>
+                    <td>
+                      <%= f.select "category_id_#{index}".intern, categories.map{ |category| [category.name, category.id] }, {selected: detail.category_id, include_blank:  "---削除する---"}, {class: "form-control", id: "category_#{index}"} %>
+                    </td>
+                    <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+            <% else %>
+              <table class="table table-striped" id="estimate_form_category">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <tr>
+                  <td class="number">1</td>
+                  <td>
+                    <%= f.select :category_id, categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
+                  <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+                </tr>
+              </table>
+            <% end %>
+            <%= f.hidden_field :category_ids, id: "category_ids" %>
+            
             <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :delete, remote: true,
+              <button type="submit" class="btn btn-dark" id="submit">更新</button>
+              <%= link_to "見積削除", employees_estimate_matter_estimate_path(@estimate_matter, estimate), method: :delete, remote: true,
                                   data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
@@ -19,5 +67,72 @@
     </div>
   </div>
 </div>
+
+<!--select色変更-->
+<script>
+  $('#default-plan-names').change(function() {
+    var name = $('#default-plan-names option:selected').text();
+    var id = $(this).val();
+    if(id != "") {
+      $('[name="estimate[title]"]').val(name);
+      $.ajax({
+        type: "GET",
+        url: "<%= change_label_color_employees_estimate_matter_estimates_path(@estimate_matter) %>",
+        cache: false,
+        data: { id: id, remote: true }
+      });
+    } else {
+      $("#color-sample").css("background", "<%= @label_color %>");
+    }
+  });
+</script>
+
+<!--select時タイトル反映-->
+<script>
+  $('[name="estimate[plan_name]"]').change(function() {
+    if($(this).val() != "") {
+      $('[name="estimate[title]"]').val($(this).val());
+    }
+  });
+</script>
+
+<!--セレクト初期値-->
+<script>
+<% if type == "category_presence" %>
+  $(document).ready( function(){
+    <% estimate_details.each.with_index(1) do |detail, index| %>
+      $("#category_<%= index %>").val(<%= detail.category_id %>);
+    <% end %>
+  });
+<% end %>
+</script>
+
+<!--追加ボタンアクション-->
+<script>
+  $('.add_btn').on("click", function(){
+    var add_html = $('#estimate_form_category tr:last').clone(true);
+    $('#estimate_form_category').append(add_html);// 末尾追加
+    var number = $('.number').last().text();
+    $('.number').last().text(Number(number) + 1);
+    var attr_name = "estimate[category_id_" + number + "]"
+    $('select').last().attr('name', attr_name);
+    $('select').last().val('');
+  });
+</script>
+
+
+<!--送信アクション-->
+<script>
+  $('#submit').on('click', function(){
+    category_ids = []
+    $('#estimate_form_category select').each(function(i, element){
+      var value = $(element).val();
+      category_ids.push(Number(value));
+    });
+    $('#category_ids').val(category_ids);
+    $('#estimate_form').submit;
+  });
+</script>
+
 
 <%= javascript_include_tag "reset_errors.js" %>

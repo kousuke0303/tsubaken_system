@@ -1,2 +1,6 @@
-$("#estimate-new").html('<%= escape_javascript(render "employees/estimate_matters/estimates/new") %>'); 
+$("#estimate-new").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimates/new",
+                                                      locals: {estimate: @estimate,
+                                                               estimate_matter: @estimate_matter,
+                                                               categories: @categories,
+                                                               plan_names: @plan_names}) %>'); 
 $("#estimate-new").modal();

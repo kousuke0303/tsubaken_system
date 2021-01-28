@@ -5,23 +5,29 @@
       <div class="card mb-3">
         <h5 class="card-header">素材編集</h5>
         <div class="card-body">
-          <%= form_with(model: @material, url: employees_estimate_matter_material_path(@estimate_matter, @material), method: :patch, remote: true) do |f| %>
+          <%= form_with(model: estimate_detail, url: detail_object_update_employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail), method: :patch, remote: true) do |f| %>
             <div class="estimate-material-update-errors"></div>
-            <%= f.label :name %>
-            <%= f.text_field :name, required: true, maxlength: 30, class: "form-control" %>
+            
+            <% if estimate_detail.material_id.present? %>
+              <%= f.label :material_name %>
+              <%= f.text_field :material_name, required: true, maxlength: 30, class: "form-control" %>
+            <% elsif estimate_detail.construction_id.present? %>
+              <%= f.label :construction_name %>
+              <%= f.text_field :construction_name, required: true, maxlength: 30, class: "form-control" %>
+            <% end %>
 
             <%= f.label :service_life %>
-            <%= f.text_field :service_life, required: true, maxlength: 30, class: "form-control" %>
+            <%= f.text_field :service_life, maxlength: 30, class: "form-control" %>
 
             <%= f.label :price %>
             <%= f.number_field :price, required: true, class: "form-control" %>
 
-            <%= f.label :amount %>
+            <%= f.label :amount %><span class="ml-05e">(<%= estimate_detail.unit %>)</span></%>
             <%= f.number_field :amount, class: "form-control" %>
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_estimate_matter_material_path(@estimate_matter, @material), method: :delete,
+              <%= link_to "項目削除", employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail, type: "delete_object"), method: :delete,
                                      data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
             </div>
           <% end %>

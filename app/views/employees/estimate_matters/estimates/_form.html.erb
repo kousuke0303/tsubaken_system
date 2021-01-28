@@ -1,9 +1,0 @@
-<%= f.label :title %>
-<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
-<%= f.label :category_ids, "カテゴリ" %>
-<div>
-  <%= f.collection_check_boxes(:category_ids, @categories, :id, :name, include_hidden: false) do |c| %>
-    <%= c.check_box %><%= c.text %>
-  <% end %> 
-</div>

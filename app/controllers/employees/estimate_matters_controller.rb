@@ -48,9 +48,7 @@ class Employees::EstimateMattersController < ApplicationController
   def show
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-    @estimates = @estimate_matter.estimates.with_categories
-    @materials = Material.of_estimate_matter(@estimate_matter.id)
-    @constructions = Construction.of_estimate_matter(@estimate_matter.id)
+    @estimates = @estimate_matter.estimates
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)

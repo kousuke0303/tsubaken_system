@@ -1,0 +1,140 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header"><%= estimate_detail.category_name %>に関する「工事・素材」選択</h5>
+        <div class="card-body">
+          <%= form_with(model: estimate_detail, url: employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail), method: :patch, remote: true, id: "detail_form") do |f| %>
+            <div class="estimate-category-update-errors"></div>
+
+            <%= f.label "工事種類選択" %>
+            <% if constructions.present? %>
+              <table class="table table-striped" id="construction_index">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>工事種類</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <% estimate_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="number"><%= index %></td>
+                    <td>
+                      <%= f.select "construction_id_#{index}".intern, @constructions.map{ |construction| [construction.name, construction.id] }, {include_blank: "選択してください", value: detail.construction_id}, {class: "form-control", id: "construction_#{index}"} %></td>
+                    <td><button type="button", class="btn btn-sm btn-dark construction_add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+              <%= f.hidden_field :construction_ids, id: "construction_ids" %>
+            
+            <% else %>
+              <p><%= estimate_detail.category_name %>に関する工事名称の登録がありません</p>
+            <% end %>
+            
+            <%= f.label "素材種類選択" %>
+            <% if materials.present? %>
+              <table class="table table-striped" id="material_index">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>素材種類</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <% estimate_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="number"><%= index %></td>
+                    <td>
+                      <%= f.select "material_id_#{index}".intern, @materials.map{ |material| [material.name, material.id] }, {include_blank: "選択してください", value: detail.material_id}, {class: "form-control", id: "material_#{index}"} %></td>
+                    <td><button type="button", class="btn btn-sm btn-dark material_add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+              
+              <%= f.hidden_field :material_ids, id: "material_ids" %>
+            
+            <% else %>
+             <p><%= estimate_detail.category_name %>に関する素材の登録がありません</p>
+            <% end %>
+            
+            <div class="btn-area">
+              <button type="submit" class="btn btn-dark" id="submit_<%= estimate_detail.id %>">作成</button>
+              <%= link_to "カテゴリ削除", employees_estimate_matter_estimate_detail_path(@estimate_matter, @estimate_detail, type: "delete_category"), method: :delete, remote: true,
+                                  data: { confirm: "この工事カテゴリを削除してよろしいですか？" }, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>
+
+<!--セレクト初期値-->
+<script>
+  $(document).ready( function(){
+    <% estimate_details.each.with_index(1) do |detail, index| %>
+      <% if detail.material_id.present? %>
+        $("#material_<%= index %>").val(<%= detail.material_id %>);
+      <% end %>
+      <% if detail.construction_id.present? %>
+        $("#construction_<%= index %>").val(<%= detail.construction_id %>);
+      <% end %>
+    <% end %>
+  });
+</script>
+
+<!--追加ボタンアクション-->
+<script>
+  $('.material_add_btn').on("click", function(){
+    var add_html = $('#material_index tr:last').clone(true);
+    $('#material_index').append(add_html);// 末尾追加
+    var number = $('.number').last().text();
+    var add_number = Number(number) + 1
+    $('.number').last().text(add_number);
+    var attr_name = "estimate_detail[material_id_" + add_number + "]"
+    $('#material_index select').last().attr('name', attr_name);
+    $('#material_index select').last().val('');
+  });
+</script>
+
+<script>
+  $('.construction_add_btn').on("click", function(){
+    var add_html = $('#construction_index tr:last').clone(true);
+    $('#construction_index').append(add_html);// 末尾追加
+    var number = $('.number').last().text();
+    var add_number = Number(number) + 1
+    $('.number').last().text(add_number);
+    var attr_name = "estimate_detail[construction_id_" + add_number + "]"
+    $('#construction_index select').last().attr('name', attr_name);
+    $('#construction_index select').last().val('');
+  });
+</script>
+
+<!--送信アクション-->
+<script>
+  $('#submit_<%= estimate_detail.id %>').on('click', function(){
+    <% if materials.present? %>
+      material_ids = []
+      $('#material_index select').each(function(i, element){
+        var value = $(element).val();
+        material_ids.push(Number(value));
+      });
+      console.log(material_ids);
+      $('#material_ids').val(material_ids);
+    <% end %>
+    
+    <% if constructions.present? %>
+      construction_ids = []
+      $('#construction_index select').each(function(i, element){
+        var value = $(element).val();
+        construction_ids.push(Number(value));
+      });
+      console.log(construction_ids);
+      $('#construction_ids').val(construction_ids);
+    <% end %>
+      
+    $('#detail_form').submit;
+   
+  });
+</script>
+

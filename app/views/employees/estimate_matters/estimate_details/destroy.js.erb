@@ -1,4 +1,11 @@
-$(".flash-wrapper").html('<div class="flash flash-notice time-limit">見積を複製しました。</div>');
+<% if @type == "delete_category" %>
+  $("#estimate-detail-edit").modal("hide");
+<% end %>
+<% if @type == "delete_object" %>
+  $("#estimate-object-edit").modal("hide");
+<% end %>
+
+$(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
 $(".estimates-index").html('<%= escape_javascript(render partial: "shared/estimate_matters/estimates_index", 
                                                          locals: {estimates: @estimates, 
                                                                   estimate_matter: @estimate_matter,

@@ -1,133 +1,153 @@
-<% @estimates.group_by {|estimate| estimate.id }.each_with_index do |estimate, index| %>
-  <% total_price = 0 %>
-  <p class="mt-1e mb-0"><%= estimate_type(index) %> TYPE</p>
-   
-  <div class="flex estimate-table-header">
-    <div class="estimate-name">プラン名</div>
-    <div style="width: 80%;" class="flex">
-      <div class="category-name">カテゴリ</div>
-      <div class="construction-material flex">
-        <div class="construction-material-detail">素材・工事名</div>
-        <div class="construction-material-detail">耐用年数</div>
-        <div class="construction-material-detail">単価</div>
-        <div class="construction-material-detail">単位</div>
-        <div class="construction-material-detail">数量</div>
-        <div class="construction-material-detail-total">合計金額</div>
-      </div>
-    </div>
-  </div>
-  <% estimate = estimate[1] %>
-  <div class="estimate-table-body flex">
-    <!-- 見積のプラン名 -->
-    <div class="estimate-name">    
-      <div class="home_icon_2">
-        <div class="triangle" style="border-bottom-color: <%= label_color_of_estimate(estimate[0].label_color) %>"></div>
-        <div class="square" style="background: <%= label_color_of_estimate(estimate[0].label_color) %>">
-          <div class="window">
-            <div><p>■■</p><p>■■</p></div>
-          </div>
-          <div class="text">
-            <% if current_client %>
-              <%= estimate[0].title %>
-            <% else %>
-              <%= link_to estimate[0].title, edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0].id),
-                                      remote: true %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="text-right mb-05e">
+  <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
+    <i class="fas fa-plus"></i> 新規見積
+  <% end %>
+  <% if @estimate_matter.estimates.present? %>
+    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
+  <% end %>
+</div>
 
-    <div style="width: 80%;">
-      <% estimate.group_by { |category| category.category_id }.each_with_index do |category, index| %>
-        <% category = category[1] %>
-        <% if category_id = category[0].category_id %>
-          <% last = "last" if index == estimate.size - 1 %>
-          <div class="flex category-item category-item-<%= last %>">
-            <div class="category-name category-name-<%= last %>">
-              <% if current_client %>
-                <%= category[0].category_name %>
-              <% else %>   
-                <%= link_to category[0].category_name, edit_employees_estimate_matter_category_path(@estimate_matter, category[0].category_id),
-                                                       remote: true, class: "btn btn-sm btn-dark" %>
-              <% end %>
-            </div>
-            <div class="construction-material construction-material-<%= last %>">              
-              <% if @materials %>
-                <% materials = @materials.where(categories: { id: category_id }) %>
-                <% if materials.size > 0 %>
-                  <% material_presence = true %>                
-                <% else %>
-                  <% material_presence = false %>
-                <% end %>
-                <% materials.each_with_index do |material, index| %>
-                  <% if index == materials.size - 1 %>
-                    <% last = "last" %>
-                  <% else %>
-                    <% last = "" %>
-                  <% end %>
-                  <div class="flex construction-material-item construction-material-item-<%= last %>">
-                    <div class="construction-material-detail">
-                      <% if current_client %>
-                        <%= material.name %>
-                      <% else %>
-                        <%= link_to material.name, edit_employees_estimate_matter_material_path(@estimate_matter, material.id),
-                                                   remote: true, class: "btn btn-sm btn-dark" %>
-                      <% end %>
-                    </div>
-                    <div class="construction-material-detail"><%= material.service_life %></div>
-                    <div class="construction-material-detail"><%= material.price %></div>
-                    <div class="construction-material-detail"><%= material.unit %></div>
-                    <div class="construction-material-detail"><%= material.amount %></div>
-                    <% total_price = total_price.to_i + material.total.to_i %>
-                    <div class="construction-material-detail-total"><%= "#{ material.total }円" if material.total.present? %></div>
-                  </div>
-                <% end %>
-              <% end %>
-              <% if @constructions %>
-                <% constructions = @constructions.where(categories: { id: category_id }) %>
-                <% constructions.each_with_index do |construction, index| %>
-                  <% if index == 0 && material_presence %>
-                    <% with_border_top = "with-border-top" %>
-                  <% else %>
-                    <% with_border_top = "" %>
-                  <% end %>
-                  <% if index == constructions.size - 1 %>
-                    <% last = "last" %>
-                  <% else %>
-                    <% last = "" %>
-                  <% end %>
-                  <div class="flex construction-material-item <%= with_border_top %> construction-material-item-<%= last %>">
-                    <div class="construction-material-detail">
-                      <% if current_client %>
-                        <%= construction.name %>
-                      <% else %>
-                        <%= link_to construction.name, edit_employees_estimate_matter_construction_path(@estimate_matter, construction.id),
-                                                      remote: true, class: "btn btn-sm btn-dark" %>
-                      <% end %>
-                    </div>
-                    <div class="construction-material-detail"></div>
-                    <div class="construction-material-detail"><%= construction.price %></div>
-                    <div class="construction-material-detail"><%= construction.unit %></div>
-                    <div class="construction-material-detail"><%= construction.amount %></div>
-                    <% total_price = total_price.to_i + construction.total.to_i %>
-                    <div class="construction-material-detail-total"><%= "#{ construction.total }円" if construction.total.present? %></div>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
+<% estimates.each do |estimate| %>
+
+  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
+  <% @total_detail_calculation = 0 %>
+  
+  <div class= home_icon>
+    <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
+    <div class="square" style="background: <%= estimate_color(estimate) %>">
+      <div class="window">
+        <div><p>■■</p><p>■■</p></div>
+      </div>
+      <div class="text">
+        <% if current_client %>
+          <%= estimate.title %>
+        <% else %>
+          <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+            <%= estimate.title %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
-  <div class="estimate-table-footer">
-    合計見積金額 <%= total_price %>円
-  </div>
-  <div class="float-r">
-    <% unless current_client %>
-      <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, estimate[0]), method: :post, remote: true,
-                              data: { confirm: "この見積を複製してよろしいですか？" }, class: "btn btn-sm btn-primary" %>
+  
+  <table class="table table-bordered table_line_type">
+    <tr>
+      <th>項目</th>
+      <th>工事名称・素材</th>
+      <th>耐用年数</th>
+      <th colspan="2">単価</th>
+      <th>数量</th>
+      <th>計(円)</th>
+    </tr>
+    <% @estimate_detail_hash.each do |category_id, details| %>
+      <tr>
+        <td rowspan="<%= category_row_span(estimate, category_id) %>">
+          <%= link_to edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true do %>
+            <%= details[0].category_name %>
+          <% end %>
+        </td>
+        <% if details[0].material_id.present? %>
+          <td>
+            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= details[0].material_name %>
+            <% end %>
+          </td>
+          <td><%= details[0].service_life %></td>
+          <td class="money_type"><%= details[0].price %></td>
+          <td><%= details[0].unit %></td>
+          <td><%= details[0].amount %></td>
+          <td class="money_type">
+            <% if details[0].amount.present? && details[0].price.present? %>
+              <%= detail_calculation(details[0]) %>
+              <% @total_detail_calculation += detail_calculation(details[0]) %>
+            <% end %>
+          </td>
+        <% elsif details[0].construction_id.present? %>
+            <td>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                <%= details[0].construction_name %>
+              <% end %>
+            </td>
+            <td></td>
+            <td class="money_type"><%= details[0].price %></td>
+            <td><%= details[0].unit %></td>
+            <td><%= details[0].amount %></td>
+            <td class="money_type">
+              <% if details[0].amount.present? && details[0].price.present? %>
+                <%= detail_calculation(details[0]) %>
+                <% @total_detail_calculation += detail_calculation(details[0]) %>
+              <% end %>
+            </td>
+          <% else %>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          <% end %>
+        </tr>
+        <% details.from(1).each do |detail| %>
+          <tr>
+            <% if detail.material_id.present? %>
+              <td>
+                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.material_name %>
+                 <% end %> 
+              </td>
+              <td><%= detail.service_life %></td>
+              <td class="money_type"><%= detail.price %></td>
+              <td><%= detail.unit %></td>
+              <td><%= detail.amount %></td>
+              <td class="money_type">
+                <% if detail.amount.present? && detail.price.present? %>
+                  <%= detail_calculation(detail) %>
+                  <% @total_detail_calculation += detail_calculation(detail) %>
+                <% end %>
+              </td>
+            <% elsif detail.construction_id.present? %>
+              <td>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.construction_name %>
+                <% end %>
+              </td>
+              <td></td>
+              <td class="money_type"><%= detail.price %></td>
+              <td><%= detail.unit %></td>
+              <td><%= detail.amount %></td>
+              <td class="money_type">
+                <% if detail.amount.present? && detail.price.present? %>
+                  <%= detail_calculation(detail) %>
+                  <% @total_detail_calculation += detail_calculation(detail) %>
+                <% end %>
+              </td>
+            <% else %>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
     <% end %>
-    </div>
+    <tr>
+      <tfoot>
+        <th colspan="5">合計</th>
+        <th colspan="2", class="money_type text-right"><%= @total_detail_calculation %>円</th>
+      </tfooter>
+    </tr>
+  </table>
+  
 <% end %>
+
+<script>
+  $(document).ready( function(){
+    $('.money_type').each(function(i, element){
+      var text = $(element).text();
+      var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
+      $(element).text(money_type);
+    });
+  });
+</script>

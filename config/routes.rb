@@ -231,13 +231,17 @@ Rails.application.routes.draw do
       end
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
-        post :copy, on: :member
+        get :copy, on: :member
+      end
+      resources :estimate_details, only: [:edit, :update, :destroy], controller: "estimate_matters/estimate_details" do
+        get :detail_object_edit, on: :member
+        patch :detail_object_update, on: :member
       end
       resources :images, controller: "estimate_matters/images"
       resources :messages, only: [:index], controller: "estimate_matters/messages"
-      resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
-      resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
-      resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
+      # resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
+      # resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
+      # resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
         patch :sort, on: :collection

@@ -1,2 +1,10 @@
-$("#estimate-edit").html('<%= escape_javascript(render "employees/estimate_matters/estimates/edit") %>'); 
+$("#estimate-edit").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimates/edit", 
+                              locals: {estimates: @estimates,
+                                       estimate_details: @estimate_details,
+                                       type: @type,
+                                       categories: @categories,
+                                       estimate: @estimate,
+                                       estimate_matter: @estimate_matter,
+                                       plan_names: @plan_names
+                                      }) %>'); 
 $("#estimate-edit").modal();
