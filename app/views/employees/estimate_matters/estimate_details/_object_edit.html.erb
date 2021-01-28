@@ -27,7 +27,7 @@
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail), method: :delete,
+              <%= link_to "項目削除", employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail, type: "delete_object"), method: :delete,
                                      data: { confirm: "この素材を削除してよろしいですか？" }, remote: true, class: "btn btn-danger" %>
             </div>
           <% end %>

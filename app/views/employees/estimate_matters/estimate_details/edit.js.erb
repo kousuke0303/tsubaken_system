@@ -1,7 +1,7 @@
-$("#estimate-category-edit").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimate_details/edit", 
+$("#estimate-detail-edit").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimate_details/edit", 
                                       locals: {estimate_details: @estimate_details,
                                                estimate_detail: @estimate_detail,
                                                materials: @materials,
                                                constructions: @constructions,
                                                estimate_matter: @estimate_matter}) %>'); 
-$("#estimate-category-edit").modal();
+$("#estimate-detail-edit").modal();
