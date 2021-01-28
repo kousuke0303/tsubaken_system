@@ -11,9 +11,9 @@
           <%= form_with(model: estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-create-errors"></div>
             <%= f.label "タイプ名" %>
-            <%= f.label :plan_name_id, "デフォルトプラン名" %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
             <div class="input-group">
-              <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
+              <%= f.collection_select :plan_name_id, plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
                 <span class="input-group-text" style="width: 3em; background: <%= @label_color %>;" id="color-sample"></span>
               </div>

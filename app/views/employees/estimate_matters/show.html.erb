@@ -93,14 +93,6 @@
   
       <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimates">
         <div class="card-body">
-          <div class="text-right mb-05e">
-            <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
-              <i class="fas fa-plus"></i> 新規見積
-            <% end %>
-            <% if @estimate_matter.estimates.present? %>
-              <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
-            <% end %>
-          </div>
           <div class="estimates-index">
             <%= render partial: "shared/estimate_matters/estimates_index", locals: { estimates: @estimates, estimate_matter: @estimate_matter } %>
           </div>
@@ -141,82 +133,5 @@
     
     </div>
       
-  </div>
-</div>
-
-<div>
-
----------色見本--------------
-
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #dc3545"></div>
-    <div class="square" style="background: #dc3545">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本  
-      </div>
-    </div>
-  </div>
-  
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #28a745"></div>
-    <div class="square" style="background: #28a745">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本
-      </div>
-    </div>
-  </div>
-  
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #8b66cd"></div>
-    <div class="square" style="background: #8b66cd">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本 
-      </div>
-    </div>
-  </div>
-  
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #fd7e14"></div>
-    <div class="square" style="background: #fd7e14">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本 
-      </div>
-    </div>
-  </div>
-  
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #17a2b8"></div>
-    <div class="square" style="background: #17a2b8">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本 
-      </div>
-    </div>
-  </div>
-  
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #6c757d"></div>
-    <div class="square" style="background: #6c757d">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        色見本 
-      </div>
-    </div>
   </div>
 </div>

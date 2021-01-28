@@ -4,6 +4,7 @@ $("#estimate-edit").html('<%= escape_javascript(render partial: "employees/estim
                                        type: @type,
                                        categories: @categories,
                                        estimate: @estimate,
-                                       estimate_matter: @estimate_matter
+                                       estimate_matter: @estimate_matter,
+                                       plan_names: @plan_names
                                       }) %>'); 
 $("#estimate-edit").modal();

@@ -8,12 +8,12 @@
           <%= form_with(model: estimate_detail, url: employees_estimate_matter_estimate_detail_path(estimate_matter, estimate_detail), method: :patch, remote: true, id: "detail_form") do |f| %>
             <div class="estimate-category-update-errors"></div>
 
-            <%= f.label "工事" %>
+            <%= f.label "工事種類選択" %>
             <% if constructions.present? %>
               <table class="table table-striped" id="construction_index">
                 <tr>
                   <td style="width: 4em">順番</td>
-                  <td>カテゴリ選択</td>
+                  <td>工事種類</td>
                   <td style="width: 5em"></td>
                 </tr>
                 <% estimate_details.each.with_index(1) do |detail, index| %>
@@ -31,12 +31,12 @@
               <p><%= estimate_detail.category_name %>に関する工事名称の登録がありません</p>
             <% end %>
             
-            <%= f.label "素材" %>
+            <%= f.label "素材種類選択" %>
             <% if materials.present? %>
               <table class="table table-striped" id="material_index">
                 <tr>
                   <td style="width: 4em">順番</td>
-                  <td>素材選択</td>
+                  <td>素材種類</td>
                   <td style="width: 5em"></td>
                 </tr>
                 <% estimate_details.each.with_index(1) do |detail, index| %>

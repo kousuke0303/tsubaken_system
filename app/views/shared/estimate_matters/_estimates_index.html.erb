@@ -1,11 +1,20 @@
+<div class="text-right mb-05e">
+  <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
+    <i class="fas fa-plus"></i> 新規見積
+  <% end %>
+  <% if @estimate_matter.estimates.present? %>
+    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
+  <% end %>
+</div>
+
 <% estimates.each do |estimate| %>
 
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
   <% @total_detail_calculation = 0 %>
   
   <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: #dc3545"></div>
-    <div class="square" style="background: #dc3545">
+    <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
+    <div class="square" style="background: <%= estimate_color(estimate) %>">
       <div class="window">
         <div><p>■■</p><p>■■</p></div>
       </div>
@@ -44,10 +53,10 @@
             <% end %>
           </td>
           <td><%= details[0].service_life %></td>
-          <td><%= details[0].price %></td>
+          <td class="money_type"><%= details[0].price %></td>
           <td><%= details[0].unit %></td>
           <td><%= details[0].amount %></td>
-          <td>
+          <td class="money_type">
             <% if details[0].amount.present? && details[0].price.present? %>
               <%= detail_calculation(details[0]) %>
               <% @total_detail_calculation += detail_calculation(details[0]) %>
@@ -60,10 +69,10 @@
               <% end %>
             </td>
             <td></td>
-            <td><%= details[0].price %></td>
+            <td class="money_type"><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
-            <td>
+            <td class="money_type">
               <% if details[0].amount.present? && details[0].price.present? %>
                 <%= detail_calculation(details[0]) %>
                 <% @total_detail_calculation += detail_calculation(details[0]) %>
@@ -87,10 +96,10 @@
                  <% end %> 
               </td>
               <td><%= detail.service_life %></td>
-              <td><%= detail.price %></td>
+              <td class="money_type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td>
+              <td class="money_type">
                 <% if detail.amount.present? && detail.price.present? %>
                   <%= detail_calculation(detail) %>
                   <% @total_detail_calculation += detail_calculation(detail) %>
@@ -103,10 +112,10 @@
                 <% end %>
               </td>
               <td></td>
-              <td><%= detail.price %></td>
+              <td class="money_type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td>
+              <td class="money_type">
                 <% if detail.amount.present? && detail.price.present? %>
                   <%= detail_calculation(detail) %>
                   <% @total_detail_calculation += detail_calculation(detail) %>
@@ -125,10 +134,20 @@
     <% end %>
     <tr>
       <tfoot>
-        <th colspan="6">合計</th>
-        <th><%= @total_detail_calculation %></th>
+        <th colspan="5">合計</th>
+        <th colspan="2", class="money_type text-right"><%= @total_detail_calculation %>円</th>
       </tfooter>
     </tr>
   </table>
   
 <% end %>
+
+<script>
+  $(document).ready( function(){
+    $('.money_type').each(function(i, element){
+      var text = $(element).text();
+      var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
+      $(element).text(money_type);
+    });
+  });
+</script>

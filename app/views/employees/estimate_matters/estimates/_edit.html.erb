@@ -10,11 +10,17 @@
         <div class="card-body">
           <%= form_with(model: estimate, url: employees_estimate_matter_estimate_path(estimate_matter, estimate), method: :patch, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-update-errors"></div>
+            
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <div class="input-group">
+              <%= f.collection_select :plan_name_id, plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
+              <div class="input-group-append">        
+                <span class="input-group-text" style="width: 3em; background: <%= estimate_color(estimate) %>;" id="color-sample"></span>
+              </div>
+            </div>
             
             <%= f.label :category_ids, "カテゴリ選択" %>
-            
             <% if type == "category_presence" %>
               <table class="table table-striped" id="estimate_form_category">
                 <tr>
@@ -62,6 +68,34 @@
   </div>
 </div>
 
+<!--select色変更-->
+<script>
+  $('#default-plan-names').change(function() {
+    var name = $('#default-plan-names option:selected').text();
+    var id = $(this).val();
+    if(id != "") {
+      $('[name="estimate[title]"]').val(name);
+      $.ajax({
+        type: "GET",
+        url: "<%= change_label_color_employees_estimate_matter_estimates_path(@estimate_matter) %>",
+        cache: false,
+        data: { id: id, remote: true }
+      });
+    } else {
+      $("#color-sample").css("background", "<%= @label_color %>");
+    }
+  });
+</script>
+
+<!--select時タイトル反映-->
+<script>
+  $('[name="estimate[plan_name]"]').change(function() {
+    if($(this).val() != "") {
+      $('[name="estimate[title]"]').val($(this).val());
+    }
+  });
+</script>
+
 <!--セレクト初期値-->
 <script>
 <% if type == "category_presence" %>
@@ -86,11 +120,12 @@
   });
 </script>
 
+
 <!--送信アクション-->
 <script>
   $('#submit').on('click', function(){
     category_ids = []
-    $('select').each(function(i, element){
+    $('#estimate_form_category select').each(function(i, element){
       var value = $(element).val();
       category_ids.push(Number(value));
     });

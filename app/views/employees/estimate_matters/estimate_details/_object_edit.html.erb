@@ -9,10 +9,10 @@
             <div class="estimate-material-update-errors"></div>
             
             <% if estimate_detail.material_id.present? %>
-              <%= f.label :material_name, "素材名称" %>
+              <%= f.label :material_name %>
               <%= f.text_field :material_name, required: true, maxlength: 30, class: "form-control" %>
             <% elsif estimate_detail.construction_id.present? %>
-              <%= f.label :construction_name, "工事名称" %>
+              <%= f.label :construction_name %>
               <%= f.text_field :construction_name, required: true, maxlength: 30, class: "form-control" %>
             <% end %>
 

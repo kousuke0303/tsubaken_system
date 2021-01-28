@@ -11,6 +11,10 @@ module Employees::EstimateMatters::EstimatesHelper
   def detail_calculation(detail)
     return detail.amount * detail.price
   end
+  
+  def estimate_color(estimate)
+    estimate.plan_name.label_color
+  end
 
   # 見積のラベルカラーを返す
   def label_color_of_estimate(label_color = "")

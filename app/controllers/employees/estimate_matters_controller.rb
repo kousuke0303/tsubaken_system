@@ -49,7 +49,6 @@ class Employees::EstimateMattersController < ApplicationController
     @matter = @estimate_matter.matter
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     @estimates = @estimate_matter.estimates
-    
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
