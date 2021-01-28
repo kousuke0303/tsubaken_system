@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_180908) do
+ActiveRecord::Schema.define(version: 2021_01_28_143039) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -360,6 +360,9 @@ ActiveRecord::Schema.define(version: 2021_01_23_180908) do
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "scheduled_start_time"
+    t.time "scheduled_end_time"
+    t.string "place"
     t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
     t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"

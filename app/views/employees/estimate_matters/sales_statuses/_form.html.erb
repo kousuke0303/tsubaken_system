@@ -1,16 +1,31 @@
 <%= f.label :status %>
 <%= f.select :status, @statuses, {}, required: true, class: "form-control" %>
 
-<%= f.label :conducted_on %>
-<%= f.date_field :conducted_on, required: true, class: "form-control" %>
-
-<%= f.label :note %>
-<%= f.text_area :note, maxlength: 300, class: "form-control" %>
-
 <h6 class="mt-1e">担当者</h6>
 <div>
   <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
+
+<%= f.label :conducted_on %>
+<%= f.date_field :conducted_on, required: true, class: "form-control" %>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= f.label :scheduled_started_time %>
+    <%= f.time_field :scheduled_started_time, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= f.label :scheduled_end_time %>
+    <%= f.time_field :scheduled_end_time, class: "form-control" %>
+  </div>
+</div>
+
+
+<%= f.label :place %>
+<%= f.text_field :place, class: "form-control" %>
+
+<%= f.label :note %>
+<%= f.text_area :note, maxlength: 300, class: "form-control" %>
 
 <% if @sales_status.sales_status_member.present? %>
   <script>

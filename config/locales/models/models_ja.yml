@@ -119,7 +119,10 @@ ja:
           label_color: ラベルカラー
         sales_status:
           status: ステータス
-          conducted_on: 予定日
+          conducted_on: 予定日又は確定日
+          scheduled_started_time: 開始予定時刻（※任意）
+          scheduled_end_time: 終了予定時刻（※任意）
+          place: 場所（※任意）
   attributes:
     id: ID
     login_id: ログインID

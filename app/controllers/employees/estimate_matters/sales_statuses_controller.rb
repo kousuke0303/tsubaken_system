@@ -67,7 +67,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
 
     def sales_status_params
-      params.require(:sales_status).permit(:status, :conducted_on, :note, :staff_id, :external_staff_id)
+      params.require(:sales_status).permit(:status, :conducted_on, :scheduled_start_time, :scheduled_end_time, :place, :note, :staff_id, :external_staff_id)
     end
 
     def set_statuses
