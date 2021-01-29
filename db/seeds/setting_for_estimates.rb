@@ -1,3 +1,5 @@
+# 発行元
+
 # 工事カテゴリ
 
 SeedCategory1 = Category.create(name: "屋根", default: true)

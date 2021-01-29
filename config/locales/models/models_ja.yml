@@ -54,6 +54,8 @@ ja:
           started_at: 出勤時間
           finished_at: 退勤時間
           worked_on: 出勤日
+        publisher:
+          name: 会社名
         task:
           title: タスク名
           content: 内容
@@ -70,6 +72,7 @@ ja:
           attract_method_id: 集客方法
           staff: スタッフ
           external_staff: 外部スタッフ
+          publisher: 発行元
         estimate:
           title: 見積名
         estimate_detail:

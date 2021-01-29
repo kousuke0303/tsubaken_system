@@ -333,6 +333,18 @@ ActiveRecord::Schema.define(version: 2021_01_28_143039) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "publishers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "postal_code"
+    t.string "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
+    t.string "phone"
+    t.string "fax"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "authority"
     t.integer "member_id"
