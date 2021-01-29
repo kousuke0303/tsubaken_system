@@ -6,7 +6,7 @@
     <div class="col-lg-3 col-md-6 col-12">
       <%= form_with(url: employees_settings_materials_path, method: :get, local: true) do |f| %>
         <div class="input-group">
-          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "カテゴリを選択", selected: @category }, class: "form-control" %>
+          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "カテゴリを選択", selected: @category_id }, class: "form-control" %>
           <div class="input-group-append">        
             <input type="submit" value="&#xf002;" class="fas btn btn-primary">
           </div>
