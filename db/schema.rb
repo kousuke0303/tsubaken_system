@@ -180,10 +180,12 @@ ActiveRecord::Schema.define(version: 2021_01_28_143039) do
     t.string "content"
     t.bigint "client_id"
     t.bigint "attract_method_id"
+    t.bigint "publisher_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
+    t.index ["publisher_id"], name: "index_estimate_matters_on_publisher_id"
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -479,6 +481,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_143039) do
   add_foreign_key "estimate_matter_staffs", "staffs"
   add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
+  add_foreign_key "estimate_matters", "publishers"
   add_foreign_key "estimates", "plan_names"
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"

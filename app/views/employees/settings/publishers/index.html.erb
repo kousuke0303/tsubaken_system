@@ -1,0 +1,38 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+      <h2>発行元一覧</h2>
+    </div>
+    <div class="col-lg-6 col-md-6 col-12">
+      <%= link_to new_employees_settings_publisher_path, remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> 新規発行元
+      <% end %>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>発行元名</th>
+        <th>郵便番号</th>
+        <th>都道府県</th>
+        <th>市町村</th>
+        <th>番地</th>
+        <th></th>
+      </tr>
+      <% @publishers.each do |publisher| %>
+        <tr>
+          <td><%= publisher.name %></td>
+          <td><%= publisher.postal_code %></td>
+          <td><%= publisher.prefecture_code %></td>
+          <td><%= publisher.address_city %></td>
+          <td><%= publisher.address_street %></td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_publisher_path(publisher), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_publisher_path(publisher), method: :delete, data: { confirm: "この発行元を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
