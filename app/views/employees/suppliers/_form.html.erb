@@ -38,4 +38,4 @@
 <%= f.label :address_street %>
 <%= f.text_field :address_street, autocomplete: "address_street", id: "address_street", class: "form-control" %>
 
-<%= render "shared/javascript/postal_code_to_address" %>
+<%= javascript_include_tag "postal_code_to_address.js" %>

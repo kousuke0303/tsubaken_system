@@ -34,4 +34,4 @@
 <%= f.label :resigned_on %>
 <%= f.date_field :resigned_on, class: "form-control" %>
 
-<%= render "shared/javascript/postal_code_to_address" %>
+<%= javascript_include_tag "postal_code_to_address.js" %>

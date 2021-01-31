@@ -4,6 +4,10 @@ class Employees::Settings::ConstructionsController < ApplicationController
 
   def index
     @constructions = Construction.are_default
+    if (@category_id = params[:category_id]).present?
+      @constructions = @constructions.where(category_id: @category_id)
+    end
+    @categories = Category.all
   end
 
   def new

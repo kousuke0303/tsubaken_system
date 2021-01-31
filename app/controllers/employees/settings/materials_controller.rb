@@ -34,6 +34,10 @@ class Employees::Settings::MaterialsController < ApplicationController
 
   def index
     @materials = Material.are_default
+    if (@category_id = params[:category_id]).present?
+      @materials = @materials.where(category_id: @category_id)
+    end
+    @categories = Category.all
   end
 
   def destroy
