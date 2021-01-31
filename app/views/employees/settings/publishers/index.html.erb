@@ -18,6 +18,7 @@
         <th>都道府県</th>
         <th>市町村</th>
         <th>番地</th>
+        <th>ロゴ画像</th>
         <th></th>
       </tr>
       <% @publishers.each do |publisher| %>
@@ -27,6 +28,7 @@
           <td><%= publisher.prefecture_code %></td>
           <td><%= publisher.address_city %></td>
           <td><%= publisher.address_street %></td>
+          <td><%= image_tag publisher.image.variant(resize:"35x35") if publisher.image.attached? %></td>
           <td>
             <%= link_to "編集", edit_employees_settings_publisher_path(publisher), remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_settings_publisher_path(publisher), method: :delete, data: { confirm: "この発行元を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>

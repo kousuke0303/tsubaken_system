@@ -19,5 +19,8 @@
 <%= f.label :fax %>
 <%= f.telephone_field :fax, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 10, placeholder: "半角数字(ハイフンなし)" %>
 
+<%= f.label :image %>
+<%= f.file_field :image, accept: ".jpeg, .png, .gif, .bmp, .psd, .tiff", class: "file-input" %>
+
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= render "shared/javascript/auto_postcode" %>

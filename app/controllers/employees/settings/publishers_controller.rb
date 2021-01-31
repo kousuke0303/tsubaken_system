@@ -43,7 +43,7 @@ class Employees::Settings::PublishersController < ApplicationController
 
   private
     def publisher_params
-      params.require(:publisher).permit(:name, :postal_code, :prefecture_code, :address_city, :address_street, :phone, :fax)
+      params.require(:publisher).permit(:name, :postal_code, :prefecture_code, :address_city, :address_street, :phone, :fax, :image)
     end
 
     def set_publisher

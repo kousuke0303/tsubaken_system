@@ -1,9 +1,9 @@
 # 発行元
 
-Publisher.create(name: "発行元A", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1")
-Publisher.create(name: "発行元B", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1")
-Publisher.create(name: "発行元C", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1")
-Publisher.create(name: "発行元D", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1")
+Publisher.create(name: "発行元A", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611111111")
+Publisher.create(name: "発行元B", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611112222")
+Publisher.create(name: "発行元C", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611113333")
+Publisher.create(name: "発行元D", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611114444")
 
 # 工事カテゴリ
 
