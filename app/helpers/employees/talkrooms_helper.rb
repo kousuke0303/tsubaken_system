@@ -30,9 +30,9 @@ module Employees::TalkroomsHelper
   end
   
   def chat_day_display(date)
-    if date == Date.today
+    if date == Date.current
       return "今日"
-    elsif date == Date.today - 1
+    elsif date == Date.current - 1
       return "昨日"
     else
       return date.strftime("%m/%d")

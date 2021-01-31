@@ -11,8 +11,8 @@ class Admins::StatisticsController < ApplicationController
     end
       
     # 営業詳細分析
-    @first_day = Date.today.beginning_of_month
-    @last_day = Date.today
+    @first_day = Date.current.beginning_of_month
+    @last_day = Date.current
     @est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
     date_for_estimate_matters_count
     date_for_estimate_matters_area_count
@@ -23,12 +23,12 @@ class Admins::StatisticsController < ApplicationController
     if params[:start_date].present?
       @first_day = params[:start_date].to_date
     else
-      @first_day = Date.today
+      @first_day = Date.current
     end
     if params[:end_date].present?
       @last_day = params[:end_date].to_date
     else
-      @last_day = Date.today
+      @last_day = Date.current
     end
     @est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
     date_for_estimate_matters_count

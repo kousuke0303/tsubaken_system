@@ -217,7 +217,7 @@ Rails.application.routes.draw do
         get :individual
       end
     end
-
+    resources :schedules
     resources :estimate_matters do
       get :progress_table, on: :collection
       get :progress_table_for_six_month, on: :collection

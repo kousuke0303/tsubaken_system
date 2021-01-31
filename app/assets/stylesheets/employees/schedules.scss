@@ -1,0 +1,66 @@
+/* -----------------------------------------------------------------------------------
+    CALENDER
+----------------------------------------------------- */
+
+.simple-calendar {
+  table {
+    border: none!important;
+    th {
+      border: none;
+      height: 1.2em;
+      text-align: center;
+    }
+    .saturday_disp {
+      text-align: center;
+      width: 4em;
+      padding: 0.2em 2em;
+      border: 1px solid #4b8bda;
+      border-radius: 20%;
+      background: #4b8bda;
+      color: white;
+    }
+    .sunday_disp {
+      text-align: center;
+      width: 4em;
+      padding: 0.2em 2em;
+      border: 1px solid #da4b86;
+      border-radius: 20%;
+      background: #da4b86;
+      color: white;
+    }
+    .normal_week {
+      text-align: center;
+      width: 4em;
+      padding: 0.2em 2em;
+      border: 1px solid #91cdf1;
+      border-radius: 20%;
+      background: #91cdf1;
+      color: #3e61a2;
+    }
+    .prev-month {
+      background: #f2f2f2!important;
+    }
+    .today {
+      background: #cae9fb!important;
+    }
+  }
+}
+
+.calendar-heading {
+  height: 3em;
+  line-height: 3em;
+}
+
+.calendar_year {
+  font-size: 1.2em;
+  color: #3e61a2;
+}
+
+.calendar_month {
+  margin-left: 0.5em;
+  font-size: 1.7em;
+  border: 1px solid #cae9fb;
+  border-radius: 50%;
+  background: #cae9fb;
+  padding: 5px 10px;
+}

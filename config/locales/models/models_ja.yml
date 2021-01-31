@@ -54,6 +54,13 @@ ja:
           started_at: 出勤時間
           finished_at: 退勤時間
           worked_on: 出勤日
+        schedule: 
+          title: タイトル
+          scheduled_date: 日程
+          scheduled_start_time: 開始予定時刻
+          scheduled_end_time: 終了予定時刻
+          place: 場所
+          note: 備考
         task:
           title: タスク名
           content: 内容

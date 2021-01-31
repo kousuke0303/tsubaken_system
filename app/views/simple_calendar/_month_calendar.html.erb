@@ -1,20 +1,24 @@
 <div class="simple-calendar table-responsive">
   <div class="calendar-heading">
-    <%= link_to t('simple_calendar.previous', default: '前月'), calendar.url_for_previous_view %>
-    <span class="calendar-title"><%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %> </span>
-    <%= link_to t('simple_calendar.next', default: '翌月'), calendar.url_for_next_view %>
+    <%= link_to calendar.url_for_previous_view, class: "mr-05e" do %>
+      <i class="fas fa-angle-double-left fa-2x"></i>
+    <% end %>
+    <span class="calendar-title calendar_year"><%= start_date.year %>年<span class="calendar_month"><%= start_date.month %></span>月</span>
+    <%= link_to calendar.url_for_next_view, class: "ml-05e" do %>
+      <i class="fas fa-angle-double-right fa-2x"></i>
+    <% end %>
   </div>
 
-  <table class="table tabale-borderd text-nowrap event_index">
+  <table class="table text-nowrap event_index mt-1e">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
           <% if t('date.abbr_day_names')[day.wday] == "土" %>
-            <th style="color: blue;"><%= t('date.abbr_day_names')[day.wday] %></th>
+            <th><span class="saturday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
           <% elsif t('date.abbr_day_names')[day.wday] == "日" %>
-            <th style="color: red;"><%= t('date.abbr_day_names')[day.wday] %></th>
+            <th><span class="sunday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
           <% else %>
-            <th><%= t('date.abbr_day_names')[day.wday] %></th>
+            <th><span class="normal_week"><%= t('date.abbr_day_names')[day.wday] %></span></th>
           <% end %>
         <% end %>
       </tr>

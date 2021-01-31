@@ -1,0 +1,23 @@
+<table class="table table_line_type table-bordered">
+  <tr>
+    <th style="width: 4em;">時間</th>
+    <% schedules_arrey.each do |schedule| %>
+      <td>
+        <%= schedule.scheduled_start_time.strftime("%H:%M") %>
+        ~ 
+        <%= schedule.scheduled_end_time.strftime("%H:%M") %>
+      </td>
+    <% end %>
+    </tr>
+    <tr>
+      <th style="width: 4em;">内容</th>
+      <% schedules_arrey.each do |schedule| %>
+        <td>
+        <%= link_to edit_employees_schedule_path(schedule.id), remote: true do %>
+          <%= schedule.title %>
+          <%= schedule.place %>
+        <% end %>
+        </td>
+      <% end %>
+    </tr>
+  </table>

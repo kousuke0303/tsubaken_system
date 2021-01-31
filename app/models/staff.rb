@@ -6,6 +6,7 @@ class Staff < ApplicationRecord
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
+  has_many :schedules
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
   has_one_attached :avator

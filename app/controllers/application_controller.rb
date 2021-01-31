@@ -49,14 +49,14 @@ class ApplicationController < ActionController::Base
   end
   
   def employee_attendance_notification
-    yesterday = Date.today - 1
+    yesterday = Date.current - 1
     @error_attendances = Attendance.where("(worked_on <= ?)", yesterday)
                                    .where.not(started_at: nil)
                                    .where(finished_at: nil)
   end
   
   def own_attendance_notification
-    yesterday = Date.today - 1
+    yesterday = Date.current - 1
     if current_staff
       @own_error_attendances = current_staff.attendances.where("(worked_on <= ?)", yesterday)
                                    .where.not(started_at: nil)
