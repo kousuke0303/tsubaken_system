@@ -53,6 +53,12 @@
   <% end %>
 
   <!--工事カテゴリnew・edit-->
+  <% if controller_name == "publishers" && action_name == "index" %>
+    <div id="publisher-new" class="modal fade" role="dialog"></div>
+    <div id="publisher-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+
+  <!--工事カテゴリnew・edit-->
   <% if controller_name == "categories" && action_name == "index" %>
     <div id="category-new" class="modal fade" role="dialog"></div>
     <div id="category-edit" class="modal fade" role="dialog"></div>

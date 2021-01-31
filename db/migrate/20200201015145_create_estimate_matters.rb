@@ -9,6 +9,7 @@ class CreateEstimateMatters < ActiveRecord::Migration[5.2]
       t.string :content
       t.references :client, foreign_key: true
       t.references :attract_method, foreign_key: true
+      t.references :publisher, foreign_key: true
 
       t.timestamps
     end

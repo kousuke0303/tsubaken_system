@@ -262,6 +262,7 @@ Rails.application.routes.draw do
     end
     
     namespace :settings do
+      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy]
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy]
       resources :departments, only: [:new, :create, :index, :edit, :update, :destroy]
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]

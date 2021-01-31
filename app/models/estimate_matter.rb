@@ -1,6 +1,7 @@
 class EstimateMatter < ApplicationRecord
   belongs_to :attract_method, optional: true
   belongs_to :client
+  belongs_to :publisher
   has_one :matter  # 案件と1対1
   # Staffと多対多
   has_many :estimate_matter_staffs, dependent: :destroy

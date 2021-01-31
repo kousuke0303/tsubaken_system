@@ -1,4 +1,3 @@
-<script type="text/javascript">
 $(function () {       
   $("#postcode").jpostal({
     //  郵便番号の入力欄が１つの場合
@@ -17,4 +16,3 @@ $(function () {
                }
   });
 });
-</script>
