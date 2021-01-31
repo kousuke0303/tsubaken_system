@@ -72,7 +72,7 @@ ja:
           attract_method_id: 集客方法
           staff: スタッフ
           external_staff: 外部スタッフ
-          publisher: 発行元
+          publisher_id: 発行元
         estimate:
           title: 見積名
         estimate_detail:

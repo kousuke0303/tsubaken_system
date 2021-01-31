@@ -8,7 +8,7 @@
           <%= form_with(model: @supplier, url: employees_supplier_path(@supplier), method: :patch, remote: true) do |f| %>
             <div class="supplier-update-errors"></div>
             <%= render "form", f: f, industries: @industries %>
-            <div class="btn-area"><%= f.submit "更新", class: "btn btn-dark reset-erros" %></div>
+            <div class="btn-area"><%= f.submit "更新", class: "btn btn-dark reset-errors" %></div>
           <% end %>
         </div>
       </div>

@@ -11,6 +11,10 @@
     <%= f.label :title %>
     <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
   </div>
+    <div class="col-md-6 col-12">
+      <%= f.label :publisher_id %>
+      <%= f.collection_select :publisher_id, @publishers, :id, :name, {}, class: "form-control" %>
+    </div>
   <div class="col-md-6 col-12">
     <%= f.label :postal_code %>
     <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>

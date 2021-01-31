@@ -2,6 +2,7 @@ class Employees::EstimateMattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
+  before_action :set_publishers, only: [:new, :edit]
   before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
@@ -47,6 +48,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def show
     @matter = @estimate_matter.matter
+    @publisher = @estimate_matter.publisher
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     @estimates = @estimate_matter.estimates
     @certificates = @estimate_matter.certificates.order(position: :asc)
@@ -149,9 +151,13 @@ class Employees::EstimateMattersController < ApplicationController
       @external_staffs = ExternalStaff.all
     end
 
+    def set_publishers
+      @publishers = Publisher.all
+    end
+
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
+                                              :address_street, :publisher_id, :client_id, { staff_ids: [] }, { external_staff_ids: [] })
     end
     
     def current_person_in_charge
