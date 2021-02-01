@@ -8,7 +8,7 @@ Client.all.each.with_index(1) do |client, index|
                            address_street: client.address_street,
                            client_id: index,
                            publisher_id: rand(1..4),
-                           created_at: Date.today - rand(1..24).month
+                           created_at: Date.current - rand(0..23).month
                          )
   EstimateMatterStaff.create!(estimate_matter_id: new_est.id, staff_id: rand(1..3))
   EstimateMatterExternalStaff.create!(estimate_matter_id: new_est.id, external_staff_id: rand(1..3))

@@ -3,7 +3,9 @@
     <div class="news_container">
       <div class="top_page_contents">
         <span>スッタフ別営業件数</span>
-        <%= bar_chart est_matter_date_for_graph, stacked: true, colors: ["#d26f8a", "#3a6ecd"] %>
+        <div>
+        <%= bar_chart est_matter_date_for_graph, stacked: true, colors: ["#d26f8a", "#3a6ecd"], id: "est_count_for_staff" %>
+        </div>
       </div>
     </div>
   </div>

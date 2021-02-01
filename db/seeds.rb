@@ -159,9 +159,3 @@ puts "CREATE! CERTIFICATE"
 end
 
 puts "CREATE! ATTRACTIVE METHOD"
-
-%w(シリコン チッ素 断熱ガイナ 無機).each do |name|
-  PlanName.create(name: name)
-end
-
-puts "CREATE! Plan Name"
