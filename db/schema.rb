@@ -310,8 +310,10 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.date "finished_on"
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
+    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
@@ -514,6 +516,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "matters", "estimates"
   add_foreign_key "messages", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "sales_status_members", "sales_statuses"
