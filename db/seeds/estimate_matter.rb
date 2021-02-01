@@ -30,6 +30,7 @@ EstimateMatter.all.each do |est|
   SalesStatusMember.create!(authority: "staff",
                              member_id: est.staffs.first.id,
                              sales_status_id: new_sales_status.id)
+  est.estimates.create(title: "テスト見積")
 end
 
 # 営業案件からの案件作成
@@ -37,7 +38,8 @@ EstimateMatter.where(id: 1..25).each do |est|
  Matter.create!(title: est.title,
                 content: est.content,
                 status: 0,
-                estimate_matter_id: est.id
+                estimate_matter_id: est.id,
+                estimate_id: est.estimates.first.id
                )
 end
 puts "CREATE! MATTER"

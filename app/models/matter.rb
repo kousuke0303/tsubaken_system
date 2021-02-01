@@ -1,5 +1,6 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
+  belongs_to :estimate
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
   has_many :matter_external_staffs, dependent: :destroy

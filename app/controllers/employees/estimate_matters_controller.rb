@@ -54,6 +54,7 @@ class Employees::EstimateMattersController < ApplicationController
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.images.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
+    @adopted_estimate_id = @matter.estimate_id if @matter # 案件化されていれば、採用見積を定義
   end
 
   def edit
@@ -80,10 +81,6 @@ class Employees::EstimateMattersController < ApplicationController
   def destroy
     @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました。" : flash[:alert] = "見積案件を削除できませんでした。"
     redirect_to employees_estimate_matters_url
-  end
-  
-  # 見積案件から案件を作成する前に、担当者を設定する
-  def person_in_charge
   end
 
   def progress_table
@@ -143,12 +140,6 @@ class Employees::EstimateMattersController < ApplicationController
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])
-    end
-
-    def set_employees
-      @clients = Client.all
-      @staffs = Staff.all
-      @external_staffs = ExternalStaff.all
     end
 
     def set_publishers
