@@ -55,7 +55,7 @@
     <% end %>
     <% if @contracted_estimate_matter.present? && @matter == nil %>
       <span class="to-create-matter">
-        <%= link_to "案件作成", employees_estimate_matter_person_in_charge_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
+        <%= link_to "案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-dark" %>
       </span>
     <% end %>
     <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>

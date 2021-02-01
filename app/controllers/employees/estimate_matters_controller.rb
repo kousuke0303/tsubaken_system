@@ -81,10 +81,6 @@ class Employees::EstimateMattersController < ApplicationController
     @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました。" : flash[:alert] = "見積案件を削除できませんでした。"
     redirect_to employees_estimate_matters_url
   end
-  
-  # 見積案件から案件を作成する前に、担当者を設定する
-  def person_in_charge
-  end
 
   def progress_table
     @table_type = "three_month"
@@ -143,12 +139,6 @@ class Employees::EstimateMattersController < ApplicationController
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])
-    end
-
-    def set_employees
-      @clients = Client.all
-      @staffs = Staff.all
-      @external_staffs = ExternalStaff.all
     end
 
     def set_publishers

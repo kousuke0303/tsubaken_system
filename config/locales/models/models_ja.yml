@@ -99,6 +99,7 @@ ja:
           started_on: 着工日
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
+          estimate_id: 採用見積
         industry:
           name: 業種名
         department:

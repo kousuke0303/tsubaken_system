@@ -233,5 +233,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def set_employees
+    @clients = Client.all
+    @staffs = Staff.all
+    @external_staffs = ExternalStaff.all
+  end
   
 end
