@@ -19,6 +19,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
       @response = "success"
       @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
       respond_to do |format|
         format.js
       end
