@@ -12,22 +12,27 @@
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
   <% @total_detail_calculation = 0 %>
   
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
-    <div class="square" style="background: <%= estimate_color(estimate) %>">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        <% if current_client %>
-          <%= estimate.title %>
-        <% else %>
-          <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+  <div class="flex">
+    <div class= home_icon>
+      <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
+      <div class="square" style="background: <%= estimate_color(estimate) %>">
+        <div class="window">
+          <div><p>■■</p><p>■■</p></div>
+        </div>
+        <div class="text">
+          <% if current_client %>
             <%= estimate.title %>
+          <% else %>
+            <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+              <%= estimate.title %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
+    <% if estimate.id == @adopted_estimate_id %>
+      <div class="adopted-msg">案件採用</div>
+    <% end %>    
   </div>
   
   <table class="table table-bordered table_line_type">

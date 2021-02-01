@@ -56,3 +56,8 @@
     </div>
   </div>  
 </div>
+
+<div>
+  <%= f.label :estimate_id %>
+  <%= f.collection_select :estimate_id, @estimates, :id, :title, { prompt: "採用見積を選択" }, class: "form-control", required: true %>
+</div>
