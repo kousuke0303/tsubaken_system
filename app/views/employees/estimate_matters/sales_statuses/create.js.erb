@@ -3,7 +3,7 @@
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">営業ステータスを作成しました。</div>');
   $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/tab_panes/sales_statuses") %>');
   <% if @contracted_estimate_matter.exists? %>
-    $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/create_matter_btn") %>');
+    $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/new_matter_btn") %>');
   <% else %>
     $(".to-create-matter").html("");
   <% end %>
