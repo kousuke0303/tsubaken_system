@@ -274,6 +274,9 @@ Rails.application.routes.draw do
       resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end
+      resources :label_colors, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
     end
   end
 end
