@@ -1,0 +1,12 @@
+
+[1mFrom:[0m /home/ec2-user/environment/tsubaken_system/app/views/employees/estimate_matters/certificates/index.xlsx.axlsx:3 ActionView::CompiledTemplates#_app_views_employees_estimate_matters_certificates_index_xlsx_axlsx__1946258886853206612_70045313693680:
+
+    [1;34m1[0m: wb = xlsx_package.workbook
+    [1;34m2[0m: storing_image_directory = Rails.root.join('app', 'assets', 'images').to_s
+ => [1;34m3[0m: binding.pry
+    [1;34m4[0m: wb.styles do |style|
+    [1;34m5[0m:   highlight_cell = style.add_style(bg_color: "EFC376")
+    [1;34m6[0m: 
+    [1;34m7[0m:   wb.add_worksheet(name: "診断書一覧") do |sheet|
+    [1;34m8[0m:     @certificates.each do |certificate|
+

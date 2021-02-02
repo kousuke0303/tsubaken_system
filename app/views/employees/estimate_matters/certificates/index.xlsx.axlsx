@@ -1,4 +1,6 @@
+require "fileutils"
 wb = xlsx_package.workbook
+storing_image_directory = Rails.root.join('app', 'assets', 'images').to_s
 wb.styles do |style|
   highlight_cell = style.add_style(bg_color: "EFC376")
 
@@ -7,7 +9,8 @@ wb.styles do |style|
       sheet.add_row [certificate.title], style: [nil, highlight_cell]
       sheet.add_row [certificate.content], style: [nil, highlight_cell]
       @images.each do |image|
-        sheet.add_image(:image_src => url_for(image.images[0].variant(resize: "50x50")), :noMove => true) do |add_image|
+        move_directory = FileUtils.cp(url_for(certificate.image.images[0].variant(resize: "50x50")), storing_image_directory)
+        sheet.add_image(:image_src => image_path(move_directory), :noMove => true) do |add_image|
           add_image.width = 7
           add_image.height = 6
           add_image.start_at 2, 2
