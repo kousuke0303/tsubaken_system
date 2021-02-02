@@ -62,15 +62,48 @@
           <td><%= details[0].amount %></td>
           <td class="money_type"><%= details[0].total %></td>
         <% elsif details[0].construction_id.present? %>
+          <td>
+            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= details[0].construction_name %>
+            <% end %>
+          </td>
+          <td></td>
+          <td class="money_type"><%= details[0].price %></td>
+          <td><%= details[0].unit %></td>
+          <td><%= details[0].amount %></td>
+          <td class="money_type"><%= details[0].total %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+      <% details.from(1).each do |detail| %>
+        <tr>
+          <% if detail.material_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].construction_name %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.material_name %>
+                <% end %> 
+            </td>
+            <td><%= detail.service_life %></td>
+            <td class="money_type"><%= detail.price %></td>
+            <td><%= detail.unit %></td>
+            <td><%= detail.amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
+          <% elsif detail.construction_id.present? %>
+            <td>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                <%= detail.construction_name %>
               <% end %>
             </td>
             <td></td>
-            <td class="money_type"><%= details[0].price %></td>
-            <td><%= details[0].unit %></td>
-            <td><%= details[0].amount %></td>
+            <td class="money_type"><%= detail.price %></td>
+            <td><%= detail.unit %></td>
+            <td><%= detail.amount %></td>
             <td class="money_type"><%= details[0].total %></td>
           <% else %>
             <td></td>
@@ -81,41 +114,8 @@
             <td></td>
           <% end %>
         </tr>
-        <% details.from(1).each do |detail| %>
-          <tr>
-            <% if detail.material_id.present? %>
-              <td>
-                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                    <%= detail.material_name %>
-                 <% end %> 
-              </td>
-              <td><%= detail.service_life %></td>
-              <td class="money_type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money_type"><%= details[0].total %></td>
-            <% elsif detail.construction_id.present? %>
-              <td>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                  <%= detail.construction_name %>
-                <% end %>
-              </td>
-              <td></td>
-              <td class="money_type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money_type"><%= details[0].total %></td>
-            <% else %>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            <% end %>
-          </tr>
-        <% end %>
       <% end %>
+    <% end %>
     <tr>
       <tfoot>
         <th colspan="5">合計</th>
