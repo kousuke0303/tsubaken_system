@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
@@ -7,7 +7,45 @@
         <div class="card-body">
           <%= form_with(model: @matter, url: employees_matter_path(@matter), method: :patch, remote: true) do |f| %>
             <div class="matter-update-errors"></div>
-            <%= render "form", f: f %>
+            <div class="row">
+              <div class="col-lg-6 col-12">
+                <%= f.label :title %>
+                <%= f.text_field :title, required: true, class: "form-control" %>
+              </div>              
+              <div class="col-lg-6 col-12">
+                <%= f.label :actual_spot %>
+                <%= f.text_field :actual_spot, class: "form-control" %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :scheduled_started_on %>
+                <%= f.date_field :scheduled_started_on, class: "form-control" %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :scheduled_finished_on %>
+                <%= f.date_field :scheduled_finished_on, class: "form-control" %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :status %>
+                <%= f.select :status, Matter.statuses_i18n.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]}, {}, class: "form-control" %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :staff_ids %>
+                <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :external_staff_ids %>
+                <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :supplier_ids %>
+                <%= f.collection_select :supplier_ids, @suppliers, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+              </div>
+              <div class="col-lg-6 col-12">
+                <%= f.label :estimate_id %>
+                <%= f.collection_select :estimate_id, @estimates, :id, :title, { prompt: "採用見積を選択" }, class: "form-control", required: true %>
+              </div>
+            </div>
+
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
             </div>
@@ -18,4 +56,5 @@
   </div>
 </div>
 
+<%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "reset_errors.js" %>

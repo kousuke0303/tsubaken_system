@@ -8,10 +8,6 @@ module Employees::EstimateMatters::EstimatesHelper
     estimate.estimate_details.where(category_id: category_id).count
   end
   
-  def detail_calculation(detail)
-    return detail.amount * detail.price
-  end
-  
   def estimate_color(estimate)
     if estimate.plan_name_id.present?
       estimate.plan_name.label_color

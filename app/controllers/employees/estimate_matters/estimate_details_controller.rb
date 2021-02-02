@@ -1,19 +1,18 @@
 class Employees::EstimateMatters::EstimateDetailsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate_detail
+  before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update]
 
   def edit
     @materials = Material.where(category_id: @estimate_detail.category_id)
     @constructions = Construction.where(category_id: @estimate_detail.category_id)
-    current_estimate = @estimate_detail.estimate
-    @estimate_details = current_estimate.estimate_details.where(category_id: @estimate_detail.category_id).order(:sort_number)
+    @estimate_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id).order(:sort_number)
     respond_to do |format|
       format.js
     end
   end
 
   def update
-    @estimate = @estimate_detail.estimate
     @estimate_details = @estimate.estimate_details
     @target_category = @estimate_detail.category_id
     
@@ -46,8 +45,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
 
   def destroy
     if params[:type] == "delete_category"
-      estimate = @estimate_detail.estimate
-      delete_details = estimate.estimate_details.where(category_id: @estimate_detail.category_id)
+      delete_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id)
       delete_details.each do |details|
         details.destroy
       end
@@ -71,6 +69,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   
   def detail_object_update
     if @estimate_detail.update(object_params)
+      update_total_price_of_estimate(@estimate)
       @estimates = @estimate_matter.estimates
       @response = "success"
     else
@@ -81,9 +80,21 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
   end
 
+  # 見積の合計金額を計算し保存
+  def update_total_price_of_estimate(estimate)
+    total_price = 0
+    prices = estimate.estimate_details.pluck(:total) # 見積も持つ全estimate_detailの合計金額を抽出
+    prices.each { |price| total_price += price.to_i }
+    estimate.update(total_price: total_price.to_i)
+  end
+
   private
     def set_estimate_detail
       @estimate_detail = EstimateDetail.find(params[:id])
+    end
+
+    def set_estimate_of_estimate_detail
+      @estimate = @estimate_detail.estimate
     end
     
     def object_params

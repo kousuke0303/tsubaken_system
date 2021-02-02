@@ -23,6 +23,15 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     
     # 結果、バリデーションに引っかかったらエラーで返す
     if @result == "failure"
+    @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)   
+    ActiveRecord::Base.transaction do
+      @sales_status.save
+      member_in_charge
+      save_editor
+    end
+      @response = "success"
+      @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
       respond_to do |format|
         format.js
       end
@@ -77,6 +86,9 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     when "1"
       type = "schedule_create"
     end
+      @response = "success"
+      @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     
     # スケジュールバリデーション
     if type == "schedule_destroy"
@@ -124,6 +136,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     schedule = Schedule.find_by(sales_status_id: @sales_status.id)
     schedule.destroy
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+    @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     respond_to do |format|
       format.js
     end

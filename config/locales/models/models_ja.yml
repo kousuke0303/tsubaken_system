@@ -79,8 +79,6 @@ ja:
           actual_spot: 現場住所
           client_id: 顧客          
           attract_method_id: 集客方法
-          staff: スタッフ
-          external_staff: 外部スタッフ
           publisher_id: 発行元
         estimate:
           title: 見積名
@@ -100,6 +98,9 @@ ja:
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
           estimate_id: 採用見積
+          staff_ids: 担当Staff
+          external_staff_ids: 担当外部Staff
+          supplier_ids: 担当外注先
         industry:
           name: 業種名
         department:
