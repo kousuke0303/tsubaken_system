@@ -1,5 +1,6 @@
 <div class="table-responsive">
   <table class="table text-nowrap table-bordered table-column-type mt-1e">
+    <%= link_to "Excel出力", employees_estimate_matter_certificates_path(@estimate_matter, format: :xlsx), data: {turbolinks: false}, class: "btn btn-success" %>
     <thead>
       <tr>
         <th>画像</th>

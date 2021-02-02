@@ -45,6 +45,8 @@ gem "select2-rails"
 gem 'chartkick'
 # ドラック&ドロップで並び替えするときのgem
 gem 'acts_as_list'
+# EXCEL出力のためのgem
+gem 'axlsx_rails'
 
 
 group :development, :test do

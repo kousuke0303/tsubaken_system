@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+  highlight_cell = style.add_style(bg_color: "EFC376")
+
+  wb.add_worksheet(name: "診断書一覧") do |sheet|
+    @certificates.each do |certificate|
+      sheet.add_row [certificate.title], style: [nil, highlight_cell]
+      sheet.add_row [certificate.content], style: [nil, highlight_cell]
+      @images.each do |image|
+        sheet.add_image(:image_src => url_for(image.images[0].variant(resize: "50x50")), :noMove => true) do |add_image|
+          add_image.width = 7
+          add_image.height = 6
+          add_image.start_at 2, 2
+        end
+      end
+      sheet.add_row
+    end
+  end
+end
