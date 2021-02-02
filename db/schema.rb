@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.string "unit"
     t.integer "price"
     t.integer "amount"
-    t.string "total"
+    t.integer "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_estimate_details_on_category_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
+    t.integer "total_price", default: 0, null: false
     t.string "estimate_matter_id"
     t.bigint "plan_name_id"
     t.datetime "created_at", null: false
@@ -243,6 +244,12 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
+  end
+
+  create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "color_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -310,8 +317,10 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.date "finished_on"
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
+    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
@@ -514,6 +523,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "matters", "estimates"
   add_foreign_key "messages", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "sales_status_members", "sales_statuses"

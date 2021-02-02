@@ -18,7 +18,7 @@ class CreateEstimateDetails < ActiveRecord::Migration[5.2]
       t.string :unit
       t.integer :price
       t.integer :amount
-      t.string :total
+      t.integer :total
       t.timestamps
     end
   end

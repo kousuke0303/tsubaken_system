@@ -1,0 +1,2 @@
+class LabelColor < ApplicationRecord
+end

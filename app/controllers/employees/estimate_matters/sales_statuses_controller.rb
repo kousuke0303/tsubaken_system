@@ -10,8 +10,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   end
 
   def create
-    @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)
-    
+    @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)   
     ActiveRecord::Base.transaction do
       @sales_status.save
       member_in_charge
@@ -19,6 +18,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
       @response = "success"
       @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
       respond_to do |format|
         format.js
       end
@@ -43,6 +43,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
       @response = "success"
       @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
       respond_to do |format|
         format.js
       end
@@ -55,7 +56,8 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
 
   def destroy
     @sales_status.destroy
-    @sales_statuses = @estimate_matter.sales_statuses.with_practitioner
+    @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+    @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     respond_to do |format|
       format.js
     end

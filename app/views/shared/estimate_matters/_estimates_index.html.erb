@@ -10,24 +10,28 @@
 <% estimates.each do |estimate| %>
 
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
-  <% @total_detail_calculation = 0 %>
   
-  <div class= home_icon>
-    <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
-    <div class="square" style="background: <%= estimate_color(estimate) %>">
-      <div class="window">
-        <div><p>■■</p><p>■■</p></div>
-      </div>
-      <div class="text">
-        <% if current_client %>
-          <%= estimate.title %>
-        <% else %>
-          <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+  <div class="flex">
+    <div class= home_icon>
+      <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
+      <div class="square" style="background: <%= estimate_color(estimate) %>">
+        <div class="window">
+          <div><p>■■</p><p>■■</p></div>
+        </div>
+        <div class="text">
+          <% if current_client %>
             <%= estimate.title %>
+          <% else %>
+            <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+              <%= estimate.title %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
+    <% if estimate.id == @adopted_estimate_id %>
+      <div class="adopted-msg">案件採用</div>
+    <% end %>    
   </div>
   
   <table class="table table-bordered table_line_type">
@@ -56,28 +60,51 @@
           <td class="money_type"><%= details[0].price %></td>
           <td><%= details[0].unit %></td>
           <td><%= details[0].amount %></td>
-          <td class="money_type">
-            <% if details[0].amount.present? && details[0].price.present? %>
-              <%= detail_calculation(details[0]) %>
-              <% @total_detail_calculation += detail_calculation(details[0]) %>
+          <td class="money_type"><%= details[0].total %></td>
+        <% elsif details[0].construction_id.present? %>
+          <td>
+            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= details[0].construction_name %>
             <% end %>
           </td>
-        <% elsif details[0].construction_id.present? %>
+          <td></td>
+          <td class="money_type"><%= details[0].price %></td>
+          <td><%= details[0].unit %></td>
+          <td><%= details[0].amount %></td>
+          <td class="money_type"><%= details[0].total %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+      <% details.from(1).each do |detail| %>
+        <tr>
+          <% if detail.material_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].construction_name %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.material_name %>
+                <% end %> 
+            </td>
+            <td><%= detail.service_life %></td>
+            <td class="money_type"><%= detail.price %></td>
+            <td><%= detail.unit %></td>
+            <td><%= detail.amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
+          <% elsif detail.construction_id.present? %>
+            <td>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                <%= detail.construction_name %>
               <% end %>
             </td>
             <td></td>
-            <td class="money_type"><%= details[0].price %></td>
-            <td><%= details[0].unit %></td>
-            <td><%= details[0].amount %></td>
-            <td class="money_type">
-              <% if details[0].amount.present? && details[0].price.present? %>
-                <%= detail_calculation(details[0]) %>
-                <% @total_detail_calculation += detail_calculation(details[0]) %>
-              <% end %>
-            </td>
+            <td class="money_type"><%= detail.price %></td>
+            <td><%= detail.unit %></td>
+            <td><%= detail.amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
           <% else %>
             <td></td>
             <td></td>
@@ -87,55 +114,12 @@
             <td></td>
           <% end %>
         </tr>
-        <% details.from(1).each do |detail| %>
-          <tr>
-            <% if detail.material_id.present? %>
-              <td>
-                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                    <%= detail.material_name %>
-                 <% end %> 
-              </td>
-              <td><%= detail.service_life %></td>
-              <td class="money_type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money_type">
-                <% if detail.amount.present? && detail.price.present? %>
-                  <%= detail_calculation(detail) %>
-                  <% @total_detail_calculation += detail_calculation(detail) %>
-                <% end %>
-              </td>
-            <% elsif detail.construction_id.present? %>
-              <td>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                  <%= detail.construction_name %>
-                <% end %>
-              </td>
-              <td></td>
-              <td class="money_type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money_type">
-                <% if detail.amount.present? && detail.price.present? %>
-                  <%= detail_calculation(detail) %>
-                  <% @total_detail_calculation += detail_calculation(detail) %>
-                <% end %>
-              </td>
-            <% else %>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            <% end %>
-          </tr>
-        <% end %>
+      <% end %>
     <% end %>
     <tr>
       <tfoot>
         <th colspan="5">合計</th>
-        <th colspan="2", class="money_type text-right"><%= @total_detail_calculation %>円</th>
+        <th colspan="2", class="money_type text-right"><%= estimate.total_price %>円</th>
       </tfooter>
     </tr>
   </table>
@@ -143,11 +127,9 @@
 <% end %>
 
 <script>
-  $(document).ready( function(){
-    $('.money_type').each(function(i, element){
-      var text = $(element).text();
-      var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
-      $(element).text(money_type);
-    });
+  $('.money_type').each(function(i, element){
+    var text = $(element).text();
+    var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
+    $(element).text(money_type);
   });
 </script>

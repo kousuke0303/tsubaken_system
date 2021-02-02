@@ -52,13 +52,15 @@
   <div class="btn-area mb-1e">
     <% if @matter %>
       <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), class: "btn btn-dark" %>
-    <% elsif @contracted_estimate_matter.present? %>
-      <%= link_to "案件作成", employees_estimate_matter_person_in_charge_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
     <% end %>
+    <span class="to-create-matter">
+      <% if @contracted_estimate_matter.present? && @matter.nil? %>      
+        <%= render "new_matter_btn" %>      
+      <% end %>
+    </span>
     <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
     <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
-  
   
   <div class="accordion" id="accordion-sales">
     <div class="card">

@@ -88,6 +88,12 @@
     <div id="attract-method-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
+  <!--カラーコードnew・edit-->
+  <% if controller_name == "label_colors" && action_name == "index" %>
+    <div id="label-color-new" class="modal fade" role="dialog"></div>
+    <div id="label-color-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+
   <!--プラン名new・edit-->
   <% if controller_name == "plan_names" && action_name == "index" %>
     <div id="plan-name-new" class="modal fade" role="dialog"></div>
@@ -161,6 +167,7 @@
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? || external_staff_signed_in? %>
   <!-- 見積案件から案件設定の際に、担当者を選択するモーダル -->
   <div id="person_in_charge" class="modal fade" role="dialog"></div>
+  <div id="matter-new" class="modal fade" role="dialog"></div>
   
   <!--タスクindex-->
   <div id="task-index" class="modal fade" role="dialog"></div>

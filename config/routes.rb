@@ -225,7 +225,6 @@ Rails.application.routes.draw do
       get :prev_progress_table, on: :collection
       get :next_progress_table, on: :collection
       
-      resources :matters, only: :create
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
@@ -249,7 +248,7 @@ Rails.application.routes.draw do
       get :person_in_charge
     end
 
-    resources :matters, only: [:show, :edit, :update, :destroy, :index] do
+    resources :matters do
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -273,6 +272,9 @@ Rails.application.routes.draw do
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
+      resources :label_colors, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end
     end

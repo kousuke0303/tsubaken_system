@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">担当者・採用案件を選択</h5>
+        <div class="card-body">
+          <%= form_with(model: @matter, url: employees_matters_path(estimate_matter_id: @estimate_matter.id), method: :post, remote: true) do |f| %>
+            <div class="matter-create-errors"></div>
+            <div>
+              <%= f.label "担当スタッフ" %>
+              <div>
+                <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+              </div>
+            </div>
+            <div>
+              <%= f.label "担当外部スタッフ" %>
+              <div>
+                <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+              </div>
+            </div>
+            <div>
+              <%= f.label :estimate_id %>
+              <%= f.collection_select :estimate_id, @estimates, :id, :title, { prompt: "採用見積を選択" }, class: "form-control", required: true %>
+            </div>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "select_members.js" %>
+<%= javascript_include_tag "reset_errors.js" %>

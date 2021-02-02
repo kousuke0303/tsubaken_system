@@ -58,8 +58,10 @@
             
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="submit">更新</button>
-              <%= link_to "見積削除", employees_estimate_matter_estimate_path(@estimate_matter, estimate), method: :delete, remote: true,
-                                  data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
+              <% unless @estimate.matter %>
+                <%= link_to "見積削除", employees_estimate_matter_estimate_path(@estimate_matter, estimate), method: :delete, remote: true,
+                                    data: { confirm: "この見積を削除してよろしいですか？" }, class: "btn btn-danger" %>
+              <% end %>
             </div>
           <% end %>
         </div>
