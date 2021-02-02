@@ -11,8 +11,8 @@
 
 <div class="row">
   <div class="col-md-6">
-    <%= f.label :scheduled_started_time %>
-    <%= f.time_field :scheduled_started_time, class: "form-control" %>
+    <%= f.label :scheduled_start_time %>
+    <%= f.time_field :scheduled_start_time, class: "form-control" %>
   </div>
   <div class="col-md-6">
     <%= f.label :scheduled_end_time %>
@@ -20,12 +20,21 @@
   </div>
 </div>
 
-
 <%= f.label :place %>
 <%= f.text_field :place, class: "form-control" %>
 
 <%= f.label :note %>
 <%= f.text_area :note, maxlength: 300, class: "form-control" %>
+
+<% if @type == "new" %>
+  <%= f.check_box :schedule, {}, 1, 0 %>
+  <%= f.label :schedule, "スケジュールにも登録する" %>
+  <p>スケジュール登録には、予定日・開始予定時刻・終了予定時刻が必須になります。</p>
+<% else %>
+  <%= f.check_box :schedule, {}, 3, 2 %>
+  <%= f.label :schedule, "スケジュールから削除する" %>
+<% end %>
+
 
 <% if @sales_status.sales_status_member.present? %>
   <script>
@@ -41,3 +50,7 @@
     });
   </script>
 <% end %>
+
+
+<script>
+</script>

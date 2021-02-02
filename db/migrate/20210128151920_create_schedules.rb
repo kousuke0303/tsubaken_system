@@ -11,6 +11,7 @@ class CreateSchedules < ActiveRecord::Migration[5.2]
       t.references :manager
       t.references :admin
       t.references :external_staff
+      t.references :sales_status
       t.timestamps
     end
   end

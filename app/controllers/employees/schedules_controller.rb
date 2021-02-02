@@ -152,13 +152,13 @@ class Employees::SchedulesController < ApplicationController
       duplicate_schedule = Schedule.where.not(id: @schedule.id).where(admin_id: schedule_params[:admin_id], scheduled_date: schedule_params[:scheduled_date])
                                    .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
     elsif @schedule.manager_id.present?
-      duplicate_schedule = Schedule.where(manager_id: @schedule.manager_id, scheduled_date: @schedule.scheduled_date)
+      duplicate_schedule = Schedule.where.not(id: @schedule.id).where(manager_id: @schedule.manager_id, scheduled_date: @schedule.scheduled_date)
                                    .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
     elsif @schedule.staff_id.present?
-      duplicate_schedule = Schedule.where(staff_id: @schedule.staff_id, scheduled_date: @schedule.scheduled_date)
-                                   .where('scheduled_end_time > ? and ? > scheduled_start_time',object_start_time, object_end_time)
+      duplicate_schedule = Schedule.where.not(id: @schedule.id).where(staff_id: @schedule.staff_id, scheduled_date: @schedule.scheduled_date)
+                                   .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
     elsif @schedule.external_staff_id.present?
-      duplicate_schedule = Schedule.where(external_staff_id: @schedule.external_staff_id, scheduled_date: @schedule.scheduled_date)
+      duplicate_schedule = Schedule.where.not(id: @schedule.id).where(external_staff_id: @schedule.external_staff_id, scheduled_date: @schedule.scheduled_date)
                                    .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
     end
     if duplicate_schedule.present?

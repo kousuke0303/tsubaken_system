@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_151920) do
+ActiveRecord::Schema.define(version: 2021_02_01_112158) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -371,8 +371,6 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.integer "status", null: false
     t.date "conducted_on", null: false
     t.string "note"
-    t.bigint "staff_id"
-    t.bigint "external_staff_id"
     t.string "estimate_matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -380,8 +378,6 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.time "scheduled_end_time"
     t.string "place"
     t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
-    t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
-    t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
   end
 
   create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -395,11 +391,13 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.bigint "manager_id"
     t.bigint "admin_id"
     t.bigint "external_staff_id"
+    t.bigint "sales_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_schedules_on_admin_id"
     t.index ["external_staff_id"], name: "index_schedules_on_external_staff_id"
     t.index ["manager_id"], name: "index_schedules_on_manager_id"
+    t.index ["sales_status_id"], name: "index_schedules_on_sales_status_id"
     t.index ["staff_id"], name: "index_schedules_on_staff_id"
   end
 
@@ -520,8 +518,6 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   add_foreign_key "messages", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "sales_status_members", "sales_statuses"
-  add_foreign_key "sales_statuses", "external_staffs"
-  add_foreign_key "sales_statuses", "staffs"
   add_foreign_key "staffs", "departments"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"

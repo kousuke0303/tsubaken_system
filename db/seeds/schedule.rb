@@ -43,5 +43,7 @@ schedules_arrey.each do |schedule|
     end
   end
 end
+
+puts "CREATE! SCHEDULE"
                         
   

@@ -146,7 +146,7 @@ puts "CREATE! ATTENDANCE"
 # -----------------------------------------------------
 
 require "./db/seeds/schedule.rb"
-puts "CREATE! SCHEDULE"
+
 
 %w(屋根 外壁 玄関 浴室 洗面所 リビング キッチン).each do |name|
   Certificate.create(title: "診断書#{ name }の診断書", content: "#{ name }の診断内容", default: true)
