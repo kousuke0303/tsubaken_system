@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.string "unit"
     t.integer "price"
     t.integer "amount"
-    t.string "total"
+    t.integer "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_estimate_details_on_category_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
+    t.integer "total_price", default: 0, null: false
     t.string "estimate_matter_id"
     t.bigint "plan_name_id"
     t.datetime "created_at", null: false
