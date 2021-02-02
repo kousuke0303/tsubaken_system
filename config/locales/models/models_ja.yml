@@ -98,8 +98,9 @@ ja:
           scheduled_finished_on: 完了予定日
           finished_on: 完了日
           estimate_id: 採用見積
-          staff_id: Staff
-          external_staff_id: 外部Staff
+          staff_ids: 担当Staff
+          external_staff_ids: 担当外部Staff
+          supplier_ids: 担当外注先
         industry:
           name: 業種名
         department:

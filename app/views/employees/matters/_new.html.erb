@@ -10,13 +10,13 @@
             <div>
               <%= f.label "担当スタッフ" %>
               <div>
-                <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control members", multiple: true } %>
+                <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
               </div>
             </div>
             <div>
               <%= f.label "担当外部スタッフ" %>
               <div>
-                <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control members", multiple: true } %>
+                <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
               </div>
             </div>
             <div>
@@ -33,10 +33,5 @@
   </div>
 </div>
 
-<script>
-  $(".members").select2({
-    theme: "bootstrap"
-  });
-</script>
-
+<%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "reset_errors.js" %>

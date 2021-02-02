@@ -38,25 +38,18 @@
   <div class="col-md-6 col-12">
     <%= f.label "担当スタッフ" %>
     <div>
-      <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control members", multiple: true } %>
+      <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
     </div>
   </div>
 
   <div class="col-md-6 col-12">
     <%= f.label "担当外部スタッフ" %>
     <div>
-      <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control members", multiple: true } %>
+      <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
     </div>
   </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    $('.members').select2({
-      theme: "bootstrap"
-    });
-  });
-</script>
-
+<%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= render "shared/javascript/auto_postcode" %>

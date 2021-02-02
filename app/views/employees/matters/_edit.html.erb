@@ -29,28 +29,16 @@
                 <%= f.select :status, Matter.statuses_i18n.keys.map {|k| [I18n.t("enums.matter.status.#{k}"), k]}, {}, class: "form-control" %>
               </div>
               <div class="col-lg-6 col-12">
-                <%= f.label :staff_id %>
-                <div>
-                  <%= f.collection_check_boxes(:staff_ids, @staffs, :id, :name) do |s| %>
-                    <%= s.check_box %><%= s.text %>
-                  <% end %> 
-                </div>
+                <%= f.label :staff_ids %>
+                <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
               </div>
               <div class="col-lg-6 col-12">
-                <%= f.label :external_staff_id %>
-                <div>
-                  <%= f.collection_check_boxes(:external_staff_ids, @external_staffs, :id, :name) do |e| %>
-                    <%= e.check_box %><%= e.text %>
-                  <% end %> 
-                </div>
+                <%= f.label :external_staff_ids %>
+                <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
               </div>
               <div class="col-lg-6 col-12">
-                <%= f.label :supplier %>
-                <div>
-                  <%= f.collection_check_boxes(:supplier_ids, @suppliers, :id, :name) do |p| %>
-                    <%= p.check_box %><%= p.text %>
-                  <% end %> 
-                </div>
+                <%= f.label :supplier_ids %>
+                <%= f.collection_select :supplier_ids, @suppliers, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
               </div>
               <div class="col-lg-6 col-12">
                 <%= f.label :estimate_id %>
@@ -68,4 +56,5 @@
   </div>
 </div>
 
+<%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "reset_errors.js" %>
