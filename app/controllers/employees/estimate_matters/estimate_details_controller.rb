@@ -84,9 +84,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   def update_total_price_of_estimate(estimate)
     total_price = 0
     prices = estimate.estimate_details.pluck(:total) # 見積も持つ全estimate_detailの合計金額を抽出
-    prices.each do |price| 
-      total_price += price.to_i
-    end
+    prices.each { |price| total_price += price.to_i }
     estimate.update(total_price: total_price.to_i)
   end
 
