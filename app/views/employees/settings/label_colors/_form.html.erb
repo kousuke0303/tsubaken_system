@@ -1,0 +1,8 @@
+<%= f.label :name %>
+<%= f.text_field :name, required: true, class: "form-control", maxlength: 10 %>
+
+<%= f.label :color_code %>
+<%= f.text_field :color_code, required: true, class: "form-control", pattern: "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", maxlength: 7 %>
+
+<%= f.label :note %>
+<%= f.text_field :note, required: true, class: "form-control", maxlength: 30 %>

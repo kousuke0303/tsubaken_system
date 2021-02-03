@@ -22,6 +22,7 @@ ja:
       material: 素材
       attract_method: 集客方法
       plan_name: プラン名
+      label_color: ラベルカラー
     attributes:
         admin:
           name: 名前
@@ -101,6 +102,9 @@ ja:
           staff_ids: 担当Staff
           external_staff_ids: 担当外部Staff
           supplier_ids: 担当外注先
+        label_color:
+          name: カラー名
+          color_code: カラーコード
         industry:
           name: 業種名
         department:

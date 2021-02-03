@@ -246,6 +246,14 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
+  create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "color_code", null: false
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
     t.string "name", default: "", null: false
