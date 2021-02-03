@@ -148,66 +148,6 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
       end
     end
     
-    def schedule_validation
-      object_start_time = Time.zone.parse("2000-01-01 #{params[:sales_status][:scheduled_start_time]}")
-      object_end_time = Time.zone.parse("2000-01-01 #{params[:sales_status][:scheduled_end_time]}")
-      case @params_authority
-      when "admin"
-        if params[:commit] == "更新"
-          duplicate_schedule = Schedule.where.not(id: @schedule.id)
-                                       .where(admin_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        else 
-          duplicate_schedule = Schedule.where(admin_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        end
-      when "manager"
-        if params[:commit] == "更新"
-          duplicate_schedule = Schedule.where.not(id: @schedule.id)
-                                       .where(manager_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        else 
-          duplicate_schedule = Schedule.where(manager_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        end
-      when "staff"
-        if params[:commit] == "更新"
-          duplicate_schedule = Schedule.where.not(id: @schedule.id)
-                                       .where(staff_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        else 
-          duplicate_schedule = Schedule.where(staff_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        end
-      when "external_staff"
-        if params[:commit] == "更新"
-          duplicate_schedule = Schedule.where.not(id: @schedule.id).where(external_staff_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        else 
-          duplicate_schedule = Schedule.where(external_staff_id: @params_member_id, scheduled_date: params[:sales_status][:conducted_on])
-                                       .where('scheduled_end_time > ? and ? > scheduled_start_time', object_start_time, object_end_time)
-        end
-      end
-      if duplicate_schedule.present?
-        @sales_status.errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
-        @result = "failure"
-      end
-      # presence validate
-      if params[:sales_status][:conducted_on].empty?
-        @sales_status.errors.add(:conducted_on, "：スケジュール登録には、予定日必須")
-        @result = "failure"
-      elsif params[:sales_status][:scheduled_start_time].empty?
-        @sales_status.errors.add(:scheduled_start_time, "：スケジュール登録には、開始予定時刻必須")
-        @result = "failure"
-      elsif params[:sales_status][:scheduled_end_time].empty? 
-        @sales_status.errors.add(:scheduled_end_time, "：スケジュール登録には、終了予定時刻必須")
-        @result = "failure"
-      elsif params[:sales_status][:scheduled_start_time] >= params[:sales_status][:scheduled_end_time]
-        @sales_status.errors.add(:scheduled_end_time, "：終了予定時刻は開始予定時刻より後の時間を登録してください")
-        @result = "failure"
-      end
-    end
-    
     def schedule_create
       title = @sales_status.status_i18n
       params_hash = @sales_status.attributes

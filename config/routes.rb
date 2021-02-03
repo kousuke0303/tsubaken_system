@@ -238,9 +238,6 @@ Rails.application.routes.draw do
       end
       resources :images, controller: "estimate_matters/images"
       resources :messages, only: [:index], controller: "estimate_matters/messages"
-      # resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
-      # resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
-      # resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
         patch :sort, on: :collection
