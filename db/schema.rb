@@ -247,7 +247,9 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   end
 
   create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
     t.string "color_code", null: false
+    t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

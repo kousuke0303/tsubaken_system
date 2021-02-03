@@ -103,6 +103,7 @@ ja:
           external_staff_ids: 担当外部Staff
           supplier_ids: 担当外注先
         label_color:
+          name: カラー名
           color_code: カラーコード
         industry:
           name: 業種名
