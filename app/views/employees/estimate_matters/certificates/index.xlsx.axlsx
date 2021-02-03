@@ -9,8 +9,8 @@ wb.styles do |style|
       sheet.add_row [certificate.title], style: [nil, highlight_cell]
       sheet.add_row [certificate.content], style: [nil, highlight_cell]
       @images.each do |image|
-        move_directory = FileUtils.cp(url_for(certificate.image.images[0].variant(resize: "50x50")), storing_image_directory)
-        sheet.add_image(:image_src => image_path(move_directory), :noMove => true) do |add_image|
+        move_directory = FileUtils.cp(url_for(certificate.image.images[0].variant(resize: "50x50")).to_s, storing_image_directory)
+        sheet.add_image(:image_src => image_path(storing_image_directory), :noMove => true) do |add_image|
           add_image.width = 7
           add_image.height = 6
           add_image.start_at 2, 2
