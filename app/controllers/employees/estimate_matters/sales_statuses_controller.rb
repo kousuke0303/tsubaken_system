@@ -3,7 +3,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
   before_action :set_statuses, only: [:new, :edit]
   before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
-  before_action :estimate_matter_members, only: [:new, :edit]
+  before_action :group_for_estimete_matter, only: [:new, :edit]
   
   def new
     @sales_status = @estimate_matter.sales_statuses.new 
@@ -11,124 +11,91 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   end
 
   def create
-    @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)
-    
     # メンバーパラメーター整形
-    member_parmater
-    
-    # スケジュールバリデーションが必要なケース
-    if params[:sales_status][:schedule] == "1"
-      schedule_validation
-    end
-    
-    # 結果、バリデーションに引っかかったらエラーで返す
-    if @result == "failure"
-    @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)   
-    ActiveRecord::Base.transaction do
-      @sales_status.save
-      member_in_charge
-      save_editor
-    end
-      @response = "success"
-      @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
-      respond_to do |format|
-        format.js
-      end
-    end
-    
-    # バリデーションセーフ又はスケジュールバリデーション不要な場合
-    if @result != "failure" 
+    formatted_member_params(params[:sales_status][:member], sales_status_params)
+    params_register_schedule = params[:sales_status][:register_for_schedule].to_i
+    @sales_status = @estimate_matter.sales_statuses.new(@final_params.merge(register_for_schedule: params_register_schedule))
+    if params[:sales_status][:register_for_schedule] == "0"
       ActiveRecord::Base.transaction do
-        @sales_status.save!
-        save_member
+        @sales_status.save!(@final_params)
         save_editor
-        if params[:sales_status][:schedule] == "1"   
-          schedule_create
-        end
-        @response = "success"
-        @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-        respond_to do |format|
-          format.js
-        end
-      rescue
-        @response = "false"
-        respond_to do |format|
-          format.js
-        end
+      end
+    elsif params[:sales_status][:register_for_schedule] == "1" 
+      ActiveRecord::Base.transaction do
+        @sales_status.save!(context: :schedule_register)
+        save_editor
+        schedule_create
       end
     end
+    @response = "success"
+    @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+    @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
+  rescue
+    @response = "failure"
   end
 
   def show
   end
   
   def edit
-    if Schedule.find_by(sales_status_id: @sales_status.id).present?
-      @type = "edit"
-    else
+    if @sales_status.register_for_schedule == "not_register" || @sales_status.register_for_schedule == "schedule_destroy"
       @type = "new"
+    end
+    #スケジュールコントロールから遷移してきた場合
+    if params[:origin] == "schedule"
+      @origin = "schedule"
     end
   end
 
   def update
-    # 担当者パラメーター整形
-    member_parmater
-    
-    # 状況場合分
-    case params[:sales_status][:schedule]
-    when "3"
-      type = "schedule_destroy"
-      @schedule = Schedule.find_by(sales_status_id: @sales_status.id)
-    when "2"
-      type = "schedule_update"
-      @schedule = Schedule.find_by(sales_status_id: @sales_status.id)
-    when "1"
-      type = "schedule_create"
-    end
-      @response = "success"
-      @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-      @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
-    
-    # スケジュールバリデーション
-    if type == "schedule_destroy"
-      @schedule.destroy
-    elsif type == "schedule_create" 
-      schedule_validation
-    elsif type == "schedule_update"
-      schedule_validation
+    # メンバーパラメーター整形
+    formatted_member_params(params[:sales_status][:member], sales_status_params)
+    params_register_schedule = params[:sales_status][:register_for_schedule].to_i
+    #スケジュールコントロールから遷移してきた場合
+    if params[:origin] == "schedule"
+      @origin = "schedule"
     end
     
-    # 結果、バリデーションに引っかかったらエラーで返す
-    if @result == "failure"
-      respond_to do |format|
-        format.js
-      end
-    end
-    
-    # エラーがない場合
-    if @result != "failure" 
-      ActiveRecord::Base.transaction do
-        @sales_status.update!(sales_status_params)
-        save_member
-        save_editor
-        if type == "schedule_create"
+    # 元々スケジュール登録なしの場合
+    if @sales_status.register_for_schedule == "not_register" || @sales_status.register_for_schedule == "schedule_destroy"
+      if params[:sales_status][:register_for_schedule] == "0"
+        ActiveRecord::Base.transaction do
+          @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+          @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
+          save_editor
+        end
+      else
+        ActiveRecord::Base.transaction do
+          @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+          @sales_status.update!(@final_params.merge(register_for_schedule: params[:sales_status][:register_for_schedule].to_i))
+          save_editor
           schedule_create
-        elsif type == "schedule_update"
-          schedule_update
-        end
-        @response = "success"
-        @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-        respond_to do |format|
-          format.js
-        end
-      rescue
-        @response = "false"
-        respond_to do |format|
-          format.js
         end
       end
+    # 元々スケジュール登録ありの場合
+    else
+      @schedule = Schedule.find_by(sales_status_id: @sales_status.id)
+      if params[:sales_status][:register_for_schedule] == "2"
+        ActiveRecord::Base.transaction do
+          @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+          @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
+          schedule_update
+          save_editor
+        end
+      else
+        ActiveRecord::Base.transaction do
+          @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+          @sales_status.update!(@final_params.merge(register_for_schedule: params[:sales_status][:register_for_schedule].to_i))
+          save_editor
+          @schedule.destroy
+        end
+      end 
     end
+    @response = "success"
+    @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+    @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
+  rescue
+    @response = "false"
   end
 
   def destroy
@@ -148,7 +115,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
 
     def sales_status_params
-      params.require(:sales_status).permit(:status, :conducted_on, :scheduled_start_time, :scheduled_end_time, :place, :note, :staff_id, :external_staff_id)
+      params.require(:sales_status).permit(:status, :scheduled_date, :scheduled_start_time, :scheduled_end_time, :place, :note, :register_for_schedule)
     end
 
     def set_statuses
@@ -172,44 +139,13 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
       return @members
     end
     
-    def member_parmater
-      params_editor = params[:sales_status][:member].split("#")
-      @params_authority = params_editor[0]
-      @params_member_id = params_editor[1].to_i
-    end
-    
-    def save_member
-      if params[:commit] == "作成"
-        @sales_status.create_sales_status_member(authority: @params_authority, member_id: @params_member_id)
-      elsif params[:commit] == "更新"
-        @sales_status_member = @sales_status.sales_status_member
-        @sales_status_member.update!(authority: @params_authority, member_id: @params_member_id)
-      end
-    end
     
     def save_editor
       if params[:commit] == "作成"
-        if current_admin
-          @sales_status.create_sales_status_editor(authority: current_admin.auth, member_id: current_admin.id)
-        elsif current_manager
-          @sales_status.create_sales_status_editor(authority: current_manager.auth, member_id: current_manager.id)
-        elsif current_staff
-          @sales_status.create_sales_status_editor(authority: current_staff.auth, member_id: current_staff.id)
-        elsif current_external_staff
-          @sales_status.create_sales_status_editor(authority: current_external_staff.auth, member_id: current_external_staff.id)
-        end
+        @sales_status.create_sales_status_editor(authority: login_user.auth, member_id: login_user.id)
       elsif params[:commit] == "更新"
-        @sales_status_editor = @sales_status.sales_status_editor
-        if current_admin
-          @sales_status_editor.update!(authority: current_admin.auth, member_id: current_admin.id)
-        elsif current_manager
-          @sales_status_editor.update!(authority: current_manager.auth, member_id: current_manager.id)
-        elsif current_staff
-          @sales_status_editor.update!(authority: current_staff.auth, member_id: current_staff.id)
-        elsif current_external_staff
-          @sales_status_editor.update!(authority: current_external_staff.auth, member_id: current_external_staff.id)
-        end
-      end        
+        @sales_status.sales_status_editor.update(authority: login_user.auth, member_id: login_user.id)
+      end
     end
     
     def schedule_validation
@@ -273,59 +209,25 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
     
     def schedule_create
-      @schedule = Schedule.create!(title: @sales_status.status_i18n,
-                               scheduled_date: @sales_status.conducted_on,
-                               scheduled_start_time: @sales_status.scheduled_start_time,
-                               scheduled_end_time: @sales_status.scheduled_end_time,
-                               place: @sales_status.place,
-                               note: @sales_status.note,
-                               sales_status_id: @sales_status.id)
-      case @params_authority
-      when "admin"
-        @schedule.update_attributes!(admin_id: @params_member_id)
-      when "manager"
-        @schedule.update_attributes!(manager_id: @params_member_id)
-      when "staff"
-        @schedule.update_attributes!(staff_id: @params_member_id)
-      when "external_staff"
-        @schedule.update_attributes!(external_staff_id: @params_member_id)
-      end
+      title = @sales_status.status_i18n
+      params_hash = @sales_status.attributes
+      params_hash.delete("id")
+      params_hash.delete("estimate_matter_id")
+      params_hash.delete("status")
+      params_hash.delete("register_for_schedule")
+      params_hash.store("title", title)
+      params_hash.store("sales_status_id", @sales_status.id)
+      @schedule = Schedule.create!(params_hash)
     end
     
     def schedule_update
-      case @params_authority
-      when "admin"
-        @schedule.update_attributes!(title: @sales_status.status_i18n,
-                               scheduled_date: @sales_status.conducted_on,
-                               scheduled_start_time: @sales_status.scheduled_start_time,
-                               scheduled_end_time: @sales_status.scheduled_end_time,
-                               place: @sales_status.place,
-                               note: @sales_status.note,
-                               admin_id: @params_member_id)
-      when "manager"
-        @schedule.update_attributes!(title: @sales_status.status_i18n,
-                               scheduled_date: @sales_status.conducted_on,
-                               scheduled_start_time: @sales_status.scheduled_start_time,
-                               scheduled_end_time: @sales_status.scheduled_end_time,
-                               place: @sales_status.place,
-                               note: @sales_status.note,
-                               managher_id: @params_member_id)
-      when "staff"
-        @schedule.update_attributes!(title: @sales_status.status_i18n,
-                               scheduled_date: @sales_status.conducted_on,
-                               scheduled_start_time: @sales_status.scheduled_start_time,
-                               scheduled_end_time: @sales_status.scheduled_end_time,
-                               place: @sales_status.place,
-                               note: @sales_status.note,
-                               staff_id: @params_member_id)
-      when "external_staff"
-        @schedule.update_attributes!(title: @sales_status.status_i18n,
-                               scheduled_date: @sales_status.conducted_on,
-                               scheduled_start_time: @sales_status.scheduled_start_time,
-                               scheduled_end_time: @sales_status.scheduled_end_time,
-                               place: @sales_status.place,
-                               note: @sales_status.note,
-                               external_staff_id: @params_member_id)
-      end
+      title = @sales_status.status_i18n
+      params_hash = @sales_status.attributes
+      params_hash.delete("id")
+      params_hash.delete("estimate_matter_id")
+      params_hash.delete("status")
+      params_hash.delete("register_for_schedule")
+      params_hash.store("title", title)
+      @schedule.update_attributes!(params_hash)
     end
 end

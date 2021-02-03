@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_112158) do
+ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -370,15 +370,24 @@ ActiveRecord::Schema.define(version: 2021_02_01_112158) do
 
   create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", null: false
-    t.date "conducted_on", null: false
+    t.date "scheduled_date", null: false
     t.string "note"
     t.string "estimate_matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.time "scheduled_start_time"
     t.time "scheduled_end_time"
     t.string "place"
+    t.integer "register_for_schedule", default: 0
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.bigint "manager_id"
+    t.bigint "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_sales_statuses_on_admin_id"
     t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
+    t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
+    t.index ["manager_id"], name: "index_sales_statuses_on_manager_id"
+    t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
   end
 
   create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -21,14 +21,12 @@ puts "CREATE! ESTIMATE_MATTER"
 # 営業案件ステータス
 EstimateMatter.all.each do |est|
   new_sales_status = est.sales_statuses.create!(status: rand(14),
-                                                conducted_on: est.created_at + 10.days
-                                               )
+                                                scheduled_date: est.created_at + 10.days,
+                                                register_for_schedule: 0,
+                                                staff_id: est.staffs.first.id)
                             
   SalesStatusEditor.create!(authority: "manager",
                              member_id: rand(1..3),
-                             sales_status_id: new_sales_status.id)
-  SalesStatusMember.create!(authority: "staff",
-                             member_id: est.staffs.first.id,
                              sales_status_id: new_sales_status.id)
   est.estimates.create(title: "テスト見積")
 end

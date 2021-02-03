@@ -6,8 +6,8 @@
   <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
 
-<%= f.label :conducted_on %>
-<%= f.date_field :conducted_on, required: true, class: "form-control" %>
+<%= f.label :scheduled_date %>
+<%= f.date_field :scheduled_date, required: true, class: "form-control" %>
 
 <div class="row">
   <div class="col-md-6">
@@ -27,20 +27,20 @@
 <%= f.text_area :note, maxlength: 300, class: "form-control" %>
 
 <% if @type == "new" %>
-  <%= f.check_box :schedule, {}, 1, 0 %>
-  <%= f.label :schedule, "スケジュールにも登録する" %>
+  <%= f.check_box :register_for_schedule, {}, 1, 0 %>
+  <%= f.label :register_for_schedule, "スケジュールにも登録する" %>
   <p>スケジュール登録には、予定日・開始予定時刻・終了予定時刻が必須になります。</p>
 <% else %>
-  <%= f.check_box :schedule, {}, 3, 2 %>
-  <%= f.label :schedule, "スケジュールから削除する" %>
+  <%= f.check_box :register_for_schedule, {}, 3, 2 %>
+  <%= f.label :register_for_schedule, "スケジュールから削除する" %>
 <% end %>
 
 
-<% if @sales_status.sales_status_member.present? %>
+<% if member_name(@sales_status) %>
   <script>
     $(document).ready( function(){
     
-      var member = "<%= status_member_name(@sales_status) %>";
+      var member = "<%= member_name(@sales_status) %>";
       $('#member_select option').each(function(){
         if($(this).text() == member){
           $(this).prop('selected', true);

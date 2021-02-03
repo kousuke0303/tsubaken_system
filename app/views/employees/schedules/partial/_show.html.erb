@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">予定詳細</h5>
+        <div class="card-body">
+          <table class="table table-bordered table_line_type">
+            <tr>
+              <th style="width: 6em">タイトル</th>
+              <td colspan="2"><%= @schedule.title %></td>
+            </tr>
+            <tr>
+              <th>担当者</th>
+              <td colspan="2"><%= schedule_member_name(@schedule) %></td>
+            </tr>
+            <tr>
+              <th>予定日</th>
+              <td colspan="2"><%= @schedule.scheduled_date.month %>月<%= @schedule.scheduled_date.day %>日</td>
+            </tr>
+            <tr>
+              <th rowspan="2">予定時刻</th>
+              <td>開始予定時刻</td>
+              <td>終了予定時刻</td>
+            </tr>
+            <tr>
+              <td><%= @schedule.scheduled_start_time.strftime("%H:%M") %></td>
+              <td><%= @schedule.scheduled_end_time.strftime("%H:%M") %></td>
+            </tr>
+            <tr>
+              <th>場所</th>
+              <td colspan="2"><%= @schedule.place %></td>
+            </tr>
+            <tr>
+              <th>備考</th>
+              <td colspan="2"><%= @schedule.note %></td>
+            </tr>
+          </table>
+          <% if update_authority?(@estimate_matter) %>
+            <div class="text-center">
+              <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, @schedule.sales_status_id, origin: "schedule"), remote: true, class: "btn btn-primary", id: "sales_status_edit_btn" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

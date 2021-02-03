@@ -6,7 +6,7 @@
     
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">予定追加</h5>
+        <h5 class="card-header">予定編集</h5>
         <div class="card-body">
           <%= form_with(model: @schedule, url: employees_schedule_path(@schedule), method: :patch, remote: true) do |f| %>
             <div class="schedule-edit-errors"></div>

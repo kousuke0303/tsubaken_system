@@ -3,10 +3,19 @@ class ApplicationController < ActionController::Base
   helper_method :current_matter
   helper_method :current_estimate_matter
 
+  # 利用者情報
+  def login_user
+    return current_admin if current_admin
+    return current_manager if current_manager 
+    return current_staff if current_staff 
+    return current_external_staff if current_external_staff 
+    return current_client if current_client
+  end    
+
   # ---------------------------------------------------------
         # FORMAT関係
   # ---------------------------------------------------------
-  
+
   # login画面等のデザインformat指定
   def non_approval_layout
     @type = "log_in"
