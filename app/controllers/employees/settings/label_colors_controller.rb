@@ -41,6 +41,16 @@ class Employees::Settings::LabelColorsController < ApplicationController
     redirect_to employees_settings_label_colors_url
   end
 
+  def sort
+    from = params[:from].to_i + 1
+    label_color = LabelColor.find_by(position: from)
+    label_color.insert_at(params[:to].to_i + 1)
+    @label_colors = LabelColor.order(position: :asc)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def label_color_params
       params.require(:label_color).permit(:color_code)
