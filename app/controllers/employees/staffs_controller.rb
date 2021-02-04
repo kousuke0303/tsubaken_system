@@ -1,5 +1,6 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
+  before_action :set_label_colors, only: [:new, :edit]
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
   before_action :set_departments, only: [:new, :show, :edit, :index]
 

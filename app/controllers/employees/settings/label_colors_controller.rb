@@ -1,6 +1,7 @@
 class Employees::Settings::LabelColorsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_label_color, only: [:edit, :update, :destroy]
+  before_action :set_label_colors, only: :index
 
   def new
     @label_color = LabelColor.new
@@ -33,7 +34,6 @@ class Employees::Settings::LabelColorsController < ApplicationController
   end
 
   def index
-    @label_colors = LabelColor.all
   end
 
   def destroy

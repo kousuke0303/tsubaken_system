@@ -384,7 +384,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.time "scheduled_start_time"
     t.time "scheduled_end_time"
     t.string "place"
-    t.integer "register_for_schedule", default: 0
+    t.integer "register_for_schedule", default: 0, null: false
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.bigint "manager_id"
@@ -446,12 +446,14 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.date "joined_on"
     t.date "resigned_on"
     t.bigint "department_id"
+    t.bigint "label_color_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_staffs_on_department_id"
+    t.index ["label_color_id"], name: "index_staffs_on_label_color_id"
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
   end
 
@@ -537,6 +539,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "sales_status_members", "sales_statuses"
   add_foreign_key "staffs", "departments"
+  add_foreign_key "staffs", "label_colors"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"

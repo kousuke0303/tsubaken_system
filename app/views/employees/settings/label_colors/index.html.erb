@@ -9,14 +9,20 @@
   <div class="table-responsive">
     <table class="table table-bordered text-nowrap common-table">
       <tr>
+        <th>カラー名</th>
         <th>カラーコード</th>
-        <th>サンプル</th>
+        <th>備考</th>
+        <th>サンプル</th>        
         <th></th>
       </tr>
       <% @label_colors.each do |label_color| %>
         <tr>
+          <td><%= label_color.name %></td>
           <td><%= label_color.color_code %></td>
-          <td></td>
+          <td><%= label_color.note %></td>
+          <td>
+            <div style="background: <%= label_color.color_code %>; width: 2em; height: 1em;"></div>
+          </td>
           <td>
             <%= link_to "編集", edit_employees_settings_label_color_path(label_color), remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_settings_label_color_path(label_color), method: :delete, data: { confirm: "このラベルカラーを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
