@@ -250,6 +250,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_label_colors
-    @label_colors = LabelColor.all
+    @label_colors = LabelColor.order(position: :asc)
   end
 end

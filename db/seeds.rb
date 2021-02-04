@@ -47,6 +47,7 @@ puts "CREATE! MANAGER"
                 prefecture_code: "テスト県",
                 address_city: "テスト市",
                 address_street: "テスト町1-1-1",
+                label_color_id: rand(5) + 1,
                 password: "password",
                 password_confirmation: "password")
 end

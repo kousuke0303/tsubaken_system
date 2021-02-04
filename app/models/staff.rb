@@ -1,6 +1,6 @@
 class Staff < ApplicationRecord
   belongs_to :department
-  belongs_to :label_color, optional: true
+  belongs_to :label_color
   has_many :estimate_matter_staffs, dependent: :destroy
   has_many :matter_staffs, dependent: :destroy
   has_many :estimate_matters, through: :estimate_matter_staffs

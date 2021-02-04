@@ -45,7 +45,7 @@ class Employees::Settings::LabelColorsController < ApplicationController
     from = params[:from].to_i + 1
     label_color = LabelColor.find_by(position: from)
     label_color.insert_at(params[:to].to_i + 1)
-    @label_colors = LabelColor.order(position: :asc)
+    set_label_colors
     respond_to do |format|
       format.js
     end

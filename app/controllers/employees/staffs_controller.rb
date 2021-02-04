@@ -50,7 +50,8 @@ class Employees::StaffsController < ApplicationController
 
   private
     def staff_params
-      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :department_id, :joined_on, :resigned_on)
+      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street,
+                                    :label_color_id, :department_id, :joined_on, :resigned_on)
     end
 
     def set_staff
