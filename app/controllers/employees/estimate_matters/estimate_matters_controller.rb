@@ -1,4 +1,4 @@
-class Employees::EstimateMatters::EstimateMattersController < ApplicationController
+class Employees::EstimateMatters::EstimateMattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   
   private

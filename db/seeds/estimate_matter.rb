@@ -8,7 +8,7 @@ Client.all.each.with_index(1) do |client, index|
                            address_street: client.address_street,
                            client_id: index,
                            publisher_id: rand(1..4),
-                           created_at: Date.today - rand(1..24).month
+                           created_at: Date.current - rand(0..23).month
                          )
   EstimateMatterStaff.create!(estimate_matter_id: new_est.id, staff_id: rand(1..3))
   EstimateMatterExternalStaff.create!(estimate_matter_id: new_est.id, external_staff_id: rand(1..3))
@@ -21,14 +21,12 @@ puts "CREATE! ESTIMATE_MATTER"
 # 営業案件ステータス
 EstimateMatter.all.each do |est|
   new_sales_status = est.sales_statuses.create!(status: rand(14),
-                                                conducted_on: est.created_at + 10.days
-                                               )
+                                                scheduled_date: est.created_at + 10.days,
+                                                register_for_schedule: 0,
+                                                staff_id: est.staffs.first.id)
                             
   SalesStatusEditor.create!(authority: "manager",
                              member_id: rand(1..3),
-                             sales_status_id: new_sales_status.id)
-  SalesStatusMember.create!(authority: "staff",
-                             member_id: est.staffs.first.id,
                              sales_status_id: new_sales_status.id)
   est.estimates.create(title: "テスト見積")
 end

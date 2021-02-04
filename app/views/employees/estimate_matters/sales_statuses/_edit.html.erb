@@ -5,12 +5,22 @@
       <div class="card mb-3">
         <h5 class="card-header">営業ステータス編集</h5>
         <div class="card-body">
-          <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status), method: :patch, remote: true) do |f| %>
-            <div class="sales-status-update-errors"></div>
-            <%= render "form", f: f %>
-            <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-            </div>
+          <% if @origin == "schedule" %>
+            <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status, origin: "schedule"), method: :patch, remote: true) do |f| %>
+              <div class="sales-status-update-errors"></div>
+              <%= render "form", f: f %>
+              <div class="btn-area">
+                <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+              </div>
+            <% end %>
+          <% else %>
+            <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status), method: :patch, remote: true) do |f| %>
+              <div class="sales-status-update-errors"></div>
+              <%= render "form", f: f %>
+              <div class="btn-area">
+                <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>

@@ -1,2 +1,7 @@
-$("#schedule-edit").html('<%= escape_javascript( render "employees/schedules/partial/edit" ) %>'); 
-$("#schedule-edit").modal();
+<% if @type == "disable_update" %>
+  $("#schedule-show").html('<%= escape_javascript( render "employees/schedules/partial/show" ) %>'); 
+  $("#schedule-show").modal();
+<% else %>
+  $("#schedule-edit").html('<%= escape_javascript( render "employees/schedules/partial/edit" ) %>'); 
+  $("#schedule-edit").modal();
+<% end %>

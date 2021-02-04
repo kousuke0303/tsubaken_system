@@ -8,3 +8,12 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+$(document).ready( function(){
+  $("#schedule_calender a").on('click', function(){
+    $('#schedule_calender td').removeClass('schedule_target');
+    $(this).parent().parent().addClass('schedule_target');
+  });
+});
+</script>

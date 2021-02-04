@@ -1,4 +1,7 @@
+require 'employees_helper.rb'
+
 module ApplicationHelper
+  include EmployeesHelper
   
   def admin_name(id)
     Admin.find(id).name

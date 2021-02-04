@@ -40,8 +40,17 @@
     .prev-month {
       background: #f2f2f2!important;
     }
+    .next-month {
+      background: #f2f2f2!important;
+    }
     .today {
       background: #cae9fb!important;
+    }
+    .wday-0 {
+      color: #da4b86;
+    }
+    .wday-6 {
+      color: #4b8bda;
     }
   }
 }
@@ -63,4 +72,8 @@
   border-radius: 50%;
   background: #cae9fb;
   padding: 5px 10px;
+}
+
+.schedule_target {
+  background: #f7fbca;
 }

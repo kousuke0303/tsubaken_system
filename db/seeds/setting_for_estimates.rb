@@ -80,3 +80,12 @@ Construction.create(name: "水切り塗装", default: true, price: 18000, unit: 
 end
 
 puts "CREATE! CONSTRUCTION"
+
+# プラン名
+
+plan_name_arrey = [["シリコン", 3], ["チッ素", 2], ["断熱ガイナ", 4], ["無機", 5]]
+plan_name_arrey.each do |arrey|
+  PlanName.create(name: arrey[0], label_color: arrey[1])
+end
+
+puts "CREATE! Plan Name"

@@ -43,7 +43,7 @@
             <% if sales_status.status == "not_set" %>
               <td><%= sales_status.status_i18n %></td>
             <% elsif sales_status %>
-              <td><%= sales_status.status_i18n %>／<%= status_member_name(sales_status) %></td>
+              <td><%= sales_status.status_i18n %>／<%= member_name(sales_status) %></td>
             <% else %>
               <td></td>
             <% end %>
