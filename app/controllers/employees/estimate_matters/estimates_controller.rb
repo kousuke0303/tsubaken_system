@@ -17,7 +17,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   def change_label_color
     id = params[:id].to_i
     plan_name = PlanName.find(id)
-    @sample_color = plan_name.label_color
+    @sample_color = plan_name.label_color.color_code
 
     respond_to do |format|
       format.js

@@ -10,9 +10,9 @@ module Employees::EstimateMatters::EstimatesHelper
   
   def estimate_color(estimate)
     if estimate.plan_name_id.present?
-      estimate.plan_name.label_color
+      estimate.plan_name.label_color.color_code
     else
-      PlanName.label_colors.keys[0]
+      LabelColor.first.color_code
     end
   end
 
