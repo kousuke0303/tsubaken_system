@@ -1,5 +1,6 @@
 class LabelColor < ApplicationRecord
   has_many :staffs
+  has_many :plan_names
   acts_as_list
 
   validates :name, presence: true, length: { maximum: 10 }

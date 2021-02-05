@@ -3,8 +3,7 @@ class CreatePlanNames < ActiveRecord::Migration[5.2]
     create_table :plan_names do |t|
       t.string :name,            null: false, unique: true
       t.integer :position
-      t.integer :label_color,    null: false, default: 0
-      
+      t.references :label_color, foreign_key: true
 
       t.timestamps
     end

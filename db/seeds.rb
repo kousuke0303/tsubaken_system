@@ -1,11 +1,11 @@
-# 設定/見積関係
-require "./db/seeds/setting_for_estimates.rb"
-
 LabelColor.create(name: "パープル", color_code: "#8695d6")
 LabelColor.create(name: "ブルー", color_code: "#007bff")
 LabelColor.create(name: "ピンク", color_code: "#d686bd")
 LabelColor.create(name: "ブラウン", color_code: "#8a7a74")
 LabelColor.create(name: "グレー", color_code: "#b7b7b7")
+
+# 設定/見積関係
+require "./db/seeds/setting_for_estimates.rb"
 
 Department.create!(name: "無所属")
 Department.create!(name: "営業")

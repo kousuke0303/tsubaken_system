@@ -15,9 +15,7 @@
           <td><%= label_color.name %></td>
           <td><%= label_color.color_code %></td>
           <td><%= label_color.note %></td>
-          <td>
-            <div class="color-sample" style="background: <%= label_color.color_code %>;"></div>
-          </td>
+          <td style="background: <%= label_color.color_code %>;"></td>
           <td>
             <%= link_to "編集", edit_employees_settings_label_color_path(label_color), remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_settings_label_color_path(label_color), method: :delete, data: { confirm: "このラベルカラーを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
