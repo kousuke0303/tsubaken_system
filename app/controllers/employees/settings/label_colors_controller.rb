@@ -53,7 +53,7 @@ class Employees::Settings::LabelColorsController < ApplicationController
 
   private
     def label_color_params
-      params.require(:label_color).permit(:color_code)
+      params.require(:label_color).permit(:name, :color_code, :note)
     end
 
     def set_label_color
