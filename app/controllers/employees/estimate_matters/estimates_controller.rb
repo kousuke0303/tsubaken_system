@@ -3,6 +3,19 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
   before_action :refactor_params_category_ids, only: [:create, :update]
   
+  def index
+    @estimates = @estimate_matter.estimates
+    respond_to do |format|
+      format.pdf do
+        render pdf: "file_name",
+               encoding: "utf-8",
+               page_size: "A4",
+               layout: "pdf/estimates.html.erb",
+               template: "/employees/estimate_matters/estimates/index.html.erb"
+      end
+    end
+  end
+
   def new
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
