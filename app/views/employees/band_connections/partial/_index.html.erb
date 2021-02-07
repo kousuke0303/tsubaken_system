@@ -1,0 +1,9 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="card-body">
+      <%= form_with(model: @band, url: employees_band_connections_path, method: :post, id: "band_connect") do |f| %>
+        <%= render 'employees/band_connections/partial/form', f: f %>
+      <% end %>
+    </div>
+  </div>
+</div>

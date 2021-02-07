@@ -2,6 +2,28 @@ class Employees::EmployeesController < ApplicationController
   before_action :authenticate_employee!
   
   private
+  
+    # -------------------------------------------------------
+        # set
+    # -------------------------------------------------------
+    def set_estimate_matter
+      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+    end
+    
+    # schedule/sales_statusで使用
+    def set_basic_schedules(day)
+      @schedules = Schedule.all.order(:scheduled_start_time)
+      @admin_schedules = @schedules.where(scheduled_date: day).where.not(admin_id: nil).group_by{|schedule| schedule[:admin_id]}
+      @manager_schedules = @schedules.where(scheduled_date: day).where.not(manager_id: nil).group_by{|schedule| schedule[:manager_id]}
+      @staff_schedules = @schedules.where(scheduled_date: day).where.not(staff_id: nil).group_by{|schedule| schedule[:staff_id]}
+      @external_staff_schedules = @schedules.where(scheduled_date: day).where.not(external_staff_id: nil).group_by{|schedule| schedule[:external_staff_id]}
+    end
+    
+    
+    # -------------------------------------------------------
+        # その他
+    # -------------------------------------------------------
+    
     # 全メンバー(配列)
     def all_member
       @members = []
@@ -38,14 +60,6 @@ class Employees::EmployeesController < ApplicationController
       return @members
     end
     
-    # schedule/sales_statusで使用
-    def set_basic_schedules(day)
-      @schedules = Schedule.all.order(:scheduled_start_time)
-      @admin_schedules = @schedules.where(scheduled_date: day).where.not(admin_id: nil).group_by{|schedule| schedule[:admin_id]}
-      @manager_schedules = @schedules.where(scheduled_date: day).where.not(manager_id: nil).group_by{|schedule| schedule[:manager_id]}
-      @staff_schedules = @schedules.where(scheduled_date: day).where.not(staff_id: nil).group_by{|schedule| schedule[:staff_id]}
-      @external_staff_schedules = @schedules.where(scheduled_date: day).where.not(external_staff_id: nil).group_by{|schedule| schedule[:external_staff_id]}
-    end
     
     # 担当者のパラメーター整形及びストロングパラメータにマージ
     def formatted_member_params(parameter, strong_params)

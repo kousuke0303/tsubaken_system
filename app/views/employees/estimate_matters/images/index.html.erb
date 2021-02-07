@@ -1,8 +1,18 @@
-<div class="text-center">
-  <h1><%= current_estimate_matter.title %>:見積案件画像一覧</h1>
-  <div class="text-right mb-10">
-    <%= link_to 'チャットルーム画像一覧', employees_estimate_matter_messages_path(current_estimate_matter), local: true, class: "btn btn-md btn-primary" %>
-    <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
+<div class="col-sm-12 estimate_matter_images_page">
+  <h2 class="title_layout"><i class="fas fa-camera"></i> 画像一覧／ <%= current_estimate_matter.title %></h2>
+  <div class="text-center">
+    <div class="text-right mb-10">
+      <% if current_estimate_matter.band_connection.present? %>
+        <%= link_to 'BANDアルバム', get_album_employees_band_connection_path(current_estimate_matter.band_connection, estimate_matter_id: current_estimate_matter.id), remote: true, class: "btn btn-md btn-primary" %>
+      <% end %>
+      <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
+    </div>
+    <div id="band_album"></div>
+    <div class="mt-1e">
+      <h5>取込済画像</h5>
+      <div id="image_index">
+        <%= render 'employees/estimate_matters/images/partial/image' %>
+      </div>
+    </div>
   </div>
-  <%= render @images %>
 </div>

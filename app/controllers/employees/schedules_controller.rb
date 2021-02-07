@@ -1,5 +1,4 @@
 class Employees::SchedulesController < Employees::EmployeesController
-  before_action :authenticate_admin_or_manager!
   before_action :all_member, only: [:new, :edit]
   before_action :set_schedule, only: [:edit, :update, :destroy]
   

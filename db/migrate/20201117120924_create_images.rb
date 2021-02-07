@@ -2,6 +2,8 @@ class CreateImages < ActiveRecord::Migration[5.2]
   def change
     create_table :images do |t|
       t.text :content
+      t.string :author
+      t.string :default_file_path
       t.date :shooted_on
       t.integer :admin_id
       t.integer :manager_id

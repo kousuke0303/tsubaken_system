@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_151920) do
+ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "band_connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id"
+    t.string "band_key", null: false
+    t.string "band_name", null: false
+    t.string "band_icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_band_connections_on_estimate_matter_id"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -217,6 +227,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
+    t.string "author"
+    t.string "default_file_path"
     t.date "shooted_on"
     t.integer "admin_id"
     t.integer "manager_id"
@@ -384,7 +396,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.time "scheduled_start_time"
     t.time "scheduled_end_time"
     t.string "place"
-    t.integer "register_for_schedule", default: 0
+    t.integer "register_for_schedule", default: 0, null: false
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.bigint "manager_id"

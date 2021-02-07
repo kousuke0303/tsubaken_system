@@ -1,0 +1,43 @@
+<% @photo_arrey.each do |photo_info| %>
+  <div class="band_image_container">
+    <span class="box_title">
+    <table class="table title_table">
+      <tr>
+        <th>投稿者</th>
+        <td><%= photo_info["author"]%></td>
+        <th>タグ</th>
+        <td><%= photo_info["content"]%></td>
+      </tr>
+    </table>
+    </span>
+    
+    <%= form_with(model: current_estimate_matter, url: save_for_band_image_employees_estimate_matter_images_path(current_estimate_matter), method: :post) do |f| %>
+      <table class="mt-1e">
+        <tr>
+          <% photo_info["photo"].each_with_index do |photo_url, index| %> 
+            <% if previously_saved_image?(@images, photo_url) %>
+              <td>取込済</td>
+            <% else %>
+              <%= f.fields_for "images[]", current_estimate_matter.images.new do |fi| %>
+                <td>
+                  <%= fi.check_box :images, {}, photo_url, false %>
+                </td>
+                <%= fi.hidden_field :author, value: photo_info["author"] %>
+                <%= fi.hidden_field :content, value: photo_info["content"] %>
+                <%= fi.hidden_field :shooted_on, value: photo_info["created_at"] %>
+             <% end %>
+            <% end %>
+          <% end %>
+        </tr>
+        <tr>
+          <% photo_info["photo"].each do |photo_url| %>
+            <td>
+              <%= image_tag photo_url, :size => "150x150" %> 
+            </td>
+          <% end %>
+        </tr>
+      </table>
+      <%= f.submit "選択した画像を取り込む", class: "btn btn-dark mt-05e" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-class Employees::EstimateMatters::ImagesController < ApplicationController
+class Employees::EstimateMatters::ImagesController < Employees::EmployeesController
   layout "image_layout"
   
   before_action :set_image, only: [:edit, :update, :destroy]
@@ -54,6 +54,29 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
     redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
   end
   
+  def save_for_band_image
+    # ActiveRecord::Base.transaction do
+      params[:estimate_matter][:images].each.with_index(1) do |params_image, index|
+        # 画像を取り込んでフォルダに格納
+        temporary_storage_for_image(params_image["images"], index)
+        # 新規テーブル作成・保存
+        image_model = current_estimate_matter.images.new(author: params_image["author"],
+                                                         content: params_image["content"],
+                                                         shooted_on: params_image["shooted_on"],
+                                                         default_file_path: params_image["images"])
+        image_model.images.attach(io: File.open(@file_path), 
+                                  filename: @file_name,
+                                  content_type: "image/jpeg")
+        image_model.save!
+        # ファイル削除
+        File.delete(@file_path)
+      end
+      @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+    # end
+  # rescue
+    # @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+  end
+  
   private
     def image_params
       params.require(:image).permit(:content, :shooted_on, :images, :estimate_matter_id)
@@ -66,4 +89,13 @@ class Employees::EstimateMatters::ImagesController < ApplicationController
     def set_image
       @image = Image.find(params[:id])
     end
+    
+    def temporary_storage_for_image(params_url, index)
+      url = open(params_url)
+      @file_name = params_url
+      @file_path = Rails.root.join('public', 'temporary_storage', "#{current_estimate_matter.id}_#{index}.jpg")
+      file = open(@file_path, "wb")
+      file.write(url.read)
+    end
+    
 end

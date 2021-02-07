@@ -1,10 +1,11 @@
 <div class="col-12">
+
+  <h2 class="title_layout"><i class="fas fa-clipboard"></i> 営業案件詳細／ <%= current_estimate_matter.title %></h2>
+  
   <div class="text-right mb-1e">
     <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
-    <%= link_to "チャットルーム", "#", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>
+    <%= link_to "チャットルーム", "", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>
   </div>
-
-  <h2><i class="fas fa-clipboard"></i> 見積案件詳細</h2>
   
   <table class="table table-bordered table-column-type">
     <tr>
@@ -47,6 +48,12 @@
     <tr>
       <th>担当スタッフ</th>
       <td><%= staff_member_name(@estimate_matter) %></td>
+    </tr>
+    <tr>
+      <th>BAND選択</th>
+      <td id="select_band">
+        <%= render 'employees/estimate_matters/partial/select_band_display' %>
+      </td>
     </tr>
   </table>
   <div class="btn-area mb-1e">
@@ -136,8 +143,6 @@
           <div class="certificates-index"><%= render "/employees/estimate_matters/tab_panes/certificates" %></div>
         </div>
       </div>
-    
     </div>
-      
   </div>
 </div>

@@ -1,13 +1,15 @@
-class Employees::EstimateMattersController < ApplicationController
+class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :authenticate_employee!
+  before_action :can_access_only_estimate_matter_of_being_in_charge
+  before_action :get_band, only: [:new, :edit]
+  before_action :set_publishers, only: [:new, :edit]
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
-  before_action :set_publishers, only: [:new, :edit]
   before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
-  before_action :can_access_only_estimate_matter_of_being_in_charge
-
+  
+  
   def index
     @sales_statuses = SalesStatus.order(created_at: "DESC")
     current_person_in_charge
