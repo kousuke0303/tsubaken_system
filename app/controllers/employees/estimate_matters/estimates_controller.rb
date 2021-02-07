@@ -48,7 +48,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   def edit
     @categories = Category.all
     @plan_names = PlanName.order(position: :asc)
-    @default_color = PlanName.label_colors.keys[0]
+    @default_color = LabelColor.first.color_code
     # カテゴリ登録がすでにある場合
     if @estimate.estimate_details.present?
       estimate_details = @estimate.estimate_details.order(:sort_number)
