@@ -3,6 +3,7 @@ class ApplicationRecord < ActiveRecord::Base
   VALID_PHONE_REGEX = /\A0\d{9,10}\z/i
   VALID_FAX_REGEX = /\A0\d{9,10}\z/i
   VALID_POSTAL_CODE_REGEX = /\A\d{7}\z/
+  VALID_COLOR_CODE_REGEX = /\A#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})\z/
   self.abstract_class = true
   
   # 住所機能

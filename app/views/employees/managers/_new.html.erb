@@ -1,9 +1,9 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">顧客作成</h5>
+        <h5 class="card-header">Manager作成</h5>
         <div class="card-body">
           <%= form_with(model: @manager, url: employees_managers_path, method: :post, remote: true) do |f| %>
             <div class="manager-create-errors"></div>

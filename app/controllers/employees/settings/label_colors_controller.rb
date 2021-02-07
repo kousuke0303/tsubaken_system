@@ -1,6 +1,7 @@
 class Employees::Settings::LabelColorsController < ApplicationController
   before_action :authenticate_admin_or_manager!
   before_action :set_label_color, only: [:edit, :update, :destroy]
+  before_action :set_label_colors, only: :index
 
   def new
     @label_color = LabelColor.new
@@ -33,7 +34,6 @@ class Employees::Settings::LabelColorsController < ApplicationController
   end
 
   def index
-    @label_colors = LabelColor.all
   end
 
   def destroy
@@ -41,9 +41,19 @@ class Employees::Settings::LabelColorsController < ApplicationController
     redirect_to employees_settings_label_colors_url
   end
 
+  def sort
+    from = params[:from].to_i + 1
+    label_color = LabelColor.find_by(position: from)
+    label_color.insert_at(params[:to].to_i + 1)
+    set_label_colors
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def label_color_params
-      params.require(:label_color).permit(:color_code)
+      params.require(:label_color).permit(:name, :color_code, :note)
     end
 
     def set_label_color

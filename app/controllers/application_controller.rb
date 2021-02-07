@@ -248,5 +248,8 @@ class ApplicationController < ActionController::Base
     @staffs = Staff.all
     @external_staffs = ExternalStaff.all
   end
-  
+
+  def set_label_colors
+    @label_colors = LabelColor.order(position: :asc)
+  end
 end

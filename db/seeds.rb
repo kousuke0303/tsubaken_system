@@ -1,3 +1,9 @@
+LabelColor.create(name: "パープル", color_code: "#8695d6")
+LabelColor.create(name: "ブルー", color_code: "#007bff")
+LabelColor.create(name: "ピンク", color_code: "#d686bd")
+LabelColor.create(name: "ブラウン", color_code: "#8a7a74")
+LabelColor.create(name: "グレー", color_code: "#b7b7b7")
+
 # 設定/見積関係
 require "./db/seeds/setting_for_estimates.rb"
 
@@ -41,6 +47,7 @@ puts "CREATE! MANAGER"
                 prefecture_code: "テスト県",
                 address_city: "テスト市",
                 address_street: "テスト町1-1-1",
+                label_color_id: rand(5) + 1,
                 password: "password",
                 password_confirmation: "password")
 end

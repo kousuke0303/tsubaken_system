@@ -4,6 +4,7 @@ class CreateLabelColors < ActiveRecord::Migration[5.2]
       t.string :name,        null: false, unique: true
       t.string :color_code,  null: false, unique: true
       t.string :note
+      t.integer :position
 
       t.timestamps
     end

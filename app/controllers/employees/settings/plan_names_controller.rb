@@ -33,7 +33,7 @@ class Employees::Settings::PlanNamesController < ApplicationController
   end
 
   def index
-    @plan_names = PlanName.order(position: :asc)
+    @plan_names = PlanName.with_colors
   end
 
   def destroy
@@ -53,7 +53,7 @@ class Employees::Settings::PlanNamesController < ApplicationController
 
   private
     def plan_name_params
-      params.require(:plan_name).permit(:name, :label_color)
+      params.require(:plan_name).permit(:name, :label_color_id)
     end
 
     def set_plan_name

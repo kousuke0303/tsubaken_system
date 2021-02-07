@@ -6,23 +6,7 @@
     <% end %>
   </h2>
 
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>カラーコード</th>
-        <th>サンプル</th>
-        <th></th>
-      </tr>
-      <% @label_colors.each do |label_color| %>
-        <tr>
-          <td><%= label_color.color_code %></td>
-          <td></td>
-          <td>
-            <%= link_to "編集", edit_employees_settings_label_color_path(label_color), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_settings_label_color_path(label_color), method: :delete, data: { confirm: "このラベルカラーを削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+  <div class="label-colors-index">
+    <%= render "index_table" %>
   </div>
 </div>

@@ -1,5 +1,6 @@
 class Employees::StaffsController < ApplicationController
   before_action :authenticate_admin_or_manager!
+  before_action :set_label_colors, only: [:new, :edit]
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
   before_action :set_departments, only: [:new, :show, :edit, :index]
 
@@ -49,7 +50,8 @@ class Employees::StaffsController < ApplicationController
 
   private
     def staff_params
-      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :department_id, :joined_on, :resigned_on)
+      params.require(:staff).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street,
+                                    :label_color_id, :department_id, :joined_on, :resigned_on)
     end
 
     def set_staff
