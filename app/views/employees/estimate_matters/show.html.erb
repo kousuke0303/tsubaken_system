@@ -86,7 +86,7 @@
             <%= link_to "営業記録作成", new_employees_estimate_matter_sales_status_path(@estimate_matter), remote: true, class: "btn btn-success" %>
           </div>
           <div class="sales-statuses-index">
-            <%= render "employees/estimate_matters/tab_panes/sales_statuses" %>
+            <%= render "employees/estimate_matters/partial/sales_statuses" %>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@
       <div id="collapse-estimates" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimates">
         <div class="card-body">
           <div class="estimates-index">
-            <%= render partial: "shared/estimate_matters/estimates_index", locals: { estimates: @estimates, estimate_matter: @estimate_matter } %>
+            <%= render partial: "employees/estimate_matters/partial/estimates_index", locals: { estimates: @estimates, estimate_matter: @estimate_matter } %>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
             <% end %>
           </div>
           <h3 class="mt-1e">診断書一覧</h3>
-          <div class="certificates-index"><%= render "/employees/estimate_matters/tab_panes/certificates" %></div>
+          <div class="certificates-index"><%= render "employees/estimate_matters/partial/certificates" %></div>
         </div>
       </div>
     </div>
