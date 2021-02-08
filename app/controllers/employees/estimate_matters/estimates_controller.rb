@@ -20,7 +20,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
     @plan_names = PlanName.order(position: :asc)
-    @default_color = PlanName.label_colors.keys[0]
     respond_to do |format|
       format.js
     end
