@@ -34,4 +34,8 @@ module EmployeesHelper
     end
   end
   
+  # STAFF_COLOR
+  def staff_color(id)
+    Staff.find(id).label_color.color_code
+  end
 end
