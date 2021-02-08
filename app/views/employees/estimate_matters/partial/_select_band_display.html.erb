@@ -1,0 +1,15 @@
+<% if current_estimate_matter.band_connection.nil? %>
+  <%= link_to "BAND連結", employees_band_connections_path(estimate_matter_id: @estimate_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
+<% else %>
+  <div class="row">
+    <div class="boxes col-sm-8">
+      <div class="label-container ml-05e">
+        <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
+        <div class="name"><%= current_estimate_matter.band_connection.band_name %></div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+    </div>
+  </div>
+<% end %> 

@@ -1,0 +1,2 @@
+module Employees::BandConnectionsHelper
+end

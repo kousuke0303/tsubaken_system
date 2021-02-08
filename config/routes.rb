@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "static_pages#login_index"
   
   get "postcode_search", to: "addresses#search_postcode"
-
+      
   # API関連
   namespace :api do
     namespace :v1 do
@@ -218,6 +218,10 @@ Rails.application.routes.draw do
       end
     end
     resources :schedules
+    resources :band_connections, only: :index do
+      get :connect, on: :collection
+      get :get_album, on: :member
+    end
     resources :estimate_matters do
       get :progress_table, on: :collection
       get :progress_table_for_six_month, on: :collection
@@ -236,7 +240,9 @@ Rails.application.routes.draw do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
       end
-      resources :images, controller: "estimate_matters/images"
+      resources :images, controller: "estimate_matters/images" do
+        post :save_for_band_image, on: :collection
+      end
       resources :messages, only: [:index], controller: "estimate_matters/messages"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
