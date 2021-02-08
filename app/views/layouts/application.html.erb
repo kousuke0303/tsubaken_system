@@ -30,6 +30,13 @@
         <%= yield %>
       </div>
     </body>
+    
+  <% elsif @type == "progress_table" %>
+    <body>
+      <div class="progress_container">
+        <%= yield %>
+      </div>
+    </body>
 
   <!--通常ページのレイアウト-->
   <% else %>

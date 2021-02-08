@@ -8,6 +8,12 @@
 /* -----------------------------------------------------------------------------------
     PROGRESS_TABLE    
 ----------------------------------------------------- */
+.progress_container  {
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 100vh;
+  background: #ececec;
+}
 
 .progress_table_design {
   table {
@@ -26,6 +32,7 @@
   }
 
   table th{
+    min-width: 3em;
     text-align: center;
     color:white;
     background: -webkit-linear-gradient(#626365, #0c0c0c);
@@ -40,6 +47,7 @@
   }
 
   table td{
+    background: white;
     text-align: center;
     border-left: 1px solid #a8b7c5;
     border-bottom: 1px solid #a8b7c5;
@@ -57,8 +65,8 @@
 .husen {
   padding: 0.5em 0.5em;
   color: #232323;
-  background: #fff8e8;
-  border-left: solid 10px #ffeb3b;
+  // background: #fff8e8;
+  // border-left: solid 10px #ffeb3b;
   margin-bottom: 0.5em;
   text-align: left;
 }

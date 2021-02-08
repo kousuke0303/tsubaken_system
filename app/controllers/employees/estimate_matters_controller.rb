@@ -5,7 +5,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
-  before_action :other_tab_display, only: :progress_table
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
   
@@ -86,6 +85,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def progress_table
+    @type = "progress_table"
     @table_type = "three_month"
     est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
     @target_est_matters = est_matters.group_by{|list| list.created_at.month} 
