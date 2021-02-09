@@ -10,7 +10,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
                encoding: "utf-8",
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
-               template: "/employees/estimate_matters/estimates/index.html.erb"
+               template: "/employees/estimate_matters/estimates/show.html.erb"
       end
     end
   end

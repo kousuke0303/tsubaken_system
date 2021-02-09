@@ -1,0 +1,36 @@
+#header {
+  border-bottom: 2px solid black;
+  margin-bottom: 2px;
+  padding-bottom: 3px;
+}
+#header div {
+  display: inline-block;
+  width: 33%;
+}
+
+#estimate-title {
+  font-size: 20px;
+}
+
+#title {
+  font-size: 25px;
+  text-align: center;
+}
+
+#client-info {
+  display: inline-block;
+  width: 60%;
+}
+
+#company-info {
+  display: inline-block;
+  width: 39%;
+}
+
+#company-name {
+  font-weight: bold;
+}
+
+#person-in-charge {
+  float: right;
+}
