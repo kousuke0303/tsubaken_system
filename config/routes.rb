@@ -232,7 +232,7 @@ Rails.application.routes.draw do
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
-      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
+      resources :estimates, only: [:new, :create, :show, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member
       end

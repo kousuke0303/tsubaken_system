@@ -1,10 +1,9 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
+  before_action :set_estimate, only: [:show, :edit, :update, :copy, :destroy]
   before_action :refactor_params_category_ids, only: [:create, :update]
   
-  def index
-    @estimates = @estimate_matter.estimates
+  def show
     respond_to do |format|
       format.pdf do
         render pdf: "file_name",
