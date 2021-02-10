@@ -286,6 +286,32 @@ $color-bg: #eae9e9;
   color: white;
 }
 
+.select-switch {
+  display: inline-flex;
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"] + label{
+    display: inline-block;
+    width: 8em;
+    height: 2.5em;
+    line-height: 2.5em;
+    background-color: #F6D4D8;
+    text-align: center;
+    font-size: 1em;
+    color: #ffffff;
+  }
+  input[type="radio"]:checked + label {
+    background-color:#C7243A;
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  .select-switch {
+    display: block;
+  }
+}
+
 /* ------------------------------ MEDIAQUERIES ------------------------------ */
 
 @media screen and (min-width: 992px) {

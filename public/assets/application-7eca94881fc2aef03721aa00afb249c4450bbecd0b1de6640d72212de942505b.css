@@ -17700,17 +17700,17 @@ label {
     INDEX
 ----------------------------------------------------- */
 /* line 6, app/assets/stylesheets/employees/clients.scss */
-.select_switch {
+.select-switch {
   display: inline-flex;
 }
 
 /* line 8, app/assets/stylesheets/employees/clients.scss */
-.select_switch input[type="radio"] {
+.select-switch input[type="radio"] {
   display: none;
 }
 
 /* line 11, app/assets/stylesheets/employees/clients.scss */
-.select_switch input[type="radio"] + label {
+.select-switch input[type="radio"] + label {
   display: inline-block;
   width: 8em;
   height: 2.5em;
@@ -17722,13 +17722,13 @@ label {
 }
 
 /* line 21, app/assets/stylesheets/employees/clients.scss */
-.select_switch input[type="radio"]:checked + label {
+.select-switch input[type="radio"]:checked + label {
   background-color: #C7243A;
 }
 
 @media screen and (max-width: 480px) {
   /* line 27, app/assets/stylesheets/employees/clients.scss */
-  .select_switch {
+  .select-switch {
     display: block;
   }
 }
