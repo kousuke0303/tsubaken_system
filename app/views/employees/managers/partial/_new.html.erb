@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @manager, url: employees_managers_path, method: :post, remote: true) do |f| %>
             <div class="manager-create-errors"></div>
-            <%= render "form", f: f %>
+            <%= render "/employees/managers/partial/form", f: f %>
             <div class="btn-area"><%= f.submit "作成", class: "btn btn-dark reset-errors" %></div>
           <% end %>
         </div>
