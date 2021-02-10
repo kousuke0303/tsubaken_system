@@ -27,10 +27,18 @@
   width: 39%;
 }
 
+#company-logo {
+  text-align: center;
+}
+
 #company-name {
   font-weight: bold;
 }
 
 #person-in-charge {
   float: right;
+}
+
+#pdf-estimate-table {
+  border: 2px solid black;
 }
