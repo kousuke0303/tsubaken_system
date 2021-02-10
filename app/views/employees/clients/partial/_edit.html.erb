@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @client, url: employees_client_path(@client), method: :patch, remote: true) do |f| %>
             <div class="client-update-errors"></div>
-            <%= render "form", f: f %>
+            <%= render "/employees/clients/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
             </div>

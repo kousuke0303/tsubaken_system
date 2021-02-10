@@ -42,10 +42,10 @@
           </tr>
         </thead>
         <tbody id="has_matter">
-          <%= render "index_table", objects: @clients, display_type: @display_type %>
+          <%= render "/employees/clients/partial/index_table", objects: @clients, display_type: @display_type %>
         </tbody>
         <tbody id="no_matter" style="display: none;">
-          <%= render "index_table", objects: @no_matter_clients, display_type: @display_type %>
+          <%= render "/employees/clients/partial/index_table", objects: @no_matter_clients, display_type: @display_type %>
         </tbody>
         <tbody id="search_clients"></tbody>
       </table>
