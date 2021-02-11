@@ -31,4 +31,32 @@
       <td>金額</td>
     </tr>
   </thead>
+  <tbody>
+    <% @estimate_details.each do |category_id, details| %>
+      <tr>
+        <td colspan=6 class="category-name">
+          <%= details[0].category_name %><%= details.length %>
+        </td>
+      </tr>
+      <% details.each do |detail| %>
+        <tr>
+          <% if detail.material_id.present? %>
+            <td><%= detail.material_name %></td>
+            <td><%= detail.amount %></td>
+            <td><%= detail.unit %></td>
+            <td><%= detail.price %></td>
+            <td><%= detail.total %></td>
+            <td></td>
+          <% elsif detail.construction_id.present? %>
+            <td><%= detail.construction_name %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
 </table>

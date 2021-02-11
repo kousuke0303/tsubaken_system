@@ -4,6 +4,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   before_action :refactor_params_category_ids, only: [:create, :update]
   
   def show
+    @estimate_details = @estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] }
     respond_to do |format|
       format.html { redirect_to action: :pdf, format: :pdf, debug: true }
       format.pdf do
