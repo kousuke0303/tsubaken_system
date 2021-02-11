@@ -19,8 +19,6 @@ Admin.create!(name: "管理者",
 
 puts "CREATE! ADMIN"
 
-puts "CREATE! Department"
-
 3.times do |n|
   Manager.create!(name: "マネージャー#{ n + 1 }",
                   login_id: "MN-manager-#{ n + 1 }",
@@ -116,6 +114,7 @@ puts "CREATE! CLIENT"
 # -----------------------------------------------------
 
 require "./db/seeds/estimate_matter.rb"
+require "./db/seeds/estimate.rb"
 
 # -----------------------------------------------------
       # Attendance
@@ -161,8 +160,4 @@ end
 
 puts "CREATE! CERTIFICATE"
 
-%w(web 訪問販売 チラシ広告 紹介 タウンページ).each do |name|
-  AttractMethod.create(name: name)
-end
 
-puts "CREATE! ATTRACTIVE METHOD"

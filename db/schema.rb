@@ -203,9 +203,11 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.integer "total_price", default: 0, null: false
     t.string "estimate_matter_id"
     t.bigint "plan_name_id"
+    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_estimates_on_matter_id"
     t.index ["plan_name_id"], name: "index_estimates_on_plan_name_id"
   end
 
@@ -332,10 +334,8 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.date "finished_on"
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
-    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
@@ -548,7 +548,6 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
-  add_foreign_key "matters", "estimates"
   add_foreign_key "messages", "matters"
   add_foreign_key "plan_names", "label_colors"
   add_foreign_key "sales_status_editors", "sales_statuses"

@@ -10,7 +10,6 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.date :finished_on
       t.date :maintenanced_on
       t.string :estimate_matter_id
-      t.references :estimate,               foreign_key: true
 
       t.timestamps
     end
