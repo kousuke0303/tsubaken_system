@@ -52,7 +52,6 @@ class Admins::StatisticsController < ApplicationController
       @last_day = Date.current
     end
     @est_matters_for_span = EstimateMatter.where(created_at: @first_day..@last_day)
-    @matters_for_span = Matter.where(created_at: @first_day..@last_day)
     date_for_estimate_matters_count
     date_for_estimate_matters_area_count
     date_for_estimate_matters_attract_count
