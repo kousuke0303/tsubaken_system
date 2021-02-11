@@ -1,7 +1,6 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :can_access_only_estimate_matter_of_being_in_charge
-  before_action :get_band, only: [:new, :edit]
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
@@ -36,7 +35,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   def create
     @estimate_matter = EstimateMatter.new(estimate_matter_params)
     if @estimate_matter.save
-      @estimate_matter.sales_statuses.create!(status: "not_set", conducted_on: Date.current)
+      @estimate_matter.sales_statuses.create!(status: "not_set", scheduled_date: Date.current)
       set_estimate_matter_members
       flash[:success] = "見積案件を作成しました。"
       redirect_to employees_estimate_matters_url(id: @estimate_matter.id)

@@ -1,0 +1,7 @@
+<script>
+  $('.money_type').each(function(i, element){
+    var text = $(element).text();
+    var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
+    $(element).text(money_type);
+  });
+</script>

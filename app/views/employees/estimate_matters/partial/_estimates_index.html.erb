@@ -94,7 +94,7 @@
             <td class="money_type"><%= detail.price %></td>
             <td><%= detail.unit %></td>
             <td><%= detail.amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
+            <td class="money_type"><%= detail.total %></td>
           <% elsif detail.construction_id.present? %>
             <td>
               <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
@@ -105,7 +105,7 @@
             <td class="money_type"><%= detail.price %></td>
             <td><%= detail.unit %></td>
             <td><%= detail.amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
+            <td class="money_type"><%= detail.total %></td>
           <% else %>
             <td></td>
             <td></td>
@@ -127,10 +127,4 @@
   
 <% end %>
 
-<script>
-  $('.money_type').each(function(i, element){
-    var text = $(element).text();
-    var money_type = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
-    $(element).text(money_type);
-  });
-</script>
+<%= render 'shared/javascript/money_type' %>

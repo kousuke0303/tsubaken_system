@@ -1,2 +1,3 @@
-$('#est_date_of_staff').html('<%= escape_javascript(render partial: 'admins/statistics/date_forms/est_matters', locals: {est_matter_date_for_graph: @est_matter_date_for_graph, est_matter_date_for_table: @est_matter_date_for_table}) %>')
-$('#est_area').html('<%= escape_javascript( render partial: 'admins/statistics/date_forms/est_matters_area', locals: {area_date_of_est: @area_date_of_est, area_date_of_est_for_table: @area_date_of_est_for_table}) %>')
+$('#est_date_of_staff').html('<%= escape_javascript(render partial: 'admins/statistics/date_forms/est_matters', locals: {est_matter_date_for_graph: @est_matter_date_for_graph, est_matter_date_for_table: @est_matter_date_for_table}) %>');
+$('#est_area').html('<%= escape_javascript( render partial: 'admins/statistics/date_forms/est_matters_area', locals: {area_date_of_est: @area_date_of_est, area_date_of_est_for_table: @area_date_of_est_for_table}) %>');
+$('#est_attract').html('<%= escape_javascript( render partial: 'admins/statistics/date_forms/est_matters_attractmethod', locals: {graph_date_for_attract_count: @graph_date_for_attract_count, table_date_for_attract_count: @table_date_for_attract_count}) %>');

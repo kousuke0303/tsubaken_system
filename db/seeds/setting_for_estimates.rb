@@ -87,4 +87,11 @@ plan_name_array.each do |array|
   PlanName.create!(name: array[0], label_color_id: array[1])
 end
 
-puts "CREATE! Plan Name"
+puts "CREATE! PlANNAME"
+
+# 集客方法
+%w(web 訪問販売 チラシ広告 紹介 タウンページ).each do |name|
+  AttractMethod.create(name: name)
+end
+
+puts "CREATE! ATTRACTIVE METHOD"

@@ -2,7 +2,7 @@
   <div class="col-md-6">
     <div class="news_container">
       <div class="top_page_contents">
-        <span>スッタフ別営業件数</span>
+        <span>スッタフ別営業件数<span style="color: #929296">(※基準：営業案件作成時)</span></span>
         <div>
         <%= bar_chart est_matter_date_for_graph, stacked: true, colors: ["#d26f8a", "#3a6ecd"], id: "est_count_for_staff" %>
         </div>
@@ -18,15 +18,18 @@
           <th>担当数</th>
           <th>成約数</th>
           <th>成約率</th>
+          <th>売上高(円)</th>
         </tr>
         <% @total_est_number = 0 %>
         <% @total_contract = 0 %>
+        <% @total_price = 0 %>
         <% est_matter_date_for_table.each do |date| %>
           <tr>
             <td><%= date[:name] %></td>
             <td><%= date[:est_number] %><% @total_est_number += date[:est_number] %></td>
             <td><%= date[:contract] %><% @total_contract += date[:contract] %></td>
             <td><%= contract_rate(date[:contract], date[:est_number]) %>%</td>
+            <td class="money_type"><%= date[:price] %><% @total_price += date[:price] %></td>
           </tr>
         <% end %>
         <tr class="total">
@@ -34,8 +37,11 @@
           <td><%= @total_est_number %></td>
           <td><%= @total_contract %></td>
           <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
+          <td class="money_type"><%= @total_price %></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
+
+<%= render 'shared/javascript/money_type' %>
