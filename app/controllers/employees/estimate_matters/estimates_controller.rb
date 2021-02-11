@@ -5,12 +5,14 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   
   def show
     respond_to do |format|
+      format.html { redirect_to action: :pdf, format: :pdf, debug: true }
       format.pdf do
         render pdf: "file_name",
                encoding: "utf-8",
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
-               template: "/employees/estimate_matters/estimates/show.html.erb"
+               template: "/employees/estimate_matters/estimates/show.html.erb",
+               show_as_html: params[:debug].present?
       end
     end
   end

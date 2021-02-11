@@ -8,7 +8,7 @@
   現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
 </div>
 <div id="company-info">
-  <div id="company-logo"></div>
+  <div id="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt:"ロゴ" %></div>
   <div id="company-name">株式会社　ツバケン</div>
   <div id="company-tel">
     TEL: 090-8787-5544
@@ -16,6 +16,19 @@
   </div>
 </div>
 
-<div id="pdf-estimate-table">
-
-</div>
+<table class="table table-sm" id="pdf-estimate-table">
+  <thead>
+    <tr>
+      <td rowspan=2>工事名称</td>
+      <td colspan=2>数量</td>
+      <td colspan=2>見積金額</td>
+      <td rowspan=2>摘要(仕様)</td>
+    </tr>
+    <tr>
+      <td>数量</td>
+      <td>単位</td>
+      <td>単価</td>
+      <td>金額</td>
+    </tr>
+  </thead>
+</table>

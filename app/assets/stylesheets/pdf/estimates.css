@@ -40,5 +40,10 @@
 }
 
 #pdf-estimate-table {
-  border: 2px solid black;
+  margin-top: 0.5em;
+}
+
+#pdf-estimate-table, thead, td {
+  text-align: center;
+  vertical-align: middle !important;
 }
