@@ -1,0 +1,57 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th style="width: 10em;">名前</th>
+      <td><%= @staff.name %></td>
+    </tr>
+    <tr>
+      <th>部署</th>
+      <td><%= @staff.department.name %></td>
+    </tr>
+    <tr>
+      <th>ログインID</th>
+      <td><%= @staff.login_id %></td>
+    </tr>
+    <tr>
+      <th>電話番号</th>
+      <td><%= @staff.phone %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @staff.email %></td>
+    </tr>
+    <tr>
+      <th>生年月日</th>
+      <td><%= @staff.birthed_on %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @staff.postal_code %></td>
+    </tr>
+    <tr>
+      <th>都道府県</th>
+      <td><%= @staff.prefecture_code %></td>
+    </tr>
+    <tr>
+      <th>市区町村</th>
+      <td><%= @staff.address_city %></td>
+    </tr>
+    <tr>
+      <th>町名番地</th>
+      <td><%= @staff.address_street %></td>
+    </tr>
+    <tr>
+      <th>入社日</th>
+      <td><%= @staff.joined_on %></td>
+    </tr>
+    <tr>
+      <th>退社日</th>
+      <td><%= @staff.resigned_on %></td>
+    </tr>
+  </table>
+</div>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_staff_path(@staff), remote: true, class: "btn btn-dark" %>
+  <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このStaffを削除してよろしいですか？" }, class: "btn btn-destroy" %>
+</div>

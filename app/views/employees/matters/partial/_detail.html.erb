@@ -1,0 +1,74 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th>タイトル</th>
+      <td><%= @matter.title %></td>
+    </tr>
+
+    <% if @staffs.exists? %>
+      <% @staffs.each_with_index do |staff, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @staffs.count %>">担当Staff</th>
+          <% end %>
+          <td><%= staff.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>担当Staff</th>
+        <td></td>
+      </tr>
+    <% end %>
+
+    <% if @external_staffs.exists? %>
+      <% @external_staffs.each_with_index do |external_staff, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
+          <% end %>
+          <td><%= external_staff.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>担当外部Staff</th>
+        <td></td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th>進行状況</th>
+      <td><%= @matter.status_i18n %></td>
+    </tr>
+    <tr>
+      <th>着工予定日</th>
+      <td><%= @matter.scheduled_started_on %></td>
+    </tr>
+    <tr>
+      <th>完了予定日</th>
+      <td><%= @matter.scheduled_finished_on %></td>
+    </tr>
+
+    <% if @suppliers.exists? %>
+      <% @suppliers.each_with_index do |supplier, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @suppliers.count %>">外注先</th>
+          <% end %>
+          <td><%= supplier.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>外注先</th>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
+  <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>

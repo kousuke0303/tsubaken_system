@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
   $("#client-edit").modal("hide");
   $(".flash-wrapper").html('<div class="flash flash-success">顧客情報を更新しました。</div>')
-  $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/tab_panes/detail") %>');
-  $(".clients-index").html('<%= escape_javascript(render "employees/clients/tab_panes/detail") %>');
+  $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/partial/detail") %>');
+  $(".clients-index").html('<%= escape_javascript(render "employees/clients/partial/detail") %>');
 <% else %>
   $(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
   <% @client.errors.messages.keys.each do |key_attribute| %>

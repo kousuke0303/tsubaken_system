@@ -11,10 +11,10 @@
 
   <div class="row">
     <div class="col-lg-6 col-12">
-      <%= render "employees/matters/tab_panes/detail" %>
+      <%= render "employees/matters/partial/detail" %>
     </div>
     <div class="col-lg-6 col-12 clients-matter-index">
-      <%= render "employees/clients/tab_panes/detail" %>
+      <%= render "employees/clients/partial/detail" %>
     </div>
     <div class="col-12 mt-1e">
       <div class="accordion" id="accordion-tasks">
@@ -30,7 +30,7 @@
         <div id="collapse-tasks" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-tasks">
           <div class="card-body">
             <div class="tasks-index">
-              <%= render "employees/matters/tab_panes/tasks" %>
+              <%= render "employees/matters/partial/tasks" %>
             </div>
           </div>
         </div>
