@@ -22,7 +22,27 @@ module ApplicationHelper
   def avator(login_user)
     login_user.avator.attached? ? login_user.avator : login_user.name[0, 1]
   end 
-    
+  
+  # ---------------------------------------------------------
+      # COMMON DISPLAY
+  # ---------------------------------------------------------
+  
+  def postal_code_display(post_code)
+    block_1 = post_code[0..2]
+    block_2 = post_code[3..6]
+    return "〒" + block_1 + "-" + block_2
+  end
+  
+  def mobile_phone_display(phone_number)
+    if phone_number.size == 11
+      block_1 = phone_number[0..2]
+      block_2 = phone_number[3..6]
+      block_3 = phone_number[7..10]
+      return block_1 + "-" + block_2 + "-" + block_3
+    else
+      return phone_number
+    end
+  end
   # ---------------------------------------------------------
       # ATTENDANCE
   # ---------------------------------------------------------

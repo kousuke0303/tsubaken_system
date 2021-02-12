@@ -5,16 +5,19 @@
     <div class="sidebar-header">
       <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
     </div>
+    
+    <div class="user-panel">
+      <h5>管理者専用ページ</h5>
+    </div>
 
     <ul class="components">
-      <h4>管理者専用ページ</h4>
       <%= render 'layouts/layout_type/sidebar_item' %>
     </ul>
 
     <ul class="list-unstyled CTAs">
       <li><%= link_to "統計情報", statistics_path, class: "download" %></li>
       <li>
-        <%= link_to "現況一覧", progress_table_employees_estimate_matters_path, class: "current_situatuin", target: :_blank %>
+        <%= link_to "現況一覧", progress_table_employees_estimate_matters_path, class: "current_situation", target: :_blank %>
       </li>
     </ul>
   </nav>
@@ -22,48 +25,11 @@
   <!-- Page Content -->
   <div id="content">
     
-    
-        <!-- Header -->
-          <!--<nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">-->
-          <!--  <div class="container_fluid">-->
-          <!--  <button type="button" id="sidebar-collapse" class="navbar-btn">-->
-          <!--    <span></span>-->
-          <!--    <span></span>-->
-          <!--    <span></span>-->
-          <!--  </button>-->
-          <!--  <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-          <!--    <i class="fas fa-align-justify"></i>-->
-          <!--  </button>-->
-
-          <!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-          <!--    <ul class="nav navbar-nav ml-auto navi-custom">-->
-          <!--      <li class="nav-item">-->
-          <!--        <!%= link_to admins_top_path(current_admin), class: "nav-link" do %>-->
-          <!--          <i class="fas fa-home"></i> Home-->
-          <!--        <!% end %>-->
-          <!--      </li>-->
-          <!--      <li class="nav-item"> <a class="nav-link" href="#">Page</a></li>-->
-          <!--      <div class="nav-item dropdown">-->
-          <!--        <a href="#" class="nav-link dropdown-toggle session_name text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-          <!--          <!%= current_admin.name %>-->
-          <!--        </a>-->
-          <!--        <div class="dropdown-menu dropdown-position admin_dropdown_menu">-->
-          <!--          <!%= link_to edit_admin_registration_path, class: "dropdown-item item-link" do %>-->
-          <!--            <i class="fas fa-user-edit"></i> アカウント編集-->
-          <!--          <!% end %>-->
-          <!--          <div class="dropdown-divider"></div>-->
-          <!--          <!%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "dropdown-item item-link" %>-->
-          <!--        </div>-->
-          <!--      </div>-->
-          <!--    </ul>-->
-          <!--  </div>-->
-          <!--  </div>-->
-          <!--</nav>-->
-          
-          <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">
+    <!-- Header -->      
+    <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">
       <div class="container-fluid">
         
-        <button type="button" id="sidebar-collapse" class="navbar-btn">
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
           <span></span>
           <span></span>
           <span></span>
@@ -97,19 +63,17 @@
       </div>
     </nav>
     
-        <!-- Main-content -->
-        <%= render "shared/flash" %>
-        <%= yield %>
-        <div class="line"></div>
-        <div class="debug"><%= debug(params) if Rails.env.development? %></div>
-      </div>
-    </div>
+    <!-- Main-content -->
+    <%= render "shared/flash" %>
+    <%= yield %>
+    <div class="line"></div>
+    <div class="debug"><%= debug(params) if Rails.env.development? %></div>
   </div>
 </div>
 
 <script>
   $(document).ready(function () {
-    $("#sidebar-collapse").on("click", function () {
+    $("#sidebarCollapse").on("click", function () {
         $("#sidebar").toggleClass("active");
         $(this).toggleClass("active");
     });

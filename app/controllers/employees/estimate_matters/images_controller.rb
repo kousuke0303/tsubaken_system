@@ -1,6 +1,5 @@
 class Employees::EstimateMatters::ImagesController < Employees::EmployeesController
-  layout "image_layout"
-  
+  before_action :other_tab_display, only: :index
   before_action :set_image, only: [:edit, :update, :destroy]
   before_action :current_estimate_matter
 

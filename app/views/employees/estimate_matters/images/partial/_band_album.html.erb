@@ -1,15 +1,19 @@
-<% @photo_arrey.each do |photo_info| %>
-  <div class="band_image_container">
+<% @photo_arrey.each.with_index(1) do |photo_info, index| %>
+  <div class="band_image_container" id="band_album_<%= index %>">
     <span class="box_title">
-    <table class="table title_table">
-      <tr>
-        <th>投稿者</th>
-        <td><%= photo_info["author"]%></td>
-        <th>タグ</th>
-        <td><%= photo_info["content"]%></td>
-      </tr>
-    </table>
+      <div class="table-responsive">
+        <table class="table title_table text-nowrap">
+        <tr>
+          <th>投稿者</th>
+          <td><%= photo_info["author"]%></td>
+          <th>タグ</th>
+          <td><%= photo_info["content"]%></td>
+        </tr>
+      </table>
+      </div>
     </span>
+    
+    <button id="album_delete_<%= index %>"><i class="fas fa-times"></i></button>
     
     <%= form_with(model: current_estimate_matter, url: save_for_band_image_employees_estimate_matter_images_path(current_estimate_matter), method: :post) do |f| %>
       <table class="mt-1e">
@@ -41,3 +45,11 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+<% @photo_arrey.each.with_index(1) do |photo_info, index| %>
+  $('#album_delete_<%= index %>').on('click', function(){
+    $('#band_album_<%= index %>').hide();
+  });
+<% end %>
+</script>

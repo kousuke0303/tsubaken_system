@@ -1,0 +1,16 @@
+<div class="husen_<%= est_matter.id %> husen">
+  <%= est_matter.title %>
+  <div>
+    <span style="font-size: 12px;">
+      <%= est_matter.sales_statuses.last.scheduled_date.strftime("%m/%d") %>
+      <%= member_name(est_matter.sales_statuses.last) %>
+    </span>
+  </div>
+</div>
+
+<script>
+$(document).ready( function(){
+  var staff_color = "<%= staff_color(est_matter.sales_statuses.last.staff_id) %>";
+  $('.husen_<%= est_matter.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': `${staff_color}`, 'background': `${staff_color}3b`});
+});
+</script>

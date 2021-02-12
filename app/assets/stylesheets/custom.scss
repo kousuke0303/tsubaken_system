@@ -314,114 +314,16 @@ $color-bg: #eae9e9;
 
 /* ------------------------------ MEDIAQUERIES ------------------------------ */
 
-@media screen and (min-width: 992px) {
-  .admin_dropdown_menu {
-    margin-left: -93px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .manager_external_staff_dropdown_menu {
-    margin-left: -13px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .staff_dropdown_menu {
-    margin-left: -43px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .client_dropdown_menu {
-    margin-left: -50px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  #sidebar {
-    margin-left: -250px;
-    transform: rotateY(90deg);
-  }
-  #sidebar.active {
-    margin-left: 0;
-    transform: none;
-  }
-  #sidebar-collapse span:first-of-type,
-  #sidebar-collapse span:nth-of-type(2),
-  #sidebar-collapse span:last-of-type {
-    transform: none;
-    opacity: 1;
-    margin: 5px auto;
-}
-  #sidebar-collapse.active span {
-    margin: 0 auto;
-  }
-  #sidebar-collapse.active span:first-of-type {
-    transform: rotate(45deg) translate(2px, 2px);
-  }
-  #sidebar-collapse.active span:nth-of-type(2) {
-    opacity: 0;
-  }
-  #sidebar-collapse.active span:last-of-type {
-    transform: rotate(-45deg) translate(1px, -1px);
-  }
+.mobile_type {
+  display: none;
 }
 
 @media screen and (max-width: 480px) { 
- .navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 20px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
- 
-  #content {
-    width: 100vw;
-    padding: 10px;
-    min-height: 100vh;
-    transition: all 0.3s;
+  .mobile_type {
+    display: block;
   }
   
-  .smp-center {
-    text-align: center;
-    margin-top: 1.5em;
-  }
-  .navi-custom {
-    background-color: #eef1f3;
-    padding-left: 1em;
-  }
-  .tab-wrapper {
-    ul li a {
-      font-size: 20px;
-    }
+  .pc_type {
+    display: none;
   }
 }

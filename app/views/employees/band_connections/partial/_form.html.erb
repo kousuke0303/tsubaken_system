@@ -5,7 +5,7 @@
     <label for="box-<%= index %>">
       <div class="label-container">
         <%=image_tag band["cover"], :size =>'50x50', id: "cover_box-#{index}" %>
-        <div class="name" id="name_box-<%= index %>"><%= band["name"] %></div>
+        <div class="band_name" id="name_box-<%= index %>"><%= band["name"] %></div>
       </div>
     </label>
   <% end %>

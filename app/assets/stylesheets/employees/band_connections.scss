@@ -44,16 +44,30 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+  
   .label-container {
     height: 52px;
     border: 1px solid #343a40;
     vertical-align: center;
     background: white;
   }
-  .name {
+}
+
+.band_box {
+  background: white;
+  border: 1px solid #343a40;
+  height: 52px;
+  line-height: 1.5em;
+}
+
+.band_name {
     display: inline-block;
     color: #343a40;
     font-size: 20px;
     padding-left: 0.5em;
   }
+
+.band_edit_btn {
+  margin: 5px;
+  float: right;
 }

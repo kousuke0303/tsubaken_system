@@ -35,77 +35,45 @@
     <% end %>    
   </div>
   
-  <table class="table table-bordered table_line_type">
-    <tr>
-      <th>項目</th>
-      <th>工事名称・素材</th>
-      <th>耐用年数</th>
-      <th colspan="2">単価</th>
-      <th>数量</th>
-      <th>計(円)</th>
-    </tr>
-    <% @estimate_detail_hash.each do |category_id, details| %>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap table_line_type">
       <tr>
-        <td rowspan="<%= category_row_span(estimate, category_id) %>">
-          <%= link_to edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true do %>
-            <%= details[0].category_name %>
-          <% end %>
-        </td>
-        <% if details[0].material_id.present? %>
-          <td>
-            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-              <%= details[0].material_name %>
-            <% end %>
-          </td>
-          <td><%= details[0].service_life %></td>
-          <td class="money_type"><%= details[0].price %></td>
-          <td><%= details[0].unit %></td>
-          <td><%= details[0].amount %></td>
-          <td class="money_type"><%= details[0].total %></td>
-        <% elsif details[0].construction_id.present? %>
-          <td>
-            <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-              <%= details[0].construction_name %>
-            <% end %>
-          </td>
-          <td></td>
-          <td class="money_type"><%= details[0].price %></td>
-          <td><%= details[0].unit %></td>
-          <td><%= details[0].amount %></td>
-          <td class="money_type"><%= details[0].total %></td>
-        <% else %>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        <% end %>
+        <th>項目</th>
+        <th>工事名称・素材</th>
+        <th>耐用年数</th>
+        <th colspan="2">単価</th>
+        <th>数量</th>
+        <th>計(円)</th>
       </tr>
-      <% details.from(1).each do |detail| %>
+      <% @estimate_detail_hash.each do |category_id, details| %>
         <tr>
-          <% if detail.material_id.present? %>
+          <td rowspan="<%= category_row_span(estimate, category_id) %>">
+            <%= link_to edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true do %>
+              <%= details[0].category_name %>
+            <% end %>
+          </td>
+          <% if details[0].material_id.present? %>
             <td>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                  <%= detail.material_name %>
-                <% end %> 
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                <%= details[0].material_name %>
+              <% end %>
             </td>
-            <td><%= detail.service_life %></td>
-            <td class="money_type"><%= detail.price %></td>
-            <td><%= detail.unit %></td>
-            <td><%= detail.amount %></td>
-            <td class="money_type"><%= detail.total %></td>
-          <% elsif detail.construction_id.present? %>
+            <td><%= details[0].service_life %></td>
+            <td class="money_type"><%= details[0].price %></td>
+            <td><%= details[0].unit %></td>
+            <td><%= details[0].amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
+          <% elsif details[0].construction_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                <%= detail.construction_name %>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                <%= details[0].construction_name %>
               <% end %>
             </td>
             <td></td>
-            <td class="money_type"><%= detail.price %></td>
-            <td><%= detail.unit %></td>
-            <td><%= detail.amount %></td>
-            <td class="money_type"><%= detail.total %></td>
+            <td class="money_type"><%= details[0].price %></td>
+            <td><%= details[0].unit %></td>
+            <td><%= details[0].amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
           <% else %>
             <td></td>
             <td></td>
@@ -115,16 +83,49 @@
             <td></td>
           <% end %>
         </tr>
+        <% details.from(1).each do |detail| %>
+          <tr>
+            <% if detail.material_id.present? %>
+              <td>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.material_name %>
+                  <% end %> 
+              </td>
+              <td><%= detail.service_life %></td>
+              <td class="money_type"><%= detail.price %></td>
+              <td><%= detail.unit %></td>
+              <td><%= detail.amount %></td>
+              <td class="money_type"><%= detail.total %></td>
+            <% elsif detail.construction_id.present? %>
+              <td>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.construction_name %>
+                <% end %>
+              </td>
+              <td></td>
+              <td class="money_type"><%= detail.price %></td>
+              <td><%= detail.unit %></td>
+              <td><%= detail.amount %></td>
+              <td class="money_type"><%= detail.total %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-    <tr>
-      <tfoot>
-        <th colspan="5">合計</th>
-        <th colspan="2", class="money_type text-right"><%= estimate.total_price %>円</th>
-      </tfooter>
-    </tr>
-  </table>
-  
+      <tr>
+        <tfoot>
+          <th colspan="5">合計</th>
+          <th colspan="2", class="money_type text-right"><%= estimate.total_price %>円</th>
+        </tfooter>
+      </tr>
+    </table>
+  </div>
 <% end %>
 
 <%= render 'shared/javascript/money_type' %>

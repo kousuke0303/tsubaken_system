@@ -1,61 +1,122 @@
 <div class="col-12">
-
-  <h2 class="title_layout"><i class="fas fa-clipboard"></i> 営業案件詳細／ <%= current_estimate_matter.title %></h2>
+  
+  <div class="pc_type">
+    <h2 class="title_layout"><i class="fas fa-clipboard"></i> 営業案件詳細／ <%= current_estimate_matter.title %></h2>
+  </div>
+  
+  <div class="mobile_type">
+    <h4 class="title_layout"><i class="fas fa-clipboard"></i> <%= current_estimate_matter.title %> 詳細</h4>
+  </div>
   
   <div class="text-right mb-1e">
     <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
-    <%= link_to "チャットルーム", "", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>
+    <!--<!%= link_to "チャットルーム", "", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>-->
   </div>
   
-  <table class="table table-bordered table-column-type">
-    <tr>
-      <th>状況</th>
-      <td><%= @sales_statuses.first.status_i18n %></td>
-    </tr>
-    <tr>
-      <th>タイトル</th>
-      <td><%= @estimate_matter.title %></td>
-    </tr>
-    <tr>
-      <th>顧客</th>
-      <td>
-        <%= @estimate_matter.client.name %>
-        <span class="float-r mr-1e">
-          <a href="tel:<%= @estimate_matter.client.phone_1 %>" class="btn btn-success">電話する</a>
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= @estimate_matter.postal_code %></td>
-    </tr>
-    <tr>
-      <th>現場住所</th>
-      <td><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></td>
-    </tr>
-    <tr>
-      <th>集客方法</th>
-      <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
-    </tr>
-    <tr>
-      <th>発行元</th>
-      <td><%= @publisher.name %></td>
-    </tr>
-    <tr>
-      <th>内容</th>
-      <td><%= @estimate_matter.content %></td>
-    </tr>
-    <tr>
-      <th>担当スタッフ</th>
-      <td><%= staff_member_name(@estimate_matter) %></td>
-    </tr>
-    <tr>
-      <th>BAND選択</th>
-      <td id="select_band">
-        <%= render 'employees/estimate_matters/partial/select_band_display' %>
-      </td>
-    </tr>
-  </table>
+  <div class="table-responsive pc_type">
+    <table class="table table-bordered table-column-type text-nowrap">
+      <tr>
+        <th>状況</th>
+        <td colspan="2"><%= @sales_statuses.first.status_i18n %></td>
+      </tr>
+      <tr>
+        <th>タイトル</th>
+        <td colspan="2"><%= @estimate_matter.title %></td>
+      </tr>
+      <tr>
+        <th>顧客</th>
+        <td><%= @estimate_matter.client.name %></td>
+        <td>
+          <div class="mr-1e">
+            <a href="tel:<%= @estimate_matter.client.phone_1 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_1) %></a>
+          </div>
+          <div class="mr-1e">
+            <a href="tel:<%= @estimate_matter.client.phone_2 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_2) %></a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>郵便番号</th>
+        <td colspan="2"><%= postal_code_display(@estimate_matter.postal_code) %></td>
+      </tr>
+      <tr>
+        <th>現場住所</th>
+        <td colspan="2"><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></td>
+      </tr>
+      <tr>
+        <th>集客方法</th>
+        <td colspan="2"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
+      </tr>
+      <tr>
+        <th>発行元</th>
+        <td colspan="2"><%= @publisher.name %></td>
+      </tr>
+      <tr>
+        <th>内容</th>
+        <td colspan="2"><%= @estimate_matter.content %></td>
+      </tr>
+      <tr>
+        <th>担当スタッフ</th>
+        <td colspan="2"><%= staff_member_name(@estimate_matter) %></td>
+      </tr>
+      <tr>
+        <th>BAND選択</th>
+        <td colspan="2" id="select_band">
+          <%= render 'employees/estimate_matters/partial/select_band_display' %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="mobile_type">
+    <div>
+      <button type="button" id="tableCollapse" class="navbar-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    
+    <div class="responsive_table_wrapper">
+      <nav class="responsive_table_sidebar">
+        <ul class="components">
+          <li>内容</li>
+          <li>状況</li>
+          <li>顧客</li>
+          <li>電話</li>
+          <li>郵便番号</li>
+          <li>現場</li>
+          <li>担当</li>
+          <li class="band_area">BAND</li>
+          <li>請求元</li>
+          <li>集客方法</li>
+        </ul>
+      </nav>
+      <div class="table_content text-nowrap">
+        <div class="content"><%= @estimate_matter.content %></div>
+        <div class="content"><%= @sales_statuses.first.status_i18n %></div>
+        <div class="content"><%= @estimate_matter.client.name %></div>
+        <div class="content">
+          <a href="tel:<%= @estimate_matter.client.phone_1 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_1) %></a>
+          <span>/</span>
+          <a href="tel:<%= @estimate_matter.client.phone_2 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_2) %></a>
+        </div>
+        <div class="content"><%= postal_code_display(@estimate_matter.postal_code) %></div>
+        <div class="content"><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></div>
+        <div class="content"><%= staff_member_name(@estimate_matter) %></div>
+        <div id="select_band" class="band_area content">
+          <div class="band_box">
+            <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
+            <div class="band_name"><%= current_estimate_matter.band_connection.band_name %></div>
+            <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+          </div>
+        </div>
+        <div class="content"><%= @publisher.name %></div>
+        <div class="content"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></div>
+      </div>
+    </div>
+  </div>
+  
   <div class="btn-area mb-1e">
     <% if @matter %>
       <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), class: "btn btn-dark" %>
@@ -145,4 +206,17 @@
       </div>
     </div>
   </div>
+  
+  
+  
+  
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("#tableCollapse").on("click", function () {
+        $(".responsive_table_sidebar").toggleClass("active");
+        $(this).toggleClass("active");
+    });
+  });
+</script>
