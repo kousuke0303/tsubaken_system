@@ -19,41 +19,42 @@
 <table class="table table-sm" id="pdf-estimate-table">
   <thead>
     <tr>
-      <td rowspan=2>工事名称</td>
+      <td rowspan=2 style="width: 35%;">工事名称</td>
       <td colspan=2>数量</td>
-      <td colspan=2>見積金額</td>
-      <td rowspan=2>摘要(仕様)</td>
+      <td colspan=2 style="width: 20%;">見積金額</td>
+      <td rowspan=2 style="width: 25%;">摘要(仕様)</td>
     </tr>
     <tr>
-      <td>数量</td>
-      <td>単位</td>
-      <td>単価</td>
-      <td>金額</td>
+      <td style="width: 13%;">数量</td>
+      <td style="width: 7%;">単位</td>
+      <td style="width: 8%;">単価</td>
+      <td style="width: 12%;">金額</td>
     </tr>
   </thead>
   <tbody>
     <% @estimate_details.each do |category_id, details| %>
       <tr>
         <td colspan=6 class="category-name">
+          <span class="square"><i class="fa fa-square"></i></span>
           <%= details[0].category_name %><%= details.length %>
         </td>
       </tr>
       <% details.each do |detail| %>
         <tr>
           <% if detail.material_id.present? %>
-            <td><%= detail.material_name %></td>
-            <td><%= detail.amount %></td>
-            <td><%= detail.unit %></td>
-            <td><%= detail.price %></td>
-            <td><%= detail.total %></td>
-            <td></td>
+            <td class="detail-name"><%= detail.material_name %></td>
+            <td class="detail-amount"><%= detail.amount %></td>
+            <td class="detail-unit"><%= detail.unit %></td>
+            <td class="detail-price"><%= detail.price %></td>
+            <td class="detail-total"><%= detail.total %></td>
+            <td class="detail-specification"></td>
           <% elsif detail.construction_id.present? %>
-            <td><%= detail.construction_name %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="detail-name"><%= detail.construction_name %></td>
+            <td class="detail-amount"><%= detail.amount %></td>
+            <td class="detail-unit"><%= detail.unit %></td>
+            <td class="detail-price"><%= detail.price %></td>
+            <td class="detail-total"><%= detail.total %></td>
+            <td class="detail-specification"></td>
           <% end %>
         </tr>
       <% end %>

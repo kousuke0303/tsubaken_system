@@ -40,6 +40,7 @@
 }
 
 #pdf-estimate-table {
+  font-size: 0.8em;
   margin-top: 0.5em;
 }
 
@@ -47,4 +48,63 @@
   border: 1px solid black;
   text-align: center;
   vertical-align: middle !important;
+}
+
+#pdf-estimate-table .square {
+  margin: 0.5em;
+}
+
+#pdf-estimate-table .category-name {
+  border-bottom: none;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+
+#pdf-estimate-table .detail-name {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: none;
+  padding-left: 2.5em;
+}
+
+#pdf-estimate-table .detail-amount {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+  border-top: none;
+  text-align: right;
+}
+
+#pdf-estimate-table .detail-unit {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+  text-align: right;
+}
+
+#pdf-estimate-table .detail-price {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+  border-top: none;
+  text-align: right;
+}
+
+#pdf-estimate-table .detail-total {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+  text-align: right;
+}
+
+#pdf-estimate-table .detail-specification {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+  text-align: right;
 }
