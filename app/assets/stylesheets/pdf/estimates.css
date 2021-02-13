@@ -108,3 +108,38 @@
   border-top: none;
   text-align: right;
 }
+
+#pdf-estimate-table .category-footer {
+  border-bottom: 2px solid black;
+}
+
+#pdf-estimate-table .category-footer-1 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+#pdf-estimate-table .category-footer-2 {
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+}
+
+#pdf-estimate-table .category-footer-3 {
+  border-left: 1px solid lightgray;;
+  border-right: 1px solid black;
+}
+
+#pdf-estimate-table .category-footer-4 {
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+}
+
+#pdf-estimate-table .category-footer-5 {
+  border-left: 1px solid lightgray;;
+  border-right: 1px solid black;
+}
+
+#pdf-estimate-table .category-footer-6 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
