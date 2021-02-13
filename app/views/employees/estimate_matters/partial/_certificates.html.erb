@@ -13,7 +13,7 @@
         <tr class="tr-sortable">
           <td>
             <% if image = certificate.image %>
-              <%= image_tag url_for(image.images[0].variant(resize: "50x50"))%>
+              <%= image_tag url_for(image.image.variant(resize: "50x50"))%>
             <% end %>
           </td>
           <td><%= certificate.title %></td>
