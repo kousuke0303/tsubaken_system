@@ -1,45 +1,50 @@
-<table class="table table-bordered table_line_type">
-  <div>
-    <% if admin_signed_in? %>
-      <input type="hidden" name="admin_id" value="<%= current_admin.id %>" id="admin_id">
-    <% elsif manager_signed_in? %>
-      <input type="hidden" name="manager_id" value="<%= current_manager.id %>" id="manager_id">
-    <% elsif staff_signed_in? %>
-      <input type="hidden" name="staff_id" value="<%= current_staff.id %>" id="staff_id">
-    <% elsif external_staff_signed_in? %>
-      <input type="hidden" name="external_staff_id" value="<%= current_external_staff.id %>" id="external_staff_id">   
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap table_line_type">
+    <!--<div>-->
+    <!--  <!% if admin_signed_in? %>-->
+    <!--    <input type="hidden" name="admin_id" value="<!%= current_admin.id %>" id="admin_id">-->
+    <!--  <!% elsif manager_signed_in? %>-->
+    <!--    <input type="hidden" name="manager_id" value="<!%= current_manager.id %>" id="manager_id">-->
+    <!--  <!% elsif staff_signed_in? %>-->
+    <!--    <input type="hidden" name="staff_id" value="<!%= current_staff.id %>" id="staff_id">-->
+    <!--  <!% elsif external_staff_signed_in? %>-->
+    <!--    <input type="hidden" name="external_staff_id" value="<!%= current_external_staff.id %>" id="external_staff_id">   -->
+    <!--  <!% end %>-->
+    <!--</div>-->
+  
+    <thead>
+      <tr>
+        <th class="text-center">写真</th>
+        <th class="text-center">投函者</th>
+        <th class="text-center">画像内容</th>
+        <th class="text-center">撮影日</th>
+        <th class="text-center">画像編集・削除</th>
+      </tr>
+    </thead>
+    <% @images.each do |image| %>
+        <tr>
+          <td style="vertical-align: middle" class="text-center pc_type">
+            <%= image_tag url_for(image.image.variant(resize: "200x200")) %>
+          </td>
+          
+          <td style="vertical-align: middle" class="text-center mobile_type">
+            <%= image_tag url_for(image.image.variant(resize: "120x120")) %>
+          </td>
+          
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.poster || image.author %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.content %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.shooted_on %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <%= link_to "編集", edit_employees_estimate_matter_image_path(current_estimate_matter, image.id), remote: true, class: "btn btn-dark" %>
+            <%= link_to "削除", employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+          </td>
+        </tr>
     <% end %>
-  </div>
-
-  <thead>
-    <tr>
-      <th class="text-center">写真</th>
-      <th class="text-center">投函者</th>
-      <th class="text-center">画像内容</th>
-      <th class="text-center">撮影日</th>
-      <th class="text-center">画像編集・削除</th>
-    </tr>
-  </thead>
-  <% @images.each do |images| %>
-    <% images.images.each do |image| %>
-    <tr>
-      <td style="vertical-align: middle" class="text-center">
-        <%= image_tag image.variant(resize: "200x200") %>
-      </td>
-      <td style="vertical-align: middle" class="text-center">
-        <%= images.poster %>
-      </td>
-      <td style="vertical-align: middle" class="text-center">
-        <%= images.content %>
-      </td>
-      <td style="vertical-align: middle" class="text-center">
-        <%= images.shooted_on %>
-      </td>
-      <td style="vertical-align: middle" class="text-center">
-        <%= link_to "編集", edit_employees_estimate_matter_image_path(current_estimate_matter, image.id), remote: true, class: "btn btn-dark" %>
-        <%= link_to "削除", employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
-      </td>
-    </tr>
-  <% end %>
-  <% end %>
-</table>
+  </table>
+</div>

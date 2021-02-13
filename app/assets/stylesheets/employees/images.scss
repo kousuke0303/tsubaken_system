@@ -1,0 +1,14 @@
+.container_close {
+  text-align: right;
+}
+
+.file-input {
+  display: none;
+}
+
+@media screen and (max-width: 480px) { 
+  .container_close {
+    margin-top: 1em;
+    text-align: left;
+  }
+}
