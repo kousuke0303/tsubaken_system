@@ -82,7 +82,7 @@
     </tr>
     <tr>
       <td colspan=3 class="footer-item-1 estimate-total">御見積見学　(消費税抜)</td>
-      <td colspan=2 class="footer-item-2 estimate-total money-type"></td>
+      <td colspan=2 class="footer-item-2 estimate-total money-type pure-total"></td>
     </tr>
     <tr>
       <td colspan=3 class="footer-item-1">消費税(10%%)</td>
@@ -98,7 +98,7 @@
 <script>
   $('.money-type').each(function(i, element){
     var text = $(element).text();
-    var moneyType = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
+    var moneyType = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, "$1," );
     $(element).text(moneyType);
   });
 </script>

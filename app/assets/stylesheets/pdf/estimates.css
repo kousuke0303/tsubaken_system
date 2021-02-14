@@ -158,3 +158,7 @@
 #pdf-estimate-table .estimate-total {
   font-weight: bold;
 }
+
+#pdf-estimate-table .pure-total {
+  font-size: 1.1em;
+}
