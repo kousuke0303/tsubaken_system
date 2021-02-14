@@ -106,6 +106,7 @@
   width: 100%;
   transition: all 0.3;
   .content {
+    overflow: auto!important;
     height: 3em;
     line-height: 3em;
     border-bottom: 1px solid #dee2e6;
