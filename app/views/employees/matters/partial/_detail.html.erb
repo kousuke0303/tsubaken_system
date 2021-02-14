@@ -89,39 +89,38 @@
         <li>外注先</li>
       </ul>
     </nav>
-    <div class="table-responsive">
-      <div class="table_content text-nowrap">
-        <div class="content"><%= @matter.title %></div>
-        <div class="content">
-          <% if @staffs.exists? %>
-            <% @staffs.each_with_index do |staff, index| %>
-              <span class="mr-05e"><%= staff.name %></span>
-            <% end %>
-          <% else %>
-            <span>登録なし</span>
+    
+    <div class="table_content text-nowrap overflow-auto">
+      <div class="content"><%= @matter.title %></div>
+      <div class="content">
+        <% if @staffs.exists? %>
+          <% @staffs.each_with_index do |staff, index| %>
+            <span class="mr-05e"><%= staff.name %></span>
           <% end %>
-        </div>
-        <div class="content">
-          <% if @external_staffs.exists? %>
-            <% @external_staffs.each_with_index do |external_staff, index| %>
-              <span class="mr-05e"><%= external_staff.name %></span>
-            <% end %>
-          <% else %>
-            <span>登録なし</span>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content">
+        <% if @external_staffs.exists? %>
+          <% @external_staffs.each_with_index do |external_staff, index| %>
+            <span class="mr-05e"><%= external_staff.name %></span>
           <% end %>
-        </div>
-        <div class="content"><%= @matter.status_i18n %></div>
-        <div class="content"><%= @matter.scheduled_started_on %></div>
-        <div class="content"><%= @matter.scheduled_finished_on %></div>
-        <div class="content">
-          <% if @suppliers.exists? %>
-            <% @suppliers.each_with_index do |supplier, index| %>
-              <span class="mr-05e"><%= supplier.name %></span>
-            <% end %>
-          <% else %>
-            <span>登録なし</span>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content"><%= @matter.status_i18n %></div>
+      <div class="content"><%= @matter.scheduled_started_on %></div>
+      <div class="content"><%= @matter.scheduled_finished_on %></div>
+      <div class="content">
+        <% if @suppliers.exists? %>
+          <% @suppliers.each_with_index do |supplier, index| %>
+            <span class="mr-05e"><%= supplier.name %></span>
           <% end %>
-        </div>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
       </div>
     </div>
   </div>

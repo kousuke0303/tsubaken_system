@@ -47,37 +47,34 @@
       <span></span>
     </button>
   </div>
-  <div class= "table-responsive">
-    <div class="responsive_table_wrapper">
-      <nav class="responsive_table_sidebar text-nowrap">
-        <ul class="components">
-          <li>お名前</li>
-          <li>フリガナ</li>
-          <li>LOGIN-ID</li>
-          <li>郵便番号</li>
-          <li>ご住所</li>
-          <li>TEL①</li>
-          <li>TEL②</li>
-          <li>生年月日</li>
-        </ul>
-      </nav>
-      <div class="table-responsive">
-        <div class="table_content text-nowrap">
-          <div class="content"><%= @client.name %></div>
-          <div class="content"><%= @client.kana %></div>
-          <div class="content"><%= @client.login_id %></div>
-          <div class="content"><%= postal_code_display(@client.postal_code) %></div>
-          <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
-          <div class="content">
-            <a href="tel:<%= @client.phone_1 %>" class=""><%= mobile_phone_display(@client.phone_1) %></a>
-          </div>
-          <div class="content">
-            <a href="tel:<%= @client.phone_2 %>" class=""><%= mobile_phone_display(@client.phone_2) %></a>
-          </div>
-          <div class="content"><%= @client.email %></div>
-          <div class="content"><%= @client.birthed_on %></div>
-        </div>
+  
+  <div class="responsive_table_wrapper">
+    <nav class="responsive_table_sidebar">
+      <ul class="components">
+        <li>お名前</li>
+        <li>フリガナ</li>
+        <li>LOGIN-ID</li>
+        <li>郵便番号</li>
+        <li>ご住所</li>
+        <li>TEL①</li>
+        <li>TEL②</li>
+        <li>生年月日</li>
+      </ul>
+    </nav>
+    <div class="table_content text-nowrap overflow-auto">
+      <div class="content"><%= @client.name %></div>
+      <div class="content"><%= @client.kana %></div>
+      <div class="content"><%= @client.login_id %></div>
+      <div class="content"><%= postal_code_display(@client.postal_code) %></div>
+      <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
+      <div class="content">
+        <a href="tel:<%= @client.phone_1 %>" class=""><%= mobile_phone_display(@client.phone_1) %></a>
       </div>
+      <div class="content">
+        <a href="tel:<%= @client.phone_2 %>" class=""><%= mobile_phone_display(@client.phone_2) %></a>
+      </div>
+      <div class="content"><%= @client.email %></div>
+      <div class="content"><%= @client.birthed_on %></div>
     </div>
   </div>
 </div>
