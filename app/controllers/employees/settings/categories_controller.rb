@@ -11,10 +11,6 @@ class Employees::Settings::CategoriesController < ApplicationController
     if @category.save
       flash[:success] = "工事カテゴリを作成しました。"
       redirect_to employees_settings_categories_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::CategoriesController < ApplicationController
     if @category.update(category_params)
       flash[:success] = "工事カテゴリを更新しました。"
       redirect_to employees_settings_categories_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

@@ -18,10 +18,6 @@ class Employees::Settings::TasksController < ApplicationController
       @default_task.update(default_task_id: @default_task.id)
       flash[:success] = "デフォルトタスクを作成しました。"
       redirect_to employees_settings_tasks_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -32,10 +28,6 @@ class Employees::Settings::TasksController < ApplicationController
     if @default_task.update(default_task_params)
       flash[:success] = "デフォルトタスクを更新しました。"
       redirect_to employees_settings_tasks_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

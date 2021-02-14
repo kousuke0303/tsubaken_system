@@ -11,10 +11,6 @@ class Employees::Settings::MaterialsController < ApplicationController
     if @material.save
       flash[:success] = "素材を作成しました。"
       redirect_to employees_settings_materials_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::MaterialsController < ApplicationController
     if @material.update(material_params)
       flash[:success] = "素材を更新しました。"
       redirect_to employees_settings_materials_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

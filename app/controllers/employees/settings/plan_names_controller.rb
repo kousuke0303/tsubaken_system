@@ -11,10 +11,6 @@ class Employees::Settings::PlanNamesController < ApplicationController
     if @plan_name.save
       flash[:success] = "プラン名を作成しました。"
       redirect_to employees_settings_plan_names_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::PlanNamesController < ApplicationController
     if @plan_name.update(plan_name_params)
       flash[:success] = "プラン名を更新しました。"
       redirect_to employees_settings_plan_names_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

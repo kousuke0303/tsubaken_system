@@ -14,10 +14,6 @@ class Employees::Settings::IndustriesController < ApplicationController
     if @industry.save
       flash[:success] = "業種を作成しました。"
       redirect_to employees_settings_industries_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -28,10 +24,6 @@ class Employees::Settings::IndustriesController < ApplicationController
     if @industry.update(industry_params)
       flash[:success] = "業種情報を更新しました。"
       redirect_to employees_settings_industries_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

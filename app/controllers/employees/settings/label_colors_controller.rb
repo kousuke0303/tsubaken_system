@@ -12,10 +12,6 @@ class Employees::Settings::LabelColorsController < ApplicationController
     if @label_color.save
       flash[:success] = "ラベルカラーを作成しました。"
       redirect_to employees_settings_label_colors_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -26,10 +22,6 @@ class Employees::Settings::LabelColorsController < ApplicationController
     if @label_color.update(label_color_params)
       flash[:success] = "ラベルカラーを更新しました。"
       redirect_to employees_settings_label_colors_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -46,9 +38,6 @@ class Employees::Settings::LabelColorsController < ApplicationController
     label_color = LabelColor.find_by(position: from)
     label_color.insert_at(params[:to].to_i + 1)
     set_label_colors
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

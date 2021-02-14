@@ -11,10 +11,6 @@ class Employees::Settings::PublishersController < ApplicationController
     if @publisher.save
       flash[:success] = "発行元を作成しました。"
       redirect_to employees_settings_publishers_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::PublishersController < ApplicationController
     if @publisher.update(publisher_params)
       flash[:success] = "発行元を更新しました。"
       redirect_to employees_settings_publishers_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

@@ -11,10 +11,6 @@ class Employees::Settings::AttractMethodsController < ApplicationController
     if @attract_method.save
       flash[:success] = "集客方法を作成しました。"
       redirect_to employees_settings_attract_methods_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::AttractMethodsController < ApplicationController
     if @attract_method.update(attract_method_params)
       flash[:success] = "集客方法を更新しました。"
       redirect_to employees_settings_attract_methods_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

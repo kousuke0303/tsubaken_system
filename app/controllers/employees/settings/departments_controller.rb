@@ -11,10 +11,6 @@ class Employees::Settings::DepartmentsController < ApplicationController
     if @department.save
       flash[:success] = "部署を作成しました。"
       redirect_to employees_settings_departments_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -29,10 +25,6 @@ class Employees::Settings::DepartmentsController < ApplicationController
     if @department.update(department_params)
       flash[:success] = "部署情報を更新しました。"
       redirect_to employees_settings_departments_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
