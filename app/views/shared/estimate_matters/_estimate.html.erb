@@ -33,6 +33,7 @@
   </thead>
   <tbody>
     <% @estimate_details.each do |category_id, details| %>
+      <% @category_total = 0 %>
       <tr>
         <td colspan=6 class="category-name">
           <span class="square"><i class="fa fa-square"></i></span>
@@ -41,31 +42,55 @@
       </tr>
       <% details.each do |detail| %>
         <tr>
-          <% if detail.material_id.present? %>
+          <% if detail.material_id.present? %>            
             <td class="detail-name"><%= detail.material_name %></td>
             <td class="detail-amount"><%= detail.amount %></td>
             <td class="detail-unit"><%= detail.unit %></td>
             <td class="detail-price"><%= detail.price %></td>
             <td class="detail-total"><%= detail.total %></td>
-            <td class="detail-specification"></td>
+            <td class="detail-specification"><%= detail.note %></td>
           <% elsif detail.construction_id.present? %>
             <td class="detail-name"><%= detail.construction_name %></td>
             <td class="detail-amount"><%= detail.amount %></td>
             <td class="detail-unit"><%= detail.unit %></td>
             <td class="detail-price"><%= detail.price %></td>
             <td class="detail-total"><%= detail.total %></td>
-            <td class="detail-specification"></td>
+            <td class="detail-specification"><%= detail.note %></td>
           <% end %>
+          <% @category_total += detail.total if detail.total %>
         </tr>
       <% end %>
       <tr class="category-footer">
         <td class="category-footer-1">小計</td>
-        <td class="category-footer-2">></td>
-        <td class="category-footer-3">></td>
-        <td class="category-footer-4">></td>
-        <td class="category-footer-5">></td>
-        <td class="category-footer-6">></td>
+        <td class="category-footer-2"></td>
+        <td class="category-footer-3"></td>
+        <td class="category-footer-4"></td>
+        <td class="category-footer-5"><%= @category_total %></td>
+        <td class="category-footer-6"></td>
       </tr>
     <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td colspan=3 class="footer-item-1">合計</td>
+      <td colspan=2 class="footer-item-2"><%= @estimate.total_price %></td>
+      <td rowspan=5 class="footer-item-3">備考：</td>
+    </tr>
+    <tr>
+      <td colspan=3 class="footer-item-1">端数値引</td>
+      <td colspan=2 class="footer-item-2"></td>
+    </tr>
+    <tr>
+      <td colspan=3 class="footer-item-1 estimate-total">御見積見学　(消費税抜)</td>
+      <td colspan=2 class="footer-item-2 estimate-total"></td>
+    </tr>
+    <tr>
+      <td colspan=3 class="footer-item-1">消費税(10%%)</td>
+      <td colspan=2 class="footer-item-2"><%= (@estimate.total_price * 0.1).to_i %></td>
+    </tr>
+    <tr>
+      <td colspan=3 class="footer-item-1">御見積見学　(消費税込)</td>
+      <td colspan=2 class="footer-item-2"></td>
+    </tr>
+  </tfoot>
 </table>

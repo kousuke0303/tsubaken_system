@@ -20,5 +20,4 @@ class Estimate < ApplicationRecord
       "categories.sort_number AS category_number"
     ).order(:category_number)
   }
-  
 end

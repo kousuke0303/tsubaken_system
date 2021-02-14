@@ -119,27 +119,42 @@
   text-align: center;
 }
 
-#pdf-estimate-table .category-footer-2 {
+#pdf-estimate-table .category-footer-2, .category-footer-4 {
   border-left: 1px solid black;
   border-right: 1px solid lightgray;
 }
 
-#pdf-estimate-table .category-footer-3 {
+#pdf-estimate-table .category-footer-3, .category-footer-5 {
   border-left: 1px solid lightgray;;
   border-right: 1px solid black;
-}
-
-#pdf-estimate-table .category-footer-4 {
-  border-left: 1px solid black;
-  border-right: 1px solid lightgray;
-}
-
-#pdf-estimate-table .category-footer-5 {
-  border-left: 1px solid lightgray;;
-  border-right: 1px solid black;
+  text-align: right;
 }
 
 #pdf-estimate-table .category-footer-6 {
   border-left: 1px solid black;
   border-right: 1px solid black;
+}
+
+#pdf-estimate-table .footer-item-1 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+#pdf-estimate-table .footer-item-2 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: right;
+}
+
+#pdf-estimate-table .footer-item-3 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#pdf-estimate-table .estimate-total {
+  font-weight: bold;
 }
