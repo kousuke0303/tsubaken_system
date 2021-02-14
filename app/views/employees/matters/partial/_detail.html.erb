@@ -1,7 +1,7 @@
-<div class="table-responsive">
+<div class="table-responsive pc_type">
   <table class="table table-bordered text-nowrap common-table">
     <tr>
-      <th>タイトル</th>
+      <th style="width: 5em">タイトル</th>
       <td><%= @matter.title %></td>
     </tr>
 
@@ -17,7 +17,7 @@
     <% else %>
       <tr>
         <th>担当Staff</th>
-        <td></td>
+        <td>登録なし</td>
       </tr>
     <% end %>
 
@@ -68,7 +68,67 @@
   </table>
 </div>
 
+<div class="mobile_type">
+  <div>
+    <button type="button" id="tableLongCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar text-nowrap">
+      <ul class="components">
+        <li>タイトル</li>
+        <li>STAFF</li>
+        <li>外部STAFF</li>
+        <li>状況</li>
+        <li>着工予定日</li>
+        <li>完了予定日</li>
+        <li>外注先</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap">
+      <div class="content"><%= @matter.title %></div>
+      <div class="content">
+        <% if @staffs.exists? %>
+          <% @staffs.each_with_index do |staff, index| %>
+            <span class="mr-05e"><%= staff.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content">
+        <% if @external_staffs.exists? %>
+          <% @external_staffs.each_with_index do |external_staff, index| %>
+            <span class="mr-05e"><%= external_staff.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content"><%= @matter.status_i18n %></div>
+      <div class="content"><%= @matter.scheduled_started_on %></div>
+      <div class="content"><%= @matter.scheduled_finished_on %></div>
+      <div class="content">
+        <% if @suppliers.exists? %>
+          <% @suppliers.each_with_index do |supplier, index| %>
+            <span class="mr-05e"><%= supplier.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="btn-area">
   <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>
+
+<%= render 'shared/javascript/table_collapse' %>
