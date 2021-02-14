@@ -89,7 +89,8 @@ ja:
           construction_name: 工事名称
           service_life: 耐用年数
           price: 単価
-          amont: 数量
+          amount: 数量
+          note: 摘要(仕様)
         matter:
           title: 案件名
           status: 進行状況

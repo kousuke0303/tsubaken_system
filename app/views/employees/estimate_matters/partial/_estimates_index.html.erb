@@ -9,7 +9,7 @@
 
 <% estimates.each do |estimate| %>
 
-  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{|detail| detail[:category_id]} %>
+  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
     <div class= home_icon>
@@ -44,6 +44,7 @@
         <th colspan="2">単価</th>
         <th>数量</th>
         <th>計(円)</th>
+        <th>摘要(仕様)</th>
       </tr>
       <% @estimate_detail_hash.each do |category_id, details| %>
         <tr>
@@ -63,6 +64,7 @@
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
             <td class="money_type"><%= details[0].total %></td>
+            <td><%= details[0].note %></td>
           <% elsif details[0].construction_id.present? %>
             <td>
               <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
@@ -74,7 +76,9 @@
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
             <td class="money_type"><%= details[0].total %></td>
+            <td><%= details[0].note %></td>
           <% else %>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -96,6 +100,7 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
+              <td><%= details[0].note %></td>
             <% elsif detail.construction_id.present? %>
               <td>
                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
@@ -107,7 +112,9 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
+              <td><%= details[0].note %></td>
             <% else %>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -121,8 +128,9 @@
       <tr>
         <tfoot>
           <th colspan="5">合計</th>
-          <th colspan="2", class="money_type text-right"><%= estimate.total_price %>円</th>
-        </tfooter>
+          <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
+          <th></th>
+        </tfoot>
       </tr>
     </table>
   </div>

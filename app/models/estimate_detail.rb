@@ -5,6 +5,8 @@ class EstimateDetail < ApplicationRecord
   belongs_to :construction, optional: true
 
   before_save :calc_total
+
+  validates :note, length: { maximum: 30 }
   
   # 単価と数量から合計金額を保存
   def calc_total

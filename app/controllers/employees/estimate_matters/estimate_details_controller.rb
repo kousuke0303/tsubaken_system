@@ -98,7 +98,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     
     def object_params
-      params.require(:estimate_detail).permit(:name, :service_life, :price, :amount)
+      params.require(:estimate_detail).permit(:name, :service_life, :price, :amount, :note)
     end
     
     # パラメーター整形
