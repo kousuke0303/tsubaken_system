@@ -52,7 +52,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     @estimates = @estimate_matter.estimates
     @certificates = @estimate_matter.certificates.order(position: :asc)
-    @images = @estimate_matter.images.select { |image| image.images.attached? }
+    @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @adopted_estimate_id = @matter.estimate_id if @matter # 案件化されていれば、採用見積を定義
   end

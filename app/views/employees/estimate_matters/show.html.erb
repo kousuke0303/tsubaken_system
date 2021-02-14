@@ -106,9 +106,13 @@
         <div class="content"><%= staff_member_name(@estimate_matter) %></div>
         <div id="select_band" class="band_area content">
           <div class="band_box">
-            <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
-            <div class="band_name"><%= current_estimate_matter.band_connection.band_name %></div>
-            <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+            <% if current_estimate_matter.band_connection.nil? %>
+              <%= link_to "BAND連結", employees_band_connections_path(estimate_matter_id: @estimate_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
+            <% else %>
+              <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
+              <div class="band_name"><%= current_estimate_matter.band_connection.band_name %></div>
+              <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+            <% end %>
           </div>
         </div>
         <div class="content"><%= @publisher.name %></div>
@@ -194,7 +198,7 @@
               <div class="col-sm-2 col-12">
                 <%= link_to new_employees_estimate_matter_certificate_path(@estimate_matter, image_id: image.id), remote: true do %>
                   <div class="row image-item employees-image-item">
-                    <%= image_tag url_for(image.images[0].variant(resize: "150x150"))%>
+                    <%= image_tag url_for(image.image.variant(resize: "150x150"))%>
                   </div>
                 <% end %>
               </div>
