@@ -1,0 +1,21 @@
+<script>
+  $(document).ready(function () {
+    $("#tableCollapse").addClass('active');
+    $(".responsive_table_sidebar").addClass('active');
+    $("#tableCollapse").on("click", function () {
+      $(".responsive_table_sidebar").toggleClass("active");
+      $(this).toggleClass("active");
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#tableLongCollapse").addClass('active');
+    $(".responsive_table_long_sidebar").addClass('active');
+    $("#tableLongCollapse").on("click", function () {
+      $(".responsive_table_long_sidebar").toggleClass("active");
+      $(this).toggleClass("active");
+    });
+  });
+</script>
