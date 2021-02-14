@@ -5,7 +5,6 @@
     </div>
     <div class="col-md-6 col-12 text-right">
       <%= link_to "画像一覧", employees_matter_images_path(current_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
-      <%= link_to "チャットルーム", employees_matter_talkrooms_path(@matter), class: "btn btn-primary" %>
     </div>
   </div>
 
@@ -16,24 +15,28 @@
     <div class="col-lg-6 col-12 clients-matter-index">
       <%= render "employees/clients/partial/detail" %>
     </div>
-    <div class="col-12 mt-1e">
-      <div class="accordion" id="accordion-tasks">
+  </div>
+    
+  <div class="col-12 mt-1e">
+    <div class="accordion" id="accordion-tasks">
       <div class="card">
         <div class="card-header bg-dark" id="headingOne">
-        <h5 class="text-light">
-          タスク管理
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
-            詳細
-          </button>
-        </h5>
+          <h5 class="text-light">
+            タスク管理
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
+              詳細
+            </button>
+          </h5>
         </div>
+        
         <div id="collapse-tasks" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-tasks">
           <div class="card-body">
-            <div class="tasks-index">
+            <div class="tasks-index overflow-auto">
               <%= render "employees/matters/partial/tasks" %>
             </div>
           </div>
         </div>
+      
       </div>      
     </div>
   </div>
