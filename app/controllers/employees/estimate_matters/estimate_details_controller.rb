@@ -45,7 +45,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
 
   def destroy
     if params[:type] == "delete_category"
-      delete_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id)
+      estimate = @estimate_detail.estimate
+      delete_details = estimate.estimate_details.where(category_id: @estimate_detail.category_id)
       delete_details.each do |details|
         details.destroy
       end

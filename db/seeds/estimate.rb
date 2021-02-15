@@ -25,8 +25,8 @@ estimate_1.each do |estimate|
   
   second_categpory = Category.find(8)
   construction = second_categpory.constructions.find(rand(1..8))
-  seed_detail_construction = estimate.estimate_details.create!(category_id: category.id,
-                                    category_name: category.name,
+  seed_detail_construction = estimate.estimate_details.create!(category_id: second_categpory.id,
+                                    category_name: second_categpory.name,
                                     construction_id: construction.id,
                                     construction_name: construction.name,
                                     price: construction.price,
