@@ -6,7 +6,7 @@ class Employees::Settings::IndustriesController < ApplicationController
   end
 
   def index
-    @industries = Industry.all
+    @industries = Industry.order(position: :asc)
   end
 
   def create
@@ -30,6 +30,13 @@ class Employees::Settings::IndustriesController < ApplicationController
   def destroy
     @industry.destroy ? flash[:success] = "業種を削除しました。" : flash[:alert] = "業種を削除できませんでした。"
     redirect_to employees_settings_industries_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    industry = Industry.find_by(position: from)
+    industry.insert_at(params[:to].to_i + 1)
+    @industries = Industry.order(position: :asc)
   end
 
   private

@@ -53,7 +53,7 @@ class Employees::SuppliersController < ApplicationController
     end
 
     def set_industries
-      @industries = Industry.all
+      @industries = Industry.order(position: :asc)
     end
 
     def supplier_params
