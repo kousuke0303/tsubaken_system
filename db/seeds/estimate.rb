@@ -10,25 +10,29 @@ puts "CREATE! ESTIMATE"
 
 estimate_1 = Estimate.all
 estimate_1.each do |estimate|
-  category = Category.find(rand(1..2))
-  material = Material.find(rand(1..9))
-  construction = Construction.find(rand(1..8))
+  category = Category.find(1)
+  material = category.materials.find(rand(1..9))
   seed_detail_material = estimate.estimate_details.create!(category_id: category.id,
                                     category_name: category.name,
                                     material_id: material.id,
                                     material_name: material.name,
                                     price: material.price,
                                     unit: material.unit,
-                                    amount: rand(10..100)
+                                    amount: rand(10..100),
+                                    sort_number: 10
                                     )
   seed_detail_material.update(total: seed_detail_material.price * seed_detail_material.amount)
-  seed_detail_construction = estimate.estimate_details.create!(category_id: category.id,
-                                    category_name: category.name,
+  
+  second_categpory = Category.find(8)
+  construction = second_categpory.constructions.find(rand(1..8))
+  seed_detail_construction = estimate.estimate_details.create!(category_id: second_categpory.id,
+                                    category_name: second_categpory.name,
                                     construction_id: construction.id,
                                     construction_name: construction.name,
                                     price: construction.price,
                                     unit: construction.unit,
-                                    amount: rand(1..10)
+                                    amount: rand(1..10),
+                                    sort_number: 1                                    
                                     )
   seed_detail_construction.update(total: seed_detail_construction.price * seed_detail_construction.amount)
   

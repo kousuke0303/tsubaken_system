@@ -7,9 +7,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     certificate = @estimate_matter.certificates.find_by(position: from)
     certificate.insert_at(params[:to].to_i + 1)
     @certificates = @estimate_matter.certificates.order(position: :asc)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def new

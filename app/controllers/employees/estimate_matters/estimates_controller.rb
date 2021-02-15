@@ -110,6 +110,9 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   def destroy
     @estimate.destroy
     @estimates = @estimate_matter.estimates
+    respond_to do |format|
+      format.js
+    end
   end
 
   # 見積複製アクション
@@ -135,7 +138,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     end
 
     def estimate_params
-      params.require(:estimate).permit(:title, :plan_name_id)
+      params.require(:estimate).permit(:title, :plan_name_id, :discount)
     end
     
     # パラメーター整形
