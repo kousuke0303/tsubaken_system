@@ -1,12 +1,16 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
+  
   has_one :estimate
+  has_one :band_connection, dependent: :destroy
+  
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
   has_many :matter_external_staffs, dependent: :destroy
   has_many :external_staffs, through: :matter_external_staffs
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images
   has_many :messages, dependent: :destroy
   has_many :supplier_matters, dependent: :destroy
   has_many :suppliers, through: :supplier_matters

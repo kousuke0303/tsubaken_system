@@ -1,1 +1,5 @@
-$('#band_album').html('<%= escape_javascript(render 'employees/estimate_matters/images/partial/band_album') %>')
+<% if current_estimate_matter %>
+  $('#band_album').html('<%= escape_javascript(render 'employees/estimate_matters/images/partial/band_album') %>');
+<% elsif current_matter %>
+  $('#band_album').html('<%= escape_javascript(render 'employees/matters/images/partial/band_album') %>');
+<% end %>

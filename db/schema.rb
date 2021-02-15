@@ -69,12 +69,14 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "band_connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id"
+    t.string "matter_id"
     t.string "band_key", null: false
     t.string "band_name", null: false
     t.string "band_icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_band_connections_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_band_connections_on_matter_id"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

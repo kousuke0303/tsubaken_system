@@ -118,6 +118,12 @@
   <% elsif controller_name == "suppliers" && action_name == "show" %>
     <div id="supplier-edit" class="modal fade" role="dialog"></div>
   <% end %>
+  
+  <!--着工案件関連-->
+  <% if controller_name == "matters" && action_name == "show" %> 
+    <!--BAND連結-->
+    <div id="bands-index" class="modal fade" role="dialog"></div>
+  <% end %>
 
   <!--見積案件new・edit-->
   <% if controller_name == "estimate_matters" || controller_name == "clients" %>

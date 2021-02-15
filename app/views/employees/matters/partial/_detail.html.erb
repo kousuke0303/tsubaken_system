@@ -33,7 +33,7 @@
     <% else %>
       <tr>
         <th>担当外部Staff</th>
-        <td></td>
+        <td>登録なし</td>
       </tr>
     <% end %>
 
@@ -62,9 +62,16 @@
     <% else %>
       <tr>
         <th>外注先</th>
-        <td></td>
+        <td>登録なし</td>
       </tr>
     <% end %>
+    
+    <tr>
+      <th>BAND選択</th>
+      <td colspan="2" id="select_band">
+        <%= render 'employees/matters/partial/select_band_display' %>
+      </td>
+    </tr>
   </table>
 </div>
 
