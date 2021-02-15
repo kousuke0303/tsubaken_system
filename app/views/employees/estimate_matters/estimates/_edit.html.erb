@@ -55,6 +55,10 @@
               </table>
             <% end %>
             <%= f.hidden_field :category_ids, id: "category_ids" %>
+
+            <%= f.label :discount %>
+            <%= f.number_field :discount, min: 0, max: 9999999, class: "form-control" %>
+
             
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="submit">更新</button>

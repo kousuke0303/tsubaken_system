@@ -83,6 +83,7 @@ ja:
           publisher_id: 発行元
         estimate:
           title: 見積名
+          discount: 端数値引
         estimate_detail:
           category_name: カテゴリ名
           material_name: 素材名称
