@@ -110,6 +110,9 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   def destroy
     @estimate.destroy
     @estimates = @estimate_matter.estimates
+    respond_to do |format|
+      format.js
+    end
   end
 
   # 見積複製アクション

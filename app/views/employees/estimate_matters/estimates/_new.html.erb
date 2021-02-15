@@ -70,6 +70,7 @@
     var add_html = $('#estimate_form_category tr:last').clone(true);
     $('#estimate_form_category').append(add_html);// 末尾追加
     var number = $('.number').last().text();
+    console.log(number);
     var add_number = Number(number) + 1
     $('.number').last().text(add_number);
     var attr_name = "estimate[category_id_" + add_number + "]"
