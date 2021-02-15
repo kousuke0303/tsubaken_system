@@ -53,25 +53,17 @@
               <%= details[0].category_name %>
             <% end %>
           </td>
-          <% if details[0].material_id.present? %>
+          <% if details[0].material_id.present? || details[0].construction_id.present? %>
             <td>
               <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].material_name %>
+                <% if details[0].material_id.present? %>
+                  <%= details[0].material_name %>
+                <% else %>
+                  <%= details[0].construction_name %>
+                <% end %>                  
               <% end %>
             </td>
-            <td><%= details[0].service_life %></td>
-            <td class="money-type"><%= details[0].price %></td>
-            <td><%= details[0].unit %></td>
-            <td><%= details[0].amount %></td>
-            <td class="money-type"><%= details[0].total %></td>
-            <td><%= details[0].note %></td>
-          <% elsif details[0].construction_id.present? %>
-            <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].construction_name %>
-              <% end %>
-            </td>
-            <td></td>
+            <td><%= details[0].service_life if details[0].material_id.present? %></td>
             <td class="money-type"><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
@@ -89,25 +81,17 @@
         </tr>
         <% details.from(1).each do |detail| %>
           <tr>
-            <% if detail.material_id.present? %>
-              <td>
-                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                    <%= detail.material_name %>
-                  <% end %> 
-              </td>
-              <td><%= detail.service_life %></td>
-              <td class="money-type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money-type"><%= detail.total %></td>
-              <td><%= details[0].note %></td>
-            <% elsif detail.construction_id.present? %>
+            <% if detail.material_id.present? || detail.construction_id.present? %>
               <td>
                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                  <%= detail.construction_name %>
-                <% end %>
+                  <% if detail.material_id.present? %>
+                    <%= detail.material_name %>
+                  <% else %>
+                    <%= detail.construction_name %>
+                  <% end %> 
+                <% end %> 
               </td>
-              <td></td>
+              <td><%= detail.service_life if detail.material_id.present? %></td>
               <td class="money-type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
