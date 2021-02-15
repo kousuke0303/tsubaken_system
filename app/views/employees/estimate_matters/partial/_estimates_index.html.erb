@@ -60,10 +60,10 @@
               <% end %>
             </td>
             <td><%= details[0].service_life %></td>
-            <td class="money_type"><%= details[0].price %></td>
+            <td class="money-type"><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
+            <td class="money-type"><%= details[0].total %></td>
             <td><%= details[0].note %></td>
           <% elsif details[0].construction_id.present? %>
             <td>
@@ -72,10 +72,10 @@
               <% end %>
             </td>
             <td></td>
-            <td class="money_type"><%= details[0].price %></td>
+            <td class="money-type"><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
+            <td class="money-type"><%= details[0].total %></td>
             <td><%= details[0].note %></td>
           <% else %>
             <td></td>
@@ -96,10 +96,10 @@
                   <% end %> 
               </td>
               <td><%= detail.service_life %></td>
-              <td class="money_type"><%= detail.price %></td>
+              <td class="money-type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td class="money_type"><%= detail.total %></td>
+              <td class="money-type"><%= detail.total %></td>
               <td><%= details[0].note %></td>
             <% elsif detail.construction_id.present? %>
               <td>
@@ -108,10 +108,10 @@
                 <% end %>
               </td>
               <td></td>
-              <td class="money_type"><%= detail.price %></td>
+              <td class="money-type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td class="money_type"><%= detail.total %></td>
+              <td class="money-type"><%= detail.total %></td>
               <td><%= details[0].note %></td>
             <% else %>
               <td></td>
@@ -128,7 +128,7 @@
       <tr>
         <tfoot>
           <th colspan="5">合計</th>
-          <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
+          <th colspan="2" class="money-type text-right"><%= estimate.total_price %>円</th>
           <th></th>
         </tfoot>
       </tr>
@@ -136,4 +136,4 @@
   </div>
 <% end %>
 
-<%= render 'shared/javascript/money_type' %>
+<%= javascript_include_tag "money_type.js" %>
