@@ -29,7 +29,7 @@
             <td><%= date[:est_number] %><% @total_est_number += date[:est_number] %></td>
             <td><%= date[:contract] %><% @total_contract += date[:contract] %></td>
             <td><%= contract_rate(date[:contract], date[:est_number]) %>%</td>
-            <td class="money_type"><%= date[:price] %><% @total_price += date[:price] %></td>
+            <td class="money-type"><%= date[:price] %><% @total_price += date[:price] %></td>
           </tr>
         <% end %>
         <tr class="total">
@@ -37,11 +37,11 @@
           <td><%= @total_est_number %></td>
           <td><%= @total_contract %></td>
           <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
-          <td class="money_type"><%= @total_price %></td>
+          <td class="money-type"><%= @total_price %></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
 
-<%= render 'shared/javascript/money_type' %>
+<%= javascript_include_tag "money_type.js" %>

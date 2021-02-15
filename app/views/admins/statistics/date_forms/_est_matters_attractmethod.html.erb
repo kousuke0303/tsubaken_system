@@ -27,7 +27,7 @@
             <td><%= value[0] %><% @total_est_number += value[0] %></td>
             <td><%= value[1] %><% @total_contract += value[1] %></td>
             <td><%= contract_rate(value[1], value[0]) %>%</td>
-            <td class="money_type"><%= value[2] %><% @total_price = @total_price += value[2] %></td>
+            <td class="money-type"><%= value[2] %><% @total_price = @total_price += value[2] %></td>
           </tr>
         <% end %>
         <tr class="total">
@@ -35,11 +35,11 @@
           <td><%= @total_est_number %></td>
           <td><%= @total_contract %></td>
           <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
-          <td class="money_type"><%= @total_price %></td>
+          <td class="money-type"><%= @total_price %></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
 
-<%= render 'shared/javascript/money_type' %>
+<%= javascript_include_tag "money_type.js" %>

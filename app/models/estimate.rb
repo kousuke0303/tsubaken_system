@@ -7,7 +7,8 @@ class Estimate < ApplicationRecord
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
 
   validates :title, presence: true, length: { maximum: 30 }
-  validates :total_price, allow_blank: true, numericality: { only_integer: true }
+  validates :total_price, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 10000000 }
+  validates :discount, presence: true, numericality: { only_integer: true }
 
   scope :with_categories, -> { 
     left_joins(:categories, :plan_name).select(

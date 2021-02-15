@@ -7,7 +7,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
   
-  
   def index
     @sales_statuses = SalesStatus.order(created_at: "DESC")
     current_person_in_charge

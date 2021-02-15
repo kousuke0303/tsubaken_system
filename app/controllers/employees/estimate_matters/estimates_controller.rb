@@ -138,7 +138,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     end
 
     def estimate_params
-      params.require(:estimate).permit(:title, :plan_name_id)
+      params.require(:estimate).permit(:title, :plan_name_id, :discount)
     end
     
     # パラメーター整形

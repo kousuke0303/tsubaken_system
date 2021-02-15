@@ -38,9 +38,6 @@ class Employees::Settings::PlanNamesController < ApplicationController
     plan_name = PlanName.find_by(position: from)
     plan_name.insert_at(params[:to].to_i + 1)
     @plan_names = PlanName.order(position: :asc)
-    respond_to do |format|
-      format.js
-    end
   end
 
   private
