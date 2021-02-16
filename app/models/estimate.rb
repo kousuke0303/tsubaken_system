@@ -21,4 +21,9 @@ class Estimate < ApplicationRecord
       "categories.sort_number AS category_number"
     ).order(:category_number)
   }
+
+  # 端数値引があれば、引いた合計金額を返す
+  def after_discount
+    discount > 0 ? total_price - discount : total_price
+  end
 end

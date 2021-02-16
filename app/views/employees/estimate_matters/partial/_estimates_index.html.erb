@@ -7,7 +7,7 @@
   <% end %>  
 </div>
 
-<% estimates.each do |estimate| %>
+<% @estimates.each do |estimate| %>
 
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
@@ -22,7 +22,7 @@
           <% if current_client %>
             <%= estimate.title %>
           <% else %>
-            <%= link_to edit_employees_estimate_matter_estimate_path(estimate_matter, estimate.id), remote: true do %>
+            <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
               <%= estimate.title %>
             <% end %>
           <% end %>
@@ -49,13 +49,13 @@
       <% @estimate_detail_hash.each do |category_id, details| %>
         <tr>
           <td rowspan="<%= category_row_span(estimate, category_id) %>">
-            <%= link_to edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true do %>
+            <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
               <%= details[0].category_name %>
             <% end %>
           </td>
           <% if details[0].material_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].material_name %>
               <% end %>
             </td>
@@ -67,7 +67,7 @@
             <td><%= details[0].note %></td>
           <% elsif details[0].construction_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].construction_name %>
               <% end %>
             </td>
@@ -125,12 +125,20 @@
           </tr>
         <% end %>
       <% end %>
-      <tr>
-        <tfoot>
-          <th colspan="5">合計</th>
-          <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
-          <th></th>
-        </tfoot>
+      <tr>        
+        <th colspan="5">合計</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
+        <th></th>        
+      </tr>
+      <tr>        
+        <th colspan="5">端数値引</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.discount %>円</th>
+        <th></th>        
+      </tr>
+      <tr>        
+        <th colspan="5">値引後合計</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.after_discount %>円</th>
+        <th></th>        
       </tr>
     </table>
   </div>

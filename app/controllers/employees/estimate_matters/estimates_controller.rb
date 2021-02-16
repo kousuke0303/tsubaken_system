@@ -22,9 +22,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimate = @estimate_matter.estimates.new
     @categories = Category.all
     @plan_names = PlanName.order(position: :asc)
-    respond_to do |format|
-      format.js
-    end
   end
 
   # デフォルトのプラン名に合わせて、ラベルカラーをajaxで変更
@@ -32,10 +29,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     id = params[:id].to_i
     plan_name = PlanName.find(id)
     @sample_color = plan_name.label_color.color_code
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def create
@@ -51,11 +44,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       end
       @response = "success"
       @estimates = @estimate_matter.estimates
-    else
-      @response = "false"
-    end
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -71,9 +59,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     # カテゴリがない場合
     else
       @type = "no_category"
-    end
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -99,20 +84,12 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       end
       @response = "success"
       @estimates = @estimate_matter.estimates
-    else
-      @response = "false"
-    end
-    respond_to do |format|
-      format.js
     end
   end
 
   def destroy
     @estimate.destroy
     @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
   end
 
   # 見積複製アクション
@@ -127,9 +104,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.save
     end
     @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
   end
 
   private
