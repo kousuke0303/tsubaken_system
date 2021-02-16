@@ -100,7 +100,7 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
-              <td><%= details[0].note %></td>
+              <td><%= detail.note %></td>
             <% elsif detail.construction_id.present? %>
               <td>
                 <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
@@ -112,7 +112,7 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
-              <td><%= details[0].note %></td>
+              <td><%= detail.note %></td>
             <% else %>
               <td></td>
               <td></td>
