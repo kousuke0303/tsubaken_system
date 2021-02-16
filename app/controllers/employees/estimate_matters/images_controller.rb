@@ -46,10 +46,10 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
   end
   
   def save_for_band_image
-    # ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction do
       params[:estimate_matter][:images].each.with_index(1) do |params_image, index|
         # 画像を取り込んでフォルダに格納
-        temporary_storage_for_image(params_image["image"], index)
+        temporary_storage_for_image(params_image["image"], index, current_estimate_matter)
         # 新規テーブル作成・保存
         image_model = current_estimate_matter.images.new(author: params[:estimate_matter][:author],
                                                          content: params[:estimate_matter][:content],
@@ -64,9 +64,9 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
       end
       @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(current_estimate_matter.band_connection.band_key)
-    # end
-  # rescue
-    # @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+    end
+  rescue
+    @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
   end
   
   private
@@ -80,14 +80,6 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
     
     def set_image
       @image = Image.find(params[:id])
-    end
-    
-    def temporary_storage_for_image(params_url, index)
-      url = open(params_url)
-      @file_name = params_url
-      @file_path = Rails.root.join('public', 'temporary_storage', "#{current_estimate_matter.id}_#{index}.jpg")
-      file = open(@file_path, "wb")
-      file.write(url.read)
     end
     
 end

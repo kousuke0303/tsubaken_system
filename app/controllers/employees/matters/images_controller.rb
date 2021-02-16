@@ -47,7 +47,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     ActiveRecord::Base.transaction do
       params[:matter][:images].each.with_index(1) do |params_image, index|
         # 画像を取り込んでフォルダに格納
-        temporary_storage_for_image(params_image["image"], index)
+        temporary_storage_for_image(params_image["image"], index, current_matter)
         # 新規テーブル作成・保存
         image_model = current_matter.images.new(author: params[:matter][:author],
                                                         content: params[:matter][:content],
@@ -60,7 +60,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
         # ファイル��除
         File.delete(@file_path)
       end
-      @images = currentmatter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
+      @images = current_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(current_matter.band_connection.band_key)
     end
   rescue
