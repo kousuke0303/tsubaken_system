@@ -270,7 +270,9 @@ Rails.application.routes.draw do
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
         patch :sort, on: :collection
       end
-      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]

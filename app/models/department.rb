@@ -1,10 +1,11 @@
 class Department < ApplicationRecord
+  has_many :managers
+  has_many :staffs
+  acts_as_list
+
   before_destroy :prevent_delete_first
   validates :name, presence: true, length: { maximum: 30 }
   validate :restrict_edit_first
-  
-  has_many :managers
-  has_many :staffs
 
   # 無所属部署は編集不可
   def restrict_edit_first
