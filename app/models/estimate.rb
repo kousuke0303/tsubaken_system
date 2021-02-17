@@ -29,7 +29,7 @@ class Estimate < ApplicationRecord
 
   # 端数値引後の消費税を返す
   def consumption_tax
-    ((total_price - discount) * 0.1).to_i
+    (after_discount * 0.1).to_i
   end
 
   # 端数値引後の合計金額(消費税込)
