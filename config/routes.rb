@@ -218,7 +218,7 @@ Rails.application.routes.draw do
       end
     end
     resources :schedules
-    resources :band_connections, only: :index do
+    resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
     end
@@ -256,7 +256,9 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-      resources :images, controller: "matters/images"
+      resources :images, controller: "matters/images" do
+        post :save_for_band_image, on: :collection
+      end
       resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
