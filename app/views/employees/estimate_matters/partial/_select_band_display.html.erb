@@ -5,6 +5,7 @@
       <div class="label-container ml-05e">
         <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
         <div class="band_name"><%= current_estimate_matter.band_connection.band_name %></div>
+        <%= link_to "選択解除", employees_band_connection_path(current_estimate_matter.band_connection, estimate_matter_id: current_estimate_matter.id), remote: true, method: :delete, class: "btn btn-dark band_delete_btn" %>
         <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
       </div>
     </div>

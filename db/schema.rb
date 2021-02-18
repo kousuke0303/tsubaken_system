@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "admin", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "email"
     t.string "phone"
     t.string "login_id", default: "", null: false
@@ -69,12 +69,14 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "band_connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id"
+    t.string "matter_id"
     t.string "band_key", null: false
     t.string "band_name", null: false
     t.string "band_icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_band_connections_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_band_connections_on_matter_id"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -100,7 +102,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "client", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "kana"
     t.integer "gender"
     t.string "phone_1"
@@ -135,7 +137,8 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name", null: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -214,7 +217,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "external_staff", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "kana"
     t.string "phone"
     t.string "email"
@@ -273,7 +276,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
@@ -451,7 +454,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "staff", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
@@ -483,8 +486,8 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
   end
 
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "kana"
+    t.string "name", null: false
+    t.string "kana", null: false
     t.string "postal_code"
     t.string "prefecture_code"
     t.string "address_city"

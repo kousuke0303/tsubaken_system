@@ -107,4 +107,13 @@ class Employees::EmployeesController < ApplicationController
       return @photo_arrey
     end
     
+    # 画像を取り込み一旦ローカルファルダに保存
+    def temporary_storage_for_image(params_url, index, object)
+      url = open(params_url)
+      @file_name = params_url
+      @file_path = Rails.root.join('public', 'temporary_storage', "#{object.id}_#{index}.jpg")
+      file = open(@file_path, "wb")
+      file.write(url.read)
+    end
+    
 end

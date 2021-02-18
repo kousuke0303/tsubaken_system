@@ -1,5 +1,4 @@
 <div class="boxes">
-  
   <% @bands_hash.each_with_index do |band, index| %>
     <input type="checkbox" id="box-<%= index %>" class="checkbox", name="band_connection[band_key]" value="<%= band["band_key"] %>">
     <label for="box-<%= index %>">
@@ -11,6 +10,7 @@
   <% end %>
 </div>
 
+<% if @type == "new_for_estimate_matter" || @type == "edit_for_estimate_matter" %>
 <script>
   $(".checkbox").on("click", function(){
     $('.checkbox').prop('checked', false);
@@ -32,3 +32,29 @@
     });
   });
 </script>
+<% end %>
+
+<% if @type == "new_for_matter" || @type == "edit_for_matter" %>
+<script>
+  $(".checkbox").on("click", function(){
+    $('.checkbox').prop('checked', false);
+    $(this).prop('checked', true);
+    var band_key = $(this).val();
+    var index = $(this).attr('id');
+    var band_name = $(`#name_${index}`).text();
+    var band_cover = $(`#cover_${index}`).attr('src');
+    $.ajax({
+      type: "GET",
+      url: "<%= connect_employees_band_connections_path %>",
+      cache: false,
+      data: { band_key: band_key,
+              band_name: band_name,
+              band_cover: band_cover,
+              type: "<%= @type %>",
+              matter_id: "<%= current_matter.id %>",
+              remote: true }
+    });
+  });
+</script>
+<% end %>
+

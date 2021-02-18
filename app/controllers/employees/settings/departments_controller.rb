@@ -40,6 +40,13 @@ class Employees::Settings::DepartmentsController < ApplicationController
     redirect_to employees_settings_departments_url
   end
 
+  def sort
+    from = params[:from].to_i + 1
+    department = Department.find_by(position: from)
+    department.insert_at(params[:to].to_i + 1)
+    @departments = Department.order(position: :asc)
+  end
+
   private
     def set_department
       @department = Department.find(params[:id])

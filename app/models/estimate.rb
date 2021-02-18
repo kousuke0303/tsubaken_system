@@ -24,6 +24,16 @@ class Estimate < ApplicationRecord
 
   # 端数値引があれば、引いた合計金額を返す
   def after_discount
-    discount > 0 ? total_price - discount : total_price
+    total_price - discount
+  end
+
+  # 端数値引後の消費税を返す
+  def consumption_tax
+    (after_discount * 0.1).to_i
+  end
+
+  # 端数値引後の合計金額(消費税込)
+  def total_with_tax
+    after_discount + consumption_tax
   end
 end
