@@ -13,14 +13,15 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
                template: "/employees/estimate_matters/estimates/show.html.erb",
-               show_as_html: params[:debug].present?
+               show_as_html: params[:debug].present?,
+               send_data pdf, filename: "estimate.pdf"
       end
     end
   end
 
   def new
     @estimate = @estimate_matter.estimates.new
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
   end
 
@@ -48,7 +49,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   end
 
   def edit
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
     @default_color = LabelColor.first.color_code
     # カテゴリ登録がすでにある場合

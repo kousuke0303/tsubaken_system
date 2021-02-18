@@ -29,7 +29,7 @@ class Employees::Settings::MaterialsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @materials = @materials.where(category_id: @category_id)
     end
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
   end
 
   def destroy

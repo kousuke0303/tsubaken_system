@@ -7,7 +7,7 @@ class Employees::Settings::ConstructionsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @constructions = @constructions.where(category_id: @category_id)
     end
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
   end
 
   def new
