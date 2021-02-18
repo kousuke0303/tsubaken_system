@@ -1,4 +1,4 @@
-class Employees::Settings::MaterialsController < ApplicationController
+class Employees::Settings::MaterialsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_material, only: [:edit, :update, :destroy]
 
@@ -29,7 +29,7 @@ class Employees::Settings::MaterialsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @materials = @materials.where(category_id: @category_id)
     end
-    @categories = Category.order(position: :asc)
+    set_categories
   end
 
   def destroy

@@ -1,4 +1,4 @@
-class Employees::Settings::LabelColorsController < ApplicationController
+class Employees::Settings::LabelColorsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_label_color, only: [:edit, :update, :destroy]
   before_action :set_label_colors, only: :index

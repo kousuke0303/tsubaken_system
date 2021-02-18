@@ -6,6 +6,10 @@ class Employees::EmployeesController < ApplicationController
     # -------------------------------------------------------
         # set
     # -------------------------------------------------------
+    def set_categories
+      @categories = Category.order(position: :asc)
+    end
+    
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end

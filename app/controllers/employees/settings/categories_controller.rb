@@ -1,5 +1,6 @@
-class Employees::Settings::CategoriesController < ApplicationController
+class Employees::Settings::CategoriesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
+  before_action :set_categories, only: :index
   before_action :set_category, only: [:edit, :update, :destroy]
 
   def new
@@ -25,7 +26,6 @@ class Employees::Settings::CategoriesController < ApplicationController
   end
 
   def index
-    @categories = Category.order(position: :asc)
   end
 
   def destroy

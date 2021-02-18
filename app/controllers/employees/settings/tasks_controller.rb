@@ -1,4 +1,4 @@
-class Employees::Settings::TasksController < ApplicationController
+class Employees::Settings::TasksController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_employees_settings_tasks, only: :index
   before_action :set_task, only: [:edit, :update, :destroy]

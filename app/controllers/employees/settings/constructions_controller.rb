@@ -1,4 +1,4 @@
-class Employees::Settings::ConstructionsController < ApplicationController
+class Employees::Settings::ConstructionsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_construction, only: [:edit, :update, :destroy]
 

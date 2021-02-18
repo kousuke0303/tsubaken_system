@@ -1,4 +1,4 @@
-class Employees::Settings::CertificatesController < ApplicationController
+class Employees::Settings::CertificatesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_certificate, only: [:edit, :update, :destroy]
 

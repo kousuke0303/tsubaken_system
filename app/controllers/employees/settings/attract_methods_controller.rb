@@ -1,4 +1,4 @@
-class Employees::Settings::AttractMethodsController < ApplicationController
+class Employees::Settings::AttractMethodsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_attract_method, only: [:edit, :update, :destroy]
 
