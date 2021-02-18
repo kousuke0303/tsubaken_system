@@ -235,6 +235,7 @@ Rails.application.routes.draw do
       resources :estimates, only: [:new, :create, :show, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member
+        patch :move, on: :member
       end
       resources :estimate_details, only: [:edit, :update, :destroy], controller: "estimate_matters/estimate_details" do
         get :detail_object_edit, on: :member

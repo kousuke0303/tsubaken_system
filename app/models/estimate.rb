@@ -3,6 +3,7 @@ class Estimate < ApplicationRecord
   belongs_to :plan_name, optional: true
   belongs_to :matter, optional: true
   has_many :estimate_details, dependent: :destroy
+  acts_as_list
 
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
 

@@ -107,6 +107,16 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     @estimates = @estimate_matter.estimates
   end
 
+  # 順番入替
+  def move
+    case params[:move]
+    when "up"
+      @estimate.move_higher
+    when "down"
+      @estimate.move_lower
+    end
+  end
+
   private
     def set_estimate
       @estimate = Estimate.find(params[:id])

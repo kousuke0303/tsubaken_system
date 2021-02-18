@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.integer "total_price", default: 0, null: false
     t.integer "discount", default: 0, null: false
     t.string "estimate_matter_id"
+    t.integer "position"
     t.bigint "plan_name_id"
     t.string "matter_id"
     t.datetime "created_at", null: false

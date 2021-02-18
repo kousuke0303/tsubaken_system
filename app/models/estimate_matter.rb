@@ -12,7 +12,7 @@ class EstimateMatter < ApplicationRecord
   has_many :estimate_matter_external_staffs, dependent: :destroy
   has_many :external_staffs, through: :estimate_matter_external_staffs
   has_many :tasks, dependent: :destroy  # タスクと1対多
-  has_many :estimates, dependent: :destroy  # 見積と1対多
+  has_many :estimates, -> { order(position: :asc) }, dependent: :destroy # 見積と1対多
   has_many :images, dependent: :destroy #画像と1対多
   accepts_nested_attributes_for :images
   has_many :sales_statuses, dependent: :destroy
