@@ -1,0 +1,11 @@
+<div class="pc_type">
+  <h2 class="title_layout"><i class="fas <%= icon %>"></i> <%= title_1 %> ／ <%= title_2 %></h2>
+</div>
+  
+<div class="mobile_type">
+  <% unless title_2 == "nil" %>
+    <h4 class="title_layout"><i class="fas <%= icon %>"></i> <%= title_2 %></h4>
+  <% else %>
+    <h4 class="title_layout"><i class="fas <%= icon %>"></i> <%= title_1 %></h4>
+  <% end %>
+</div>

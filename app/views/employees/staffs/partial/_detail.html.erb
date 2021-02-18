@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive pc_type">
   <table class="table table-bordered text-nowrap common-table">
     <tr>
       <th style="width: 10em;">名前</th>
@@ -51,7 +51,51 @@
   </table>
 </div>
 
+<div class="mobile_type">
+  <div>
+    <button type="button" id="tableLongCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+    
+  <div class="responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar">
+      <ul class="components">
+        <li>名前</li>
+        <li>部署</li>
+        <li>LOGIN-ID</li>
+        <li>TEL</li>
+        <li>MAIL</li>
+        <li>郵便番号</li>
+        <li>住所</li>
+        <li>入社日</li>
+        <li>退社日</li>
+        <li>生年月日</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap overflow-auto">
+      <div class="content"><%= @staff.name %></div>
+      <div class="content"><%= @staff.department.name %></div>
+      <div class="content"><%= @staff.login_id %></div>
+      <div class="content">
+        <a href="tel:<%= @staff.phone %>" class=""><%= mobile_phone_display(@staff.phone) %></a>
+      </div>
+      <div class="content"><%= @staff.email %></div>
+      <div class="content"><%= postal_code_display(@staff.postal_code) %></div>
+      <div class="content"><%= @staff.prefecture_code %><%= @staff.address_city %><%= @staff.address_street %></div>
+      <div class="content"><%= @staff.joined_on %></div>
+      <div class="content"><%= @staff.resigned_on %></div>
+      <div class="content"><%= @staff.birthed_on %></div>
+    </div>
+  </div>
+</div>
+
 <div class="btn-area">
   <%= link_to "編集", edit_employees_staff_path(@staff), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このStaffを削除してよろしいですか？" }, class: "btn btn-destroy" %>
 </div>
+
+<%= javascript_include_tag "tableCollapse.js" %> 

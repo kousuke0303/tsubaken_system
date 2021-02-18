@@ -15,23 +15,25 @@
       <% end %>
     </div>
   </div>
-
-  <table class="table table-bordered text-nowrap common-table">
-    <thead>
-      <tr>
-        <th>名前</th>
-        <th>ログインID</th>
-        <th>電話番号</th>
-        <th>入社日</th>
-      </tr>
-    </thead>
-    <tbody id="enrolled">
-      <%= render "/employees/staffs/partial/index_table", objects: @enrolled_staffs %>
-    </tbody>
-    <tbody id="retired" style="display: none;">
-      <%= render "/employees/staffs/partial/index_table", objects: @retired_staffs %>
-    </tbody>
-  </table>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>ログインID</th>
+          <th>電話番号</th>
+          <th>入社日</th>
+        </tr>
+      </thead>
+      <tbody id="enrolled">
+        <%= render "/employees/staffs/partial/index_table", objects: @enrolled_staffs %>
+      </tbody>
+      <tbody id="retired" style="display: none;">
+        <%= render "/employees/staffs/partial/index_table", objects: @retired_staffs %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>

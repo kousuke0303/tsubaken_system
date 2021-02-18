@@ -210,17 +210,6 @@
       </div>
     </div>
   </div>
-  
-  
-  
-  
 </div>
 
-<script>
-  $(document).ready(function () {
-    $("#tableCollapse").on("click", function () {
-        $(".responsive_table_sidebar").toggleClass("active");
-        $(this).toggleClass("active");
-    });
-  });
-</script>
+<%= javascript_include_tag "tableCollapse.js" %> 

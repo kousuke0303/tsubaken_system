@@ -1,24 +1,4 @@
 <div class="col-12">
-  <h2>Manager詳細</h2>
-
+  <%= render partial: 'layouts/page_title', locals: {title_1: "Manager", title_2: "#{current_manager.name} 詳細", icon: "fa-user-tie"} %>
   <%= render "/employees/managers/partial/detail" %>  
-
-  <div class="accordion mt-1e" id="accordion-matters">
-    <div class="card">
-      <div class="card-header bg-dark" id="headingOne">
-        <h5 class="text-light">
-          担当案件
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-matters" aria-expanded="true" aria-controls="collapse-matters">
-            詳細
-          </button>
-        </h5>
-      </div>
-
-      <div id="collapse-matters" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-matters">
-        <div class="card-body">
-        <%= render partial: "/employees/managers/partial/matters" %>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
