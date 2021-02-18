@@ -274,7 +274,9 @@ Rails.application.routes.draw do
         patch :sort, on: :collection
       end
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
