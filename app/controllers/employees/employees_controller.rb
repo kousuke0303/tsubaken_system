@@ -9,6 +9,10 @@ class Employees::EmployeesController < ApplicationController
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
+
+    def set_label_colors
+      @label_colors = LabelColor.order(position: :asc)
+    end
     
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
