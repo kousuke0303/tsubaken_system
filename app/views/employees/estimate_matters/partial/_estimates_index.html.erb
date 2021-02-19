@@ -12,6 +12,7 @@
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
+    <%= estimate.position %>
     <div class= home_icon>
       <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
       <div class="square" style="background: <%= estimate_color(estimate) %>">

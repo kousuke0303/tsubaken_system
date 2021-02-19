@@ -49,7 +49,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-    @estimates = @estimate_matter.estimates
+    @estimates = @estimate_matter.estimates.order(position: :asc)
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
