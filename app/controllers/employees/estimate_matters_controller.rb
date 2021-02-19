@@ -22,7 +22,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def new
     @estimate_matter = EstimateMatter.new
-    @attract_methods = AttractMethod.all
+    @attract_methods = AttractMethod.order(position: :asc)
     if params[:client_id]
       client = Client.find(params[:client_id])
       @id = client.id
@@ -57,7 +57,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def edit
-    @attract_methods = AttractMethod.all
+    @attract_methods = AttractMethod.order(position: :asc)
     @id = @estimate_matter.client_id
     @postal_code = @estimate_matter.postal_code
     @prefecture_code = @estimate_matter.prefecture_code
