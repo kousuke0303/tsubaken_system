@@ -1,9 +1,9 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:show, :edit, :update, :copy, :destroy]
+  before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
   before_action :refactor_params_category_ids, only: [:create, :update]
   
-  def show
+  def index
     @estimate_details = @estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] }
     respond_to do |format|
       format.html { redirect_to action: :pdf, format: :pdf, debug: true }

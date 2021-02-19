@@ -4,7 +4,7 @@
   $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/sales_statuses") %>');
   <!--成約案件があるか否か-->
   <% if @contracted_estimate_matter.present? %>
-    $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/new_matter_btn") %>');
+    $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/partial/new_matter_btn") %>');
   <% else %>
     $(".to-create-matter").html("");
   <% end %>
