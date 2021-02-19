@@ -75,13 +75,7 @@
             <td class="money_type"><%= details[0].total %></td>
             <td><%= details[0].note %></td>
           <% else %>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <%= empty_td(7) %>
           <% end %>
         </tr>
         <% details.from(1).each do |detail| %>
@@ -105,13 +99,7 @@
               <td class="money_type"><%= detail.total %></td>
               <td><%= detail.note %></td>
             <% else %>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <%= empty_td(7) %>
             <% end %>
           </tr>
         <% end %>

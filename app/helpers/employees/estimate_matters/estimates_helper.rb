@@ -11,9 +11,9 @@ module Employees::EstimateMatters::EstimatesHelper
 
   # 見積案件中、最後の見積なら@disabled = "disable"
   def is_last_position(estimate, size)
-    @disabled =  estimate.position == size ? "disabled" : nil
+    @disabled = estimate.position == size ? "disabled" : nil
   end
-  
+
   def plan_row_span(estimate)
     estimate.estimate_details.count
   end
