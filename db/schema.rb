@@ -374,6 +374,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.string "address_street"
     t.string "phone"
     t.string "fax"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

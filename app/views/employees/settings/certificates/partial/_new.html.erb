@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @certificate, url: employees_settings_certificates_path, method: :post, remote: true) do |f| %>
             <div class="certificate-create-errors"></div>
-            <%= render "form", f: f %>
+            <%= render "employees/settings/certificates/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
