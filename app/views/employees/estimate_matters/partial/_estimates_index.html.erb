@@ -29,6 +29,12 @@
         </div>                
       </div>      
     </div>
+    <div class="move-estimate-order">
+      <%= link_to "▲", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "up"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark" %>
+      <%= link_to "▼", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "down"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark" %>
+    </div>
     <% if estimate.id == @adopted_estimate_id %>
       <div class="adopted-msg">案件採用</div>
     <% end %>    

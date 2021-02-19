@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
+  before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
   before_action :refactor_params_category_ids, only: [:create, :update]
   
   def index
@@ -13,8 +13,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
                template: "/employees/estimate_matters/estimates/show.html.erb",
-               show_as_html: params[:debug].present?,
-               send_data pdf, filename: "estimate.pdf"
+               show_as_html: params[:debug].present?
       end
     end
   end
