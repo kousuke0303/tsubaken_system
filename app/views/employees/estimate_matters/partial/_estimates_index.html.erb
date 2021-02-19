@@ -27,15 +27,14 @@
       </div>      
     </div>
     <div class="move-estimate-order">
-      <% @disabled = "disabled" if estimate.position == 1 %>
+      <% is_first_position(estimate) %>
       <%= link_to "▲", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "up"),
                        method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
-      <% @disabled = nil %>
-      <% @disabled = "disabled" if @estimates.size == estimate.position %>
+      <% is_last_position(estimate, @estimates.size) %>
       <%= link_to "▼", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "down"),
                        method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
-      <% @disabled = nil %>
     </div>
+    <!--案件採用ラベル-->
     <%= recruitmented_label if estimate.id == @adopted_estimate_id %>      
   </div>
   

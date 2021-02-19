@@ -3,6 +3,16 @@ module Employees::EstimateMatters::EstimatesHelper
   def recruitmented_label
     content_tag(:div, "案件採用", class: "adopted-msg")
   end
+
+  # 見積案件中、最初の見積なら@disabled = "disable"
+  def is_first_position(estimate)
+    @disabled =  estimate.position == 1 ? "disabled" : nil
+  end
+
+  # 見積案件中、最後の見積なら@disabled = "disable"
+  def is_last_position(estimate, size)
+    @disabled =  estimate.position == size ? "disabled" : nil
+  end
   
   def plan_row_span(estimate)
     estimate.estimate_details.count
