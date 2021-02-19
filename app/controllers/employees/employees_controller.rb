@@ -14,6 +14,15 @@ class Employees::EmployeesController < ApplicationController
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
 
+    def set_estimates
+      @estimates = @estimate_matter.estimates
+    end
+
+    def set_matter_of_estimate_matter
+      @matter = @estimate_matter.matter
+      @adopted_estimate_id = @matter.estimate_id if @matter
+    end
+
     def set_label_colors
       @label_colors = LabelColor.order(position: :asc)
     end

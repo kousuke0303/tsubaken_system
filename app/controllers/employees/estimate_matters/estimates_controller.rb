@@ -1,6 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
+  before_action :set_matter_of_estimate_matter, only: :move
   before_action :refactor_params_category_ids, only: [:create, :update]
   
   def index
@@ -114,6 +115,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     when "down"
       @estimate.move_lower
     end
+    set_estimates
   end
 
   private

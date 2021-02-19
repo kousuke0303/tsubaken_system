@@ -4,7 +4,8 @@
   <% end %>
   <% if @estimate_matter.estimates.present? %>
     <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
-  <% end %><%= link_to "PDF出力", employees_estimate_matter_estimates_path(estimate_matter_id: @estimate_matter.id, format: :pdf), local: true, class: "btn btn-primary" %>     
+  <% end %>
+  <%= link_to "PDF出力", employees_estimate_matter_estimates_path(estimate_matter_id: @estimate_matter.id, format: :pdf), local: true, class: "btn btn-primary" %>     
 </div>
 
 <% @estimates.each do |estimate| %>
@@ -19,12 +20,8 @@
           <div><p>■■</p><p>■■</p></div>
         </div>
         <div class="text">
-          <% if current_client %>
+          <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
             <%= estimate.title %>
-          <% else %>
-            <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
-              <%= estimate.title %>
-            <% end %>
           <% end %>
         </div>                
       </div>      
@@ -100,9 +97,9 @@
           <tr>
             <% if detail.material_id.present? %>
               <td>
-                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                    <%= detail.material_name %>
-                  <% end %> 
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= detail.material_name %>
+                <% end %> 
               </td>
               <td><%= detail.service_life %></td>
               <td class="money_type"><%= detail.price %></td>
@@ -154,5 +151,3 @@
 <% end %>
 
 <%= javascript_include_tag "money_type.js" %>
-
-
