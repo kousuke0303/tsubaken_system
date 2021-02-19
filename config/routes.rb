@@ -267,7 +267,9 @@ Rails.application.routes.draw do
     end
     
     namespace :settings do
-      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
         patch :sort, on: :collection
       end

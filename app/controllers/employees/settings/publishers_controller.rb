@@ -1,6 +1,6 @@
 class Employees::Settings::PublishersController < ApplicationController
   before_action :authenticate_admin_or_manager!
-  before_action :set_publisher, only: [:edit, :update, :destroy]
+  before_action :set_publisher, only: [:edit, :update, :destroy, :sort]
 
   def new
     @publisher = Publisher.new
@@ -25,12 +25,19 @@ class Employees::Settings::PublishersController < ApplicationController
   end
 
   def index
-    @publishers = Publisher.all
+    @publishers = Publisher.order(position: :asc)
   end
 
   def destroy
     @publisher.destroy ? flash[:success] = "発行元を削除しました。" : flash[:alert] = "発行元を削除できませんでした。"
     redirect_to employees_settings_publishers_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    publisher = Publisher.find_by(position: from)
+    publisher.insert_at(params[:to].to_i + 1)
+    @publishers = Publisher.order(position: :asc)
   end
 
   private

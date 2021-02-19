@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @publisher, url: employees_settings_publisher_path(@publisher), method: :patch, remote: true) do |f| %>
             <div class="publisher-update-errors"></div>
-            <%= render "form", f: f %>
+            <%= render "employees/settings/publishers/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
             </div>

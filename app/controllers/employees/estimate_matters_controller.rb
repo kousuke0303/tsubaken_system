@@ -143,7 +143,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     end
 
     def set_publishers
-      @publishers = Publisher.all
+      @publishers = Publisher.order(position: :asc)
     end
 
     def estimate_matter_params

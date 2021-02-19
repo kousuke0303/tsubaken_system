@@ -7,7 +7,7 @@
         <div class="card-body">
           <%= form_with(model: @publisher, url: employees_settings_publishers_path, method: :post, remote: true) do |f| %>
             <div class="publisher-create-errors"></div>
-            <%= render "form", f: f %>
+            <%= render "employees/settings/publishers/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>
