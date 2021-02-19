@@ -12,7 +12,6 @@
   <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
-    <%= estimate.position %>
     <div class= home_icon>
       <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
       <div class="square" style="background: <%= estimate_color(estimate) %>">
@@ -31,14 +30,18 @@
       </div>      
     </div>
     <div class="move-estimate-order">
+      <% @disabled = "disabled" if estimate.position == 1 %>
       <%= link_to "▲", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "up"),
-                       method: :post, remote: true, class: "btn btn-sm btn-dark" %>
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+      <% @disabled = nil %>
+      <% @disabled = "disabled" if @estimates.size == estimate.position %>
       <%= link_to "▼", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "down"),
-                       method: :post, remote: true, class: "btn btn-sm btn-dark" %>
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+      <% @disabled = nil %>
     </div>
     <% if estimate.id == @adopted_estimate_id %>
       <div class="adopted-msg">案件採用</div>
-    <% end %>    
+    <% end %>
   </div>
   
   <div class="table-responsive">
