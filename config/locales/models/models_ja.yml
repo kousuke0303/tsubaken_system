@@ -112,7 +112,7 @@ ja:
         department:
           name: 名前
         category:
-          name: 工事名称名
+          name: 工事名称
         kind:
           title: タイトル
         image:
