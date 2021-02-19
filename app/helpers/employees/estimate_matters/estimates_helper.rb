@@ -1,4 +1,8 @@
 module Employees::EstimateMatters::EstimatesHelper
+  # 案件採用のラベルを返す
+  def recruitmented_label
+    content_tag(:div, "案件採用", class: "adopted-msg")
+  end
   
   def plan_row_span(estimate)
     estimate.estimate_details.count
@@ -24,5 +28,4 @@ module Employees::EstimateMatters::EstimatesHelper
       PlanName.label_colors.keys[0]
     end
   end
-  
 end
