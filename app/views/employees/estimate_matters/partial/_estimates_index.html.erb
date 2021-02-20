@@ -3,7 +3,7 @@
     <i class="fas fa-plus"></i> 新規見積
   <% end %>
   <% if @estimate_matter.estimates.present? %>
-    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
+    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimates.first), remote: true, class: "btn btn-primary" %>
   <% end %>
   <%= link_to "PDF出力", employees_estimate_matter_estimates_path(estimate_matter_id: @estimate_matter.id, format: :pdf), local: true, class: "btn btn-primary" %>     
 </div>
