@@ -5,6 +5,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_matter_of_estimate_matter, only: :show
   before_action :set_estimates, only: :show
+  before_action :set_estimate_details, only: :show
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
@@ -40,10 +41,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       set_estimate_matter_members
       flash[:success] = "見積案件を作成しました。"
       redirect_to employees_estimate_matters_url(id: @estimate_matter.id)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -71,10 +68,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       set_estimate_matter_members
       flash[:success] = "見積案件を更新しました。"
       redirect_to employees_estimate_matter_url(@estimate_matter)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -141,10 +134,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])
-    end
-
-    def set_publishers
-      @publishers = Publisher.order(position: :asc)
     end
 
     def estimate_matter_params

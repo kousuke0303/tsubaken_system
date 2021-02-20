@@ -1,5 +1,6 @@
 class Employees::Settings::PublishersController < ApplicationController
   before_action :authenticate_admin_or_manager!
+  before_action :set_publishers, only: :index
   before_action :set_publisher, only: [:edit, :update, :destroy, :sort]
 
   def new
@@ -25,7 +26,6 @@ class Employees::Settings::PublishersController < ApplicationController
   end
 
   def index
-    @publishers = Publisher.order(position: :asc)
   end
 
   def destroy
@@ -37,7 +37,7 @@ class Employees::Settings::PublishersController < ApplicationController
     from = params[:from].to_i + 1
     publisher = Publisher.find_by(position: from)
     publisher.insert_at(params[:to].to_i + 1)
-    @publishers = Publisher.order(position: :asc)
+    set_publishers
   end
 
   private
