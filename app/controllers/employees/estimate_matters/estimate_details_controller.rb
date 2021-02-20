@@ -7,9 +7,6 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     @materials = Material.where(category_id: @estimate_detail.category_id)
     @constructions = Construction.where(category_id: @estimate_detail.category_id)
     @estimate_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id).order(:sort_number)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
@@ -37,10 +34,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     # 順番変更
     change_order
-    @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
+    set_estimates
+    set_estimate_details
   end
 
   def destroy
@@ -56,16 +51,11 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       @estimate_detail.destroy
       @type = "delete_object"
     end
-    @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
+    set_estimates
+    set_estimate_details
   end
   
   def detail_object_edit
-    respond_to do |format|
-      format.js
-    end
   end
   
   def detail_object_update
@@ -73,12 +63,9 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       update_total_price_of_estimate(@estimate)
       @estimates = @estimate_matter.estimates
       @response = "success"
-    else
-      @response = "false"
     end
-    respond_to do |format|
-      format.js
-    end
+    set_estimates
+    set_estimate_details
   end
 
   # 見積の合計金額を計算し保存

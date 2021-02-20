@@ -23,6 +23,13 @@ class Estimate < ApplicationRecord
     ).order(:category_number)
   }
 
+  scope :with_estimate_details, -> {
+    left_joins(:estimate_details).select(
+      "estimates.*",
+      "estimate_details.*"
+    )
+  }
+
   # 端数値引があれば、引いた合計金額を返す
   def after_discount
     total_price - discount

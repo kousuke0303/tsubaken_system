@@ -10,7 +10,7 @@
 
 <% @estimates.each do |estimate| %>
 
-  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
+  <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
     <div class= home_icon>
@@ -49,7 +49,7 @@
         <th>計(円)</th>
         <th>摘要(仕様)</th>
       </tr>
-      <% @estimate_detail_hash.each do |category_id, details| %>
+      <% details_hash.each do |category_id, details| %>
         <tr>
           <td rowspan="<%= category_row_span(estimate, category_id) %>">
             <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
@@ -83,11 +83,11 @@
             <% if detail.material_id.present? || detail.construction_id.present? %>
               <td>
                 <% if detail.material_id.present? %>
-                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
                     <%= detail.material_name %>
                   <% end %> 
                 <% else %>
-                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
                     <%= detail.construction_name %>
                   <% end %>
                 <% end %>

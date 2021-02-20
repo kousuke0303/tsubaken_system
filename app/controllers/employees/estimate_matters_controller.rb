@@ -54,6 +54,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
+    @estimate_details = @estimates.with_estimate_details
   end
 
   def edit

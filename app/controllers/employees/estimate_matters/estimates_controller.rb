@@ -1,5 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
+  before_action :set_estimates, only: :index
+  before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
   before_action :set_matter_of_estimate_matter, only: :move
   before_action :refactor_params_category_ids, only: [:create, :update]
@@ -44,7 +46,8 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      set_estimates
+      set_estimate_details
     end
   end
 
@@ -84,13 +87,15 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         change_category_order
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      set_estimates
+      set_estimate_details
     end
   end
 
   def destroy
     @estimate.destroy
-    @estimates = @estimate_matter.estimates
+    set_estimates
+    set_estimate_details
   end
 
   # 見積複製アクション
@@ -104,7 +109,8 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.estimate_id = new_estimate.id
       new_detail.save
     end
-    @estimates = @estimate_matter.estimates
+    set_estimates
+    set_estimate_details
   end
 
   # 順番入替
@@ -116,6 +122,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       @estimate.move_lower
     end
     set_estimates
+    set_estimate_details
   end
 
   private
