@@ -1,12 +1,6 @@
 <div class="col-12">
   
-  <div class="pc_type">
-    <h2 class="title_layout"><i class="fas fa-clipboard"></i> 営業案件詳細／ <%= current_estimate_matter.title %></h2>
-  </div>
-  
-  <div class="mobile_type">
-    <h4 class="title_layout"><i class="fas fa-clipboard"></i> <%= current_estimate_matter.title %> 詳細</h4>
-  </div>
+  <%= render partial: 'layouts/page_title', locals: { title_1: "営業案件", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
   
   <div class="text-right mb-1e">
     <%= link_to "画像一覧", employees_estimate_matter_images_path(@estimate_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
@@ -105,15 +99,15 @@
         <div class="content"><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></div>
         <div class="content"><%= staff_member_name(@estimate_matter) %></div>
         <div id="select_band" class="band_area content">
-          <div class="band_box">
-            <% if current_estimate_matter.band_connection.nil? %>
-              <%= link_to "BAND連結", employees_band_connections_path(estimate_matter_id: @estimate_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
-            <% else %>
+          <% if current_estimate_matter.band_connection.nil? %>
+            <%= link_to "BAND連結", employees_band_connections_path(estimate_matter_id: @estimate_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
+          <% else %>
+            <div class="band_box">
               <%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>
               <div class="band_name"><%= current_estimate_matter.band_connection.band_name %></div>
               <%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
         <div class="content"><%= @publisher.name %></div>
         <div class="content"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></div>

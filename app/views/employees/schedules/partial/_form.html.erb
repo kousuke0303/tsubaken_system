@@ -1,9 +1,16 @@
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
    
-<%= f.label :member, "担当者" %>
-<%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください" }, required: true, class: "form-control", id: "member_select" %>
-            
+<% if current_admin || current_manager %>
+  <%= f.label :member, "担当者" %>
+  <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください" }, required: true, class: "form-control", id: "member_select" %>
+<% else %>
+  <%= f.label "担当者" %>
+  <div>
+    <%= current_staff.name || current_external_staff.name %>
+  </div>
+<% end %>
+
 <%= f.label :scheduled_date %>
 <%= f.date_field :scheduled_date, required: true, class: "form-control" %>
             

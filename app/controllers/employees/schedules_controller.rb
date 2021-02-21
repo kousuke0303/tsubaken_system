@@ -12,9 +12,16 @@ class Employees::SchedulesController < Employees::EmployeesController
   end
   
   def create
-    # 担当者パラメータ整形
-    formatted_member_params(params[:schedule][:member], schedule_params)
-    @schedule = Schedule.new(@final_params)
+    if current_staff
+      @schedule = Schedule.new(schedule_params.merge(staff_id: current_staff.id))
+    elsif current_external_staff
+      @schedule = Schedule.new(schedule_params.merge(current_staff_id: current_external_staff.id))
+    else
+      # 担当者パラメータ整形
+      formatted_member_params(params[:schedule][:member], schedule_params)
+      @schedule = Schedule.new(@final_params)
+    end
+    
     if @schedule.save
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)

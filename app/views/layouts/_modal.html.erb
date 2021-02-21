@@ -40,14 +40,6 @@
     </div>
   <% end %>
   
-  <!--SCHEDULEnew・edit-->
-  <% if controller_name == "schedules" && action_name == "index" %>
-    <div id="schedule-new" class="modal fade" role="dialog"></div>
-    <div id="schedule-show" class="modal fade" role="dialog"></div>
-    <div id="schedule-edit" class="modal fade" role="dialog"></div>
-    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
   <!--部署new・edit-->
   <% if controller_name == "departments" && action_name == "index" %>
     <div id="department-new" class="modal fade" role="dialog"></div>
@@ -181,6 +173,14 @@
   <!--写真new・edit-->
   <div id="image-new" class="modal fade" role="dialog"></div>
   <div id="image-edit" class="modal fade" role="dialog"></div>
+  
+  <!--SCHEDULEnew・edit-->
+  <% if controller_name == "schedules" && action_name == "index" %>
+    <div id="schedule-new" class="modal fade" role="dialog"></div>
+    <div id="schedule-show" class="modal fade" role="dialog"></div>
+    <div id="schedule-edit" class="modal fade" role="dialog"></div>
+    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
 
 

@@ -19,9 +19,45 @@ module ApplicationHelper
     ExternalStaff.find(id).name
   end
   
-  def avator(login_user)
-    login_user.avator.attached? ? login_user.avator : login_user.name[0, 1]
-  end 
+  # ---------------------------------------------------------
+      # AVATOR
+  # ---------------------------------------------------------
+  
+  def edit_avator(login_user)
+    if login_user.avator.attached? 
+      content_tag(:div, class: "avator_layoput_for_edit") do
+        image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"150x150^",crop:"150x150+0+0"}))
+      end
+    else
+      if current_admin
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #dc3545")
+      elsif current_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #6610f2") 
+      elsif current_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{current_staff.label_color.color_code}")
+      elsif current_external_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #28a745")
+      end
+    end
+  end
+  
+  def sidebar_avator(login_user)
+    if login_user.avator.attached? 
+      content_tag(:div, class: "avator_layoput_for_sidebar") do
+        image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"}))
+      end
+    else
+      if current_admin
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #dc3545")
+      elsif current_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #6610f2")
+      elsif current_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #{current_staff.label_color.color_code}")
+      elsif current_external_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #28a745")
+      end
+    end
+  end
   
   # ---------------------------------------------------------
       # COMMON DISPLAY

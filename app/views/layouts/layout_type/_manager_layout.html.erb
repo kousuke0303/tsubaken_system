@@ -7,7 +7,9 @@
     </div>
     
     <div class="user-panel">
-      <h5>管理者専用ページ</h5>
+      <div class="avator_container_for_sidebar">
+        <%= sidebar_avator(current_manager) %><span>MANAGER</span>
+      </div>
     </div>
 
     <ul class="components">
@@ -55,7 +57,7 @@
               <a href="#" class="nav-link dropdown-toggle session_name" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-alt"></i> <%= current_manager.name %>
               </a>
-              <div class="dropdown-menu dropdown-position manager_external_staff_dropdown_menu">
+              <div class="dropdown-menu dropdown-position header_dropdown_menu">
                 <%= link_to edit_manager_registration_path, class: "dropdown-item item-link" do %>
                   <i class="fas fa-user-edit"></i> アカウント編集
                 <% end %>
@@ -78,11 +80,4 @@
   </div>
 </div>
 
-<script>
-  $(document).ready(function () {
-    $("#sidebarCollapse").on("click", function () {
-        $("#sidebar").toggleClass("active");
-        $(this).toggleClass("active");
-    });
-  });
-</script> 
+<%= javascript_include_tag "layout.js" %>
