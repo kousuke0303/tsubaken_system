@@ -44,24 +44,24 @@
   margin-top: 0.5em;
 }
 
-#pdf-estimates .pdf-estimate-table thead td {
+#pdf-estimates thead td {
   border: 1px solid black;
   text-align: center;
   vertical-align: middle !important;
 }
 
-#pdf-estimates .pdf-estimate-table .square {
+#pdf-estimates .square {
   margin: 0.5em;
 }
 
-#pdf-estimates .pdf-estimate-table .category-name {
+#pdf-estimates .category-name {
   border-bottom: none;
   border-left: 1px solid black;
   border-right: 1px solid black;
   border-top: 1px solid black;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-name {
+#pdf-estimates .detail-name {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
@@ -69,7 +69,7 @@
   padding-left: 2.5em;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-amount {
+#pdf-estimates .detail-amount {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid lightgray;
@@ -77,7 +77,7 @@
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-unit {
+#pdf-estimates .detail-unit {
   border-bottom: 1px solid black;
   border-left: 1px solid lightgray;
   border-right: 1px solid black;
@@ -85,7 +85,7 @@
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-price {
+#pdf-estimates .detail-price {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid lightgray;
@@ -93,7 +93,7 @@
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-total {
+#pdf-estimates .detail-total {
   border-bottom: 1px solid black;
   border-left: 1px solid lightgray;
   border-right: 1px solid black;
@@ -101,64 +101,64 @@
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .detail-specification {
+#pdf-estimates .detail-specification {
   border-bottom: 1px solid black;
   border-left: 1px solid lightgray;
   border-right: 1px solid black;
   border-top: none;
 }
 
-#pdf-estimates .pdf-estimate-table .category-footer {
+#pdf-estimates .category-footer {
   border-bottom: 2px solid black;
 }
 
-#pdf-estimates .pdf-estimate-table .category-footer-1 {
+#pdf-estimates .category-footer-1 {
   border-left: 1px solid black;
   border-right: 1px solid black;
   text-align: center;
 }
 
-#pdf-estimates .pdf-estimate-table .category-footer-2, .category-footer-4 {
+#pdf-estimates .category-footer-2, .category-footer-4 {
   border-left: 1px solid black;
   border-right: 1px solid lightgray;
 }
 
-#pdf-estimates .pdf-estimate-table .category-footer-3, .category-footer-5 {
+#pdf-estimates .category-footer-3, .category-footer-5 {
   border-left: 1px solid lightgray;;
   border-right: 1px solid black;
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .category-footer-6 {
+#pdf-estimates .category-footer-6 {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
-#pdf-estimates .pdf-estimate-table .footer-item-1 {
+#pdf-estimates .footer-item-1 {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
   text-align: center;
 }
 
-#pdf-estimates .df-estimate-table .footer-item-2 {
+#pdf-estimates .footer-item-2 {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
   text-align: right;
 }
 
-#pdf-estimates .pdf-estimate-table .footer-item-3 {
+#pdf-estimates .footer-item-3 {
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
-#pdf-estimates .pdf-estimate-table .estimate-total {
+#pdf-estimates .estimate-total {
   font-weight: bold;
 }
 
-#pdf-estimates .pdf-estimate-table .pure-total {
+#pdf-estimates .pure-total {
   font-size: 1.1em;
 }
 
