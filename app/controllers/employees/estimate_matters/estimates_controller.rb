@@ -7,7 +7,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   before_action :refactor_params_category_ids, only: [:create, :update]
   
   def index
-    @estimate_details = @estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] }
     respond_to do |format|
       format.html { redirect_to action: :pdf, format: :pdf, debug: true }
       format.pdf do
@@ -15,7 +14,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
                encoding: "utf-8",
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
-               template: "/employees/estimate_matters/estimates/show.html.erb",
+               template: "/employees/estimate_matters/estimates/index.html.erb",
                show_as_html: params[:debug].present?
       end
     end
