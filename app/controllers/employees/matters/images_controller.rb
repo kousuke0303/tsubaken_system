@@ -13,10 +13,6 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
       @image.update("#{login_user.auth}_id".to_sym => login_user.id)
       flash[:success] = "写真を作成しました"
       redirect_to employees_matter_images_url(current_matter, @image)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -31,10 +27,6 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     if @image.update(image_content_and_shooted_on_params)
       flash[:success] = "写真を編集しました。"
       redirect_to employees_matter_images_url(current_matter, @image)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
   

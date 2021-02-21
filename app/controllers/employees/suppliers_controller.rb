@@ -52,10 +52,6 @@ class Employees::SuppliersController < ApplicationController
       @supplier = Supplier.find(params[:id])
     end
 
-    def set_industries
-      @industries = Industry.order(position: :asc)
-    end
-
     def supplier_params
       params.require(:supplier).permit(:name, :kana, :representative, :phone_1, :phone_2, :fax, :email, :postal_code, :prefecture_code, :address_city, :address_street, { :industry_ids=> [] })
     end

@@ -8,9 +8,6 @@ class Managers::AttendancesController < ApplicationController
 
   def change_month
     @attendances = current_manager.attendances.where(worked_on: @first_day..@last_day).start_exist
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
