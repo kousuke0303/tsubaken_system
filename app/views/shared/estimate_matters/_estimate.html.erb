@@ -44,8 +44,8 @@
             </td>
           </tr>
           <% details.each do |detail| %>
-            <tr>
-              <% if detail.material_id.present? || detail.construction_id.present? %>            
+            <% if detail.material_id.present? || detail.construction_id.present? %>  
+              <tr>          
                 <td class="detail-name">
                   <%= detail.material_name %>
                   <%= detail.construction_name %>
@@ -56,8 +56,8 @@
                 <td class="detail-total money-type"><%= detail.total %></td>
                 <td class="detail-specification"><%= detail.note %></td>
               <% end %>
-              <% @category_total += detail.total if detail.total %>
             </tr>
+            <% @category_total += detail.total if detail.total %>
           <% end %>
           <tr class="category-footer">
             <td class="category-footer-1">小計</td>
