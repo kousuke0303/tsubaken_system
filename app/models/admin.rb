@@ -1,5 +1,4 @@
 class Admin < ApplicationRecord
-  
   belongs_to :schedule, optional: true
   
   before_save { self.email = email.downcase if email.present? }

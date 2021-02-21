@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   validates :content, length: { maximum: 300 }
   validate :only_in_charge
   
-  enum status: {default: 0, relevant: 1, ongoing: 2, finished: 3}
+  enum status: { default: 0, relevant: 1, ongoing: 2, finished: 3 }
    
   scope :are_default, -> { default.order(default_task_id_count: :desc) }
   scope :are_relevant, -> { relevant.order(:sort_order) }

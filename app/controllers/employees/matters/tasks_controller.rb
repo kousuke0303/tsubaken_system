@@ -47,10 +47,8 @@ class Employees::Matters::TasksController < Employees::TasksController
     @external_staffs = @matter.external_staffs
   end
   
-  def update
-    if @task.update(task_params)
-      set_classified_tasks(@matter)
-    end
+  def update    
+    set_classified_tasks(@matter) if @task.update(task_params)
   end
   
   def destroy

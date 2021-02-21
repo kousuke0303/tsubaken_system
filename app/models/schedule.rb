@@ -1,5 +1,4 @@
 class Schedule < ApplicationRecord
-  
   has_one :admin
   has_one :manager
   has_one :staff
