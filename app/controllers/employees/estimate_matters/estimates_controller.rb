@@ -86,6 +86,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         change_category_order
       end
       @response = "success"
+      @estimate.calc_total_price
       set_estimates
       set_estimate_details
     end

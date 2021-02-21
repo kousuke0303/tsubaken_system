@@ -1,7 +1,7 @@
 class Employees::EstimateMatters::EstimateDetailsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate_detail
-  before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update]
+  before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update, :destroy]
 
   def edit
     @materials = Material.where(category_id: @estimate_detail.category_id)
@@ -34,6 +34,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     # 順番変更
     change_order
+    @estimate.calc_total_price
     set_estimates
     set_estimate_details
   end
@@ -51,6 +52,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       @estimate_detail.destroy
       @type = "delete_object"
     end
+    @estimate.calc_total_price
     set_estimates
     set_estimate_details
   end
@@ -60,20 +62,12 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   
   def detail_object_update
     if @estimate_detail.update(object_params)
-      update_total_price_of_estimate(@estimate)
       @estimates = @estimate_matter.estimates
       @response = "success"
     end
+    @estimate.calc_total_price
     set_estimates
     set_estimate_details
-  end
-
-  # 見積の合計金額を計算し保存
-  def update_total_price_of_estimate(estimate)
-    total_price = 0
-    prices = estimate.estimate_details.pluck(:total) # 見積も持つ全estimate_detailの合計金額を抽出
-    prices.each { |price| total_price += price.to_i }
-    estimate.update(total_price: total_price.to_i)
   end
 
   private
