@@ -19,6 +19,14 @@
       <%= f.label :login_id %>
       <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
     </div>
+    <div class="col-md-6 col-12">
+    <%= f.label :confirmed %>
+      <br>
+      <%= f.radio_button :confirmed, true %>
+      <%= f.label :confirmed, "する", value: true, class: "mr-1e" %>
+      <%= f.radio_button :confirmed, false %>
+      <%= f.label :confirmed, "しない", value: false %>
+    </div>
   <% end %>
   <div class="col-md-6 col-12">
     <%= f.label :phone_1 %>
