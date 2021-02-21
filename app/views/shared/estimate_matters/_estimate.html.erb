@@ -2,7 +2,7 @@
   <div class="pdf-estimate">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
     <div class="header">
-      <div class="estimate-title"><%= estimate.title %></div>
+      <div class="estimate-title"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
       <div class="title">御見積書</div>
     </div>
 
@@ -11,7 +11,7 @@
       現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
     </div>
     <div class="company-info">
-      <div class="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt:"ロゴ" %></div>
+      <div class="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt: "ロゴ" %></div>
       <div class="company-name">株式会社　ツバケン</div>
       <div class="company-tel">
         TEL: 090-8787-5544
