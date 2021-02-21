@@ -13,10 +13,6 @@ class Employees::StaffsController < ApplicationController
     if @staff.save
       flash[:success] = "Staffを作成しました。"
       redirect_to employees_staff_url(@staff)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -36,10 +32,6 @@ class Employees::StaffsController < ApplicationController
     if @staff.update(staff_params)
       flash[:success] = "Staff情報を更新しました。"
       redirect_to employees_staff_url(@staff)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -56,9 +48,5 @@ class Employees::StaffsController < ApplicationController
 
     def set_staff
       @staff = Staff.find(params[:id])
-    end
-    
-    def set_departments
-      @departments = Department.all
     end
 end

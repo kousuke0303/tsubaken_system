@@ -1,4 +1,8 @@
 class Schedule < ApplicationRecord
+  has_one :admin
+  has_one :manager
+  has_one :staff
+  has_one :external_staff
   
   validates :title, presence: true
   validates :scheduled_date, presence: true

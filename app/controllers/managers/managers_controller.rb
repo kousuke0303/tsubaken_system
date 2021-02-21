@@ -10,4 +10,14 @@ class Managers::ManagersController < ApplicationController
   
   def top
   end
+  
+  def avator_change
+    current_manager.avator.attach(params[:admin_avator])
+    redirect_to edit_manager_registration_url(current_manager)
+  end
+  
+  def avator_destroy
+    current_manager.avator.purge_later
+    redirect_to edit_manager_registration_url(current_manager)
+  end
 end

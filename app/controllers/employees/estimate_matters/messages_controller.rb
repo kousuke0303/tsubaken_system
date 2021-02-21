@@ -1,4 +1,4 @@
-class Employees::EstimateMatters::MessagesController < ApplicationController
+class Employees::EstimateMatters::MessagesController < Employees::EmployeesController
   layout "image_layout"
 
   before_action :current_estimate_matter

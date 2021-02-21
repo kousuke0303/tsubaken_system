@@ -47,6 +47,7 @@ ja:
           name: 名前
           gender: 性別
           fax: FAX番号
+          confirmed: ログインを許可
         supplier:
           name: 業者名
           fax: FAX番号

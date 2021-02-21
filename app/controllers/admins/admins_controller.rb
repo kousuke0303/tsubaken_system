@@ -7,4 +7,14 @@ class Admins::AdminsController < ApplicationController
   def top
   end
   
+  def avator_change
+    current_admin.avator.attach(params[:admin_avator])
+    redirect_to edit_admin_registration_url(current_admin)
+  end
+  
+  def avator_destroy
+    current_admin.avator.purge_later
+    redirect_to edit_admin_registration_url(current_admin)
+  end
+  
 end

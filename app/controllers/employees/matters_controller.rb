@@ -2,13 +2,14 @@ class Employees::MattersController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: :new
+  before_action :set_suppliers, only: :edit
   before_action :can_access_only_matter_of_being_in_charge
 
   # 見積案件から案件を作成ページ
   def new
     @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     @matter = Matter.new
-    @estimates = @estimate_matter.estimates
+    set_estimates
   end
 
   # 見積案件から案件を作成
@@ -31,10 +32,6 @@ class Employees::MattersController < ApplicationController
       end
       flash[:notice] = "案件を作成しました。"
       redirect_to employees_estimate_matter_path(estimate_matter)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -69,7 +66,6 @@ class Employees::MattersController < ApplicationController
   def edit
     @staffs = Staff.all
     @external_staffs = ExternalStaff.all
-    @suppliers = Supplier.all
     @estimates = @matter.estimate_matter.estimates
   end
 
@@ -77,10 +73,6 @@ class Employees::MattersController < ApplicationController
     if @matter.update(matter_params)
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

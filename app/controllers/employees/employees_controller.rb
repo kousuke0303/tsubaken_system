@@ -9,6 +9,18 @@ class Employees::EmployeesController < ApplicationController
     def set_publishers
       @publishers = Publisher.order(position: :asc)
     end
+
+    def set_suppliers
+      @suppliers = Supplier.all
+    end
+
+    def set_departments
+      @departments = Department.order(position: :asc)
+    end
+
+    def set_industries
+      @industries = Industry.order(position: :asc)
+    end
     
     def set_categories
       @categories = Category.order(position: :asc)

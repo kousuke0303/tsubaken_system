@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: {
     sessions:      "admins/sessions",
     passwords:     "admins/passwords",
-    registrations: "admins/registrations"
+    registrations: "admins/registrations",
   }
 
   # deviseのManagerログイン関係
@@ -142,6 +142,8 @@ Rails.application.routes.draw do
     namespace :admins do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
     resources :statistics, only: :index do
       get :change_span, on: :collection
@@ -153,6 +155,8 @@ Rails.application.routes.draw do
     namespace :managers do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 
@@ -179,6 +183,8 @@ Rails.application.routes.draw do
     namespace :staffs do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 
@@ -193,6 +199,8 @@ Rails.application.routes.draw do
     namespace :external_staffs do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 

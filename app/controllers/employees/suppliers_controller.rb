@@ -1,5 +1,6 @@
 class Employees::SuppliersController < ApplicationController
   before_action :authenticate_employee!
+  before_action :set_suppliers, only: :index
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
   before_action :set_industries, only: [:new, :edit]
 
@@ -8,7 +9,6 @@ class Employees::SuppliersController < ApplicationController
   end
 
   def index
-    @suppliers = Supplier.all
   end
 
   def create
@@ -16,10 +16,6 @@ class Employees::SuppliersController < ApplicationController
     if @supplier.save
       flash[:success] = "外注先を作成しました。"
       redirect_to employees_supplier_url(@supplier)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -30,10 +26,6 @@ class Employees::SuppliersController < ApplicationController
     if @supplier.update(supplier_params)
       flash[:success] = "外注先を更新しました。"
       redirect_to employees_supplier_url(@supplier)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -50,10 +42,6 @@ class Employees::SuppliersController < ApplicationController
   private
     def set_supplier
       @supplier = Supplier.find(params[:id])
-    end
-
-    def set_industries
-      @industries = Industry.order(position: :asc)
     end
 
     def supplier_params

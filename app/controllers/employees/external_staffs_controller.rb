@@ -12,10 +12,6 @@ class Employees::ExternalStaffsController < ApplicationController
     if @external_staff.save
       flash[:success] = "外部Staffを作成しました。"
       redirect_to employees_external_staff_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -34,10 +30,6 @@ class Employees::ExternalStaffsController < ApplicationController
     if @external_staff.update(external_staff_params)
       flash[:success] = "外部Staffを更新しました。"
       redirect_to employees_external_staff_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -53,9 +45,5 @@ class Employees::ExternalStaffsController < ApplicationController
 
     def set_external_staff
       @external_staff = ExternalStaff.find(params[:id])
-    end
-
-    def set_suppliers
-      @suppliers = Supplier.all
     end
 end

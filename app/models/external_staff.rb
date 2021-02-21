@@ -1,5 +1,7 @@
 class ExternalStaff < ApplicationRecord
   belongs_to :supplier, optional: true
+  belongs_to :schedule, optional: true
+  
   has_many :attendances, dependent: :destroy
   has_many :schedules
   has_many :estimate_matter_external_staffs, dependent: :destroy

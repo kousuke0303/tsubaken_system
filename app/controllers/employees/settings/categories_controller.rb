@@ -37,7 +37,7 @@ class Employees::Settings::CategoriesController < Employees::EmployeesController
     from = params[:from].to_i + 1
     category = Category.find_by(position: from)
     category.insert_at(params[:to].to_i + 1)
-    @categories = Category.order(position: :asc)
+    set_categories
   end
 
   private

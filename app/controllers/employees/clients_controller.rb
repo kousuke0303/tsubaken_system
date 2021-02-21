@@ -7,14 +7,16 @@ class Employees::ClientsController < ApplicationController
   end
 
   def create
-    @client = Client.new(client_params.merge(password: "password", password_confirmation: "password"))
+    begin
+      login_id = "CL-" + (0...9).map{ ("a".."z").to_a[rand(26)] }.join
+      raise if Client.all.where(login_id: login_id).present?
+    rescue
+      retry
+    end
+    @client = Client.new(client_params.merge(login_id: login_id, password: "password", password_confirmation: "password"))
     if @client.save
       flash[:success] = "顧客を作成しました。"
       redirect_to employees_client_url(@client)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -38,16 +40,10 @@ class Employees::ClientsController < ApplicationController
     else
       @display_type = "failure"
     end
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
     @client.update(client_params) ? @responce = "success" : @responce = "failed"
-    respond_to do |format|
-      format.js
-    end
   end
 
   def destroy
@@ -57,7 +53,7 @@ class Employees::ClientsController < ApplicationController
 
   private
     def client_params
-      params.require(:client).permit(:name, :kana, :gender, :login_id, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street)
+      params.require(:client).permit(:name, :kana, :gender, :login_id, :confirmed, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street)
     end
 
     def set_client

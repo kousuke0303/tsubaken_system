@@ -1,4 +1,4 @@
-<h5><%= target.name %>の出勤表</h5>
+<%= render partial: 'layouts/page_title', locals: { title_1: "#{target.name}" + "の出退勤", title_2: nil, icon: "fa-user-clock"} %>
 
 <div>
   <%= link_to send(path, date: first_day.prev_month), remote: true do %>
@@ -11,44 +11,48 @@
   <% end %>
 </div>
 
-<table class="table table-bordered table-column-type">
-  <tr>
-    <th>出勤日数：</th>
-    <td><%= attendances.count %>日</td>
-    <th>総労働時間：</th>
-    <td id="total_working_time"></td>
-  </tr>
-</table>
-  
-<table class="table table-bordered table-column-type">
-  <tr>
-    <th>日付</th>
-    <th>出勤時間</th>
-    <th>退社時間</th>
-    <th>勤務時間</th>
-  </tr>
-  <% attendances.each do |attendance| %>
-  <tr>
-    <td><%= attendance.worked_on.strftime("%d").to_i %>日</td>
-    <!--<td><!%= attendance.matter.title %></td>-->
-    <% if finished_nil?(attendance) %> 
-      <td><%= attendance.started_at.strftime("%H:%M") %></td>
-      <td class="text-danger">
-        <% if target == current_staff %>
-          退勤未処理
-        <% elsif target == current_external_staff %>
-          作業終了未処理
-        <% end %>
-      </td>
-      <td class="day_working_time"><%= working_calculation(attendance) %></td>
-    <% else %>
-      <td><%= attendance.started_at.strftime("%H:%M") %></td>
-      <td><%= attendance.finished_at.strftime("%H:%M") if attendance.finished_at.present?%></td>
-      <td class="day_working_time"><%= working_calculation(attendance) %></td>
+<div class="table-responsive mt-05e">
+  <table class="table text-nowrap table-bordered table-column-type">
+    <tr>
+      <th>出勤日数</th>
+      <td><%= attendances.count %>日</td>
+      <th>合計時間</th>
+      <td id="total_working_time"></td>
+    </tr>
+  </table>
+</div>
+
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered table-column-type">
+    <tr>
+      <th>日付</th>
+      <th>出勤</th>
+      <th>退社</th>
+      <th>勤務時間</th>
+    </tr>
+    <% attendances.each do |attendance| %>
+    <tr>
+      <td><%= attendance.worked_on.strftime("%d").to_i %>日</td>
+      <!--<td><!%= attendance.matter.title %></td>-->
+      <% if finished_nil?(attendance) %> 
+        <td><%= attendance.started_at.strftime("%H:%M") %></td>
+        <td class="text-danger">
+          <% if target == current_staff %>
+            退勤未処理
+          <% elsif target == current_external_staff %>
+            作業終了未処理
+          <% end %>
+        </td>
+        <td class="day_working_time"><%= working_calculation(attendance) %></td>
+      <% else %>
+        <td><%= attendance.started_at.strftime("%H:%M") %></td>
+        <td><%= attendance.finished_at.strftime("%H:%M") if attendance.finished_at.present?%></td>
+        <td class="day_working_time"><%= working_calculation(attendance) %></td>
+      <% end %>
+    </tr>
     <% end %>
-  </tr>
-  <% end %>
-</table>
+  </table>
+</div>
 
 <script>
 $(function(){

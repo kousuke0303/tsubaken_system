@@ -30,6 +30,15 @@ class Estimate < ApplicationRecord
     )
   }
 
+  # 合計金額を計算
+  def calc_total_price
+    total_price = 0
+    estimate_details.each do |estimate_detail|
+      total_price += estimate_detail.total
+    end
+    self.update(total_price: total_price)
+  end
+
   # 端数値引があれば、引いた合計金額を返す
   def after_discount
     total_price - discount

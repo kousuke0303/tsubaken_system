@@ -20,9 +20,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     @certificate.save ? @responce = "success" : @responce = "false"
     set_images
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
 
   def edit
@@ -32,9 +29,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def update
     @certificate.update(certificate_params) ? @responce = "success" : @responce = "false"
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
 
   def index
@@ -45,9 +39,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def destroy
     @certificate.destroy
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

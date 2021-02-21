@@ -1,12 +1,12 @@
 class Employees::Settings::IndustriesController < Employees::EmployeesController
   before_action :set_industry, only: [:edit, :update, :destroy]
+  before_action :set_industries, only: :index
 
   def new
     @industry = Industry.new
   end
 
   def index
-    @industries = Industry.order(position: :asc)
   end
 
   def create
@@ -36,7 +36,7 @@ class Employees::Settings::IndustriesController < Employees::EmployeesController
     from = params[:from].to_i + 1
     industry = Industry.find_by(position: from)
     industry.insert_at(params[:to].to_i + 1)
-    @industries = Industry.order(position: :asc)
+    set_industries
   end
 
   private
