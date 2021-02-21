@@ -3,11 +3,11 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">素材編集</h5>
+        <h5 class="card-header">デフォルトタスク編集</h5>
         <div class="card-body">
-          <%= form_with(model: @material, url: employees_settings_material_path(@material), method: :patch, remote: true) do |f| %>
-            <div class="material-update-errors"></div>
-            <%= render "form", f: f %>
+          <%= form_with(model: @default_task, url: employees_settings_task_path(@default_task), method: :patch, remote: true) do |f| %>
+            <div class="default-task-update-errors"></div>
+            <%= render "employees/settings/tasks/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
             </div>

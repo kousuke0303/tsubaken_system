@@ -240,9 +240,10 @@ Rails.application.routes.draw do
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
       end
-      resources :estimates, only: [:new, :create, :show, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
+      resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member
+        post :move, on: :member
       end
       resources :estimate_details, only: [:edit, :update, :destroy], controller: "estimate_matters/estimate_details" do
         get :detail_object_edit, on: :member
@@ -274,7 +275,9 @@ Rails.application.routes.draw do
     end
     
     namespace :settings do
-      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
         patch :sort, on: :collection
       end
@@ -282,12 +285,16 @@ Rails.application.routes.draw do
         patch :sort, on: :collection
       end
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end

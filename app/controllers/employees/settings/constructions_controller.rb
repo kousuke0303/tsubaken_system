@@ -1,4 +1,4 @@
-class Employees::Settings::ConstructionsController < ApplicationController
+class Employees::Settings::ConstructionsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_construction, only: [:edit, :update, :destroy]
 
@@ -7,7 +7,7 @@ class Employees::Settings::ConstructionsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @constructions = @constructions.where(category_id: @category_id)
     end
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
   end
 
   def new

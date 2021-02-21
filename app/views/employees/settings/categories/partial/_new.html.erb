@@ -3,11 +3,11 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">発行元作成</h5>
+        <h5 class="card-header">診断書作成</h5>
         <div class="card-body">
-          <%= form_with(model: @publisher, url: employees_settings_publishers_path, method: :post, remote: true) do |f| %>
-            <div class="publisher-create-errors"></div>
-            <%= render "form", f: f %>
+          <%= form_with(model: @category, url: employees_settings_categories_path, method: :post, remote: true) do |f| %>
+            <div class="category-create-errors"></div>
+            <%= render "employees/settings/categories/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>

@@ -1,5 +1,6 @@
-class Employees::Settings::PlanNamesController < ApplicationController
+class Employees::Settings::PlanNamesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
+  before_action :set_label_colors, only: [:new, :edit]
   before_action :set_plan_name, only: [:edit, :update, :destroy]
 
   def new

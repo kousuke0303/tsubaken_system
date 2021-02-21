@@ -58,6 +58,17 @@ module ApplicationHelper
       end
     end
   end
+
+
+  # 空のtdタグを引数分返す
+  def empty_td(num)
+    td = content_tag(:td)
+    tags = td
+    (num - 1).times do |time|
+      tags += td
+    end
+    tags
+  end
   
   # ---------------------------------------------------------
       # COMMON DISPLAY

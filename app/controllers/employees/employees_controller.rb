@@ -6,8 +6,35 @@ class Employees::EmployeesController < ApplicationController
     # -------------------------------------------------------
         # set
     # -------------------------------------------------------
+    def set_publishers
+      @publishers = Publisher.order(position: :asc)
+    end
+    
+    def set_categories
+      @categories = Category.order(position: :asc)
+    end
+    
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+    end
+
+    # 見積案件の持つ全見積を定義
+    def set_estimates
+      @estimates = @estimate_matter.estimates
+    end
+
+    # 見積案件の持つ全estimate_detailsを定義(estimatesと結合して)
+    def set_estimate_details
+      @estimate_details = @estimates.with_estimate_details
+    end
+
+    def set_matter_of_estimate_matter
+      @matter = @estimate_matter.matter
+      @adopted_estimate_id = @matter.estimate_id if @matter
+    end
+
+    def set_label_colors
+      @label_colors = LabelColor.order(position: :asc)
     end
     
     # schedule/sales_statusで使用

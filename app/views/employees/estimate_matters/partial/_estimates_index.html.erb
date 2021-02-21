@@ -3,13 +3,14 @@
     <i class="fas fa-plus"></i> 新規見積
   <% end %>
   <% if @estimate_matter.estimates.present? %>
-    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimate_matter.estimates.first), remote: true, class: "btn btn-primary" %>
-  <% end %>  
+    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimates.first), remote: true, class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "PDF出力", employees_estimate_matter_estimates_path(estimate_matter_id: @estimate_matter.id, format: :pdf), local: true, class: "btn btn-primary" %>     
 </div>
 
 <% @estimates.each do |estimate| %>
 
-  <% @estimate_detail_hash = estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] } %>
+  <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
     <div class= home_icon>
@@ -19,20 +20,22 @@
           <div><p>■■</p><p>■■</p></div>
         </div>
         <div class="text">
-          <% if current_client %>
+          <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
             <%= estimate.title %>
-          <% else %>
-            <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
-              <%= estimate.title %>
-            <% end %>
           <% end %>
         </div>                
-      </div>
-      <%= link_to "PDF出力", employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, format: :pdf), local: true, class: "btn btn-primary" %>   
+      </div>      
     </div>
-    <% if estimate.id == @adopted_estimate_id %>
-      <div class="adopted-msg">案件採用</div>
-    <% end %>    
+    <div class="move-estimate-order">
+      <% is_first_position(estimate) %>
+      <%= link_to "▲", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "up"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+      <% is_last_position(estimate, @estimates.size) %>
+      <%= link_to "▼", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "down"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+    </div>
+    <!--案件採用ラベル-->
+    <%= recruitmented_label if estimate.id == @adopted_estimate_id %>      
   </div>
   
   <div class="table-responsive">
@@ -46,17 +49,23 @@
         <th>計(円)</th>
         <th>摘要(仕様)</th>
       </tr>
-      <% @estimate_detail_hash.each do |category_id, details| %>
+      <% details_hash.each do |category_id, details| %>
         <tr>
           <td rowspan="<%= category_row_span(estimate, category_id) %>">
             <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
               <%= details[0].category_name %>
             <% end %>
           </td>
-          <% if details[0].material_id.present? %>
+          <% if details[0].material_id.present? || details[0].construction_id.present? %>
             <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].material_name %>
+              <% if details[0].material_id.present? %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                  <%= details[0].material_name %>
+                <% end %>
+              <% else %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                  <%= details[0].construction_name %>
+                <% end %>
               <% end %>
             </td>
             <td><%= details[0].service_life %></td>
@@ -65,35 +74,23 @@
             <td><%= details[0].amount %></td>
             <td class="money_type"><%= details[0].total %></td>
             <td><%= details[0].note %></td>
-          <% elsif details[0].construction_id.present? %>
-            <td>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
-                <%= details[0].construction_name %>
-              <% end %>
-            </td>
-            <td></td>
-            <td class="money_type"><%= details[0].price %></td>
-            <td><%= details[0].unit %></td>
-            <td><%= details[0].amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
-            <td><%= details[0].note %></td>
           <% else %>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <%= empty_td(7) %>
           <% end %>
         </tr>
         <% details.from(1).each do |detail| %>
           <tr>
-            <% if detail.material_id.present? %>
+            <% if detail.material_id.present? || detail.construction_id.present? %>
               <td>
-                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                <% if detail.material_id.present? %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
                     <%= detail.material_name %>
                   <% end %> 
+                <% else %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.construction_name %>
+                  <% end %>
+                <% end %>
               </td>
               <td><%= detail.service_life %></td>
               <td class="money_type"><%= detail.price %></td>
@@ -101,26 +98,8 @@
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
               <td><%= detail.note %></td>
-            <% elsif detail.construction_id.present? %>
-              <td>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(estimate_matter, detail.id), remote: true, class: "object_name" do %>
-                  <%= detail.construction_name %>
-                <% end %>
-              </td>
-              <td></td>
-              <td class="money_type"><%= detail.price %></td>
-              <td><%= detail.unit %></td>
-              <td><%= detail.amount %></td>
-              <td class="money_type"><%= detail.total %></td>
-              <td><%= detail.note %></td>
             <% else %>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <%= empty_td(7) %>
             <% end %>
           </tr>
         <% end %>
@@ -145,5 +124,3 @@
 <% end %>
 
 <%= javascript_include_tag "money_type.js" %>
-
-

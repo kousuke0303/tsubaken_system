@@ -1,10 +1,12 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:show, :edit, :update, :copy, :destroy]
+  before_action :set_estimates, only: :index
+  before_action :set_estimate_details, only: :index
+  before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
+  before_action :set_matter_of_estimate_matter, only: :move
   before_action :refactor_params_category_ids, only: [:create, :update]
   
-  def show
-    @estimate_details = @estimate.estimate_details.order(:sort_number).group_by{ |detail| detail[:category_id] }
+  def index
     respond_to do |format|
       format.html { redirect_to action: :pdf, format: :pdf, debug: true }
       format.pdf do
@@ -12,7 +14,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
                encoding: "utf-8",
                page_size: "A4",
                layout: "pdf/estimates.html.erb",
-               template: "/employees/estimate_matters/estimates/show.html.erb",
+               template: "/employees/estimate_matters/estimates/index.html.erb",
                show_as_html: params[:debug].present?
       end
     end
@@ -20,7 +22,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
 
   def new
     @estimate = @estimate_matter.estimates.new
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
   end
 
@@ -43,12 +45,13 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      set_estimates
+      set_estimate_details
     end
   end
 
   def edit
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
     @default_color = LabelColor.first.color_code
     # カテゴリ登録がすでにある場合
@@ -83,13 +86,15 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         change_category_order
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
+      set_estimates
+      set_estimate_details
     end
   end
 
   def destroy
     @estimate.destroy
-    @estimates = @estimate_matter.estimates
+    set_estimates
+    set_estimate_details
   end
 
   # 見積複製アクション
@@ -103,7 +108,20 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.estimate_id = new_estimate.id
       new_detail.save
     end
-    @estimates = @estimate_matter.estimates
+    set_estimates
+    set_estimate_details
+  end
+
+  # 順番入替
+  def move
+    case params[:move]
+    when "up"
+      @estimate.move_higher
+    when "down"
+      @estimate.move_lower
+    end
+    set_estimates
+    set_estimate_details
   end
 
   private

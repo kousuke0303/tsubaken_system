@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "attract_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "default", default: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sort_number"
@@ -206,6 +207,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.integer "total_price", default: 0, null: false
     t.integer "discount", default: 0, null: false
     t.string "estimate_matter_id"
+    t.integer "position"
     t.bigint "plan_name_id"
     t.string "matter_id"
     t.datetime "created_at", null: false
@@ -373,6 +375,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_051444) do
     t.string "address_street"
     t.string "phone"
     t.string "fax"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

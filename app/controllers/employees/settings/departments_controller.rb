@@ -1,4 +1,4 @@
-class Employees::Settings::DepartmentsController < ApplicationController
+class Employees::Settings::DepartmentsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_department, only: [:edit, :update, :destroy]
 

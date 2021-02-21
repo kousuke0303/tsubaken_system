@@ -15,7 +15,7 @@ ja:
       task: タスク
       industry: 業種
       department: 部署
-      category: 工事カテゴリ
+      category: 工事名称
       kind: 見積書タイプ
       image: 画像
       construction: 工事
@@ -112,7 +112,7 @@ ja:
         department:
           name: 名前
         category:
-          name: 工事カテゴリ名
+          name: 工事名称
         kind:
           title: タイトル
         image:

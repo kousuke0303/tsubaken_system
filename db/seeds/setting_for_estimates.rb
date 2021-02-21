@@ -5,17 +5,17 @@ Publisher.create!(name: "発行元B", postal_code: "5489494", prefecture_code: "
 Publisher.create!(name: "発行元C", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611113333")
 Publisher.create!(name: "発行元D", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611114444")
 
-# 工事カテゴリ
+# 工事名称
 
-SeedCategory1 = Category.create!(name: "屋根", default: true)
-SeedCategory2 = Category.create!(name: "外壁", default: true)
-SeedCategory3 = Category.create!(name: "玄関", default: true)
-SeedCategory4 = Category.create!(name: "浴室", default: true)
-SeedCategory5 = Category.create!(name: "洗面所", default: true)
-SeedCategory6 = Category.create!(name: "リビング", default: true)
-SeedCategory7 = Category.create!(name: "キッチン", default: true)
-SeedCategory8 = Category.create!(name: "共通工事", default: true)
-SeedCategory9 = Category.create!(name: "付帯工事", default: true)
+SeedCategory1 = Category.create!(name: "屋根")
+SeedCategory2 = Category.create!(name: "外壁")
+SeedCategory3 = Category.create!(name: "玄関")
+SeedCategory4 = Category.create!(name: "浴室")
+SeedCategory5 = Category.create!(name: "洗面所")
+SeedCategory6 = Category.create!(name: "リビング")
+SeedCategory7 = Category.create!(name: "キッチン")
+SeedCategory8 = Category.create!(name: "共通工事")
+SeedCategory9 = Category.create!(name: "付帯工事")
 
 puts "CREATE! CATEGORY"
 
@@ -39,8 +39,6 @@ Material.create!(name: "ガイナ水性カチオンシーラー", service_life: 
 Material.create!(name: "ガイナ", service_life: "10年", price: 1400, unit: "㎡", default: true, category_id: SeedCategory2.id)
 Material.create!(name: "UVアンダーコートsi", service_life: "10年", price: 900, unit: "㎡", default: true, category_id: SeedCategory2.id)
 Material.create!(name: "無機UVコート溶剤遮熱", service_life: "10年", price: 1800, unit: "㎡", default: true, category_id: SeedCategory2.id)
-
-
 
 # その他
 
@@ -90,7 +88,7 @@ end
 puts "CREATE! PlANNAME"
 
 # 集客方法
-%w(web 訪問販売 チラシ広告 紹介 タウンページ).each do |name|
+%w[web 訪問販売 チラシ広告 紹介 タウンページ].each do |name|
   AttractMethod.create(name: name)
 end
 

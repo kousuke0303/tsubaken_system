@@ -1,4 +1,4 @@
-class Employees::Settings::IndustriesController < ApplicationController
+class Employees::Settings::IndustriesController < Employees::EmployeesController
   before_action :set_industry, only: [:edit, :update, :destroy]
 
   def new

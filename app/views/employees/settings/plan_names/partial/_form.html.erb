@@ -1,9 +1,9 @@
 <%= f.label :name %>
 <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
 
-<%= f.label :label_color %>
+<%= f.label :label_color_id %>
 <div class="input-group">
-  <%= f.select :label_color, PlanName.label_colors.keys.map{ |k| [I18n.t("enums.plan_name.label_color.#{ k }"), k] }, {}, class: "form-control" %>
+<%= f.collection_select :label_color_id, @label_colors, :id, :name, { prompt: "選択してください" }, class: "form-control" %>
   <div class="input-group-append">
     <span class="input-group-text" style="width: 3em;" id="color-sample"></span>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
   var colorSample = $("#color-sample");
-  var colorSelect = $('[name="plan_name[label_color]"]'); 
+  var colorSelect = $('[name="plan_name[label_color_id]"]'); 
   colorSample.css("background", colorSelect.val());
 
   colorSelect.change(function() {
