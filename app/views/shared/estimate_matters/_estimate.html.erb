@@ -2,7 +2,7 @@
   <div class="pdf-estimate">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
     <div class="header">
-      <div class="estimate-title"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
+      <div class="estimate-num"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
       <div class="title">御見積書</div>
     </div>
 
@@ -45,15 +45,11 @@
           </tr>
           <% details.each do |detail| %>
             <tr>
-              <% if detail.material_id.present? %>            
-                <td class="detail-name"><%= detail.material_name %></td>
-                <td class="detail-amount"><%= detail.amount %></td>
-                <td class="detail-unit"><%= detail.unit %></td>
-                <td class="detail-price money-type"><%= detail.price %></td>
-                <td class="detail-total money-type"><%= detail.total %></td>
-                <td class="detail-specification"><%= detail.note %></td>
-              <% elsif detail.construction_id.present? %>
-                <td class="detail-name"><%= detail.construction_name %></td>
+              <% if detail.material_id.present? || detail.construction_id.present? %>            
+                <td class="detail-name">
+                  <%= detail.material_name %>
+                  <%= detail.construction_name %>
+                </td>
                 <td class="detail-amount"><%= detail.amount %></td>
                 <td class="detail-unit"><%= detail.unit %></td>
                 <td class="detail-price money-type"><%= detail.price %></td>
