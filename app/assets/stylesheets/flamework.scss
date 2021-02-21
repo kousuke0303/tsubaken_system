@@ -216,34 +216,12 @@ a.current_situation, a.current_situation:hover {
 }
 
 @media screen and (min-width: 992px) {
-  .admin_dropdown_menu {
-    margin-left: -93px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
+  .header_dropdown_menu {
+    position: absolute;
+    background-color: #343a40;
+    a {
+      color: white;
     }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .manager_external_staff_dropdown_menu {
-    margin-left: -13px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .staff_dropdown_menu {
-    margin-left: -43px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
     a:hover {
       background-color: #eaebef;
     }

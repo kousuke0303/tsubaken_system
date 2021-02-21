@@ -9,4 +9,14 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   
   def top
   end
+  
+  def avator_change
+    current_external_staff.avator.attach(params[:admin_avator])
+    redirect_to edit_external_staff_registration_url(current_external_staff)
+  end
+  
+  def avator_destroy
+    current_external_staff.avator.purge_later
+    redirect_to edit_external_staff_registration_url(current_external_staff)
+  end
 end

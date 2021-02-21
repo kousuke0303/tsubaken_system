@@ -2,7 +2,7 @@
 
 class Admins::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_admin!
-
+  
   def update
     @admin = Admin.find(current_admin.id)
     if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
