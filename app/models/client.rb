@@ -27,7 +27,7 @@ class Client < ApplicationRecord
   scope :has_matter, ->{ joins(estimate_matters: :matter) } 
   # 未成約顧客
   scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}) }
-  
+
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?
     errors.add(:login_id, "は「CL-」から始めてください") if login_id.present? && !login_id.start_with?("CL-")
