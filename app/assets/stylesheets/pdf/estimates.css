@@ -24,12 +24,45 @@
   text-align: center;
 }
 
-.pdf-estimate .client-info {
+.pdf-estimate .info-left {
   display: inline-block;
   width: 60%;
 }
 
-.pdf-estimate .company-info {
+.pdf-estimate .triangle {
+  width: 20px;
+  border-right: 20px solid transparent;
+  border-bottom: 13px solid #b2ce54;
+  border-left: 20px solid transparent; 
+}
+
+.pdf-estimate .square {
+  height: 30px;
+  width: 100px;
+  background: red;
+  padding-bottom: 5px;
+}
+
+.pdf-estimate .window {
+  display: inline-block;
+  color: white;
+  width: 40px;
+}
+
+.pdf-estimate .window div {
+  height: 15px;
+  padding: 0 0 5px 10px;
+}
+
+.text {
+  display: inline-block;
+  color: white;
+  width: 49px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.pdf-estimate .info-right {
   display: inline-block;
   width: 39%;
 }
@@ -57,8 +90,8 @@
   vertical-align: middle !important;
 }
 
-.pdf-estimate .square {
-  margin: 0.5em;
+.pdf-estimate .fa-square {
+  margin: 0 0.5em;
 }
 
 .pdf-estimate .category-name {

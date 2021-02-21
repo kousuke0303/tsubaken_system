@@ -5,12 +5,23 @@
       <div class="estimate-num"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
       <div class="title">御見積書</div>
     </div>
-
-    <div class="client-info">
-      現場名称：<%= @estimate_matter.title %><br>
-      現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
+    <div class="info-left">
+      <div>
+        現場名称：<%= @estimate_matter.title %><br>
+        現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
+      </div>
+      <div class="estimate-title-icon">
+        <div class="triangle"></div>
+        <div class="square">
+          <div class="window">
+            <div><span>■</span><span>■</span></div>
+            <div><span>■</span><span>■</span></div>
+          </div>
+          <div class="text"><%= estimate.title %></div>                
+        </div>
+      </div>
     </div>
-    <div class="company-info">
+    <div class="info-right">
       <div class="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt: "ロゴ" %></div>
       <div class="company-name">株式会社　ツバケン</div>
       <div class="company-tel">
@@ -39,7 +50,7 @@
           <% @category_total = 0 %>
           <tr>
             <td colspan=6 class="category-name">
-              <span class="square"><i class="fa fa-square"></i></span>
+              <i class="fa fa-square"></i>
               <%= details[0].category_name %><%= details.length %>
             </td>
           </tr>
@@ -97,7 +108,7 @@
 <% end %>
 
 <script>
-  $('.money-type').each(function(i, element){
+  $(".money-type").each(function(i, element) {
     var text = $(element).text();
     var moneyType = String(text).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, "$1," );
     $(element).text(moneyType);
