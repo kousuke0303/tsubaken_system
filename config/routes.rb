@@ -236,14 +236,17 @@ Rails.application.routes.draw do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
       end
-      resources :images, controller: "estimate_matters/images"
+      resources :images, controller: "estimate_matters/images" 
       resources :messages, only: [:index], controller: "estimate_matters/messages"
       # resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
       # resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
       # resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
-        patch :sort, on: :collection
+        collection do
+          get :download
+          patch :sort
+        end
       end
       get :person_in_charge
     end

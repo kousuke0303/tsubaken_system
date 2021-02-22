@@ -2,6 +2,8 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   before_action :set_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
   
+  require "fileutils"
+  
   def sort
     from = params[:from].to_i + 1
     certificate = @estimate_matter.certificates.find_by(position: from)
@@ -37,6 +39,19 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     set_certificates
     respond_to do |format|
       format.js
+    end
+  end
+  
+  def download
+    @certificates = @estimate_matter.certificates.where(default: false).order(created_at: "DESC")
+    @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+    @certificates.each do |certificate|
+      @images.each do |image|
+        @files = certificate.image.images[0].download
+      end
+      if send_data(@files, filename: certificate.image.images[0].filename.to_s, # ファイル名の取得
+                  type: certificate.image.images[0].content_type) # content_typeの取得
+      end
     end
   end
 
