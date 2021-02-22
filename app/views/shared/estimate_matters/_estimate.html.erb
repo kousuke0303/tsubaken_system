@@ -1,4 +1,5 @@
 <% @estimates.each do |estimate| %>
+  <% @tr_count = 0 %>
   <div class="pdf-estimate">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
     <div class="header">
@@ -47,6 +48,7 @@
       </thead>
       <tbody>
         <% details_hash.each do |category_id, details| %>
+          <% @tr_count += 2 %>
           <% @category_total = 0 %>
           <tr>
             <td colspan=6 class="category-name">
@@ -55,7 +57,8 @@
             </td>
           </tr>
           <% details.each do |detail| %>
-            <% if detail.material_id.present? || detail.construction_id.present? %>  
+            <% if detail.material_id.present? || detail.construction_id.present? %>
+              <% @tr_count += 1 %>
               <tr>          
                 <td class="detail-name">
                   <%= detail.material_name %>
@@ -79,7 +82,7 @@
             <td class="category-footer-6"></td>
           </tr>
         <% end %>
-        <% 5.times do |time| %>
+        <% (31 - @tr_count).times do |time| %>
           <tr>          
             <td class="margin-1">　</td>
             <td class="margin-2"></td>
