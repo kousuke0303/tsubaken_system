@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_151920) do
+ActiveRecord::Schema.define(version: 2021_02_05_051444) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "admin", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "email"
     t.string "phone"
     t.string "login_id", default: "", null: false
@@ -63,13 +63,26 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "attract_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "band_connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id"
+    t.string "matter_id"
+    t.string "band_key", null: false
+    t.string "band_name", null: false
+    t.string "band_icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_band_connections_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_band_connections_on_matter_id"
+  end
+
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "default", default: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sort_number"
@@ -90,7 +103,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "client", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
+    t.boolean "confirmed", default: false, null: false
     t.string "kana"
     t.integer "gender"
     t.string "phone_1"
@@ -125,7 +139,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name", null: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -191,17 +206,21 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.integer "total_price", default: 0, null: false
+    t.integer "discount", default: 0, null: false
     t.string "estimate_matter_id"
+    t.integer "position"
     t.bigint "plan_name_id"
+    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
+    t.index ["matter_id"], name: "index_estimates_on_matter_id"
     t.index ["plan_name_id"], name: "index_estimates_on_plan_name_id"
   end
 
   create_table "external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "external_staff", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "kana"
     t.string "phone"
     t.string "email"
@@ -217,6 +236,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
+    t.string "author"
+    t.string "default_file_path"
     t.date "shooted_on"
     t.integer "admin_id"
     t.integer "manager_id"
@@ -231,7 +252,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   end
 
   create_table "industries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name", null: false
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_industries_on_name", unique: true
@@ -247,14 +269,17 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   end
 
   create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
     t.string "color_code", null: false
+    t.string "note"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "manager", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
@@ -317,10 +342,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.date "finished_on"
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
-    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
   end
 
@@ -339,9 +362,10 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "position"
-    t.integer "label_color", default: 0, null: false
+    t.bigint "label_color_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["label_color_id"], name: "index_plan_names_on_label_color_id"
   end
 
   create_table "publishers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -352,6 +376,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.string "address_street"
     t.string "phone"
     t.string "fax"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -376,18 +401,23 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", null: false
-    t.date "conducted_on", null: false
+    t.date "scheduled_date", null: false
     t.string "note"
-    t.bigint "staff_id"
-    t.bigint "external_staff_id"
     t.string "estimate_matter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.time "scheduled_start_time"
     t.time "scheduled_end_time"
     t.string "place"
+    t.integer "register_for_schedule", default: 0, null: false
+    t.bigint "staff_id"
+    t.bigint "external_staff_id"
+    t.bigint "manager_id"
+    t.bigint "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_sales_statuses_on_admin_id"
     t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
+    t.index ["manager_id"], name: "index_sales_statuses_on_manager_id"
     t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
   end
 
@@ -402,11 +432,13 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.bigint "manager_id"
     t.bigint "admin_id"
     t.bigint "external_staff_id"
+    t.bigint "sales_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_schedules_on_admin_id"
     t.index ["external_staff_id"], name: "index_schedules_on_external_staff_id"
     t.index ["manager_id"], name: "index_schedules_on_manager_id"
+    t.index ["sales_status_id"], name: "index_schedules_on_sales_status_id"
     t.index ["staff_id"], name: "index_schedules_on_staff_id"
   end
 
@@ -426,7 +458,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
 
   create_table "staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "staff", null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.string "phone"
     t.string "email"
     t.date "birthed_on"
@@ -437,12 +469,14 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
     t.date "joined_on"
     t.date "resigned_on"
     t.bigint "department_id"
+    t.bigint "label_color_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_staffs_on_department_id"
+    t.index ["label_color_id"], name: "index_staffs_on_label_color_id"
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
   end
 
@@ -456,8 +490,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   end
 
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "kana"
+    t.string "name", null: false
+    t.string "kana", null: false
     t.string "postal_code"
     t.string "prefecture_code"
     t.string "address_city"
@@ -523,13 +557,12 @@ ActiveRecord::Schema.define(version: 2021_01_28_151920) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
-  add_foreign_key "matters", "estimates"
   add_foreign_key "messages", "matters"
+  add_foreign_key "plan_names", "label_colors"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "sales_status_members", "sales_statuses"
-  add_foreign_key "sales_statuses", "external_staffs"
-  add_foreign_key "sales_statuses", "staffs"
   add_foreign_key "staffs", "departments"
+  add_foreign_key "staffs", "label_colors"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"

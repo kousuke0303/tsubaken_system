@@ -1,6 +1,7 @@
-class Employees::Settings::DepartmentsController < ApplicationController
+class Employees::Settings::DepartmentsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_department, only: [:edit, :update, :destroy]
+  before_action :set_departments, only: :index
 
   def new
     @department = Department.new
@@ -11,15 +12,10 @@ class Employees::Settings::DepartmentsController < ApplicationController
     if @department.save
       flash[:success] = "部署を作成しました。"
       redirect_to employees_settings_departments_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
   def index
-    @departments = Department.all
   end
 
   def edit
@@ -29,10 +25,6 @@ class Employees::Settings::DepartmentsController < ApplicationController
     if @department.update(department_params)
       flash[:success] = "部署情報を更新しました。"
       redirect_to employees_settings_departments_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -46,6 +38,13 @@ class Employees::Settings::DepartmentsController < ApplicationController
       flash[:notice] = "部署を削除できませんでした。"
     end
     redirect_to employees_settings_departments_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    department = Department.find_by(position: from)
+    department.insert_at(params[:to].to_i + 1)
+    set_departments
   end
 
   private

@@ -4,7 +4,7 @@ class Api::V1::Employees::Settings::IndustriesController < Api::V1::ApplicationC
   before_action :set_industry, only: [:update, :destroy]
 
   def index
-    industries = Industry.all
+    industries = Industry.order(position: :asc)
     render json: industries, each_serializer: IndustrySerializer
   end
 

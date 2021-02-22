@@ -29,9 +29,6 @@ class Employees::Matters::TasksController < Employees::TasksController
       end
     end
     set_classified_tasks(@matter)
-    respond_to do |format|
-      format.js
-    end
   end
   
   def create
@@ -43,9 +40,6 @@ class Employees::Matters::TasksController < Employees::TasksController
     title = params[:title]
     @matter.tasks.create(title: title, status: 1, sort_order: sort_order)
     set_classified_tasks(@matter)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def edit
@@ -53,22 +47,14 @@ class Employees::Matters::TasksController < Employees::TasksController
     @external_staffs = @matter.external_staffs
   end
   
-  def update
-    if @task.update(task_params)
-      set_classified_tasks(@matter)
-      respond_to do |format|
-        format.js
-      end
-    end
+  def update    
+    set_classified_tasks(@matter) if @task.update(task_params)
   end
   
   def destroy
     if @task.destroy
       flash[:danger] = "タスクを削除しました。"
       set_classified_tasks(@matter)
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

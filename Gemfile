@@ -47,7 +47,9 @@ gem 'chartkick'
 gem 'acts_as_list'
 # EXCEL出力のためのgem
 gem 'axlsx_rails'
-
+# PDF出力
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'mysql2'

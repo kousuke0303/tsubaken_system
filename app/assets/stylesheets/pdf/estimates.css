@@ -1,0 +1,203 @@
+.pdf-estimate {
+  page-break-after:always;
+  &:last-child {
+    page-break-after: avoid;
+  }
+}
+
+.pdf-estimate .header {
+  border-bottom: 2px solid black;
+  margin-bottom: 2px;
+  padding-bottom: 3px;
+}
+.pdf-estimate .header div {
+  display: inline-block;
+  width: 33%;
+}
+
+.pdf-estimate .estimate-num {
+  font-size: 20px;
+}
+
+.pdf-estimate .title {
+  font-size: 25px;
+  text-align: center;
+}
+
+.pdf-estimate .info-left {
+  display: inline-block;
+  width: 60%;
+}
+
+.pdf-estimate .triangle {
+  width: 20px;
+  border-right: 20px solid transparent;
+  border-bottom: 13px solid #b2ce54;
+  border-left: 20px solid transparent; 
+}
+
+.pdf-estimate .square {
+  height: 30px;
+  width: 100px;
+  background: red;
+  padding-bottom: 5px;
+}
+
+.pdf-estimate .window {
+  display: inline-block;
+  color: white;
+  width: 40px;
+}
+
+.pdf-estimate .window div {
+  height: 15px;
+  padding: 0 0 5px 10px;
+}
+
+.text {
+  display: inline-block;
+  color: white;
+  width: 49px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.pdf-estimate .info-right {
+  display: inline-block;
+  width: 39%;
+}
+
+.pdf-estimate .company-logo {
+  text-align: center;
+}
+
+.pdf-estimate .company-name {
+  font-weight: bold;
+}
+
+#pdf-estimate .person-in-charge {
+  float: right;
+}
+
+.pdf-estimate .pdf-estimate-table {
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+.pdf-estimate thead td {
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.pdf-estimate .fa-square {
+  margin: 0 0.5em;
+}
+
+.pdf-estimate .category-name {
+  border-bottom: none;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.pdf-estimate .detail-name {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: none;
+  padding-left: 2.5em;
+}
+
+.pdf-estimate .detail-amount {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+  border-top: none;
+  text-align: right;
+}
+
+.pdf-estimate .detail-unit {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+  text-align: right;
+}
+
+.pdf-estimate .detail-price {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+  border-top: none;
+  text-align: right;
+}
+
+.pdf-estimate .detail-total {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+  text-align: right;
+}
+
+.pdf-estimate .detail-specification {
+  border-bottom: 1px solid black;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid black;
+  border-top: none;
+}
+
+.pdf-estimate .category-footer {
+  border-bottom: 2px solid black;
+}
+
+.pdf-estimate .category-footer-1 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+.pdf-estimate .category-footer-2, .category-footer-4 {
+  border-left: 1px solid black;
+  border-right: 1px solid lightgray;
+}
+
+.pdf-estimate .category-footer-3, .category-footer-5 {
+  border-left: 1px solid lightgray;;
+  border-right: 1px solid black;
+  text-align: right;
+}
+
+.pdf-estimate .category-footer-6 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.pdf-estimate .footer-item-1 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+.pdf-estimate .footer-item-2 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: right;
+}
+
+.pdf-estimate .footer-item-3 {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.pdf-estimate .estimate-total {
+  font-weight: bold;
+}
+
+.pdf-estimate .pure-total {
+  font-size: 1.1em;
+}

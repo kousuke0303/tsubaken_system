@@ -1,13 +1,15 @@
-class Employees::EstimateMattersController < ApplicationController
+class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :authenticate_employee!
-  before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
-  before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
+  before_action :can_access_only_estimate_matter_of_being_in_charge
   before_action :set_publishers, only: [:new, :edit]
-  before_action :other_tab_display, only: :progress_table
+  before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
+  before_action :set_matter_of_estimate_matter, only: :show
+  before_action :set_estimates, only: :show
+  before_action :set_estimate_details, only: :show
+  before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
   before_action :set_six_month, only: :progress_table_for_six_month
-  before_action :can_access_only_estimate_matter_of_being_in_charge
-
+  
   def index
     @sales_statuses = SalesStatus.order(created_at: "DESC")
     current_person_in_charge
@@ -21,7 +23,7 @@ class Employees::EstimateMattersController < ApplicationController
 
   def new
     @estimate_matter = EstimateMatter.new
-    @attract_methods = AttractMethod.all
+    @attract_methods = AttractMethod.order(position: :asc)
     if params[:client_id]
       client = Client.find(params[:client_id])
       @id = client.id
@@ -35,14 +37,10 @@ class Employees::EstimateMattersController < ApplicationController
   def create
     @estimate_matter = EstimateMatter.new(estimate_matter_params)
     if @estimate_matter.save
-      @estimate_matter.sales_statuses.create!(status: "not_set", conducted_on: Date.current)
+      @estimate_matter.sales_statuses.create!(status: "not_set", scheduled_date: Date.current)
       set_estimate_matter_members
       flash[:success] = "見積案件を作成しました。"
       redirect_to employees_estimate_matters_url(id: @estimate_matter.id)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -50,15 +48,14 @@ class Employees::EstimateMattersController < ApplicationController
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
-    @estimates = @estimate_matter.estimates
     @certificates = @estimate_matter.certificates.order(position: :asc)
-    @images = @estimate_matter.images.select { |image| image.images.attached? }
+    @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
-    @adopted_estimate_id = @matter.estimate_id if @matter # 案件化されていれば、採用見積を定義
+    @estimate_details = @estimates.with_estimate_details
   end
 
   def edit
-    @attract_methods = AttractMethod.all
+    @attract_methods = AttractMethod.order(position: :asc)
     @id = @estimate_matter.client_id
     @postal_code = @estimate_matter.postal_code
     @prefecture_code = @estimate_matter.prefecture_code
@@ -71,10 +68,6 @@ class Employees::EstimateMattersController < ApplicationController
       set_estimate_matter_members
       flash[:success] = "見積案件を更新しました。"
       redirect_to employees_estimate_matter_url(@estimate_matter)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -84,6 +77,7 @@ class Employees::EstimateMattersController < ApplicationController
   end
 
   def progress_table
+    @type = "progress_table"
     @table_type = "three_month"
     est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
     @target_est_matters = est_matters.group_by{|list| list.created_at.month} 
@@ -140,10 +134,6 @@ class Employees::EstimateMattersController < ApplicationController
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])
-    end
-
-    def set_publishers
-      @publishers = Publisher.all
     end
 
     def estimate_matter_params

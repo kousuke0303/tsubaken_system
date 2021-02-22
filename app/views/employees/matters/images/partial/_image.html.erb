@@ -1,0 +1,38 @@
+<div class="table-responsive">
+  <table class="table table-bordered table_line_type">
+    <thead>
+      <tr>
+        <th class="text-center">写真</th>
+        <th class="text-center">投函者</th>
+        <th class="text-center">内容</th>
+        <th class="text-center">撮影日</th>
+        <th class="text-center">画像編集・削除</th>
+      </tr>
+    </thead>
+    <% @images.each do |image| %>
+      <tr>
+        <td style="vertical-align: middle" class="text-center pc_type">
+          <%= image_tag url_for(image.image.variant(resize: "200x200")) %>
+        </td>
+            
+        <td style="vertical-align: middle" class="text-center mobile_type">
+          <%= image_tag url_for(image.image.variant(resize: "120x120")) %>
+        </td>
+            
+        <td style="vertical-align: middle" class="text-center">
+          <%= image.poster || image.author %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= image.content %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= image.shooted_on %>
+        </td>
+        <td style="vertical-align: middle" class="text-center">
+          <%= link_to "編集", edit_employees_matter_image_path(current_matter, image.id), remote: true, class: "btn btn-dark" %>
+          <%= link_to "削除", employees_matter_image_path(current_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

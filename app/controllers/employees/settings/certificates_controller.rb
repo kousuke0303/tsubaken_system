@@ -1,4 +1,4 @@
-class Employees::Settings::CertificatesController < ApplicationController
+class Employees::Settings::CertificatesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_certificate, only: [:edit, :update, :destroy]
 
@@ -11,10 +11,6 @@ class Employees::Settings::CertificatesController < ApplicationController
     if @certificate.save
       flash[:success] = "診断書を作成しました。"
       redirect_to employees_settings_certificates_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::CertificatesController < ApplicationController
     if @certificate.update(certificate_params)
       flash[:success] = "診断書を更新しました。"
       redirect_to employees_settings_certificates_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

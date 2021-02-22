@@ -1,6 +1,7 @@
 class Publisher < ApplicationRecord
   has_many :estimate_matters, dependent: :destroy
   has_one_attached :image
+  acts_as_list
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :phone, format: { with: VALID_PHONE_REGEX }

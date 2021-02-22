@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="image-update-errors"></div>
+        <%= form_with(model: @image, url: employees_estimate_matter_image_path(current_estimate_matter, @image), method: :patch, remote: true) do |f| %>
+          <div class="edit-image-content-position">
+            <%= f.label :content %>
+            <div>
+              <%= f.text_area :content, maxlength: 300, class: "form-control" %>
+            </div>
+            
+            <%= f.label :shooted_on %>
+            <div>
+              <%= f.date_field :shooted_on, class: "form-control" %>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <%= f.submit "更新", class: "btn btn-md btn-dark reset-errors" %>
+            <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
+          </div>
+        
+          <figure class="mt-20 text-center pc_type">
+            <%= image_tag url_for(@image.image.variant(resize: "400x400")) %>
+          </figure>
+          
+          <figure class="mt-20 text-center mobile_type">
+            <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
+          </figure>
+        <% end %> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

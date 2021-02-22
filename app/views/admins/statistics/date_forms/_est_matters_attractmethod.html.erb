@@ -16,21 +16,18 @@
           <th>案件数</th>
           <th>成約数</th>
           <th>成約率</th>
+          <th>売上高(円)</th>
         </tr>
         <% @total_est_number = 0 %>
         <% @total_contract = 0 %>
+        <% @total_price = 0 %>
         <% table_date_for_attract_count.each do |key, value| %>
           <tr>
             <td><%= key %></td>
-            <% if value.instance_of?(Array) %>
-              <td><%= value[0] %><% @total_est_number += value[0] %></td>
-              <td><%= value[1] %><% @total_contract += value[1] %></td>
-              <td><%= contract_rate(value[1], value[0]) %>%</td>
-            <% else %>
-              <td><%= value %><% @total_est_number += value %></td>
-              <td><%= 0 %><% @total_contract += 0 %></td>
-              <td><%= 0 %>%</td>
-            <% end %>
+            <td><%= value[0] %><% @total_est_number += value[0] %></td>
+            <td><%= value[1] %><% @total_contract += value[1] %></td>
+            <td><%= contract_rate(value[1], value[0]) %>%</td>
+            <td class="money-type"><%= value[2] %><% @total_price = @total_price += value[2] %></td>
           </tr>
         <% end %>
         <tr class="total">
@@ -38,8 +35,11 @@
           <td><%= @total_est_number %></td>
           <td><%= @total_contract %></td>
           <td><%= contract_rate(@total_contract, @total_est_number) %>%</td>
+          <td class="money-type"><%= @total_price %></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "money_type.js" %>

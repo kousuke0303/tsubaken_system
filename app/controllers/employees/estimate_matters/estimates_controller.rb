@@ -1,27 +1,36 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimate, only: [:edit, :update, :copy, :destroy]
+  before_action :set_estimates, only: :index
+  before_action :set_estimate_details, only: :index
+  before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
+  before_action :set_matter_of_estimate_matter, only: :move
   before_action :refactor_params_category_ids, only: [:create, :update]
   
+  def index
+    respond_to do |format|
+      format.html { redirect_to action: :pdf, format: :pdf, debug: true }
+      format.pdf do
+        render pdf: "file_name",
+               encoding: "utf-8",
+               page_size: "A4",
+               layout: "pdf/estimates.html.erb",
+               template: "/employees/estimate_matters/estimates/index.html.erb",
+               show_as_html: params[:debug].present?
+      end
+    end
+  end
+
   def new
     @estimate = @estimate_matter.estimates.new
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
-    @default_color = PlanName.label_colors.keys[0]
-    respond_to do |format|
-      format.js
-    end
   end
 
   # デフォルトのプラン名に合わせて、ラベルカラーをajaxで変更
   def change_label_color
     id = params[:id].to_i
     plan_name = PlanName.find(id)
-    @sample_color = plan_name.label_color
-
-    respond_to do |format|
-      format.js
-    end
+    @sample_color = plan_name.label_color.color_code
   end
 
   def create
@@ -36,19 +45,15 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         end
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
-    else
-      @response = "false"
-    end
-    respond_to do |format|
-      format.js
+      set_estimates
+      set_estimate_details
     end
   end
 
   def edit
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
     @plan_names = PlanName.order(position: :asc)
-    @default_color = PlanName.label_colors.keys[0]
+    @default_color = LabelColor.first.color_code
     # カテゴリ登録がすでにある場合
     if @estimate.estimate_details.present?
       estimate_details = @estimate.estimate_details.order(:sort_number)
@@ -57,9 +62,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     # カテゴリがない場合
     else
       @type = "no_category"
-    end
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -84,18 +86,16 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         change_category_order
       end
       @response = "success"
-      @estimates = @estimate_matter.estimates
-    else
-      @response = "false"
-    end
-    respond_to do |format|
-      format.js
+      @estimate.calc_total_price
+      set_estimates
+      set_estimate_details
     end
   end
 
   def destroy
     @estimate.destroy
-    @estimates = @estimate_matter.estimates
+    set_estimates
+    set_estimate_details
   end
 
   # 見積複製アクション
@@ -109,10 +109,20 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.estimate_id = new_estimate.id
       new_detail.save
     end
-    @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
+    set_estimates
+    set_estimate_details
+  end
+
+  # 順番入替
+  def move
+    case params[:move]
+    when "up"
+      @estimate.move_higher
+    when "down"
+      @estimate.move_lower
     end
+    set_estimates
+    set_estimate_details
   end
 
   private
@@ -121,7 +131,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     end
 
     def estimate_params
-      params.require(:estimate).permit(:title, :plan_name_id)
+      params.require(:estimate).permit(:title, :plan_name_id, :discount)
     end
     
     # パラメーター整形

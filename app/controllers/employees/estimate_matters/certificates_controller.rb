@@ -9,9 +9,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     certificate = @estimate_matter.certificates.find_by(position: from)
     certificate.insert_at(params[:to].to_i + 1)
     @certificates = @estimate_matter.certificates.order(position: :asc)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def new
@@ -25,9 +22,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     @certificate.save ? @responce = "success" : @responce = "false"
     set_images
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
 
   def edit
@@ -37,9 +31,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def update
     @certificate.update(certificate_params) ? @responce = "success" : @responce = "false"
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
   
   def download
@@ -70,9 +61,6 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def destroy
     @certificate.destroy
     set_certificates
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

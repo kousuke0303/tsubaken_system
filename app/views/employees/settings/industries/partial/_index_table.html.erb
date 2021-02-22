@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="sortable-industries">
+      <% @industries.each do |industry| %>
+        <tr class="tr-sortable">
+          <td><%= industry.name %></td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_industry_path(industry), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag "Sortable.min.js" %>
+<script>
+  $(function() {
+    let el = document.getElementById("sortable-industries");
+    if (el != null) {
+      const sortable = Sortable.create(el, {
+        animation: 150,
+        delay: 100,
+        onUpdate: function(evt) {
+          $.ajax({
+            type: "PATCH",
+            url: "<%= sort_employees_settings_industries_path %>",
+            cache: false,
+            data: { from: evt.oldIndex, 
+                    to: evt.newIndex, 
+                    remote: true }
+          });
+        }
+      });
+    }
+  });
+</script>

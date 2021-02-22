@@ -1,3 +1,9 @@
+LabelColor.create(name: "パープル", color_code: "#8695d6")
+LabelColor.create(name: "ブルー", color_code: "#007bff")
+LabelColor.create(name: "ピンク", color_code: "#d686bd")
+LabelColor.create(name: "ブラウン", color_code: "#8a7a74")
+LabelColor.create(name: "グレー", color_code: "#b7b7b7")
+
 # 設定/見積関係
 require "./db/seeds/setting_for_estimates.rb"
 
@@ -12,8 +18,6 @@ Admin.create!(name: "管理者",
               password_confirmation: "password")
 
 puts "CREATE! ADMIN"
-
-puts "CREATE! Department"
 
 3.times do |n|
   Manager.create!(name: "マネージャー#{ n + 1 }",
@@ -41,6 +45,7 @@ puts "CREATE! MANAGER"
                 prefecture_code: "テスト県",
                 address_city: "テスト市",
                 address_street: "テスト町1-1-1",
+                label_color_id: rand(5) + 1,
                 password: "password",
                 password_confirmation: "password")
 end
@@ -63,7 +68,7 @@ puts "CREATE! Supplier"
 3.times do |n|
 ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       kana: "ガイブスタッフ",
-                      login_id: "ES-exstaff#{ n + 1 }",
+                      login_id: "ES-exstaff-#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       supplier_id: 1,
@@ -109,6 +114,7 @@ puts "CREATE! CLIENT"
 # -----------------------------------------------------
 
 require "./db/seeds/estimate_matter.rb"
+require "./db/seeds/estimate.rb"
 
 # -----------------------------------------------------
       # Attendance
@@ -146,7 +152,7 @@ puts "CREATE! ATTENDANCE"
 # -----------------------------------------------------
 
 require "./db/seeds/schedule.rb"
-puts "CREATE! SCHEDULE"
+
 
 %w(屋根 外壁 玄関 浴室 洗面所 リビング キッチン).each do |name|
   Certificate.create(title: "診断書#{ name }の診断書", content: "#{ name }の診断内容", default: true)
@@ -154,14 +160,4 @@ end
 
 puts "CREATE! CERTIFICATE"
 
-%w(web 訪問販売 チラシ広告 紹介 タウンページ).each do |name|
-  AttractMethod.create(name: name)
-end
 
-puts "CREATE! ATTRACTIVE METHOD"
-
-%w(シリコン チッ素 断熱ガイナ 無機).each do |name|
-  PlanName.create(name: name)
-end
-
-puts "CREATE! Plan Name"

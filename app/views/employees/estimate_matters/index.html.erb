@@ -1,7 +1,8 @@
 <div class="col-12">
-  <h2><i class="fas fa-paste"></i> 営業管理案件</h2>
+  <%= render partial: 'layouts/page_title', locals: { title_1: "営業管理案件", title_2: nil, icon: "fa-paste"} %>
+  
   <%= form_with(model: @clients, method: :get, local: true) do |f| %>
-    <div class="row">
+    <div class="row mt-05e">
       <div class="col-lg-2 col-6 pr-0">
         <%= f.text_field :name, class: "form-control", placeholder: "顧客名検索", value: params[:name] %>
       </div>
@@ -43,7 +44,7 @@
             <% if sales_status.status == "not_set" %>
               <td><%= sales_status.status_i18n %></td>
             <% elsif sales_status %>
-              <td><%= sales_status.status_i18n %>／<%= status_member_name(sales_status) %></td>
+              <td><%= sales_status.status_i18n %>／<%= member_name(sales_status) %></td>
             <% else %>
               <td></td>
             <% end %>

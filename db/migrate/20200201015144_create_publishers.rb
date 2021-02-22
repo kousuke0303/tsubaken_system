@@ -8,6 +8,7 @@ class CreatePublishers < ActiveRecord::Migration[5.2]
       t.string :address_street
       t.string :phone
       t.string :fax
+      t.integer :position
 
       t.timestamps
     end

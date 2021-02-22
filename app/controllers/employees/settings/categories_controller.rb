@@ -1,5 +1,6 @@
-class Employees::Settings::CategoriesController < ApplicationController
+class Employees::Settings::CategoriesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
+  before_action :set_categories, only: :index
   before_action :set_category, only: [:edit, :update, :destroy]
 
   def new
@@ -7,14 +8,10 @@ class Employees::Settings::CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params.merge(default: true))
+    @category = Category.new(category_params)
     if @category.save
-      flash[:success] = "工事カテゴリを作成しました。"
+      flash[:success] = "工事名称を作成しました。"
       redirect_to employees_settings_categories_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -23,22 +20,24 @@ class Employees::Settings::CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      flash[:success] = "工事カテゴリを更新しました。"
+      flash[:success] = "工事名称を更新しました。"
       redirect_to employees_settings_categories_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
   def index
-    @categories = Category.all.where(default: true)
   end
 
   def destroy
-    @category.destroy ? flash[:success] = "工事カテゴリを削除しました。" : flash[:alert] = "工事カテゴリを削除できませんでした。"
+    @category.destroy ? flash[:success] = "工事名称を削除しました。" : flash[:alert] = "工事名称を削除できませんでした。"
     redirect_to employees_settings_categories_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    category = Category.find_by(position: from)
+    category.insert_at(params[:to].to_i + 1)
+    set_categories
   end
 
   private

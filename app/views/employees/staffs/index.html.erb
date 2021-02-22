@@ -1,72 +1,48 @@
 <div class="col-12">
+  <h2>Staff一覧</h2>
   <div class="row">
-    <div class="col-md-6 col-12">
-      <h2>Staff一覧</h2>
+    <div class="col-md-5 col-12">
+      <div class="select-switch">
+        <input type="radio" name="switch" id="radio1" checked>
+        <label for="radio1" class="mt-0">在籍中</label>
+        <input type="radio" name="switch" id="radio2">
+        <label for="radio2" class="mt-0">退職済</label>
+      </div>
     </div>
-    <div class="col-md-6 col-12">
+    <div class="col-md-7 col-12">
       <%= link_to new_employees_staff_path, remote: true, class: "btn btn-dark float-r" do %>
         <i class="fas fa-plus"></i> 新規Staff
       <% end %>
     </div>
   </div>
-
-  <div class="card mt-1e">
-    <div class="card-header bg-dark tab-wrapper">
-      <ul class="nav nav-tabs d-flex flex-column flex-md-row card-header-tabs" id="staffs-index" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#enrolled" data-toggle="tab" role="tab" aria-controls="enrolled" aria-selected="true">在籍中</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#retired" data-toggle="tab" role="tab" aria-controls="retired" aria-selected="false">退職済</a>
-        </li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <div class="tab-content" id="staffs-index">
-
-        <div class="tab-pane fade show active bg-white" id="enrolled" role="tabpanel">
-          <div class="table-responsive">
-            <table class="table table-bordered text-nowrap common-table">
-              <tr>
-                <th>名前</th>
-                <th>ログインID</th>
-                <th>電話番号</th>
-                <th>入社日</th>
-              </tr>
-              <% @enrolled_staffs.each do |staff| %>
-                <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
-                  <td><%= staff.name %></td>
-                  <td><%= staff.login_id %></td>
-                  <td><%= staff.phone %></td>
-                  <td><%= staff.joined_on %></td>
-                </tr>
-              <% end %>
-            </table>
-          </div>
-        </div>
-
-        <div class="tab-pane fade show bg-white" id="retired" role="tabpanel">
-          <div class="table-responsive">
-            <table class="table table-bordered text-nowrap common-table">
-              <tr>
-                <th>名前</th>
-                <th>ログインID</th>
-                <th>電話番号</th>
-                <th>入社日</th>
-              </tr>
-              <% @retired_staffs.each do |staff| %>
-                <tr class="tr-link" data-link="<%= employees_staff_path(staff) %>">
-                  <td><%= staff.name %></td>
-                  <td><%= staff.login_id %></td>
-                  <td><%= staff.phone %></td>
-                  <td><%= staff.joined_on %></td>
-                </tr>
-              <% end %>
-            </table>
-          </div>
-        </div>
-
-      </div>
-    </div>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>ログインID</th>
+          <th>電話番号</th>
+          <th>入社日</th>
+        </tr>
+      </thead>
+      <tbody id="enrolled">
+        <%= render "/employees/staffs/partial/index_table", objects: @enrolled_staffs %>
+      </tbody>
+      <tbody id="retired" style="display: none;">
+        <%= render "/employees/staffs/partial/index_table", objects: @retired_staffs %>
+      </tbody>
+    </table>
   </div>
 </div>
+
+<script>
+  $("#radio1").on("click", function(){
+    $("#enrolled").show();
+    $("#retired").hide();
+  });
+  $("#radio2").on("click", function(){
+    $("#enrolled").hide();
+    $("#retired").show();
+  });
+</script>

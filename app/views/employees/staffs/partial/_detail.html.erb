@@ -1,0 +1,101 @@
+<div class="table-responsive pc_type">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th style="width: 10em;">名前</th>
+      <td><%= @staff.name %></td>
+    </tr>
+    <tr>
+      <th>部署</th>
+      <td><%= @staff.department.name %></td>
+    </tr>
+    <tr>
+      <th>ログインID</th>
+      <td><%= @staff.login_id %></td>
+    </tr>
+    <tr>
+      <th>電話番号</th>
+      <td><%= @staff.phone %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @staff.email %></td>
+    </tr>
+    <tr>
+      <th>生年月日</th>
+      <td><%= @staff.birthed_on %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @staff.postal_code %></td>
+    </tr>
+    <tr>
+      <th>都道府県</th>
+      <td><%= @staff.prefecture_code %></td>
+    </tr>
+    <tr>
+      <th>市区町村</th>
+      <td><%= @staff.address_city %></td>
+    </tr>
+    <tr>
+      <th>町名番地</th>
+      <td><%= @staff.address_street %></td>
+    </tr>
+    <tr>
+      <th>入社日</th>
+      <td><%= @staff.joined_on %></td>
+    </tr>
+    <tr>
+      <th>退社日</th>
+      <td><%= @staff.resigned_on %></td>
+    </tr>
+  </table>
+</div>
+
+<div class="mobile_type">
+  <div>
+    <button type="button" id="tableLongCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+    
+  <div class="responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar">
+      <ul class="components">
+        <li>名前</li>
+        <li>部署</li>
+        <li>LOGIN-ID</li>
+        <li>TEL</li>
+        <li>MAIL</li>
+        <li>郵便番号</li>
+        <li>住所</li>
+        <li>入社日</li>
+        <li>退社日</li>
+        <li>生年月日</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap overflow-auto">
+      <div class="content"><%= @staff.name %></div>
+      <div class="content"><%= @staff.department.name %></div>
+      <div class="content"><%= @staff.login_id %></div>
+      <div class="content">
+        <a href="tel:<%= @staff.phone %>" class=""><%= mobile_phone_display(@staff.phone) %></a>
+      </div>
+      <div class="content"><%= @staff.email %></div>
+      <div class="content"><%= postal_code_display(@staff.postal_code) %></div>
+      <div class="content"><%= @staff.prefecture_code %><%= @staff.address_city %><%= @staff.address_street %></div>
+      <div class="content"><%= @staff.joined_on %></div>
+      <div class="content"><%= @staff.resigned_on %></div>
+      <div class="content"><%= @staff.birthed_on %></div>
+    </div>
+  </div>
+</div>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_staff_path(@staff), remote: true, class: "btn btn-dark" %>
+  <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: { confirm: "このStaffを削除してよろしいですか？" }, class: "btn btn-destroy" %>
+</div>
+
+<%= javascript_include_tag "tableCollapse.js" %> 

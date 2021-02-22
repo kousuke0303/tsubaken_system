@@ -1,0 +1,143 @@
+/* -----------------------------------------------------------------------------------
+    SALES_STATUS_INDEX    
+----------------------------------------------------- */
+.now_status {
+  background: #f7fdc6;
+}
+
+
+/* -----------------------------------------------------------------------------------
+    ESTIMATE_INDEX    
+----------------------------------------------------- */
+.move-estimate-order {
+  padding: 21px 0 0 10px;
+}
+
+/* -----------------------------------------------------------------------------------
+    PROGRESS_TABLE    
+----------------------------------------------------- */
+.progress_container  {
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 100vh;
+  background: #ececec;
+}
+
+.progress_table_design {
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: auto 1em;
+  }
+
+  table th:first-child {
+    border-radius: 5px 0 0 0;
+  }
+
+  table th:last-child{
+    border-radius: 0 5px 0 0;
+    border-right: 1px solid #3c6690;
+  }
+
+  table th{
+    text-align: center;
+    color:white;
+    background: -webkit-linear-gradient(#626365, #0c0c0c);
+    background: -moz-linear-gradient(#626365, #0c0c0c);
+    background: -o-linear-gradient(#626365, #0c0c0c);
+    background: linear-gradient(#626365, #0c0c0c);
+    border-left: 1px solid #77797b;
+    border-top: 1px solid #77797b;
+    border-bottom: 1px solid #77797b;
+    box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+    padding: 10px 0;
+  }
+
+  table td{
+    background: white;
+    text-align: center;
+    border-left: 1px solid #a8b7c5;
+    border-bottom: 1px solid #a8b7c5;
+    border-top:none;
+    box-shadow: 0px -3px 5px 1px #eee inset;
+    width: 25%;
+    padding: 10px 10px;
+  }
+
+  table td:last-child{
+    border-right: 1px solid #a8b7c5;
+  }
+}
+
+.husen {
+  padding: 0.5em 0.5em;
+  color: #232323;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+.husen_sample {
+  padding: 0.5em 0.5em;
+  color: #232323;
+  background: #e5d4ef;
+  border-left: solid 10px #c920e6;
+}
+
+.progress_table_pager {
+  text-align: center;
+  margin-top: 1em;
+  padding: 0;
+  .pagination li {
+    display: inline;
+    margin: 0 2px;
+    padding: 0;
+    display: inline-block;
+    background: #3a73bd;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    a {
+      vertical-align: middle;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      display:table;
+      color: #fff;
+      text-decoration: none;
+      span {
+        display:table-cell;
+        vertical-align:middle;
+      }
+    }
+  }
+  
+  .pagination .span_disp {
+    display: inline;
+    margin: 0 2px;
+    padding: 0;
+    display: inline-block;
+    background: #3a73bd;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    span {
+      line-height: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 25px;
+      display: table-cell;
+    }
+  }
+}

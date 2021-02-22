@@ -1,6 +1,6 @@
 module Employees::EstimateMatters::EstimateMattersHelper
   
-  def member_name(estimate_matter)
+  def staff_member_name(estimate_matter)
     members = []
     if estimate_matter.staffs.present?
       estimate_matter.staffs.each do |estimate_matter_staff|

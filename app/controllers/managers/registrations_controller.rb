@@ -2,9 +2,9 @@
 
 class Managers::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_manager!
+  before_action :set_departments, only: :edit
 
   def edit
-    @departments = Department.all
   end
 
   def update

@@ -1,0 +1,11 @@
+<% if current_estimate_matter %>
+  $('#band_album').html('<%= escape_javascript(render 'employees/estimate_matters/images/partial/band_album') %>');
+<% elsif current_matter %>
+  $('#band_album').html('<%= escape_javascript(render 'employees/matters/images/partial/band_album') %>');
+<% end %>
+$('#image_container').removeClass('col-md-12');
+$('#image_container').addClass('col-md-6');
+$('#default_btn_container').removeClass('col-sm-12');
+$('#default_btn_container').addClass('col-md-6');
+$('#open_band_album').hide();
+$('#close_band_album').show();

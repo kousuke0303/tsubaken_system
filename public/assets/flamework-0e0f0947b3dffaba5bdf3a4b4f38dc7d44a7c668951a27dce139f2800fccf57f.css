@@ -1,0 +1,226 @@
+/* -----------------------------------------------------------------------------------
+    FALMEWORK      
+----------------------------------------------------- */
+/* line 6, app/assets/stylesheets/flamework.scss */
+.entire-wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  perspective: 1500px;
+}
+
+/* -----------------------------------------------------------------------------------
+    SIDEBAR      
+----------------------------------------------------- */
+/* line 17, app/assets/stylesheets/flamework.scss */
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: #343a40;
+  color: #fff;
+  transition: all 0.6s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+  transform-origin: bottom left;
+}
+
+/* line 24, app/assets/stylesheets/flamework.scss */
+#sidebar h4 {
+  font-size: 20px;
+  border-bottom: solid 1px white;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+/* line 31, app/assets/stylesheets/flamework.scss */
+#sidebar .sidebar-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: white;
+}
+
+/* line 37, app/assets/stylesheets/flamework.scss */
+#sidebar .dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+/* line 45, app/assets/stylesheets/flamework.scss */
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+/* line 50, app/assets/stylesheets/flamework.scss */
+#sidebar a, #sidebar a:hover, #sidebar a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+/* line 57, app/assets/stylesheets/flamework.scss */
+#sidebar.active {
+  margin-left: -250px;
+  transform: rotateY(100deg);
+}
+
+/* line 62, app/assets/stylesheets/flamework.scss */
+#sidebar ul p {
+  color: #fff;
+  padding: 10px 15px;
+}
+
+/* line 67, app/assets/stylesheets/flamework.scss */
+#sidebar ul li a {
+  padding: 10px 10px 10px 20px;
+  font-size: 1.1em;
+  display: block;
+}
+
+/* line 73, app/assets/stylesheets/flamework.scss */
+#sidebar ul li a:hover {
+  color: #343a40;
+  background: #fff;
+}
+
+/* line 78, app/assets/stylesheets/flamework.scss */
+#sidebar ul li.active > a {
+  color: #343a40;
+  background: #6c757d;
+}
+
+/* line 83, app/assets/stylesheets/flamework.scss */
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #343a40 !important;
+  background: #6c757d;
+}
+
+/* line 88, app/assets/stylesheets/flamework.scss */
+ul ul a {
+  font-size: 1em !important;
+}
+
+/* line 92, app/assets/stylesheets/flamework.scss */
+ul.CTAs {
+  padding: 20px;
+  color: black;
+}
+
+/* line 97, app/assets/stylesheets/flamework.scss */
+ul.CTAs a {
+  text-align: center;
+  font-size: 1em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 10px !important;
+}
+
+/* line 106, app/assets/stylesheets/flamework.scss */
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #6c757d;
+}
+
+/* line 112, app/assets/stylesheets/flamework.scss */
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+/* line 116, app/assets/stylesheets/flamework.scss */
+a.download {
+  background: #fff;
+  color: #7386D5;
+}
+
+/* line 121, app/assets/stylesheets/flamework.scss */
+a.current_situatuin, a.current_situatuin:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+/* line 127, app/assets/stylesheets/flamework.scss */
+a.article, a.article:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+/* line 132, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+/* line 139, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse span {
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375);
+  transition-delay: 0.2s;
+}
+
+/* line 149, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse span:first-of-type {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+
+/* line 152, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse span:nth-of-type(2) {
+  opacity: 0;
+}
+
+/* line 155, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse span:last-of-type {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+/* line 159, app/assets/stylesheets/flamework.scss */
+#sidebar-collapse.active span {
+  transform: none;
+  opacity: 1;
+  margin: 5px auto;
+}
+
+/* ---------------------------------------------------
+    HEADER 
+----------------------------------------------------- */
+/* line 169, app/assets/stylesheets/flamework.scss */
+.navbar {
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 178, app/assets/stylesheets/flamework.scss */
+.header-nav ul li.active a, a[aria-expanded="true"] {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+/* line 183, app/assets/stylesheets/flamework.scss */
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+}
+
+/* -----------------------------------------------------------------------------------
+    MAINCONTENT      
+----------------------------------------------------- */
+/* line 193, app/assets/stylesheets/flamework.scss */
+#content {
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}

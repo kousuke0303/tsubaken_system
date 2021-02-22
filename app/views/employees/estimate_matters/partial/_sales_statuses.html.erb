@@ -1,0 +1,49 @@
+<div class="table-responsive">
+<table class="table table-bordered table-sm common-table text-nowrap" id="sales_status_index">
+  <tr>
+    <th rowspan="2">ステータス</th>
+    <th>予定日</th>
+    <th>担当者</th>
+    <th colspan="2">備考</th>
+  </tr>
+  <tr>
+    <th>更新日</th>
+    <th>更新者</th>
+    <th>スケジュール登録</th>
+    <th></th>
+  </tr>
+  <% @sales_statuses.each do |sales_status| %>
+    <tr>
+      <td rowspan="2"><%= sales_status.status_i18n %></td>
+      <td><%= sales_status.scheduled_date.month %>月<%= sales_status.scheduled_date.day %>日</td>
+      <td><%= member_name(sales_status) %></td>
+      <td colspan="2">
+        <% if sales_status.note %>
+          <%= link_to sales_status.note.custom_truncate(10), employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), remote: true %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= sales_status.updated_at.month %>月<%= sales_status.updated_at.day %>日</td>
+      <td><%= editor_name(sales_status) if sales_status.sales_status_editor.present? %></td>
+      <td>
+        <%= sales_status.register_for_schedule_i18n %>
+      </td>
+      <td>
+        <% unless sales_status.status == "not_set" %>
+          <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
+                              remote: true, class: "btn btn-sm btn-dark" %>
+          <%= link_to "削除", employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), method: :delete, remote: true,
+                              data: { confirm: "この営業ステータス(及びスケジュール)を削除してよろしいですか？" },class: "btn btn-sm btn-danger"  %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<script>
+  $(document).ready( function(){
+    $('#sales_status_index td').slice(0, 8).addClass("now_status");
+  });
+</script>

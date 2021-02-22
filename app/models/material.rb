@@ -2,15 +2,19 @@ class Material < ApplicationRecord
   belongs_to :category
   has_many :estimate_details
 
-  validates :name, presence: true, length: { maximum: 30 }, null: false
+  validates :name, presence: true, length: { maximum: 30 }
   validates :service_life, length: { maximum: 30 }
   before_save :calc_total
 
   scope :are_default, -> { 
-                          where(default: true).left_joins(:category).select("categories.*",
-                                                                            "materials.*",
-                                                                            "categories.name AS category_name").order(category_id: "ASC")
-                          }
+    where(default: true)
+    .left_joins(:category)
+    .select(
+      "categories.*",
+      "materials.*",
+      "categories.name AS category_name"
+    ).order(category_id: "ASC")
+  }
 
   # 引数に入れた見積案件の持つ工事のみを返す
   scope :of_estimate_matter, -> (estimate_matter_id) { left_joins(category: :estimate).where(estimates: { estimate_matter_id: estimate_matter_id }) }

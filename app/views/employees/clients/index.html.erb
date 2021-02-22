@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-5 col-12">
-      <div class="select_switch">
+      <div class="select-switch">
         <input type="radio" name="switch" id="radio1" checked>
         <label for="radio1" class="mt-0">成約済顧客</label>
         <input type="radio" name="switch" id="radio2">
@@ -27,29 +27,27 @@
     </div>
   </div>
   
-  <div>
-    <div class="table-responsive">
-      <table class="table table-bordered text-nowrap common-table">
-        <thead>
-          <tr>
-            <th>名前</th>
-            <th>顧客ID</th>
-            <th>性別</th>
-            <th>電話番号①</th>
-            <th>電話番号②</th>
-            <th>メールアドレス</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="has_matter">
-          <%= render "index_table", objects: @clients, display_type: @display_type %>
-        </tbody>
-        <tbody id="no_matter" style="display: none;">
-          <%= render "index_table", objects: @no_matter_clients, display_type: @display_type %>
-        </tbody>
-        <tbody id="search_clients"></tbody>
-      </table>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>顧客ID</th>
+          <th>性別</th>
+          <th>電話番号①</th>
+          <th>電話番号②</th>
+          <th>メールアドレス</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="has_matter">
+        <%= render "/employees/clients/partial/index_table", objects: @clients, display_type: @display_type %>
+      </tbody>
+      <tbody id="no_matter" style="display: none;">
+        <%= render "/employees/clients/partial/index_table", objects: @no_matter_clients, display_type: @display_type %>
+      </tbody>
+      <tbody id="search_clients"></tbody>
+    </table>
   </div>
 </div>
 

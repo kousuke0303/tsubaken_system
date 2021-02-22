@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">顧客編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @client, url: employees_client_path(@client), method: :patch, remote: true) do |f| %>
+            <div class="client-update-errors"></div>
+            <%= render "/employees/clients/partial/form", f: f %>
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

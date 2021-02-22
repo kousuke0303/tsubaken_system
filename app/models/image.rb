@@ -1,10 +1,10 @@
 class Image < ApplicationRecord
-  has_many_attached :images
+  has_one_attached :image
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
   has_many :certificates, dependent: :destroy
    
-  validates :images, :shooted_on, presence: true
+  validates :image, :shooted_on, presence: true
   
   def poster
     if self.admin_id.present?

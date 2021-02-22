@@ -13,10 +13,6 @@ class Employees::ManagersController < ApplicationController
     if @manager.save
       flash[:success] = "Managerを作成しました"
       redirect_to employees_manager_url(@manager)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -35,10 +31,6 @@ class Employees::ManagersController < ApplicationController
     if @manager.update(manager_params)
       flash[:success] = "Manager情報を更新しました。"
       redirect_to employees_manager_url(@manager)
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -54,9 +46,5 @@ class Employees::ManagersController < ApplicationController
 
     def set_manager
       @manager = Manager.find(params[:id])
-    end
-    
-    def set_departments
-      @departments = Department.all
-    end
+    end 
 end

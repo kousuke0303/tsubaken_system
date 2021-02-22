@@ -2,7 +2,9 @@ class EstimateMatter < ApplicationRecord
   belongs_to :attract_method, optional: true
   belongs_to :client
   belongs_to :publisher
+  
   has_one :matter  # 案件と1対1
+  has_one :band_connection, dependent: :destroy
   # Staffと多対多
   has_many :estimate_matter_staffs, dependent: :destroy
   has_many :staffs, through: :estimate_matter_staffs
@@ -10,8 +12,9 @@ class EstimateMatter < ApplicationRecord
   has_many :estimate_matter_external_staffs, dependent: :destroy
   has_many :external_staffs, through: :estimate_matter_external_staffs
   has_many :tasks, dependent: :destroy  # タスクと1対多
-  has_many :estimates, dependent: :destroy  # 見積と1対多
+  has_many :estimates, -> { order(position: :asc) }, dependent: :destroy # 見積と1対多
   has_many :images, dependent: :destroy #画像と1対多
+  accepts_nested_attributes_for :images
   has_many :sales_statuses, dependent: :destroy
   has_many :certificates, -> { order(position: :asc) }, dependent: :destroy #診断書と1対多
 

@@ -25,8 +25,16 @@
     </body>
     
   <% elsif @type == "other_tab" %>
+    <%= render "layouts/modal" %>
     <body>
-      <div class="container_fluid">
+      <div class="container-fluid mt-1e">
+        <%= yield %>
+      </div>
+    </body>
+    
+  <% elsif @type == "progress_table" %>
+    <body>
+      <div class="progress_container">
         <%= yield %>
       </div>
     </body>

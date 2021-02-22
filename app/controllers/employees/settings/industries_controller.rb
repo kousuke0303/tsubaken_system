@@ -1,12 +1,12 @@
-class Employees::Settings::IndustriesController < ApplicationController
+class Employees::Settings::IndustriesController < Employees::EmployeesController
   before_action :set_industry, only: [:edit, :update, :destroy]
+  before_action :set_industries, only: :index
 
   def new
     @industry = Industry.new
   end
 
   def index
-    @industries = Industry.all
   end
 
   def create
@@ -14,10 +14,6 @@ class Employees::Settings::IndustriesController < ApplicationController
     if @industry.save
       flash[:success] = "業種を作成しました。"
       redirect_to employees_settings_industries_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -28,16 +24,19 @@ class Employees::Settings::IndustriesController < ApplicationController
     if @industry.update(industry_params)
       flash[:success] = "業種情報を更新しました。"
       redirect_to employees_settings_industries_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
   def destroy
     @industry.destroy ? flash[:success] = "業種を削除しました。" : flash[:alert] = "業種を削除できませんでした。"
     redirect_to employees_settings_industries_url
+  end
+
+  def sort
+    from = params[:from].to_i + 1
+    industry = Industry.find_by(position: from)
+    industry.insert_at(params[:to].to_i + 1)
+    set_industries
   end
 
   private

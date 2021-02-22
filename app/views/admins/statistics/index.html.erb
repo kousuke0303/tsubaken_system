@@ -1,13 +1,14 @@
 <div class="col-sm-12">
-  <h2><i class="fas fa-chart-pie"></i> 統計データ</h2>
+  <h2 class="title_layout"><i class="fas fa-chart-pie"></i> 統計データ</h2>
   
   <div class="row mt-1e mb-1e">
     <div class="col-md-6">
-      <span>月別営業件数</span>
-      <%= bar_chart @hash_est_count_for_month %>
+      <h6>月別営業件数</h6>
+      <%= bar_chart @hash_est_count_for_month, id: "total_est_count" %>
     </div>
     <div class="col-md-6">
-      <span>月別売上高</span>
+      <h6>月別売上高<span style="color: #929296">(※基準：着工案件作成時)</span></h6>
+      <%= bar_chart @hash_total_price_for_month, colors: ["#bf426df7"] , id: "total_price_matter" %>
     </div>
   </div>
   

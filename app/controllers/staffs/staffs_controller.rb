@@ -11,11 +11,20 @@ class Staffs::StaffsController < ApplicationController
   def top
   end
   
+  def avator_change
+    current_staff.avator.attach(params[:admin_avator])
+    redirect_to edit_staff_registration_url(current_staff)
+  end
+  
+  def avator_destroy
+    current_staff.avator.purge_later
+    redirect_to edit_staff_registration_url(current_staff)
+  end
+  
   private 
     def auth_options
     # 失敗時に recall に設定したパスのアクションが呼び出されるので変更
     # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
       { scope: resource_name, recall: "#{controller_path}#failed" }
     end
-
 end

@@ -1,0 +1,141 @@
+<div class="table-responsive pc_type">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th style="width: 5em">タイトル</th>
+      <td><%= @matter.title %></td>
+    </tr>
+
+    <% if @staffs.exists? %>
+      <% @staffs.each_with_index do |staff, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @staffs.count %>">担当Staff</th>
+          <% end %>
+          <td><%= staff.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>担当Staff</th>
+        <td>登録なし</td>
+      </tr>
+    <% end %>
+
+    <% if @external_staffs.exists? %>
+      <% @external_staffs.each_with_index do |external_staff, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
+          <% end %>
+          <td><%= external_staff.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>担当外部Staff</th>
+        <td>登録なし</td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th>進行状況</th>
+      <td><%= @matter.status_i18n %></td>
+    </tr>
+    <tr>
+      <th>着工予定日</th>
+      <td><%= @matter.scheduled_started_on %></td>
+    </tr>
+    <tr>
+      <th>完了予定日</th>
+      <td><%= @matter.scheduled_finished_on %></td>
+    </tr>
+
+    <% if @suppliers.exists? %>
+      <% @suppliers.each_with_index do |supplier, index| %>
+        <tr>
+          <% if index == 0 %>
+            <th rowspan="<%= @suppliers.count %>">外注先</th>
+          <% end %>
+          <td><%= supplier.name %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <th>外注先</th>
+        <td>登録なし</td>
+      </tr>
+    <% end %>
+    
+    <tr>
+      <th>BAND選択</th>
+      <td colspan="2" id="select_band">
+        <%= render 'employees/matters/partial/select_band_display' %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="mobile_type">
+  <div>
+    <button type="button" id="tableLongCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar text-nowrap">
+      <ul class="components">
+        <li>タイトル</li>
+        <li>STAFF</li>
+        <li>外部STAFF</li>
+        <li>状況</li>
+        <li>着工予定日</li>
+        <li>完了予定日</li>
+        <li>外注先</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap">
+      <div class="content"><%= @matter.title %></div>
+      <div class="content">
+        <% if @staffs.exists? %>
+          <% @staffs.each_with_index do |staff, index| %>
+            <span class="mr-05e"><%= staff.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content">
+        <% if @external_staffs.exists? %>
+          <% @external_staffs.each_with_index do |external_staff, index| %>
+            <span class="mr-05e"><%= external_staff.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+      <div class="content"><%= @matter.status_i18n %></div>
+      <div class="content"><%= @matter.scheduled_started_on %></div>
+      <div class="content"><%= @matter.scheduled_finished_on %></div>
+      <div class="content">
+        <% if @suppliers.exists? %>
+          <% @suppliers.each_with_index do |supplier, index| %>
+            <span class="mr-05e"><%= supplier.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="btn-area">
+  <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
+  <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+</div>
+
+<%= render 'shared/javascript/table_collapse' %>

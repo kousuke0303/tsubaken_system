@@ -1,11 +1,14 @@
-<div class="col-md-6 offset-md-3 col-12">
-  <h2>アカウント編集</h2>
-
+<div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{current_staff.name} の編集", icon: "fa-user-edit"} %>
+  
+  <div class="avator_container">
+    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: current_staff, 
+                                                                 edit_path: :staffs_avator_change_path,
+                                                                 destroy_path: :staffs_avator_destroy_path} %>
+  </div>
+  
   <div class="card mt-1e">
     <div class="card-body">
-      <div class = "show_avator_staff mx-auto my-2">
-        <%= avator(current_staff) %>
-      </div>
       <%= form_with(model:@staff, url: staff_registration_path, local: true) do |f| %>
         <%= render "shared/error_messages", resource: resource %>
 

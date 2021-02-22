@@ -1,8 +1,47 @@
-<div class="text-center">
-  <h1><%= current_estimate_matter.title %>:見積案件画像一覧</h1>
-  <div class="text-right mb-10">
-    <%= link_to 'チャットルーム画像一覧', employees_estimate_matter_messages_path(current_estimate_matter), local: true, class: "btn btn-md btn-primary" %>
-    <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
+<div class="estimate_matter_images_page">
+  
+  <!--タイトル-->
+  <div class="pc_type">
+    <h2 class="title_layout"><i class="fas fa-camera"></i> 画像一覧／ <%= current_estimate_matter.title %></h2>
   </div>
-  <%= render @images %>
+  
+  <div class="mobile_type">
+    <h4 class="title_layout"><i class="fas fa-camera"></i> <%= current_estimate_matter.title %> 画像一覧</h4>
+  </div>
+  
+  <div class="text-center">
+    <div class="row mb-10">
+      <div id="close_band_album" class="text-right col-md-6" style="display: none;">
+        <button class="btn btn-dark">CLOSE</button>
+      </div>
+      <div class="col-sm-12 text-right" id="default_btn_container">
+        <% if current_estimate_matter.band_connection.present? %>
+          <%= link_to 'BANDアルバム', get_album_employees_band_connection_path(current_estimate_matter.band_connection, estimate_matter_id: current_estimate_matter.id), remote: true, class: "btn btn-md btn-primary", id: "open_band_album" %>
+        <% end %>
+        <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
+      </div>
+    </div>
+    
+    <div class="row mt-1e">
+      <div id="band_album" class="col-md-6"></div>
+      <div class="col-md-12" id="image_container">
+        <h5>取込済画像</h5>
+        <div id="image_index">
+          <%= render 'employees/estimate_matters/images/partial/image' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  $('#close_band_album').on('click', function(){
+    $('#band_album').empty();
+    $('#open_band_album').show();
+    $('#close_band_album').hide();
+    $('#image_container').addClass('col-md-12');
+    $('#image_container').removeClass('col-md-6');
+    $('#default_btn_container').addClass('col-sm-12');
+    $('#default_btn_container').removeClass('col-md-6');
+  });
+</script>

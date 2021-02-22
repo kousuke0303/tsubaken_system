@@ -1,4 +1,7 @@
+require 'employees_helper.rb'
+
 module ApplicationHelper
+  include EmployeesHelper
   
   def admin_name(id)
     Admin.find(id).name
@@ -16,10 +19,77 @@ module ApplicationHelper
     ExternalStaff.find(id).name
   end
   
-  def avator(login_user)
-    login_user.avator.attached? ? login_user.avator : login_user.name[0, 1]
-  end 
-    
+  # ---------------------------------------------------------
+      # AVATOR
+  # ---------------------------------------------------------
+  
+  def edit_avator(login_user)
+    if login_user.avator.attached? 
+      content_tag(:div, class: "avator_layoput_for_edit") do
+        image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"150x150^",crop:"150x150+0+0"}))
+      end
+    else
+      if current_admin
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #dc3545")
+      elsif current_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #6610f2") 
+      elsif current_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{current_staff.label_color.color_code}")
+      elsif current_external_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #28a745")
+      end
+    end
+  end
+  
+  def sidebar_avator(login_user)
+    if login_user.avator.attached? 
+      content_tag(:div, class: "avator_layoput_for_sidebar") do
+        image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"}))
+      end
+    else
+      if current_admin
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #dc3545")
+      elsif current_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #6610f2")
+      elsif current_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #{current_staff.label_color.color_code}")
+      elsif current_external_staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #28a745")
+      end
+    end
+  end
+
+
+  # 空のtdタグを引数分返す
+  def empty_td(num)
+    td = content_tag(:td)
+    tags = td
+    (num - 1).times do |time|
+      tags += td
+    end
+    tags
+  end
+  
+  # ---------------------------------------------------------
+      # COMMON DISPLAY
+  # ---------------------------------------------------------
+  
+  def postal_code_display(post_code)
+    block_1 = post_code[0..2]
+    block_2 = post_code[3..6]
+    return "〒" + block_1 + "-" + block_2
+  end
+  
+  def mobile_phone_display(phone_number)
+    if phone_number.size == 11
+      block_1 = phone_number[0..2]
+      block_2 = phone_number[3..6]
+      block_3 = phone_number[7..10]
+      return block_1 + "-" + block_2 + "-" + block_3
+    else
+      return phone_number
+    end
+  end
   # ---------------------------------------------------------
       # ATTENDANCE
   # ---------------------------------------------------------

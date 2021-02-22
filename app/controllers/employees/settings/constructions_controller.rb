@@ -1,4 +1,4 @@
-class Employees::Settings::ConstructionsController < ApplicationController
+class Employees::Settings::ConstructionsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_construction, only: [:edit, :update, :destroy]
 
@@ -7,7 +7,7 @@ class Employees::Settings::ConstructionsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @constructions = @constructions.where(category_id: @category_id)
     end
-    @categories = Category.all
+    @categories = Category.order(position: :asc)
   end
 
   def new
@@ -19,10 +19,6 @@ class Employees::Settings::ConstructionsController < ApplicationController
     if @construction.save
       flash[:success] = "工事を作成しました。"
       redirect_to employees_settings_constructions_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
   
@@ -33,10 +29,6 @@ class Employees::Settings::ConstructionsController < ApplicationController
     if @construction.update(construction_params)
       flash[:success] = "工事を更新しました。"
       redirect_to employees_settings_constructions_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 

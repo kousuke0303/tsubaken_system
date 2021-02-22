@@ -1,4 +1,4 @@
-class Employees::Settings::MaterialsController < ApplicationController
+class Employees::Settings::MaterialsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_material, only: [:edit, :update, :destroy]
 
@@ -11,10 +11,6 @@ class Employees::Settings::MaterialsController < ApplicationController
     if @material.save
       flash[:success] = "素材を作成しました。"
       redirect_to employees_settings_materials_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -25,10 +21,6 @@ class Employees::Settings::MaterialsController < ApplicationController
     if @material.update(material_params)
       flash[:success] = "素材を更新しました。"
       redirect_to employees_settings_materials_url
-    else
-      respond_to do |format|
-        format.js
-      end
     end
   end
 
@@ -37,7 +29,7 @@ class Employees::Settings::MaterialsController < ApplicationController
     if (@category_id = params[:category_id]).present?
       @materials = @materials.where(category_id: @category_id)
     end
-    @categories = Category.all
+    set_categories
   end
 
   def destroy

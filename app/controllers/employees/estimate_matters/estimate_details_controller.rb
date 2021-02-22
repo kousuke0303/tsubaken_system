@@ -1,15 +1,12 @@
 class Employees::EstimateMatters::EstimateDetailsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate_detail
-  before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update]
+  before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update, :destroy]
 
   def edit
     @materials = Material.where(category_id: @estimate_detail.category_id)
     @constructions = Construction.where(category_id: @estimate_detail.category_id)
     @estimate_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id).order(:sort_number)
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
@@ -37,15 +34,15 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     # 順番変更
     change_order
-    @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
+    @estimate.calc_total_price
+    set_estimates
+    set_estimate_details
   end
 
   def destroy
     if params[:type] == "delete_category"
-      delete_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id)
+      estimate = @estimate_detail.estimate
+      delete_details = estimate.estimate_details.where(category_id: @estimate_detail.category_id)
       delete_details.each do |details|
         details.destroy
       end
@@ -55,37 +52,22 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       @estimate_detail.destroy
       @type = "delete_object"
     end
-    @estimates = @estimate_matter.estimates
-    respond_to do |format|
-      format.js
-    end
+    @estimate.calc_total_price
+    set_estimates
+    set_estimate_details
   end
   
   def detail_object_edit
-    respond_to do |format|
-      format.js
-    end
   end
   
   def detail_object_update
     if @estimate_detail.update(object_params)
-      update_total_price_of_estimate(@estimate)
       @estimates = @estimate_matter.estimates
       @response = "success"
-    else
-      @response = "false"
     end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # 見積の合計金額を計算し保存
-  def update_total_price_of_estimate(estimate)
-    total_price = 0
-    prices = estimate.estimate_details.pluck(:total) # 見積も持つ全estimate_detailの合計金額を抽出
-    prices.each { |price| total_price += price.to_i }
-    estimate.update(total_price: total_price.to_i)
+    @estimate.calc_total_price
+    set_estimates
+    set_estimate_details
   end
 
   private
@@ -98,7 +80,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     
     def object_params
-      params.require(:estimate_detail).permit(:name, :service_life, :price, :amount)
+      params.require(:estimate_detail).permit(:name, :service_life, :price, :amount, :note)
     end
     
     # パラメーター整形

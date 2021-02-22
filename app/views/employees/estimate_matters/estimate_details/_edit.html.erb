@@ -58,7 +58,7 @@
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="submit_<%= estimate_detail.id %>">作成</button>
               <%= link_to "カテゴリ削除", employees_estimate_matter_estimate_detail_path(@estimate_matter, @estimate_detail, type: "delete_category"), method: :delete, remote: true,
-                                  data: { confirm: "この工事カテゴリを削除してよろしいですか？" }, class: "btn btn-danger" %>
+                                  data: { confirm: "この工事名称を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>

@@ -4,7 +4,7 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
   def change
     create_table :staffs do |t|
       t.string :auth,               null: false,default: "staff"
-      t.string :name,               null: false, default: ""
+      t.string :name,               null: false
       t.string :phone
       t.string :email
       t.date :birthed_on
@@ -15,6 +15,7 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.1]
       t.date :joined_on
       t.date :resigned_on
       t.references :department, foreign_key: true
+      t.references :label_color, foreign_key: true
 
       ## Database authenticatable
       t.string :login_id,        null: false, default: ""

@@ -1,0 +1,126 @@
+<div class="text-right mb-05e">
+  <%= link_to new_employees_estimate_matter_estimate_path(@estimate_matter), remote: true, class: "btn btn-success" do %>
+    <i class="fas fa-plus"></i> 新規見積
+  <% end %>
+  <% if @estimate_matter.estimates.present? %>
+    <%= link_to "COPY", copy_employees_estimate_matter_estimate_path(@estimate_matter, @estimates.first), remote: true, class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "PDF出力", employees_estimate_matter_estimates_path(estimate_matter_id: @estimate_matter.id, format: :pdf), local: true, class: "btn btn-primary" %>     
+</div>
+
+<% @estimates.each do |estimate| %>
+
+  <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
+  
+  <div class="flex">
+    <div class= home_icon>
+      <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
+      <div class="square" style="background: <%= estimate_color(estimate) %>">
+        <div class="window">
+          <div><p>■■</p><p>■■</p></div>
+        </div>
+        <div class="text">
+          <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
+            <%= estimate.title %>
+          <% end %>
+        </div>                
+      </div>      
+    </div>
+    <div class="move-estimate-order">
+      <% is_first_position(estimate) %>
+      <%= link_to "▲", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "up"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+      <% is_last_position(estimate, @estimates.size) %>
+      <%= link_to "▼", move_employees_estimate_matter_estimate_path(estimate_matter_id: @estimate_matter.id, id: estimate.id, move: "down"),
+                       method: :post, remote: true, class: "btn btn-sm btn-dark #{ @disabled }" %>
+    </div>
+    <!--案件採用ラベル-->
+    <%= recruitmented_label if estimate.id == @adopted_estimate_id %>      
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap table_line_type">
+      <tr>
+        <th>項目</th>
+        <th>工事名称・素材</th>
+        <th>耐用年数</th>
+        <th colspan="2">単価</th>
+        <th>数量</th>
+        <th>計(円)</th>
+        <th>摘要(仕様)</th>
+      </tr>
+      <% details_hash.each do |category_id, details| %>
+        <tr>
+          <td rowspan="<%= category_row_span(estimate, category_id) %>">
+            <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
+              <%= details[0].category_name %>
+            <% end %>
+          </td>
+          <% if details[0].material_id.present? || details[0].construction_id.present? %>
+            <td>
+              <% if details[0].material_id.present? %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                  <%= details[0].material_name %>
+                <% end %>
+              <% else %>
+                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+                  <%= details[0].construction_name %>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= details[0].service_life %></td>
+            <td class="money_type"><%= details[0].price %></td>
+            <td><%= details[0].unit %></td>
+            <td><%= details[0].amount %></td>
+            <td class="money_type"><%= details[0].total %></td>
+            <td><%= details[0].note %></td>
+          <% else %>
+            <%= empty_td(7) %>
+          <% end %>
+        </tr>
+        <% details.from(1).each do |detail| %>
+          <tr>
+            <% if detail.material_id.present? || detail.construction_id.present? %>
+              <td>
+                <% if detail.material_id.present? %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.material_name %>
+                  <% end %> 
+                <% else %>
+                  <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                    <%= detail.construction_name %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= detail.service_life %></td>
+              <td class="money_type"><%= detail.price %></td>
+              <td><%= detail.unit %></td>
+              <td><%= detail.amount %></td>
+              <td class="money_type"><%= detail.total %></td>
+              <td><%= detail.note %></td>
+            <% else %>
+              <%= empty_td(7) %>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr>        
+        <th colspan="5">合計</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
+        <th></th>        
+      </tr>
+      <tr>        
+        <th colspan="5">端数値引</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.discount %>円</th>
+        <th></th>        
+      </tr>
+      <tr>        
+        <th colspan="5">値引後合計</th>
+        <th colspan="2" class="money_type text-right"><%= estimate.after_discount %>円</th>
+        <th></th>        
+      </tr>
+    </table>
+  </div>
+<% end %>
+
+<%= javascript_include_tag "money_type.js" %>

@@ -15,20 +15,12 @@ module Employees::EstimateMatters::SalesStatusesHelper
     end
   end
   
-  def status_member_name(sales_status)
-    case sales_status.sales_status_member.authority
-    when "admin"
-      @member_name = Admin.find(sales_status.sales_status_member.member_id).name
-    when "manager"
-      @member_name = Manager.find(sales_status.sales_status_member.member_id).name
-    when "staff"
-      @member_name = Staff.find(sales_status.sales_status_member.member_id).name
-    when "external_staff"
-      @member_name = ExternalStaff.find(sales_status.sales_status_member.member_id).name
-    else 
-      @member_name = "Error"
+  def schedule_save?(sales_status)
+    if Schedule.find_by(sales_status_id: sales_status.id).present?
+      return "登録済み"
+    else
+      return "無し"
     end
   end
-      
     
 end

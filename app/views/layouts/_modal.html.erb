@@ -40,12 +40,6 @@
     </div>
   <% end %>
   
-  <!--SCHEDULEnew・edit-->
-  <% if controller_name == "schedules" && action_name == "index" %>
-    <div id="schedule-new" class="modal fade" role="dialog"></div>
-    <div id="schedule-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
   <!--部署new・edit-->
   <% if controller_name == "departments" && action_name == "index" %>
     <div id="department-new" class="modal fade" role="dialog"></div>
@@ -58,13 +52,13 @@
     <div id="default-task-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--工事カテゴリnew・edit-->
+  <!--工事名称new・edit-->
   <% if controller_name == "publishers" && action_name == "index" %>
     <div id="publisher-new" class="modal fade" role="dialog"></div>
     <div id="publisher-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--工事カテゴリnew・edit-->
+  <!--工事名称new・edit-->
   <% if controller_name == "categories" && action_name == "index" %>
     <div id="category-new" class="modal fade" role="dialog"></div>
     <div id="category-edit" class="modal fade" role="dialog"></div>
@@ -116,6 +110,12 @@
   <% elsif controller_name == "suppliers" && action_name == "show" %>
     <div id="supplier-edit" class="modal fade" role="dialog"></div>
   <% end %>
+  
+  <!--着工案件関連-->
+  <% if controller_name == "matters" && action_name == "show" %> 
+    <!--BAND連結-->
+    <div id="bands-index" class="modal fade" role="dialog"></div>
+  <% end %>
 
   <!--見積案件new・edit-->
   <% if controller_name == "estimate_matters" || controller_name == "clients" %>
@@ -134,11 +134,9 @@
     <div id="estimate-edit" class="modal fade" role="dialog"></div>
     <div id="estimate-detail-edit" class="modal fade" role="dialog"></div>
     <div id="estimate-object-edit" class="modal fade" role="dialog"></div>
+    <!--BAND連結-->
+    <div id="bands-index" class="modal fade" role="dialog"></div>
   <% end %>
-  
-  <!--写真new・edit-->
-  <div id="image-new" class="modal fade" role="dialog"></div>
-  <div id="image-edit" class="modal fade" role="dialog"></div>
 
   <!--タスクedit-->
   <div id="task-edit" class="modal fade" role="dialog"></div>
@@ -171,5 +169,19 @@
   
   <!--タスクindex-->
   <div id="task-index" class="modal fade" role="dialog"></div>
+
+  <!--写真new・edit-->
+  <div id="image-new" class="modal fade" role="dialog"></div>
+  <div id="image-edit" class="modal fade" role="dialog"></div>
+  
+  <!--SCHEDULEnew・edit-->
+  <% if controller_name == "schedules" && action_name == "index" %>
+    <div id="schedule-new" class="modal fade" role="dialog"></div>
+    <div id="schedule-show" class="modal fade" role="dialog"></div>
+    <div id="schedule-edit" class="modal fade" role="dialog"></div>
+    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
+
+
   

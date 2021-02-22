@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "static_pages#login_index"
   
   get "postcode_search", to: "addresses#search_postcode"
-
+      
   # API関連
   namespace :api do
     namespace :v1 do
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: {
     sessions:      "admins/sessions",
     passwords:     "admins/passwords",
-    registrations: "admins/registrations"
+    registrations: "admins/registrations",
   }
 
   # deviseのManagerログイン関係
@@ -142,6 +142,8 @@ Rails.application.routes.draw do
     namespace :admins do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
     resources :statistics, only: :index do
       get :change_span, on: :collection
@@ -153,6 +155,8 @@ Rails.application.routes.draw do
     namespace :managers do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 
@@ -179,6 +183,8 @@ Rails.application.routes.draw do
     namespace :staffs do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 
@@ -193,6 +199,8 @@ Rails.application.routes.draw do
     namespace :external_staffs do
       get :top
       get :index
+      post :avator_change
+      get :avator_destroy
     end
   end
 
@@ -218,6 +226,10 @@ Rails.application.routes.draw do
       end
     end
     resources :schedules
+    resources :band_connections, only: [:index, :destroy] do
+      get :connect, on: :collection
+      get :get_album, on: :member
+    end
     resources :estimate_matters do
       get :progress_table, on: :collection
       get :progress_table_for_six_month, on: :collection
@@ -231,16 +243,16 @@ Rails.application.routes.draw do
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member
+        post :move, on: :member
       end
       resources :estimate_details, only: [:edit, :update, :destroy], controller: "estimate_matters/estimate_details" do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
       end
-      resources :images, controller: "estimate_matters/images" 
+      resources :images, controller: "estimate_matters/images" do
+        post :save_for_band_image, on: :collection
+      end
       resources :messages, only: [:index], controller: "estimate_matters/messages"
-      # resources :categories, only: [:edit, :update, :destroy], controller: "estimate_matters/categories"
-      # resources :materials, only: [:edit, :update, :destroy], controller: "estimate_matters/materials"
-      # resources :constructions, only: [:edit, :update, :destroy], controller: "estimate_matters/constructions"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
         collection do
@@ -256,7 +268,9 @@ Rails.application.routes.draw do
         post :move, on: :collection
         post :create, on: :collection
       end
-      resources :images, controller: "matters/images"
+      resources :images, controller: "matters/images" do
+        post :save_for_band_image, on: :collection
+      end
       resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
@@ -264,16 +278,26 @@ Rails.application.routes.draw do
     end
     
     namespace :settings do
-      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy]
-      resources :industries, only: [:new, :create, :index, :edit, :update, :destroy]
-      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy]
+      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
+      resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
+      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end

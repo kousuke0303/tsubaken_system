@@ -15,7 +15,7 @@ ja:
       task: タスク
       industry: 業種
       department: 部署
-      category: 工事カテゴリ
+      category: 工事名称
       kind: 見積書タイプ
       image: 画像
       construction: 工事
@@ -47,6 +47,7 @@ ja:
           name: 名前
           gender: 性別
           fax: FAX番号
+          confirmed: ログインを許可
         supplier:
           name: 業者名
           fax: FAX番号
@@ -83,13 +84,15 @@ ja:
           publisher_id: 発行元
         estimate:
           title: 見積名
+          discount: 端数値引
         estimate_detail:
           category_name: カテゴリ名
           material_name: 素材名称
           construction_name: 工事名称
           service_life: 耐用年数
           price: 単価
-          amont: 数量
+          amount: 数量
+          note: 摘要(仕様)
         matter:
           title: 案件名
           status: 進行状況
@@ -103,13 +106,14 @@ ja:
           external_staff_ids: 担当外部Staff
           supplier_ids: 担当外注先
         label_color:
+          name: カラー名
           color_code: カラーコード
         industry:
           name: 業種名
         department:
           name: 名前
         category:
-          name: 工事カテゴリ名
+          name: 工事名称
         kind:
           title: タイトル
         image:
@@ -136,8 +140,8 @@ ja:
           label_color: ラベルカラー
         sales_status:
           status: ステータス
-          conducted_on: 予定日又は確定日
-          scheduled_started_time: 開始予定時刻（※任意）
+          scheduled_date: 予定日又は確定日
+          scheduled_start_time: 開始予定時刻（※任意）
           scheduled_end_time: 終了予定時刻（※任意）
           place: 場所（※任意）
   attributes:
@@ -169,3 +173,4 @@ ja:
     supplier: 外注先
     staff_id: Staff
     external_staff_id: 外部Staff
+    label_color_id: ラベルカラー
