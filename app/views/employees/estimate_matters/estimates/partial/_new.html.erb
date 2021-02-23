@@ -7,27 +7,30 @@
     <div class="modal-body pa-2e">
       <div class="card mb-3">
         <h5 class="card-header">見積作成</h5>
+        
         <div class="card-body">
-          <%= form_with(model: @estimate, url: employees_estimate_matter_estimates_path(estimate_matter), method: :post, remote: true, id: "estimate_form") do |f| %>
+          <!--▼FORM-->
+          <%= form_with(model: @estimate, url: employees_estimate_matter_estimates_path(@estimate_matter), method: :post, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-create-errors"></div>
+            
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
             <div class="input-group">
-              <%= f.collection_select :plan_name_id, plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
+              <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
                 <span class="input-group-text" style="width: 3em; background: <%= @default_color %>;" id="color-sample"></span>
               </div>
             </div>
             
             <%= f.label "カテゴリ選択" %>
-            <table class="table table-striped" id="estimate_form_category">
+            <table class="table table-striped" id="select_category_table">
               <tr>
                 <td style="width: 4em">順番</td>
                 <td>カテゴリ選択</td>
                 <td style="width: 5em"></td>
               </tr>
               <tr>
-                <td class="number">1</td>
+                <td class="category_number">1</td>
                 <td>
                   <%= f.select :category_id, @categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
                 <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
@@ -65,24 +68,35 @@
   });
 </script>
 
+<!--追加ボタンアクション-->
 <script>
   $('#estimate_form .add_btn').on("click", function(){
-    var add_html = $('#estimate_form_category tr:last').clone(true);
-    $('#estimate_form_category').append(add_html);// 末尾追加
-    var number = $('.number').last().text();
-    console.log(number);
-    var add_number = Number(number) + 1
-    $('.number').last().text(add_number);
-    var attr_name = "estimate[category_id_" + add_number + "]"
-    $('select').last().attr('name', attr_name);
-    $('select').last().val('');
+    // コピー＆リセット
+    var target_tr = $(this).parent().parent();
+    var add_html = $('#select_category_table tr:last').clone(true);
+    var add_tr = target_tr.after(add_html);
+    var add_select = add_tr.children('select');
+    add_select.val('');
+    // 表示順番リセット
+    $('#select_category_table .category_number').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      $(element).text(add_number);
+    });
+    // attrリセット
+    $('#select_category_table .select').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      var attr_name = "estimate_[category_id_" + add_number + "]"
+      $(element).attr('name', attr_name);
+    });
   });
 </script>
 
 <script>
   $('#submit').on('click', function(){
     category_ids = []
-    $('#estimate_form_category select').each(function(i, element){
+    $('#select_category_table select').each(function(i, element){
       var value = $(element).val();
       category_ids.push(Number(value));
     });

@@ -1,0 +1,58 @@
+<table class="table table-striped" id="construction_index">
+  <tr>
+    <td style="width: 4em">順番</td>
+    <td>工事種類</td>
+    <td style="width: 5em"></td>
+  </tr>
+  <% if @target_details_include_construction.present? %>
+    <% @target_details_include_construction.each.with_index(1) do |detail, index| %>
+      <tr>
+        <td class="construction_number"><%= index %></td>
+        <td>
+          <%= f.select "construction_id_#{index}".intern, @constructions.map{ |construction| [construction.name, construction.id] }, {include_blank: "選択してください", value: detail.construction_id}, {class: "form-control", id: "construction_#{index}"} %>
+        </td>
+        <td>
+          <button type="button", class="btn btn-sm btn-dark construction_add_btn">追加</button>
+        </td>
+      </tr>
+    <% end %>
+  <% else %> 
+    <tr>
+      <td class="construction_number">1</td>
+      <td>
+        <%= f.select "construction_id_1", @constructions.map{ |construction| [construction.name, construction.id] }, {include_blank: "選択してください"}, {class: "form-control", id: "construction_1"} %>
+      </td>
+      <td>
+        <button type="button", class="btn btn-sm btn-dark construction_add_btn">追加</button>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= f.hidden_field :construction_ids, id: "construction_ids" %>
+
+<!--追加ボタンアクション-->
+<script>
+  $('.construction_add_btn').on("click", function(){
+    // コピー＆リセット
+    var target_tr = $(this).parent().parent();
+    var add_html = $('#construction_index tr:last').clone(true);
+    target_tr.after(add_html);
+    
+    var add_select = target_tr.next('tr').find('select');
+    add_select.prop("selectedIndex", 0);
+    // 表示順番リセット
+    $('#construction_index .construction_number').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      $(element).text(add_number);
+    });
+    // attrリセット
+    $('#construction_index .select').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      var attr_name = "estimate_detail[construction_id_" + add_number + "]"
+      $(element).attr('name', attr_name);
+    });
+  });
+</script>

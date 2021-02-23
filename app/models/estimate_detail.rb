@@ -6,7 +6,13 @@ class EstimateDetail < ApplicationRecord
 
   before_save :calc_total
 
-  validates :note, length: { maximum: 30 }
+  validates :category_name, presence: true
+  validates :note, length: { maximum: 100 }
+  
+  with_options on: :object_update do
+    validates :unit, presence: true
+    validates :amount, presence: true
+  end
   
   # 単価と数量から合計金額を保存
   def calc_total
