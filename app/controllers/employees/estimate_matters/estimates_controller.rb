@@ -73,12 +73,12 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         comparison_for_category
         
         # ①パターン：カテゴリ初登録及びカテゴリ増加
-        if @add_categories.present?
+        if @add_categories != "nil"
           register_categories(@add_categories)
         end
         
         # ②パターン：カテゴリ削除
-        if @delete_categories.present?
+        if @delete_categories != "nil"
           decrease_category(@delete_categories)
         end
         
@@ -150,11 +150,19 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     def comparison_for_category
       before_category_arrey = @estimate.estimate_details.pluck(:category_id)
       # カテゴリが増えている場合
-      if (@after_category_arrey - before_category_arrey).present?
+      if (@after_category_arrey - before_category_arrey) == [nil]
+        @add_category_arrey = "nil"
+      elsif @after_category_arrey == before_category_arrey
+        @add_category_arrey = "nil"
+      else
         @add_categories = @after_category_arrey - before_category_arrey
       end
       # カテゴリが減っている場合
-      if (before_category_arrey - @after_category_arrey).present?
+      if (before_category_arrey - @after_category_arrey) == [nil]
+        @delete_category_arrey = "nil"
+      elsif before_category_arrey == @after_category_arrey
+        @delete_category_arrey = "nil"
+      else
         @delete_categories = before_category_arrey - @after_category_arrey
       end
     end

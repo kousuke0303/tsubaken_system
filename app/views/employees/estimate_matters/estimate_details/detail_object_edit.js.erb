@@ -1,2 +1,2 @@
-$("#estimate-object-edit").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimate_details/object_edit", locals: {estimate_matter: @estimate_matter, estimate_detail: @estimate_detail, object: @object}) %>'); 
+$("#estimate-object-edit").html('<%= escape_javascript(render partial: "employees/estimate_matters/estimate_details/partial/object_edit", locals: {estimate_matter: @estimate_matter, estimate_detail: @estimate_detail, object: @object}) %>'); 
 $("#estimate-object-edit").modal();

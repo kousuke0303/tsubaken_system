@@ -6,32 +6,43 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   def edit
     @materials = Material.where(category_id: @estimate_detail.category_id)
     @constructions = Construction.where(category_id: @estimate_detail.category_id)
-    @estimate_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id).order(:sort_number)
+    target_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id)
+    @target_details_include_construction = target_details.where.not(construction_id: nil).order(:sort_number)
+    @target_details_include_material = target_details.where.not(material_id: nil).order(:sort_number)
   end
 
   def update
     @estimate_details = @estimate.estimate_details
     @target_category = @estimate_detail.category_id
+    @target_details = @estimate.estimate_details.where(category_id: @target_category)
+    @target_details_include_construction = @target_details.where.not(construction_id: nil).order(:sort_number)
+    @target_details_include_material = @target_details.where.not(material_id: nil).order(:sort_number)
     
     # ①パラメーター整形
     refactor_params_material_and_construction_ids
-      
-    if @after_material_arrey.present?
-      # 差分比較
-      comparison
-      # ①増加分
-      register_materials(@add_material_arrey) if @add_material_arrey.present?
-      # ②減少分
-      decrease_materials(@delete_material_arrey) if @delete_material_arrey.present?
-    end
+    
+    # 差分比較
+    comparison
+    
     if @after_construction_arrey.present?
-      # 差分比較
-      comparison
       # ①増加分
-      register_constructions(@add_construction_arrey) if @add_construction_arrey.present?
+      register_constructions(@add_construction_arrey) if @add_construction_arrey != "nil"
       # ②減少分
-      decrease_constructions(@delete_construction_arrey) if @delete_construction_arrey.present?
+      decrease_constructions(@delete_construction_arrey) if @delete_construction_arrey != "nil"
     end
+    
+    if @after_material_arrey.present?
+      # ①増加分
+      register_materials(@add_material_arrey) if @add_material_arrey != "nil"
+      # ②減少分
+      decrease_materials(@delete_material_arrey) if @delete_material_arrey != "nil"
+    end
+    
+    #素材・工事が空のものを削除
+    if @add_material_arrey != "nil" || @add_construction_arrey != "nil"
+      @target_details.where(material_id: nil).where(construction_id: nil).destroy_all
+    end
+    
     # 順番変更
     change_order
     @estimate.calc_total_price
@@ -61,9 +72,11 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   end
   
   def detail_object_update
-    if @estimate_detail.update(object_params)
+    if @estimate_detail.valid?(:object_update) && @estimate_detail.update(object_params)
       @estimates = @estimate_matter.estimates
       @response = "success"
+    else
+      @response = "failure"
     end
     @estimate.calc_total_price
     set_estimates
@@ -108,24 +121,42 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     # 差分調査
     def comparison
       if @after_material_arrey.present?
-        before_material_arrey = @estimate.estimate_details.pluck(:material_id)
+        before_material_arrey = @target_details_include_material.pluck(:material_id)
         # カテゴリが増えている場合
-        if (@after_material_arrey - before_material_arrey).present?
+        if (@after_material_arrey - before_material_arrey) == [nil]
+          @add_material_arrey = "nil"
+        elsif @after_material_arrey == before_material_arrey
+          @add_material_arrey = "nil"
+        else
           @add_material_arrey = @after_material_arrey - before_material_arrey
         end
         # カテゴリが減っている場合
-        if (before_material_arrey - @after_material_arrey).present?
+        if (before_material_arrey - @after_material_arrey) == [nil]
+          @delete_material_arrey = "nil"
+        elsif before_material_arrey == @after_material_arrey
+          @delete_material_arrey = "nil"
+        else
           @delete_material_arrey = before_material_arrey - @after_material_arrey
         end
       end
+      
       if @after_construction_arrey.present?
-        before_construction_arrey = @estimate.estimate_details.pluck(:construction_id)
+        before_construction_arrey = @target_details_include_construction.pluck(:construction_id)
         # カテゴリが増えている場合
-        if (@after_construction_arrey - before_construction_arrey).present?
+        if (@after_construction_arrey - before_construction_arrey) == [nil]
+          @add_construction_arrey = "nil"
+        elsif @after_construction_arrey == before_construction_arrey
+          @add_construction_arrey = "nil"
+        else
           @add_construction_arrey = @after_construction_arrey - before_construction_arrey
         end
+        
         # カテゴリが減っている場合
-        if (before_construction_arrey - @after_construction_arrey).present?
+        if (before_construction_arrey - @after_construction_arrey) == [nil]
+          @delete_construction_arrey = "nil"
+        elsif before_construction_arrey == @after_construction_arrey
+          @delete_construction_arrey = "nil"
+        else
           @delete_construction_arrey = before_construction_arrey - @after_construction_arrey
         end
       end
