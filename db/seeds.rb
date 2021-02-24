@@ -12,10 +12,7 @@ Department.create!(name: "営業")
 
 puts "CREATE! DEPARTMENT"
 
-Admin.create!(name: "管理者",
-              login_id: "AD-admin",
-              password: "password",
-              password_confirmation: "password")
+Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")
 
 puts "CREATE! ADMIN"
 

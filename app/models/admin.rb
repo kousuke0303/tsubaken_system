@@ -8,17 +8,10 @@ class Admin < ApplicationRecord
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validate :admin_login_id_is_correct?
-  validate :admin_is_only
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   has_one_attached :avator
-  
-  def admin_is_only
-    if Admin.exists? && self.id != 1
-      errors.add(:base, "管理者アカウントは既に存在します")
-    end
-  end
 
   # 管理者の従業員IDは「AD-」から始めさせる
   def admin_login_id_is_correct?
@@ -48,5 +41,4 @@ class Admin < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
-  
 end
