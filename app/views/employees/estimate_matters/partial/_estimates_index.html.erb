@@ -47,7 +47,6 @@
         <th colspan="2">単価</th>
         <th>数量</th>
         <th>計(円)</th>
-        <th>摘要(仕様)</th>
       </tr>
       <% details_hash.each do |category_id, details| %>
         <tr>
@@ -73,7 +72,6 @@
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
             <td class="money_type"><%= details[0].total %></td>
-            <td><%= details[0].note %></td>
           <% else %>
             <%= empty_td(7) %>
           <% end %>
@@ -97,9 +95,8 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
-              <td><%= detail.note %></td>
             <% else %>
-              <%= empty_td(7) %>
+              <%= empty_td(6) %>
             <% end %>
           </tr>
         <% end %>
