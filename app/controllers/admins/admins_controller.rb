@@ -16,5 +16,4 @@ class Admins::AdminsController < ApplicationController
     current_admin.avator.purge_later
     redirect_to edit_admin_registration_url(current_admin)
   end
-  
 end

@@ -98,6 +98,9 @@ $color-bg: #eae9e9;
   line-height: 1.5;
   margin: 0;
   min-height: 100%;
+  .flash-wrapper {
+    margin-left: -15px;
+  }
 }
 
 .header-login {
