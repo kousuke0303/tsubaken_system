@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_default_color_code, only: [:create, :update, :destroy, :copy, :move]
+  before_action :set_default_color_code, only: [:index, :create, :update, :destroy, :copy, :move]
   before_action :set_estimates_with_label_colors, only: :index
   before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]

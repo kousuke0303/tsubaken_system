@@ -1,4 +1,5 @@
 <% @estimates.each do |estimate| %>
+  <% color_code = estimate.color_code || @default_color_code %>
   <% @tr_count = 0 %>
   <div class="pdf-estimate">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
