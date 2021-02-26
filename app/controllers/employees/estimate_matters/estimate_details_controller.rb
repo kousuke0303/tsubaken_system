@@ -1,6 +1,7 @@
 class Employees::EstimateMatters::EstimateDetailsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_estimate_detail
+  before_action :set_default_color_code, only: [:update, :destroy, :detail_object_update]
   before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update, :destroy]
 
   def edit
@@ -47,7 +48,6 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     change_order
     @estimate.calc_total_price
     set_estimates_with_label_colors
-    set_default_color_code
     set_estimate_details
   end
 
@@ -66,7 +66,6 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     @estimate.calc_total_price
     set_estimates_with_label_colors
-    set_default_color_code
     set_estimate_details
   end
   
@@ -82,7 +81,6 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     @estimate.calc_total_price
     set_estimates_with_label_colors
-    set_default_color_code
     set_estimate_details
   end
 
@@ -206,7 +204,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
             unit: default_construction.unit, 
             price: default_construction.price, 
             sort_number: @estimate_detail.sort_number + index
-            )
+        )
       end
     end
     
