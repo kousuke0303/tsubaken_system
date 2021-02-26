@@ -265,8 +265,11 @@ a.current_situation, a.current_situation:hover {
     margin-top: 1.5em;
   }
   .navi-custom {
-    background-color: #eef1f3;
+    background: #343a40;
     padding-left: 1em;
+    .nav-link {
+      color: white !important;
+    }
   }
   .tab-wrapper {
     ul li a {

@@ -1,4 +1,4 @@
-class Employees::MattersController < ApplicationController
+class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: :new
@@ -9,7 +9,7 @@ class Employees::MattersController < ApplicationController
   def new
     @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     @matter = Matter.new
-    set_estimates
+    set_estimates_with_label_colors
   end
 
   # 見積案件から案件を作成

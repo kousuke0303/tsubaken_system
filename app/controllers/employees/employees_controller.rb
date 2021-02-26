@@ -30,9 +30,13 @@ class Employees::EmployeesController < ApplicationController
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
 
-    # 見積案件の持つ全見積を定義
-    def set_estimates
-      @estimates = @estimate_matter.estimates
+    def set_default_color_code
+      @default_color_code = LabelColor.first.color_code
+    end
+
+    # 見積案件の持つ全見積をラベルカラーを取得して定義
+    def set_estimates_with_label_colors
+      @estimates = @estimate_matter.estimates.with_label_colors
     end
 
     # 見積案件の持つ全estimate_detailsを定義(estimatesと結合して)

@@ -9,13 +9,13 @@
 </div>
 
 <% @estimates.each do |estimate| %>
-
+  <% color_code = estimate.color_code || @default_color_code %>
   <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
     <div class= home_icon>
-      <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
-      <div class="square" style="background: <%= estimate_color(estimate) %>">
+      <div class="triangle" style="border-bottom-color: <%= color_code %>"></div>
+      <div class="square" style="background: <%= color_code %>">
         <div class="window">
           <div><p>■■</p><p>■■</p></div>
         </div>
@@ -47,7 +47,6 @@
         <th colspan="2">単価</th>
         <th>数量</th>
         <th>計(円)</th>
-        <th>摘要(仕様)</th>
       </tr>
       <% details_hash.each do |category_id, details| %>
         <tr>
@@ -73,9 +72,8 @@
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
             <td class="money_type"><%= details[0].total %></td>
-            <td><%= details[0].note %></td>
           <% else %>
-            <%= empty_td(7) %>
+            <%= empty_td(6) %>
           <% end %>
         </tr>
         <% details.from(1).each do |detail| %>
@@ -97,9 +95,8 @@
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
               <td class="money_type"><%= detail.total %></td>
-              <td><%= detail.note %></td>
             <% else %>
-              <%= empty_td(7) %>
+              <%= empty_td(6) %>
             <% end %>
           </tr>
         <% end %>

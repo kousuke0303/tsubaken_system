@@ -1,4 +1,5 @@
 <% @estimates.each do |estimate| %>
+  <% color_code = estimate.color_code || @default_color_code %>
   <% @tr_count = 0 %>
   <div class="pdf-estimate">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
@@ -12,18 +13,18 @@
         現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
       </div>
       <div class="estimate-title-icon">
-        <div class="triangle"></div>
-        <div class="square">
+        <div class="triangle" style="border-bottom-color: <%= color_code %>"></div>
+        <div class="square" style="background: <%= color_code %>">
           <div class="window">
-            <div><span>■</span><span>■</span></div>
-            <div><span>■</span><span>■</span></div>
+            <div class="window-above">■■</div>
+            <div class="window-lower">■■</div>
           </div>
           <div class="text"><%= estimate.title %></div>                
         </div>
       </div>
     </div>
     <div class="info-right">
-      <div class="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt: "ロゴ" %></div>
+          <div class="company-logo"><%= wicked_pdf_image_tag "profile.jpg", size: "60x60", alt: "ロゴ" %></div>
       <div class="company-name">株式会社　ツバケン</div>
       <div class="company-tel">
         TEL: 090-8787-5544

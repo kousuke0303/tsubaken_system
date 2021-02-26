@@ -141,13 +141,6 @@ class ApplicationController < ActionController::Base
   def current_estimate_matter
     EstimateMatter.find_by(id: params[:estimate_matter_id]) || EstimateMatter.find_by(id: params[:id])
   end
-
-  # 見積案件の持つ見積カテゴリ、工事、素材を全て取得
-  def set_estimates_details(estimate_matter)
-    @estimates = estimate_matter.estimates.with_categories
-    @materials = Material.of_estimate_matter(estimate_matter.id)
-    @constructions = Construction.of_estimate_matter(estimate_matter.id)
-  end
   
   # 見積案件を担当しているユーザーのみアクセス可能
   def can_access_only_estimate_matter_of_being_in_charge

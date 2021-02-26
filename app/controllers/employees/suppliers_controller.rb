@@ -1,4 +1,4 @@
-class Employees::SuppliersController < ApplicationController
+class Employees::SuppliersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_suppliers, only: :index
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]

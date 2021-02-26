@@ -78,39 +78,10 @@ RSpec.describe Admin, type: :model do
     expect(@admin.valid?).to eq(false)
   end
 
-  # # 次のバリデーションの確認
-  # # validate :admin_login_id_is_correct?
+  # 次のバリデーションの確認
+  # validate :admin_login_id_is_correct?
   it "login_idがAD-から始まっていなければ無効" do
     @admin.login_id = "A-admintest"
     expect(@admin.valid?).to eq(false)
-  end
-
-  # # 次のバリデーションの確認
-  # # validate :admin_is_only
-  it "管理者アカウントが既に存在しない場合有効" do
-    expect{Admin.create(
-      name: "AD-admin-T",
-      login_id: "AD-admiest",
-      password: "password",
-      password_confirmation: "password"
-    )}.to change{Admin.count}.by(1)
-  end
-
-  # # 次のバリデーションの確認
-  # # validate :admin_is_only
-  it "管理者アカウントが既に存在する場合無効" do
-    Admin.create(
-      name: "AD-admin-T",
-      login_id: "AD-admin",
-      password: "password",
-      password_confirmation: "password"
-    )
-    second_admin = Admin.new(
-      name: "AD-admin-T",
-      login_id: "AD-admiest",
-      password: "password",
-      password_confirmation: "password"
-    )
-    expect(second_admin.save).to eq(false)
   end
 end

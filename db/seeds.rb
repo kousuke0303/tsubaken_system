@@ -7,15 +7,13 @@ LabelColor.create(name: "グレー", color_code: "#b7b7b7")
 # 設定/見積関係
 require "./db/seeds/setting_for_estimates.rb"
 
-Department.create!(name: "無所属")
-Department.create!(name: "営業")
+%w[無所属 営業 経理].each do |name|
+  Department.create!(name: name)
+end
 
 puts "CREATE! DEPARTMENT"
 
-Admin.create!(name: "管理者",
-              login_id: "AD-admin",
-              password: "password",
-              password_confirmation: "password")
+Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")
 
 puts "CREATE! ADMIN"
 
@@ -152,8 +150,3 @@ puts "CREATE! ATTENDANCE"
 # -----------------------------------------------------
 
 require "./db/seeds/schedule.rb"
-
-
-
-
-

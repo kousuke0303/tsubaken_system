@@ -1,0 +1,48 @@
+<div class="select-switch">
+  <input type="radio" name="switch" id="radio1" checked>
+  <label for="radio1" class="mt-0">見積案件</label>
+  <input type="radio" name="switch" id="radio2">
+  <label for="radio2" class="mt-0">着工案件</label>
+</div>
+
+<div class="table-responsive">
+  <table class="table text-nowrap common-table" id="estimate-matters" style="display: none;">
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th>進行状況</th>
+    </tr>
+    <% @staff.estimate_matters.each do |estimate_matter| %>
+      <tr>
+        <td><%= link_to estimate_matter.title, employees_estimate_matter_path(estimate_matter.id) %></td>
+        <td><%= estimate_matter.content %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+  <table class="table text-nowrap common-table" id="matters" style="display: none;">
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th>進行状況</th>
+    </tr>
+    <% @staff.matters.each do |matter| %>
+      <tr>
+        <td><%= link_to matter.title, employees_matter_path(matter.id) %></td>
+        <td><%= matter.content %></td>
+        <td><%= matter.status %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<script>
+  $("#radio1").on("click", function(){
+    $("#estimate-matters").show();
+    $("#matters").hide();
+  });
+  $("#radio2").on("click", function(){
+    $("#estimate-matters").hide();
+    $("#matters").show();
+  });
+</script>

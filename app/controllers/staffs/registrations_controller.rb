@@ -11,7 +11,7 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
     end
     if @staff.update(staff_params)
       sign_in(@staff, :bypass => true)
-      flash[:alert] = "アカウント情報を更新しました。"
+      flash[:notice] = "アカウント情報を更新しました。"
       redirect_to staffs_top_url
     else
       render :edit

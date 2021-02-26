@@ -1,4 +1,5 @@
 .pdf-estimate {
+  padding-left: 23px;
   page-break-after:always;
   &:last-child {
     page-break-after: avoid;
@@ -26,6 +27,8 @@
 
 .pdf-estimate .info-left {
   display: inline-block;
+  height: 120px;
+  vertical-align: top;
   width: 60%;
 }
 
@@ -33,20 +36,37 @@
   width: 20px;
   border-right: 20px solid transparent;
   border-bottom: 13px solid #b2ce54;
-  border-left: 20px solid transparent; 
+  border-left: 20px solid transparent;
+  margin-top: 20px;
 }
 
 .pdf-estimate .square {
   height: 30px;
-  width: 100px;
-  background: red;
+  width: 150px;
   padding-bottom: 5px;
 }
 
 .pdf-estimate .window {
   display: inline-block;
   color: white;
+  height: 30px;
   width: 40px;
+}
+
+.pdf-estimate .window-above {
+  left: 25px;
+  height: 10px;
+  top: 122px;
+  width: 40px;
+  position: absolute;
+}
+
+.pdf-estimate .window-lower {
+  left: 25px;
+  height: 10px;
+  top: 132px;
+  width: 40px;
+  position: absolute;
 }
 
 .pdf-estimate .window div {
@@ -57,13 +77,17 @@
 .text {
   display: inline-block;
   color: white;
-  width: 49px;
   text-align: center;
   font-weight: bold;
+  padding-top: 2px;
+  vertical-align: top;
+  width: 100px;
 }
 
 .pdf-estimate .info-right {
   display: inline-block;
+  height: 120px;
+  vertical-align: top;
   width: 39%;
 }
 
@@ -95,6 +119,7 @@
 }
 
 .pdf-estimate .category-name {
+  background: gainsboro;
   border-bottom: none;
   border-left: 1px solid black;
   border-right: 1px solid black;

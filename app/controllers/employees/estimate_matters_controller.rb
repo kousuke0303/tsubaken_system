@@ -1,10 +1,11 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :can_access_only_estimate_matter_of_being_in_charge
+  before_action :set_default_color_code, only: :show
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_matter_of_estimate_matter, only: :show
-  before_action :set_estimates, only: :show
+  before_action :set_estimates_with_label_colors, only: :show
   before_action :set_estimate_details, only: :show
   before_action :set_employees, only: [:show, :new, :edit, :person_in_charge]
   before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]

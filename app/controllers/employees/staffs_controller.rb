@@ -1,8 +1,8 @@
-class Employees::StaffsController < ApplicationController
+class Employees::StaffsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_label_colors, only: [:new, :edit]
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
-  before_action :set_departments, only: [:new, :show, :edit, :index]
+  before_action :set_departments, only: [:new, :edit]
 
   def new
     @staff = Staff.new
@@ -17,8 +17,8 @@ class Employees::StaffsController < ApplicationController
   end
 
   def index
-    @enrolled_staffs = Staff.enrolled
-    @retired_staffs = Staff.retired
+    @enrolled_staffs = Staff.enrolled.with_departments
+    @retired_staffs = Staff.retired.with_departments
   end
 
   def edit

@@ -22,6 +22,14 @@ class Manager < ApplicationRecord
 
   scope :enrolled, -> { where(resigned_on: nil) }
   scope :retired, -> { where.not(resigned_on: nil) }
+  scope :with_departments, -> { 
+    left_joins(:department).
+    select(
+      "managers.*",
+      "departments.name AS department_name",
+      "departments.position"
+    ).order(position: :asc)
+  }
   
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
   

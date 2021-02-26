@@ -60,7 +60,14 @@ label {
   }
 }
 
-
+/* ------------------------------ 並替説明 ------------------------------ */
+.sortable-explanation {
+  color: gray;
+  font-family: serif;
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: bold;
+}
 
 /* ------------------------------ ERROR MESSAGE ------------------------------ */
 .custom-error {
@@ -98,6 +105,12 @@ $color-bg: #eae9e9;
   line-height: 1.5;
   margin: 0;
   min-height: 100%;
+  .top-bg {
+    margin-top: -1em;
+  }
+  .flash-wrapper {
+    padding: 0;
+  }
 }
 
 .header-login {
