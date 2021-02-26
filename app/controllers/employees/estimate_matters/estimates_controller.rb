@@ -3,7 +3,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   before_action :set_estimates_with_label_colors, only: :index
   before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
-  before_action :set_matter_of_estimate_matter, only: :move
+  before_action :set_matter_of_estimate_matter, only: [:move, :copy]
   before_action :refactor_params_category_ids, only: [:create, :update]
   
   def index
@@ -48,6 +48,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       set_estimates_with_label_colors
       set_default_color_code
       set_estimate_details
+      set_matter_of_estimate_matter
     end
   end
 

@@ -34,7 +34,7 @@ class Employees::EmployeesController < ApplicationController
       @default_color_code = LabelColor.first.color_code
     end
 
-    # 見積案件の持つ全見積を定義
+    # 見積案件の持つ全見積をラベルカラーを取得して定義
     def set_estimates_with_label_colors
       @estimates = @estimate_matter.estimates.with_label_colors
     end
