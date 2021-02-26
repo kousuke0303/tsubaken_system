@@ -1,8 +1,8 @@
-class Employees::ManagersController < ApplicationController
+class Employees::ManagersController < Employees::EmployeesController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_admin_or_manager!, only: [:index, :show]
   before_action :set_manager, only: [:show, :edit, :update, :destroy]
-  before_action :set_departments, only: [:new, :edit, :show]
+  before_action :set_departments, only: [:new, :edit]
 
   def new
     @manager = Manager.new

@@ -1,4 +1,4 @@
-class Employees::TasksController < ApplicationController
+class Employees::TasksController < Employees::EmployeesController
   before_action :authenticate_employee!
 
   def edit

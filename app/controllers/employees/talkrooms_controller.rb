@@ -1,4 +1,4 @@
-class Employees::TalkroomsController < ApplicationController
+class Employees::TalkroomsController < Employees::EmployeesController
   
   def index
     @matter = Matter.find(params[:matter_id])

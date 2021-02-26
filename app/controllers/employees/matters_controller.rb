@@ -1,4 +1,4 @@
-class Employees::MattersController < ApplicationController
+class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: :new

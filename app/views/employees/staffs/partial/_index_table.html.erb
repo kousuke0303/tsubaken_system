@@ -1,5 +1,6 @@
 <% objects.each do |staff| %>
   <tr>
+    <td><%= staff.department_name %></td>
     <td><%= link_to staff.name, employees_staff_path(staff) %></td>
     <td><%= staff.login_id %></td>
     <td><%= staff.phone %></td>

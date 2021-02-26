@@ -1,4 +1,4 @@
-class Employees::ExternalStaffsController < ApplicationController
+class Employees::ExternalStaffsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_suppliers, only: [:new, :edit]
   before_action :set_external_staff, only: [:show, :edit, :update, :destroy]
