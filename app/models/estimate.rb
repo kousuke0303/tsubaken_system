@@ -11,16 +11,12 @@ class Estimate < ApplicationRecord
   validates :total_price, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 10000000 }
   validates :discount, presence: true, numericality: { only_integer: true }
 
-  scope :with_categories, -> {
-    left_joins(:categories, :plan_name).select(
+  # カラーコードを事前に取得しておく
+  scope :with_label_colors, -> {
+    left_joins(plan_name: :label_color).select(
       "estimates.*",
-      "categories.*",
-      "plan_names.label_color",
-      "estimates.id AS id",
-      "categories.id AS category_id",
-      "categories.name AS category_name",
-      "categories.sort_number AS category_number"
-    ).order(:category_number)
+      "label_colors.color_code"
+    )
   }
 
   scope :with_estimate_details, -> {
