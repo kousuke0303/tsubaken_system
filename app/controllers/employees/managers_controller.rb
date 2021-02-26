@@ -17,8 +17,8 @@ class Employees::ManagersController < Employees::EmployeesController
   end
 
   def index
-    @enrolled_managers = Manager.enrolled
-    @retired_managers = Manager.retired
+    @enrolled_managers = Manager.enrolled.with_departments
+    @retired_managers = Manager.retired.with_departments
   end
 
   def show
