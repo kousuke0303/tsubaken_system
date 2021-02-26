@@ -9,7 +9,7 @@ class Employees::MattersController < Employees::EmployeesController
   def new
     @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     @matter = Matter.new
-    set_estimates
+    set_estimates_with_label_colors
   end
 
   # 見積案件から案件を作成

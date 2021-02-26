@@ -46,7 +46,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     # 順番変更
     change_order
     @estimate.calc_total_price
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
 
@@ -64,7 +65,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       @type = "delete_object"
     end
     @estimate.calc_total_price
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
   
@@ -79,7 +81,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       @response = "failure"
     end
     @estimate.calc_total_price
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
 

@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_estimates, only: :index
+  before_action :set_estimates_with_label_colors, only: :index
   before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
   before_action :set_matter_of_estimate_matter, only: :move
@@ -45,7 +45,8 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         end
       end
       @response = "success"
-      set_estimates
+      set_estimates_with_label_colors
+      set_default_color_code
       set_estimate_details
     end
   end
@@ -87,14 +88,16 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       end
       @response = "success"
       @estimate.calc_total_price
-      set_estimates
+      set_estimates_with_label_colors
+      set_default_color_code
       set_estimate_details
     end
   end
 
   def destroy
     @estimate.destroy
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
 
@@ -109,7 +112,8 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.estimate_id = new_estimate.id
       new_detail.save
     end
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
 
@@ -121,7 +125,8 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     when "down"
       @estimate.move_lower
     end
-    set_estimates
+    set_estimates_with_label_colors
+    set_default_color_code
     set_estimate_details
   end
 

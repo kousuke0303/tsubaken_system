@@ -9,13 +9,13 @@
 </div>
 
 <% @estimates.each do |estimate| %>
-
+  <% color_code = estimate.color_code || @default_color_code %>
   <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
     <div class= home_icon>
-      <div class="triangle" style="border-bottom-color: <%= estimate_color(estimate) %>"></div>
-      <div class="square" style="background: <%= estimate_color(estimate) %>">
+      <div class="triangle" style="border-bottom-color: <%= color_code %>"></div>
+      <div class="square" style="background: <%= color_code %>">
         <div class="window">
           <div><p>■■</p><p>■■</p></div>
         </div>
