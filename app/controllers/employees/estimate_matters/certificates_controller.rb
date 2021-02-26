@@ -1,4 +1,5 @@
 class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
+  before_action :preview_display, only: :preview
   before_action :set_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
   
@@ -12,6 +13,9 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def new
     @certificate = Certificate.new
     @certificates = Certificate.where(default: true)
+    @cover = current_estimate_matter.build_cover
+    @covers = Cover.where(default: true)
+    @publishers = Publisher.all
     @image = Image.find(params[:image_id])
   end
 
@@ -20,6 +24,11 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     @certificate.save ? @responce = "success" : @responce = "false"
     set_images
     set_certificates
+  end
+  
+  def preview
+    @certificates = @estimate_matter.certificates.where(default: false).order(created_at: "DESC")
+    @images = @estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
   end
 
   def edit

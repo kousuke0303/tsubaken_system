@@ -219,6 +219,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers
     resources :external_staffs
+    
     resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily
@@ -229,6 +230,7 @@ Rails.application.routes.draw do
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
+      get :reload, on: :collection
     end
     resources :estimate_matters do
       get :progress_table, on: :collection
@@ -256,7 +258,9 @@ Rails.application.routes.draw do
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
         patch :sort, on: :collection
+        get :preview, on: :collection
       end
+      resources :covers, except: [:index]
       get :person_in_charge
     end
 

@@ -1,0 +1,54 @@
+<div class="text-center mr-1e">
+  <button class="btn btn-primary certificate_print">印刷</button>
+</div>
+
+<div id="preview_area">
+  <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
+    <div class="a4_container">
+      <% certificate_three.each.with_index(1) do |certificate, second_index| %>
+      <table class="certificate_preview">
+        <tr>
+          <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"290x230^",crop:"290x230+0+0"})) %></td>
+          <td class="span"></td>
+          <td class="h6_td"><h6><span><%= index * 3 + second_index %></span><%= certificate.title %></h6></td>
+        </tr>
+        <tr>
+          <td class="span"></td>
+          <td class="certificate_content"><%= certificate.content %></td>
+        </tr>
+        <tr><td colspan="3" class="bottom"></td></tr>
+      </table>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div id="print_area" style="display: none">
+  <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
+    <div class="a4_print_container">
+      <% certificate_three.each.with_index(1) do |certificate, second_index| %>
+      <table class="certificate_preview">
+        <tr>
+          <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"500x400^",crop:"500x400+0+0"})) %></td>
+          <td class="h6_td"><h6><span><%= index * 3 + second_index %></span><%= certificate.title %></h6></td>
+        </tr>
+        <tr>
+          <td class="certificate_content"><%= certificate.content %></td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$('.certificate_print').on('click', function(){
+  $('body > :not(#print_area)').hide();
+  $('body').addClass('bg-white');
+  $('#print_area').show();
+  window.print();
+  $('body > :not(#print_area)').show();
+  $('#print_area').hide();
+  $('body').removeClass('bg-white');
+});
+</script>

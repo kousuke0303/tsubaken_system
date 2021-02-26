@@ -50,15 +50,25 @@
   position: relative;
 }
 
+/* -----------------------------------------------------------------------------------
+    ESYIMATE_MATTER SHOW / CERTIFICATE  
+----------------------------------------------------- */
+
+.image_flex {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .image-item {
+  width: 146px;
   margin-top: 1em;
-  padding: 0 15px;
-  .image-wrapper {
-    align-items: center;
-    background: black;
-    display: flex;
-    height: 100px;
-    justify-content: center;
+  margin-right: 0.5em;
+}
+
+@media (max-width: 768px) {
+  .image-item {
+    width: 121px;
   }
 }
 

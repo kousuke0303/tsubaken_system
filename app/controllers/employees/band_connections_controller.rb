@@ -22,6 +22,14 @@ class Employees::BandConnectionsController < Employees::EmployeesController
     end
   end
   
+  def reload
+    if current_estimate_matter
+      @images = current_estimate_matter.images
+      @submit_type = "est_matter_reload"
+      @estimate_matter = current_estimate_matter
+    end
+  end
+  
   def connect
     if params[:type] == "new_for_estimate_matter"
       @band = current_estimate_matter.create_band_connection(band_key: params[:band_key], 

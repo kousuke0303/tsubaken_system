@@ -3,6 +3,7 @@ class Image < ApplicationRecord
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
   has_many :certificates, dependent: :destroy
+  has_one :cover
    
   validates :image, :shooted_on, presence: true
   

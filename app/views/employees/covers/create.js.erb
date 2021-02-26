@@ -1,0 +1,11 @@
+<% if @responce == "success" %>
+  $("#estimate-matter-certificate-new").modal("hide");
+  $("#estimate-matter-certificate-new").empty();
+  $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を作成しました。</div>')
+  $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');
+  $(function(){
+    setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
+  })
+<% else %>
+  <%= render partial: 'layouts/modal_error', locals: {dom: ".cover-create-errors", model: @cover, object: "cover"} %>
+<% end %>

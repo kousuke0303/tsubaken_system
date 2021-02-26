@@ -26,6 +26,7 @@
     
   <% elsif @type == "other_tab" %>
     <%= render "layouts/modal" %>
+    <%= render "shared/flash" %>
     <body>
       <div class="container-fluid mt-1e">
         <%= yield %>
@@ -37,6 +38,11 @@
       <div class="progress_container">
         <%= yield %>
       </div>
+    </body>
+    
+  <% elsif @type == "preview" %>
+    <body class="print_layout">
+      <%= yield %>
     </body>
 
   <!--通常ページのレイアウト-->
