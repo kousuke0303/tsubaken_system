@@ -60,7 +60,14 @@ label {
   }
 }
 
-
+/* ------------------------------ 並替説明 ------------------------------ */
+.sortable-explanation {
+  color: gray;
+  font-family: serif;
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: bold;
+}
 
 /* ------------------------------ ERROR MESSAGE ------------------------------ */
 .custom-error {
