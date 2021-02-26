@@ -17,8 +17,8 @@ class Employees::StaffsController < Employees::EmployeesController
   end
 
   def index
-    @enrolled_staffs = Staff.enrolled.with_departments
-    @retired_staffs = Staff.retired.with_departments
+    @enrolled_staffs = Staff.enrolled.with_departments.order(position: :asc)
+    @retired_staffs = Staff.retired.with_departments.order(position: :asc)
   end
 
   def edit

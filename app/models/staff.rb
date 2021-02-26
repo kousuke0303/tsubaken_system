@@ -32,7 +32,8 @@ class Staff < ApplicationRecord
     left_joins(:department)
     .select(
       "staffs.*",
-      "departments.name AS department_name"
+      "departments.name AS department_name",
+      "departments.position"
       )
   }
   
