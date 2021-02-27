@@ -29,6 +29,8 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   def preview
     @certificates = @estimate_matter.certificates.where(default: false).order(created_at: "DESC")
     @images = @estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
+    @cover =  @estimate_matter.cover
+    @publisher = @cover.publisher
   end
 
   def edit

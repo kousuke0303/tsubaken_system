@@ -3,6 +3,20 @@
 </div>
 
 <div id="preview_area">
+  <div class="a4_container">
+    <div class="cover_image_wrapper">
+      <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"500x350^",crop:"500x350+0+0"})) %>
+    </div>
+    <div class="cover_title_wrapper">
+      <%= @cover.title %>
+    </div>
+    <div class="cover_content_wrapper">
+      <%= safe_join(@cover.content.split("\n"),tag(:br)) %>
+    </div>
+    <div class="cover_logo_wrapper">
+      <%= image_tag url_for(@publisher.image.variant(resize:"300x15^")) %>
+    </div>
+  </div>
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
     <div class="a4_container">
       <% certificate_three.each.with_index(1) do |certificate, second_index| %>
@@ -24,6 +38,21 @@
 </div>
 
 <div id="print_area" style="display: none">
+  <div class="a4_print_container">
+    <div class="cover_image_wrapper">
+      <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"850x700^",crop:"850x700+0+0"})) %>
+    </div>
+    <div class="cover_title_wrapper">
+      <%= @cover.title %>
+    </div>
+    <div class="cover_content_wrapper">
+      <%= safe_join(@cover.content.split("\n"),tag(:br)) %>
+    </div>
+    <div class="cover_logo_wrapper">
+      <%= image_tag url_for(@publisher.image.variant(resize:"300x15^")) %>
+    </div>
+  </div>
+  
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
     <div class="a4_print_container">
       <% certificate_three.each.with_index(1) do |certificate, second_index| %>
