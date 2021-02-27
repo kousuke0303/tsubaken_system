@@ -1,6 +1,6 @@
 .pdf-estimate {
   padding-left: 23px;
-  page-break-after:always;
+  page-break-after: always;
   &:last-child {
     page-break-after: avoid;
   }
@@ -42,7 +42,7 @@
 
 .pdf-estimate .square {
   height: 30px;
-  width: 150px;
+  width: 200px;
   padding-bottom: 5px;
 }
 
@@ -81,7 +81,7 @@
   font-weight: bold;
   padding-top: 2px;
   vertical-align: top;
-  width: 100px;
+  width: 155px;
 }
 
 .pdf-estimate .info-right {
