@@ -1,16 +1,8 @@
 <% if @responce == "success" %>
   $("#certificate-edit").modal("hide");
-  $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を更新しました。</div>')
-  $(".certificates-index").html('<%= escape_javascript(render "shared/estimate_matters/certificates_index") %>');
-  $(function(){
-    setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
-  })
+  $('#certificate-edit').empty();
+  $(".certificates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/certificates") %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate_update_flash", key: "success", value: "#{@certificate.title}を更新しました。"} %>
 <% else %>
-  $(".certificate-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @certificate) %>');
-  <% @certificate.errors.messages.keys.each do |key_attribute| %>
-    var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').prev();
-    $('[name="certificate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-    addLabel.wrap(addDiv);
-  <% end %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".certificate-update-errors", model: @certificate, object: "certificate"} %>
 <% end %>

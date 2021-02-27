@@ -1,2 +1,2 @@
-$("#certificate-edit").html('<%= escape_javascript(render "/employees/estimate_matters/certificates/edit", certificate: @certificate) %>'); 
+$("#certificate-edit").html('<%= escape_javascript(render "/employees/estimate_matters/certificates/partial/edit", certificate: @certificate) %>'); 
 $("#certificate-edit").modal();

@@ -1,0 +1,9 @@
+<% if @select_certificates.count > 1 %>
+  $('#second_select').html('<%= escape_javascript(render 'employees/estimate_matters/certificates/partial/second_select') %>');
+<% else %>
+  $('#second_select').empty();
+  var title = "<%= @select_certificates.first.title %>"
+  $('#title').val(title);
+  var content = "<%= safe_join(@select_certificates.first.content.split("\n"),tag(:br)) %>";
+  $('#certificate_content').val(content.replace(/(<br>|<br \/>)/gi, '\n'));
+<% end %>

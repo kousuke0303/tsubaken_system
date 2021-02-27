@@ -19,7 +19,7 @@
           </td>
           <td><%= @cover.title %></td>
           <td><%= publisher_name(@cover.publisher_id) %></td>
-          <td><%= @cover.content[0,10] %></td>
+          <td><%= content_display(@cover.content, 30) %></td>
           <td>
             <%= link_to "編集", edit_employees_estimate_matter_cover_path(current_estimate_matter, @cover),remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_estimate_matter_cover_path(current_estimate_matter, @cover), method: :delete, remote: true,

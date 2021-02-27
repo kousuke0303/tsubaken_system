@@ -101,9 +101,10 @@ puts "CREATE! ATTRACTIVE METHOD"
  # 診断書関連
 # -------------------------------------
 
-Certificate.create(title: "玄関戸", content: "一度塗装すると、定期的な塗装が必要になってしまいますので、今回は塗装はいたしません。")
-Certificate.create(title: "照明灯", content: "鋳物になりますので、塗装致しません。")
-Certificate.create(title: "土間", content: "かなり黒ずんで汚染されています。高圧洗浄水洗いにより汚れを落とします。（ほとんどの汚れは落ちますが、新品同様とはならないので、ご了承願います。）雨が降り黒ずみが増すと、滑りやすくなり危険です。")
+Certificate.create(title: "玄関戸", content: "一度塗装すると、定期的な塗装が必要になってしまいますので、今回は塗装はいたしません。", default: true)
+Certificate.create(title: "玄関戸", content: "type2", default: true)
+Certificate.create(title: "照明灯", content: "鋳物になりますので、塗装致しません。", default: true)
+Certificate.create(title: "土間", content: "かなり黒ずんで汚染されています。高圧洗浄水洗いにより汚れを落とします。（ほとんどの汚れは落ちますが、新品同様とはならないので、ご了承願います。）雨が降り黒ずみが増すと、滑りやすくなり危険です。", default: true)
 
 puts "CREATE! CERTIFICATE"
 

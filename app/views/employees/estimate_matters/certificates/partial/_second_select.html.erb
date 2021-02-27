@@ -1,0 +1,20 @@
+<span class="text-danger">内容を選択してください</span>
+<select class="form-control" id="second_select_form">
+  <option value="">選択してください</option>
+  <% @select_certificates.each do |certificate| %>
+    <option value="<%= certificate.id %>"><%= certificate.content[0,10] %>...</option>
+  <% end %>
+</select>
+
+<script>
+  $('#second_select_form').on('change', function(){
+    var value = $(this).val();
+    var title = "<%= @select_certificates.first.title %>"
+    $('#title').val(title);
+    <% @select_certificates.each do |certificate| %>
+      var content_<%= certificate.id %> = "<%= safe_join(certificate.content.split("\n"),tag(:br)) %>"
+    <% end %>
+    var replace_value = eval("content_" + value);
+    $('#certificate_content').val(replace_value.replace(/(<br>|<br \/>)/gi, '\n'));
+  });
+</script>

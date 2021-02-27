@@ -1,11 +1,8 @@
 <% if @responce == "success" %>
   $("#certificate-cover-edit").modal("hide");
   $("#certificate-cover-edit").empty();
-  $(".flash-wrapper").html('<div class="flash flash-success">診断書情報を更新しました。</div>')
   $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');
-  $(function(){
-    setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
-  })
+  <%= render partial: "shared/javascript/flash", locals: {dom: "#cover_update_flash", key: "success", value: "#{@cover.title}を更新しました。"} %>
 <% else %>
-  <%= render partial: 'layouts/modal_error', locals: {dom: ".cover-edit-errors", model: @cover, object: "cover"} %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".cover-edit-errors", model: @cover, object: "cover"} %>
 <% end %>

@@ -186,6 +186,7 @@
   
       <div id="collapse-certificates" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-certificates">
         <div class="card-body">
+          <div id="certificate_create_flash"></div>
           <div class="text-right">
             <%= link_to "プレビュー", preview_employees_estimate_matter_certificates_path(@estimate_matter), class: "btn btn-success" %>
           </div>
@@ -194,10 +195,12 @@
             <%= render 'employees/estimate_matters/partial/certificates_images' %>
           </div>
           <h5 class="mt-1e">表紙</h5>
+          <div id="cover_update_flash"></div>
           <div class="certificates-cover">
             <%= render "employees/covers/partial/show" %>  
           </div>
           <h5 class="mt-1e">診断書一覧</h5>
+          <div id="certificate_update_flash"></div>
           <div class="certificates-index">
             <%= render "employees/estimate_matters/partial/certificates" %>
           </div>

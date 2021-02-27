@@ -90,6 +90,15 @@ module ApplicationHelper
       return phone_number
     end
   end
+  
+  # cut/context
+  def content_display(content, limit)
+    if content.size > limit
+      return content[0, limit] + "......"
+    else
+      return content
+    end
+  end
   # ---------------------------------------------------------
       # ATTENDANCE
   # ---------------------------------------------------------

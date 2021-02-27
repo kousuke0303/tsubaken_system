@@ -4,5 +4,5 @@
   $('#image_index').html('<%= escape_javascript(render 'employees/estimate_matters/images/partial/image') %>');
   window.opener.location.reload();
 <% else %>
-  <%= render partial: 'layouts/modal_error', locals: {dom: ".image-create-errors", model: @image, object: "image"} %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".image-create-errors", model: @image, object: "image"} %>
 <% end %>

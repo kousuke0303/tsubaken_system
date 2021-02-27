@@ -1,2 +1,2 @@
-$(".flash-wrapper").html('<div class="flash flash-danger">診断書情報を削除しました。</div>')
+<%= render partial: "shared/javascript/flash", locals: {dom: "#cover_update_flash", key: "alert", value: "#{@cover.title}を削除しました。"} %>
 $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');

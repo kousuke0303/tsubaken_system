@@ -15,7 +15,7 @@
       <% @covers.group("covers.title").each do |cover| %>
         <tr>
           <td><%= cover.title %></td>
-          <td><%= cover.content[0, 20]%>...</td>
+          <td><%= content_display(cover.content, 30) %>...</td>
           <td>
             <%= link_to "編集", edit_employees_settings_cover_path(cover), remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_settings_cover_path(cover), method: :delete, data: { confirm: "この診断書を削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
