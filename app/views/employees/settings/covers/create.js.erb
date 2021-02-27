@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $("#certificate-cover-new").modal('hide');
+  $("#certificate-cover-new").empty();
+  $('#certificate_cover').html('<%= escape_javascript(render 'employees/settings/certificates/partial/cover_index')%>');
+  <%= render partial: "layouts/flash_for_modal", locals: {key: "success", value: "表紙を登録しました。"} %>
+<% else %>
+  <%= render partial: 'layouts/modal_error', locals: {dom: ".cover-create-errors", model: @cover, object: "cover"} %>
+<% end %>

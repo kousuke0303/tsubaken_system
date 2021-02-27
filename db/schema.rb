@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
   end
 
   create_table "covers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "0"
+    t.string "title", null: false
     t.string "content"
     t.boolean "default", default: false
     t.integer "image_id"

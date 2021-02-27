@@ -14,7 +14,8 @@ end
 puts "CREATE! DEPARTMENT"
 
 Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")
-
+admin = Admin.first
+admin.avator.attach(io: File.open('app/assets/images/admin_avator.jpg'), filename: 'admin_avator.jpg')
 puts "CREATE! ADMIN"
 
 3.times do |n|

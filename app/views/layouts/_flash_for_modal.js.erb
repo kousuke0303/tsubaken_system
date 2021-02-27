@@ -1,0 +1,2 @@
+$('.flash-wrapper').html('<%= h(content_tag(:div, value, class: "flash flash-#{key} time-limit")) %>');
+setTimeout("$('.time-limit').fadeOut('slow')", 3000);

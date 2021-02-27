@@ -26,6 +26,7 @@ class Employees::Settings::CertificatesController < Employees::EmployeesControll
 
   def index
     @certificates = Certificate.all.where(default: true)
+    @covers = Cover.all.where(default: true)
   end
 
   def destroy

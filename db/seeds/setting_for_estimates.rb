@@ -101,13 +101,13 @@ puts "CREATE! ATTRACTIVE METHOD"
  # 診断書関連
 # -------------------------------------
 
-%w(屋根 外壁 玄関 浴室 洗面所 リビング キッチン).each do |name|
-  Certificate.create(title: "#{ name }", content: "#{ name }の診断内容", default: true)
-end 
+Certificate.create(title: "玄関戸", content: "一度塗装すると、定期的な塗装が必要になってしまいますので、今回は塗装はいたしません。")
+Certificate.create(title: "照明灯", content: "鋳物になりますので、塗装致しません。")
+Certificate.create(title: "土間", content: "かなり黒ずんで汚染されています。高圧洗浄水洗いにより汚れを落とします。（ほとんどの汚れは落ちますが、新品同様とはならないので、ご了承願います。）雨が降り黒ずみが増すと、滑りやすくなり危険です。")
 
 puts "CREATE! CERTIFICATE"
 
-content = "「美観」だけの工事は「リペア」「化粧直し」などと呼ばれます。\n美観だけの工事で本当に満足されますか？\n弊社では、より革新的な「改修」「リノベーション」をご提案させていただきます。\n大切な「資産」を塗装で守る!!\n目指すは、「３世代 １００年安心リノベーション」"
+content = "「美観」だけの工事は「リペア」「化粧直し」などと呼ばれます。\n美観だけの工事で本当に満足されますか？\n弊社では、より革新的な「改修」「リノベーション」をご提案させていただきます。大切な「資産」を塗装で守る!!\n目指すは、「３世代 １００年安心リノベーション」"
 
 Cover.create!(title: "typeA", content: content, default: true)
 

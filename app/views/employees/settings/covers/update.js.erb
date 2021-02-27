@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $("#certificate-cover-edit").modal('hide');
+  $("#certificate-cover-edit").empty();
+  $('#certificate_cover').html('<%= escape_javascript(render 'employees/settings/certificates/partial/cover_index')%>');
+  <%= render partial: "layouts/flash_for_modal", locals: {key: "success", value: "#{@cover.title}を更新しました。"} %>
+<% else %>
+  <%= render partial: 'layouts/modal_error', locals: {dom: ".cover-update-errors", model: @cover, object: "cover"} %>
+<% end %>
