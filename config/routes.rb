@@ -219,6 +219,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers
     resources :external_staffs
+    
     resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
         get :daily
@@ -229,6 +230,7 @@ Rails.application.routes.draw do
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
+      get :reload, on: :collection
     end
     resources :estimate_matters do
       get :progress_table, on: :collection
@@ -255,8 +257,11 @@ Rails.application.routes.draw do
       resources :messages, only: [:index], controller: "estimate_matters/messages"
       resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
+        get :select_title, on: :collection
         patch :sort, on: :collection
+        get :preview, on: :collection
       end
+      resources :covers, except: [:index]
       get :person_in_charge
     end
 
@@ -292,6 +297,7 @@ Rails.application.routes.draw do
       resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :covers, only: [:create, :new, :edit, :update, :destroy]
       resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end

@@ -1,0 +1,4 @@
+<!--引数 挿入dom, メッセージvalue, 色color-->
+var dom = "<%= dom %>";
+$(dom).html('<%= h(content_tag(:div, value, class: "flash flash-#{key} time-limit")) %>');
+setTimeout("$('.time-limit').fadeOut('slow')", 3000);

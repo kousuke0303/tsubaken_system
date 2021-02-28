@@ -5,7 +5,7 @@
     </div>
     <div class="modal-body pa-2e">
       <div class="image-create-errors"></div>
-      <%= form_with(model: @image, url: employees_estimate_matter_images_path(current_estimate_matter), remote: true) do |f| %>
+      <%= form_with(model: @image, url: employees_estimate_matter_images_path(current_estimate_matter), method: :post) do |f| %>
         <%= f.label :content %>
         <div>
           <%= f.text_area :content, maxlength: 300, class: "form-control" %>

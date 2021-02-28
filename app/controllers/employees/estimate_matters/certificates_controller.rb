@@ -1,4 +1,5 @@
 class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
+  before_action :preview_display, only: :preview
   before_action :set_estimate_matter
   before_action :set_certificate, only: [:edit, :update, :destroy]
   
@@ -11,8 +12,16 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
 
   def new
     @certificate = Certificate.new
-    @certificates = Certificate.where(default: true)
+    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
+    @cover = current_estimate_matter.build_cover
+    @covers = Cover.where(default: true)
+    @publishers = Publisher.all
     @image = Image.find(params[:image_id])
+  end
+  
+  def select_title
+    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
+    @select_certificates = @certificates[params[:title]]
   end
 
   def create
@@ -21,9 +30,17 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     set_images
     set_certificates
   end
+  
+  def preview
+    @certificates = @estimate_matter.certificates.where(default: false).order(created_at: "DESC")
+    @images = @estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
+    @cover =  @estimate_matter.cover
+    @publisher = @cover.publisher if @cover.present?
+  end
 
   def edit
     @image = @certificate.image
+    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
   end
 
   def update

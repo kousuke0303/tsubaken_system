@@ -14,7 +14,8 @@ end
 puts "CREATE! DEPARTMENT"
 
 Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")
-
+admin = Admin.first
+admin.avator.attach(io: File.open('app/assets/images/admin_avator.jpg'), filename: 'admin_avator.jpg')
 puts "CREATE! ADMIN"
 
 3.times do |n|
@@ -150,10 +151,3 @@ puts "CREATE! ATTENDANCE"
 # -----------------------------------------------------
 
 require "./db/seeds/schedule.rb"
-
-
-%w(屋根 外壁 玄関 浴室 洗面所 リビング キッチン).each do |name|
-  Certificate.create(title: "診断書#{ name }の診断書", content: "#{ name }の診断内容", default: true)
-end 
-
-puts "CREATE! CERTIFICATE"

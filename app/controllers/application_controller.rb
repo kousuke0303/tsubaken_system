@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
   def other_tab_display
     @type = "other_tab"
   end
+  
+  def preview_display
+    @type = "preview"
+  end
 
   # ---------------------------------------------------------
         # 日付取得関係　matter/ganttchart attendance

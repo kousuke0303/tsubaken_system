@@ -1,27 +1,13 @@
 <div class="col-12">
-  <h2>診断書一覧
-    <%= link_to new_employees_settings_certificate_path, remote: true, class: "btn btn-dark float-r" do %>
-      <i class="fas fa-plus"></i> 新規診断書
-    <% end %>
-  </h2>
-
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>診断書名</th>
-        <th>内容</th>
-        <th></th>
-      </tr>
-      <% @certificates.group("certificates.title").each do |certificate| %>
-        <tr>
-          <td><%= certificate.title %></td>
-          <td><%= certificate.content %></td>
-          <td>
-            <%= link_to "編集", edit_employees_settings_certificate_path(certificate), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_settings_certificate_path(certificate), method: :delete, data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+  
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">診断書項目設定</label>
+    <div class="tab-content">
+      <%= render 'employees/settings/certificates/partial/index' %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">表紙設定</label>
+    <div class="tab-content" id="certificate_cover">
+      <%= render 'employees/settings/certificates/partial/cover_index' %>
+    </div>
   </div>
 </div>

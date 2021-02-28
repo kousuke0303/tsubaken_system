@@ -5,6 +5,7 @@ class EstimateMatter < ApplicationRecord
   
   has_one :matter  # 案件と1対1
   has_one :band_connection, dependent: :destroy
+  has_one :cover
   # Staffと多対多
   has_many :estimate_matter_staffs, dependent: :destroy
   has_many :staffs, through: :estimate_matter_staffs

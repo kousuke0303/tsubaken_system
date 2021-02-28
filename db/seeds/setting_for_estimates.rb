@@ -1,9 +1,12 @@
 # 発行元
 
-Publisher.create!(name: "発行元A", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611111111")
+Publisher.create!(name: "AZABU", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611111111")
 Publisher.create!(name: "発行元B", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611112222")
 Publisher.create!(name: "発行元C", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611113333")
 Publisher.create!(name: "発行元D", postal_code: "5489494", prefecture_code: "東京都", address_city: "杉並区", address_street: "1-1", phone: "0611114444")
+
+publisher = Publisher.find(1)
+publisher.image.attach(io: File.open('app/assets/images/logo_image.png'), filename: 'logo_image.png')
 
 # 工事名称
 
@@ -93,3 +96,20 @@ puts "CREATE! PlANNAME"
 end
 
 puts "CREATE! ATTRACTIVE METHOD"
+
+# --------------------------------------------------
+ # 診断書関連
+# -------------------------------------
+
+Certificate.create(title: "玄関戸", content: "一度塗装すると、定期的な塗装が必要になってしまいますので、今回は塗装はいたしません。", default: true)
+Certificate.create(title: "玄関戸", content: "type2", default: true)
+Certificate.create(title: "照明灯", content: "鋳物になりますので、塗装致しません。", default: true)
+Certificate.create(title: "土間", content: "かなり黒ずんで汚染されています。高圧洗浄水洗いにより汚れを落とします。（ほとんどの汚れは落ちますが、新品同様とはならないので、ご了承願います。）雨が降り黒ずみが増すと、滑りやすくなり危険です。", default: true)
+
+puts "CREATE! CERTIFICATE"
+
+content = "「美観」だけの工事は「リペア」「化粧直し」などと呼ばれます。\n美観だけの工事で本当に満足されますか？\n弊社では、より革新的な「改修」「リノベーション」をご提案させていただきます。大切な「資産」を塗装で守る!!\n目指すは、「３世代 １００年安心リノベーション」"
+
+Cover.create!(title: "typeA", content: content, default: true)
+
+puts "CREATE! COVER"

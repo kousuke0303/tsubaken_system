@@ -1,0 +1,21 @@
+<div class="modal-dialog wide_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">表紙編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @cover, url: employees_estimate_matter_cover_path(current_estimate_matter), method: :patch, remote: true) do |f| %>
+            <div class="cover-edit-errors"></div>
+            <%= render partial: "employees/covers/partial/form", locals:{ f: f, submit_type: "edit"} %>
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

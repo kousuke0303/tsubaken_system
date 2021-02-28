@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="picture_area">
+      <%= image_tag url_for(@image.image.variant(combine_options:{gravity: :center, resize:"300x300^",crop:"300x300+0+0"})) %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label>① 診断書項目選択</label>
+    
+    <select class="form-control" id="certificate_title">
+      <option value="">選択してください</option>
+      <% @certificates.keys.each do |title| %>
+        <option value="<%= title %>"><%= title %></option>
+      <% end %>
+    </select>
+    
+    <div id="second_select" class="mt-1e"></div>
+    
+    <h6 class="mt-15">② タイトル編集</h6>
+    <%= f.label :title %>
+    <%= f.text_field :title, id: "title", maxlength: 30, class: "form-control" %>
+    
+    <%= f.label :content %>
+    <%= f.text_area :content, id: "certificate_content", maxlength: 300, class: "form-control", style: "height: 15em" %>
+    
+    <%= f.hidden_field :image_id, value: @image.id %>
+  </div>
+</div>
+
+<script>
+  $('#certificate_title').on('change', function(){
+    var title = $(this).val();
+    $.ajax({
+      type: "GET",
+      url: "<%= select_title_employees_estimate_matter_certificates_path(@estimate_matter) %>",
+      cache: false,
+      data: { title: title,
+              remote: true }
+    });
+  });
+</script>

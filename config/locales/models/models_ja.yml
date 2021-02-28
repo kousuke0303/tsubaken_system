@@ -133,6 +133,9 @@ ja:
           content: 内容
           category_id: カテゴリ
           default: デフォルト
+        cover:
+          title: タイトル
+          content: メッセージ
         attract_method:
           name: 集客方法
         plan_name:

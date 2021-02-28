@@ -13,11 +13,11 @@
         <tr class="tr-sortable">
           <td>
             <% if image = certificate.image %>
-              <%= image_tag url_for(image.image.variant(resize: "50x50"))%>
+              <%= image_tag url_for(image.image.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"})) %>
             <% end %>
           </td>
           <td><%= certificate.title %></td>
-          <td><%= certificate.content %></td>
+          <td><%= content_display(certificate.content, 30) %></td>
           <td>
             <%= link_to "編集", edit_employees_estimate_matter_certificate_path(@estimate_matter, certificate),remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_estimate_matter_certificate_path(@estimate_matter, certificate), method: :delete, remote: true,

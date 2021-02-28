@@ -1,7 +1,8 @@
-$(".image-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @image) %>');
-<% @image.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="image[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="image[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $("#image-new").modal('hide');
+  $("#image-new").empty();
+  $('#image_index').html('<%= escape_javascript(render 'employees/estimate_matters/images/partial/image') %>');
+  window.opener.location.reload();
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".image-create-errors", model: @image, object: "image"} %>
 <% end %>

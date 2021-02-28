@@ -1,0 +1,27 @@
+<div class="pa-2e">
+  <h2>診断書表紙一覧
+    <%= link_to new_employees_settings_cover_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> 新規表紙追加
+    <% end %>
+  </h2>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>タイプ名</th>
+        <th>メッセージ内容</th>
+        <th></th>
+      </tr>
+      <% @covers.group("covers.title").each do |cover| %>
+        <tr>
+          <td><%= cover.title %></td>
+          <td><%= content_display(cover.content, 30) %>...</td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_cover_path(cover), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_cover_path(cover), method: :delete, data: { confirm: "この診断書を削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -56,6 +56,7 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
       end
       @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(current_estimate_matter.band_connection.band_key)
+      flash[:success] = "写真を作成しました"
     end
   rescue
     @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }

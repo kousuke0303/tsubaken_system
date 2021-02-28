@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $("#certificate-cover-edit").modal("hide");
+  $("#certificate-cover-edit").empty();
+  $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: "#cover_update_flash", key: "success", value: "#{@cover.title}を更新しました。"} %>
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".cover-edit-errors", model: @cover, object: "cover"} %>
+<% end %>

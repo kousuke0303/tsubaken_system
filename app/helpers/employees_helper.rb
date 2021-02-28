@@ -57,4 +57,14 @@ module EmployeesHelper
   def staff_color(id)
     Staff.find(id).label_color.color_code
   end
+  
+  #PUBLISHER_NAME
+  def publisher_name(id)
+    if id.present?
+      Publisher.find(id).name
+    else
+      false
+    end
+  end
+    
 end
