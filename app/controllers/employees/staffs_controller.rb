@@ -25,7 +25,8 @@ class Employees::StaffsController < Employees::EmployeesController
   end
 
   def show
-    @department_name = Department.find(@staff.department_id).name
+    @department_name = @staff.department.name
+    @label_color = @staff.label_color
   end
 
   def update

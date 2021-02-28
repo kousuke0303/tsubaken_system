@@ -5,6 +5,12 @@
       <td><%= @staff.name %></td>
     </tr>
     <tr>
+      <th>ラベルカラー</th>
+      <td>
+        <div style="background: <%= @label_color.color_code %>; width: 7em; height: 1.5em;"></div>
+      </td>
+    </tr>
+    <tr>
       <th>部署</th>
       <td><%= @staff.department.name %></td>
     </tr>
