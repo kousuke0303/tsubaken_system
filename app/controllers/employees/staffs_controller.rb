@@ -27,6 +27,8 @@ class Employees::StaffsController < Employees::EmployeesController
   def show
     @department_name = @staff.department.name
     @label_color = @staff.label_color
+    @estimate_matters = @staff.estimate_matters
+    @matters = @staff.matters
   end
 
   def update

@@ -12,7 +12,7 @@
       <th>内容</th>
       <th>進行状況</th>
     </tr>
-    <% @staff.estimate_matters.each do |estimate_matter| %>
+    <% @estimate_matters.each do |estimate_matter| %>
       <tr>
         <td><%= link_to estimate_matter.title, employees_estimate_matter_path(estimate_matter.id) %></td>
         <td><%= estimate_matter.content %></td>
@@ -24,9 +24,9 @@
     <tr>
       <th>タイトル</th>
       <th>内容</th>
-      <th>進行状況</th>
+      <th>営業履歴</th>
     </tr>
-    <% @staff.matters.each do |matter| %>
+    <% @matters.each do |matter| %>
       <tr>
         <td><%= link_to matter.title, employees_matter_path(matter.id) %></td>
         <td><%= matter.content %></td>
