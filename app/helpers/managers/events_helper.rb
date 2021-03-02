@@ -1,2 +1,0 @@
-module Managers::EventsHelper
-end

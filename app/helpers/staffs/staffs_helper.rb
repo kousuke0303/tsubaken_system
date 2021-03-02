@@ -1,2 +1,0 @@
-module Staffs::StaffsHelper
-end
