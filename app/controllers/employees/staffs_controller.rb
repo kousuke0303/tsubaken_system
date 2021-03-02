@@ -25,7 +25,10 @@ class Employees::StaffsController < Employees::EmployeesController
   end
 
   def show
-    @department_name = Department.find(@staff.department_id).name
+    @department_name = @staff.department.name
+    @label_color = @staff.label_color
+    @estimate_matters = @staff.estimate_matters.with_sales_statuses.group_by{ |sales_status| sales_status.estimate_matter_id }
+    @matters = @staff.matters
   end
 
   def update

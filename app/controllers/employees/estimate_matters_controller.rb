@@ -54,6 +54,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
+    @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
   end
 
   def edit
