@@ -34,7 +34,9 @@
       </tr>
       <tr>
         <th>現場住所</th>
-        <td colspan="2"><%= @estimate_matter.prefecture_code %><%= @estimate_matter.address_city %><%= @estimate_matter.address_street %></td>
+        <td colspan="2">
+          <%= link_to "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }", "#" %>
+        </td>
       </tr>
       <tr>
         <th>集客方法</th>
