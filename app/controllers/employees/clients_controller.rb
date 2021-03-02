@@ -35,11 +35,7 @@ class Employees::ClientsController < ApplicationController
   
   def search_index
     @search_clients = Client.get_by_name params[:name]
-    if @search_clients.present?
-      @display_type = "success"
-    else
-      @display_type = "failure"
-    end
+    @search_clients.present? ? @display_type = "success" : @display_type = "failure"
   end
 
   def update

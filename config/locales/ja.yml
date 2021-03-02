@@ -31,14 +31,6 @@ ja:
         not_started: "未着手"
         progress: "進行中"
         completed: "完了済"
-    plan_name:
-      label_color:
-        "#6c757d": デフォルト
-        "#17a2b8": ブルー
-        "#fd7e14": オレンジ
-        "#8b66cd": パープル
-        "#28a745": グリーン
-        "#dc3545": レッド
     category:
       classification:
         common: 共通

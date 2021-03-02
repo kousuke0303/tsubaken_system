@@ -23,19 +23,6 @@ module Employees::EstimateMatters::EstimatesHelper
   end
   
   def estimate_color(estimate)
-    if estimate.plan_name_id.present?
-      estimate.plan_name.label_color.color_code
-    else
-      LabelColor.first.color_code
-    end
-  end
-
-  # 見積のラベルカラーを返す
-  def label_color_of_estimate(label_color = "")
-    if label_color.present?
-      PlanName.label_colors.keys[label_color]      
-    else
-      PlanName.label_colors.keys[0]
-    end
+    estimate.plan_name_id.present? ? estimate.plan_name.label_color.color_code : LabelColor.first.color_code
   end
 end
