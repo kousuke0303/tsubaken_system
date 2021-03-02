@@ -1,4 +1,4 @@
-class Employees::AttendancesController < ApplicationController
+class Employees::AttendancesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
@@ -62,12 +62,8 @@ class Employees::AttendancesController < ApplicationController
       flash[:success] = "勤怠を作成しました。"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
-      else 
+      else
         redirect_to individual_employees_attendances_url
-      end
-    else
-      respond_to do |format|
-        format.js
       end
     end
   end
@@ -77,12 +73,8 @@ class Employees::AttendancesController < ApplicationController
       flash[:success] = "勤怠を更新しました。"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
-      else 
+      else
         redirect_to individual_employees_attendances_url
-      end
-    else
-      respond_to do |format|
-        format.js
       end
     end
   end
@@ -91,7 +83,7 @@ class Employees::AttendancesController < ApplicationController
     @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました。" : flash[:notice] = "勤怠を削除できませんでした。"
     if params["prev_action"].eql?("daily")
       redirect_to daily_employees_attendances_url
-    else 
+    else
       redirect_to individual_employees_attendances_url
     end
   end
@@ -101,7 +93,7 @@ class Employees::AttendancesController < ApplicationController
     def set_latest_30_year
       @years_hash = Hash.new
       latest_year = @first_day.year
-      [*latest_year - 30..latest_year].each { |year| @years_hash.store("#{year}年", year) }
+      [*latest_year - 30..latest_year].each { |year| @years_hash.store("#{ year }年", year) }
       @years_hash = @years_hash.sort.reverse.to_h
     end
 
