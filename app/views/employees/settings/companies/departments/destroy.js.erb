@@ -1,0 +1,6 @@
+$('.departments-index').html('<%= escape_javascript(render 'employees/settings/companies/departments/partial/index_table') %>');
+<% if @responce == "success" %>
+  toastr.success("<%= @department.name %>を削除しました。");
+<% else %>
+  toastr.error("無所属は削除できません。");
+<% end %>  

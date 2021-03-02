@@ -1,0 +1,6 @@
+$('.publishers-index').html('<%= escape_javascript(render 'employees/settings/companies/publishers/partial/index_table') %>');
+<% if @responce == "success" %>
+  toastr.success("<%= @publisher.name %>を削除しました")
+<% else %>
+  toastr.error("<%= @error_type %>");
+<% end %>  

@@ -1,0 +1,23 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th>工事名</th>
+      <th>カテゴリ名</th>
+      <th>単価</th>
+      <th>単位</th>
+      <th></th>
+    </tr>
+    <% @constructions.each do |construction| %>
+      <tr>
+        <td><%= construction.name %></td>
+        <td><%= construction.category_name %></td>
+        <td><%= construction.price %></td>
+        <td><%= construction.unit %></td>
+        <td>
+          <%= link_to "編集", edit_employees_settings_estimates_construction_path(construction), remote: true, class: "btn btn-sm btn-dark" %>
+          <%= link_to "削除", employees_settings_estimates_construction_path(construction), method: :delete, data: { confirm: "この工事を削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+<div class="col-12">
+  <%= render partial: 'employees/settings/partial/index_title', 
+             locals: { model_name: t('activerecord.models.department'),
+                       path: :new_employees_settings_companies_department_path } %>
+  
+  <%= render "shared/sortable_explanation" %>
+  
+  <div class="departments-index">
+    <%= render "employees/settings/companies/departments/partial/index_table" %>
+  </div>
+</div>

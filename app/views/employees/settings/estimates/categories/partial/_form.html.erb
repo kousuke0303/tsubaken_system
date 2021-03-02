@@ -1,0 +1,31 @@
+<%= f.label :name %>
+<%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+
+<div id="classification_check">
+  <%= f.label :classification, style: "display: block" %>
+  <div class="form-check-inline">
+    <% Category.classifications.keys.each_with_index do |key, index| %>
+      <div class="custom-control custom-checkbox">
+        <%= f.check_box :classification, { class:"custom-control-input checkbox", id: "class_#{index}"}, key, nil %>
+        <label class="custom-control-label mr-1e mt-0" for="class_<%= index %>"><%= I18n.t("enums.category.classification.#{key}") %></label>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @category.estimate_details.present? %>
+  <div class="mt-1e accept_text">
+    既に作成された見積の内容は変更されません。
+  </div>
+  <div class="custom-control custom-checkbox">
+  <%= f.check_box :accept, { class: "custom-control-input", id: "custom-check-1" } %>
+  <%= f.label :accept, "確認", class: "custom-control-label", for: "custom-check-1" %>
+  </div>
+<% end %>
+
+<script>
+  $("#classification_check .checkbox").on("click", function(){
+    $('#classification_check .checkbox').prop('checked', false);
+    $(this).prop('checked', true);
+  });
+</script>

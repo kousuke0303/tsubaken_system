@@ -1,0 +1,7 @@
+<% if @responce == "success" %>
+  $('.attract-methods-index').html('<%= escape_javascript(render 'employees/settings/companies/attract_methods/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "notice", value: "#{@attract_method.name}を削除しました。"} %>
+<% else %>
+  $('.attract-methods-index').html('<%= escape_javascript(render 'employees/settings/companies/attract_methods/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "alert", value: "#{@attract_method.name}は削除できません。"} %>
+<% end %>  

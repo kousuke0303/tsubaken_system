@@ -1,0 +1,47 @@
+<div class="col-12">
+  <%= render partial: 'employees/settings/partial/index_title', 
+             locals: { model_name: t('activerecord.models.category'),
+                       path: :new_employees_settings_estimates_category_path } %>
+  
+  <%= render "shared/sortable_explanation" %>  
+  
+  <div id="classification_disp_check">
+    <div class="form-check-inline">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" name="classification", class="custom-control-input checkbox", id="class_default", value="99">
+        <label class="custom-control-label mr-1e mt-0" for="class_default">全て</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" name="classification", class="custom-control-input checkbox", id="class_0", value="0">
+        <label class="custom-control-label mr-1e mt-0" for="class_0">共通</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" name="classification", class="custom-control-input checkbox", id="class_1", value="1">
+        <label class="custom-control-label mr-1e mt-0" for="class_1">工事</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" name="classification", class="custom-control-input checkbox", id="class_2", value="2">
+        <label class="custom-control-label mr-1e mt-0" for="class_2">素材</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="categories-index">
+    <%= render "employees/settings/estimates/categories/partial/index_table" %>
+  </div>
+</div>
+
+<script>
+  $("#classification_disp_check .checkbox").on("click", function(){
+    $('#classification_disp_check .checkbox').prop('checked', false);
+    $(this).prop('checked', true);
+    var value = $(this).val();
+    $.ajax({
+      type: "GET",
+      url: "<%= search_category_employees_settings_estimates_path %>",
+      cache: false,
+      data: { classification: value,
+              remote: true }
+    });
+  });
+</script>

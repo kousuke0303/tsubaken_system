@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $("#material-edit").modal('hide');
+  $("#material-edit").empty();
+  $('#material_index').html('<%= escape_javascript(render 'employees/settings/estimates/materials/partial/index_table') %>');
+  toastr.success("<%= @material.name %>を更新しました");
+<% else @responce == "failure" %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".material-update-errors", model: @material, object: "material"} %>
+<% end %>

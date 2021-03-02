@@ -53,22 +53,17 @@
     <% end %>
     <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
     <ul class="collapse list-unstyled" id="settings-menu">
+      <li><%= link_to "会社情報関連", employees_settings_companies_path %></li>
+      <li><%= link_to "見積書作成関連", employees_settings_estimates_path %></li>
       <li><%= link_to "ラベルカラー", employees_settings_label_colors_path %></li>
-      <li><%= link_to "部署", employees_settings_departments_path %></li>
       <li><%= link_to "業種", employees_settings_industries_path %></li>
       <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
       <li><%= link_to "診断書", employees_settings_certificates_path %></li>
-      <li><%= link_to "集客方法", employees_settings_attract_methods_path %></li>
       <li>
         <%= link_to "#estimate-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
           <span>見積書関係</span>
         <% end %>
         <ul class="collapse list-unstyled" id="estimate-menu">
-          <li><%= link_to "発行元", employees_settings_publishers_path %></li>
-          <li><%= link_to "プラン名", employees_settings_plan_names_path %></li>
-          <li><%= link_to "工事名称", employees_settings_categories_path %></li>
-          <li><%= link_to "工事", employees_settings_constructions_path %></li>
-          <li><%= link_to "素材", employees_settings_materials_path %></li>
         </ul>
       </li>
     </ul>

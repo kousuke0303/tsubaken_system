@@ -1,5 +1,6 @@
 class Publisher < ApplicationRecord
-  has_many :estimate_matters, dependent: :destroy
+  has_many :estimate_matters
+  has_many :matters
   has_many :covers
   has_one_attached :image
   acts_as_list

@@ -66,5 +66,20 @@ module EmployeesHelper
       false
     end
   end
+  
+  def home_icon(color, text)
+    content_tag(:div, class: "home_icon") do
+      concat(content_tag(:div, "", class: "triangle", style: "border-bottom-color: #{color}"))
+      concat(content_tag(:div, class: "square", style: "background: #{color}") do
+        concat(content_tag(:div, class: "window") do
+          concat(content_tag(:div) do
+            concat(content_tag(:p, "■■"))
+            concat(content_tag(:p, "■■"))
+          end)
+        end)
+        concat(content_tag(:div, "#{text}", class: "text"))
+      end)
+    end    
+  end
     
 end

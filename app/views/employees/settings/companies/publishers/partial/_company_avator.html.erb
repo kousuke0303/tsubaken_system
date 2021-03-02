@@ -1,0 +1,55 @@
+<% unless @submit_type == "edit" && @publisher.image.attached? %>
+  <div>
+    <form id="image_new">
+      <label>画像を選択</label>
+      <input type="file" accept="image/jpg,image/jpeg,image/png,image/gif" class="file-input", id="lefile" name="image"></input>
+      <div class="input-group">
+        <input type="text" id="photoCover" class="form-control" placeholder="ファイルを選択" style="height: 48px">
+        <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=lefile]').click();"><i class="fas fa-file-download fa-2x"></i></button></span>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    $('#image_new input').on('change', function(){
+      var formData = new FormData($('#image_new').get(0));
+      $.ajax({
+        url: "<%= image_change_employees_settings_companies_publisher_path(@publisher) %>",
+        type: "POST",
+        data: formData,
+        processData: false,  //FormDataを使用した場合に必要となる
+        contentType: false,
+        remote: true
+      });
+      $('#image_new').val("");
+    });
+  </script>
+  
+<% else %>
+
+  <%= image_tag url_for(@publisher.image.variant(resize:"280x75")) %>
+  <form id="image_change">
+    <label class="edit_avator" for="image">
+      <i class="fas fa-camera"></i> 変更
+      <input type="file" accept="image/jpg,image/jpeg,image/png,image/gif" id="image" name="image"></input>
+    </label>
+  </form>
+  
+  <%= link_to "削除", image_delete_employees_settings_companies_publisher_path(@publisher), data: { confirm: "ロゴを削除しますか？", remote: true}, method: :patch, class: "btn btn-danger btn-sm" %>
+
+  <script>
+    $('#image').on('change', function(){
+      var formData = new FormData($('#image_change').get(0));
+      $.ajax({
+        url: "<%= image_change_employees_settings_companies_publisher_path(@publisher) %>",
+        type: "POST",
+        data: formData,
+        processData: false,  //FormDataを使用した場合に必要となる
+        contentType: false,
+        remote: true
+      });
+      $('#image').val("");
+    });
+  </script>
+
+<% end %>

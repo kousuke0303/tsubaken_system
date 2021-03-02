@@ -1,0 +1,7 @@
+<% if @responce == "success" %>
+  $("#attract-method-edit").modal('hide');
+  $('.attract-methods-index').html('<%= escape_javascript(render 'employees/settings/companies/attract_methods/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@attract_method.name}を更新しました。"} %>
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".attract-method-update-errors", model: @attract_methodt, object: "attract_method"} %>
+<% end %> 

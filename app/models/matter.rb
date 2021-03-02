@@ -1,5 +1,6 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
+  belongs_to :publisher, optional: true
   
   has_one :estimate
   has_one :band_connection, dependent: :destroy

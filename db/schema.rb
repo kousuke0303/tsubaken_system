@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "position"
+    t.integer "classification", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sort_number"
@@ -356,9 +357,11 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
     t.date "finished_on"
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
+    t.bigint "publisher_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
+    t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -571,6 +574,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
   add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "matters", "publishers"
   add_foreign_key "messages", "matters"
   add_foreign_key "plan_names", "label_colors"
   add_foreign_key "sales_status_editors", "sales_statuses"

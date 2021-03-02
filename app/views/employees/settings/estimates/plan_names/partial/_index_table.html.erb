@@ -1,0 +1,49 @@
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered table-column-type mt-1e">
+    <thead>
+      <tr>
+        <th style="width: 14em;">プラン名</th>
+        <th style="width: 15em;">ラベルカラー</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="sortable-plan-names">
+      <% @plan_names.each do |plan_name| %>
+        <tr class="tr-sortable">
+          <td><%= plan_name.name %></td>
+          <td class="pt-0 pb-0">
+            <%= home_icon(plan_name.color_code, plan_name.name) %>
+          </td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_estimates_plan_name_path(plan_name), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_estimates_plan_name_path(plan_name), method: :delete, data: { confirm: "このプラン名を削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag "Sortable.min.js" %>
+
+<script>
+  $(function() {
+    let el = document.getElementById("sortable-plan-names");
+    if (el != null) {
+      const sortable = Sortable.create(el, {
+        animation: 150,
+        delay: 100,
+        onUpdate: function(evt) {
+          $.ajax({
+            type: "PATCH",
+            url: "<%= sort_employees_settings_estimates_plan_names_path %>",
+            cache: false,
+            data: { from: evt.oldIndex, 
+                    to: evt.newIndex, 
+                    remote: true }
+          });
+        }
+      });
+    }
+  });
+</script>

@@ -254,6 +254,7 @@ a.current_situation, a.current_situation:hover {
   }
  
   #content {
+    box-sizing: border-box!important;
     width: 100vw;
     padding: 10px;
     min-height: 100vh;
