@@ -13,10 +13,13 @@
       <th>進行状況</th>
     </tr>
     <% @estimate_matters.each do |estimate_matter| %>
+      <% sales_statuses = estimate_matter[1] %>
+      <% sales_statuses = sales_statuses.sort_by! { |sales_status| sales_status.sales_status_created_at } %>
+      <% sales_status = sales_statuses.last %>
       <tr>
-        <td><%= link_to estimate_matter.title, employees_estimate_matter_path(estimate_matter.id) %></td>
-        <td><%= estimate_matter.content %></td>
-        <td></td>
+        <td><%= link_to sales_status.title, employees_estimate_matter_path(sales_status.estimate_matter_id) %></td>
+        <td><%= sales_status.content %></td>
+        <td><%= I18n.t("enums.sales_status.status.#{ SalesStatus.statuses.keys[sales_status.status] }") %></td>
       </tr>
     <% end %>
   </table>

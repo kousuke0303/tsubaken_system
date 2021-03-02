@@ -27,7 +27,12 @@ class Employees::StaffsController < Employees::EmployeesController
   def show
     @department_name = @staff.department.name
     @label_color = @staff.label_color
-    @estimate_matters = @staff.estimate_matters
+    @estimate_matters = @staff.estimate_matters.left_joins(:sales_statuses).select(
+      "estimate_matters.*",
+      "sales_statuses.*",
+      "sales_statuses.estimate_matter_id AS estimate_matter_id",
+      "sales_statuses.created_at AS sales_status_created_at",
+    ).group_by{ |sales_status| sales_status.estimate_matter_id }
     @matters = @staff.matters
   end
 
