@@ -1,7 +1,7 @@
 class Employees::Settings::PublishersController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_publishers, only: :index
-  before_action :set_publisher, only: [:edit, :update, :destroy, :sort]
+  before_action :set_publisher, only: [:edit, :update, :destroy]
 
   def new
     @publisher = Publisher.new

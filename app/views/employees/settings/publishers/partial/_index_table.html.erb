@@ -31,7 +31,6 @@
 </div>
 
 <%= javascript_include_tag "Sortable.min.js" %>
-
 <script>
   $(function() {
     let el = document.getElementById("sortable-publishers");
@@ -42,7 +41,7 @@
         onUpdate: function(evt) {
           $.ajax({
             type: "PATCH",
-            url: "<%= sort_employees_settings_plan_names_path %>",
+            url: "<%= sort_employees_settings_publishers_path %>",
             cache: false,
             data: { from: evt.oldIndex, 
                     to: evt.newIndex, 
