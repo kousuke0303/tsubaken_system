@@ -34,8 +34,8 @@
       </tr>
       <tr>
         <th>現場住所</th>
-        <td colspan="2">
-          <%= link_to "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }", "#" %>
+        <td colspan="2">          
+          <%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %>
         </td>
       </tr>
       <tr>
