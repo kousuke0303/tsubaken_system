@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $('.industries-index').html('<%= escape_javascript(render 'employees/settings/companies/industries/partial/index_table') %>');
+  toastr.success("<%= @industry.name %>に変更しました");
+<% else %>
+  toastr.error("<%= params[:industry][:name] %>は既に存在します");
+<% end %>
+  
+  

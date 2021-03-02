@@ -1,0 +1,13 @@
+<div class="col-12">
+  
+  <%= render partial: 'employees/settings/partial/index_title', 
+             locals: { model_name: t('activerecord.models.label_color'),
+                       path: :new_employees_settings_others_label_color_path } %>
+  
+  
+  <%= render "shared/sortable_explanation" %>
+
+  <div class="label-colors-index">
+    <%= render "employees/settings/others/label_colors/partial/index_table" %>
+  </div>
+</div>

@@ -293,6 +293,9 @@ Rails.application.routes.draw do
         resources :attract_methods, except: :index do
           patch :sort, on: :collection
         end
+        resources :industries, only: [:create, :update, :destroy] do
+          patch :sort, on: :collection
+        end
       end
       
       resources :estimates, only: :index do
@@ -307,26 +310,24 @@ Rails.application.routes.draw do
         resources :kinds, except: :index
         resources :materials, except: :index
         resources :constructions, except: :index
-        resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
+        resources :categories, except: :index do
           patch :sort, on: :collection
         end
       end
       
-      resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
-        patch :sort, on: :collection
+      resources :others, only: :index do
+      end
+      namespace :others do
+        resources :label_colors, except: :index do
+          patch :sort, on: :collection
+        end
       end
       
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       
-      
-      
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       
-      
-      resources :label_colors, only: [:create, :new, :edit, :index, :update, :destroy] do
-        patch :sort, on: :collection
-      end
     end
   end
 end

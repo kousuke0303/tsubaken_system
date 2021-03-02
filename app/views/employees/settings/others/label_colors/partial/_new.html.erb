@@ -3,11 +3,11 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">工事部位作成</h5>
+        <h5 class="card-header">ラベルカラー作成</h5>
         <div class="card-body">
-          <%= form_with(model: @category, url: employees_settings_estimates_categories_path, method: :post, remote: true) do |f| %>
-            <div class="category-create-errors"></div>
-            <%= render "employees/settings/estimates/categories/partial/form", f: f %>
+          <%= form_with(model: @label_color, url: employees_settings_others_label_colors_path, method: :post, remote: true) do |f| %>
+            <div class="label-color-create-errors"></div>
+            <%= render "employees/settings/label_colors/partial/form", f: f %>            
             <div class="btn-area">
               <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
             </div>

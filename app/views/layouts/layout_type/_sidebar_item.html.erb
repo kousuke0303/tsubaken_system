@@ -55,17 +55,9 @@
     <ul class="collapse list-unstyled" id="settings-menu">
       <li><%= link_to "会社情報関連", employees_settings_companies_path %></li>
       <li><%= link_to "見積書作成関連", employees_settings_estimates_path %></li>
-      <li><%= link_to "ラベルカラー", employees_settings_label_colors_path %></li>
-      <li><%= link_to "業種", employees_settings_industries_path %></li>
+      <li><%= link_to "診断書関連", employees_settings_certificates_path %></li>
       <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
-      <li><%= link_to "診断書", employees_settings_certificates_path %></li>
-      <li>
-        <%= link_to "#estimate-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
-          <span>見積書関係</span>
-        <% end %>
-        <ul class="collapse list-unstyled" id="estimate-menu">
-        </ul>
-      </li>
+      <li><%= link_to "その他設定", employees_settings_others_path %></li>
     </ul>
   </li>
   
