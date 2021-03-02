@@ -61,9 +61,7 @@ class SalesStatus < ApplicationRecord
       duplicate_schedule = Schedule.where.not(id: self.id).where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
                                    .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
     end
-    if duplicate_schedule.present?
-      errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
-    end
+    errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。") if duplicate_schedule.present?
   end
 
 end

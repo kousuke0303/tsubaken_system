@@ -58,6 +58,4 @@ class Schedule < ApplicationRecord
       errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
     end
   end
-  
-  
 end

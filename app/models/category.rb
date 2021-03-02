@@ -10,8 +10,6 @@ class Category < ApplicationRecord
   
   enum classification: [:common, :construction, :material]
   
-  validates :name, presence: true,
-                   uniqueness: true,
-                   length: { maximum: 30 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
                    
 end
