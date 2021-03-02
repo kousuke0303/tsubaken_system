@@ -8,9 +8,9 @@
 <div class="table-responsive">
   <table class="table text-nowrap common-table" id="estimate-matters" style="display: none;">
     <tr>
-      <th>タイトル</th>
-      <th>内容</th>
-      <th>進行状況</th>
+      <th style="width: 15em;">タイトル</th>
+      <th style="width: 15em;">内容</th>
+      <th>営業履歴</th>
     </tr>
     <% @estimate_matters.each do |estimate_matter| %>
       <% sales_statuses = estimate_matter[1] %>
@@ -25,15 +25,15 @@
   </table>
   <table class="table text-nowrap common-table" id="matters" style="display: none;">
     <tr>
-      <th>タイトル</th>
-      <th>内容</th>
-      <th>営業履歴</th>
+      <th style="width: 15em;">タイトル</th>
+      <th style="width: 15em;">内容</th>
+      <th>進行状況</th>      
     </tr>
     <% @matters.each do |matter| %>
       <tr>
         <td><%= link_to matter.title, employees_matter_path(matter.id) %></td>
         <td><%= matter.content %></td>
-        <td><%= matter.status %></td>
+        <td><%= matter.status_i18n %></td>
       </tr>
     <% end %>
   </table>
