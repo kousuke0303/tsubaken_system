@@ -1,6 +1,6 @@
 <div class="grid">
   <div id="login">  
-    <h2>ログイン</h2>    
+    <h2><span class="fontawesome"></span>ログイン</h2>    
     <fieldset>
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
         <p><%= f.label :login_id, "ログインID" %></p>

@@ -138,14 +138,6 @@ $color-bg: #eae9e9;
   background-size: cover;
 }
 
-.modal {
-  display: none;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
 .modal__bg{
   background: rgba(0,0,0,0.8);
   opacity: 0.5;
@@ -241,14 +233,14 @@ $color-bg: #eae9e9;
 }
 
 .toast {
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 
 .toast-success {
   background-color: #20c997;
 }
 .toast-error {
-  background-color: #dc3545!important;
+  background-color: #dc3545 !important;
 }
 .toast-info {
   background-color: #17a2b8;
