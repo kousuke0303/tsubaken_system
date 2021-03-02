@@ -58,10 +58,9 @@ class Employees::MattersController < Employees::EmployeesController
     @external_staffs = @matter.external_staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
-    set_classified_tasks(@matter)
-    @client_id = EstimateMatter.joins(:matter).find_by(id: @matter.estimate_matter_id).client_id
-    @client = Client.find_by(id: @client_id)
+    set_classified_tasks(@matter)    
     @estimate_matter = @matter.estimate_matter
+    @client = @estimate_matter.client
     @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
   end
 
