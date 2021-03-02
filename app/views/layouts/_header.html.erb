@@ -4,32 +4,30 @@
       <div class="col-md-4 col-12 smp-center">
         <%= image_tag "logo_image.png", size: "300x75", alt: "ロゴ" %>
       </div>
-      <div class="col-sm-8 login_menu">
-        <button class="btn btn-lg btn-dark login-button" id="login_modal">ログイン</button>
+      <div class="col-sm-8">
+        <button class="btn btn-lg btn-dark login-button">ログイン</button>
       </div>
     </div>
           
     <!--login_modal-->
-      <div class="modal login_form">
-        <div class="modal__bg js-modal-close"></div>
-          <div class="">
-            <%= render partial: './static_pages/login_modal' %>
-          </div>
-        </div>
+    <div class="modal login-modal">
+      <div class="modal__bg js-modal-close"></div>
+        <%= render "static_pages/login_modal" %>
       </div>
+    </div>
     
   </div>
 </header>
 
 <script>
   $(function(){
-    $('#login_modal').on('click',function(){
-        $('.login_form').fadeIn();
+    $(".login-button").on("click",function(){
+        $(".login-modal").fadeIn();
         return false;
     });
     
-    $('.js-modal-close').on('click',function(){
-        $('.login_form').fadeOut();
+    $(".js-modal-close").on("click",function(){
+        $(".login-modal").fadeOut();
         return false;
     });
   });
