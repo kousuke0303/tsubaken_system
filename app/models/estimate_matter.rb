@@ -24,8 +24,18 @@ class EstimateMatter < ApplicationRecord
 
   before_create :identify
 
-  scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{name}").ids) }
-  scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{year + "-" + format('%02d', month)}%") }
+  scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{ name }").ids) }
+  scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{ year + "-" + format('%02d', month) }%") }
+
+  # 営業履歴と左外部結合
+  scope :with_sales_statuses, -> {
+    left_joins(:sales_statuses).select(
+      "estimate_matters.*",
+      "sales_statuses.status AS status",
+      "sales_statuses.estimate_matter_id AS estimate_matter_id",
+      "sales_statuses.created_at AS sales_status_created_at"
+    )
+  }
   
   private
     def identify(num = 16)
