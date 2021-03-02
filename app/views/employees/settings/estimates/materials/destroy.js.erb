@@ -1,0 +1,6 @@
+$('#material_table').html('<%= escape_javascript(render 'employees/settings/estimates/materials/partial/index_table') %>');
+<% if @responce == "success" %>
+  toastr.info("<%= @material.name %>を削除しました。");
+<% else %>
+  toastr.error("<%= @material.name %>は見積もりで使用されているため、削除できません。");
+<% end %>  

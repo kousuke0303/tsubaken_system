@@ -280,30 +280,50 @@ Rails.application.routes.draw do
     end
     
     namespace :settings do
-      resources :publishers, only: [:new, :create, :index, :edit, :update, :destroy] do
-        patch :sort, on: :collection
+      resources :companies, only: :index
+      namespace :companies do
+        resources :publishers, except: :index do
+          patch :sort, on: :collection
+          post :image_change, on: :member
+          patch :image_delete, on: :member
+        end
+        resources :departments, except: :index do
+          patch :sort, on: :collection
+        end
+        resources :attract_methods, except: :index do
+          patch :sort, on: :collection
+        end
       end
+      
+      resources :estimates, only: :index do
+        get :search_category, on: :collection
+        get :search_construction, on: :collection
+        get :search_material, on: :collection
+      end
+      namespace :estimates do
+        resources :plan_names, except: :index do
+          patch :sort, on: :collection
+        end
+        resources :kinds, except: :index
+        resources :materials, except: :index
+        resources :constructions, except: :index
+        resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
+          patch :sort, on: :collection
+        end
+      end
+      
       resources :industries, only: [:new, :create, :index, :edit, :update, :destroy] do
         patch :sort, on: :collection
       end
-      resources :departments, only: [:new, :create, :index, :edit, :update, :destroy] do
-        patch :sort, on: :collection
-      end
+      
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :categories, only: [:create, :new, :edit, :index, :update, :destroy] do
-        patch :sort, on: :collection
-      end
-      resources :kinds, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :materials, only: [:create, :new, :edit, :index, :update, :destroy]
-      resources :constructions, only: [:create, :new, :edit, :index, :update, :destroy]
+      
+      
+      
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
-      resources :attract_methods, only: [:create, :new, :edit, :index, :update, :destroy] do
-        patch :sort, on: :collection
-      end
-      resources :plan_names, only: [:create, :new, :edit, :index, :update, :destroy] do
-        patch :sort, on: :collection
-      end
+      
+      
       resources :label_colors, only: [:create, :new, :edit, :index, :update, :destroy] do
         patch :sort, on: :collection
       end

@@ -1,0 +1,34 @@
+<%= f.label :name %>
+<%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+
+<%= f.label :label_color_id %>
+<div class="input-group">
+<%= f.collection_select :label_color_id, @label_colors, :id, :name, { prompt: "選択してください" }, class: "form-control", id: "color_select"%>
+  <div class="input-group-append">
+    <span class="input-group-text" style="width: 3em;" id="color-sample"></span>
+  </div>
+</div>
+
+
+<script>
+  $('#color_select').on('change', function(){
+    var colors = {}
+    <% @label_colors.each do |label_color| %>
+      var date_id = <%= label_color.id %>;
+      var date_color = "<%= label_color.color_code.html_safe %>";
+      colors[date_id] = date_color;
+    <% end %>
+    var value_label_id = $(this).val();
+    var background_color = colors[value_label_id];
+    $('#color-sample').css("background", background_color);
+  });
+</script>
+
+<% if @submit_type == "edit" %>
+  <script>
+    $(document).ready( function(){
+      var color = "<%= @plan_color %>";
+      $('#color-sample').css("background", color);
+    });
+  </script>
+<% end %>

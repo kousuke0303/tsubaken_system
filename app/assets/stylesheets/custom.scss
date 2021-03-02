@@ -62,9 +62,10 @@ label {
 
 /* ------------------------------ 並替説明 ------------------------------ */
 .sortable-explanation {
-  color: gray;
-  font-family: serif;
-  font-size: 1.1em;
+  margin-top: 1em;
+  text-align: right;
+  color: #b7b6b6;
+  font-size: 15px;
   font-style: italic;
   font-weight: bold;
 }
@@ -237,6 +238,23 @@ $color-bg: #eae9e9;
   &-notice {
     background-color: #17a2b8;
   }
+}
+
+.toast {
+  box-shadow: none!important;
+}
+
+.toast-success {
+  background-color: #20c997;
+}
+.toast-error {
+  background-color: #dc3545!important;
+}
+.toast-info {
+  background-color: #17a2b8;
+}
+.toast-warning {
+  background-color: #f89406;
 }
 
 /* ---------------------------------------------------

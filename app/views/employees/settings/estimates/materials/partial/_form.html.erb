@@ -1,0 +1,37 @@
+<%= f.label :category_id %>
+<%= f.collection_select :category_id, @categories_for_material, :id, :name, {}, class: "form-control" %>
+
+<%= f.label :name %>
+<%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= f.label :service_life %>
+    <div class="flex">
+      <%= f.text_field :service_life, class: "form-control", maxlength: 30 %>
+      <label class="ml-05e">年</label>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <%= f.label :unit %>
+    <%= f.text_field :unit, class: "form-control", placeholder: "㎡, 式, 個など", maxlength: 30 %>
+  </div>
+</div>
+<%= f.label :price %>（半角）
+<%= f.number_field :price, class: "form-control", min: 1, maxlength: 30 %>
+
+
+
+<%= f.label :note %>
+<%= f.text_area :note, class: "form-control", maxlength: 30 %>
+
+
+<% if @material.estimate_details.present? %>
+  <div class="mt-1e accept_text">
+    既に作成された見積の内容は変更されません
+  </div>
+  <div class="custom-control custom-checkbox">
+  <%= f.check_box :accept, { class: "custom-control-input", id: "custom-check-1" } %>
+  <%= f.label :accept, "確認", class: "custom-control-label", for: "custom-check-1" %>
+  </div>
+<% end %>        

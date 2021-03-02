@@ -1,0 +1,38 @@
+.home_icon {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+ 
+  .triangle {
+    width: 20px;
+    border-right: 20px solid transparent;
+    border-bottom: 13px solid #b2ce54;
+    border-left: 20px solid transparent; 
+  }
+  .square {
+    height: 30px;
+    width: 150px;
+    display: flex;
+    color: white;
+    .window {
+      line-height: 5px;
+      font-size: 5px;
+      color: white;
+      padding-left: 10px;
+      padding-top: 5px;
+      p {
+        margin: 0;
+        color: white;
+      }
+    }
+    .text {
+      width: 150px;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+}

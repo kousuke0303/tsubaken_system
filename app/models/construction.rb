@@ -1,7 +1,9 @@
 class Construction < ApplicationRecord
   belongs_to :category
   has_many :estimate_details
-
+  
+  attr_accessor :accept
+  
   validates :name, presence: true, length: { maximum: 30 }
   before_save :calc_total
 

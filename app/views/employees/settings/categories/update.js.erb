@@ -1,7 +1,0 @@
-$(".category-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @category) %>');
-<% @category.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="category[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="category[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
-<% end %>

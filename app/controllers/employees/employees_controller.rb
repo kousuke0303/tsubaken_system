@@ -9,6 +9,10 @@ class Employees::EmployeesController < ApplicationController
     def set_publishers
       @publishers = Publisher.order(position: :asc)
     end
+    
+    def set_attract_methods
+       @attract_methods = AttractMethod.order(position: :asc)
+    end
 
     def set_suppliers
       @suppliers = Supplier.all

@@ -15,7 +15,7 @@ ja:
       task: タスク
       industry: 業種
       department: 部署
-      category: 工事名称
+      category: 工事部位
       kind: 見積書タイプ
       image: 画像
       construction: 工事
@@ -114,6 +114,8 @@ ja:
           name: 名前
         category:
           name: 工事名称
+          classification: 分類
+          accept: 確認事項
         kind:
           title: タイトル
         image:
@@ -123,11 +125,13 @@ ja:
         construction:
           name: 工事名
           category_id: カテゴリ
+          accept: 確認事項
         material:
           name: 素材名
           service_life: 耐用年数
           category_id: カテゴリ
           note: 摘要
+          accept: 確認事項
         certificate:
           title: 診断書名
           content: 内容

@@ -39,6 +39,11 @@ ja:
         "#8b66cd": パープル
         "#28a745": グリーン
         "#dc3545": レッド
+    category:
+      classification:
+        common: 共通
+        construction: 工事
+        material: 素材
   activerecord:
     errors:
       messages:

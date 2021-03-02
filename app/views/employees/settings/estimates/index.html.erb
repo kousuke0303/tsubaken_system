@@ -1,0 +1,22 @@
+<div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "見積作成関連設定", title_2: nil, icon: "fa-receipt"} %>
+  
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">プラン登録</label>
+    <div class="tab-content" id="publisher_index">
+      <%= render 'employees/settings/estimates/partial/plan_name_index'%>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">工事部位登録</label>
+    <div class="tab-content">
+      <%= render 'employees/settings/estimates/partial/category_index' %>
+    </div>
+    <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">工事種別登録</label>
+    <div class="tab-content">
+      <%= render 'employees/settings/estimates/partial/construction_index' %>
+    </div>
+    <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">素材種別登録</label>
+    <div class="tab-content">
+      <%= render 'employees/settings/estimates/partial/material_index' %>
+    </div>
+  </div>
+</div>

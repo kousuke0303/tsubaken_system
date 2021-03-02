@@ -4,7 +4,9 @@ class Department < ApplicationRecord
   acts_as_list
 
   before_destroy :prevent_delete_first
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true,
+                   uniqueness: true,
+                   length: { maximum: 30 }
   validate :restrict_edit_first
 
   # 無所属部署は編集不可

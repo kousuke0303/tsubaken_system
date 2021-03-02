@@ -1,0 +1,7 @@
+$('.categories-index').html('<%= escape_javascript(render 'employees/settings/estimates/categories/partial/index_table') %>');
+<% if @responce == "success" %>
+  toastr.info("<%= @category.name %>を削除しました。");
+  $('#classification_disp_check .checkbox').prop('checked', false);
+<% else %>
+  toastr.error("<%= @category.name %>は見積もりで使用されているため、削除できません。");
+<% end %>  
