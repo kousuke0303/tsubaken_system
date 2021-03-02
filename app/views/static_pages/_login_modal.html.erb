@@ -1,6 +1,6 @@
 <div class="grid">
   <div id="login">  
-    <h2><span class="fontawesome-lock"></span>ログイン</h2>    
+    <h2>ログイン</h2>    
     <fieldset>
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
         <p><%= f.label :login_id, "ログインID" %></p>
@@ -10,9 +10,10 @@
         <p><%= f.password_field :password, maxlength: 12, required: true, id: "password" %></p>
           
         <%= f.check_box :remember_me, id: "remember-me" %>
-        <%= f.label :remember_me, "ログイン状態を維持する" %>
+        <%= f.label :remember_me, "ログイン状態を維持する", class: "mg-0" %>
           
-        <%= f.submit "ログイン", id: "login-submit" %>
+        <div class="mt-05e"><%= link_to "パスワードを忘れた場合はこちら" %></div>
+        <div class="mt-05e"><%= f.submit "ログイン", id: "login-submit" %></div>
       <% end %>     
     </fieldset>  
   </div>
