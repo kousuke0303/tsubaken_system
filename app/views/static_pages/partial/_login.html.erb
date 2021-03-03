@@ -1,6 +1,6 @@
 <div class="modal-dialog">
-  <div class="modal-content" id="login-modal"> 
-    <div class="modal-header"><span class="fontawesome"></span>ログイン</div>
+  <div class="modal-content"> 
+    <div class="modal-header">ログイン</div>
     <div class="modal-body pa-2e">  
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
         <%= f.label :login_id, "ログインID", class: "main-label" %>

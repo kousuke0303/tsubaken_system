@@ -134,7 +134,7 @@ $color-bg: #eae9e9;
   background-size: cover;
 }
 
-#login-modal {
+#login .modal-content {
   border-radius: 20px 20px 0 0;
   left: 50%;
   max-width: 90%;
@@ -148,7 +148,7 @@ $color-bg: #eae9e9;
     color: #fff;
     display: block;
     font-size: 28px;
-    padding: 0.7em;
+    padding: em;
     text-align: center;
   }
   .main-label {
