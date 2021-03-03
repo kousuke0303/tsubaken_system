@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
   # mount ActionCable.server => '/cable'
-  root "static_pages#login_index"
+  root "static_pages#top"
+  get :login, to: "static_pages#login"
   
   get "postcode_search", to: "addresses#search_postcode"
       
