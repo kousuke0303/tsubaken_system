@@ -1,4 +1,7 @@
 class Client < ApplicationRecord
+  has_many :estimate_matters, dependent: :destroy
+  has_one_attached :avator
+  
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -10,9 +13,6 @@ class Client < ApplicationRecord
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validate :client_login_id_is_correct?
-  
-  has_many :estimate_matters, dependent: :destroy
-  has_one_attached :avator
   
   enum gender: { male: 0, female: 1 }
 
