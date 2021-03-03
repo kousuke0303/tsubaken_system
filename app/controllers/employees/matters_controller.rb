@@ -15,14 +15,17 @@ class Employees::MattersController < Employees::EmployeesController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+    estimate_id = params[:matter]["estimate_id"]
+    estimate = Estimate.find(estimate_id)
     sort_order = Task.are_default.length
-    @matter = Matter.new(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id, estimate_id: params[:matter]["estimate_id"])
+    @matter = Matter.new(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id)
     @default_task_scaffolding_request = Task.new(title: "足場架設依頼", status: 1, sort_order: sort_order)
     @default_task_order_request = Task.new(title: "発注依頼", status: 1, sort_order: sort_order)
 
     if @matter.save && @default_task_scaffolding_request.save && @default_task_order_request.save
       @default_task_scaffolding_request.update(default_task_id: @default_task_scaffolding_request.id, matter_id: @matter.id) 
       @default_task_order_request.update(default_task_id: @default_task_order_request.id, matter_id: @matter.id)
+      estimate.update(matter_id: @matter.id)
       if current_admin || current_manager
         @matter.update(matter_staff_external_staff_client_params)
       elsif current_staff

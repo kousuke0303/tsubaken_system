@@ -3,7 +3,7 @@ class EstimateMatter < ApplicationRecord
   belongs_to :client
   belongs_to :publisher, optional: true
   
-  has_one :matter  # 案件と1対1
+  has_one :matter, dependent: :destroy # 案件と1対1
   has_one :band_connection, dependent: :destroy
   has_one :cover
   # Staffと多対多
