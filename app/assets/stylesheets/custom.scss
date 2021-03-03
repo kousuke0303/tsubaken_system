@@ -146,58 +146,37 @@ $color-bg: #eae9e9;
   width: 400px;  
   top: 80px;
   transform: translateX(-50%);
-}
-
-#login h2 {
-  background: #dea111;
-  border-radius: 20px 20px 0 0;
-  color: #fff;
-  font-size: 28px;
-  padding: 20px 26px;
-  margin-bottom: 0;
-}
-
-#login h2 span[class*="fontawesome-"] {
-    margin-right: 14px;
-}
-
-#login fieldset {
-    background: #fff;
-    border-radius: 0 0 20px 20px;
-    padding: 20px 26px;
-}
-
-#login fieldset p {
-    color: black;
-    margin-bottom: 14px;
-}
-
-#login fieldset p:last-child {
-    margin-bottom: 0;
-}
-
-#login fieldset input {
-    border-radius: 3px;
-}
-
-#login fieldset input[type="text"], #login fieldset input[type="password"] {
-    background: #d8d6d6;
-    color: black;
-    padding: 4px 10px;
-    width: 100%;
-}
-
-#login fieldset input[type="submit"] {
-    background: #6c757d;
+  h2 {
+    background: #dea111;
+    border-radius: 20px 20px 0 0;
     color: #fff;
-    display: block;
-    margin: 0 auto;
-    padding: 4px 0;
-    width: 100px;
-}
-
-#login fieldset input[type="submit"]:hover {
-    background: #343a40;
+    font-size: 28px;
+    padding: 20px 26px;
+  }
+  h2 span[class*="fontawesome-"] {
+    margin-right: 14px;
+  }
+  fieldset {
+    padding: 20px 26px;
+    p {
+      color: black;
+      margin-bottom: 14px;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    input[type="text"], input[type="password"] {
+      background: #d8d6d6;
+      padding: 4px 10px;
+    }
+    #login-submit {
+      background: #6c757d;
+      color: #fff;
+    }
+    #login-submit:hover {
+      background: #343a40;
+    }
+  }
 }
 
 .align {
