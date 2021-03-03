@@ -172,6 +172,7 @@ Rails.application.routes.draw do
     namespace :clients do
       get :top
       get :index
+      get :lost_password
     end
   end
 

@@ -3,16 +3,18 @@
     <h2><span class="fontawesome"></span>ログイン</h2>    
     <fieldset>
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
-        <p><%= f.label :login_id, "ログインID" %></p>
-        <p><%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id", class: "form-control" %></p>
+        <%= f.label :login_id, "ログインID", class: "main-label" %>
+        <%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id", class: "form-control" %>
           
-        <p><%= f.label :password %></p>
-        <p><%= f.password_field :password, maxlength: 12, required: true, id: "password", class: "form-control" %></p>
+        <%= f.label :password, class: "main-label mt-1e" %>
+        <%= f.password_field :password, maxlength: 12, required: true, id: "password", class: "form-control mb-1e" %>
           
         <%= f.check_box :remember_me, id: "remember-me" %>
         <%= f.label :remember_me, "ログイン状態を維持する", class: "mg-0" %>
           
-        <div class="mt-05e"><%= link_to "パスワードを忘れた場合はこちら" %></div>
+        <div class="mt-05e">
+          <%= link_to "ログインID・パスワードを忘れた場合", clients_lost_password_path, remote: true %>
+        </div>
         <div class="mt-05e text-center">
           <%= f.submit "ログイン", id: "login-submit", class: "btn" %>
         </div>
