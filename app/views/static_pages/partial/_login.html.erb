@@ -1,7 +1,7 @@
 <div class="modal-dialog">
   <div class="modal-content" id="login-modal"> 
-    <h2><span class="fontawesome"></span>ログイン</h2>    
-    <fieldset>
+    <div class="modal-header"><span class="fontawesome"></span>ログイン</div>
+    <div class="modal-body pa-2e">  
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
         <%= f.label :login_id, "ログインID", class: "main-label" %>
         <%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id", class: "form-control" %>
@@ -18,8 +18,8 @@
         <div class="mt-05e text-center">
           <%= f.submit "ログイン", id: "login-submit", class: "btn" %>
         </div>
-      <% end %>     
-    </fieldset>  
+      <% end %>
+    </div>
   </div>
 </div>
 
