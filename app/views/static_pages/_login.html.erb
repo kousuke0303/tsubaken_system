@@ -1,5 +1,5 @@
 <div class="modal-dialog">
-  <div class="modal-content grid"> 
+  <div class="modal-content" id="login-modal"> 
     <h2><span class="fontawesome"></span>ログイン</h2>    
     <fieldset>
       <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
