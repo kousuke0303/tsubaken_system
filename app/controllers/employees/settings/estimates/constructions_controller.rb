@@ -2,6 +2,10 @@ class Employees::Settings::Estimates::ConstructionsController < Employees::Setti
   before_action :set_construction, only: [:edit, :update, :destroy]
   before_action :set_categories, only: [:new, :edit]
   
+  def index
+    @constructions = Construction.includes_category
+  end
+  
   def new
     @construction = Construction.new
     @categories_for_construction = @categories.where(classification: 0)
@@ -12,7 +16,7 @@ class Employees::Settings::Estimates::ConstructionsController < Employees::Setti
     @construction = Construction.new(construction_params.merge(default: true))
     if @construction.save
       @responce = "success"
-      @constructions = Construction.are_default
+      @constructions = Construction.includes_category
     else
       @responce = "failure"
     end
@@ -30,7 +34,7 @@ class Employees::Settings::Estimates::ConstructionsController < Employees::Setti
     else
       if @construction.update(construction_params)
         @responce = "success"
-        @constructions = Construction.are_default
+        @constructions = Construction.includes_category
       else
         @responce = "failure"
       end
@@ -44,7 +48,7 @@ class Employees::Settings::Estimates::ConstructionsController < Employees::Setti
     else
       @responce = "failure"
     end
-    @constructions = Construction.are_default
+    @constructions = Construction.includes_category
   end
 
   private

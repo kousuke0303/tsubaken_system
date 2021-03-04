@@ -2,7 +2,7 @@
   <%= render partial: 'layouts/page_title', locals: { title_1: "会社情報関連設定", title_2: nil, icon: "fa-building"} %>
   
   <div class="tab-wrap">
-    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">屋号登録</label>
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">屋号登録</label>
     <div class="tab-content" id="publisher_index">
       <%= render 'employees/settings/companies/partial/publisher_index'%>
     </div>

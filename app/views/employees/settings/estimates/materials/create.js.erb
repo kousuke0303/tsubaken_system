@@ -4,5 +4,5 @@
   $('#material_table').html('<%= escape_javascript(render 'employees/settings/estimates/materials/partial/index_table') %>');
   <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@material.name}を作成しました。"} %>
 <% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".construction-create-errors", model: @material, object: "mzterial"} %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".material-create-errors", model: @material, object: "mzterial"} %>
 <% end %>

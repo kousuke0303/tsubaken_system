@@ -10,7 +10,7 @@
     <% @constructions.each do |construction| %>
       <tr>
         <td><%= construction.name %></td>
-        <td><%= construction.category_name %></td>
+        <td><%= construction.category.name %></td>
         <td><%= construction.price %></td>
         <td><%= construction.unit %></td>
         <td>

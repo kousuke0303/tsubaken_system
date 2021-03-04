@@ -308,8 +308,8 @@ Rails.application.routes.draw do
           patch :sort, on: :collection
         end
         resources :kinds, except: :index
-        resources :materials, except: :index
-        resources :constructions, except: :index
+        resources :materials
+        resources :constructions
         resources :categories, except: :index do
           patch :sort, on: :collection
         end
@@ -324,7 +324,6 @@ Rails.application.routes.draw do
       end
       
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       

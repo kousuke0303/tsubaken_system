@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_092325) do
+ActiveRecord::Schema.define(version: 2021_03_02_211216) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sort_number"
+  end
+
+  create_table "category_materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "material_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_category_materials_on_category_id"
+    t.index ["material_id"], name: "index_category_materials_on_material_id"
   end
 
   create_table "certificates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -316,17 +325,16 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "default", default: false
     t.string "service_life"
     t.string "note"
     t.string "unit"
     t.integer "price"
     t.integer "amount"
     t.string "total"
-    t.bigint "category_id"
+    t.bigint "plan_name_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_materials_on_category_id"
+    t.index ["plan_name_id"], name: "index_materials_on_plan_name_id"
   end
 
   create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -548,6 +556,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
+  add_foreign_key "category_materials", "categories"
+  add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
   add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_details", "categories"
@@ -568,7 +578,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_092325) do
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "managers", "departments"
-  add_foreign_key "materials", "categories"
+  add_foreign_key "materials", "plan_names"
   add_foreign_key "matter_external_staffs", "external_staffs"
   add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"

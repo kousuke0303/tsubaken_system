@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
-  has_many :materials, dependent: :destroy
+  
+  has_many :category_materials, dependent: :destroy
+  has_many :materials, through: :category_materials
   has_many :constructions, dependent: :destroy
   has_many :estimate_details
   acts_as_list

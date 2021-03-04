@@ -11,17 +11,18 @@ puts "CREATE! ESTIMATE"
 estimate_1 = Estimate.all
 estimate_1.each do |estimate|
   category = Category.find(1)
-  material = category.materials.find(rand(1..9))
-  seed_detail_material = estimate.estimate_details.create!(category_id: category.id,
-                                    category_name: category.name,
-                                    material_id: material.id,
-                                    material_name: material.name,
-                                    price: material.price,
-                                    unit: material.unit,
-                                    amount: rand(10..100),
-                                    sort_number: 10
-                                    )
-  seed_detail_material.update(total: seed_detail_material.price * seed_detail_material.amount)
+  category.materials.each do |material|
+    seed_detail_material = estimate.estimate_details.create!(category_id: category.id,
+                                      category_name: category.name,
+                                      material_id: material.id,
+                                      material_name: material.name,
+                                      price: material.price,
+                                      unit: material.unit,
+                                      amount: rand(10..100),
+                                      sort_number: 10
+                                      )
+    seed_detail_material.update(total: seed_detail_material.price * seed_detail_material.amount)
+  end
   
   second_categpory = Category.find(8)
   construction = second_categpory.constructions.find(rand(1..8))

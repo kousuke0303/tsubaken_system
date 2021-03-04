@@ -1,19 +1,26 @@
 class Employees::Settings::Estimates::MaterialsController < Employees::Settings::EstimatesController
   before_action :set_material, only: [:edit, :update, :destroy]
-  before_action :set_categories, only: [:new, :edit]
+  before_action :set_categories, only: [:new, :index, :edit]
   
+  def index
+    @plan_names = PlanName.with_colors
+    @materials = Material.include_category
+    @categories_for_material = @categories.where(classification: 0)
+                                          .or(@categories.where(classification: 2))
+  end
 
   def new
     @material = Material.new
+    @plan_names = PlanName.with_colors
     @categories_for_material = @categories.where(classification: 0)
                                           .or(@categories.where(classification: 2))
   end
 
   def create
-    @material = Material.new(material_params.merge(default: true))
+    @material = Material.new(material_params)
     if @material.save
       @responce = "success"
-      @materials = Material.are_default
+      @materials = Material.include_category
     else
       @responce = "failure"
     end
@@ -31,7 +38,7 @@ class Employees::Settings::Estimates::MaterialsController < Employees::Settings:
     else
       if @material.update(material_params)
         @responce = "success"
-        @materials = Material.are_default
+        @materials = Material.include_category
       else
         @responce = "failure"
       end
@@ -39,7 +46,7 @@ class Employees::Settings::Estimates::MaterialsController < Employees::Settings:
   end
 
   def index
-    @materials = Material.are_default
+    @materials = Material.include_category
     if (@category_id = params[:category_id]).present?
       @materials = @materials.where(category_id: @category_id)
     end
@@ -53,12 +60,12 @@ class Employees::Settings::Estimates::MaterialsController < Employees::Settings:
     else
       @responce = "failure"
     end
-    @materials = Material.are_default
+    @materials = Material.include_category
   end
 
   private
     def material_params
-      params.require(:material).permit(:name, :service_life, :unit, :price, :category_id)
+      params.require(:material).permit(:name, :service_life, :unit, :price, :note, :plan_name_id, { category_ids: [] })
     end
 
     def set_material

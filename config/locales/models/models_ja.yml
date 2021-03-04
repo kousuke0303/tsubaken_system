@@ -130,7 +130,9 @@ ja:
         material:
           name: 素材名
           service_life: 耐用年数
-          category_id: カテゴリ
+          category_id: 部位カテゴリ
+          category_ids: 部位カテゴリ
+          plan_name_id: プランカテゴリ
           note: 摘要
           accept: 確認事項
         certificate:
