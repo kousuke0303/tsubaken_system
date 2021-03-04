@@ -1,0 +1,66 @@
+<div class="modal-dialog">
+  <div class="modal-content"> 
+    <div class="modal-header">ログイン</div>
+    <div class="modal-body pa-2e">  
+      <%= form_with(model: @admin, url: admin_session_path(@admin), class: "login-form", local: true) do |f| %>            
+        <%= f.label :login_id, "ログインID", class: "main-label" %>
+        <%= f.text_field :login_id, maxlength: 12, required: true, id: "login-id", class: "form-control" %>
+          
+        <%= f.label :password, class: "main-label mt-1e" %>
+        <%= f.password_field :password, maxlength: 12, required: true, id: "password", class: "form-control mb-1e" %>
+          
+        <%= f.check_box :remember_me, id: "remember-me" %>
+        <%= f.label :remember_me, "ログイン状態を維持する", class: "mg-0" %>
+          
+        <div class="mt-05e">
+          <%= link_to "ログインID・パスワードを忘れた場合", clients_lost_password_path, remote: true %>
+        </div>
+        <div class="mt-05e text-center">
+          <%= f.submit "ログイン", id: "login-submit", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#login-submit").click(function() {
+
+    const form = $(this).parents("form");
+    const loginId = $("#login-id");
+    const password = $("#password");
+    const rememberMe = $("#remember-me");
+    const idType = loginId.val().slice(0, 2);
+
+    if(idType == "AD") {
+      form.attr("action", "/admins/sign_in");
+      loginId.attr("name", "admin[login_id]");
+      password.attr("name", "admin[password]");
+      rememberMe.attr("name", "admin[remember_me]");
+    } else if(idType == "MN") {
+      form.attr("action", "/managers/sign_in");
+      loginId.attr("name", "manager[login_id]");
+      password.attr("name", "manager[password]");
+      rememberMe.attr("name", "manager[remember_me]");
+    } else if(idType == "ST") {
+      form.attr("action", "/staffs/sign_in");
+      loginId.attr("name", "staff[login_id]");
+      password.attr("name", "staff[password]");
+      rememberMe.attr("name", "staff[remember_me]");
+    } else if(idType == "CL") {
+      form.attr("action", "/clients/sign_in");
+      loginId.attr("name", "client[login_id]");
+      password.attr("name", "client[password]");
+      rememberMe.attr("name", "client[remember_me]");
+    } else if(idType == "ES") {
+      form.attr("action", "/external_staffs/sign_in");
+      loginId.attr("name", "external_staff[login_id]");
+      password.attr("name", "external_staff[password]");
+      rememberMe.attr("name", "external_staff[remember_me]");
+    } else {
+      $(this).prop("disabled", true);
+      $(this).prop("disabled", false);
+      return false
+    }
+  });
+</script>

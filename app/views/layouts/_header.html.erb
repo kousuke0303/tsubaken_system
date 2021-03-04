@@ -5,30 +5,8 @@
         <%= image_tag "logo_image.png", size: "300x75", alt: "ロゴ" %>
       </div>
       <div class="col-sm-8">
-        <button class="btn btn-lg btn-dark login-button">ログイン</button>
+        <%= link_to "ログイン", login_path, remote: true, class: "btn btn-lg btn-dark login-button" %>
       </div>
     </div>
-          
-    <!--login_modal-->
-    <div class="modal login-modal">
-      <div class="modal__bg js-modal-close"></div>
-        <%= render "static_pages/login_modal" %>
-      </div>
-    </div>
-    
   </div>
 </header>
-
-<script>
-  $(function(){
-    $(".login-button").on("click",function(){
-        $(".login-modal").fadeIn();
-        return false;
-    });
-    
-    $(".js-modal-close").on("click",function(){
-        $(".login-modal").fadeOut();
-        return false;
-    });
-  });
-</script>
