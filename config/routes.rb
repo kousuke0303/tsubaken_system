@@ -213,7 +213,9 @@ Rails.application.routes.draw do
   # 従業員が行う操作
   namespace :employees do
     resources :managers
-    resources :staffs
+    resources :staffs do
+      get :delete_confirmation, on: :member
+    end
     resources :clients do
       post :search_index, on: :collection
     end
@@ -307,7 +309,6 @@ Rails.application.routes.draw do
         resources :plan_names, except: :index do
           patch :sort, on: :collection
         end
-        resources :kinds, except: :index
         resources :materials, except: :index
         resources :constructions, except: :index
         resources :categories, except: :index do

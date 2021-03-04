@@ -1,0 +1,2 @@
+$('#staff_show_table').html('<%= escape_javascript(render 'employees/staffs/partial/detail') %>');
+toastr.error("<%= @staff.name %>は営業記録が存在するため、削除できません")

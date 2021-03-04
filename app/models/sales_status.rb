@@ -1,7 +1,7 @@
 class SalesStatus < ApplicationRecord
   belongs_to :estimate_matter
   has_one :sales_status_editor, dependent: :destroy
-  has_one :sales_status_member, dependent: :destroy
+  # has_one :sales_status_member, dependent: :destroy
 
   validates :status, presence: true
   validates :scheduled_date, presence: true

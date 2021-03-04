@@ -58,6 +58,24 @@ module ApplicationHelper
       end
     end
   end
+  
+  def show_avator(object)
+    if object.avator.attached? 
+      content_tag(:div, class: "avator_layoput_for_sidebar") do
+        image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"}))
+      end
+    else
+      if object == @admin
+        content_tag(:div, @admin.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #dc3545")
+      elsif object == @manager
+        content_tag(:div, @manager.name[0, 1], class: "default_avator_layoput_for_showr", style: "background: #6610f2")
+      elsif object == @staff
+        content_tag(:div, @staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #{@staff.label_color.color_code}")
+      elsif object == @external_staff
+        content_tag(:div, @external_staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #28a745")
+      end
+    end
+  end
 
 
   # 空のtdタグを引数分返す

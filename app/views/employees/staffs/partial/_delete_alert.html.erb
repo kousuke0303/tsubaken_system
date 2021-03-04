@@ -1,0 +1,39 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body alert_modal">
+      <div class="card mb-3">
+        <h5 class="card-header">確認</h5>
+        <div class="card-body">
+          <div>
+            <%= @staff.name %>に関する本日以降のスケジュールが入っていますが、このSTAFFを削除してよろしいですか？
+            <br/>
+            ※このSTAFFを削除すると、以下のスケジュールも削除されます。
+          </div>
+          <table class="table table-bordered table-column-type mt-1e">
+            <tr>
+              <th>日付</th>
+              <th>内容</th>
+            </tr>
+            <% @staff_schedules.each do |schedule| %>
+            <tr>
+              <td><%= schedule.scheduled_date %></td>
+              <td><%= schedule.title %></td>
+            </tr>
+            <% end %>
+          </table>
+          <div class="btn-area">
+            <%= link_to "削除", employees_staff_path(@staff), method: :delete, remote: true, class: "btn btn-destroy" %>
+            <button class="btn btn-dark" id="cancel_btn">キャンセル</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#cancel_btn').on('click', function(){
+    $('#staff_delete_alert').modal('hide');
+    $('#staff_delete_alert').empty();
+  });
+</script>

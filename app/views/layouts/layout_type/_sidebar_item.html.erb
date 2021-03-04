@@ -14,8 +14,16 @@
       <i class="fas fa-user-tie"></i><span class="ml-1e">従業員管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="employees-menu">
-      <li><%= link_to "Manager", employees_managers_path %></li>
-      <li><%= link_to "Staff", employees_staffs_path %></li>
+      <li>
+        <%= link_to employees_managers_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Manager</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_staffs_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Staff</span>
+        <% end %>
+      </li>
     </ul>
   </li>
   <li>
@@ -53,11 +61,31 @@
     <% end %>
     <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
     <ul class="collapse list-unstyled" id="settings-menu">
-      <li><%= link_to "会社情報関連", employees_settings_companies_path %></li>
-      <li><%= link_to "見積書作成関連", employees_settings_estimates_path %></li>
-      <li><%= link_to "診断書関連", employees_settings_certificates_path %></li>
-      <li><%= link_to "デフォルトタスク", employees_settings_tasks_path %></li>
-      <li><%= link_to "その他設定", employees_settings_others_path %></li>
+      <li>
+        <%= link_to employees_settings_companies_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">会社情報関連</span> 
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_settings_estimates_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">見積書作成関連</span> 
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_settings_certificates_path do %>
+           <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">診断書関連</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_settings_tasks_path do %>
+           <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">デフォルトタスク</span> 
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_settings_others_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">その他設定</span>
+        <% end %>
+      </li>
     </ul>
   </li>
   

@@ -1,9 +1,15 @@
 <div class="col-12">
-  <h2>Staff詳細</h2>
-
-  <%= render "employees/staffs/partial/detail" %>
-
-    <div class="accordion mt-1e" id="accordionestimates-and-matters">
+  
+  <div class="avator_container_for_sidebar">
+    <%= show_avator(@staff) %>
+    <h2>STAFF詳細</h2>
+  </div>
+  
+  <div id="staff_show_table">
+    <%= render "employees/staffs/partial/detail" %>
+  </div>
+    
+  <div class="accordion mt-1e" id="accordionestimates-and-matters">
     <div class="card">
       <div class="card-header bg-dark" id="headingOne">
         <h5 class="text-light">

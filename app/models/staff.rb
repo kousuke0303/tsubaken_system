@@ -1,7 +1,9 @@
 class Staff < ApplicationRecord
+  
+  attr_accessor :accept
+  
   belongs_to :department
   belongs_to :label_color
-  belongs_to :schedule, optional: true
   
   has_many :estimate_matter_staffs, dependent: :destroy
   has_many :matter_staffs, dependent: :destroy
@@ -9,13 +11,15 @@ class Staff < ApplicationRecord
   has_many :matters, through: :matter_staffs
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
-  has_many :schedules
+  has_many :schedules, dependent: :destroy
   has_many :attendances, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  
   has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }
-
+  before_destroy :validate_destroy_for_sales_status
+  
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
@@ -79,4 +83,12 @@ class Staff < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
+  # 営業記録がある場合は削除不可
+  def validate_destroy_for_sales_status
+    if SalesStatus.where(staff_id: self.id)
+      errors.add :base, '営業記録が保存されているため、削除はできません'
+    end
+  end
+  
 end

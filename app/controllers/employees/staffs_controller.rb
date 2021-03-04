@@ -1,9 +1,11 @@
 class Employees::StaffsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_label_colors, only: [:new, :edit]
-  before_action :set_staff, only: [:show, :edit, :update, :destroy]
+  before_action :set_staff, only: [:show, :edit, :update, :delete_confirmation, :destroy]
   before_action :set_departments, only: [:new, :edit]
-
+  before_action :has_schedule, only: [:show, :delete_confirmation]
+  
+  
   def new
     @staff = Staff.new
   end
@@ -37,10 +39,22 @@ class Employees::StaffsController < Employees::EmployeesController
       redirect_to employees_staff_url(@staff)
     end
   end
+  
+  def delete_confirmation
+  end
 
   def destroy
-    @staff.destroy ? flash[:success] = "Staffを削除しました。" : flash[:alert] = "Staffを削除できませんでした。"
-    redirect_to employees_staffs_url
+    if @staff.destroy
+      if @delete_type == false
+        flash[:info] = "#{@staff}及びこのSTAFFに関するスケジュールを削除しました"
+      else
+        flash[:info] = "#{@staff}を削除しました"
+      end
+      redirect_to employees_staffs_url
+    else
+      @responce = "failure"
+      @label_color = @staff.label_color
+    end
   end
 
   private
@@ -51,5 +65,14 @@ class Employees::StaffsController < Employees::EmployeesController
 
     def set_staff
       @staff = Staff.find(params[:id])
+    end
+    
+    def has_schedule
+      if Schedule.where(staff_id: @staff.id).where('scheduled_date >= ?', Date.today).present?
+        @staff_schedules = Schedule.where(staff_id: @staff.id).where('scheduled_date >= ?', Date.today)
+        @delete_type = false
+      else
+        @delete_type = true
+      end
     end
 end
