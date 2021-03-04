@@ -15,8 +15,28 @@
       <%= render 'employees/settings/estimates/partial/construction_index' %>
     </div>
     <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">素材種別登録</label>
-    <div class="tab-content">
+    <div class="tab-content" id="material_content">
       <%= render 'employees/settings/estimates/partial/material_index' %>
     </div>
   </div>
 </div>
+
+<script>
+  $('#tab03').on('click', function(){
+    $.ajax({
+      type: "GET",
+      url: "<%= employees_settings_estimates_constructions_path %>",
+      cache: false,
+    });
+  });
+</script>
+
+<script>
+  $('#tab04').on('click', function(){
+    $.ajax({
+      type: "GET",
+      url: "<%= employees_settings_estimates_materials_path %>",
+      cache: false,
+    });
+  });
+</script>

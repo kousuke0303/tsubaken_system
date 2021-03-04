@@ -2,8 +2,9 @@
   <table class="table table-bordered text-nowrap common-table">
     <tr>
       <th>素材名</th>
+      <th>プラン</th>
       <th>耐用年数</th>
-      <th>カテゴリ名</th>
+      <th>登録部位</th>
       <th>単価</th>
       <th>単位</th>
       <th></th>
@@ -11,8 +12,13 @@
     <% @materials.each do |material| %>
       <tr>
         <td><%= material.name %></td>
+        <td><%= material.plan_name.name %></td>
         <td><%= material.service_life %></td>
-        <td><%= material.category_name %></td>
+        <td>
+          <% material.categories.each do |category| %>
+            <span><%= category.name %></span>
+          <% end %>
+        </td>
         <td><%= material.price %></td>
         <td><%= material.unit %></td>
         <td>

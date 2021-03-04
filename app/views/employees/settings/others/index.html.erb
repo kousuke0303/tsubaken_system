@@ -1,0 +1,18 @@
+<div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "会社情報関連設定", title_2: nil, icon: "fa-building"} %>
+  
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">カラー設定</label>
+    <div class="tab-content" id="publisher_index">
+      <%= render 'employees/settings/others/partial/label_color_index' %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">テスト</label>
+    <div class="tab-content">
+      <!--<!%= render 'employees/settings/companies/partial/department_index' %>-->
+    </div>
+    <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">テスト</label>
+    <div class="tab-content">
+      <!--<!%= render 'employees/settings/companies/partial/attract_method_index' %>-->
+    </div>
+  </div>
+</div>

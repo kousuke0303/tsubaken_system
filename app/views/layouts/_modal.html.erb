@@ -46,7 +46,7 @@
     <div id="default-task-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--屋号/部署/集客new・edit-->
+  <!--屋号/部署/集客/取引先業種new・edit-->
   <% if controller_name == "companies" && action_name == "index" %>
     <div id="publisher-new" class="modal fade" role="dialog"></div>
     <div id="publisher-edit" class="modal fade" role="dialog"></div>
@@ -54,6 +54,8 @@
     <div id="department-edit" class="modal fade" role="dialog"></div>
     <div id="attract-method-new" class="modal fade" role="dialog"></div>
     <div id="attract-method-edit" class="modal fade" role="dialog"></div>
+    <div id="industry-new" class="modal fade" role="dialog"></div>
+    <div id="industry-edit" class="modal fade" role="dialog"></div>
   <% end %>
   
   <!--プラン名/工事部位/工事種類/素材new・edit-->
@@ -69,7 +71,7 @@
   <% end %>
 
   <!--カラーコードnew・edit-->
-  <% if controller_name == "label_colors" && action_name == "index" %>
+  <% if controller_name == "others" && action_name == "index" %>
     <div id="label-color-new" class="modal fade" role="dialog"></div>
     <div id="label-color-edit" class="modal fade" role="dialog"></div>
   <% end %>
@@ -122,12 +124,6 @@
 
   <!--タスクedit-->
   <div id="task-edit" class="modal fade" role="dialog"></div>
-
-  <!--業種new・edit-->
-  <% if controller_name == "industries" && action_name == "index" %>
-    <div id="industry-new" class="modal fade" role="dialog"></div>
-    <div id="industry-edit" class="modal fade" role="dialog"></div>
-  <% end %>
   
   <!--診断書new・edit-->
   <div id="certificate-new" class="modal fade" role="dialog"></div>

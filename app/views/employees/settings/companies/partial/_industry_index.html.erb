@@ -1,0 +1,23 @@
+<div class="col-12">
+
+  <div class="col-md-6 col-12">
+    <h4 class="title_layout">取引先業種一覧</h4>
+  </div>
+                       
+  <div class="industry-create-errors"></div>
+  <%= form_with(model: @industry, url: employees_settings_companies_industries_path, method: :post, remote: true) do |f| %>
+    <%= f.label "業種" %>
+    <div class="input-group col-md-6">
+      <%= f.text_field :name, class: "form-control", id: "industry_create" %>
+      <div class="input-group-append">        
+        <input type="submit" value="新規作成" class="btn btn-primary" id="create_btn">
+      </div>
+    </div>
+  <% end %>
+  
+  <%= render "shared/sortable_explanation" %>
+  
+  <div class="industries-index">
+    <%= render "employees/settings/companies/industries/partial/index_table" %>
+  </div>
+</div>

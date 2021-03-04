@@ -1,0 +1,8 @@
+$('.label-colors-index').html('<%= escape_javascript(render 'employees/settings/others/label_colors/partial/index_table') %>');
+<% if @responce == "success" %>
+  toastr.info("<%= @label_color.name %>を削除しました。");
+<% elsif @accept_type == 1 || @accept_type == 2 %>
+  toastr.error("<%= @label_color.name %>は見積もりで使用されているため、削除できません。");
+<% elsif @accept_type == 3 %>
+  toastr.error("<%= @label_color.name %>はSTAFFで使用されているため、削除できません。");
+<% end %>  

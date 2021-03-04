@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $('.industries-index').html('<%= escape_javascript(render 'employees/settings/companies/industries/partial/index_table') %>');
+  toastr.info("<%= @industry.name %>を削除しました");
+<% else %>
+  toastr.error("<%= @industry.name %>は削除できません");
+<% end %>

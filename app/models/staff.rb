@@ -4,9 +4,11 @@ class Staff < ApplicationRecord
   belongs_to :schedule, optional: true
   
   has_many :estimate_matter_staffs, dependent: :destroy
-  has_many :matter_staffs, dependent: :destroy
   has_many :estimate_matters, through: :estimate_matter_staffs
+  
+  has_many :matter_staffs, dependent: :destroy
   has_many :matters, through: :matter_staffs
+  
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
   has_many :schedules

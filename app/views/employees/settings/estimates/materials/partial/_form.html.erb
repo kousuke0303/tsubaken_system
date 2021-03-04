@@ -1,26 +1,20 @@
-<%= f.label :category_id %>
-<%= f.collection_select :category_id, @categories_for_material, :id, :name, {}, class: "form-control" %>
-
 <%= f.label :name %>
 <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
 
-<div class="row">
-  <div class="col-sm-6">
-    <%= f.label :service_life %>
-    <div class="flex">
-      <%= f.text_field :service_life, class: "form-control", maxlength: 30 %>
-      <label class="ml-05e">年</label>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <%= f.label :unit %>
-    <%= f.text_field :unit, class: "form-control", placeholder: "㎡, 式, 個など", maxlength: 30 %>
-  </div>
-</div>
+<%= f.label :plan_name_id %>
+<%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_hidden: false }, { required: true, class: "form-control" } %>
+
+<%= f.label :category_ids %>
+<%= f.collection_select :category_ids, @categories_for_material, :id, :name, { include_hidden: false }, { required: true, class: "form-control select-members", multiple: true } %>
+
+<%= f.label :service_life %>
+<%= f.text_field :service_life, autocomplete: "on", list: "servoce_life_menu", placeholder: "直接入力もしくは選択", class: "form-control", maxlength: 30 %>
+
+<%= f.label :unit %>
+<%= f.text_field :unit, class: "form-control", autocomplete: "on", list: "unit_menu", placeholder: "直接入力もしくは選択", maxlength: 30 %>
+
 <%= f.label :price %>（半角）
 <%= f.number_field :price, class: "form-control", min: 1, maxlength: 30 %>
-
-
 
 <%= f.label :note %>
 <%= f.text_area :note, class: "form-control", maxlength: 30 %>
@@ -34,4 +28,30 @@
   <%= f.check_box :accept, { class: "custom-control-input", id: "custom-check-1" } %>
   <%= f.label :accept, "確認", class: "custom-control-label", for: "custom-check-1" %>
   </div>
-<% end %>        
+<% end %>
+
+<%= javascript_include_tag "select_members.js" %>
+
+<script>
+  var datalist = document.createElement('datalist');
+  datalist.id = 'servoce_life_menu';
+  var spans = ['1ヶ月', '３ヶ月', '６ヶ月', '１年', '５年', '１０年'];
+  spans.forEach(function(span) {
+    var option = document.createElement('option');
+    option.value = span;
+    datalist.appendChild(option);
+  });
+  document.body.appendChild(datalist);
+</script>
+
+<script>
+  var datalist = document.createElement('datalist');
+  datalist.id = 'unit_menu';
+  var units = ['㎡', '式', '個', '箇所', 'セット'];
+  units.forEach(function(unit) {
+    var option = document.createElement('option');
+    option.value = unit;
+    datalist.appendChild(option);
+  });
+  document.body.appendChild(datalist);
+</script>

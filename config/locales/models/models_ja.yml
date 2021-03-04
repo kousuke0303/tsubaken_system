@@ -13,7 +13,7 @@ ja:
       estimate: 見積
       matter: 案件
       task: タスク
-      industry: 業種
+      industry: 取引先業種
       department: 部署
       category: 工事部位
       kind: 見積書タイプ
@@ -22,7 +22,7 @@ ja:
       material: 素材
       attract_method: 集客方法
       plan_name: プラン名
-      label_color: ラベルカラー
+      label_color: カラー
     attributes:
         admin:
           name: 名前
@@ -108,14 +108,15 @@ ja:
         label_color:
           name: カラー名
           color_code: カラーコード
-        industry:
-          name: 業種名
+          accept: 確認事項
         department:
           name: 名前
         category:
           name: 工事名称
           classification: 分類
           accept: 確認事項
+        industry:
+          name: 業種
         kind:
           title: タイトル
         image:
@@ -129,7 +130,9 @@ ja:
         material:
           name: 素材名
           service_life: 耐用年数
-          category_id: カテゴリ
+          category_id: 部位カテゴリ
+          category_ids: 部位カテゴリ
+          plan_name_id: プランカテゴリ
           note: 摘要
           accept: 確認事項
         certificate:

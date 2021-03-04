@@ -4,12 +4,12 @@ class Employees::Settings::EstimatesController < Employees::EmployeesController
   
   def index
     @plan_names = PlanName.with_colors
-    @constructions = Construction.are_default
+    @constructions = Construction.includes_category
     @categories_for_construction = @categories.where(classification: 0)
                                               .or(@categories.where(classification: 1))
-    @materials = Material.are_default
+    @materials = Material.include_category
     @categories_for_material = @categories.where(classification: 0)
-                                              .or(@categories.where(classification: 2))
+                                          .or(@categories.where(classification: 2))
   end
   
   def search_category
@@ -28,7 +28,7 @@ class Employees::Settings::EstimatesController < Employees::EmployeesController
   def search_material
     @materials = Material.are_default
     if (@category_id = params[:category_id]).present?
-      @materials = @materials.where(category_id: @category_id)
+      @materials = @materials.where(categories: { id: @category_id })
     end
   end
 end

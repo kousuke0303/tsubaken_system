@@ -5,7 +5,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update, :destroy]
 
   def edit
-    @materials = Material.where(category_id: @estimate_detail.category_id)
+    @materials = Material.includes(:category_materials).where(plan_name_id: @estimate, category_materials: { category_id: @estimate_detail.category_id })
     @constructions = Construction.where(category_id: @estimate_detail.category_id)
     target_details = @estimate.estimate_details.where(category_id: @estimate_detail.category_id)
     @target_details_include_construction = target_details.where.not(construction_id: nil).order(:sort_number)

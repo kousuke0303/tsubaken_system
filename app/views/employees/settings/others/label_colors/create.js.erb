@@ -1,0 +1,9 @@
+<% if @responce == "success" %>
+  $("#label-color-new").modal('hide');
+  $("#label-color-new").empty();
+  $('.label-colors-index').html('<%= escape_javascript(render 'employees/settings/others/label_colors/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@label_color.name}を作成しました。"} %>
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".label-color-create-errors", model: @label_color, object: "label_color"} %>
+<% end %>
+  

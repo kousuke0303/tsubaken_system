@@ -1,0 +1,50 @@
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered table-column-type mt-1e">
+    <thead>
+      <tr>
+        <th>カラー名</th>
+        <th>カラーコード</th>
+        <th>備考</th>
+        <th>サンプル</th>        
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="sortable-label-colors">
+      <% @label_colors.each do |label_color| %>
+        <tr class="tr-sortable">
+          <td><%= label_color.name %></td>
+          <td><%= label_color.color_code %></td>
+          <td><%= label_color.note %></td>
+          <td style="background: <%= label_color.color_code %>;"></td>
+          <td>
+            <%= link_to "編集", edit_employees_settings_others_label_color_path(label_color), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_others_label_color_path(label_color), method: :delete, data: { confirm: "このラベルカラーを削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag "Sortable.min.js" %>
+<script>
+  $(function() {
+    let el = document.getElementById("sortable-label-colors");
+    if (el != null) {
+      const sortable = Sortable.create(el, {
+        animation: 150,
+        delay: 100,
+        onUpdate: function(evt) {
+          $.ajax({
+            type: "PATCH",
+            url: "<%= sort_employees_settings_others_label_colors_path %>",
+            cache: false,
+            data: { from: evt.oldIndex, 
+                    to: evt.newIndex, 
+                    remote: true }
+          });
+        }
+      });
+    }
+  });
+</script>

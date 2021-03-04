@@ -10,51 +10,17 @@ publisher.image.attach(io: File.open('app/assets/images/logo_image.png'), filena
 
 # 工事名称
 
-SeedCategory1 = Category.create!(name: "屋根")
-SeedCategory2 = Category.create!(name: "外壁")
-SeedCategory3 = Category.create!(name: "玄関")
-SeedCategory4 = Category.create!(name: "浴室")
-SeedCategory5 = Category.create!(name: "洗面所")
-SeedCategory6 = Category.create!(name: "リビング")
-SeedCategory7 = Category.create!(name: "キッチン")
-SeedCategory8 = Category.create!(name: "共通工事")
-SeedCategory9 = Category.create!(name: "付帯工事")
+SeedCategory1 = Category.create!(name: "屋根", classification: 2)
+SeedCategory2 = Category.create!(name: "外壁", classification: 2)
+SeedCategory3 = Category.create!(name: "玄関", classification: 2)
+SeedCategory4 = Category.create!(name: "浴室", classification: 2)
+SeedCategory5 = Category.create!(name: "洗面所", classification: 2)
+SeedCategory6 = Category.create!(name: "リビング", classification: 2)
+SeedCategory7 = Category.create!(name: "キッチン", classification: 2)
+SeedCategory8 = Category.create!(name: "共通工事", classification: 1)
+SeedCategory9 = Category.create!(name: "付帯工事", classification: 1)
 
 puts "CREATE! CATEGORY"
-
-# 屋根素材
-Material.create!(name: "アレスダイナミックシーラーマイルド透明", service_life: "10年", price: 700, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "アレスダイナミックルーフ", service_life: "10年", price: 1200, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "ボンエポコートライト", service_life: "10年", price: 800, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "ボンフロン弱溶剤エナメルGT-SR", service_life: "10年", price: 1400, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "ガイナマルチシーラー弱溶剤", service_life: "10年", price: 700, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "ガイナ", service_life: "10年", price: 1400, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "ガイナ抗菌剤（１４kg用）", service_life: "10年", price: 9800, unit: "袋", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "UVルーフプライマーsi", service_life: "10年", price: 900, unit: "㎡", default: true, category_id: SeedCategory1.id)
-Material.create!(name: "無機UVコートルーフ遮熱", service_life: "10年", price: 2200, unit: "㎡", default: true, category_id: SeedCategory1.id)
-
-# 外壁素材
-Material.create!(name: "アレスダイナミックフィラー", service_life: "10年", price: 600, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "アレスダイナミックトップ", service_life: "10年", price: 900, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "ボンHBサーフェーサーR（W）", service_life: "10年", price: 700, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "ボンフロンマットGT-SR", service_life: "10年", price: 1200, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "ガイナ水性カチオンシーラー", service_life: "10年", price: 800, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "ガイナ", service_life: "10年", price: 1400, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "UVアンダーコートsi", service_life: "10年", price: 900, unit: "㎡", default: true, category_id: SeedCategory2.id)
-Material.create!(name: "無機UVコート溶剤遮熱", service_life: "10年", price: 1800, unit: "㎡", default: true, category_id: SeedCategory2.id)
-
-# その他
-
-3.times do |n|
-  Material.create!(name: "屋根素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory3.id)
-  Material.create!(name: "外壁素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory4.id)
-  Material.create!(name: "玄関素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory5.id)
-  Material.create!(name: "玄関素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory6.id)
-  Material.create!(name: "玄関素材#{ n + 1 }", service_life: "10年", price: 5000, unit: "枚", default: true, category_id: SeedCategory7.id)
-end
-
-puts "CREATE! MATERIAL"
-
 
 # 工事内容
 
@@ -83,12 +49,45 @@ end
 puts "CREATE! CONSTRUCTION"
 
 # プラン名
-plan_name_array = [["シリコン", 3], ["チッ素", 2], ["断熱ガイナ", 4], ["無機", 5]]
+plan_name_array = [["シリコン", 3], ["フッ素", 2], ["断熱ガイナ", 4], ["無機", 5]]
 plan_name_array.each do |array|
   PlanName.create!(name: array[0], label_color_id: array[1])
 end
 
 puts "CREATE! PlANNAME"
+
+
+# 屋根素材
+Material.create!(name: "アレスダイナミックシーラーマイルド透明", service_life: "10年", price: 700, unit: "㎡", plan_name_id: 1)
+Material.create!(name: "アレスダイナミックルーフ", service_life: "10年", price: 1200, unit: "㎡", plan_name_id: 1)
+Material.create!(name: "ボンエポコートライト", service_life: "10年", price: 800, unit: "㎡", plan_name_id: 2)
+Material.create!(name: "ボンフロン弱溶剤エナメルGT-SR", service_life: "10年", price: 1400, unit: "㎡", plan_name_id: 2)
+Material.create!(name: "ガイナマルチシーラー弱溶剤", service_life: "10年", price: 700, unit: "㎡", plan_name_id: 3)
+Material.create!(name: "ガイナ", service_life: "10年", price: 1400, unit: "㎡", plan_name_id: 3)
+Material.create!(name: "ガイナ抗菌剤（１４kg用）", service_life: "10年", price: 9800, unit: "袋", plan_name_id: 3)
+Material.create!(name: "UVルーフプライマーsi", service_life: "10年", price: 900, unit: "㎡", plan_name_id: 4)
+Material.create!(name: "無機UVコートルーフ遮熱", service_life: "10年", price: 2200, unit: "㎡", plan_name_id: 4)
+
+Material.all.each do |material|
+  CategoryMaterial.create(category_id: 1, material_id: material.id)
+end
+
+# 外壁素材
+Material.create!(name: "アレスダイナミックフィラー", service_life: "10年", price: 600, unit: "㎡", plan_name_id: 1)
+Material.create!(name: "アレスダイナミックトップ", service_life: "10年", price: 900, unit: "㎡", plan_name_id: 1)
+Material.create!(name: "ボンHBサーフェーサーR（W）", service_life: "10年", price: 700, unit: "㎡", plan_name_id: 2)
+Material.create!(name: "ボンフロンマットGT-SR", service_life: "10年", price: 1200, unit: "㎡", plan_name_id: 2)
+Material.create!(name: "ガイナ水性カチオンシーラー", service_life: "10年", price: 800, unit: "㎡", plan_name_id: 3)
+Material.create!(name: "UVアンダーコートsi", service_life: "10年", price: 900, unit: "㎡", plan_name_id: 4)
+Material.create!(name: "無機UVコート溶剤遮熱", service_life: "10年", price: 1800, unit: "㎡", plan_name_id: 4)
+
+Material.all.last(7).each do |material|
+  CategoryMaterial.create(category_id: 2, material_id: material.id)
+end
+
+CategoryMaterial.create(category_id: 2, material_id: 6)
+  
+puts "CREATE! MATERIAL"
 
 # 集客方法
 %w[web 訪問販売 チラシ広告 紹介 タウンページ].each do |name|
