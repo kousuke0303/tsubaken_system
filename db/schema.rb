@@ -228,7 +228,6 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
     t.integer "total_price", default: 0, null: false
     t.integer "discount", default: 0, null: false
     t.string "estimate_matter_id"

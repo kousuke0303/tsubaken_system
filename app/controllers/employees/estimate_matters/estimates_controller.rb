@@ -1,7 +1,6 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
-  before_action :set_default_color_code, only: [:index, :create, :update, :destroy, :copy, :move]
-  before_action :set_estimates_with_label_colors, only: :index
+  before_action :set_estimates_with_plan_names_and_label_colors, only: :index
   before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
   before_action :set_matter_of_estimate_matter, only: [:move, :copy]
@@ -46,7 +45,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         end
       end
       @response = "success"
-      set_estimates_with_label_colors
+      set_estimates_with_plan_names_and_label_colors
       set_estimate_details
       set_matter_of_estimate_matter
     end
@@ -89,21 +88,20 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       end
       @response = "success"
       @estimate.calc_total_price
-      set_estimates_with_label_colors
+      set_estimates_with_plan_names_and_label_colors
       set_estimate_details
     end
   end
 
   def destroy
     @estimate.destroy
-    set_estimates_with_label_colors
+    set_estimates_with_plan_names_and_label_colors
     set_estimate_details
   end
 
   # 見積複製アクション
   def copy
     new_estimate = @estimate.deep_dup
-    new_estimate.title = "C:" + new_estimate.title
     new_estimate.save
     
     @estimate.estimate_details.each do |detail|
@@ -111,7 +109,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
       new_detail.estimate_id = new_estimate.id
       new_detail.save
     end
-    set_estimates_with_label_colors
+    set_estimates_with_plan_names_and_label_colors
     set_estimate_details
   end
 
@@ -123,7 +121,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     when "down"
       @estimate.move_lower
     end
-    set_estimates_with_label_colors
+    set_estimates_with_plan_names_and_label_colors
     set_estimate_details
   end
 
@@ -133,7 +131,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     end
 
     def estimate_params
-      params.require(:estimate).permit(:title, :plan_name_id, :discount)
+      params.require(:estimate).permit(:plan_name_id, :discount)
     end
     
     # パラメーター整形
