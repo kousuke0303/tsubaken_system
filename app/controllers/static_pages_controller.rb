@@ -2,7 +2,10 @@ class StaticPagesController < ApplicationController
   before_action :non_approval_layout
   before_action :reject_signed_in
   
-  def login_index
+  def top
+  end
+
+  def login
   end
   
   private

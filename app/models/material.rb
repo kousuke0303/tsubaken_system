@@ -1,21 +1,17 @@
 class Material < ApplicationRecord
-  belongs_to :category
+  has_many :category_materials, dependent: :destroy
+  has_many :categories, through: :category_materials
   has_many :estimate_details
+  belongs_to :plan_name
   
   attr_accessor :accept
 
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
   validates :service_life, length: { maximum: 30 }
   before_save :calc_total
 
-  scope :are_default, -> { 
-    where(default: true)
-    .left_joins(:category)
-    .select(
-      "categories.*",
-      "materials.*",
-      "categories.name AS category_name"
-    ).order(category_id: "ASC")
+  scope :include_category, -> { 
+    joins(:categories, :plan_name).includes([:categories, :plan_name]).order(:plan_name_id, 'categories.position': :asc)
   }
 
   # 引数に入れた見積案件の持つ工事のみを返す

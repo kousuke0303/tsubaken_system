@@ -9,7 +9,7 @@
 </div>
 
 <% @estimates.each do |estimate| %>
-  <% color_code = estimate.color_code || @default_color_code %>
+  <% color_code = estimate.color_code %>
   <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
   
   <div class="flex">
@@ -21,7 +21,7 @@
         </div>
         <div class="text">
           <%= link_to edit_employees_estimate_matter_estimate_path(@estimate_matter, estimate.id), remote: true do %>
-            <%= estimate.title %>
+            <%= estimate.name %>
           <% end %>
         </div>                
       </div>      

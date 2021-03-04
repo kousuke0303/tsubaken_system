@@ -1,20 +1,20 @@
 class Estimate < ApplicationRecord
   belongs_to :estimate_matter
-  belongs_to :plan_name, optional: true
+  belongs_to :plan_name
   belongs_to :matter, optional: true
   has_many :estimate_details, dependent: :destroy
   acts_as_list scope: :estimate_matter
 
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
 
-  validates :title, presence: true, length: { maximum: 30 }
   validates :total_price, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 10000000 }
   validates :discount, presence: true, numericality: { only_integer: true }
 
   # カラーコードを事前に取得しておく
-  scope :with_label_colors, -> {
+  scope :with_plan_names_and_label_colors, -> {
     left_joins(plan_name: :label_color).select(
       "estimates.*",
+      "plan_names.name AS name",
       "label_colors.color_code"
     )
   }

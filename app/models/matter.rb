@@ -1,6 +1,8 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
   belongs_to :publisher, optional: true
+
+  attr_accessor :estimate_id # 案件採用見積のid受取用
   
   has_one :estimate
   has_one :band_connection, dependent: :destroy

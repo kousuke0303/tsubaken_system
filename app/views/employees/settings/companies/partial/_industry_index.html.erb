@@ -1,8 +1,9 @@
 <div class="col-12">
-  <%= render partial: 'employees/settings/partial/index_title', 
-             locals: { model_name: t('activerecord.models.industry'),
-                       path: :new_employees_settings_companies_industry_path } %>
-  
+
+  <div class="col-md-6 col-12">
+    <h4 class="title_layout">取引先業種一覧</h4>
+  </div>
+                       
   <div class="industry-create-errors"></div>
   <%= form_with(model: @industry, url: employees_settings_companies_industries_path, method: :post, remote: true) do |f| %>
     <%= f.label "業種" %>

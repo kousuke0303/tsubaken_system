@@ -7,11 +7,9 @@ class Construction < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   before_save :calc_total
 
-  scope :are_default, -> { 
-    where(default: true).left_joins(:category).select("categories.*",
-                                                      "constructions.*",
-                                                      "categories.name AS category_name").order(category_id: "ASC")
-                          }
+  scope :includes_category, -> { 
+    joins(:category).includes(:category).order(classification: :asc, position: :asc)
+  }
 
   # 引数に入れた見積案件の持つ工事のみを返す
   scope :of_estimate_matter, -> (estimate_matter_id) { left_joins(category: :estimate).where(estimates: { estimate_matter_id: estimate_matter_id }) }

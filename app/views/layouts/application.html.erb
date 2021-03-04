@@ -15,13 +15,9 @@
   
   <!--ログイン画面のレイアウト-->
   <% if @type == "log_in" %>
+    <%= render "layouts/modal" %>
     <body class="login-wrapper">
-      <%= render "layouts/header" %>
-
-      <div class="login-content">
-        <%= render "shared/flash" %>
-        <div class="top-bg"><%= yield %></div>
-      </div>
+      <%= render "layouts/layout_type/login_layout" %>
     </body>
     
   <% elsif @type == "other_tab" %>

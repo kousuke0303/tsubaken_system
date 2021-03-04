@@ -122,10 +122,6 @@ $color-bg: #eae9e9;
   }
 }
 
-.login-menu {
-  height: 20vh;
-}
-
 .login-button {
   position: absolute;
   right: 1em;
@@ -138,75 +134,37 @@ $color-bg: #eae9e9;
   background-size: cover;
 }
 
-.modal__bg{
-  background: rgba(0,0,0,0.8);
-  opacity: 0.5;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-
-.grid {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 90%;
-  width: 400px;
+#login .modal-content {
+  border-radius: 20px 20px 0 0;
   left: 50%;
+  max-width: 90%;
   position: absolute;
-  top: 50%;
-  transform: translate(-50%,-50%);
-}
-
-#login h2 {
+  width: 400px;  
+  top: 80px;
+  transform: translateX(-50%);
+  .modal-header {
     background: #dea111;
     border-radius: 20px 20px 0 0;
     color: #fff;
+    display: block;
     font-size: 28px;
-    padding: 20px 26px;
-    margin-bottom: 0;
-}
-
-#login h2 span[class*="fontawesome-"] {
-    margin-right: 14px;
-}
-
-#login fieldset {
-    background: #fff;
-    border-radius: 0 0 20px 20px;
-    padding: 20px 26px;
-}
-
-#login fieldset p {
-    color: black;
-    margin-bottom: 14px;
-}
-
-#login fieldset p:last-child {
-    margin-bottom: 0;
-}
-
-#login fieldset input {
-    border-radius: 3px;
-}
-
-#login fieldset input[type="text"], #login fieldset input[type="password"] {
+    padding: em;
+    text-align: center;
+  }
+  .main-label {
+    font-size: 1.2em;
+  }
+  input[type="text"], input[type="password"] {
     background: #d8d6d6;
-    color: black;
     padding: 4px 10px;
-    width: 100%;
-}
-
-#login fieldset input[type="submit"] {
+  }
+  #login-submit {
     background: #6c757d;
     color: #fff;
-    display: block;
-    margin: 0 auto;
-    padding: 4px 0;
-    width: 100px;
-}
-
-#login fieldset input[type="submit"]:hover {
+  }
+  #login-submit:hover {
     background: #343a40;
+  }
 }
 
 .align {

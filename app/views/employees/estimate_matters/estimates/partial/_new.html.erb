@@ -13,8 +13,7 @@
           <%= form_with(model: @estimate, url: employees_estimate_matter_estimates_path(@estimate_matter), method: :post, remote: true, id: "estimate_form") do |f| %>
             <div class="estimate-create-errors"></div>
             
-            <%= f.label "タイプ名" %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <%= f.label "プラン名" %>
             <div class="input-group">
               <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
@@ -32,9 +31,10 @@
               <tr>
                 <td class="category_number">1</td>
                 <td>
-                  <%= f.select :category_id, @categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
+                  <%= f.select :category_id, @categories.map{ |category| [category.name, category.id] }, { include_blank: "選択してください" }, { class: "form-control" } %>
+                </td>
                 <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
-                </tr>
+              </tr>
             </table>
             <%= f.hidden_field :category_ids, id: "category_ids" %>
             <div class="btn-area">
@@ -51,8 +51,8 @@
 <%= javascript_include_tag "reset_errors.js" %>
 
 <script>
-  $('#default-plan-names').change(function() {
-    var name = $('#default-plan-names option:selected').text();
+  $("#default-plan-names").change(function() {
+    var name = $("#default-plan-names option:selected").text();
     var id = $(this).val();
     if(id != "") {
       $('[name="estimate[title]"]').val(name);

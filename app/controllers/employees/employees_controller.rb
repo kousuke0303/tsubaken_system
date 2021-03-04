@@ -39,8 +39,8 @@ class Employees::EmployeesController < ApplicationController
     end
 
     # 見積案件の持つ全見積をラベルカラーを取得して定義
-    def set_estimates_with_label_colors
-      @estimates = @estimate_matter.estimates.with_label_colors
+    def set_estimates_with_plan_names_and_label_colors
+      @estimates = @estimate_matter.estimates.with_plan_names_and_label_colors
     end
 
     # 見積案件の持つ全estimate_detailsを定義(estimatesと結合して)

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
   # mount ActionCable.server => '/cable'
-  root "static_pages#login_index"
+  root "static_pages#top"
+  get :login, to: "static_pages#login"
   
   get "postcode_search", to: "addresses#search_postcode"
       
@@ -171,6 +172,7 @@ Rails.application.routes.draw do
     namespace :clients do
       get :top
       get :index
+      get :lost_password
     end
   end
 
@@ -309,8 +311,8 @@ Rails.application.routes.draw do
         resources :plan_names, except: :index do
           patch :sort, on: :collection
         end
-        resources :materials, except: :index
-        resources :constructions, except: :index
+        resources :materials
+        resources :constructions
         resources :categories, except: :index do
           patch :sort, on: :collection
         end
@@ -325,7 +327,6 @@ Rails.application.routes.draw do
       end
       
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
-      
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       
