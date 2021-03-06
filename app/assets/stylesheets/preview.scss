@@ -180,3 +180,233 @@
     }
   }
 }
+
+// 見積書プレビュー
+.estimates-preview {
+  .header {
+    border-bottom: 2px solid black;
+    margin-bottom: 2px;
+    padding-bottom: 3px;
+  }
+  .header div {
+    display: inline-block;
+    width: 33%;
+  }
+  .estimate-num {
+    font-size: 20px;
+  }
+  .title {
+    font-size: 25px;
+    text-align: center;
+  }
+  .info-left {
+    display: inline-block;
+    height: 120px;
+    vertical-align: top;
+    width: 60%;
+  }
+  .triangle {
+    width: 20px;
+    border-right: 20px solid transparent;
+    border-bottom: 13px solid #b2ce54;
+    border-left: 20px solid transparent;
+    margin-top: 20px;
+  }
+  .square {
+    height: 30px;
+    width: 200px;
+    padding-bottom: 5px;
+  }
+  .window {
+    color: white;
+    display: inline-block;
+    height: 30px;
+    position: relative;
+    width: 40px;
+  }
+  .window-above {
+    left: 2px;
+    height: 10px;
+    top: -3px;
+    width: 40px;
+    position: absolute;
+  }
+  .window-lower {
+    left: 2px;
+    height: 10px;
+    top: 6px;
+    width: 40px;
+    position: absolute;
+  }
+  .window div {
+    height: 15px;
+    padding: 0 0 5px 10px;
+  }
+  .text {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 2px;
+    vertical-align: top;
+    width: 155px;
+  }
+  .info-right {
+    display: inline-block;
+    height: 120px;
+    vertical-align: top;
+    width: 39%;
+  }
+  .company-logo {
+    text-align: center;
+  }
+  .company-name {
+    font-weight: bold;
+  }
+ .person-in-charge {
+    float: right;
+  }
+  .estimates-preview-table {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+  }
+   thead td {
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle !important;
+  }
+  .fa-square {
+    margin: 0 0.5em;
+  }
+  .category-name {
+    background: gainsboro;
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+  }
+  .detail-name {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+    padding-left: 2.5em;
+  }
+  .detail-amount {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-unit {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-price {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-total {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-specification {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .category-footer {
+    border-bottom: 2px solid black;
+  }
+  .category-footer-1 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+  }
+  .category-footer-2, .category-footer-4 {
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+  }
+  .category-footer-3, .category-footer-5 {
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    text-align: right;
+  }
+  .category-footer-6 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+  .margin-1 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-2 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+  }
+  .margin-3, .margin-5 {
+    border-bottom: none;
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-4 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+  }
+  .margin-5 {
+    border-bottom: none;
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-6 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .footer-item-1 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    text-align: center;
+  }
+  .footer-item-2 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    text-align: right;
+  }
+  .footer-item-3 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+  }
+  .estimate-total {
+    font-weight: bold;
+  }
+  .pure-total {
+    font-size: 1.1em;
+  }
+}
