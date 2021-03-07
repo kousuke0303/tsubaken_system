@@ -186,51 +186,49 @@
   .header {
     border-bottom: 2px solid black;
     margin-bottom: 2px;
-    padding-bottom: 3px;
+    padding-bottom: 2px;
   }
   .num {
-    font-size: 0.8em;
+    font-size: 0.7em;
     padding-top: 5px;
   }
   .title {
     font-size: 1em;
+    letter-spacing: 1em;
   }
-  .info-left {
-    display: inline-block;
-    height: 120px;
-    vertical-align: top;
-    width: 60%;
+  .sub-header {
+    font-size: 0.6em;
   }
   .triangle {
     width: 20px;
     border-right: 20px solid transparent;
     border-bottom: 13px solid #b2ce54;
     border-left: 20px solid transparent;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .square {
-    height: 30px;
+    height: 25px;
     width: 200px;
     padding-bottom: 5px;
   }
   .window {
     color: white;
     display: inline-block;
-    height: 30px;
+    height: 25px;
     position: relative;
     width: 40px;
   }
   .window-above {
-    left: 2px;
+    left: 1px;
     height: 10px;
-    top: -3px;
+    top: 0px;
     width: 40px;
     position: absolute;
   }
   .window-lower {
-    left: 2px;
+    left: 1px;
     height: 10px;
-    top: 6px;
+    top: 10px;
     width: 40px;
     position: absolute;
   }
@@ -241,30 +239,24 @@
   .text {
     display: inline-block;
     color: white;
-    text-align: center;
+    font-size: 1.2em;
     font-weight: bold;
-    padding-top: 2px;
+    padding-top: 5px;
+    text-align: center;
     vertical-align: top;
     width: 155px;
-  }
-  .info-right {
-    display: inline-block;
-    height: 120px;
-    vertical-align: top;
-    width: 39%;
-  }
-  .company-logo {
-    text-align: center;
   }
   .company-name {
     font-weight: bold;
   }
- .person-in-charge {
-    float: right;
-  }
   .estimates-preview-table {
-    font-size: 0.5em;
+    font-size: 0.4em;
     margin-top: 0.5em;
+  }
+  td {
+    font-size: 0.4em !important;
+    padding-top: 0;
+    padding-bottom: 0;
   }
    thead td {
     border: 1px solid black;
