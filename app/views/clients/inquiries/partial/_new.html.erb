@@ -5,7 +5,7 @@
       <div class="card mb-3">
         <h5 class="card-header">ログインID・パスワード失効</h5>
         <div class="card-body">
-        <%= form_with(url: "#", local: true) do |f| %>
+        <%= form_with(model: @inquiry, url: clients_inquiries_path, local: true) do |f| %>
           <%= f.label :name, "氏名" %>
           <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
   

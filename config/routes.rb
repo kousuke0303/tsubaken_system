@@ -172,12 +172,12 @@ Rails.application.routes.draw do
     namespace :clients do
       get :top
       get :index
-      get :lost_password
     end
   end
 
   namespace :clients do
     resources :estimate_matters, only: [:index, :show]
+    resources :inquiries, only: [:new, :create]
   end
 
   # Staff関係
