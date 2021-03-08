@@ -1,5 +1,24 @@
 <div class="text-center mr-1e">
-  <button class="btn btn-primary certificate_print">印刷</button>
+  <button class="btn btn-primary certificates-print">印刷</button>
 </div>
 
-<%= render "shared/estimate_matters/estimates" %>
+<div id="estimates-preview-area">
+  <%= render "shared/estimate_matters/estimates" %>
+</div>
+
+<div id="estimates-print-area" style="display: none">
+  <%= render "shared/estimate_matters/estimates" %>
+</div>
+
+<script>
+  $(".certificates-print").click(function() {
+    alert("W");
+    $("body > :not(#estimates-print-area)").hide();
+    $("body").addClass("bg-white");
+    $("#estimates-print-area").show();
+    window.print();
+    $('body > :not(#estimates-print-area)').show();
+    $('#estimates-print-area').hide();
+    $("body").removeClass("bg-white");
+  });
+</script>

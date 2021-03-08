@@ -77,13 +77,13 @@
 </div>
 
 <script>
-$('.certificate_print').on('click', function(){
-  $('body > :not(#print_area)').hide();
-  $('body').addClass('bg-white');
-  $('#print_area').show();
-  window.print();
-  $('body > :not(#print_area)').show();
-  $('#print_area').hide();
-  $('body').removeClass('bg-white');
-});
+  $('.certificate_print').on('click', function(){
+    $('body > :not(#print_area)').hide();
+    $('body').addClass('bg-white');
+    $('#print_area').show();
+    window.print();
+    $('body > :not(#print_area)').show();
+    $('#print_area').hide();
+    $('body').removeClass('bg-white');
+  });
 </script>
