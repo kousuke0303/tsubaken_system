@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
+    t.string "tmp_password"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
