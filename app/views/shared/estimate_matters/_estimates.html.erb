@@ -1,7 +1,7 @@
 <% @estimates.each do |estimate| %>
   <% color_code = estimate.color_code || @default_color_code %>
   <% @tr_count = 0 %>
-  <div class="a4_container estimates-preview">
+  <div class="estimates-preview">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
     <div class="row header">
       <div class="col-4 num"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
