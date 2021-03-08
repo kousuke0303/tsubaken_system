@@ -4,7 +4,7 @@
   <div class="estimates-preview <%= container_type %>">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
     <div class="row header">
-      <div class="col-4 num"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
+      <div class="col-4 num pt-05e"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
       <div class="col-4 title text-center">御見積書</div>
     </div>
     <div class="row sub-header">
@@ -13,7 +13,7 @@
           現場名称：<%= @estimate_matter.title %><br>
           現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
         </div>
-        <div class="triangle" style="border-bottom-color: <%= color_code %>"></div>
+        <div class="triangle mt-10" style="border-bottom-color: <%= color_code %>"></div>
         <div class="square" style="border-bottom-color: <%= color_code %>">
           <div class="window">
             <div class="window-above">■■</div>

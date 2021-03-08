@@ -110,7 +110,6 @@
   }
   .num {
     font-size: 0.7em;
-    padding-top: 5px;
   }
   .title {
     font-size: 1em;
@@ -124,7 +123,6 @@
     border-right: 20px solid transparent;
     border-bottom: 13px solid #b2ce54;
     border-left: 20px solid transparent;
-    margin-top: 10px;
   }
   .square {
     border-bottom: 25px solid white;
@@ -395,14 +393,8 @@
   }
   // 見積書
   .estimates-preview {
-    .header {
-      border-bottom: 2px solid black;
-      margin-bottom: 2px;
-      padding-bottom: 2px;
-    }
     .num {
       font-size: 1.2em;
-      padding-top: 5px;
     }
     .title {
       font-size: 1.5em;
@@ -412,38 +404,23 @@
       margin-top: 5px;
       font-size: 1.2em;
     }
-    .triangle {
-      width: 20px;
-      border-right: 20px solid transparent;
-      border-bottom: 13px solid #b2ce54;
-      border-left: 20px solid transparent;
-      margin-top: 10px;
-    }
     .square {
       height: 25px;
       width: 250px;
     }
     .window {
-      color: white;
-      display: inline-block;
       font-size: 0.6em;
       height: 25px;
-      position: relative;
-      width: 40px;
     }
     .window-above {
       left: 1px;
       height: 10px;
       top: 0px;
-      width: 40px;
-      position: absolute;
     }
     .window-lower {
       left: 1px;
       height: 10px;
       top: 10px;
-      width: 40px;
-      position: absolute;
     }
     .text {
       display: inline-block;
