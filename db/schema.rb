@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "email"
     t.string "phone"
     t.string "reply_email"
+    t.datetime "solved_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

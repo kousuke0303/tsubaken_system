@@ -6,6 +6,7 @@ class CreateInquiries < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :phone
       t.string :reply_email
+      t.datetime :solved_at
 
       t.timestamps
     end

@@ -1,0 +1,26 @@
+<div class="col-12">
+  <h2>お問合せ一覧</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>お問合せ日</th>
+        <th>お問合せ内容</th>
+        <th>名前</th>
+        <th>電話番号</th>
+        <th>メールアドレス</th>
+        <th>返信用メールアドレス</th>
+      </tr>
+      <% @inquiries.each do |inquiry| %>
+        <tr>
+          <td><%= inquiry.created_at %></td>
+          <td><%= inquiry.kind_i18n %></td>
+          <td><%= inquiry.name %></td>
+          <td><%= inquiry.phone %></td>
+          <td><%= inquiry.email %></td>
+          <td><%= inquiry.reply_email %></td>
+        </tr>
+      <% end %>
+    </table>      
+  </div>
+</div>

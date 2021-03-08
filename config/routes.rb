@@ -280,6 +280,8 @@ Rails.application.routes.draw do
         get :scroll_get_messages, on: :collection
       end
     end
+
+    resources :inquiries, only: [:index]
     
     namespace :settings do
       resources :companies, only: :index
