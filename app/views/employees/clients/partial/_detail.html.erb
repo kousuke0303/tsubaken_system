@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <th>郵便番号</th>
-      <td><%= postal_code_display(@client.postal_code) %></td>
+      <td><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></td>
     </tr>
     <tr>
       <th>住所</th>
@@ -66,7 +66,7 @@
       <div class="content"><%= @client.name %></div>
       <div class="content"><%= @client.kana %></div>
       <div class="content"><%= @client.login_id %></div>
-      <div class="content"><%= postal_code_display(@client.postal_code) %></div>
+      <div class="content"><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></div>
       <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
       <div class="content">
         <a href="tel:<%= @client.phone_1 %>" class=""><%= mobile_phone_display(@client.phone_1) %></a>
