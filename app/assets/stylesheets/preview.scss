@@ -311,7 +311,7 @@
     font-weight: bold;
   }
   .pure-total {
-    font-size: 1.1em;
+    font-size: 0.5em;
   }
 }
 
@@ -462,6 +462,9 @@
     }
     td {
       font-size: 1em;
+    }
+    .pure-total {
+      font-size: 1.1em;
     }
   }
 }
