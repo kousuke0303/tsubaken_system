@@ -425,7 +425,6 @@
       padding-bottom: 5px;
     }
     .window {
-      background: red;
       color: white;
       display: inline-block;
       font-size: 0.6em;
@@ -463,16 +462,6 @@
     }
     td {
       font-size: 1em;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    thead td {
-      border: 1px solid black;
-      text-align: center;
-      vertical-align: middle !important;
-    }
-    .fa-square {
-      margin: 0 0.5em;
     }
   }
 }
