@@ -146,6 +146,13 @@ end
 
 puts "CREATE! ATTENDANCE"
 
+3.times do |n|
+  client = Client.find(n + 1)
+  Inquiry.create(kind: 0, name: client.name, email: client.email, phone: client.phone_1, reply_email: client.email)
+end
+
+puts "CREATE! ATTENDANCE"
+
 # -----------------------------------------------------
       # SCHEDULE
 # -----------------------------------------------------
