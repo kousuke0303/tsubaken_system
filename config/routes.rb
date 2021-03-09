@@ -282,7 +282,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :inquiries, only: [:index, :edit, :update, :destroy]
+    resources :inquiries, only: [:index, :show, :edit, :update, :destroy]
     
     namespace :settings do
       resources :companies, only: :index
