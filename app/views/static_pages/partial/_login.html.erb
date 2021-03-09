@@ -25,6 +25,9 @@
 
 <script>
   $("#login-submit").click(function() {
+    var tokenForm = $('[name="authenticity_token"]');
+    var token = tokenForm.val();
+    
 
     const form = $(this).parents("form");
     const loginId = $("#login-id");
@@ -52,6 +55,7 @@
       loginId.attr("name", "client[login_id]");
       password.attr("name", "client[password]");
       rememberMe.attr("name", "client[remember_me]");
+      tokenForm.val(token);
     } else if(idType == "ES") {
       form.attr("action", "/external_staffs/sign_in");
       loginId.attr("name", "external_staff[login_id]");

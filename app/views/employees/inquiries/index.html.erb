@@ -12,8 +12,8 @@
         <th>返信用メールアドレス</th>
         <th>解決日時</th>
       </tr>
-      <% @inquiries.each do |inquiry| %>
-        <tr>
+      <% @inquiries.each do |inquiry| %>        
+        <tr class="tr-link" data-remote-link="<%= edit_employees_inquiry_path(inquiry) %>">
           <td><%= l(inquiry.created_at, format: :long) %></td>
           <td><%= inquiry.kind_i18n %></td>
           <td><%= inquiry.name %></td>
@@ -26,3 +26,13 @@
     </table>      
   </div>
 </div>
+
+<script>
+  $("tr[data-remote-link]").click(function() {
+    $.ajax({
+      type: "get",
+      url: $(this).data("remote-link"),
+      remote: true,
+    });
+  })
+</script>

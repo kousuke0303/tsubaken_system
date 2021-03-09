@@ -156,7 +156,8 @@ ja:
         inquiry: 
           name: 氏名
           kind: お問合せ内容
-          reply_email: 返信用メールアドレス 
+          reply_email: 返信用メールアドレス
+          solved_at: 解決日時
   attributes:
     id: ID
     login_id: ログインID
