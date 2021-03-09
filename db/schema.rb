@@ -233,11 +233,9 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
     t.string "estimate_matter_id"
     t.integer "position"
     t.bigint "plan_name_id"
-    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_estimates_on_estimate_matter_id"
-    t.index ["matter_id"], name: "index_estimates_on_matter_id"
     t.index ["plan_name_id"], name: "index_estimates_on_plan_name_id"
   end
 
@@ -356,17 +354,27 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
-    t.integer "status", default: 0, null: false
+    t.string "postal_code"
+    t.string "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
     t.string "content"
     t.date "scheduled_started_on"
     t.date "started_on"
     t.date "scheduled_finished_on"
     t.date "finished_on"
+    t.integer "status", default: 0, null: false
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
     t.bigint "publisher_id"
+    t.bigint "client_id"
+    t.bigint "attract_method_id"
+    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["attract_method_id"], name: "index_matters_on_attract_method_id"
+    t.index ["client_id"], name: "index_matters_on_client_id"
+    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
     t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end
@@ -541,12 +549,16 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
     t.boolean "notification", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
+    t.bigint "admin_id"
+    t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_tasks_on_admin_id"
     t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
+    t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
     t.index ["staff_id"], name: "index_tasks_on_staff_id"
   end
@@ -582,6 +594,8 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
   add_foreign_key "matter_external_staffs", "matters"
   add_foreign_key "matter_staffs", "matters"
   add_foreign_key "matter_staffs", "staffs"
+  add_foreign_key "matters", "attract_methods"
+  add_foreign_key "matters", "clients"
   add_foreign_key "matters", "estimate_matters"
   add_foreign_key "matters", "publishers"
   add_foreign_key "messages", "matters"
@@ -592,8 +606,10 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
   add_foreign_key "staffs", "label_colors"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
+  add_foreign_key "tasks", "admins"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "external_staffs"
+  add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
   add_foreign_key "tasks", "staffs"
 end

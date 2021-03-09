@@ -1,0 +1,85 @@
+<h4 class="title_layout"><i class="fas fa-clipboard-list"></i> <%= @staff.name %>の引き継ぎ項目</h4>
+
+<ul class="nav nav-tabs title_tab_bar mt-2e">
+  <li class="nav-item">
+    <a class="nav-link title_tab">① 担当案件の担当者変更</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+  <% if @matters.present? %>
+    <%= render 'employees/staffs/retirements/matter' %>
+  <% else %>
+   <p>現状、未着手・着工中の担当案件はありません</p>
+   <% @process_2 = true %>
+  <% end %>
+</div>
+
+<ul class="nav nav-tabs title_tab_bar mt-2e">
+  <li class="nav-item">
+    <a class="nav-link title_tab">② 割振タスクの担当者変更</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+  <% if @tasks.present? && @process_2 == true %>
+    <%= render 'employees/staffs/retirements/task' %>
+  <% else %>
+   <p>現状、未着手・進行中のタスクはありません</p>
+   <% @process_3 = true %>
+  <% end %>
+</div>
+
+<ul class="nav nav-tabs title_tab_bar mt-2e">
+  <li class="nav-item">
+    <a class="nav-link title_tab">③ 本日以降のスケジュール担当者変更</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+    <div id="schedule_index_for_retirement">
+      <%= render 'employees/staffs/retirements/schedule' %>
+    </div>
+</div>
+
+<%if @process_4 == true %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">④ 退職日登録</a>
+    </li>
+  </ul>
+
+  <div class="news_container">
+    <div>
+      <%= form_with model: @staff, url: resigend_registor_employees_staff_path(@staff), local: true do |f| %>
+        <div class="input-group col-md-6">
+          <%= f.date_field :resigned_on, class: "form-control" %>
+          <div class="input-group-append">        
+            <input type="submit" value="更新" class="btn btn-primary" id="create_btn">
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if @staff.resigned_on.present? && @staff.resigned_on < Date.today %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab_danger">STAFF削除</a>
+    </li>
+  </ul>
+
+  <div class="news_container">
+    <div>
+      STAFFを削除すると、担当している</br>
+      １）スケジュール</br>
+      ２）勤怠情報</br>
+      ３）過去の割振りタスク</br>
+      も削除されてしまいますので、ご注意ください。
+    </div>
+    <div class="mt-05e text-center">
+      <%= link_to "削除", employees_staff_path(@staff), data: {confirm: "#{@staff.name}を削除してよろしいですか？"}, class: "btn btn-danger" %>
+    </div>
+  </div>
+<% end %>

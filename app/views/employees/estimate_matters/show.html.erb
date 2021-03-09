@@ -118,7 +118,7 @@
   
   <div class="btn-area mb-1e">
     <% if @matter %>
-      <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), class: "btn btn-dark" %>
+      <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
     <% end %>
     <span class="to-create-matter">
       <% if @contracted_estimate_matter.present? && @matter.nil? %>      

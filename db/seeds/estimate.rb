@@ -38,8 +38,7 @@ estimate_1.each do |estimate|
   seed_detail_construction.update(total: seed_detail_construction.price * seed_detail_construction.amount)
   
   if estimate.estimate_matter.matter.present?
-    estimate.update(total_price: estimate.estimate_details.sum(:total),
-                    matter_id: estimate.estimate_matter.matter.id)
+    estimate.update(total_price: estimate.estimate_details.sum(:total))
   else
     estimate.update(total_price: estimate.estimate_details.sum(:total))
   end

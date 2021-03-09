@@ -1,7 +1,7 @@
 class Estimate < ApplicationRecord
   belongs_to :estimate_matter
   belongs_to :plan_name
-  belongs_to :matter, optional: true
+  has_one :matter
   has_many :estimate_details, dependent: :destroy
   acts_as_list scope: :estimate_matter
 

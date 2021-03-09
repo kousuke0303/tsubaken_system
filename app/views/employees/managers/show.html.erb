@@ -1,4 +1,4 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: {title_1: "Manager", title_2: "#{current_manager.name} 詳細", icon: "fa-user-tie"} %>
+  <%= render partial: 'layouts/page_title', locals: {title_1: "Manager", title_2: "#{@manager.name} 詳細", icon: "fa-user-tie"} %>
   <%= render "/employees/managers/partial/detail" %>  
 </div>

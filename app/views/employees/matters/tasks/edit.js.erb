@@ -1,2 +1,2 @@
-$("#task-edit").html('<%= escape_javascript(render "employees/matters/tasks/edit", matter: @matter, task: @task, staffs: @staffs, external_staffs: @external_staffs) %>'); 
+$("#task-edit").html('<%= escape_javascript(render "employees/matters/tasks/partial/edit", matter: @matter, task: @task, staffs: @staffs, external_staffs: @external_staffs) %>'); 
 $("#task-edit").modal();

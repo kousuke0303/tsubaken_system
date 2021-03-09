@@ -1,0 +1,17 @@
+（現在未着手・進行中の割り振りタスク一覧）
+<table class="table table-bordered table-column-type">
+  <tr>
+    <th>案件名</th>
+    <th>案件内容</th>
+    <th>現場住所</th>
+    <th></th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.matter_title %></td>
+      <td><%= task.title %></td>
+      <td><%= task.content %></td>
+      <td><%= link_to "担当者変更", change_member_employees_matter_task_path(task.matter_id, task, staff_id: @staff.id), remote: true, class: "btn btn-dark" %></td>
+    </tr>
+  <% end %>
+</table>

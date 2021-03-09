@@ -1,6 +1,7 @@
 class Employees::SchedulesController < Employees::EmployeesController
-  before_action :all_member, only: [:new, :edit]
-  before_action :set_schedule, only: [:edit, :update, :destroy]
+  before_action :all_member, only: [:new, :edit, :change_member]
+  before_action :set_schedule, only: [:edit, :update, :destroy, :change_member, :update_member]
+  before_action :set_staff, only: [:change_member, :update_member]
   
   def index
     @object_day = Date.current
@@ -55,17 +56,31 @@ class Employees::SchedulesController < Employees::EmployeesController
   def update
     # 担当者パラメーター整形
     formatted_member_params(params[:schedule][:member], schedule_params)
-    # 担当者クリア
-    
-    ActiveRecord::Base.transaction do
-      @schedule.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+    @schedule.transaction do
+      @schedule.update(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
       @schedule.update!(@final_params)
-    end  
+    end
     @object_day = @schedule.scheduled_date
     set_basic_schedules(@object_day)
     @result = "success"
   rescue
-    @result = "failure"
+    @result = "failure" 
+  end
+  
+  def change_member
+  end
+  
+  def update_member
+    formatted_member_params(params[:schedule][:member], schedule_params)
+    @schedule.transaction do
+      @schedule.update(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+      @schedule.update!(@final_params)
+    end
+    @object_day = @schedule.scheduled_date
+    @schedules = @staff.schedules.where('scheduled_date >= ?', Date.today)
+    @result = "success"
+  rescue
+    @result = "failure" 
   end
   
   def destroy
@@ -88,24 +103,4 @@ class Employees::SchedulesController < Employees::EmployeesController
                                        :note)
     end
     
-    def member_in_charge(schedule_params)
-      params_member = params[:schedule][:member].split("#")
-      member_authority = params_member[0]
-      params_member_id = params_member[1].to_i
-      case member_authority
-      when "admin"
-        admin_id = Admin.find(params_member_id).id
-        @schedule_params = schedule_params.merge(admin_id: admin_id)
-      when "manager"
-        manager_id = Manager.find(params_member_id).id
-        @schedule_params = schedule_params.merge(manager_id: manager_id)
-      when "staff"
-        staff_id = Staff.find(params_member_id).id
-        @schedule_params = schedule_params.merge(staff_id: staff_id)
-      when "external_staff"
-        external_staff_id = ExternalStaff.find(params_member_id).id
-        @schedule_params = schedule_params.merge(external_staff_id: external_staff_id)
-      end
-    end
-
 end

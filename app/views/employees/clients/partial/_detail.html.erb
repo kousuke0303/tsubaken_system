@@ -53,11 +53,12 @@
       <ul class="components">
         <li>お名前</li>
         <li>フリガナ</li>
-        <li>LOGIN-ID</li>
+        <li>ID</li>
         <li>郵便番号</li>
         <li>ご住所</li>
         <li>TEL①</li>
         <li>TEL②</li>
+        <li>MAIL</li>
         <li>生年月日</li>
       </ul>
     </nav>
@@ -85,3 +86,5 @@
   <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>
+
+<%= javascript_include_tag 'tableCollapse.js' %>

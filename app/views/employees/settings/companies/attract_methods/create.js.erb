@@ -3,5 +3,5 @@
   $('.attract-methods-index').html('<%= escape_javascript(render 'employees/settings/companies/attract_methods/partial/index_table') %>');
   <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@attract_method.name}を作成しました。"} %>
 <% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".attract-method-create-errors", model:  @attract_method, object: "attract_method"} %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".attract-method-create-errors", model: @attract_method, object: "attract_method"} %>
 <% end %>

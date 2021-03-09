@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
+  belongs_to :admin, optional: true
+  belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
 
@@ -52,4 +54,18 @@ class Task < ApplicationRecord
       default_task.update(default_task_id_count: count)
     end
   end
+  
+  def task_update(parameter)
+    ActiveRecord::Base.transaction do
+      self.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
+      self.update!(parameter)
+    end
+  rescue => e
+    Rails.logger.error e.class
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace.join("\n")
+    # bugsnag導入後
+    # Bugsnag.notifiy e
+  end
+    
 end

@@ -1,37 +1,29 @@
 <div class="col-lg-12 col-md-12">
-  <h2><i class="fas fa-address-book"></i> <%= @client.name %><span class="ml-05e">様　詳細PAGE</span></h2>
+  <%= render partial: 'layouts/page_title', locals: { title_1: "顧客情報", title_2: "#{@client.name} 様 詳細", icon: "ffa-address-book"} %>
   
-  <nav class="mt-1e">
-    <ul id="main">
-      <li id="client_detail">情報詳細</li>
-      <li id="client_matter">関連案件
-        <!--<ul class="drop">-->
-        <!--  <div>-->
-        <!--    <li class="sublist">成約案件</li>-->
-        <!--    <li class="sublist">未成約案件</li>-->
-        <!--  </div>-->
-        <!--</ul>-->
-      </li>
-      <div id="marker"></div>
-    </ul>
-  </nav>
+  <div class="select-switch mt-1e">
+    <input type="radio" name="switch" id="radio1" checked>
+    <label for="radio1" class="mt-0">顧客情報詳細</label>
+    <input type="radio" name="switch" id="radio2">
+    <label for="radio2" class="mt-0">関連案件</label>
+  </div>
   
   <div class="client_info">
     <%= render "employees/clients/partial/detail" %>
   </div>
   
-  <div class="client_matters" style="display: none;">
+  <div class="client_matters mt-1e" style="display: none;">
     <%= render "employees/clients/partial/relation_matters" %>
   </div>
 </div>
 
 <script>
-  $('#client_matter').on('click', function(){
+  $('#radio2').on('click', function(){
     $('.client_matters').show();
     $('.client_info').hide();
   });
   
-  $('#client_detail').on('click', function(){
+  $('#radio1').on('click', function(){
     $('.client_matters').hide();
     $('.client_info').show();
   });

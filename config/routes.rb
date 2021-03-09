@@ -217,6 +217,8 @@ Rails.application.routes.draw do
     resources :managers
     resources :staffs do
       get :delete_confirmation, on: :member
+      get :retirement_process, on: :member
+      patch :resigend_registor, on: :member
     end
     resources :clients do
       post :search_index, on: :collection
@@ -230,7 +232,10 @@ Rails.application.routes.draw do
         get :individual
       end
     end
-    resources :schedules
+    resources :schedules do
+      get :change_member, on: :member
+      patch :update_member, on: :member
+    end
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
@@ -270,9 +275,14 @@ Rails.application.routes.draw do
     end
 
     resources :matters do
+      patch :change_estimate, on: :member
+      get :change_member,on: :member
+      patch :update_member, on: :member
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
+        get :change_member, on: :member
+        patch :update_member, on: :member
       end
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection

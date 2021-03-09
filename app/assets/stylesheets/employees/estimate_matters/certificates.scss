@@ -16,3 +16,51 @@
   margin: 1em 0 2em 0;
   width: 100%；
 }
+
+
+.certificates-wrapper {
+  a {
+    color: black !important;
+    text-decoration: none;
+  }
+}
+.certificate-item {
+  margin-top: 1em;
+  padding: 0 15px;
+  .image-wrapper {
+    align-items: center;
+    background: black;
+    display: flex;
+    height: 300px;
+    justify-content: center;
+    .image {
+      max-height: 200%;
+      max-width: 200%;
+    }
+  }
+  .explanation {
+    padding: 0;
+    .title {
+      align-items: center;
+      background: silver;
+      display: flex;
+      font-weight: bold;
+      justify-content: center;
+      height: 3em;
+      padding: 0 15px;
+    }
+    .content {
+      background: whitesmoke;
+      height: calc(100% - 3em);
+      padding: 10px 15px;
+    }
+  }
+}
+
+.employees-certificate-item:hover {
+  opacity: 0.8;
+}
+
+.employees-certificate-item:active {
+  opacity: 0.6;
+}

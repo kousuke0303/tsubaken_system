@@ -76,7 +76,13 @@
     <div id="label-color-new" class="modal fade" role="dialog"></div>
     <div id="label-color-edit" class="modal fade" role="dialog"></div>
   <% end %>
-
+  
+  <!--matter/task担当者変更-->
+  <% if controller_name == "staffs" && action_name == "retirement_process" %>
+    <div id="change-member-for-matter" class="modal fade" role="dialog"></div>
+    <div id="change-member-for-task" class="modal fade" role="dialog"></div>
+    <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
+  <% end %>
   
 <% end %>
 
@@ -87,6 +93,9 @@
     <div id="client-new" class="modal fade" role="dialog"></div>
   <% elsif (controller_name == "clients" && action_name == "show") || (controller_name == "matters" && action_name == "show") %>
     <div id="client-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+  <% if controller_name == "clients" && action_name == "show" %>
+    <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--外注先new・edit-->
@@ -102,7 +111,7 @@
     <div id="bands-index" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--見積案件new・edit-->
+  <!--営業案件new・edit-->
   <% if controller_name == "estimate_matters" || controller_name == "clients" %>
     <% if action_name == "index" %>
       <div id="estimate-matter-new" class="modal fade" role="dialog"></div>

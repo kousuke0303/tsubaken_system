@@ -6,12 +6,23 @@ class Employees::EmployeesController < ApplicationController
     # -------------------------------------------------------
         # set
     # -------------------------------------------------------
+    
+    def set_staff
+      @staff = Staff.find(params[:staff_id])
+    end
+    
+    def set_employees
+      @clients = Client.all.order(created_at: :desc)
+      @staffs = Staff.all
+      @external_staffs = ExternalStaff.all
+    end
+    
     def set_publishers
       @publishers = Publisher.order(position: :asc)
     end
     
     def set_attract_methods
-       @attract_methods = AttractMethod.order(position: :asc)
+      @attract_methods = AttractMethod.order(position: :asc)
     end
 
     def set_suppliers
@@ -50,7 +61,7 @@ class Employees::EmployeesController < ApplicationController
 
     def set_matter_of_estimate_matter
       @matter = @estimate_matter.matter
-      @adopted_estimate_id = @matter.estimate_id if @matter
+      @adopted_estimate_id = @matter.estimate if @matter
     end
 
     def set_label_colors
@@ -59,11 +70,20 @@ class Employees::EmployeesController < ApplicationController
     
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
-      @schedules = Schedule.all.order(:scheduled_start_time)
-      @admin_schedules = @schedules.where(scheduled_date: day).where.not(admin_id: nil).group_by{|schedule| schedule[:admin_id]}
-      @manager_schedules = @schedules.where(scheduled_date: day).where.not(manager_id: nil).group_by{|schedule| schedule[:manager_id]}
-      @staff_schedules = @schedules.where(scheduled_date: day).where.not(staff_id: nil).group_by{|schedule| schedule[:staff_id]}
-      @external_staff_schedules = @schedules.where(scheduled_date: day).where.not(external_staff_id: nil).group_by{|schedule| schedule[:external_staff_id]}
+      @schedules = Schedule.all
+      target_schedules = @schedules.where(scheduled_date: day)
+      @admin_schedules = target_schedules.where.not(admin_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
+                                         .group_by{|schedule| schedule[:admin_id]}
+      @manager_schedules = target_schedules.where.not(manager_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
+                                           .group_by{|schedule| schedule[:manager_id]}
+      @staff_schedules = target_schedules.where.not(staff_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
+                                         .group_by{|schedule| schedule[:staff_id]}
+      @external_staff_schedules = target_schedules.where.not(external_staff_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
+                                                  .group_by{|schedule| schedule[:external_staff_id]}
+    end
+    
+    def set_matter
+      @matter = Matter.find(params[:matter_id])
     end
     
     
@@ -90,7 +110,7 @@ class Employees::EmployeesController < ApplicationController
     end
   
     # 営業管理案件の担当者（配列）
-    def group_for_estimete_matter
+    def group_for(matter)
       @members = []
       Admin.all.each do |admin|
         @members << { auth: admin.auth, id: admin.id, name: admin.name }
@@ -98,15 +118,14 @@ class Employees::EmployeesController < ApplicationController
       Manager.all.each do |manager|
         @members << { auth: manager.auth, id: manager.id, name: manager.name }
       end
-      @estimate_matter.staffs.each do |staff|
+      matter.staffs.each do |staff|
         @members << { auth: staff.auth, id: staff.id, name: staff.name }
       end
-      @estimate_matter.external_staffs.each do |external_staff|
+      matter.external_staffs.each do |external_staff|
         @members << { auth: external_staff.auth, id: external_staff.id, name: external_staff.name }
       end
       return @members
     end
-    
     
     # 担当者のパラメーター整形及びストロングパラメータにマージ
     def formatted_member_params(parameter, strong_params)

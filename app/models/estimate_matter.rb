@@ -38,6 +38,11 @@ class EstimateMatter < ApplicationRecord
   }
   
   private
+  
+  # ----------------------------------------------
+    # CALLBACK METHOD
+  # ----------------------------------------------
+    
     def identify(num = 16)
       self.id ||= SecureRandom.hex(num)
     end

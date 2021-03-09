@@ -1,9 +1,13 @@
 class Employees::Matters::TasksController < Employees::TasksController
   before_action :set_matter
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :set_task, except: [:move, :create]
+  before_action ->{ group_for(@matter) }, only: [:edit, :change_member]
+  before_action :set_staff, only: :change_member
 
   def move
-    new_status = convert_to_status_num(params[:status]).to_i
+    #パラメーターからenum数値抽出
+    new_status = Task.statuses[params[:status].to_sym]
+    
     @default_tasks = Task.are_default
     # 移動先がデフォルトタスクでない場合のみ処理
     unless new_status == 0
@@ -29,6 +33,7 @@ class Employees::Matters::TasksController < Employees::TasksController
       end
     end
     set_classified_tasks(@matter)
+    @matter.change_matter_status
   end
   
   def create
@@ -43,23 +48,34 @@ class Employees::Matters::TasksController < Employees::TasksController
   end
 
   def edit
-    @staffs = @matter.staffs
-    @external_staffs = @matter.external_staffs
   end
   
-  def update    
-    set_classified_tasks(@matter) if @task.update(task_params)
+  def update
+    formatted_member_params(params[:task][:member], task_params)
+    set_classified_tasks(@matter) if @task.task_update(@final_params)
   end
   
   def destroy
     if @task.destroy
       flash[:danger] = "タスクを削除しました。"
-      set_classified_tasks(@matter)
+      unless params[:submit_type] == "change_member"
+        set_classified_tasks(@matter)
+      else
+        @staff = Staff.find(params[:matter][:staff_id])
+        redirect_to retirement_process_employees_staff_url(@staff)
+      end
     end
   end
+  
+  def change_member
+  end
+  
+  def update_member
+    formatted_member_params(params[:task][:member], task_params)
+    set_classified_tasks(@matter) if @task.task_update(@final_params)
+    flash[:success] = "#{@task.title}の担当者を変更しました"
+    @staff = Staff.find(params[:staff_id])
+    redirect_to retirement_process_employees_staff_url(@staff)
+  end
 
-  private
-    def set_matter
-      @matter = Matter.find(params[:matter_id])
-    end
 end

@@ -1,0 +1,15 @@
+<div class="avator_container_for_task">
+  <% if task.admin %>
+    <%= task_avator(task.admin) %>
+  <% elsif task.manager %>
+    <%= task_avator(task.manager) %>
+  <% elsif task.staff %>
+    <%= task_avator(task.staff) %>
+  <% elsif task.external_staff_id %>
+    <%= task_avator(task.external_staff) %>
+  <% end %>
+</div>
+
+<div class="task-title ml-05e">
+  <div><%= task.title.truncate(10) %>
+</div>

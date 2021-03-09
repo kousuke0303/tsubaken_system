@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
   has_many :estimate_matters, dependent: :destroy
+  has_many :matters, dependent: :destroy
   has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }
@@ -23,9 +24,9 @@ class Client < ApplicationRecord
   # 名前検索
   scope :get_by_name, ->(name) { where("name like ?", "%#{ name }%") }
   # 成約顧客
-  scope :has_matter, ->{ joins(estimate_matters: :matter) } 
+  scope :has_matter, ->{ joins(estimate_matters: :matter).order(created_at: :desc) } 
   # 未成約顧客
-  scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}) }
+  scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}).order(created_at: :desc) }
 
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?

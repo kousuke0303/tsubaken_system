@@ -8,7 +8,7 @@ class ExternalStaff < ApplicationRecord
   has_many :matter_external_staffs, dependent: :destroy
   has_many :estimate_matters, through: :estimate_matter_external_staffs
   has_many :matters, through: :matter_external_staffs
-  has_many :tasks, dependent: :destroy
+  has_many :tasks
   has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }

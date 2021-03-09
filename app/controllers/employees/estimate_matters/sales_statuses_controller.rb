@@ -3,7 +3,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
   before_action :set_statuses, only: [:new, :edit]
   before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
-  before_action :group_for_estimete_matter, only: [:new, :edit]
+  before_action ->{ group_for(@estimate_matter) }, only: [:new, :edit]
   
   def new
     @sales_status = @estimate_matter.sales_statuses.new 
@@ -118,24 +118,6 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     def set_statuses
       @statuses = SalesStatus.statuses.except("not_set").keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }
     end
-    
-    def estimate_matter_members
-      @members = []
-      Admin.all.each do |admin|
-        @members << { auth: admin.auth, id: admin.id, name: admin.name }
-      end
-      Manager.all.each do |manager|
-        @members << { auth: manager.auth, id: manager.id, name: manager.name }
-      end
-      @estimate_matter.staffs.each do |staff|
-        @members << { auth: staff.auth, id: staff.id, name: staff.name }
-      end
-      @estimate_matter.external_staffs.each do |external_staff|
-        @members << { auth: external_staff.auth, id: external_staff.id, name: external_staff.name }
-      end
-      return @members
-    end
-    
     
     def save_editor
       if params[:commit] == "作成"

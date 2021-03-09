@@ -1,7 +1,5 @@
 class Staff < ApplicationRecord
   
-  attr_accessor :accept
-  
   belongs_to :department
   belongs_to :label_color
   
@@ -32,8 +30,8 @@ class Staff < ApplicationRecord
   validates :address_street, presence: true
   validate :staff_login_id_is_correct?
 
-  scope :enrolled, -> { where(resigned_on: nil) }
-  scope :retired, -> { where.not(resigned_on: nil) }
+  scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current) }
+  scope :retired, -> { where('resigned_on <= ?', Date.current) }
   scope :with_departments, -> { 
     left_joins(:department).
     select(

@@ -1,5 +1,8 @@
 class Admin < ApplicationRecord
+  has_many :tasks
   belongs_to :schedule, optional: true
+  
+  has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }
 
@@ -10,8 +13,6 @@ class Admin < ApplicationRecord
   validate :admin_login_id_is_correct?
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
-
-  has_one_attached :avator
 
   # 管理者の従業員IDは「AD-」から始めさせる
   def admin_login_id_is_correct?

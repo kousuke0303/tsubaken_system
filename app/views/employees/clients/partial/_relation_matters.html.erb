@@ -7,12 +7,14 @@
   <div class="table-responsive">
     <table class="table table-bordered text-nowrap common-table">
       <tr>
+        <th>最終更新日</th>
         <th>タイトル</th>
         <th>現場住所</th>
         <th>状況</th>
       </tr>
       <% @client_estimate_matters.each do |estimate_matter| %>
         <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
+          <td><%= estimate_matter.sales_statuses.last.created_at.strftime("%Y月%m月%d日") %></td>
           <td><%= estimate_matter.title %></td>
           <td><%= estimate_matter.prefecture_code %><%= estimate_matter.address_city %><%= estimate_matter.address_street %></td>
           <td><%= estimate_matter.sales_statuses.last.status_i18n %></td>
@@ -23,7 +25,7 @@
 <% else %>
   <div class="text-center">
     <p class="mt-05e">登録がありません</p>
-    <%= link_to "営業管理案件新規作成", new_employees_estimate_matter_path, remote: true, class: "btn btn-success" %>
+    <%= link_to "営業案件新規作成", new_employees_estimate_matter_path(client_id: @client.id), remote: true, class: "btn btn-success" %>
   </div>
 <% end %>
 

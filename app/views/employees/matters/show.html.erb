@@ -1,17 +1,12 @@
 <div class="col-12">
   
-  <div class="pc_type">
-    <h2 class="title_layout"><i class="fas fa-clipboard"></i> 着工案件詳細</h2>
-  </div>
-    
-  <div class="mobile_type">
-    <h4 class="title_layout"><i class="fas fa-clipboard"></i> 着工案件詳細</h4>
-  </div>
-    
+  <%= render partial: 'layouts/page_title', locals: { title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard"} %>
+  
   <div class="text-right mb-1e">
     <%= link_to "画像一覧", employees_matter_images_path(current_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
   </div>
 
+  <h4><i class="fas fa-paint-roller"></i> <%= @matter.content %></h4>
   <div class="row">
     <div class="col-lg-6 col-12">
       <%= render "employees/matters/partial/detail" %>
@@ -40,10 +35,38 @@
             </div>
           </div>
         </div>
-      
+      </div>      
+    </div>
+  </div>
+  
+  <div class="mt-1e">
+    <div class="accordion" id="accordion-invoices">
+      <div class="card">
+        <div class="card-header bg-dark" id="headingOne">
+          <h5 class="text-light">
+            請求書作成
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-invoices" aria-expanded="true" aria-controls="collapse-tasks">
+              詳細
+            </button>
+          </h5>
+        </div>
+        
+        <div id="collapse-invoices" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-invoices">
+          <div class="card-body">
+            <div class="tasks-index overflow-auto">
+              <%= render 'employees/matters/partial/change_estimate' %>
+            </div>
+          </div>
+        </div>
       </div>      
     </div>
   </div>
 </div>
 
-<%= javascript_include_tag "tableCollapse.js" %> 
+<%= javascript_include_tag "tableCollapse.js" %>
+
+<% if @message %>
+<script>
+  toastr.success("<%= @matter.title %>を作成しました");
+</script>
+<% end %>

@@ -31,7 +31,7 @@
     </tr>
     <% @matters.each do |matter| %>
       <tr>
-        <td><%= link_to matter.title, employees_matter_path(matter.id) %></td>
+        <td><%= link_to matter.title, employees_matter_path(matter.id), data: {"turbolinks" => false} %></td>
         <td><%= matter.content %></td>
         <td><%= matter.status_i18n %></td>
       </tr>

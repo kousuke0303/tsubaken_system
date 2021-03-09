@@ -1,0 +1,14 @@
+<table class="table table-bordered table-column-type">
+  <tr>
+    <th>案件名</th>
+    <th>TASK</th>
+    <th>内容</th>
+  </tr>
+  <% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.matter_title %></td>
+    <td><%= task.title %></td>
+    <td><%= task.content %></td>
+  </tr>
+  <% end %>
+</table>

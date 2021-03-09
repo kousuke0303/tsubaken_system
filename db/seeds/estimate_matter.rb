@@ -32,16 +32,13 @@ EstimateMatter.all.each do |est|
 end
 
 # 営業案件からの案件作成
-EstimateMatter.all.each do |est|
-  matter = Matter.create!(title: est.title,
-                          content: est.content,
-                          status: 0,
-                          estimate_matter_id: est.id,
-                          created_at: est.created_at + 7.day
-                          )
-  est.estimate_matter_staffs.each do |est_staff|
-    matter.matter_staffs.create!(staff_id: est_staff.staff_id)
-  end
+estimate_matters_for_matter = EstimateMatter.all.order(:created_at).each_slice(3).map(&:first)
+estimate_matters_for_matter.each do |est|
+  est.create_matter(est.attributes.merge(
+                    scheduled_started_on: Date.today,
+                    scheduled_finished_on: Date.today + 7.day,
+                    created_at: est.created_at + 7.day
+                   ))
 end
 
 puts "CREATE! MATTER"

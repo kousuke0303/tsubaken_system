@@ -1,7 +1,8 @@
 <% if @response == "success" %>
   $("#sales-status-new").modal("hide");
-  $(".flash-wrapper").html('<div class="flash flash-notice time-limit">営業ステータスを作成しました。</div>');
+  $('#sales-status-new').empty();
   $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/sales_statuses") %>');
+  toastr.success("営業記録に<%= @sales_status.status_i18n %>を追加しました");
   <!--成約案件があるか否か-->
   <% if @contracted_estimate_matter.present? %>
     $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/partial/new_matter_btn") %>');
@@ -12,12 +13,6 @@
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })
 <% else %>
-  $(".sales-status-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @sales_status) %>');
-  <% @sales_status.errors.messages.keys.each do |key_attribute| %>
-    var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $('[name="sales_status[<%= key_attribute.intern.to_s %>]"]').prev();
-    $('[name="sales_status[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-    addLabel.wrap(addDiv);
-  <% end %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".sales-status-create-errors", model: @sales_status, object: "sales_status"} %>
 <% end %>
   

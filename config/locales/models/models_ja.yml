@@ -9,7 +9,7 @@ ja:
       supplier: 外注先
       attendance: 勤怠
       schedule: スケジュール
-      estimate_matter: 見積案件
+      estimate_matter: 営業案件
       estimate: 見積
       matter: 案件
       task: タスク
@@ -76,7 +76,7 @@ ja:
           sort_order: 優先順位
           limited_on: 期限
         estimate_matter:
-          title: 見積案件名
+          title: 案件名
           status: 進行状況
           actual_spot: 現場住所
           client_id: 顧客          

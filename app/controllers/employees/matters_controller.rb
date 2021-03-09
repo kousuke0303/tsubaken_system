@@ -1,9 +1,10 @@
 class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
-  before_action :set_matter, only: [:show, :edit, :update, :destroy]
-  before_action :set_employees, only: :new
+  before_action :set_matter, except: [:new, :index]
+  before_action :set_employees, only: [:new, :edit, :change_member]
   before_action :set_suppliers, only: :edit
   before_action :can_access_only_matter_of_being_in_charge
+  before_action :set_staff, only: :change_member
 
   # 見積案件から案件を作成ページ
   def new
@@ -15,24 +16,16 @@ class Employees::MattersController < Employees::EmployeesController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    estimate = Estimate.find(params[:matter]["estimate_id"])
-    ActiveRecord::Base.transaction do
-      @matter = Matter.create!(title: estimate_matter.title, content: estimate_matter.content, estimate_matter_id: estimate_matter.id)
-      @default_task_scaffolding_request = @matter.tasks.create!(title: "足場架設依頼", status: 1, sort_order: 1)
-      @default_task_order_request = @matter.tasks.create!(title: "発注依頼", status: 1, sort_order: 2)
-      estimate.update!(matter_id: @matter.id)
-      if current_admin || current_manager
-        @matter.update!(matter_staff_external_staff_client_params)
-      elsif current_staff
-        MatterStaff.create!(matter_id: @matter.id, staff_id: current_staff.id)
-      elsif current_external_staff
-        MatterExternalStaff.create!(matter_id: @matter.id, external_staff_id: current_external_staff.id)
-      end
-      flash[:notice] = "案件を作成しました。"
-    rescue
-      flash[:notice] = "案件の作成に失敗しました。"      
+    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
+                                                                            scheduled_finished_on: params[:matter][:scheduled_finished_on],
+                                                                            estimate_id: params[:matter][:estimate_id]))
+                                                                            
+    if @matter.save
+      @responce = "success"
+      # redirect_to employees_matter_url(@matter)
+    else
+      @responce = "failure"
     end
-    redirect_to employees_estimate_matter_path(estimate_matter) 
   end
 
   def index
@@ -60,14 +53,17 @@ class Employees::MattersController < Employees::EmployeesController
     @tasks = @matter.tasks
     set_classified_tasks(@matter)    
     @estimate_matter = @matter.estimate_matter
-    @client = @estimate_matter.client
-    @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
+    @client = @matter.client
+    @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
+    set_estimates_with_plan_names_and_label_colors
+    @estimate = @matter.estimate
+    if params[:type] == "success"
+      @message = true
+    end
   end
 
   def edit
-    @staffs = Staff.all
-    @external_staffs = ExternalStaff.all
-    @estimates = @matter.estimate_matter.estimates
+    @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
   end
 
   def update
@@ -81,6 +77,20 @@ class Employees::MattersController < Employees::EmployeesController
     @matter.destroy ? flash[:success] = "案件を削除しました" : flash[:alert] = "案件を削除できませんでした"
     redirect_to employees_matters_url
   end
+  
+  def change_estimate
+    @matter.update(estimate_id: params[:matter][:estimate_id])
+  end
+  
+  def change_member
+  end
+  
+  def update_member
+    @matter.update(matter_params)
+    flash[:success] = "#{@matter.title}の担当者を変更しました"
+    @staff = Staff.find(params[:matter][:staff_id])
+    redirect_to retirement_process_employees_staff_url(@staff)
+  end
 
   private
     def set_matter
@@ -88,8 +98,9 @@ class Employees::MattersController < Employees::EmployeesController
     end
 
     def matter_params
-      params.require(:matter).permit(:title, :scheduled_started_on, :scheduled_finished_on, :status, :estimate_id,
-                                     :started_on, :finished_on, :maintenanced_on, { staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
+      params.require(:matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :address_street, :scheduled_started_on, 
+                                     :scheduled_finished_on, :status, :estimate_id, :started_on, :finished_on, :maintenanced_on,
+                                     { staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     end
     
     def matter_staff_external_staff_client_params

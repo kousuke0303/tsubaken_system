@@ -27,6 +27,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     if params[:client_id]
       client = Client.find(params[:client_id])
       @id = client.id
+      @title = "#{client.name} 様邸" 
       @postal_code = client.postal_code
       @prefecture_code = client.prefecture_code
       @address_city = client.address_city

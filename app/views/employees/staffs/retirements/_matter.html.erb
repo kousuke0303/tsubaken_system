@@ -1,0 +1,19 @@
+（現在未着手・着工中の担当案件一覧）
+<table class="table table-bordered table-column-type">
+  <tr>
+    <th>案件名</th>
+    <th>案件内容</th>
+    <th>現場住所</th>
+    <th></th>
+  </tr>
+  <% @matters.each do |matter| %>
+    <tr>
+      <td><%= matter.title %></td>
+      <td><%= matter.content %></td>
+      <td><%= matter.prefecture_code %><%= matter.address_city %><%= matter.address_street %></td>
+      <td>
+        <%= link_to "担当者変更", change_member_employees_matter_path(matter, staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
+      </td>
+    </tr>
+  <% end %>
+</table>

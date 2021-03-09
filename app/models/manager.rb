@@ -3,6 +3,7 @@ class Manager < ApplicationRecord
   belongs_to :schedule, optional: true
   
   has_many :attendances, dependent: :destroy
+  has_many :tasks
   has_many :schedules
   has_one_attached :avator
 

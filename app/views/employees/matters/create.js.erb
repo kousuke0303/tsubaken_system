@@ -1,8 +1,7 @@
-$(".matter-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @matter) %>');
-<% @matter.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="matter[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="matter[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $('#matter-new').modal('hide');
+  $('#matter-new').empty();
+  window.location.href = "<%= employees_matter_path(@matter, type: "success") %>";
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".matter-create-errors", model: @matter, object: "matter"} %>
 <% end %>
-  

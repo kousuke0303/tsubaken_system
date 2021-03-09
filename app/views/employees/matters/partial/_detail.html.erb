@@ -46,11 +46,11 @@
     </tr>
     <tr>
       <th>着工予定日</th>
-      <td><%= @matter.scheduled_started_on %></td>
+      <td><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></td>
     </tr>
     <tr>
       <th>完了予定日</th>
-      <td><%= @matter.scheduled_finished_on %></td>
+      <td><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></td>
     </tr>
 
     <% if @suppliers.exists? %>
@@ -121,8 +121,8 @@
         <% end %>
       </div>
       <div class="content"><%= @matter.status_i18n %></div>
-      <div class="content"><%= @matter.scheduled_started_on %></div>
-      <div class="content"><%= @matter.scheduled_finished_on %></div>
+      <div class="content"><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></div>
+      <div class="content"><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></div>
       <div class="content">
         <% if @suppliers.exists? %>
           <% @suppliers.each_with_index do |supplier, index| %>
@@ -140,5 +140,3 @@
   <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>
-
-<%= render 'shared/javascript/table_collapse' %>

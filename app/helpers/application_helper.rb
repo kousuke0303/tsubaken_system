@@ -32,47 +32,65 @@ module ApplicationHelper
       if current_admin
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #dc3545")
       elsif current_manager
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #6610f2") 
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #a486d4") 
       elsif current_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{current_staff.label_color.color_code}")
       elsif current_external_staff
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #28a745")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #e4c35e")
       end
     end
   end
   
   def sidebar_avator(login_user)
     if login_user.avator.attached? 
-      content_tag(:div, class: "avator_layoput_for_sidebar") do
+      content_tag(:div, class: "mini_avator_layout_container") do
         image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"}))
       end
     else
       if current_admin
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #dc3545")
       elsif current_manager
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #6610f2")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #a486d4")
       elsif current_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #{current_staff.label_color.color_code}")
       elsif current_external_staff
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #28a745")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #e4c35e")
       end
     end
   end
   
   def show_avator(object)
     if object.avator.attached? 
-      content_tag(:div, class: "avator_layoput_for_sidebar") do
+      content_tag(:div, class: "mini_avator_layout_container") do
         image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"}))
       end
     else
       if object == @admin
         content_tag(:div, @admin.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #dc3545")
       elsif object == @manager
-        content_tag(:div, @manager.name[0, 1], class: "default_avator_layoput_for_showr", style: "background: #6610f2")
+        content_tag(:div, @manager.name[0, 1], class: "default_avator_layoput_for_showr", style: "background: #a486d4")
       elsif object == @staff
         content_tag(:div, @staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #{@staff.label_color.color_code}")
       elsif object == @external_staff
-        content_tag(:div, @external_staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #28a745")
+        content_tag(:div, @external_staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #e4c35e")
+      end
+    end
+  end
+  
+  def task_avator(target_person)
+    if target_person.avator.attached? 
+      content_tag(:div, class: "mini_avator_layout_container") do
+        image_tag url_for(target_person.avator.variant(combine_options:{gravity: :center, resize:"40x40^",crop:"40x40+0+0"}))
+      end
+    else
+      if target_person.auth == "admin"
+        content_tag(:div, target_person.name[0, 1], class: "default_avator_layout_for_task", style: "background: #dc3545")
+      elsif target_person.auth == "manager"
+        content_tag(:div, target_person.name[0, 1], class: "default_avator_layout_for_task", style: "background: #a486d4")
+      elsif target_person.auth == "staff"
+        content_tag(:div, target_person.name[0, 1], class: "default_avator_layout_for_task", style: "background: #{target_person.label_color.color_code}")
+      elsif target_person.auth == "external_staff"
+        content_tag(:div, target_person.name[0, 1], class: "default_avator_layout_for_task", style: "background: #e4c35e")
       end
     end
   end

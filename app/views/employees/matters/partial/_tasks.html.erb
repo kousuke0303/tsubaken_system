@@ -7,15 +7,16 @@
 
 <div id="kanban-tasks"></div>
 
+<%= javascript_include_tag "jkanban.js" %>;
 
-
+<!--タスク関連-->
 <script>
-// タスク関連
 $(document).ready(function(){
+
   //初期状態のタスク管理ボード用JSONデータ
   const defaultBoards = [
     {
-      "id": "default-tasks",
+      "id": "default",
       "title": "デフォルトタスク一覧",
       "class": "default",
       "item": [
@@ -29,7 +30,7 @@ $(document).ready(function(){
     },
     
     {
-      "id": "relevant-tasks",
+      "id": "relevant",
       "title": "当該タスク",
       "class": "relevant",
       "item": [
@@ -43,7 +44,7 @@ $(document).ready(function(){
     },
 
     {
-      "id": "ongoing-tasks",
+      "id": "ongoing",
       "title": "進行中",
       "class": "ongoing",
       "item": [
@@ -57,7 +58,7 @@ $(document).ready(function(){
     },
 
     {
-      "id": "finished-tasks",
+      "id": "finished",
       "title": "完了",
       "class": "finished",
       "item": [
@@ -99,7 +100,7 @@ $(document).ready(function(){
     
     const formItem = document.createElement("form");
     formItem.innerHTML = '<input type="text", id="new-task-form">';
-    kanban.addForm("relevant-tasks", formItem);
+    kanban.addForm("relevant", formItem);
 
     $("#new-task-form").blur(function(){
       var title = $("#new-task-form").val();
@@ -134,13 +135,7 @@ $(document).ready(function(){
 
   <% @matter.tasks.each do |task| %>
     $(function(){
-      <% if task.staff %>
-        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
-      <% elsif task.external_staff %>
-        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div><%= task.external_staff.name[0, 2] %></div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
-      <% else %>
-        $("[data-eid=<%= task.id %>]").html('<div class="in-charge-icon"><div>なし</div></div><div class="task-title"><div><%= task.title.truncate(11) %></div></div>');
-      <% end %>
+      $("[data-eid=<%= task.id %>]").html('<%= escape_javascript(render partial: 'employees/matters/tasks/partial/card_content', locals:{ task: task }) %>');
 
       // タスク編集モーダル
       $("[data-eid=<%= task.id %>]").on("click",function(){
@@ -155,4 +150,3 @@ $(document).ready(function(){
   <% end %>
 </script>
 
-<%= javascript_include_tag "jkanban.js" %>

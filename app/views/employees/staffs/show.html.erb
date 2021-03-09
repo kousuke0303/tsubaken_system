@@ -27,4 +27,23 @@
       </div>
     </div>
   </div>
+  
+  <div class="accordion mt-1e" id="accordion-task">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          割振タスク
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-task" aria-expanded="true" aria-controls="collapse-task">
+            詳細
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapse-task" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-task">
+        <div class="card-body">
+          <%= render "/employees/staffs/partial/tasks" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

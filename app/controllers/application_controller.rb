@@ -166,14 +166,17 @@ class ApplicationController < ActionController::Base
         # TASK関係
   # --------------------------------------------------------
 
-  # 見積案件・案件の持つタスクを分類、sort_orderを連番にupdateして定義
+  # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
     @default_tasks = Task.are_default
     Task.reload_sort_order(@default_tasks)
+    
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)
+    
     @ongoing_tasks = resource.tasks.are_ongoing
     Task.reload_sort_order(@ongoing_tasks)
+    
     @finished_tasks = resource.tasks.are_finished
     Task.reload_sort_order(@finished_tasks)
   end
@@ -238,12 +241,6 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "アクセス権限がありません。"
       redirect_to root_path
     end
-  end
-
-  def set_employees
-    @clients = Client.all
-    @staffs = Staff.all
-    @external_staffs = ExternalStaff.all
   end
 
   def set_label_colors

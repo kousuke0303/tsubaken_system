@@ -1,51 +1,59 @@
 <div class="row">
+  <label class="form-control text-white" style="background:#787a7b;">依頼者：集客方法</label>
   <div class="col-md-6 col-12">
     <%= f.label :client_id %>
-    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id }, class: "form-control" %>
+    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", id: "select_client", required: true %>
   </div>
   <div class="col-md-6 col-12">
     <%= f.label :attract_method_id %>
     <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
   </div>
-  <div class="col-md-6 col-12">
+  
+  <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
+  <div class="col-md-6">
     <%= f.label :title %>
-    <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+    <%= f.text_field :title, value: @title, required: true, class: "form-control", maxlength: 30%>
   </div>
-    <div class="col-md-6 col-12">
-      <%= f.label :publisher_id %>
-      <%= f.collection_select :publisher_id, @publishers, :id, :name, {}, class: "form-control" %>
-    </div>
-  <div class="col-md-6 col-12">
-    <%= f.label :postal_code %>
-    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+  <div class="col-md-6">
+    <%= f.label :publisher_id %>
+    <%= f.collection_select :publisher_id, @publishers, :id, :name, {}, class: "form-control" %>
   </div>
-  <div class="col-md-6 col-12">
-    <%= f.label :prefecture_code %>
-    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, id: "prefecture_code", class: "form-control" %>
-  </div>
-  <div class="col-md-6 col-12">
-    <%= f.label :address_city %>
-    <%= f.text_field :address_city, value: @address_city, id: "address_city", class: "form-control" %>
-  </div>
-  <div class="col-md-6 col-12">
-    <%= f.label :address_street %>
-    <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
-  </div>
-  <div class="col-md-6 col-12">
+  <div class="col-12">
     <%= f.label :content %>
     <%= f.text_field :content, required: true, class: "form-control", maxlength: 300 %>
   </div>
-  <div class="col-md-6 col-12">
-    <%= f.label "担当スタッフ" %>
-    <div>
-      <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+  
+  <label class="form-control text-white" style="background: #787a7b;">現場住所</label>
+  <div class="col-12">
+    <%= f.label :postal_code %>
+    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+  </div>
+  <div class="col-12 row">
+    <div class="col-md-6">
+      <%= f.label :prefecture_code %>
+      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, id: "prefecture_code", class: "form-control" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :address_city %>
+      <%= f.text_field :address_city, value: @address_city, id: "address_city", class: "form-control" %>
+    </div>
+    <div class="col-12">
+      <%= f.label :address_street %>
+      <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
     </div>
   </div>
-
-  <div class="col-md-6 col-12">
+  
+  <label class="form-control text-white" style="background: #787a7b;">担当者</label>
+  <div class="col-md-6">
+    <%= f.label "担当スタッフ" %>
+    <div>
+      <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "staff_select" } %>
+    </div>
+  </div>
+  <div class="col-md-6">
     <%= f.label "担当外部スタッフ" %>
     <div>
-      <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true } %>
+      <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "external_staff_select" } %>
     </div>
   </div>
 </div>
@@ -53,3 +61,15 @@
 <%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= render "shared/javascript/auto_postcode" %>
+
+<script>
+  $('#select_client').on('change', function(){
+    var value = $('#select_client option:selected').val();
+    $.ajax({
+      type: "GET",
+      url: "<%= new_employees_estimate_matter_path %>",
+      cache: false,
+      data: { client_id: value }
+    });
+  });
+</script>
