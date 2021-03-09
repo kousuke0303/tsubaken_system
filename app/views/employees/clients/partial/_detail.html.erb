@@ -36,6 +36,10 @@
       <th>生年月日</th>
       <td><%= @client.birthed_on %></td>
     </tr>
+    <tr>
+      <th>仮パスワード</th>
+      <td><%= @client.tmp_password %></td>
+    </tr>
   </table>
 </div>
 
@@ -59,6 +63,7 @@
         <li>TEL①</li>
         <li>TEL②</li>
         <li>生年月日</li>
+        <li>仮パスワード</li>
       </ul>
     </nav>
     
@@ -76,12 +81,16 @@
       </div>
       <div class="content"><%= @client.email %></div>
       <div class="content"><%= @client.birthed_on %></div>
+      <div class="content"><%= @client.tmp_password %></div>
     </div>
     
   </div>
 </div>
 
 <div class="btn-area">
-  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>
-  <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>  
+  <%= link_to "パスワード再発行", reset_password_employees_client_path(@client), method: :patch, class: "btn btn-dark",
+                                 data: { confirm: "仮パスワードを発行してよろしいですか？\n既存のパスワードはリセットされます。" } %>
+  <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" },
+                      class: "btn btn-danger" %>
 </div>

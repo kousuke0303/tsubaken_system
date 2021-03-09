@@ -218,7 +218,6 @@ Rails.application.routes.draw do
     resources :staffs
     resources :clients do
       post :search_index, on: :collection
-      get :new_password, on: :member
       patch :reset_password, on: :member
     end
     resources :suppliers

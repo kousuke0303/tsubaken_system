@@ -1,6 +1,6 @@
 class Employees::ClientsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :edit, :update, :destroy, :reset_password]
 
   def new
     @client = Client.new
@@ -45,6 +45,13 @@ class Employees::ClientsController < ApplicationController
   def destroy
     @client.destroy ? flash[:success] = "顧客を削除しました。" : flash[:alert] = "顧客を削除できませんでした。"
     redirect_to employees_clients_url
+  end
+
+  def reset_password
+    password = (0...8).map{ ("a".."z").to_a[rand(26)] }.join
+    @client.update(tmp_password: password, password: password, password_confirmation: password)
+    flash[:notice] = "顧客の仮パスワードを発行しました。"
+    redirect_to employees_client_path(@client)
   end
 
   private
