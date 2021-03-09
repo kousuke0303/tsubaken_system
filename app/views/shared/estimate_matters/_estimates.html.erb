@@ -1,20 +1,20 @@
 <% @estimates.each do |estimate| %>
   <% color_code = estimate.color_code || @default_color_code %>
   <% @tr_count = 0 %>
-  <div class="pdf-estimate">
+  <div class="estimates-preview <%= container_type %>">
     <% details_hash = @estimate_details.where(estimate_details: { estimate_id: estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] } %>
-    <div class="header">
-      <div class="estimate-num"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
-      <div class="title">御見積書</div>
+    <div class="row header">
+      <div class="col-4 num pt-05e"><%= Constants::UPPERCASE_LATTER[estimate.position - 1] %> プラン</div>
+      <div class="col-4 title text-center">御見積書</div>
     </div>
-    <div class="info-left">
-      <div>
-        現場名称：<%= @estimate_matter.title %><br>
-        現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
-      </div>
-      <div class="estimate-title-icon">
-        <div class="triangle" style="border-bottom-color: <%= color_code %>"></div>
-        <div class="square" style="background: <%= color_code %>">
+    <div class="row sub-header">
+      <div class="col-7 info-left">
+        <div>
+          現場名称：<%= @estimate_matter.title %><br>
+          現場住所：<%= "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }" %>
+        </div>
+        <div class="triangle mt-10" style="border-bottom-color: <%= color_code %>"></div>
+        <div class="square" style="border-bottom-color: <%= color_code %>">
           <div class="window">
             <div class="window-above">■■</div>
             <div class="window-lower">■■</div>
@@ -22,17 +22,17 @@
           <div class="text"><%= estimate.name %>プラン</div>                
         </div>
       </div>
-    </div>
-    <div class="info-right">
-      <div class="company-logo"><%= wicked_pdf_image_tag("profile.jpg", size: "60x60", alt: "ロゴ") %></div>
-      <div class="company-name">株式会社　ツバケン</div>
-      <div class="company-tel">
-        TEL: 090-8787-5544
-        <span class="person-in-charge">テスト　太郎</span>
+      <div class="col-5 info-right">
+        <div class="text-center"><%= image_tag("profile.jpg", size: "50x50", alt: "ロゴ") %></div>
+        <div class="company-name">株式会社　ツバケン</div>
+        <div class="company-tel">
+          TEL: 090-8787-5544
+          <span class="float-r">テスト　太郎</span>
+        </div>
       </div>
     </div>
 
-    <table class="table table-sm pdf-estimate-table">
+    <table class="table table-sm mt-05e">
       <thead>
         <tr>
           <td rowspan=2 style="width: 35%;">工事名称</td>
@@ -83,7 +83,7 @@
             <td class="category-footer-6"></td>
           </tr>
         <% end %>
-        <% (31 - @tr_count).times do |time| %>
+        <% (40 - @tr_count).times do |time| %>
           <tr>          
             <td class="margin-1">　</td>
             <td class="margin-2"></td>

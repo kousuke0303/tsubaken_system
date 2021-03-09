@@ -45,9 +45,8 @@ gem "select2-rails"
 gem 'chartkick'
 # ドラック&ドロップで並び替えするときのgem
 gem 'acts_as_list'
-# PDF出力
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+# seed用の偽名作成
+gem 'gimei'
 
 group :development, :test do
   gem 'mysql2'

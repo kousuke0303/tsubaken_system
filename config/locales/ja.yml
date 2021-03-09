@@ -36,6 +36,9 @@ ja:
         common: 共通
         construction: 工事
         material: 素材
+    inquiry:
+      kind:
+        lost: "ログインID・パスワード紛失"
   activerecord:
     errors:
       messages:

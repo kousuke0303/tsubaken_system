@@ -18,8 +18,8 @@
       <div class="cover_logo_wrapper">
         <%= image_tag url_for(@publisher.image.variant(resize:"300x15^")) %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
     <div class="a4_container">
@@ -56,34 +56,34 @@
       <div class="cover_logo_wrapper">
         <%= image_tag url_for(@publisher.image.variant(resize:"300x15^")) %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
     <div class="a4_print_container">
       <% certificate_three.each.with_index(1) do |certificate, second_index| %>
-      <table class="certificate_preview">
-        <tr>
-          <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"500x400^",crop:"500x400+0+0"})) %></td>
-          <td class="h6_td"><h6><span><%= index * 3 + second_index %></span><%= certificate.title %></h6></td>
-        </tr>
-        <tr>
-          <td class="certificate_content"><%= certificate.content %></td>
-        </tr>
-      </table>
+        <table class="certificate_preview">
+          <tr>
+            <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"500x400^",crop:"500x400+0+0"})) %></td>
+            <td class="h6_td"><h6><span><%= index * 3 + second_index %></span><%= certificate.title %></h6></td>
+          </tr>
+          <tr>
+            <td class="certificate_content"><%= certificate.content %></td>
+          </tr>
+        </table>
       <% end %>
     </div>
   <% end %>
 </div>
 
 <script>
-$('.certificate_print').on('click', function(){
-  $('body > :not(#print_area)').hide();
-  $('body').addClass('bg-white');
-  $('#print_area').show();
-  window.print();
-  $('body > :not(#print_area)').show();
-  $('#print_area').hide();
-  $('body').removeClass('bg-white');
-});
+  $('.certificate_print').on('click', function(){
+    $('body > :not(#print_area)').hide();
+    $('body').addClass('bg-white');
+    $('#print_area').show();
+    window.print();
+    $('body > :not(#print_area)').show();
+    $('#print_area').hide();
+    $('body').removeClass('bg-white');
+  });
 </script>

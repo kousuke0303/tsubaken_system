@@ -17,6 +17,7 @@ class DeviseCreateClients < ActiveRecord::Migration[5.1]
       t.string :prefecture_code
       t.string :address_city
       t.string :address_street
+      t.string :tmp_password
 
       ## Database authenticatable
       t.string :login_id,           null: false, default: ""

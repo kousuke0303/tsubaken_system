@@ -172,12 +172,12 @@ Rails.application.routes.draw do
     namespace :clients do
       get :top
       get :index
-      get :lost_password
     end
   end
 
   namespace :clients do
     resources :estimate_matters, only: [:index, :show]
+    resources :inquiries, only: [:new, :create]
   end
 
   # Staff関係
@@ -222,6 +222,7 @@ Rails.application.routes.draw do
     end
     resources :clients do
       post :search_index, on: :collection
+      patch :reset_password, on: :member
     end
     resources :suppliers
     resources :external_staffs
@@ -292,6 +293,8 @@ Rails.application.routes.draw do
         get :scroll_get_messages, on: :collection
       end
     end
+
+    resources :inquiries, only: [:index, :show, :edit, :update, :destroy]
     
     namespace :settings do
       resources :companies, only: :index

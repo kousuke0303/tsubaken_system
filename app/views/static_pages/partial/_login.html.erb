@@ -13,7 +13,7 @@
         <%= f.label :remember_me, "ログイン状態を維持する", class: "mg-0" %>
           
         <div class="mt-05e">
-          <%= link_to "ログインID・パスワードを忘れた場合", clients_lost_password_path, remote: true %>
+          <%= link_to "ログインID・パスワードを忘れた場合", new_clients_inquiry_path, remote: true %>
         </div>
         <div class="mt-05e text-center">
           <%= f.submit "ログイン", id: "login-submit", class: "btn" %>
@@ -25,6 +25,9 @@
 
 <script>
   $("#login-submit").click(function() {
+    var tokenForm = $('[name="authenticity_token"]');
+    var token = tokenForm.val();
+    
 
     const form = $(this).parents("form");
     const loginId = $("#login-id");
@@ -52,6 +55,7 @@
       loginId.attr("name", "client[login_id]");
       password.attr("name", "client[password]");
       rememberMe.attr("name", "client[remember_me]");
+      tokenForm.val(token);
     } else if(idType == "ES") {
       form.attr("action", "/external_staffs/sign_in");
       loginId.attr("name", "external_staff[login_id]");

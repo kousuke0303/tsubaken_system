@@ -5,19 +5,9 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
   before_action :set_matter_of_estimate_matter, only: [:move, :copy]
   before_action :refactor_params_category_ids, only: [:create, :update]
+  before_action :preview_display, only: :index
   
   def index
-    respond_to do |format|
-      format.html { redirect_to action: :pdf, format: :pdf, debug: true }
-      format.pdf do
-        render pdf: "file_name",
-               encoding: "utf-8",
-               page_size: "A4",
-               layout: "pdf/estimates.html.erb",
-               template: "/employees/estimate_matters/estimates/index.html.erb",
-               show_as_html: params[:debug].present?
-      end
-    end
   end
 
   def new

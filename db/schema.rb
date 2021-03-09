@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_211216) do
+ActiveRecord::Schema.define(version: 2021_03_07_090110) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
     t.string "prefecture_code"
     t.string "address_city"
     t.string "address_street"
+    t.string "tmp_password"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -287,6 +288,18 @@ ActiveRecord::Schema.define(version: 2021_03_02_211216) do
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
+  end
+
+  create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "kind", null: false
+    t.string "name"
+    t.string "kana"
+    t.string "email"
+    t.string "phone"
+    t.string "reply_email"
+    t.datetime "solved_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

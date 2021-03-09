@@ -6,7 +6,7 @@ class Client < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, presence: true, length: { maximum: 30 }
-  validates :kana, presence: true, length: { maximum: 30 }
+  validates :kana, presence: true, length: { maximum: 30 }, format: { with: VALID_KANA_REGEX }
   validates :phone_1, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :phone_2, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :fax, format: { with: VALID_FAX_REGEX }, allow_blank: true
@@ -26,22 +26,30 @@ class Client < ApplicationRecord
   # 成約顧客
   scope :has_matter, ->{ joins(estimate_matters: :matter).order(created_at: :desc) } 
   # 未成約顧客
-  scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}).order(created_at: :desc) }
+  scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}) }
+  # お問合せから絞込
+  scope :search_by_inquiry, ->(name, kana, phone, email){
+    where("name like ?", "%#{ name }%").
+    or(Client.where(kana: kana)).
+    or(Client.where(phone_1: phone)).
+    or(Client.where(phone_2: phone)).
+    or(Client.where(email: email))
+  }
 
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?
     errors.add(:login_id, "は「CL-」から始めてください") if login_id.present? && !login_id.start_with?("CL-")
   end
 
-    # emailでなくlogin_idを認証キーにする
-    def self.find_first_by_auth_conditions(warden_conditions)
-      conditions = warden_conditions.dup
-      if login_id = conditions.delete(:login_id)
-        where(conditions).where(login_id: login_id, confirmed: true).first
-      else
-        where(conditions).first
-      end
+  # emailでなくlogin_idを認証キーにする
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login_id = conditions.delete(:login_id)
+      where(conditions).where(login_id: login_id, confirmed: true).first
+    else
+      where(conditions).first
     end
+  end
 
   # 登録時にemailを不要にする
   def email_required?

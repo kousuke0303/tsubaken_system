@@ -101,6 +101,218 @@
   height: 251mm;
 }
 
+// 見積書プレビュー
+.estimates-preview {
+  .header {
+    border-bottom: 2px solid black;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+  }
+  .num {
+    font-size: 0.7em;
+  }
+  .title {
+    font-size: 1em;
+    letter-spacing: 1em;
+  }
+  .sub-header {
+    font-size: 0.6em;
+  }
+  .triangle {
+    width: 20px;
+    border-right: 20px solid transparent;
+    border-bottom: 13px solid #b2ce54;
+    border-left: 20px solid transparent;
+  }
+  .square {
+    border-bottom: 25px solid white;
+    height: 25px;
+    width: 200px;
+  }
+  .window {
+    color: white;
+    display: inline-block;
+    height: 25px;
+    position: relative;
+    width: 40px;
+  }
+  .window-above {
+    left: 1px;
+    height: 10px;
+    top: 0px;
+    width: 40px;
+    position: absolute;
+  }
+  .window-lower {
+    left: 1px;
+    height: 10px;
+    top: 10px;
+    width: 40px;
+    position: absolute;
+  }
+  .window div {
+    height: 15px;
+    padding: 0 0 5px 10px;
+  }
+  .text {
+    display: inline-block;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-top: 5px;
+    text-align: center;
+    vertical-align: top;
+    width: 155px;
+  }
+  .company-name {
+    font-weight: bold;
+  }
+  td {
+    font-size: 0.4em;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+   thead td {
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle !important;
+  }
+  .fa-square {
+    margin: 0 0.5em;
+  }
+  .category-name {
+    background: gainsboro;
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+  }
+  .detail-name {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+    padding-left: 2.5em;
+  }
+  .detail-amount {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-unit {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-price {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-total {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+    text-align: right;
+  }
+  .detail-specification {
+    border-bottom: 1px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .category-footer {
+    border-bottom: 2px solid black;
+  }
+  .category-footer-1 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+  }
+  .category-footer-2, .category-footer-4 {
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+  }
+  .category-footer-3, .category-footer-5 {
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    text-align: right;
+  }
+  .category-footer-6 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+  .margin-1 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-2 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+  }
+  .margin-3, .margin-5 {
+    border-bottom: none;
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-4 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid lightgray;
+    border-top: none;
+  }
+  .margin-5 {
+    border-bottom: none;
+    border-left: 1px solid lightgray;;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .margin-6 {
+    border-bottom: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: none;
+  }
+  .footer-item-1 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    text-align: center;
+  }
+  .footer-item-2 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    text-align: right;
+  }
+  .footer-item-3 {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+  }
+  .estimate-total {
+    font-weight: bold;
+  }
+  .pure-total {
+    font-size: 0.5em;
+  }
+}
+
 /* -----------------------------------------------------------------------------------
     PRINT 
 ----------------------------------------------------- */
@@ -177,6 +389,53 @@
     }
     h6 {
       width: 16em;
+    }
+  }
+  
+  // 見積書
+  .estimates-preview {
+    .num {
+      font-size: 1.2em;
+    }
+    .title {
+      font-size: 1.5em;
+      letter-spacing: 1.5em;
+    }
+    .sub-header {
+      margin-top: 5px;
+      font-size: 1.2em;
+    }
+    .square {
+      height: 25px;
+      width: 250px;
+    }
+    .window {
+      font-size: 0.6em;
+      height: 25px;
+    }
+    .window-above {
+      left: 1px;
+      height: 10px;
+      top: 0px;
+    }
+    .window-lower {
+      left: 1px;
+      height: 10px;
+      top: 10px;
+    }
+    .text {
+      display: inline-block;
+      color: white;
+      font-size: 0.8em;
+      font-weight: bold;
+      padding-top: 2px;
+      width: 155px;
+    }
+    td {
+      font-size: 1em;
+    }
+    .pure-total {
+      font-size: 1.1em;
     }
   }
 }

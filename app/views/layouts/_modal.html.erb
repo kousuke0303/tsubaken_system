@@ -84,6 +84,11 @@
     <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
   <% end %>
   
+
+  <!--お問合せedit-->
+  <% if controller_name == "inquiries" && action_name == "index" %>
+    <div id="inquiry-edit" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
@@ -175,5 +180,5 @@
 
 <% if controller_name == "static_pages" && action_name == "top" %>
   <div id="login" class="modal fade" role="dialog"></div>
-  <div id="lost-password" class="modal fade" role="dialog"></div>
+  <div id="inquiry-new" class="modal fade" role="dialog"></div>
 <% end %>

@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <th>郵便番号</th>
-      <td><%= postal_code_display(@client.postal_code) %></td>
+      <td><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></td>
     </tr>
     <tr>
       <th>住所</th>
@@ -35,6 +35,10 @@
     <tr>
       <th>生年月日</th>
       <td><%= @client.birthed_on %></td>
+    </tr>
+    <tr>
+      <th>仮パスワード</th>
+      <td><%= @client.tmp_password %></td>
     </tr>
   </table>
 </div>
@@ -60,6 +64,7 @@
         <li>TEL②</li>
         <li>MAIL</li>
         <li>生年月日</li>
+        <li>仮パスワード</li>
       </ul>
     </nav>
     
@@ -67,7 +72,7 @@
       <div class="content"><%= @client.name %></div>
       <div class="content"><%= @client.kana %></div>
       <div class="content"><%= @client.login_id %></div>
-      <div class="content"><%= postal_code_display(@client.postal_code) %></div>
+      <div class="content"><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></div>
       <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
       <div class="content">
         <a href="tel:<%= @client.phone_1 %>" class=""><%= mobile_phone_display(@client.phone_1) %></a>
@@ -77,14 +82,17 @@
       </div>
       <div class="content"><%= @client.email %></div>
       <div class="content"><%= @client.birthed_on %></div>
+      <div class="content"><%= @client.tmp_password %></div>
     </div>
-    
   </div>
 </div>
 
 <div class="btn-area">
-  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>
-  <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>  
+  <%= link_to "パスワード再発行", reset_password_employees_client_path(@client), method: :patch, class: "btn btn-dark",
+                                 data: { confirm: "仮パスワードを発行してよろしいですか？\n既存のパスワードはリセットされます。" } %>
+  <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" },
+                      class: "btn btn-danger" %>
 </div>
 
 <%= javascript_include_tag 'tableCollapse.js' %>

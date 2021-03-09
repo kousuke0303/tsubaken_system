@@ -1,0 +1,23 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">お問合せ編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @inquiry, url: employees_inquiry_path(@inquiry), method: :patch, remote: true) do |f| %>
+            <div class="inquiry-update-errors"></div>
+            <%= f.label :solved_at %>
+            <%= f.datetime_field :solved_at, class: "form-control" %>
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+              <%= link_to "削除", employees_inquiry_path(@inquiry), method: :delete, data: { confirm: "このお問合せを削除してよろしいですか？" }, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

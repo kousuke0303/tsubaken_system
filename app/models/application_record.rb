@@ -1,4 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
+  VALID_KANA_REGEX = /\A[ァ-ヶー　]*\z/i
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_PHONE_REGEX = /\A0\d{9,10}\z/i
   VALID_FAX_REGEX = /\A0\d{9,10}\z/i

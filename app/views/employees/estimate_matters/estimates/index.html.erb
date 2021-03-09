@@ -1,1 +1,23 @@
-<%= render "shared/estimate_matters/estimates" %>
+<div class="text-center mr-1e">
+  <button class="btn btn-primary estimates-print">印刷</button>
+</div>
+
+<div id="estimates-preview-area">
+  <%= render "shared/estimate_matters/estimates", container_type: "a4_container" %>
+</div>
+
+<div id="estimates-print-area" style="display: none">
+  <%= render "shared/estimate_matters/estimates", container_type: "a4_print_container" %>
+</div>
+
+<script>
+  $(".estimates-print").click(function() {
+    $("body > :not(#estimates-print-area)").hide();
+    $("body").addClass("bg-white");
+    $("#estimates-print-area").show();
+    window.print();
+    $('body > :not(#estimates-print-area)').show();
+    $('#estimates-print-area').hide();
+    $("body").removeClass("bg-white");
+  });
+</script>
