@@ -4,6 +4,7 @@ class Inquiry < ApplicationRecord
 
   validates :kind, presence: true
   validates :name, presence: true, length: { maximum: 30 }
+  validates :kana, presence: true, length: { maximum: 30 }
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :reply_email, presence: true, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }

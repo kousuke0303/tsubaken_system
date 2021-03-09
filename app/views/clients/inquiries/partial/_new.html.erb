@@ -13,6 +13,9 @@
 
           <%= f.label :name %>
           <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
+
+          <%= f.label :kana %>
+          <%= f.text_field :kana, maxlength: 30, pattern: "[ァ-ヶー　]+", class: "form-control", placeholder: "全角カタカナ", required: true %>
   
           <%= f.label :phone %>
           <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11 %>

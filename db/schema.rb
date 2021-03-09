@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "kind", null: false
     t.string "name"
+    t.string "kana"
     t.string "email"
     t.string "phone"
     t.string "reply_email"

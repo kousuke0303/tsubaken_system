@@ -13,6 +13,6 @@ class Clients::InquiriesController < ApplicationController
 
   private
     def inquiry_params
-      params.require(:inquiry).permit(:name, :kind, :phone, :email, :reply_email)
+      params.require(:inquiry).permit(:name, :kana, :kind, :phone, :email, :reply_email)
     end
 end
