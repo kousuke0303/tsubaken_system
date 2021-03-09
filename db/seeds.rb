@@ -85,25 +85,24 @@ puts "CREATE! INDUSTRY"
 # -------------------------------------------------------------
    # クライアント
 # ------------------------------------------------------------
-
-surname_seed_arrey = ["山", "川", "木", "森", "海", "湖", "葉", "草", "空", "林", "水", "火"]
-name_seed_arrey = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
-
-surname_seed_arrey.each.with_index do |surname, number|
-  name_seed_arrey.each.with_index(1) do |name, index|
-    Client.create!(name: "#{surname}田#{name}郎",
-                   kana: "テストコキャク",
-                   login_id: "CL-cccc-#{number}#{index}",
-                   phone_1: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
-                   phone_2: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
-                   email: "client-#{index}@email.com",
-                   postal_code: "1234567",
-                   prefecture_code: "神奈川県",
-                   address_city: "#{name}ノ宮市#{surname}北町",
-                   address_street: "1-1-1",
-                   password: "password",
-                   password_confirmation: "password")
-  end
+prefectures = %w[東京都 神奈川県 栃木県 千葉県 茨城県]
+str_array = %w[山 川 田 森 林 木]
+30.times do |n|
+  gimei = Gimei.name
+  name = gimei.kanji
+  kana = "#{ gimei.last.katakana }　#{ gimei.first.katakana }"
+  Client.create!(name: name,
+                 kana: kana,
+                 login_id: "CL-cccc-#{ n + 1 }",
+                 phone_1: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
+                 phone_2: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
+                 email: "client-#{ n + 1 }@email.com",
+                 postal_code: "1234567",
+                 prefecture_code: prefectures[rand(5)],
+                 address_city: str_array[rand(6)],
+                 address_street: "1-1-#{ n + 1 }",
+                 password: "password",
+                 password_confirmation: "password")
 end
 
 puts "CREATE! CLIENT"
