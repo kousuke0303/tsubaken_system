@@ -94,8 +94,8 @@ surname_seed_arrey.each.with_index do |surname, number|
     Client.create!(name: "#{surname}田#{name}郎",
                    kana: "テストコキャク",
                    login_id: "CL-cccc-#{number}#{index}",
-                   phone_1: "08011113333",
-                   phone_2: "0322224444",
+                   phone_1: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
+                   phone_2: "080" + (0...8).map{ (0..9).to_a[rand(10)] }.join,
                    email: "client-#{index}@email.com",
                    postal_code: "1234567",
                    prefecture_code: "神奈川県",
@@ -151,7 +151,7 @@ puts "CREATE! ATTENDANCE"
   Inquiry.create(kind: 0, name: client.name, kana: client.kana, email: client.email, phone: client.phone_1, reply_email: client.email)
 end
 
-puts "CREATE! ATTENDANCE"
+puts "CREATE! INQUIRY"
 
 # -----------------------------------------------------
       # SCHEDULE

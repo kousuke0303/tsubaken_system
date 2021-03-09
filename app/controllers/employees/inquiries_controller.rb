@@ -7,7 +7,7 @@ class Employees::InquiriesController < Employees::EmployeesController
   end
 
   def show
-    @clients = Client.all
+    @clients = Client.search_by_inquiry(@inquiry.name, @inquiry.kana, @inquiry.phone, @inquiry.email)
   end
 
   def edit

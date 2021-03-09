@@ -27,8 +27,12 @@ class Client < ApplicationRecord
   # 未成約顧客
   scope :not_have_matter, ->{ left_joins(estimate_matters: :matter).where(estimate_matters: { matters: { estimate_matter_id: nil }}) }
   # お問合せから絞込
-  scope :not_have_matter, ->(name, kana, phone, email){
-    where("name like ?", "%#{ name }%")
+  scope :search_by_inquiry, ->(name, kana, phone, email){
+    where("name like ?", "%#{ name }%").
+    or(Client.where(kana: kana)).
+    or(Client.where(phone_1: phone)).
+    or(Client.where(phone_2: phone)).
+    or(Client.where(email: email))
   }
 
   # 顧客IDは「CL-」から始めさせる
