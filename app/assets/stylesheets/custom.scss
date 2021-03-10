@@ -170,10 +170,6 @@ $color-bg: #eae9e9;
     margin-bottom: 0;
 }
 
-#login h2 span[class*="fontawesome-"] {
-    margin-right: 14px;
-}
-
 #login fieldset {
     background: #fff;
     border-radius: 0 0 20px 20px;
@@ -203,10 +199,6 @@ $color-bg: #eae9e9;
 #login fieldset input[type="submit"] {
     background: #6c757d;
     color: #fff;
-    display: block;
-    margin: 0 auto;
-    padding: 4px 0;
-    width: 100px;
 }
 
 #login fieldset input[type="submit"]:hover {
