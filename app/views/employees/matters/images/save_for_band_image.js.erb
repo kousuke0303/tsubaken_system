@@ -1,2 +1,4 @@
+$('#flash_container').html('<%= escape_javascript(render 'shared/flash') %>');
 $("#image_index").html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>');
 $("#band_album").html('<%= escape_javascript(render 'employees/matters/images/partial/band_album') %>');
+window.opener.location.reload();

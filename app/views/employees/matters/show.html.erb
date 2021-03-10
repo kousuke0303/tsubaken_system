@@ -3,7 +3,7 @@
   <%= render partial: 'layouts/page_title', locals: { title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard"} %>
   
   <div class="text-right mb-1e">
-    <%= link_to "画像一覧", employees_matter_images_path(current_matter), target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-dark" %>
+    <button id="to_image_index" class="btn btn-dar">画像一覧</button>
   </div>
 
   <h4><i class="fas fa-paint-roller"></i> <%= @matter.content %></h4>
@@ -61,6 +61,43 @@
       </div>      
     </div>
   </div>
+  
+  <!--▼診断書関連-->
+  <div class="accordion mt-1e" id="accordion-reports">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingThree">
+        <h5 class="text-light">
+          報告書作成
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-reports" aria-expanded="true" aria-controls="collapse-reports">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapse-reports" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-reports">
+        <div class="card-body">
+          <div id="certificate_create_flash"></div>
+          <div class="text-right">
+            <%= link_to "プレビュー", "#", class: "btn btn-success" %>
+          </div>
+          <h5>画像一覧</h5>
+          <div class="image_flex">
+            <!--<!%= render 'employees/estimate_matters/partial/reports_images' %>-->
+          </div>
+          <h5 class="mt-1e">表紙</h5>
+          <div id="cover_update_flash"></div>
+          <div class="reports-cover">
+            <!--<!%= render "employees/covers/partial/show" %>  -->
+          </div>
+          <h5 class="mt-1e">報告書一覧</h5>
+          <div id="certificate_update_flash"></div>
+          <div class="reports-index">
+            <!--<!%= render "employees/estimate_matters/partial/reports" %>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%= javascript_include_tag "tableCollapse.js" %>
@@ -70,3 +107,9 @@
   toastr.success("<%= @matter.title %>を作成しました");
 </script>
 <% end %>
+
+<script>
+  $('#to_image_index').on('click', function(){
+    window.open( '<%= employees_estimate_matter_images_path(@estimate_matter) %>', 'new', "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no");
+  });
+</script>
