@@ -13114,7 +13114,7 @@ label {
 }
 
 /* line 135, app/assets/stylesheets/custom.scss */
-.login-button {
+.to-login-btn {
   position: absolute;
   right: 1em;
   bottom: 0;
@@ -15675,7 +15675,7 @@ label {
 }
 
 /* line 135, app/assets/stylesheets/custom.scss */
-.login-button {
+.to-login-btn {
   position: absolute;
   right: 1em;
   bottom: 0;
