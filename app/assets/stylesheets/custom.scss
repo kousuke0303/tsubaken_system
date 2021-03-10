@@ -122,7 +122,7 @@ $color-bg: #eae9e9;
   }
 }
 
-.login-button {
+.to-login-btn {
   position: absolute;
   right: 1em;
   bottom: 0;
@@ -134,36 +134,61 @@ $color-bg: #eae9e9;
   background-size: cover;
 }
 
-#login .modal-content {
-  border-radius: 20px 20px 0 0;
-  left: 50%;
-  max-width: 90%;
+.modal {
+  display: none;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.modal__bg{
+  background: rgba(0,0,0,0.8);
+  opacity: 0.5;
+  height: 100%;
   position: absolute;
-  width: 400px;  
-  top: 80px;
-  transform: translateX(-50%);
-  .modal-header {
+  width: 100%;
+}
+
+#login-modal-grid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  h2 {
     background: #dea111;
     border-radius: 20px 20px 0 0;
     color: #fff;
-    display: block;
     font-size: 28px;
-    padding: em;
-    text-align: center;
+    padding: 20px 26px;
+    margin-bottom: 0;
   }
-  .main-label {
-    font-size: 1.2em;
-  }
-  input[type="text"], input[type="password"] {
-    background: #d8d6d6;
-    padding: 4px 10px;
-  }
-  #login-submit {
-    background: #6c757d;
-    color: #fff;
-  }
-  #login-submit:hover {
-    background: #343a40;
+  fieldset {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 20px 26px;
+    p {
+      color: black;
+      margin-bottom: 14px;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    input[type="text"], input[type="password"] {
+      background: #d8d6d6;
+      color: black;
+    }
+    input[type="submit"] {
+      background: #6c757d;
+      color: #fff;
+    }
+    input[type="submit"]:hover {
+      background: #343a40;
+    }
   }
 }
 
