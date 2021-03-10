@@ -4,9 +4,6 @@ class StaticPagesController < ApplicationController
   
   def top
   end
-
-  def login
-  end
   
   private
     def reject_signed_in
