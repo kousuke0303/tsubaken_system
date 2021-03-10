@@ -178,6 +178,10 @@ $color-bg: #eae9e9;
     p:last-child {
       margin-bottom: 0;
     }
+    input[type="text"], input[type="password"] {
+      background: #d8d6d6;
+      color: black;
+    }
     input[type="submit"] {
       background: #6c757d;
       color: #fff;
@@ -186,11 +190,6 @@ $color-bg: #eae9e9;
       background: #343a40;
     }
   }
-}
-
-#login fieldset input[type="text"], #login fieldset input[type="password"] {
-    background: #d8d6d6;
-    color: black;
 }
 
 .align {
