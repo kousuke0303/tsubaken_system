@@ -185,15 +185,9 @@ $color-bg: #eae9e9;
     margin-bottom: 0;
 }
 
-#login fieldset input {
-    border-radius: 3px;
-}
-
 #login fieldset input[type="text"], #login fieldset input[type="password"] {
     background: #d8d6d6;
     color: black;
-    padding: 4px 10px;
-    width: 100%;
 }
 
 #login fieldset input[type="submit"] {
