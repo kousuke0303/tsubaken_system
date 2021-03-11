@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Clients::SessionsController < Devise::SessionsController
+  def create
+    super
+    # ログイン成功時、仮パスワードがあればnilに更新
+    resource.update(tmp_password: nil) if resource.tmp_password.present?
+  end
 
   def failed
     # warden で出力されたエラーを保存する
