@@ -3,7 +3,8 @@ class Employees::InquiriesController < Employees::EmployeesController
   before_action :set_inquiry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @inquiries = Inquiry.all
+    @unsolved_inquiries = Inquiry.all.where(solved_at: nil)
+    @solved_inquiries = Inquiry.all.where.not(solved_at: nil)
   end
 
   def show
@@ -16,7 +17,7 @@ class Employees::InquiriesController < Employees::EmployeesController
   def update
     if @inquiry.update(inquiry_params)
       flash[:notice] = "お問合せを更新しました。"
-      redirect_to employees_inquiries_url
+      redirect_to employees_inquiry_url(@inquiry)
     end
   end
 
@@ -31,6 +32,6 @@ class Employees::InquiriesController < Employees::EmployeesController
     end
 
     def inquiry_params
-      params.require(:inquiry).permit(:solved_at)
+      params.require(:inquiry).permit(:solved_at, :note)
     end
 end

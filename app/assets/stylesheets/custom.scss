@@ -81,7 +81,7 @@ label {
 }
 
 .error-message {
-  color: #dc3545!important;
+  color: #dc3545 !important;
 }
 
 .field-with-errors {
@@ -171,22 +171,14 @@ $color-bg: #eae9e9;
     background: #fff;
     border-radius: 0 0 20px 20px;
     padding: 20px 26px;
-    p {
-      color: black;
-      margin-bottom: 14px;
-    }
-    p:last-child {
-      margin-bottom: 0;
-    }
     input[type="text"], input[type="password"] {
       background: #d8d6d6;
-      color: black;
     }
-    input[type="submit"] {
+    #login-submit {
       background: #6c757d;
       color: #fff;
     }
-    input[type="submit"]:hover {
+    #login-submit:hover {
       background: #343a40;
     }
   }

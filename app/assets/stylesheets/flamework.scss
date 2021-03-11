@@ -216,24 +216,12 @@ a.current_situation, a.current_situation:hover {
 }
 
 @media screen and (min-width: 992px) {
-  .header_dropdown_menu {
+  .header-dropdown-menu {
     position: absolute;
     background-color: #343a40;
     a {
       color: white;
     }
-    a:hover {
-      background-color: #eaebef;
-    }
-    .dropdown-divider {
-      border-top-color: white;
-    }
-  }
-
-  .client_dropdown_menu {
-    margin-left: -50px!important;
-    margin-top: 15px!important;
-    background-color: #eaebef;
     a:hover {
       background-color: #eaebef;
     }
@@ -254,7 +242,7 @@ a.current_situation, a.current_situation:hover {
   }
  
   #content {
-    box-sizing: border-box!important;
+    box-sizing: border-box !important;
     width: 100vw;
     padding: 10px;
     min-height: 100vh;
