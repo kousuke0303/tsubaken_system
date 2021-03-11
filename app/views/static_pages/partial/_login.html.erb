@@ -1,7 +1,7 @@
 <div id="login-modal-grid"> 
   <h2><i class="fa fa-lock mr-1e"></i>ログイン</h2>    
   <fieldset>
-    <%= form_with(model: @admin, url: admin_session_path(@admin), local: true) do |f| %>            
+    <%= form_with(url: "#", local: true) do |f| %>            
       <%= f.label :login_id, "ログインID" %>
       <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control mt-05e" %>
         
