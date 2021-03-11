@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th>お問合せ日時</th>
+      <th>お問合せ内容</th>
+      <th>名前</th>
+      <th>電話番号</th>
+      <th>メールアドレス</th>
+      <th>返信用メールアドレス</th>
+      <th>解決日時</th>
+    </tr>
+    <% inquiries.each do |inquiry| %>
+      <tr class="tr-link" data-link="<%= employees_inquiry_path(inquiry) %>">
+        <td><%= l(inquiry.created_at, format: :long) %></td>
+        <td><%= inquiry.kind_i18n %></td>
+        <td><%= inquiry.name %></td>
+        <td><%= inquiry.phone %></td>
+        <td><%= inquiry.email %></td>
+        <td><%= inquiry.reply_email %></td>
+        <td><%= l(inquiry.solved_at, format: :long) if inquiry.solved_at.present? %></td>
+      </tr>
+    <% end %>
+  </table>      
+</div>

@@ -3,7 +3,8 @@ class Employees::InquiriesController < Employees::EmployeesController
   before_action :set_inquiry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @inquiries = Inquiry.all
+    @unsolved_inquiries = Inquiry.all.where(solved_at: nil)
+    @solved_inquiries = Inquiry.all.where.not(solved_at: nil)
   end
 
   def show
