@@ -8,6 +8,7 @@ class Inquiry < ApplicationRecord
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :reply_email, presence: true, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }
+  validates :note, length: { maximum: 500 }
 
   enum kind: { lost: 0 }
 end

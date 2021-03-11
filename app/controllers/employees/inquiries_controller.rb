@@ -32,6 +32,6 @@ class Employees::InquiriesController < Employees::EmployeesController
     end
 
     def inquiry_params
-      params.require(:inquiry).permit(:solved_at)
+      params.require(:inquiry).permit(:solved_at, :note)
     end
 end
