@@ -10,7 +10,7 @@
     </div>
           
     <!--login_modal-->
-      <div class="modal login-form">
+      <div class="modal" id="login">
         <div class="modal__bg js-modal-close"></div>
           <%= render "static_pages/partial/login" %>
         </div>
@@ -22,12 +22,12 @@
 <script>
   $(function(){
     $(".to-login-btn").click(function(){
-        $('.login-form').fadeIn();
+        $("#login").fadeIn();
         return false;
     });
    
     $(".js-modal-close").click(function(){
-        $('.login-form').fadeOut();
+        $("#login").fadeOut();
         return false;
     });
   });
