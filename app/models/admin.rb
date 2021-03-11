@@ -1,6 +1,8 @@
 class Admin < ApplicationRecord
   has_many :tasks
+  has_many :sales_statuses
   belongs_to :schedule, optional: true
+  
   
   has_one_attached :avator
   

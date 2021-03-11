@@ -4,6 +4,7 @@ class Manager < ApplicationRecord
   
   has_many :attendances, dependent: :destroy
   has_many :tasks
+  has_many :sales_statuses
   has_many :schedules
   has_one_attached :avator
 

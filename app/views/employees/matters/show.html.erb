@@ -3,7 +3,7 @@
   <%= render partial: 'layouts/page_title', locals: { title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard"} %>
   
   <div class="text-right mb-1e">
-    <button id="to_image_index" class="btn btn-dar">画像一覧</button>
+    <button id="to_image_index" class="btn btn-dark">画像一覧</button>
   </div>
 
   <h4><i class="fas fa-paint-roller"></i> <%= @matter.content %></h4>
@@ -110,6 +110,6 @@
 
 <script>
   $('#to_image_index').on('click', function(){
-    window.open( '<%= employees_estimate_matter_images_path(@estimate_matter) %>', 'new', "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no");
+    window.open( '<%= employees_matter_images_path(@matter) %>', 'new', "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no");
   });
 </script>

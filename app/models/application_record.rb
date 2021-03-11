@@ -23,4 +23,25 @@ class ApplicationRecord < ActiveRecord::Base
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
+  
+  #-----------------------------------------------------
+    # IBSTANCE_METHOD
+  #-----------------------------------------------------
+  
+  # 従業員等の抹消
+  def relation_destroy
+    ActiveRecord::Base.transaction do
+      self.tasks.update_all(staff_id: nil)
+      self.sales_statuses.update_all(staff_id: nil)
+      designed_sales_status_editors = SalesStatusEditor.all.where(authority: "staff", id: self.id)
+      designed_sales_status_editors.update_all(authority: nil, member_id: nil)
+    end
+    self.destroy
+  rescue => e
+    Rails.logger.error e.class
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace.join("\n")
+    # bugsnag導入後
+    # Bugsnag.notifiy e
+  end
 end

@@ -15,34 +15,39 @@
   <% end %>
 </div>
 
-<ul class="nav nav-tabs title_tab_bar mt-2e">
-  <li class="nav-item">
-    <a class="nav-link title_tab">② 割振タスクの担当者変更</a>
-  </li>
-</ul>
-  
-<div class="news_container">
-  <% if @tasks.present? && @process_2 == true %>
-    <%= render 'employees/staffs/retirements/task' %>
-  <% else %>
-   <p>現状、未着手・進行中のタスクはありません</p>
-   <% @process_3 = true %>
-  <% end %>
-</div>
+<% if @process_2 == true %>
 
-<ul class="nav nav-tabs title_tab_bar mt-2e">
-  <li class="nav-item">
-    <a class="nav-link title_tab">③ 本日以降のスケジュール担当者変更</a>
-  </li>
-</ul>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">② 割振タスクの担当者変更</a>
+    </li>
+  </ul>
   
-<div class="news_container">
+  <div class="news_container">
+    <% if @tasks.present? %>
+      <%= render 'employees/staffs/retirements/task' %>
+    <% else %>
+     <p>現状、未着手・進行中のタスクはありません</p>
+     <% @process_3 = true %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @process_3 == true %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">③ 本日以降のスケジュール担当者変更</a>
+    </li>
+  </ul>
+    
+  <div class="news_container">
     <div id="schedule_index_for_retirement">
       <%= render 'employees/staffs/retirements/schedule' %>
     </div>
-</div>
+  </div>
+<% end %>
 
-<%if @process_4 == true %>
+<div id="resigned_on_form" style= "display: none">
   <ul class="nav nav-tabs title_tab_bar mt-2e">
     <li class="nav-item">
       <a class="nav-link title_tab">④ 退職日登録</a>
@@ -61,7 +66,7 @@
       <% end %>
     </div>
   </div>
-<% end %>
+</div>
 
 <% if @staff.resigned_on.present? && @staff.resigned_on < Date.today %>
   <ul class="nav nav-tabs title_tab_bar mt-2e">
@@ -75,11 +80,16 @@
       STAFFを削除すると、担当している</br>
       １）スケジュール</br>
       ２）勤怠情報</br>
-      ３）過去の割振りタスク</br>
       も削除されてしまいますので、ご注意ください。
     </div>
     <div class="mt-05e text-center">
-      <%= link_to "削除", employees_staff_path(@staff), data: {confirm: "#{@staff.name}を削除してよろしいですか？"}, class: "btn btn-danger" %>
+      <%= link_to "削除", employees_staff_path(@staff), method: :delete, data: {confirm: "#{@staff.name}を削除してよろしいですか？"}, class: "btn btn-danger" %>
     </div>
   </div>
+<% end %>
+
+<% if process_4 == true %>
+  <script>
+    $('#resigned_on_form').show();
+  </script>
 <% end %>

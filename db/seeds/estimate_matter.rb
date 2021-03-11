@@ -27,8 +27,8 @@ EstimateMatter.all.each do |est|
                                                 staff_id: est.staffs.first.id)
                             
   SalesStatusEditor.create!(authority: "manager",
-                             member_id: rand(1..3),
-                             sales_status_id: new_sales_status.id)
+                            member_id: rand(1..3),
+                            sales_status_id: new_sales_status.id)
 end
 
 # 営業案件からの案件作成
@@ -60,4 +60,4 @@ Matter.all.each_with_index do |matter, index|
   Task.create!(status: 2, title: "進行中タスク#{ index + 1 }", content: "テスト内容", sort_order: index, matter_id: matter.id)
 end
 
-puts "CREATE! TASK"
+# puts "CREATE! TASK"

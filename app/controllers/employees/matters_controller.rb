@@ -68,6 +68,7 @@ class Employees::MattersController < Employees::EmployeesController
 
   def update
     if @matter.update(matter_params)
+      delete_matter_relation_table
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)
     end
@@ -87,6 +88,7 @@ class Employees::MattersController < Employees::EmployeesController
   
   def update_member
     @matter.update(matter_params)
+    delete_matter_relation_table
     flash[:success] = "#{@matter.title}の担当者を変更しました"
     @staff = Staff.find(params[:matter][:staff_id])
     redirect_to retirement_process_employees_staff_url(@staff)
@@ -105,5 +107,14 @@ class Employees::MattersController < Employees::EmployeesController
     
     def matter_staff_external_staff_client_params
       params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
+    end
+    
+    def delete_matter_relation_table
+      unless params[:matter][:staff_ids].present?
+        @matter.matter_staffs.delete_all
+      end
+      unless params[:matter][:external_staff_ids].present?
+        @matter.matter_external_staffs.delete_all
+      end
     end
 end

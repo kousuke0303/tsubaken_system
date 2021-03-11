@@ -15,12 +15,12 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     formatted_member_params(params[:sales_status][:member], sales_status_params)
     params_register_schedule = params[:sales_status][:register_for_schedule].to_i
     @sales_status = @estimate_matter.sales_statuses.new(@final_params.merge(register_for_schedule: params_register_schedule))
-    if params[:sales_status][:register_for_schedule] == "0"
+    if params_register_schedule == 0
       ActiveRecord::Base.transaction do
-        @sales_status.save!(@final_params)
+        @sales_status.save!
         save_editor
       end
-    elsif params[:sales_status][:register_for_schedule] == "1" 
+    elsif params_register_schedule == 1
       ActiveRecord::Base.transaction do
         @sales_status.save!(context: :schedule_register)
         save_editor
@@ -58,7 +58,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     
     # 元々スケジュール登録なしの場合
     if @sales_status.register_for_schedule == "not_register" || @sales_status.register_for_schedule == "schedule_destroy"
-      if params[:sales_status][:register_for_schedule] == "0"
+      if params_register_schedule == 0
         ActiveRecord::Base.transaction do
           @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
           @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
@@ -67,7 +67,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
       else
         ActiveRecord::Base.transaction do
           @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
-          @sales_status.update!(@final_params.merge(register_for_schedule: params[:sales_status][:register_for_schedule].to_i))
+          @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
           save_editor
           schedule_create
         end
@@ -75,7 +75,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     # 元々スケジュール登録ありの場合
     else
       @schedule = Schedule.find_by(sales_status_id: @sales_status.id)
-      if params[:sales_status][:register_for_schedule] == "2"
+      if params_register_schedule == 2
         ActiveRecord::Base.transaction do
           @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
           @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
@@ -85,7 +85,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
       else
         ActiveRecord::Base.transaction do
           @sales_status.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
-          @sales_status.update!(@final_params.merge(register_for_schedule: params[:sales_status][:register_for_schedule].to_i))
+          @sales_status.update!(@final_params.merge(register_for_schedule: params_register_schedule))
           save_editor
           @schedule.destroy
         end
@@ -100,8 +100,6 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
 
   def destroy
     @sales_status.destroy
-    schedule = Schedule.find_by(sales_status_id: @sales_status.id)
-    schedule.destroy
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
   end
@@ -128,25 +126,23 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     end
     
     def schedule_create
-      title = @sales_status.status_i18n
-      params_hash = @sales_status.attributes
-      params_hash.delete("id")
-      params_hash.delete("estimate_matter_id")
-      params_hash.delete("status")
-      params_hash.delete("register_for_schedule")
-      params_hash.store("title", title)
-      params_hash.store("sales_status_id", @sales_status.id)
-      @schedule = Schedule.create!(params_hash)
+      copy
+      Schedule.create!(@params_hash.merge(sales_status_id: @sales_status.id))
     end
     
     def schedule_update
+      copy
+      @schedule.update_attributes!(@params_hash)
+    end
+    
+    def copy
       title = @sales_status.status_i18n
-      params_hash = @sales_status.attributes
-      params_hash.delete("id")
-      params_hash.delete("estimate_matter_id")
-      params_hash.delete("status")
-      params_hash.delete("register_for_schedule")
-      params_hash.store("title", title)
-      @schedule.update_attributes!(params_hash)
+      @params_hash = @sales_status.attributes
+      @params_hash.delete("id")
+      @params_hash.delete("estimate_matter_id")
+      @params_hash.delete("status")
+      @params_hash.delete("register_for_schedule")
+      @params_hash.delete("member_name")
+      @params_hash.store("title", title) 
     end
 end

@@ -15,10 +15,10 @@
         <button class="btn btn-dark">CLOSE</button>
       </div>
       <div class="col-sm-12 text-right" id="default_btn_container">
-        <% if current_matter.band_connection.present? %>
-          <%= link_to 'BANDアルバム', get_album_employees_band_connection_path(current_matter.band_connection, matter_id: current_matter.id), remote: true, class: "btn btn-md btn-primary", id: "open_band_album" %>
+        <% if @matter.band_connection.present? %>
+          <%= link_to 'BANDアルバム', get_album_employees_band_connection_path(@matter.band_connection, matter_id: current_matter.id), remote: true, class: "btn btn-md btn-primary", id: "open_band_album" %>
         <% end %>
-        <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_matter), remote: true, class: "btn btn-md btn-primary" %>
+        <%= link_to '画像追加', new_employees_estimate_matter_image_path(@matter), remote: true, class: "btn btn-md btn-primary" %>
       </div>
     </div>
     

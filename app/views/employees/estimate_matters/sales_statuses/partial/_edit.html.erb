@@ -16,7 +16,7 @@
           <% else %>
             <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status), method: :patch, remote: true) do |f| %>
               <div class="sales-status-update-errors"></div>
-              <%= render "form", f: f %>
+              <%= render "employees/estimate_matters/sales_statuses/partial/form", f: f %>
               <div class="btn-area">
                 <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
               </div>

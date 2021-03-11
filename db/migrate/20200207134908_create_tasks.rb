@@ -16,6 +16,8 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.references :manager,          foreign_key: true
       t.references :staff,            foreign_key: true
       t.references :external_staff,   foreign_key: true
+      # 担当者が削除された時のカラム
+      t.string :member_name
 
       t.timestamps
     end

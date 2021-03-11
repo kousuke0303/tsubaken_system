@@ -13,6 +13,8 @@ class CreateSalesStatuses < ActiveRecord::Migration[5.2]
       t.references :external_staff
       t.references :manager
       t.references :admin
+      # 担当者が削除された時のカラム
+      t.string :member_name
 
       t.timestamps
     end

@@ -429,19 +429,11 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "authority"
     t.integer "member_id"
+    t.string "member_name"
     t.bigint "sales_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["sales_status_id"], name: "index_sales_status_editors_on_sales_status_id"
-  end
-
-  create_table "sales_status_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "authority"
-    t.integer "member_id"
-    t.bigint "sales_status_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sales_status_id"], name: "index_sales_status_members_on_sales_status_id"
   end
 
   create_table "sales_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -457,6 +449,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.bigint "external_staff_id"
     t.bigint "manager_id"
     t.bigint "admin_id"
+    t.string "member_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_sales_statuses_on_admin_id"
@@ -566,6 +559,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.bigint "manager_id"
     t.bigint "staff_id"
     t.bigint "external_staff_id"
+    t.string "member_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_tasks_on_admin_id"
@@ -614,7 +608,6 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   add_foreign_key "messages", "matters"
   add_foreign_key "plan_names", "label_colors"
   add_foreign_key "sales_status_editors", "sales_statuses"
-  add_foreign_key "sales_status_members", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "staffs", "label_colors"
   add_foreign_key "supplier_matters", "matters"

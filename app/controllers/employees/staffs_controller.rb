@@ -57,17 +57,12 @@ class Employees::StaffsController < Employees::EmployeesController
   end
 
   def destroy
-    if @staff.destroy
-      if @delete_type == false
-        flash[:info] = "#{@staff}及びこのSTAFFに関するスケジュールを削除しました"
-      else
-        flash[:info] = "#{@staff}を削除しました"
-      end
-      redirect_to employees_staffs_url
+    if @staff.relation_destroy
+      flash[:info] = "#{@staff}を削除しました"
     else
-      @responce = "failure"
-      @label_color = @staff.label_color
+      flash[:danger] = "#{@staff}は削除できません"
     end
+    redirect_to employees_staffs_url
   end
 
   private

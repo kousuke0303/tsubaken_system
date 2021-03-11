@@ -40,16 +40,10 @@ module EmployeesHelper
   
   # 担当者の名前表示
   def member_name(schedule_or_sales_status)
-    if schedule_or_sales_status.admin_id.present?
-      Admin.find(schedule_or_sales_status.admin_id).name
-    elsif schedule_or_sales_status.manager_id.present?
-      Manager.find(schedule_or_sales_status.manager_id).name
-    elsif schedule_or_sales_status.staff_id.present?
-      Staff.find(schedule_or_sales_status.staff_id).name
-    elsif schedule_or_sales_status.external_staff_id.present?
-      ExternalStaff.find(schedule_or_sales_status.external_staff_id).name
+    if schedule_or_sales_status.member_name.present?
+      schedule_or_sales_status.member_name
     else
-      return false
+      "登録なし"
     end
   end
   

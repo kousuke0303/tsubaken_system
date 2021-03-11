@@ -10,17 +10,19 @@ class Task < ApplicationRecord
   validates :content, length: { maximum: 300 }
   validate :only_in_charge
   
+  before_save :member_name_update
+  
   enum status: { default: 0, relevant: 1, ongoing: 2, finished: 3 }
    
   scope :are_default, -> { default.order(default_task_id_count: :desc) }
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
-
-  # 担当者は一名に制限
-  def only_in_charge
-    errors.add(:base, "担当者は一名までです") if self.staff && self.external_staff
-  end
+  
+  
+  #-----------------------------------------------------
+    # INSTANCE_METHOD
+  #-----------------------------------------------------
 
   # sort_orderを正しい連番に更新
   def self.reload_sort_order(tasks)
@@ -67,5 +69,38 @@ class Task < ApplicationRecord
     # bugsnag導入後
     # Bugsnag.notifiy e
   end
-    
+  
+  
+  
+  
+  private
+  
+  #-----------------------------------------------------
+    # VALIDATION_METHOD
+  #-----------------------------------------------------
+  
+  # 担当者は一名に制限
+  def only_in_charge
+    errors.add(:base, "担当者は一名までです") if self.staff && self.external_staff
+  end
+  
+  
+  #-----------------------------------------------------
+    # CALLBACK_METHOD
+  #-----------------------------------------------------
+  
+  def member_name_update
+    if self.admin_id
+      member_name = Admin.find(self.admin_id).name
+    elsif self.manager_id
+      member_name = Manager.find(self.manager_id).name
+    elsif self.staff_id
+      member_name = Staff.find(self.staff_id).name
+    elsif self.external_staff_id
+      member_name = ExternalStaff.find(self.external_staff_id).name
+    else
+      member_name = nil
+    end
+    self.member_name = member_name
+  end
 end

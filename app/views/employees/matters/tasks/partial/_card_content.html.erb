@@ -7,6 +7,10 @@
     <%= task_avator(task.staff) %>
   <% elsif task.external_staff_id %>
     <%= task_avator(task.external_staff) %>
+  <% elsif task.member_name %>
+   <%= content_tag(:div, task.member_name[0, 1], 
+                   class: "default_avator_layout_for_task", 
+                   style: "background: #f8f9fa") %>
   <% end %>
 </div>
 

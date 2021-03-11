@@ -3,6 +3,7 @@ class Schedule < ApplicationRecord
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
+  belongs_to :sales_status, optional: true
   
   validates :title, presence: true
   validates :scheduled_date, presence: true
@@ -45,25 +46,6 @@ class Schedule < ApplicationRecord
       end
     end
     
-    # 重複スケジュール登録拒否
-    # def except_duplicate_schedule_for_update
-    #   if admin_id.present?
-    #     duplicate_schedule = Schedule.where.not(id: self.id).where(admin_id: self.admin_id, scheduled_date: self.scheduled_date)
-    #                                 .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-    #   elsif manager_id.present?
-    #     duplicate_schedule = Schedule.where.not(id: self.id).where(manager_id: self.manager_id, scheduled_date: self.scheduled_date)
-    #                                 .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-    #   elsif staff_id.present?
-    #     duplicate_schedule = Schedule.where.not(id: self.id).where(staff_id: self.staff_id, scheduled_date: self.scheduled_date)
-    #                                 .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-    #   elsif external_staff_id.present?
-    #     duplicate_schedule = Schedule.where.not(id: self.id).where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
-    #                                 .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-    #   end
-    #   if duplicate_schedule.present?
-    #     errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
-    #   end
-    # end
     
     # 重複スケジュール登録拒否
     # DBに保存されている時間はUTCのため、文字列に変換した上で比較
