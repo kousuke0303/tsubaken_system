@@ -7,10 +7,10 @@
     <label for="radio2" class="mt-0">解決済</label>
   </div>
   <div id="unsolved">
-    <%= render "employees/inquiries/partial/index_table", inquiries: @unsolved_inquiries %>
+    <%= render "employees/inquiries/partial/index_table", inquiries: @unsolved_inquiries, type: "unsolved" %>
   </div>
   <div id="solved" style="display: none;">
-    <%= render "employees/inquiries/partial/index_table", inquiries: @solved_inquiries %>
+    <%= render "employees/inquiries/partial/index_table", inquiries: @solved_inquiries, type: "solved" %>
   </div>
 </div>
 

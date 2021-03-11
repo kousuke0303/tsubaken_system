@@ -7,7 +7,9 @@
       <th>電話番号</th>
       <th>メールアドレス</th>
       <th>返信用メールアドレス</th>
-      <th>解決日時</th>
+      <% if type == "solved" %>
+        <th>解決日時</th>
+      <% end %>
     </tr>
     <% inquiries.each do |inquiry| %>
       <tr class="tr-link" data-link="<%= employees_inquiry_path(inquiry) %>">
@@ -17,7 +19,9 @@
         <td><%= inquiry.phone %></td>
         <td><%= inquiry.email %></td>
         <td><%= inquiry.reply_email %></td>
-        <td><%= l(inquiry.solved_at, format: :long) if inquiry.solved_at.present? %></td>
+        <% if type == "solved" %>
+          <td><%= l(inquiry.solved_at, format: :long) if inquiry.solved_at.present? %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>      
