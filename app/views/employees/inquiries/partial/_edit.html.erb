@@ -8,7 +8,7 @@
           <%= form_with(model: @inquiry, url: employees_inquiry_path(@inquiry), method: :patch, remote: true) do |f| %>
             <div class="inquiry-update-errors"></div>
             <%= f.label :note %>
-            <%= f.text_area :note, rows: 5, class: "form-control" %>
+            <%= f.text_area :note, maxlength: 500, rows: 5, class: "form-control" %>
 
             <%= f.label :solved_at %>
             <%= f.datetime_field :solved_at, class: "form-control" %>
