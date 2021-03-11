@@ -17,7 +17,7 @@ class Employees::InquiriesController < Employees::EmployeesController
   def update
     if @inquiry.update(inquiry_params)
       flash[:notice] = "お問合せを更新しました。"
-      redirect_to employees_inquiries_url
+      redirect_to employees_inquiry_url(@inquiry)
     end
   end
 

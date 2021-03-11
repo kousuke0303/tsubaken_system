@@ -23,10 +23,19 @@
       <tr>
         <th>返信用メールアドレス</th>
         <td><%= @inquiry.reply_email %></td>
+        <th>備考</th>
+        <td><%= @inquiry.note.custom_truncate(10) if @inquiry.note.present? %></td>
+      </tr>
+      <tr>
         <th>解決日時</th>
         <td><%= l(@inquiry.solved_at, format: :long) if @inquiry.solved_at.present? %></td>
-      </tr>        
+      </tr>   
     </table>
+  </div>
+
+  <div class="btn-area">
+    <%= link_to "編集", edit_employees_inquiry_path(@inquiry), remote: true, class: "btn btn-dark" %>
+    <%= link_to "削除", employees_inquiry_path(@inquiry), method: :delete, data: { confirm: "このお問合せを削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 
   <h2 class="mt-05e">情報部分一致顧客</h2>
@@ -45,7 +54,7 @@
       </tr>
       <% @clients.each do |client| %>
         <tr>
-          <td><%= client.name %></td>
+          <td><%= link_to client.name, employees_client_path(client) %></td>
           <td><%= client.kana %></td>
           <td><%= client.phone_1 %></td>
           <td><%= client.phone_2 %></td>

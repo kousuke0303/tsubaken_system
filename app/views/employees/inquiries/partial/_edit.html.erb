@@ -14,7 +14,6 @@
             <%= f.datetime_field :solved_at, class: "form-control" %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_inquiry_path(@inquiry), method: :delete, data: { confirm: "このお問合せを削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
