@@ -1,2 +1,2 @@
-$("#supplier-edit").html('<%= escape_javascript(render "employees/suppliers/edit", supplier: @supplier, industries: @industries) %>');
+$("#supplier-edit").html('<%= escape_javascript(render "employees/suppliers/partial/edit", supplier: @supplier, industries: @industries) %>');
 $("#supplier-edit").modal();
