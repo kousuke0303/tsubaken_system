@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_090110) do
+ActiveRecord::Schema.define(version: 2021_03_15_080550) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_admins_on_login_id", unique: true
+  end
+
+  create_table "adopted_estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "total_price"
+    t.integer "discount"
+    t.string "matter_id"
+    t.bigint "plan_name_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_adopted_estimates_on_matter_id"
+    t.index ["plan_name_id"], name: "index_adopted_estimates_on_plan_name_id"
   end
 
   create_table "attendances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -572,6 +583,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "adopted_estimates", "plan_names"
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"
