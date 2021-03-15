@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2021_03_15_080550) do
   end
 
   create_table "adopted_estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "total_price"
-    t.integer "discount"
+    t.integer "total_price", default: 0, null: false
+    t.integer "discount", default: 0, null: false
     t.string "matter_id"
     t.bigint "plan_name_id"
     t.datetime "created_at", null: false
@@ -394,12 +394,10 @@ ActiveRecord::Schema.define(version: 2021_03_15_080550) do
     t.bigint "publisher_id"
     t.bigint "client_id"
     t.bigint "attract_method_id"
-    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attract_method_id"], name: "index_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_matters_on_client_id"
-    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
     t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end

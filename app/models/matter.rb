@@ -25,7 +25,8 @@ class Matter < ApplicationRecord
   validates :scheduled_started_on, presence: true
   validates :scheduled_finished_on, presence: true
   validate :scheduled_finished_on_is_after_started_on
-  
+
+  attr_accessor :estimate_id
   
   enum status: { not_started: 0, progress: 1, completed: 2 }
   

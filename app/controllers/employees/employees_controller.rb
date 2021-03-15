@@ -61,7 +61,6 @@ class Employees::EmployeesController < ApplicationController
 
     def set_matter_of_estimate_matter
       @matter = @estimate_matter.matter
-      @adopted_estimate_id = @matter.estimate if @matter
     end
 
     def set_label_colors

@@ -1,6 +1,6 @@
 class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
-  before_action :set_matter, except: [:new, :index]
+  before_action :set_matter, except: [:new, :create, :index]
   before_action :set_employees, only: [:new, :edit, :change_member]
   before_action :set_suppliers, only: :edit
   before_action :can_access_only_matter_of_being_in_charge
@@ -15,17 +15,16 @@ class Employees::MattersController < Employees::EmployeesController
 
   # 見積案件から案件を作成
   def create
-    estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
-                                                                            scheduled_finished_on: params[:matter][:scheduled_finished_on],
-                                                                            estimate_id: params[:matter][:estimate_id]))
-                                                                            
-    if @matter.save
+      estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+      @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
+                                                                              scheduled_finished_on: params[:matter][:scheduled_finished_on]))
+      @matter.save!
+      p "a"
+      p params[:matter]["estimate_id"].to_i                                                            
+      estimate = Estimate.find(params[:matter]["estimate_id"].to_i)
+      adopted_estimate = @matter.build_adopted_estimate(total_price: estimate.total_price, discount: estimate.discount, plan_name_id: estimate.plan_name_id)                                                               
+      adopted_estimate.save!  
       @responce = "success"
-      # redirect_to employees_matter_url(@matter)
-    else
-      @responce = "failure"
-    end
   end
 
   def index
@@ -56,7 +55,7 @@ class Employees::MattersController < Employees::EmployeesController
     @client = @matter.client
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
     set_estimates_with_plan_names_and_label_colors
-    @estimate = @matter.estimate
+    @adopted_estimate = @matter.adopted_estimate
     if params[:type] == "success"
       @message = true
     end
