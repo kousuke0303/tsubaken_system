@@ -62,17 +62,13 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
     def comparison_for_category
       before_category_array = @adopted_estimate.adopted_estimate_details.pluck(:category_id)
       # カテゴリが増えている場合
-      if (@after_category_array - before_category_array) == [nil]
-        @add_category_array = "nil"
-      elsif @after_category_array == before_category_array
+      if (@after_category_array - before_category_array) == [nil] || @after_category_array == before_category_array
         @add_category_array = "nil"
       else
         @add_categories = @after_category_array - before_category_array
       end
       # カテゴリが減っている場合
-      if (before_category_array - @after_category_array) == [nil]
-        @delete_category_array = "nil"
-      elsif before_category_array == @after_category_array
+      if (before_category_array - @after_category_array) == [nil] || before_category_array == @after_category_array
         @delete_category_array = "nil"
       else
         @delete_categories = before_category_array - @after_category_array
