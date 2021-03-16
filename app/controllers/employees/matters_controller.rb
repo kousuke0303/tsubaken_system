@@ -15,6 +15,7 @@ class Employees::MattersController < Employees::EmployeesController
 
   # 見積案件から案件を作成
   def create
+    ActiveRecord::Base.transaction do
       estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
       @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
                                                                               scheduled_finished_on: params[:matter][:scheduled_finished_on]))
@@ -29,6 +30,9 @@ class Employees::MattersController < Employees::EmployeesController
                                                           unit: detail.unit, price: detail.price, amount: detail.amount, total: detail.total)
       end
       @responce = "success"
+    rescue
+      @responce = "failed"
+    end
   end
 
   def index
@@ -59,7 +63,9 @@ class Employees::MattersController < Employees::EmployeesController
     @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
     @adopted_estimate = @matter.adopted_estimate
-    @adopted_estimate_details = @adopted_estimate.adopted_estimate_details
+    @plan_name = @adopted_estimate.plan_name
+    @color_code = @plan_name.label_color.color_code
+    @adopted_estimate_details = @adopted_estimate.adopted_estimate_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
     @message = true if params[:type] == "success"
   end
 
