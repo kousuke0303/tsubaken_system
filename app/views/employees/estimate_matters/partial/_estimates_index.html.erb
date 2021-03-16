@@ -50,7 +50,7 @@
       </tr>
       <% details_hash.each do |category_id, details| %>
         <tr>
-          <td rowspan="<%= category_row_span(estimate, category_id) %>">
+          <td rowspan="<%= details.size %>">
             <%= link_to edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true do %>
               <%= details[0].category_name %>
             <% end %>

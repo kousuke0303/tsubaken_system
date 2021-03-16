@@ -6,7 +6,7 @@
         <div><p>■■</p><p>■■</p></div>
       </div>
       <div class="text">
-        <%= link_to "#", remote: true do %>
+        <%= link_to edit_employees_matter_adopted_estimate_path(@matter, @adopted_estimate), remote: true do %>
           <%= @plan_name.name %>
         <% end %>
       </div>                
@@ -87,7 +87,7 @@
     </tr>
     <tr>        
       <th colspan="5">値引後合計</th>
-      <th colspan="2" class="money_type text-right">円</th>
+      <th colspan="2" class="money_type text-right"><%= @adopted_estimate.after_discount %>円</th>
     </tr>
   </table>
 </div>  

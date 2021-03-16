@@ -1,13 +1,12 @@
 class Employees::TalkroomsController < Employees::EmployeesController
+  before_action :set_matter_by_matter_id, only: [:index, :create, scroll_get_messages]
   
   def index
-    @matter = Matter.find(params[:matter_id])
     matter_messages = Message.where(matter_id: @matter.id).last(11)
     @messages_by_date = matter_messages.group_by{|list| list.created_at.to_date} 
   end
   
   def create
-    @matter = Matter.find(params[:matter_id])
     if message = @matter.messages.create(message_params)
       if admin_signed_in?
         @sender =  current_admin.name
@@ -37,7 +36,6 @@ class Employees::TalkroomsController < Employees::EmployeesController
   end
   
   def scroll_get_messages
-    @matter = Matter.find(params[:matter_id])
     # 1表示されているメッサージのidを変数化
     front_id = params[:front_id].to_i
     # スクロールしたら６メッサージずつプレビュー

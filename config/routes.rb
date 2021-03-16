@@ -278,6 +278,7 @@ Rails.application.routes.draw do
       patch :change_estimate, on: :member
       get :change_member,on: :member
       patch :update_member, on: :member
+      resources :adopted_estimates, only: [:edit, :update, :destroy], controller: "matters/adopted_estimates"
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection

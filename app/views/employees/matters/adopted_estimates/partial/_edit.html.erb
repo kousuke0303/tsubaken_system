@@ -8,15 +8,15 @@
       <div class="card mb-3">
         <h5 class="card-header">見積編集</h5>
         <div class="card-body">
-          <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true, id: "estimate_edit_form") do |f| %>
-            <div class="estimate-update-errors"></div>
+          <%= form_with(model: @adopted_estimate, url: employees_matter_adopted_estimate_path(@matter, @adopted_estimate), method: :patch, remote: true) do |f| %>
+            <div class="adopted-estimate-update-errors"></div>
             
             <%= f.label "タイプ名" %>
             <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
             <div class="input-group">
               <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
-                <span class="input-group-text" style="width: 3em; background: <%= estimate_color(@estimate) %>;" id="color-sample"></span>
+                <span class="input-group-text" style="width: 3em; background: <%= @color_code %>;" id="color-sample"></span>
               </div>
             </div>
             
@@ -29,11 +29,11 @@
                   <td style="width: 5em"></td>
                 </tr>
                 
-                <% @estimate_details.each.with_index(1) do |detail, index| %>
+                <% @adopted_estimate_details.each.with_index(1) do |detail, index| %>
                   <tr>
                     <td class="category_number"><%= index %></td>
                     <td>
-                      <%= f.select "category_id_#{index}".intern, @categories.map{ |category| [category.name, category.id] }, {selected: detail.category_id, include_blank:  "---削除する---"}, {class: "form-control", id: "category_#{index}"} %>
+                      <%= f.select "category_id_#{ index }".intern, @categories.map{ |category| [category.name, category.id] }, {selected: detail.category_id, include_blank:  "---削除する---"}, {class: "form-control", id: "category_#{index}"} %>
                     </td>
                     <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
                   </tr>
@@ -62,7 +62,7 @@
             
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="category_edit_submit">更新</button>
-              <%= link_to "見積削除", employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :delete, remote: true,
+              <%= link_to "見積削除", employees_matter_adopted_estimate_path(@matter, @adopted_estimate), method: :delete, remote: true,
                                      data: { confirm: "この見積を削除してよろしいですか？", turbolinks: false }, class: "btn btn-danger" %>
             </div>
           <% end %>
@@ -81,7 +81,7 @@
       $('[name="estimate[title]"]').val(name);
       $.ajax({
         type: "GET",
-        url: "<%= change_label_color_employees_estimate_matter_estimates_path(@estimate_matter) %>",
+        url: "#",
         cache: false,
         data: { id: id, remote: true }
       });
@@ -104,7 +104,7 @@
 <script>
 <% if @type == "category_presence" %>
   $(document).ready( function(){
-    <% @estimate_details.each.with_index(1) do |detail, index| %>
+    <% @adopted_estimate_details.each.with_index(1) do |detail, index| %>
       $("#category_<%= index %>").val(<%= detail.category_id %>);
     <% end %>
   });
@@ -149,6 +149,5 @@
     $('#estimate_edit_form').submit;
   });
 </script>
-
 
 <%= javascript_include_tag "reset_errors.js" %>

@@ -84,6 +84,10 @@ class Employees::EmployeesController < ApplicationController
     def set_matter
       @matter = Matter.find(params[:matter_id])
     end
+
+    def set_matter_by_matter_id
+      @matter = Matter.find(params[:matter_id])
+    end
     
     
     # -------------------------------------------------------
