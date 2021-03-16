@@ -171,10 +171,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     # カテゴリ減少
     def decrease_category(category_id_arrey)
       category_id_arrey.each do |category_id|
-        objects = @estimate.estimate_details.where(category_id: category_id)
-        objects.each do |object|
-          object.destroy
-        end
+        @estimate.estimate_details.where(category_id: category_id).destroy_all
       end
     end
     

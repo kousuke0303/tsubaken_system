@@ -74,4 +74,22 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
         @delete_categories = before_category_array - @after_category_array
       end
     end
+
+    # カテゴリ登録
+    def register_categories(category_id_array)
+      before_detail_count = @adopted_estimate.adopted_estimate_details.count
+      category_id_array.each.with_index(1) do |category_id, index|
+        default_category = Category.find(category_id)
+        @adopted_estimate.adopted_estimate_details.create(category_name: default_category.name,
+                                                          category_id: default_category.id,
+                                                          sort_number: before_detail_count + index)
+      end
+    end
+
+    # カテゴリ減少
+    def decrease_category(category_id_array)
+      category_id_array.each do |category_id|
+        @adopted_estimate.adopted_estimate_details.where(category_id: category_id).destroy_all
+      end
+    end
 end
