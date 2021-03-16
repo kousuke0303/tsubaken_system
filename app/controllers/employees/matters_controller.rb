@@ -18,9 +18,7 @@ class Employees::MattersController < Employees::EmployeesController
       estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
       @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
                                                                               scheduled_finished_on: params[:matter][:scheduled_finished_on]))
-      @matter.save!
-      p "a"
-      p params[:matter]["estimate_id"].to_i                                                            
+      @matter.save!                                                          
       estimate = Estimate.find(params[:matter]["estimate_id"].to_i)
       adopted_estimate = @matter.build_adopted_estimate(total_price: estimate.total_price, discount: estimate.discount, plan_name_id: estimate.plan_name_id)                                                               
       adopted_estimate.save!  
@@ -50,15 +48,13 @@ class Employees::MattersController < Employees::EmployeesController
     @external_staffs = @matter.external_staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
-    set_classified_tasks(@matter)    
-    @estimate_matter = @matter.estimate_matter
+    set_classified_tasks(@matter)        
     @client = @matter.client
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
+    @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
     @adopted_estimate = @matter.adopted_estimate
-    if params[:type] == "success"
-      @message = true
-    end
+    @message = true if params[:type] == "success"
   end
 
   def edit
