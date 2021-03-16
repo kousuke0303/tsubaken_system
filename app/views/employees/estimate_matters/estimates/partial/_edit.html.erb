@@ -11,8 +11,7 @@
           <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true, id: "estimate_edit_form") do |f| %>
             <div class="estimate-update-errors"></div>
             
-            <%= f.label "タイプ名" %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <%= f.label "プラン名" %>
             <div class="input-group">
               <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
@@ -91,24 +90,15 @@
   });
 </script>
 
-<!--select時タイトル反映-->
-<script>
-  $('[name="estimate[plan_name]"]').change(function() {
-    if($(this).val() != "") {
-      $('[name="estimate[title]"]').val($(this).val());
-    }
-  });
-</script>
-
 <!--セレクト初期値-->
 <script>
-<% if @type == "category_presence" %>
-  $(document).ready( function(){
-    <% @estimate_details.each.with_index(1) do |detail, index| %>
-      $("#category_<%= index %>").val(<%= detail.category_id %>);
-    <% end %>
-  });
-<% end %>
+  <% if @type == "category_presence" %>
+    $(document).ready( function(){
+      <% @estimate_details.each.with_index(1) do |detail, index| %>
+        $("#category_<%= index %>").val(<%= detail.category_id %>);
+      <% end %>
+    });
+  <% end %>
 </script>
 
 <!--追加ボタンアクション-->
