@@ -64,12 +64,12 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         comparison_for_category
         
         # ①パターン：カテゴリ初登録及びカテゴリ増加
-        if @add_categories != "nil"
+        if @add_category_arrey != "nil"
           register_categories(@add_categories)
         end
         
         # ②パターン：カテゴリ削除
-        if @delete_categories != "nil"
+        if @delete_category_arrey != "nil"
           decrease_category(@delete_categories)
         end
         
