@@ -11,7 +11,7 @@
           <%= form_with(model: @estimate, url: employees_estimate_matter_estimate_path(@estimate_matter, @estimate), method: :patch, remote: true, id: "estimate_edit_form") do |f| %>
             <div class="estimate-update-errors"></div>
             
-            <%= f.label "プラン名" %>
+            <%= f.label :plan_name_id %>
             <div class="input-group">
               <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        

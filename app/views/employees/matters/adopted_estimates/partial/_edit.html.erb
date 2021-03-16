@@ -11,8 +11,7 @@
           <%= form_with(model: @adopted_estimate, url: employees_matter_adopted_estimate_path(@matter, @adopted_estimate), method: :patch, remote: true) do |f| %>
             <div class="adopted-estimate-update-errors"></div>
             
-            <%= f.label "タイプ名" %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <%= f.label :plan_name_id %>
             <div class="input-group">
               <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
               <div class="input-group-append">        
