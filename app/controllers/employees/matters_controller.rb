@@ -104,12 +104,8 @@ class Employees::MattersController < Employees::EmployeesController
       params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     end
     
-    def delete_matter_relation_table
-      unless params[:matter][:staff_ids].present?
-        @matter.matter_staffs.delete_all
-      end
-      unless params[:matter][:external_staff_ids].present?
-        @matter.matter_external_staffs.delete_all
-      end
+    def delete_matter_relation_table  
+      @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
+      @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
     end
 end

@@ -1,6 +1,7 @@
 class Construction < ApplicationRecord
   belongs_to :category
   has_many :estimate_details
+  has_many :adopted_estimate_details
   
   attr_accessor :accept
   
