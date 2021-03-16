@@ -126,9 +126,9 @@
 <%= javascript_include_tag "tableCollapse.js" %>
 
 <% if @message %>
-<script>
-  toastr.success("<%= @matter.title %>を作成しました");
-</script>
+  <script>
+    toastr.success("<%= @matter.title %>を作成しました");
+  </script>
 <% end %>
 
 <script>

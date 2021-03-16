@@ -21,7 +21,13 @@ class Employees::MattersController < Employees::EmployeesController
       @matter.save!                                                          
       estimate = Estimate.find(params[:matter]["estimate_id"].to_i)
       adopted_estimate = @matter.build_adopted_estimate(total_price: estimate.total_price, discount: estimate.discount, plan_name_id: estimate.plan_name_id)                                                               
-      adopted_estimate.save!  
+      adopted_estimate.save!
+      estimate.estimate_details.each do |detail|
+        adopted_estimate.adopted_estimate_details.create!(sort_number: detail.sort_number, category_id: detail.category_id, category_name: detail.category_name,
+                                                          material_id: detail.material_id, material_name: detail.material_name, construction_id: detail.construction_id,
+                                                          construction_name: detail.construction_name, service_life: detail.service_life, note: detail.note,
+                                                          unit: detail.unit, price: detail.price, amount: detail.amount, total: detail.total)
+      end
       @responce = "success"
   end
 
@@ -47,13 +53,13 @@ class Employees::MattersController < Employees::EmployeesController
     @staffs = @matter.staffs
     @external_staffs = @matter.external_staffs
     @suppliers = @matter.suppliers
-    @tasks = @matter.tasks
     set_classified_tasks(@matter)        
     @client = @matter.client
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
     @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
     @adopted_estimate = @matter.adopted_estimate
+    @adopted_estimate_details = @adopted_estimate.adopted_estimate_details
     @message = true if params[:type] == "success"
   end
 
