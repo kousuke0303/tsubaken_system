@@ -40,6 +40,10 @@ class Employees::EmployeesController < ApplicationController
     def set_categories
       @categories = Category.order(position: :asc)
     end
+
+    def set_plan_names
+      @plan_names = PlanName.order(position: :asc)
+    end
     
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])

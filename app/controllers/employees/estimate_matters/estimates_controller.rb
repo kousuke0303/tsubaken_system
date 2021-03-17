@@ -1,5 +1,7 @@
 class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
+  before_action :set_categories, only: [:new, :edit]
+  before_action :set_plan_names, only: [:new, :edit]
   before_action :set_estimates_with_plan_names_and_label_colors, only: :index
   before_action :set_estimate_details, only: :index
   before_action :set_estimate, only: [:edit, :update, :copy, :destroy, :move]
@@ -11,9 +13,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   end
 
   def new
-    @estimate = @estimate_matter.estimates.new
-    @categories = Category.order(position: :asc)
-    @plan_names = PlanName.order(position: :asc)
+    @estimate = @estimate_matter.estimates.new    
   end
 
   # デフォルトのプラン名に合わせて、ラベルカラーをajaxで変更
@@ -42,8 +42,6 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   end
 
   def edit
-    @categories = Category.order(position: :asc)
-    @plan_names = PlanName.order(position: :asc)
     @default_color = LabelColor.first.color_code
     # カテゴリ登録がすでにある場合
     if @estimate.estimate_details.present?
