@@ -29,7 +29,7 @@
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="submit_<%= @adopted_estimate_detail.id %>">作成</button>
               <%= link_to "カテゴリ削除", employees_matter_adopted_estimate_detail_path(@matter, @adopted_estimate_detail, type: "delete_category"), method: :delete, remote: true,
-                                  data: { confirm: "この工事名称を削除してよろしいですか？" }, class: "btn btn-danger" %>
+                                         data: { confirm: "この工事名称を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
@@ -40,9 +40,9 @@
 
 <%= javascript_include_tag "reset_errors.js" %>
 
-<!--セレクト初期値-->
 <script>
-  $(document).ready( function(){
+  // 初期値
+  $(function(){
     <% @target_details_include_construction.each.with_index(1) do |detail, index| %>
       $("#construction_<%= index %>").val(<%= detail.construction_id %>);
     <% end %>
@@ -50,11 +50,9 @@
       $("#material_<%= index %>").val(<%= detail.material_id %>);
     <% end %>
   });
-</script>
 
-<!--送信アクション-->
-<script>
-  $('#submit_<%= @adopted_estimate_detail.id %>').on('click', function(){
+  // 送信アクション
+  $('#submit_<%= @adopted_estimate_detail.id %>').click(function(){
     <% if @materials.present? %>
       material_ids = []
       $('#material_index select').each(function(i, element){

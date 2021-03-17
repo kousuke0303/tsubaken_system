@@ -2,7 +2,7 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
   before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
   before_action :set_adopted_estimate_detail
-  before_action :set_adopted_estimate_of_adopted_estimate_detail, only: [:edit, :update]
+  before_action :set_adopted_estimate_of_adopted_estimate_detail, only: [:edit, :update, :destroy]
   
   def edit
     @materials = Material.includes(:category_materials).where(plan_name_id: @adopted_estimate, category_materials: { category_id: @adopted_estimate_detail.category_id })
@@ -54,14 +54,9 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
 
   def destroy
     if params[:type] == "delete_category"
-      estimate = @estimate_detail.estimate
-      delete_details = estimate.estimate_details.where(category_id: @estimate_detail.category_id)
-      delete_details.each do |details|
-        details.destroy
-      end
+      @adopted_estimate.estimate_details.where(category_id: @estimate_detail.category_id).destroy_all
       @type = "delete_category"
-    end
-    if params[:type] == "delete_object"
+    elsif params[:type] == "delete_object"
       @estimate_detail.destroy
       @type = "delete_object"
     end
