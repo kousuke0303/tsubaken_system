@@ -15,7 +15,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   def update
     @estimate_details = @estimate.estimate_details
     @target_category = @estimate_detail.category_id
-    @target_details = @estimate.estimate_details.where(category_id: @target_category)
+    @target_details = @estimate_details.where(category_id: @target_category)
     @target_details_include_construction = @target_details.where.not(construction_id: nil).order(:sort_number)
     @target_details_include_material = @target_details.where.not(material_id: nil).order(:sort_number)
     

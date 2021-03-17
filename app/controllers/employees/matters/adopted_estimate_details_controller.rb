@@ -2,6 +2,7 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
   before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
   before_action :set_adopted_estimate_detail
+  before_action :set_adopted_estimate_details, only: :update
   before_action :set_adopted_estimate_of_adopted_estimate_detail, only: [:edit, :update, :destroy]
   
   def edit
@@ -13,42 +14,32 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
   end
 
   def update
-    @estimate_details = @estimate.estimate_details
-    @target_category = @estimate_detail.category_id
-    @target_details = @estimate.estimate_details.where(category_id: @target_category)
+    @target_category = @adopted_estimate_detail.category_id
+    @target_details = @adopted_estimate_details.where(category_id: @target_category)
     @target_details_include_construction = @target_details.where.not(construction_id: nil).order(:sort_number)
     @target_details_include_material = @target_details.where.not(material_id: nil).order(:sort_number)
-    
-    # ①パラメーター整形
-    refactor_params_material_and_construction_ids
-    
-    # 差分比較
-    comparison
-    
-    if @after_construction_arrey.present?
-      # ①増加分
-      register_constructions(@add_construction_arrey) if @add_construction_arrey != "nil"
-      # ②減少分
-      decrease_constructions(@delete_construction_arrey) if @delete_construction_arrey != "nil"
+    refactor_params_material_and_construction_ids # ①パラメーター整形
+    comparison # 差分比較  
+    if @after_construction_array.present?      
+      register_constructions(@add_construction_array) if @add_construction_array != "nil" # ①増加分      
+      decrease_constructions(@delete_construction_array) if @delete_construction_array != "nil" # ②減少分
     end
-    
-    if @after_material_arrey.present?
-      # ①増加分
-      register_materials(@add_material_arrey) if @add_material_arrey != "nil"
-      # ②減少分
-      decrease_materials(@delete_material_arrey) if @delete_material_arrey != "nil"
+    if @after_material_array.present?      
+      register_materials(@add_material_array) if @add_material_array != "nil" # ①増加分      
+      decrease_materials(@delete_material_array) if @delete_material_array != "nil" # ②減少分
     end
     
     #素材・工事が空のものを削除
-    if @add_material_arrey != "nil" || @add_construction_arrey != "nil"
+    if @add_material_array != "nil" || @add_construction_array != "nil"
       @target_details.where(material_id: nil).where(construction_id: nil).destroy_all
     end
     
     # 順番変更
     change_order
-    @estimate.calc_total_price
-    set_estimates_with_plan_names_and_label_colors
-    set_estimate_details
+    @adopted_estimate.calc_total_price
+    set_plan_name_of_adopted_estimate
+    set_color_code_of_adopted_estimate
+    set_adopted_estimate_details
     @response = "success"
   end
 
