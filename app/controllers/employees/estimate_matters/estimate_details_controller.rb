@@ -49,6 +49,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     @estimate.calc_total_price
     set_estimates_with_plan_names_and_label_colors
     set_estimate_details
+    @response = "success"
   end
 
   def destroy

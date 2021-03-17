@@ -38,9 +38,6 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
     end
   end
 
-  def destroy
-  end
-
   private
     def set_adopted_estimate
       @adopted_estimate = AdoptedEstimate.find(params[:id])

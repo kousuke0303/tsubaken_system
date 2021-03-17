@@ -27,7 +27,7 @@
     <% @adopted_estimate_details.each do |category_id, details| %>
       <tr>
         <td rowspan="<%= details.size %>">
-          <%= link_to "#", remote: true do %>
+          <%= link_to edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true do %>
             <%= details[0].category_name %>
           <% end %>
         </td>
