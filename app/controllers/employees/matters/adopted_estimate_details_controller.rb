@@ -54,15 +54,16 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
 
   def destroy
     if params[:type] == "delete_category"
-      @adopted_estimate.estimate_details.where(category_id: @estimate_detail.category_id).destroy_all
+      @adopted_estimate.adopted_estimate_details.where(category_id: @adopted_estimate_detail.category_id).destroy_all
       @type = "delete_category"
     elsif params[:type] == "delete_object"
-      @estimate_detail.destroy
+      @adopted_estimate_detail.destroy
       @type = "delete_object"
     end
-    @estimate.calc_total_price
-    set_estimates_with_plan_names_and_label_colors
-    set_estimate_details
+    @adopted_estimate.calc_total_price
+    set_plan_name_of_adopted_estimate
+    set_color_code_of_adopted_estimate
+    set_adopted_estimate_details
   end
   
   def detail_object_edit
