@@ -1,0 +1,7 @@
+$("#adopted-estimate-detail-edit").modal("hide");
+$("#adopted-estimate-detail-edit").empty();
+$(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
+$(".adopted-estimate").html('<%= escape_javascript(render "employees/matters/partial/adopted_estimate") %>');
+$(function(){
+  setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
+})

@@ -1,0 +1,58 @@
+<table class="table table-striped" id="material_index">
+  <tr>
+    <td style="width: 4em">順番</td>
+    <td>素材種類</td>
+    <td style="width: 5em"></td>
+  </tr>
+  <% if @target_details_include_material.present? %>
+    <% @target_details_include_material.each.with_index(1) do |detail, index| %>
+      <tr>
+        <td class="material_number"><%= index %></td>
+        <td>
+          <%= f.select "material_id_#{index}".intern, @materials.map{ |material| [material.name, material.id] }, {include_blank: "選択してください", value: detail.material_id}, {class: "form-control", id: "material_#{index}"} %>
+        </td>
+        <td>
+          <button type="button", class="btn btn-sm btn-dark material_add_btn">追加</button>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td class="material_number">1</td>
+      <td>
+        <%= f.select "material_id_1", @materials.map{ |material| [material.name, material.id] }, {include_blank: "選択してください"}, {class: "form-control", id: "material_1"} %>
+      </td>
+      <td>
+        <button type="button", class="btn btn-sm btn-dark material_add_btn">追加</button>
+      </td>
+    </tr>
+  <% end %>
+</table>
+              
+<%= f.hidden_field :material_ids, id: "material_ids" %>
+
+<!--追加ボタンアクション-->
+<script>
+  $('.material_add_btn').on("click", function(){
+    // コピー＆リセット
+    var target_tr = $(this).parent().parent();
+    var add_html = $('#material_index tr:last').clone(true);
+    target_tr.after(add_html);
+    
+    var add_select = target_tr.next('tr').find('select');
+    add_select.prop("selectedIndex", 0);
+    // 表示順番リセット
+    $('#material_index .material_number').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      $(element).text(add_number);
+    });
+    // attrリセット
+    $('#material_index .select').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      var attr_name = "estimate_detail[material_id_" + add_number + "]"
+      $(element).attr('name', attr_name);
+    });
+  });
+</script>
