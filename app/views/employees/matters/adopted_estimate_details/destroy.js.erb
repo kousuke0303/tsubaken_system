@@ -1,10 +1,13 @@
-<% if @type == "delete_category" || @type == "delete_object" %>
+<% if @type == "delete_category" %>
   $("#adopted-estimate-detail-edit").modal("hide");
   $('#adopted-estimate-detail-edit').empty();
+<% elsif @type == "delete_object" %>
+  $("#adopted-estimate-object-edit").modal("hide");
+  $('#adopted-estimate-object-edit').empty();
 <% end %>
 
 $(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
-$(".estimates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/estimates_index") %>');
+$(".estimates-index").html('<%= escape_javascript(render "employees/matters/partial/adopted_estimate") %>');
 $(function(){
   setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
 })
