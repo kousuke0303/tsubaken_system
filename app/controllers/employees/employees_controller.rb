@@ -70,6 +70,18 @@ class Employees::EmployeesController < ApplicationController
     def set_label_colors
       @label_colors = LabelColor.order(position: :asc)
     end
+
+    def set_adopted_estimate_details
+      @adopted_estimate_details = @adopted_estimate.adopted_estimate_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
+    end
+
+    def set_plan_name_of_adopted_estimate
+      @plan_name = @adopted_estimate.plan_name
+    end
+
+    def set_color_code_of_adopted_estimate
+      @color_code = @plan_name.label_color.color_code
+    end
     
     # schedule/sales_statusで使用
     def set_basic_schedules(day)

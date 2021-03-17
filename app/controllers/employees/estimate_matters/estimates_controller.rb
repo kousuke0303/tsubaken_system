@@ -66,7 +66,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
         change_category_order # 順番変更
       end
       @response = "success"
-      @estimate.calc_total_price
+      @estimate.calc_total_price      
       set_estimates_with_plan_names_and_label_colors
       set_estimate_details
     end

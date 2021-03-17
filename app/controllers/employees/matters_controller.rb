@@ -63,9 +63,9 @@ class Employees::MattersController < Employees::EmployeesController
     @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
     @adopted_estimate = @matter.adopted_estimate
-    @plan_name = @adopted_estimate.plan_name
-    @color_code = @plan_name.label_color.color_code
-    @adopted_estimate_details = @adopted_estimate.adopted_estimate_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
+    set_plan_name_of_adopted_estimate
+    set_color_code_of_adopted_estimate      
+    set_adopted_estimate_details
     @message = true if params[:type] == "success"
   end
 

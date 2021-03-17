@@ -24,15 +24,16 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
       if @after_category_array.present?
         comparison_for_category # 差分比較
         # ①パターン：カテゴリ初登録及びカテゴリ増加        
-        register_categories(@add_categories) if @add_categories != "nil"        
+        register_categories(@add_categories) if @add_category_array != "nil"        
         # ②パターン：カテゴリ削除
-        decrease_category(@delete_categories) if @delete_categories != "nil"              
+        decrease_category(@delete_categories) if @delete_category_array != "nil"              
         # 順番変更
         change_category_order
       end
       @response = "success"
       @adopted_estimate.calc_total_price
-      set_plan_name_and_label_color_of_adopted_estimate
+      set_plan_name_of_adopted_estimate
+      set_color_code_of_adopted_estimate
       set_adopted_estimate_details
     end
   end
@@ -74,9 +75,9 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
       before_detail_count = @adopted_estimate.adopted_estimate_details.count
       category_id_array.each.with_index(1) do |category_id, index|
         default_category = Category.find(category_id)
-        @adopted_estimate.adopted_estimate_details.create(category_name: default_category.name,
-                                                          category_id: default_category.id,
-                                                          sort_number: before_detail_count + index)
+        @adopted_estimate.adopted_estimate_details.create!(category_name: default_category.name,
+                                                           category_id: default_category.id,
+                                                           sort_number: before_detail_count + index)
       end
     end
 
@@ -84,6 +85,14 @@ class Employees::Matters::AdoptedEstimatesController < Employees::EmployeesContr
     def decrease_category(category_id_array)
       category_id_array.each do |category_id|
         @adopted_estimate.adopted_estimate_details.where(category_id: category_id).destroy_all
+      end
+    end
+
+    # 順番変更
+    def change_category_order
+      details = @adopted_estimate.adopted_estimate_details.sort_by{|detail| @after_category_array.index(detail.category_id)}
+      details.each.with_index(1) do |detail, i|
+        detail.update(sort_number: i * 100)
       end
     end
 end

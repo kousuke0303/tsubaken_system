@@ -12,4 +12,13 @@ class AdoptedEstimate < ApplicationRecord
   def after_discount
     total_price - discount
   end
+
+  # 合計金額を計算
+  def calc_total_price
+    total_price = 0
+    adopted_estimate_details.each do |detail|
+      total_price += detail.total
+    end
+    self.update(total_price: total_price)
+  end
 end
