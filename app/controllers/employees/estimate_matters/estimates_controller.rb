@@ -129,17 +129,11 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
     def comparison_for_category
       before_category_array = @estimate.estimate_details.pluck(:category_id)
       # カテゴリが増えている場合
-      if (@after_category_array - before_category_array) == [nil] || @after_category_array == before_category_array
-        @add_category_array = "nil"
-      else
-        @add_categories = @after_category_array - before_category_array
-      end
+      (@after_category_array - before_category_array) == [nil] || @after_category_array == before_category_array ?
+      @add_category_array = "nil" : @add_categories = @after_category_array - before_category_array
       # カテゴリが減っている場合
-      if (before_category_array - @after_category_array) == [nil] || before_category_array == @after_category_array
-        @delete_category_array = "nil" 
-      else
-        @delete_categories = before_category_array - @after_category_array
-      end
+      (before_category_array - @after_category_array) == [nil] || before_category_array == @after_category_array ?
+      @delete_category_array = "nil" : @delete_categories = before_category_array - @after_category_array
     end
     
     # カテゴリ登録
