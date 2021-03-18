@@ -2,7 +2,7 @@
   $("#estimate-object-edit").modal("hide");
   $("#estimate-object-edit").empty();
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
-  $(".estimates-index").html('<%= escape_javascript(render partial: "employees/estimate_matters/partial/estimates_index") %>');
+  $(".estimates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/estimates_index") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })
@@ -10,8 +10,8 @@
   $(".estmate-object-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @estimate_detail) %>');
   <% @estimate_detail.errors.messages.keys.each do |key_attribute| %>
     var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $('[name="image[<%= key_attribute.intern.to_s %>]"]').prev();
-    $('[name="image[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    var addLabel = $('[name="estimate_detail[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="estimate_detail[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
     addLabel.wrap(addDiv);
   <% end %>
 <% end %>
