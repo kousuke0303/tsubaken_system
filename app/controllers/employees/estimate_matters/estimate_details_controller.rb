@@ -161,7 +161,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     
     # 素材登録
     def register_materials(material_id_arrey)
-      material_id_arrey.each.with_index(1) do |params_material_id, index|
+      material_id_arrey.each_with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         EstimateDetail.create(
             estimate_id: @estimate_detail.estimate.id,

@@ -130,7 +130,7 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
     def register_materials(material_id_array)
       material_id_array.each.with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
-        EstimateDetail.create(
+        AdoptedEstimateDetail.create(
             adopted_estimate_id: @adopted_estimate_detail.adopted_estimate.id,
             category_id: @adopted_estimate_detail.category_id,
             category_name: @adopted_estimate_detail.category_name,
@@ -140,7 +140,7 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
             price: default_material.price, 
             service_life: default_material.service_life, 
             sort_number: @adopted_estimate_detail.sort_number + index + 30
-            )
+        )
       end
     end
     
@@ -153,17 +153,18 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
     
     # 工事登録
     def register_constructions(construction_id_array)
-      construction_id_array.each.with_index(1) do |params_construction_id, index|
+      p construction_id_array
+      construction_id_array.each_with_index do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
-        EstimateDetail.create(
+        AdoptedEstimateDetail.create(
             adopted_estimate_id: @adopted_estimate_detail.adopted_estimate.id,
             category_id: @adopted_estimate_detail.category_id,
-            category_name: @eadopted_stimate_detail.category_name,
+            category_name: @adopted_estimate_detail.category_name,
             construction_id: default_construction.id,
             construction_name: default_construction.name,
             unit: default_construction.unit, 
             price: default_construction.price, 
-            sort_number: @adopted_estimate_detail.sort_number + index
+            sort_number: @adopted_estimate_detail.sort_number + index + 1
         )
       end
     end
