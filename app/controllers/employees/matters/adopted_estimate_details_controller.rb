@@ -60,13 +60,13 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
   end
   
   def detail_object_update
-    if @estimate_detail.valid?(:object_update) && @estimate_detail.update(object_params)
-      @estimates = @estimate_matter.estimates
+    if @adopted_estimate_detail.valid?(:object_update) && @adopted_estimate_detail.update(object_params)
+      @adopted_estimates = @matter.adopted_estimates
       @response = "success"
     else
       @response = "failure"
     end
-    @estimate.calc_total_price
+    @adopted_estimate.calc_total_price
     set_estimates_with_plan_names_and_label_colors
     set_estimate_details
   end
