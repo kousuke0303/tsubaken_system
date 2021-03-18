@@ -13,7 +13,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   end
 
   def new
-    @estimate = @estimate_matter.estimates.new    
+    @estimate = @estimate_matter.estimates.new
   end
 
   # デフォルトのプラン名に合わせて、ラベルカラーをajaxで変更
