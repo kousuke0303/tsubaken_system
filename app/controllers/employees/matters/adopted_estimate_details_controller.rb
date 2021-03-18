@@ -30,10 +30,8 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
       decrease_materials(@delete_material_array) if @delete_material_array != "nil" # ②減少分
     end
     
-    #素材・工事が空のものを削除
-    if @add_material_array != "nil" || @add_construction_array != "nil"
-      @target_details.where(material_id: nil).where(construction_id: nil).destroy_all
-    end
+    #素材・工事が空のものを削除    
+    @target_details.where(material_id: nil).where(construction_id: nil).destroy_all if @add_material_array != "nil" || @add_construction_array != "nil"
     
     # 順番変更
     change_order
@@ -153,7 +151,6 @@ class Employees::Matters::AdoptedEstimateDetailsController < Employees::Employee
     
     # 工事登録
     def register_constructions(construction_id_array)
-      p construction_id_array
       construction_id_array.each_with_index do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         AdoptedEstimateDetail.create(

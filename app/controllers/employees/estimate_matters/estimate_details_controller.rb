@@ -116,42 +116,22 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       if @after_material_arrey.present?
         before_material_arrey = @target_details_include_material.pluck(:material_id)
         # カテゴリが増えている場合
-        if (@after_material_arrey - before_material_arrey) == [nil]
-          @add_material_arrey = "nil"
-        elsif @after_material_arrey == before_material_arrey
-          @add_material_arrey = "nil"
-        else
-          @add_material_arrey = @after_material_arrey - before_material_arrey
-        end
+        (@after_material_arrey - before_material_arrey) == [nil] || @after_material_arrey == before_material_arrey ?
+        @add_material_arrey = "nil" : @add_material_arrey = @after_material_arrey - before_material_arrey
         # カテゴリが減っている場合
-        if (before_material_arrey - @after_material_arrey) == [nil]
-          @delete_material_arrey = "nil"
-        elsif before_material_arrey == @after_material_arrey
-          @delete_material_arrey = "nil"
-        else
-          @delete_material_arrey = before_material_arrey - @after_material_arrey
-        end
+        (before_material_arrey - @after_material_arrey) == [nil] || before_material_arrey == @after_material_arrey ?
+        @delete_material_arrey = "nil" : @delete_material_arrey = before_material_arrey - @after_material_arrey
       end
       
       if @after_construction_arrey.present?
         before_construction_arrey = @target_details_include_construction.pluck(:construction_id)
         # カテゴリが増えている場合
-        if (@after_construction_arrey - before_construction_arrey) == [nil]
-          @add_construction_arrey = "nil"
-        elsif @after_construction_arrey == before_construction_arrey
-          @add_construction_arrey = "nil"
-        else
-          @add_construction_arrey = @after_construction_arrey - before_construction_arrey
-        end
+        (@after_construction_arrey - before_construction_arrey) == [nil] || @after_construction_arrey == before_construction_arrey ?
+        @add_construction_arrey = "nil" : @add_construction_arrey = @after_construction_arrey - before_construction_arrey
         
         # カテゴリが減っている場合
-        if (before_construction_arrey - @after_construction_arrey) == [nil]
-          @delete_construction_arrey = "nil"
-        elsif before_construction_arrey == @after_construction_arrey
-          @delete_construction_arrey = "nil"
-        else
-          @delete_construction_arrey = before_construction_arrey - @after_construction_arrey
-        end
+        (before_construction_arrey - @after_construction_arrey) == [nil] || before_construction_arrey == @after_construction_arrey ?
+        @delete_construction_arrey = "nil" : @delete_construction_arrey = before_construction_arrey - @after_construction_arrey
       end
     end
     
@@ -160,16 +140,16 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       material_id_arrey.each_with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         EstimateDetail.create(
-            estimate_id: @estimate_detail.estimate.id,
-            category_id: @estimate_detail.category_id,
-            category_name: @estimate_detail.category_name,
-            material_id: default_material.id,
-            material_name: default_material.name,
-            unit: default_material.unit, 
-            price: default_material.price, 
-            service_life: default_material.service_life, 
-            sort_number: @estimate_detail.sort_number + index + 30
-      )
+          estimate_id: @estimate_detail.estimate.id,
+          category_id: @estimate_detail.category_id,
+          category_name: @estimate_detail.category_name,
+          material_id: default_material.id,
+          material_name: default_material.name,
+          unit: default_material.unit, 
+          price: default_material.price, 
+          service_life: default_material.service_life, 
+          sort_number: @estimate_detail.sort_number + index + 30
+        )
       end
     end
     
@@ -185,14 +165,14 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       construction_id_arrey.each_with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         EstimateDetail.create(
-            estimate_id: @estimate_detail.estimate.id,
-            category_id: @estimate_detail.category_id,
-            category_name: @estimate_detail.category_name,
-            construction_id: default_construction.id,
-            construction_name: default_construction.name,
-            unit: default_construction.unit, 
-            price: default_construction.price, 
-            sort_number: @estimate_detail.sort_number + index
+          estimate_id: @estimate_detail.estimate.id,
+          category_id: @estimate_detail.category_id,
+          category_name: @estimate_detail.category_name,
+          construction_id: default_construction.id,
+          construction_name: default_construction.name,
+          unit: default_construction.unit, 
+          price: default_construction.price, 
+          sort_number: @estimate_detail.sort_number + index
         )
       end
     end
