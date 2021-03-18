@@ -98,19 +98,15 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       if params[:estimate_detail][:material_ids].present?
         params_materials = params[:estimate_detail][:material_ids].split(",").map(&:to_i)
         @after_material_arrey = []
-        params_materials.each do |params_material|
-          unless params_material == 0
-            @after_material_arrey << params_material
-          end
+        params_materials.each do |params_material|         
+          @after_material_arrey << params_material unless params_material == 0          
         end
       end
       if params[:estimate_detail][:construction_ids].present?
         params_constructions = params[:estimate_detail][:construction_ids].split(",").map(&:to_i)
         @after_construction_arrey = []
-        params_constructions.each do |params_construction|
-          unless params_construction == 0
-            @after_construction_arrey << params_construction
-          end
+        params_constructions.each do |params_construction|          
+          @after_construction_arrey << params_construction unless params_construction == 0          
         end
       end
     end
@@ -173,23 +169,20 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
             price: default_material.price, 
             service_life: default_material.service_life, 
             sort_number: @estimate_detail.sort_number + index + 30
-            )
+      )
       end
     end
     
     # 素材削除
     def decrease_materials(material_id_arrey)
       material_id_arrey.each do |material_id|
-        objects = @estimate.estimate_details.where(material_id: material_id, category_id: @target_category)
-        objects.each do |object|
-          object.destroy
-        end
+        @estimate.estimate_details.where(material_id: material_id, category_id: @target_category).destroy_all
       end
     end
     
     # 工事登録
     def register_constructions(construction_id_arrey)
-      construction_id_arrey.each.with_index(1) do |params_construction_id, index|
+      construction_id_arrey.each_with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         EstimateDetail.create(
             estimate_id: @estimate_detail.estimate.id,
@@ -207,10 +200,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     # 工事削除
     def decrease_constructions(construction_id_arrey)
       construction_id_arrey.each do |construction_id|
-        objects = @estimate.estimate_details.where(construction_id: construction_id, category_id: @target_category)
-        objects.each do |object|
-          object.destroy
-        end
+        @estimate.estimate_details.where(construction_id: construction_id, category_id: @target_category).destroy_all
       end
     end
     
@@ -220,7 +210,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
         details_for_material = @estimate.estimate_details.where(category_id: @target_category).where.not(material_id: nil).sort_by{|detail| @after_material_arrey.index(detail.material_id)}
         # 素材内の順番変更
         basic_sort_number = details_for_material.first.sort_number
-        details_for_material.each.with_index(1) do |detail, i|
+        details_for_material.each_with_index(1) do |detail, i|
           detail.update(sort_number: basic_sort_number + i)
         end
       end
@@ -233,7 +223,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
         end
       end
       # 見積全体の順番リセット
-      @estimate.estimate_details.order(:sort_number).each.with_index(1) do |detail, i|
+      @estimate.estimate_details.order(:sort_number).each_with_index(1) do |detail, i|
         detail.update(sort_number: i * 100)
       end
     end
