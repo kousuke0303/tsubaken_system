@@ -34,11 +34,11 @@
         <% if details[0].material_id.present? || details[0].construction_id.present? %>
           <td>
             <% if details[0].material_id.present? %>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].material_name %>
               <% end %>
             <% else %>
-              <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].construction_name %>
               <% end %>
             <% end %>
@@ -57,11 +57,11 @@
           <% if detail.material_id.present? || detail.construction_id.present? %>
             <td>
               <% if detail.material_id.present? %>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
                   <%= detail.material_name %>
                 <% end %> 
               <% else %>
-                <%= link_to detail_object_edit_employees_estimate_matter_estimate_detail_path(@estimate_matter, detail.id), remote: true, class: "object_name" do %>
+                <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
                   <%= detail.construction_name %>
                 <% end %>
               <% end %>
