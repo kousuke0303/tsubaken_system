@@ -24,8 +24,8 @@ ja:
       plan_name: プラン名
       label_color: カラー
       inquiry: お問合せ
-      adopted_estimate: 採用見積
-      adopted_estimate_ditail: 採用見積詳細
+      invoice: 請求書
+      invoice_ditail: 請求書詳細
     attributes:
         admin:
           name: 名前
@@ -88,7 +88,7 @@ ja:
         estimate:
           title: 見積名
           discount: 端数値引
-        adopted_estimate:
+        invoice:
           title: 見積名
           discount: 端数値引
         estimate_detail:
@@ -99,7 +99,7 @@ ja:
           price: 単価
           amount: 数量
           note: 摘要(仕様)
-        adopted_estimate_detail:
+        invoice_detail:
           category_name: カテゴリ名
           material_name: 素材名称
           construction_name: 工事名称

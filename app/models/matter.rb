@@ -5,7 +5,7 @@ class Matter < ApplicationRecord
   
   has_one :band_connection, dependent: :destroy
   
-  has_one :adopted_estimate, dependent: :destroy
+  has_one :invoice, dependent: :destroy
   has_many :matter_staffs, dependent: :destroy
   has_many :staffs, through: :matter_staffs
   has_many :matter_external_staffs, dependent: :destroy

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_131721) do
+ActiveRecord::Schema.define(version: 2021_03_19_131939) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -337,6 +337,29 @@ ActiveRecord::Schema.define(version: 2021_03_19_131721) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoice_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "invoice_id"
+    t.integer "sort_number"
+    t.bigint "category_id"
+    t.string "category_name"
+    t.bigint "material_id"
+    t.string "material_name"
+    t.bigint "construction_id"
+    t.string "construction_name"
+    t.string "service_life"
+    t.string "note"
+    t.string "unit"
+    t.integer "price"
+    t.integer "amount"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_invoice_details_on_category_id"
+    t.index ["construction_id"], name: "index_invoice_details_on_construction_id"
+    t.index ["invoice_id"], name: "index_invoice_details_on_invoice_id"
+    t.index ["material_id"], name: "index_invoice_details_on_material_id"
+  end
+
   create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "total_price"
     t.integer "discount", default: 0, null: false
@@ -644,6 +667,10 @@ ActiveRecord::Schema.define(version: 2021_03_19_131721) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "invoice_details", "categories"
+  add_foreign_key "invoice_details", "constructions"
+  add_foreign_key "invoice_details", "invoices"
+  add_foreign_key "invoice_details", "materials"
   add_foreign_key "invoices", "plan_names"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "plan_names"
