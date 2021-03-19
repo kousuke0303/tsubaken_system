@@ -2,7 +2,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
   before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
   before_action :set_invoice_detail
-  before_action :set_invoice_of_invoice_detail, only: [:edit, :update, :destroy]
+  before_action :set_invoice_of_invoice_detail, only: [:edit, :update, :detail_object_update, :destroy]
   
   
   def edit
@@ -67,8 +67,9 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
       @response = "failure"
     end
     @invoice.calc_total_price
-    set_estimates_with_plan_names_and_label_colors
-    set_estimate_details
+    set_plan_name_of_invoice
+    set_color_code_of_invoice
+    set_invoice_details
   end
 
   private

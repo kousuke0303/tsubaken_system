@@ -6,7 +6,7 @@
         <h5 class="card-header">工事・素材編集</h5>
         <div class="card-body">
           <%= form_with(model: @invoice_detail, url: detail_object_update_employees_matter_invoice_detail_path(@matter, @invoice_detail), method: :patch, remote: true) do |f| %>
-            <div class="estimate-object-update-errors"></div>
+            <div class="invoice-object-update-errors"></div>
             
             <% if @invoice_detail.material_id.present? %>
               <%= f.label :material_name %>
