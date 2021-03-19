@@ -21,13 +21,13 @@ class Employees::MattersController < Employees::EmployeesController
                                                                               scheduled_finished_on: params[:matter][:scheduled_finished_on]))
       @matter.save!                                                          
       estimate = Estimate.find(params[:matter]["estimate_id"].to_i)
-      adopted_estimate = @matter.build_adopted_estimate(total_price: estimate.total_price, discount: estimate.discount, plan_name_id: estimate.plan_name_id)                                                               
-      adopted_estimate.save!
+      invoice = @matter.build_invoice(total_price: estimate.total_price, discount: estimate.discount, plan_name_id: estimate.plan_name_id)                                                               
+      invoice.save!
       estimate.estimate_details.each do |detail|
-        adopted_estimate.adopted_estimate_details.create!(sort_number: detail.sort_number, category_id: detail.category_id, category_name: detail.category_name,
-                                                          material_id: detail.material_id, material_name: detail.material_name, construction_id: detail.construction_id,
-                                                          construction_name: detail.construction_name, service_life: detail.service_life, note: detail.note,
-                                                          unit: detail.unit, price: detail.price, amount: detail.amount, total: detail.total)
+        invoice.invoice_details.create!(sort_number: detail.sort_number, category_id: detail.category_id, category_name: detail.category_name,
+                                        material_id: detail.material_id, material_name: detail.material_name, construction_id: detail.construction_id,
+                                        construction_name: detail.construction_name, service_life: detail.service_life, note: detail.note,
+                                        unit: detail.unit, price: detail.price, amount: detail.amount, total: detail.total)
       end
       @responce = "success"
     rescue

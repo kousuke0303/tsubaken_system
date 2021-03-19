@@ -2,7 +2,7 @@ class Material < ApplicationRecord
   has_many :category_materials, dependent: :destroy
   has_many :categories, through: :category_materials
   has_many :estimate_details
-  has_many :adopted_estimate_details
+  has_many :invoice_details
   belongs_to :plan_name
   
   attr_accessor :accept

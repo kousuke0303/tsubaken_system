@@ -1,7 +1,7 @@
 class PlanName < ApplicationRecord
   belongs_to :label_color
   has_many :estimates, dependent: :nullify
-  has_many :adopted_estimates, dependent: :nullify
+  has_many :invoices, dependent: :nullify
   has_many :materials
   acts_as_list
 
