@@ -71,15 +71,15 @@ class Employees::EmployeesController < ApplicationController
       @label_colors = LabelColor.order(position: :asc)
     end
 
-    def set_adopted_estimate_details
-      @adopted_estimate_details = @adopted_estimate.adopted_estimate_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
+    def set_invoice_details
+      @invoice_details = @invoice.invoice_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
     end
 
-    def set_plan_name_of_adopted_estimate
-      @plan_name = @adopted_estimate.plan_name
+    def set_plan_name_of_invoice
+      @plan_name = @invoice.plan_name
     end
 
-    def set_color_code_of_adopted_estimate
+    def set_color_code_of_invoice
       @color_code = @plan_name.label_color.color_code
     end
     

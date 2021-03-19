@@ -62,10 +62,10 @@ class Employees::MattersController < Employees::EmployeesController
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
     @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
-    @adopted_estimate = @matter.adopted_estimate
-    set_plan_name_of_adopted_estimate
-    set_color_code_of_adopted_estimate      
-    set_adopted_estimate_details
+    @invoice = @matter.invoice
+    set_plan_name_of_invoice
+    set_color_code_of_invoice     
+    set_invoice_details
     @message = true if params[:type] == "success"
   end
 

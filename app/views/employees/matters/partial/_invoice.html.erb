@@ -6,7 +6,7 @@
         <div><p>■■</p><p>■■</p></div>
       </div>
       <div class="text">
-        <%= link_to edit_employees_matter_adopted_estimate_path(@matter, @adopted_estimate), remote: true do %>
+        <%= link_to edit_employees_matter_invoice_path(@matter, @invoice), remote: true do %>
           <%= @plan_name.name %>
         <% end %>
       </div>                
@@ -24,21 +24,21 @@
       <th>数量</th>
       <th>計(円)</th>
     </tr>
-    <% @adopted_estimate_details.each do |category_id, details| %>
+    <% @invoice_details.each do |category_id, details| %>
       <tr>
         <td rowspan="<%= details.size %>">
-          <%= link_to edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true do %>
+          <%= link_to edit_employees_matter_invoice_detail_path(@matter, details[0].id), remote: true do %>
             <%= details[0].category_name %>
           <% end %>
         </td>
         <% if details[0].material_id.present? || details[0].construction_id.present? %>
           <td>
             <% if details[0].material_id.present? %>
-              <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_matter_invoice_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].material_name %>
               <% end %>
             <% else %>
-              <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
+              <%= link_to detail_object_edit_employees_matter_invoice_detail_path(@matter, details[0].id), remote: true, class: "object_name" do %>
                 <%= details[0].construction_name %>
               <% end %>
             <% end %>
@@ -57,11 +57,11 @@
           <% if detail.material_id.present? || detail.construction_id.present? %>
             <td>
               <% if detail.material_id.present? %>
-                <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
+                <%= link_to detail_object_edit_employees_matter_invoice_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
                   <%= detail.material_name %>
                 <% end %> 
               <% else %>
-                <%= link_to detail_object_edit_employees_matter_adopted_estimate_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
+                <%= link_to detail_object_edit_employees_matter_invoice_detail_path(@matter, detail.id), remote: true, class: "object_name" do %>
                   <%= detail.construction_name %>
                 <% end %>
               <% end %>
@@ -79,15 +79,15 @@
     <% end %>
     <tr>        
       <th colspan="5">合計</th>
-      <th colspan="2" class="money_type text-right"><%= @adopted_estimate.total_price %>円</th>
+      <th colspan="2" class="money_type text-right"><%= @invoice.total_price %>円</th>
     </tr>
     <tr>        
       <td colspan="5">端数値引</td>
-      <td colspan="2" class="money_type text-right"><%= @adopted_estimate.discount %>円</td>
+      <td colspan="2" class="money_type text-right"><%= @invoice.discount %>円</td>
     </tr>
     <tr>        
       <th colspan="5">値引後合計</th>
-      <th colspan="2" class="money_type text-right"><%= @adopted_estimate.after_discount %>円</th>
+      <th colspan="2" class="money_type text-right"><%= @invoice.after_discount %>円</th>
     </tr>
   </table>
 </div>  
