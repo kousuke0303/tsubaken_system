@@ -1,8 +1,8 @@
 <% if @response == "success" %>
-  $("#adopted-estimate-edit").modal("hide");
-  $('#adopted-estimate-edit').empty();
+  $("#invoice-edit").modal("hide");
+  $('#invoice-edit').empty();
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">採用見積を更新しました。</div>');
-  $(".adopted-estimate").html('<%= escape_javascript(render partial: "employees/matters/partial/adopted_estimate", locals: {estimates: @estimates, estimate_matter: @estimate_matter}) %>');
+  $(".invoice").html('<%= escape_javascript(render "employees/matters/partial/invoice") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })

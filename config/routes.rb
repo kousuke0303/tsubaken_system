@@ -278,8 +278,8 @@ Rails.application.routes.draw do
       patch :change_estimate, on: :member
       get :change_member,on: :member
       patch :update_member, on: :member
-      resources :invoices, only: [:edit, :update], controller: "matters/adopted_estimates"
-      resources :invoice_details, only: [:edit, :update, :destroy], controller: "matters/adopted_estimate_details" do
+      resources :invoices, only: [:edit, :update], controller: "matters/invoices"
+      resources :invoice_details, only: [:edit, :update, :destroy], controller: "matters/invoice_details" do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
       end

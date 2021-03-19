@@ -6,29 +6,29 @@
     
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header"><%= @adopted_estimate_detail.category_name %>に関する「工事・素材」選択</h5>
+        <h5 class="card-header"><%= @invoice_detail.category_name %>に関する「工事・素材」選択</h5>
         
         <div class="card-body">
-          <%= form_with(model: @adopted_estimate_detail, url: employees_matter_adopted_estimate_detail_path(@matter, @adopted_estimate_detail), method: :patch, remote: true, id: "detail_form") do |f| %>
-            <div class="adopted-estimate-category-update-errors"></div>
+          <%= form_with(model: @invoice_detail, url: employees_matter_invoice_detail_path(@matter, @invoice_detail), method: :patch, remote: true, id: "detail_form") do |f| %>
+            <div class="invoice-category-update-errors"></div>
 
             <%= f.label "工事種類選択" %>
             <% if @constructions.present? %>
-              <%= render "employees/matters/adopted_estimate_details/partial/construction_form", f: f %>
+              <%= render "employees/matters/invoice_details/partial/construction_form", f: f %>
             <% else %>
-              <p><%= @adopted_estimate_detail.category_name %>に関する工事名称の登録がありません</p>
+              <p><%= @invoice_detail.category_name %>に関する工事名称の登録がありません</p>
             <% end %>
             
             <%= f.label "素材種類選択" %>
             <% if @materials.present? %>
-              <%= render "employees/matters/adopted_estimate_details/partial/material_form", f: f %>
+              <%= render "employees/matters/invoice_details/partial/material_form", f: f %>
             <% else %>
-             <p><%= @adopted_estimate_detail.category_name %>に関する素材の登録がありません</p>
+             <p><%= @invoice_detail.category_name %>に関する素材の登録がありません</p>
             <% end %>
             
             <div class="btn-area">
-              <button type="submit" class="btn btn-dark" id="submit_<%= @adopted_estimate_detail.id %>">作成</button>
-              <%= link_to "カテゴリ削除", employees_matter_adopted_estimate_detail_path(@matter, @adopted_estimate_detail, type: "delete_category"), method: :delete, remote: true,
+              <button type="submit" class="btn btn-dark" id="submit_<%= @invoice_detail.id %>">作成</button>
+              <%= link_to "カテゴリ削除", employees_matter_invoice_detail_path(@matter, @invoice_detail, type: "delete_category"), method: :delete, remote: true,
                                          data: { confirm: "この工事名称を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
@@ -52,7 +52,7 @@
   });
 
   // 送信アクション
-  $('#submit_<%= @adopted_estimate_detail.id %>').click(function(){
+  $('#submit_<%= @invoice_detail.id %>').click(function(){
     <% if @materials.present? %>
       material_ids = []
       $('#material_index select').each(function(i, element){

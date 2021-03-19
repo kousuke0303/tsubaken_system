@@ -8,8 +8,8 @@
       <div class="card mb-3">
         <h5 class="card-header">見積編集</h5>
         <div class="card-body">
-          <%= form_with(model: @adopted_estimate, url: employees_matter_adopted_estimate_path(@matter, @adopted_estimate), method: :patch, remote: true) do |f| %>
-            <div class="adopted-estimate-update-errors"></div>
+          <%= form_with(model: @invoice, url: employees_matter_invoice_path(@matter, @invoice), method: :patch, remote: true) do |f| %>
+            <div class="invoice-update-errors"></div>
             
             <%= f.label :plan_name_id %>
             <div class="input-group">
@@ -28,7 +28,7 @@
                   <td style="width: 5em"></td>
                 </tr>
                 
-                <% @adopted_estimate_details.each.with_index(1) do |detail, index| %>
+                <% @invoice_details.each.with_index(1) do |detail, index| %>
                   <tr>
                     <td class="category_number"><%= index %></td>
                     <td>
@@ -74,7 +74,7 @@
 <script>
   <% if @type == "category_presence" %>
     $(function(){
-      <% @adopted_estimate_details.each.with_index(1) do |detail, index| %>
+      <% @invoice_details.each.with_index(1) do |detail, index| %>
         $("#category_<%= index %>").val(<%= detail.category_id %>);
       <% end %>
     });

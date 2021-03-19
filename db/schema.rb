@@ -46,40 +46,6 @@ ActiveRecord::Schema.define(version: 2021_03_19_131939) do
     t.index ["login_id"], name: "index_admins_on_login_id", unique: true
   end
 
-  create_table "adopted_estimate_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "adopted_estimate_id"
-    t.integer "sort_number"
-    t.bigint "category_id"
-    t.string "category_name"
-    t.bigint "material_id"
-    t.string "material_name"
-    t.bigint "construction_id"
-    t.string "construction_name"
-    t.string "service_life"
-    t.string "note"
-    t.string "unit"
-    t.integer "price"
-    t.integer "amount"
-    t.integer "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["adopted_estimate_id"], name: "index_adopted_estimate_details_on_adopted_estimate_id"
-    t.index ["category_id"], name: "index_adopted_estimate_details_on_category_id"
-    t.index ["construction_id"], name: "index_adopted_estimate_details_on_construction_id"
-    t.index ["material_id"], name: "index_adopted_estimate_details_on_material_id"
-  end
-
-  create_table "adopted_estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "total_price", default: 0, null: false
-    t.integer "discount", default: 0, null: false
-    t.string "matter_id"
-    t.bigint "plan_name_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_adopted_estimates_on_matter_id"
-    t.index ["plan_name_id"], name: "index_adopted_estimates_on_plan_name_id"
-  end
-
   create_table "attendances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "worked_on"
     t.datetime "started_at"
@@ -638,11 +604,6 @@ ActiveRecord::Schema.define(version: 2021_03_19_131939) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "adopted_estimate_details", "adopted_estimates"
-  add_foreign_key "adopted_estimate_details", "categories"
-  add_foreign_key "adopted_estimate_details", "constructions"
-  add_foreign_key "adopted_estimate_details", "materials"
-  add_foreign_key "adopted_estimates", "plan_names"
   add_foreign_key "attendances", "external_staffs"
   add_foreign_key "attendances", "managers"
   add_foreign_key "attendances", "staffs"

@@ -1,17 +1,17 @@
 <% if @response == "success" %>
-  $("#adopted-estimate-object-edit").modal("hide");
-  $("#adopted-estimate-object-edit").empty();
+  $("#invoice-object-edit").modal("hide");
+  $("#invoice-object-edit").empty();
   $(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
-  $(".adopted-estimate").html('<%= escape_javascript(render "employees/matters/partial/adopted_estimate") %>');
+  $(".invoice").html('<%= escape_javascript(render "employees/matters/partial/invoice") %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   })
 <% else %>
-  $(".adopted-estmate-object-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @adopted_estimate_detail) %>');
-  <% @adopted_estimate_detail.errors.messages.keys.each do |key_attribute| %>
+  $(".invoice-object-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @invoice_detail) %>');
+  <% @invoice_detail.errors.messages.keys.each do |key_attribute| %>
     var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $('[name="adopted_estimate_detail[<%= key_attribute.intern.to_s %>]"]').prev();
-    $('[name="adopted_estimate_detail[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    var addLabel = $('[name="invoice_detail[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="invoice_detail[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
     addLabel.wrap(addDiv);
   <% end %>
 <% end %>
