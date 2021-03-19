@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_004155) do
+ActiveRecord::Schema.define(version: 2021_03_19_131721) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -337,6 +337,17 @@ ActiveRecord::Schema.define(version: 2021_03_16_004155) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "total_price"
+    t.integer "discount", default: 0, null: false
+    t.string "matter_id"
+    t.bigint "plan_name_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_invoices_on_matter_id"
+    t.index ["plan_name_id"], name: "index_invoices_on_plan_name_id"
+  end
+
   create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "color_code", null: false
@@ -633,6 +644,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_004155) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "invoices", "plan_names"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "plan_names"
   add_foreign_key "matter_external_staffs", "external_staffs"
