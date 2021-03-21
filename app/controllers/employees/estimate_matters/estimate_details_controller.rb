@@ -26,6 +26,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     comparison
     
     if @after_construction_arrey.present?
+      p @after_construction_arrey
       # ①増加分
       register_constructions(@add_construction_arrey) if @add_construction_arrey != "nil"
       # ②減少分
@@ -137,7 +138,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     
     # 素材登録
     def register_materials(material_id_arrey)
-      material_id_arrey.each_with_index(1) do |params_material_id, index|
+      material_id_arrey.each.with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         EstimateDetail.create(
           estimate_id: @estimate_detail.estimate.id,
@@ -161,8 +162,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     
     # 工事登録
-    def register_constructions(construction_id_arrey)
-      construction_id_arrey.each_with_index(1) do |params_construction_id, index|
+    def register_constructions(construction_id_array)
+      construction_id_array.each.with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         EstimateDetail.create(
           estimate_id: @estimate_detail.estimate.id,
@@ -190,7 +191,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
         details_for_material = @estimate.estimate_details.where(category_id: @target_category).where.not(material_id: nil).sort_by{|detail| @after_material_arrey.index(detail.material_id)}
         # 素材内の順番変更
         basic_sort_number = details_for_material.first.sort_number
-        details_for_material.each_with_index(1) do |detail, i|
+        details_for_material.each.with_index(1) do |detail, i|
           detail.update(sort_number: basic_sort_number + i)
         end
       end
@@ -203,7 +204,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
         end
       end
       # 見積全体の順番リセット
-      @estimate.estimate_details.order(:sort_number).each_with_index(1) do |detail, i|
+      @estimate.estimate_details.order(:sort_number).each.with_index(1) do |detail, i|
         detail.update(sort_number: i * 100)
       end
     end

@@ -150,7 +150,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
     
     # 工事登録
     def register_constructions(construction_id_array)
-      construction_id_array.each_with_index do |params_construction_id, index|
+      construction_id_array.each.with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         InvoiceDetail.create(
           invoice_id: @invoice_detail.invoice.id,
@@ -160,7 +160,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
           construction_name: default_construction.name,
           unit: default_construction.unit, 
           price: default_construction.price, 
-          sort_number: @invoice_detail.sort_number + index + 1
+          sort_number: @invoice_detail.sort_number + index + 30
         )
       end
     end
