@@ -26,11 +26,10 @@
   <!-- Page Content -->
 
   <div id="content">
+    <div class="container-fluid">
 
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
-      <div class="container-fluid">
-        
+      <!-- Header -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light header_nav">     
         <button type="button" id="sidebarCollapse" class="navbar-btn">
           <span></span>
           <span></span>
@@ -64,14 +63,14 @@
             </div>
           </ul>
         </div>
-      </div>
-    </nav>
-        
+      </nav>
+    </div>
+          
     <!-- Main-content -->
     <%= render "shared/flash" %>
     <%= yield %>
     <div class="line"></div>
-    <div class="debug"><%= debug(params) if Rails.env.development? %></div>
+    <div class="debug"><%= debug(params) if Rails.env.development? %></div>    
   </div>
 </div>
 
