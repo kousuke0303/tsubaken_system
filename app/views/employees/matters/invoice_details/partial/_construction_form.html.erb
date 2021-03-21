@@ -9,10 +9,11 @@
       <tr>
         <td class="construction_number"><%= index %></td>
         <td>
-          <%= f.select "construction_id_#{index}".intern, @constructions.map{ |construction| [construction.name, construction.id] }, {include_blank: "選択してください", value: detail.construction_id}, {class: "form-control", id: "construction_#{index}"} %>
+          <%= f.select "construction_id_#{ index }".intern, @constructions.map{ |construction| [construction.name, construction.id] },
+                { include_blank: "選択してください", value: detail.construction_id }, { class: "form-control", id: "construction_#{ index }" } %>
         </td>
         <td>
-          <button type="button", class="btn btn-sm btn-dark construction_add_btn">追加</button>
+          <button type="button", class="btn btn-sm btn-dark construction-add-btn">追加</button>
         </td>
       </tr>
     <% end %>
@@ -20,10 +21,11 @@
     <tr>
       <td class="construction_number">1</td>
       <td>
-        <%= f.select "construction_id_1", @constructions.map{ |construction| [construction.name, construction.id] }, {include_blank: "選択してください"}, {class: "form-control", id: "construction_1"} %>
+        <%= f.select "construction_id_1", @constructions.map{ |construction| [construction.name, construction.id] }, { include_blank: "選択してください" }, 
+            { class: "form-control", id: "construction_1 "} %>
       </td>
       <td>
-        <button type="button", class="btn btn-sm btn-dark construction_add_btn">追加</button>
+        <button type="button", class="btn btn-sm btn-dark construction-add-btn">追加</button>
       </td>
     </tr>
   <% end %>
@@ -33,14 +35,14 @@
 
 <!--追加ボタンアクション-->
 <script>
-  $('.construction_add_btn').on("click", function(){
+  $(".construction-add-btn").click(function(){
     // コピー＆リセット
-    var target_tr = $(this).parent().parent();
-    var add_html = $('#construction_index tr:last').clone(true);
-    target_tr.after(add_html);
+    var targetTr = $(this).parent().parent();
+    var addHtml = $("#construction_index tr:last").clone(true);
+    targetTr.after(addHtml);
     
-    var add_select = target_tr.next('tr').find('select');
-    add_select.prop("selectedIndex", 0);
+    var addSelect = targetTr.next("tr").find("select");
+    addSelect.prop("selectedIndex", 0);
     // 表示順番リセット
     $('#construction_index .construction_number').each(function(index, element){
       var default_number = 1;
@@ -51,8 +53,8 @@
     $('#construction_index .select').each(function(index, element){
       var default_number = 1;
       var add_number = default_number + index;
-      var attr_name = "estimate_detail[construction_id_" + add_number + "]"
-      $(element).attr('name', attr_name);
+      var attr_name = "invoice_detail[construction_id_" + add_number + "]"
+      $(element).attr("name", attr_name);
     });
   });
 </script>
