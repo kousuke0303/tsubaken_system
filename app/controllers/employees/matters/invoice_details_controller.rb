@@ -60,11 +60,9 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
   end
   
   def detail_object_update
-    if @invoice_detail.valid?(:object_update) && @invoice_detail.update(object_params)
+    if @invoice_detail.update(object_params)
       @invoice = @matter.invoice
       @response = "success"
-    else
-      @response = "failure"
     end
     @invoice.calc_total_price
     set_plan_name_of_invoice

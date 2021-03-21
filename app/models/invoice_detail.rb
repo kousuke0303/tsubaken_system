@@ -7,6 +7,8 @@ class InvoiceDetail < ApplicationRecord
   before_save :calc_total
 
   validates :category_name, presence: true
+  validates :price, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 99999999 }
+  validates :amount, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 99999999 }
   validates :note, length: { maximum: 100 }
   
   with_options on: :object_update do
