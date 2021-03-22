@@ -1,11 +1,17 @@
 class Employees::Matters::InvoicesController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_categories, only: :edit
-  before_action :set_plan_names, only: :edit
+  before_action :set_plan_names, only: [:show, :edit]
   before_action :set_default_color_code, only: :edit
   before_action :set_matter_by_matter_id
   before_action :set_invoice
   before_action :refactor_params_category_ids, only: :update
+
+  def show
+    @estimate_matter = @matter.estimate_matter
+    @color_code = @invoice.plan_name.label_color.color_code
+    @invoice_details = @invoice.invoice_details.order(:sort_number).group(:category_id)
+  end
 
   def edit
     @color_code = @invoice.plan_name.label_color.color_code
