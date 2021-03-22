@@ -330,6 +330,7 @@ ActiveRecord::Schema.define(version: 2021_03_19_131939) do
     t.integer "total_price"
     t.integer "discount", default: 0, null: false
     t.string "matter_id"
+    t.date "paid_on"
     t.bigint "plan_name_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

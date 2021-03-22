@@ -91,6 +91,7 @@ ja:
         invoice:
           title: 見積名
           discount: 端数値引
+          paid_on: 支払日
         estimate_detail:
           category_name: カテゴリ名
           material_name: 素材名称

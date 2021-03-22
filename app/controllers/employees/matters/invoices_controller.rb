@@ -51,7 +51,7 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
     end
 
     def invoice_params
-      params.require(:invoice).permit(:plan_name_id, :discount)
+      params.require(:invoice).permit(:plan_name_id, :discount, :paid_on)
     end
 
     # パラメーター整形
@@ -79,9 +79,11 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
       before_detail_count = @invoice.invoice_details.count
       category_id_array.each.with_index(1) do |category_id, index|
         default_category = Category.find(category_id)
-        @invoice.invoice_details.create!(category_name: default_category.name,
-                                                           category_id: default_category.id,
-                                                           sort_number: before_detail_count + index)
+        @invoice.invoice_details.create!(
+          category_name: default_category.name,
+          category_id: default_category.id,
+          sort_number: before_detail_count + index
+        )
       end
     end
 

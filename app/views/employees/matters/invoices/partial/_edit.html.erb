@@ -59,6 +59,8 @@
             <%= f.label :discount %>
             <%= f.number_field :discount, min: 0, max: 9999999, class: "form-control" %>
 
+            <%= f.label :paid_on %>
+            <%= f.date_field :paid_on, class: "form-control" %>
             
             <div class="btn-area">
               <button type="submit" class="btn btn-dark" id="category_edit_submit">更新</button>
