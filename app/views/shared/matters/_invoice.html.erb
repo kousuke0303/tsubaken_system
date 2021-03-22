@@ -1,5 +1,5 @@
 <% @tr_count = 0 %>
-<div class="invoice-preview <%= container_type %>">
+<div class="estimates-invoice-preview <%= container_type %>">
   <div class="row header">
     <div class="col-4 num pt-05e">プラン</div>
     <div class="col-4 title text-center">請求書書</div>
@@ -94,24 +94,24 @@
     <tfoot>
       <tr>
         <td colspan=3 class="footer-item-1">合計</td>
-        <td colspan=2 class="footer-item-2 money-type"><%= estimate.total_price %></td>
+        <td colspan=2 class="footer-item-2 money-type"><%= @invoice.total_price %></td>
         <td rowspan=5 class="footer-item-3">備考：</td>
       </tr>
       <tr>
         <td colspan=3 class="footer-item-1">端数値引</td>
-        <td colspan=2 class="footer-item-2 money-type"><%= estimate.discount %></td>
+        <td colspan=2 class="footer-item-2 money-type"><%= @invoice.discount %></td>
       </tr>
       <tr>
         <td colspan=3 class="footer-item-1 estimate-total">御見積見学　(消費税抜)</td>
-        <td colspan=2 class="footer-item-2 estimate-total money-type pure-total"><%= estimate.after_discount %></td>
+        <td colspan=2 class="footer-item-2 estimate-total money-type pure-total"><%= @invoice.after_discount %></td>
       </tr>
       <tr>
         <td colspan=3 class="footer-item-1">消費税(10%)</td>
-        <td colspan=2 class="footer-item-2 money-type"><%= estimate.consumption_tax %></td>
+        <td colspan=2 class="footer-item-2 money-type"><%= @invoice.consumption_tax %></td>
       </tr>
       <tr>
         <td colspan=3 class="footer-item-1">御見積見学　(消費税込)</td>
-        <td colspan=2 class="footer-item-2 money-type"><%= estimate.total_with_tax %></td>
+        <td colspan=2 class="footer-item-2 money-type"><%= @invoice.total_with_tax %></td>
       </tr>
     </tfoot>
   </table>

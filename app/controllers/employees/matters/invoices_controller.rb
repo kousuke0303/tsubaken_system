@@ -10,7 +10,7 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
   def show
     @estimate_matter = @matter.estimate_matter
     @color_code = @invoice.plan_name.label_color.color_code
-    @invoice_details = @invoice.invoice_details.order(:sort_number).group(:category_id)
+    set_invoice_details
   end
 
   def edit

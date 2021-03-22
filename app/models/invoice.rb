@@ -21,4 +21,14 @@ class Invoice < ApplicationRecord
     end
     self.update(total_price: total_price)
   end
+
+  # 端数値引後の消費税を返す
+  def consumption_tax
+    (after_discount * 0.1).to_i
+  end
+
+  # 端数値引後の合計金額(消費税込)
+  def total_with_tax
+    after_discount + consumption_tax
+  end
 end
