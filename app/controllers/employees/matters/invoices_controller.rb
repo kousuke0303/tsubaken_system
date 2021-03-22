@@ -6,6 +6,7 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
   before_action :set_invoice
   before_action :refactor_params_category_ids, only: :update
+  before_action :preview_display, only: :show
 
   def show
     @estimate_matter = @matter.estimate_matter
