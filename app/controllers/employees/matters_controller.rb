@@ -1,6 +1,7 @@
 class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter, except: [:new, :create, :index]
+  before_action :set_reports_of_matter, only: :show
   before_action :set_employees, only: [:new, :edit, :change_member]
   before_action :set_suppliers, only: :edit
   before_action :can_access_only_matter_of_being_in_charge

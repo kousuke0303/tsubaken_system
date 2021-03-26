@@ -83,6 +83,10 @@ class Employees::EmployeesController < ApplicationController
       @color_code = @plan_name.label_color.color_code
     end
     
+    def set_reports_of_matter
+      @reports = @matter.reports.order(created_at: "ASC")
+    end
+    
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
       @schedules = Schedule.all

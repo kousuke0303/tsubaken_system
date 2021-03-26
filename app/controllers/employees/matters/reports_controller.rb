@@ -10,6 +10,7 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   def create
     @report = @matter.reports.new(report_params)
     @report.save ? @responce = "success" : @responce = "false"
+    set_reports_of_matter
   end
 
   def edit
@@ -28,9 +29,5 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
 
     def report_params
       params.require(:report).permit(:title, :image_id)
-    end
-
-    def set_reports
-      @report = @matter.reports.order(created_at: "ASC")
     end
 end
