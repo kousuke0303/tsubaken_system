@@ -140,9 +140,6 @@
     <!--BAND連結-->
     <div id="bands-index" class="modal fade" role="dialog"></div>
   <% end %>
-
-  <!--タスクedit-->
-  <div id="task-edit" class="modal fade" role="dialog"></div>
   
   <!--診断書new・edit-->
   <div id="certificate-new" class="modal fade" role="dialog"></div>
@@ -154,9 +151,13 @@
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
   <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
 
-  <!--案件edit-->
+  <!--案件関連-->
   <% if controller_name == "matters" && action_name == "show" %>
+    <!--案件edit-->
     <div id="matter-edit" class="modal fade" role="dialog"></div>
+    <!--報告書new・edit-->
+    <div id="report-new" class="modal fade" role="dialog"></div>
+    <div id="report-edit" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>
 
