@@ -1,0 +1,17 @@
+<% @images.each do |image| %>
+  <div class="pc_type">
+    <%= link_to new_employees_matter_report_path(@matter, image_id: image.id), remote: true do %>
+      <div class="image-item employees-image-item">
+        <%= image_tag url_for(image.image.variant(combine_options:{ gravity: :center, resize:"140x140^",crop:"140x140+0+0" })) %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="mobile_type">
+    <%= link_to new_employees_matter_report_path(@matter, image_id: image.id), remote: true do %>
+      <div class="image-item employees-image-item">
+        <%= image_tag url_for(image.image.variant(combine_options:{ gravity: :center, resize:"120x120^",crop:"120x120+0+0" })) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -67,6 +67,7 @@ class Employees::MattersController < Employees::EmployeesController
     set_color_code_of_invoice     
     set_invoice_details
     @message = true if params[:type] == "success"
+    @images = @matter.images.select{ |image| image.image.attached? }
   end
 
   def edit
