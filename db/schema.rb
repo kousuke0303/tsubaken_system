@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_131939) do
+ActiveRecord::Schema.define(version: 2021_03_26_060805) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -460,6 +460,19 @@ ActiveRecord::Schema.define(version: 2021_03_19_131939) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "content"
+    t.integer "position"
+    t.boolean "default", default: false
+    t.integer "image_id"
+    t.integer "message_id"
+    t.string "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_reports_on_matter_id"
+  end
+
   create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "authority"
     t.integer "member_id"
@@ -646,6 +659,7 @@ ActiveRecord::Schema.define(version: 2021_03_19_131939) do
   add_foreign_key "matters", "publishers"
   add_foreign_key "messages", "matters"
   add_foreign_key "plan_names", "label_colors"
+  add_foreign_key "reports", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "staffs", "label_colors"
