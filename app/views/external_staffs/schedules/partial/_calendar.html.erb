@@ -1,0 +1,19 @@
+<%= month_calendar(attribute: :scheduled_date, events: @schedules) do |date, schedules| %>
+  <%= date %>
+  <div>
+    <% unless schedules.count == 0 %>
+      <%= link_to external_staffs_schedule_path(schedules.first.id), remote: true do %>
+        <%= schedules.count %>件
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+$(document).ready( function(){
+  $("#schedule_calender a").on('click', function(){
+    $('#schedule_calender td').removeClass('schedule_target');
+    $(this).parent().parent().addClass('schedule_target');
+  });
+});
+</script>

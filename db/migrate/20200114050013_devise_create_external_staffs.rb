@@ -8,8 +8,10 @@ class DeviseCreateExternalStaffs < ActiveRecord::Migration[5.1]
       t.string :kana
       t.string :phone
       t.string :email
+      t.date :resigned_on
+      t.boolean :avaliable,        null: false, default: true
       t.references :supplier,       foreign_key: true
-
+      
       ## Database authenticatable
       t.string :login_id,           null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

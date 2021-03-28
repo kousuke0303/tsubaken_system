@@ -1,0 +1,25 @@
+<div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "スケジュール変更申請一覧", title_2: nil, icon: "fa-calendar-alt"} %>
+
+  <div class="table-responsive mt-1e">
+    <table class="table table-bordered text-nowrap table-column-type">
+      <tr>
+        <th>日付</th>
+        <th>タイトル</th>
+        <th>申請者</th>
+        <th></th>
+      </tr>
+      <% @applicate_schedules.each do |schedule| %>
+        <tr>
+          <td><%= schedule.scheduled_date %></td>
+          <td><%= schedule.title %></td>
+          <td><%= schedule.member_name %></td>
+          <td class="text-center"><%= link_to "処理", application_detail_employees_schedule_path(schedule), remote: true, class: "btn btn-dark" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+
+</div>
+

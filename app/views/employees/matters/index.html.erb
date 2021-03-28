@@ -26,33 +26,13 @@
         <th>進行状況</th>
       </tr>
           
-      <% if current_admin || current_manager %>
-        <% @matters.each do |matter| %>
-          <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
-            <td><%= matter.title %></td>
-            <td><%= matter.scheduled_started_on %></td>
-            <td><%= matter.scheduled_finished_on %></td>
-            <td><%= matter.status_i18n %></td>
-          </tr>
-        <% end %>
-      <% elsif current_staff %>
-        <% @staff_matters.each do |staff_matter| %>
-          <tr class="tr-link" data-link="<%= employees_matter_path(staff_matter) %>">
-              <td><%= staff_matter.title %></td>
-            <td><%= staff_matter.scheduled_started_on %></td>
-            <td><%= staff_matter.scheduled_finished_on %></td>
-            <td><%= I18n.t("enums.matter.status.#{ staff_matter.status }") %></td>
-          </tr>
-        <% end %>
-      <% elsif current_external_staff %>
-        <% @external_staff_matters.each do |external_staff_matter| %>
-          <tr class="tr-link" data-link="<%= employees_matter_path(external_staff_matter) %>">
-            <td><%= external_staff_matter.title %></td>
-            <td><%= external_staff_matter.scheduled_started_on %></td>
-            <td><%= external_staff_matter.scheduled_finished_on %></td>
-            <td><%= I18n.t("enums.matter.status.#{ external_staff_matter.status }") %></td>
-          </tr>
-        <% end %>
+      <% @matters.each do |matter| %>
+        <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
+          <td><%= matter.title %></td>
+          <td><%= matter.scheduled_started_on %></td>
+          <td><%= matter.scheduled_finished_on %></td>
+          <td><%= matter.status_i18n %></td>
+        </tr>
       <% end %>
     </table>
   </div>

@@ -1,7 +1,7 @@
 class Employees::ManagersController < Employees::EmployeesController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
   before_action :authenticate_admin_or_manager!, only: [:index, :show]
-  before_action :set_manager, only: [:show, :edit, :update, :destroy]
+  before_action :set_manager, except: [:new, :create, :index]
   before_action :set_departments, only: [:new, :edit]
 
   def new
@@ -33,10 +33,35 @@ class Employees::ManagersController < Employees::EmployeesController
       redirect_to employees_manager_url(@manager)
     end
   end
+  
+  def retirement_process
+    @tasks = Task.where(member_code_id: @manager.member_code.id)
+                 .where.not(status: 3)
+    @schedules = Schedule.where(member_code_id: @manager.member_code.id).where('scheduled_date >= ?', Date.today)
+  end
+  
+  def resigned_registor
+    if @manager.update(resigned_on: params[:manager][:resigned_on])
+      flash[:success] = "退職日を登録しました"
+    end
+    redirect_to retirement_process_employees_manager_url(@manager)
+  end
+  
+  def confirmation_for_destroy
+  end
 
   def destroy
-    @manager.destroy ? flash[:success] = "Managerを削除しました。" : flash[:alert] = "Managerを削除できませんでした。"
-    redirect_to employees_managers_url
+    @manager.accept = params[:manager][:accept].to_i
+    if @manager.valid?(:destroy_check) && @manager.relation_destroy
+      flash[:notice] = "#{@manager.name}を削除しました"
+      redirect_to employees_managers_url
+    end
+  end
+  
+  def restoration
+    @manager.update(resigned_on: "", avaliable: true)
+    flash[:success] = "#{@manager.name}のアカウントが利用できるようになりました"
+    redirect_to employees_manager_url(@manager)
   end
 
   private

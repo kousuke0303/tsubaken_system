@@ -1,12 +1,11 @@
 class Admin < ApplicationRecord
-  has_many :tasks
-  has_many :sales_statuses
   belongs_to :schedule, optional: true
-  
+  has_one :member_code, dependent: :destroy
   
   has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }
+  after_commit :create_member_code
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
@@ -44,4 +43,16 @@ class Admin < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
+  private
+  
+    #---------------------------------------------------
+     # CALLBACK_METHOD
+    #---------------------------------------------------
+    
+    def create_member_code
+      unless MemberCode.find_by(admin_id: self.id)
+        MemberCode.create(admin_id: self.id)
+      end
+    end
 end

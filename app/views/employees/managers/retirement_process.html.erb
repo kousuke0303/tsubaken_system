@@ -1,0 +1,65 @@
+<h4 class="title_layout"><i class="fas fa-clipboard-list"></i> <%= @manager.name %>の引き継ぎ項目</h4>
+
+<%= out_of_service(@manager) %>
+
+<ul class="nav nav-tabs title_tab_bar mt-2e">
+  <li class="nav-item">
+    <a class="nav-link title_tab">① 割振タスクの担当者変更</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+  <% if @tasks.present? %>
+    <%= render 'employees/managers/retirements/task' %>
+  <% else %>
+     <p>現状、未着手・進行中のタスクはありません</p>
+     <% @process_2 = true %>
+  <% end %>
+</div>
+
+<% if @process_2 == true %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">② 本日以降のスケジュール担当者変更</a>
+    </li>
+  </ul>
+    
+  <div class="news_container">
+    <div id="schedule_index_for_retirement">
+      <%= render 'employees/managers/retirements/schedule' %>
+    </div>
+  </div>
+<% end %>
+
+<div id="resigned_on_form" style= "display: none">
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab">③ 退職日登録</a>
+    </li>
+  </ul>
+
+  <div class="news_container">
+    <div>
+      <%= form_with model: @manager, url: resigned_registor_employees_manager_path(@manager), local: true do |f| %>
+        <div class="input-group col-md-6">
+          <%= f.date_field :resigned_on, required: true, class: "form-control" %>
+          <div class="input-group-append">        
+            <input type="submit" value="更新" class="btn btn-primary" id="create_btn">
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @manager.resigned_on.present? && @manager.avaliable == false %>
+  <div class="text-center">
+    <%= link_to "削除", confirmation_for_destroy_employees_manager_path(@manager), remote: true, class: "btn btn-danger" %>
+  </div>
+<% end %>
+
+<% if @process_3 == true %>
+  <script>
+    $('#resigned_on_form').show();
+  </script>
+<% end %>

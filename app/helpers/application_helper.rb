@@ -66,13 +66,13 @@ module ApplicationHelper
       end
     else
       if object == @admin
-        content_tag(:div, @admin.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #dc3545")
+        content_tag(:div, @admin.name[0, 1], class: "default_avator_layout_for_show", style: "background: #dc3545")
       elsif object == @manager
-        content_tag(:div, @manager.name[0, 1], class: "default_avator_layoput_for_showr", style: "background: #a486d4")
+        content_tag(:div, @manager.name[0, 1], class: "default_avator_layout_for_show", style: "background: #a486d4")
       elsif object == @staff
-        content_tag(:div, @staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #{@staff.label_color.color_code}")
+        content_tag(:div, @staff.name[0, 1], class: "default_avator_layout_for_show", style: "background: #{@staff.label_color.color_code}")
       elsif object == @external_staff
-        content_tag(:div, @external_staff.name[0, 1], class: "default_avator_layoput_for_show", style: "background: #e4c35e")
+        content_tag(:div, @external_staff.name[0, 1], class: "default_avator_layout_for_show", style: "background: #e4c35e")
       end
     end
   end
@@ -109,6 +109,15 @@ module ApplicationHelper
   # ---------------------------------------------------------
       # COMMON DISPLAY
   # ---------------------------------------------------------
+  
+  def member_name_from_member_code(member_code)
+    member_code.member_name_from_member_code
+  end
+  
+  def member_name_from_member_code_id(code_id)
+    membercode = MemberCode.find(code_id)
+    member_name_from_member_code(membercode)
+  end
   
   def postal_code_display(post_code)
     block_1 = post_code[0..2]

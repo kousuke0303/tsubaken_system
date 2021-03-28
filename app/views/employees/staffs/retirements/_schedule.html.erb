@@ -14,11 +14,11 @@
         <td><%= schedule.scheduled_start_time.strftime("%-I:%M %p") %></td>
         <td><%= schedule.title %></td>
         <td><%= schedule.note %></td>
-        <td><%= link_to "担当者変更", change_member_employees_schedule_path(schedule, staff_id: @staff.id), remote: true, class: "btn btn-dark" %></td>
+        <td class="text-center"><%= link_to "担当者変更", change_member_employees_schedule_path(schedule, staff_id: @staff.id), remote: true, class: "btn btn-dark" %></td>
       </tr>
     <% end %>
   </table>
 <% else %>
-  <p>現状、未着手・進行中のタスクはありません</p>
-  <% @process_4 = true %>
+  <p>本日以降のスケジュールはありません</p>
+  <% @process_5 = true %>
 <% end %>

@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <th>生年月日</th>
-      <td><%= @staff.birthed_on %></td>
+      <td><%= @staff.birthed_on ? l(@staff.birthed_on) : "未登録" %></td>
     </tr>
     <tr>
       <th>郵便番号</th>
@@ -40,11 +40,17 @@
     </tr>
     <tr>
       <th>入社日</th>
-      <td><%= @staff.joined_on %></td>
+      <td><%= @staff.joined_on ? l(@staff.joined_on) : "未登録" %></td>
     </tr>
+    <% if @staff.resigned_on %>
+      <tr>
+        <th>退社日</th>
+        <td><%= l(@staff.resigned_on) %></td>
+      </tr>
+    <% end %>
     <tr>
-      <th>退社日</th>
-      <td><%= @staff.resigned_on %></td>
+      <th>生年月日</th>
+      <td><%= @staff.birthed_on ? l(@staff.joined_on) : "未登録" %></td>
     </tr>
   </table>
 </div>
@@ -84,9 +90,11 @@
       <div class="content"><%= @staff.email %></div>
       <div class="content"><%= postal_code_display(@staff.postal_code) %></div>
       <div class="content"><%= @staff.prefecture_code %><%= @staff.address_city %><%= @staff.address_street %></div>
-      <div class="content"><%= @staff.joined_on %></div>
-      <div class="content"><%= @staff.resigned_on %></div>
-      <div class="content"><%= @staff.birthed_on %></div>
+      <div class="content"><%= @staff.joined_on ? l(@staff.joined_on) : "未登録" %></div>
+      <% if @staff.resigned_on %>
+        <div class="content"><%= @staff.resigned_on %></div>
+      <% end %>
+      <div class="content"><%= @staff.birthed_on ? l(@staff.birthed_on) : "未登録" %></div>
     </div>
   </div>
 </div>

@@ -2,12 +2,12 @@
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
    
 <% if current_admin || current_manager %>
-  <%= f.label :member, "担当者" %>
-  <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください" }, required: true, class: "form-control", id: "member_select" %>
+  <%= f.label :member_code_id %>
+  <%= f.select :member_code_id, options_for_select(@member_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, class: "form-control" %>
 <% else %>
   <%= f.label "担当者" %>
   <div>
-    <%= current_staff.name || current_external_staff.name %>
+    <%= current_staff.name if current_staff %>
   </div>
 <% end %>
 
@@ -31,10 +31,10 @@
 <%= f.label :note %>
 <%= f.text_area :note, class: "form-control" %>
 
-<script>
-<% if @member_value.present? %>
-  $(document).ready( function(){
-    $('select').val("<%= @member_value %>");
-  });
+<% if @schedule.member_code_id.present? %>
+  <script>
+    $(document).ready( function(){
+      $('select').val("<%= @schedule.member_code_id %>");
+    });
+  </script>
 <% end %>
-</script>

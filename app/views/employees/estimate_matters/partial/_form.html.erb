@@ -12,7 +12,7 @@
   <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
-    <%= f.text_field :title, value: @title, required: true, class: "form-control", maxlength: 30%>
+    <%= f.text_field :title, value: @title.present? ? @title : @estimate_matter.title, required: true, class: "form-control", maxlength: 30%>
   </div>
   <div class="col-md-6">
     <%= f.label :publisher_id %>
@@ -47,13 +47,13 @@
   <div class="col-md-6">
     <%= f.label "担当スタッフ" %>
     <div>
-      <%= f.collection_select :staff_ids, @staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "staff_select" } %>
+      <%= f.select :staff_ids, options_for_select(@all_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, multiple: true, class: "form-control select-members", id: "select_staff" %>
     </div>
   </div>
   <div class="col-md-6">
     <%= f.label "担当外部スタッフ" %>
     <div>
-      <%= f.collection_select :external_staff_ids, @external_staffs, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "external_staff_select" } %>
+      <%= f.select :external_staff_ids, options_for_select(@all_external_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, multiple: true, class: "form-control select-members", id: "select_external_staff" %>
     </div>
   </div>
 </div>
@@ -73,3 +73,19 @@
     });
   });
 </script>
+
+<% if @staff_codes.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#select_staff').val(<%= @staff_codes.ids %>).trigger('change');
+    });
+  </script>
+<% end %>
+
+<% if @external_staff_codes.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#select_external_staff').val(<%= @external_staff_codes.ids %>).trigger('change');
+    });
+  </script>
+<% end %>

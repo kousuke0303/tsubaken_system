@@ -2,7 +2,9 @@ class Employees::Matters::TasksController < Employees::TasksController
   before_action :set_matter
   before_action :set_task, except: [:move, :create]
   before_action ->{ group_for(@matter) }, only: [:edit, :change_member]
-  before_action :set_staff, only: :change_member
+  before_action :set_manager, if: :object_is_manager?, only: [:change_member]
+  before_action :set_staff, if: :object_is_staff?, only: [:change_member]
+  before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
 
   def move
     #パラメーターからenum数値抽出
@@ -51,8 +53,7 @@ class Employees::Matters::TasksController < Employees::TasksController
   end
   
   def update
-    formatted_member_params(params[:task][:member], task_params)
-    set_classified_tasks(@matter) if @task.task_update(@final_params)
+    set_classified_tasks(@matter) if @task.update(task_params)
   end
   
   def destroy
@@ -71,11 +72,23 @@ class Employees::Matters::TasksController < Employees::TasksController
   end
   
   def update_member
-    formatted_member_params(params[:task][:member], task_params)
-    set_classified_tasks(@matter) if @task.task_update(@final_params)
+    set_classified_tasks(@matter) if @task.update(task_params)
     flash[:success] = "#{@task.title}の担当者を変更しました"
-    @staff = Staff.find(params[:staff_id])
-    redirect_to retirement_process_employees_staff_url(@staff)
+    if params[:task][:manager_id].present?
+      @manager = Manager.find(params[:task][:manager_id])
+      redirect_to retirement_process_employees_manager_url(@manager)
+    elsif params[:task][:staff_id].present?
+      @staff = Staff.find(params[:task][:staff_id])
+      redirect_to retirement_process_employees_staff_url(@staff)
+    elsif params[:task][:external_staff_id].present? 
+      @external_staff = ExternalStaff.find(params[:task][:external_staff_id])
+      redirect_to retirement_process_employees_external_staff_url(@external_staff)
+    end
   end
+  
+  private
+    def task_params
+      params.require(:task).permit(:title, :content, :member_code_id)
+    end
 
 end

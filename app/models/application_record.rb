@@ -1,4 +1,11 @@
 class ApplicationRecord < ActiveRecord::Base
+  
+  with_options on: :destroy_check do
+    validate :necessary_of_accept
+  end
+  # user削除時確認用
+  attr_accessor :accept
+  
   VALID_KANA_REGEX = /\A[ァ-ヶー　]*\z/i
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_PHONE_REGEX = /\A0\d{9,10}\z/i
@@ -10,6 +17,7 @@ class ApplicationRecord < ActiveRecord::Base
   # 住所機能
   include JpPrefecture
   jp_prefecture :prefecture_code
+  
   
   # ---------------------------------------------------------
         # 住所自動入力
@@ -31,10 +39,11 @@ class ApplicationRecord < ActiveRecord::Base
   # 従業員等の抹消
   def relation_destroy
     ActiveRecord::Base.transaction do
-      self.tasks.update_all(staff_id: nil)
-      self.sales_statuses.update_all(staff_id: nil)
-      designed_sales_status_editors = SalesStatusEditor.all.where(authority: "staff", id: self.id)
-      designed_sales_status_editors.update_all(authority: nil, member_id: nil)
+      target_member_code = self.member_code.id
+      Task.where(member_code_id: target_member_code).update_all(member_code_id: nil)
+      Schedule.where(member_code_id: target_member_code).update_all(member_code_id: nil)
+      SalesStatus.where(member_code_id: target_member_code).update_all(member_code_id: nil)
+      SalesStatusEditor.where(member_code_id: target_member_code).update_all(member_code_id: nil)
     end
     self.destroy
   rescue => e
@@ -43,5 +52,13 @@ class ApplicationRecord < ActiveRecord::Base
     Rails.logger.error e.backtrace.join("\n")
     # bugsnag導入後
     # Bugsnag.notifiy e
+  end
+  
+  # destroyはtrue/falseを返さないので、falseを返すよう記述
+  def necessary_of_accept
+    unless self.accept == 1
+      errors.add(:accept, "チェックボックスが空欄です")
+      return false
+    end
   end
 end

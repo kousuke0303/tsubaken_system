@@ -1,0 +1,21 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <%= render partial: 'layouts/page_title', locals: { title_1: "スケジュール管理", title_2: nil, icon: "fa-calendar-alt"} %>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= link_to new_external_staffs_schedule_path, remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> 追加
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="calendar_container mt-05e">
+    <%= render 'external_staffs/schedules/partial/calendar' %>
+  </div>
+  
+  <div class="mt-1e" id="schedules_detail">
+    <%= render 'external_staffs/schedules/partial/schedules_detail' %>
+  </div>
+
+</div>

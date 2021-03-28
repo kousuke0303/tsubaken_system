@@ -4,6 +4,15 @@ class Schedule < ApplicationRecord
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
   belongs_to :sales_status, optional: true
+  belongs_to :member_code
+  
+  has_one :notification, dependent: :destroy
+  
+  # 変更申請用
+  has_many :applications, class_name: "Schedule", foreign_key: "schedule_id"
+  belongs_to :original, class_name: "Schedule", foreign_key: "schedule_id", optional: true
+  
+  before_save :member_name_update
   
   validates :title, presence: true
   validates :scheduled_date, presence: true
@@ -14,10 +23,18 @@ class Schedule < ApplicationRecord
   validate :except_duplicate_schedule, on: :create
   validate :except_duplicate_schedule_for_update, on: :update
   
+  scope :origins, -> { where(schedule_id: nil)}
+  scope :edit_applications, -> { where.not(schedule_id: nil)}
+  
+  
+  def notification(reciever_code)
+    self.create_notification(status: 0, category: 1, sender_id: sender_code)
+  end
+
   private
   
   #----------------------------------------------
-    #Validation_Method
+    #VALIDATION_METHOD
   #---------------------------------------------
     
     def scheduled_end_time_is_after_start_time
@@ -28,19 +45,8 @@ class Schedule < ApplicationRecord
     
     # 重複スケジュール登録拒否
     def except_duplicate_schedule
-      if admin_id.present?
-        duplicate_schedule = Schedule.where(admin_id: self.admin_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif manager_id.present?
-        duplicate_schedule = Schedule.where(manager_id: self.manager_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif staff_id.present?
-        duplicate_schedule = Schedule.where(staff_id: self.staff_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif external_staff_id.present?
-        duplicate_schedule = Schedule.where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      end
+      duplicate_schedule = Schedule.where(member_code_id: self.member_code_id, scheduled_date: self.scheduled_date)
+                                   .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
       if duplicate_schedule.present?
         errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
       end
@@ -50,15 +56,7 @@ class Schedule < ApplicationRecord
     # 重複スケジュール登録拒否
     # DBに保存されている時間はUTCのため、文字列に変換した上で比較
     def except_duplicate_schedule_for_update
-      if admin_id.present?
-        designated_schedules = Schedule.where.not(id: self.id).where(admin_id: self.admin_id, scheduled_date: self.scheduled_date)
-      elsif manager_id.present?
-        designated_schedules = Schedule.where.not(id: self.id).where(manager_id: self.manager_id, scheduled_date: self.scheduled_date)
-      elsif staff_id.present?
-        designated_schedules = Schedule.where.not(id: self.id).where(staff_id: self.staff_id, scheduled_date: self.scheduled_date)
-      elsif external_staff_id.present?
-        designated_schedules = Schedule.where.not(id: self.id).where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
-      end
+      designated_schedules = Schedule.where.not(id: self.id).where(member_code_id: self.member_code_id, scheduled_date: self.scheduled_date)
       if designated_schedules.present?
         designated_schedules.each do |schedule|
           start_time = schedule.scheduled_start_time.to_s(:time)
@@ -70,5 +68,14 @@ class Schedule < ApplicationRecord
           end
         end
       end
+    end
+    
+    #-----------------------------------------------------
+      # CALLBACK_METHOD
+    #-----------------------------------------------------
+    
+    def member_name_update
+      member_code = MemberCode.find(self.member_code_id)
+      self.member_name = member_code.member_name_from_member_code
     end
 end

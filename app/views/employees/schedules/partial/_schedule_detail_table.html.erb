@@ -5,8 +5,11 @@
       <% schedules_arrey.each do |schedule| %>
         <td>
           <%= schedule.scheduled_start_time.strftime("%-H:%M") %>
-          ~ 
+          <span>〜</span> 
           <%= schedule.scheduled_end_time.strftime("%-H:%M") %>
+          <% if schedule.applications.present? %>
+          　   <span class="badge badge-danger">変更申請中</span>
+          <% end %>
         </td>
       <% end %>
     </tr>
@@ -17,11 +20,11 @@
           <% if update_authority_for_one?(schedule) %>
             <%= link_to edit_employees_schedule_path(schedule.id), remote: true do %>
               <%= schedule.title %>
-              <%= schedule.place %>
+              <%= "(" + schedule.place + ")" if schedule.place.present? %>
             <% end %>
           <% else %>
             <%= schedule.title %>
-            <%= schedule.place %>
+            <%= "(" + schedule.place + ")" if schedule.place.present? %>
           <% end %>
         </td>
       <% end %>

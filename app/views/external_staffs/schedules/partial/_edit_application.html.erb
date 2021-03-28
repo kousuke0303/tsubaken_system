@@ -1,0 +1,27 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">予定編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @schedule, url: applicate_external_staffs_schedule_path(@schedule), method: :post, remote: true) do |f| %>
+            <div class="schedule-edit-errors"></div>
+              <%= render 'external_staffs/schedules/partial/form', f: f %>
+             <div>
+                <%= f.label :edit_reason %>
+                <%= f.text_field :edit_reason, required: true, class: "form-control" %>
+              </div>
+            <div class="btn-area">
+              <%= f.submit "編集申請", class: "btn btn-dark" %>
+              <%= link_to "削除申請", "#", class: "btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

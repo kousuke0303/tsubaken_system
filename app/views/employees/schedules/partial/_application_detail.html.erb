@@ -1,0 +1,24 @@
+<div class="modal-dialog wide_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">スケジュール変更申請詳細</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <%= render 'employees/schedules/partial/original_schedule_show' %>
+            </div>
+            <div class="col-md-6">
+              <%= render 'employees/schedules/partial/applicated_schedule_edit' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

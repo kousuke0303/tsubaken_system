@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">予定編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @schedule, url: external_staffs_schedule_path(@schedule), method: :patch, remote: true) do |f| %>
+            <div class="schedule-edit-errors"></div>
+              <%= render 'external_staffs/schedules/partial/form', f: f %>
+            <div class="btn-area">
+              <%= link_to "削除", external_staffs_schedule_path(@schedule), method: :delete, data: { confirm: "この予定を削除しますか？" }, remote: true, class: "btn btn-danger" %>
+              <%= f.submit "編集", class: "btn btn-dark" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

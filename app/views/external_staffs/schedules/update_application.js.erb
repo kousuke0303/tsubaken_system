@@ -1,0 +1,9 @@
+<% if @result == "success" %>
+  $("#schedule-edit").modal('hide');
+  $("#schedule-edit").empty();
+  $("#schedules_detail").html('<%= escape_javascript(render "external_staffs/schedules/partial/schedules_detail" ) %>'); 
+  toastr.success("<%= @schedule.title %>の更新申請をしました");
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-edit-errors", model: @applicate_schedule, object: "schedule"} %>
+<% end %>
+  

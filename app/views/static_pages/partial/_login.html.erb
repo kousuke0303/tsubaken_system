@@ -54,9 +54,10 @@
       password.attr("name", "external_staff[password]");
       rememberMe.attr("name", "external_staff[remember_me]");
     } else {
-      $(this).prop("disabled", true);
-      $(this).prop("disabled", false);
-      return false
+      form.attr("action", "/sign_in");
+      // $(this).prop("disabled", true);
+      // $(this).prop("disabled", false);
+      // return false
     }
   });
 </script>

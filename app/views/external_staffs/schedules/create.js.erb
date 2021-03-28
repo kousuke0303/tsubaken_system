@@ -1,0 +1,8 @@
+<% if @result == "success" %>
+  $(".calendar_container").html('<%= escape_javascript( render "external_staffs/schedules/partial/calendar" ) %>'); 
+  $("#schedules_detail").html('<%= escape_javascript( render "external_staffs/schedules/partial/schedules_detail" ) %>'); 
+  $("#schedule-new").modal("hide");
+  toastr.success('新規スケジュールを登録しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-create-errors", model: @schedule, object: "schedule"} %>
+<% end %>

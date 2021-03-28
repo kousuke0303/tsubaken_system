@@ -1,0 +1,21 @@
+（現在担当している未成約の営業案件一覧）
+<table class="table table-bordered table-column-type">
+  <tr>
+    <th>案件名</th>
+    <th>案件内容</th>
+    <th>現場住所</th>
+    <th>状況</th>
+    <th></th>
+  </tr>
+  <% @estimate_matters.each do |est_matter| %>
+    <tr>
+      <td><%= est_matter.title %></td>
+      <td><%= est_matter.content %></td>
+      <td><%= est_matter.prefecture_code %><%= est_matter.address_city %><%= est_matter.address_street %></td>
+      <td><%= est_matter.sales_statuses.last.status_i18n %></td>
+      <td class="text-center">
+        <%= link_to "担当者変更", change_member_employees_estimate_matter_path(est_matter, staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
+      </td>
+    </tr>
+  <% end %>
+</table>

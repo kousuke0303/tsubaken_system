@@ -13,4 +13,9 @@ class ExternalStaffs::SessionsController < Devise::SessionsController
     # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
       { scope: resource_name, recall: "#{controller_path}#failed" }
     end
+    
+    # application_controllerのbefore_action回避
+    def use_before_action?
+      false
+    end
 end

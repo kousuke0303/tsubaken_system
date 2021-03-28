@@ -2,12 +2,7 @@
   $(".calendar_container").html('<%= escape_javascript( render "employees/schedules/partial/calendar" ) %>'); 
   $("#schedules_detail").html('<%= escape_javascript( render "employees/schedules/partial/schedules_detail" ) %>'); 
   $("#schedule-new").modal("hide");
+  toastr.success("<%= @schedule.title %>を登録しました");
 <% else %>
-  $(".schedule-create-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @schedule) %>');
-  <% @schedule.errors.messages.keys.each do |key_attribute| %>
-    var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $('[name="estimate[<%= key_attribute.intern.to_s %>]"]').prev();
-    $('[name="estimate[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-    addLabel.wrap(addDiv);
-  <% end %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-create-errors", model: @schedule, object: "schedule"} %>
 <% end %>

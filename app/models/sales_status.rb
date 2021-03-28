@@ -1,21 +1,24 @@
 class SalesStatus < ApplicationRecord
   belongs_to :estimate_matter
-  belongs_to :admin, optional: true
-  belongs_to :manager, optional: true
-  belongs_to :staff, optional: true
-  belongs_to :external_staff, optional: true
+  belongs_to :member_code, optional: true
   
   has_one :schedule, dependent: :destroy
   has_one :sales_status_editor, dependent: :destroy
-
+  
+  attr_accessor :login_user
+  
   validates :status, presence: true
   validates :scheduled_date, presence: true
   validates :note, length: { maximum: 300 }
   validate :scheduled_end_time_is_after_start_time
   validate :except_duplicate_schedule, on: :schedule_register
-  validate :except_duplicate_schedule_for_update, on: :update
+  validate :except_duplicate_schedule_for_update, on: :schedule_update
+  validates :scheduled_start_time, presence: true, on: [:schedule_register, :schedule_update]
+  validates :scheduled_end_time, presence: true, on: [:schedule_register, :schedule_update]
   
   before_save :member_name_update
+  after_commit :create_editor, on: :create
+  after_commit :update_editor, on: :update
   
   # 成約見積案件
   scope :contracted_estimate_matter, -> (estimate_matter_id) { joins(:estimate_matter)
@@ -27,7 +30,67 @@ class SalesStatus < ApplicationRecord
   
   enum register_for_schedule: { not_register: 0, schedule_register: 1, schedule_update: 2, schedule_destroy: 3 }
   
- 
+  # updateでcontextを指定できるように変更
+  def update_with_context(attributes, context)
+    with_transaction_returning_status do
+      assign_attributes(attributes)
+      save!(context: context)
+    end
+  end
+  
+  def set_schedule
+    ActiveRecord::Base.transaction do
+      self.save!(context: :schedule_register)
+      schedule_create
+    end
+  end
+  
+  def update_and_set_schedule(update_params)
+    ActiveRecord::Base.transaction do
+      self.update_with_context(update_params, :schedule_register)
+      schedule_create
+    end
+  end
+  
+  def update_and_update_schedule(update_params, schedule)
+    ActiveRecord::Base.transaction do
+      self.update_with_context(update_params, :schedule_register)
+      schedule_update(schedule)
+    end
+  end
+  
+  def update_and_destroy_schedule(update_params, schedule)
+    ActiveRecord::Base.transaction do
+      self.update!(update_params)
+      schedule_destroy(schedule)
+    end
+  end
+  
+  def schedule_create
+    Schedule.create!(copy_attributes.merge(sales_status_id: self.id))
+  end
+  
+  def schedule_update(schedule)
+    schedule.update_attributes!(copy_attributes)
+  end
+  
+  def schedule_destroy(schedule)
+    schedule.destroy!
+  end
+  
+  def copy_attributes
+    title = self.status_i18n + "/" + self.estimate_matter.title
+    params_hash = self.attributes
+    params_hash.delete("id")
+    params_hash.delete("estimate_matter_id")
+    params_hash.delete("status")
+    params_hash.delete("register_for_schedule")
+    params_hash.delete("member_name")
+    params_hash.store("title", title)
+    return params_hash
+  end
+  
+  
   private
  
     def scheduled_end_time_is_after_start_time
@@ -38,19 +101,8 @@ class SalesStatus < ApplicationRecord
     
     # 重複スケジュール登録拒否
     def except_duplicate_schedule
-      if admin_id.present?
-        duplicate_schedule = Schedule.where(admin_id: self.admin_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif manager_id.present?
-        duplicate_schedule = Schedule.where(manager_id: self.manager_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif staff_id.present?
-        duplicate_schedule = Schedule.where(staff_id: self.staff_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      elsif external_staff_id.present?
-        duplicate_schedule = Schedule.where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
-                                     .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
-      end
+      duplicate_schedule = Schedule.where(member_code_id: self.member_code_id, scheduled_date: self.scheduled_date)
+                                   .where('scheduled_end_time > ? and ? > scheduled_start_time', self.scheduled_start_time, self.scheduled_end_time)
       if duplicate_schedule.present?
         errors.add(:scheduled_start_time, "：その時間帯は既に予定があります。")
       end
@@ -59,15 +111,7 @@ class SalesStatus < ApplicationRecord
     # 重複スケジュール登録拒否
     # DBに保存されている時間はUTCのため、文字列に変換した上で比較
     def except_duplicate_schedule_for_update
-      if admin_id.present?
-        designated_schedules = Schedule.where.not(id: self.schedule.id).where(admin_id: self.admin_id, scheduled_date: self.scheduled_date)
-      elsif manager_id.present?
-        designated_schedules = Schedule.where.not(id: self.schedule.id).where(manager_id: self.manager_id, scheduled_date: self.scheduled_date)
-      elsif staff_id.present?
-        designated_schedules = Schedule.where.not(id: self.schedule.id).where(staff_id: self.staff_id, scheduled_date: self.scheduled_date)
-      elsif external_staff_id.present?
-        designated_schedules = Schedule.where.not(id: self.schedule.id).where(external_staff_id: self.external_staff_id, scheduled_date: self.scheduled_date)
-      end
+      designated_schedules = Schedule.where.not(id: self.id).where(member_code_id: self.member_code_id, scheduled_date: self.scheduled_date)
       if designated_schedules.present?
         designated_schedules.each do |schedule|
           start_time = schedule.scheduled_start_time.to_s(:time)
@@ -86,18 +130,20 @@ class SalesStatus < ApplicationRecord
     #-----------------------------------------------------
     
     def member_name_update
-      if self.admin_id
-        member_name = Admin.find(self.admin_id).name
-      elsif self.manager_id
-        member_name = Manager.find(self.manager_id).name
-      elsif self.staff_id
-        member_name = Staff.find(self.staff_id).name
-      elsif self.external_staff_id
-        member_name = ExternalStaff.find(self.external_staff_id).name
-      else
-        member_name = nil
+      unless self.status == "not_set"
+        member_code = MemberCode.find(self.member_code_id)
+        self.member_name = member_code.member_name_from_member_code
       end
-      self.member_name = member_name
+    end
+    
+    def create_editor
+      unless self.status == "not_set" 
+        self.create_sales_status_editor(member_code_id: login_user.member_code.id)
+      end
+    end
+    
+    def update_editor
+       self.sales_status_editor.update(member_code_id: login_user.member_code.id)
     end
 
 end

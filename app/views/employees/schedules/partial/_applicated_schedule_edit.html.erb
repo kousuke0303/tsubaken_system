@@ -1,0 +1,54 @@
+<%= form_with(model: @applicated_schedule, url: commit_application_employees_schedule_path(@applicated_schedule), method: :patch, remote: true) do |f| %>
+  <div class="schedule-edit-errors"></div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap table_line_type">
+      <tr>
+        <th style="width: 6em">タイトル</th>
+        <td colspan="2" id="title"><%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %></td>
+      </tr>
+      <tr>
+        <th>担当者</th>
+        <td colspan="2"><%= @applicated_schedule.member_name %></td>
+      </tr>
+      <tr>
+        <th>予定日</th>
+        <td colspan="2" id="scheduled_date"><%= f.date_field :scheduled_date, required: true, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th rowspan="2">予定時刻</th>
+        <td>開始予定時刻</td>
+        <td>終了予定時刻</td>
+      </tr>
+      <tr>
+        <td id="scheduled_start_time"><%= f.time_field :scheduled_start_time, required: true, class: "form-control" %></td>
+        <td id="scheduled_end_time"><%= f.time_field :scheduled_end_time, required: true, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th id="place">場所</th>
+        <td colspan="2"><%= f.text_field :place, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th id="note">備考</th>
+        <td colspan="2"><%= f.text_area :note, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th>変更理由</th>
+        <td colspan="2"><%= @applicated_schedule.edit_reason %></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="btn-area">
+    <%= f.submit "更新", class: "btn btn-success" %>
+    <%= link_to "保留", application_employees_schedules_path, class: "btn btn-dark" %>
+  </div>
+<% end %>
+
+<% @diff.keys.each do |key| %>
+  <script>
+    $(document).ready(function(){
+      var target = "<%= key %>";
+      $('#' + target).children('input').css('border-color', "#dc3545");
+    });
+  </script>
+<% end %>

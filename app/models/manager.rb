@@ -1,14 +1,14 @@
 class Manager < ApplicationRecord
+  has_one :member_code, dependent: :destroy
   belongs_to :department
   belongs_to :schedule, optional: true
   
   has_many :attendances, dependent: :destroy
-  has_many :tasks
-  has_many :sales_statuses
-  has_many :schedules
   has_one_attached :avator
 
   before_save { self.email = email.downcase if email.present? }
+  after_commit :create_member_code, on: :create
+  after_find :update_for_avaliable
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
@@ -19,11 +19,11 @@ class Manager < ApplicationRecord
   validates :address_city, presence: true
   validates :address_street, presence: true
   validate :manager_login_id_is_correct?
-  validate :joined_with_resigned
-  validate :resigned_is_since_joined
+  # validate :joined_with_resigned
+  # validate :resigned_is_since_joined
 
-  scope :enrolled, -> { where(resigned_on: nil) }
-  scope :retired, -> { where.not(resigned_on: nil) }
+  scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current)}
+  scope :retired, -> { where('resigned_on <= ?', Date.current) }
   scope :with_departments, -> { 
     left_joins(:department).
     select(
@@ -33,27 +33,22 @@ class Manager < ApplicationRecord
     ).order(position: :asc)
   }
   
+  # ---------------------------------------------------------
+    # DEVISE関連
+  # ---------------------------------------------------------
+  
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
   
-  # マネージャーの従業員IDは「MN-」から始めさせる
-  def manager_login_id_is_correct?
-    errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
+  # ログイン条件追加
+  def active_for_authentication?
+    super && self.avaliable
   end
-
-  # 退社日は入社日がないとNG
-  def joined_with_resigned
-    errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
+  
+  # 上記エラーメッセージ変更
+  def inactive_message
+    self.avaliable ? super : :not_avaliable
   end
-
-  # 退社日は入社日以降
-  def resigned_is_since_joined
-    if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
-      errors.add(:resigned_on, "は入社日以降にしてください")
-    end
-  end
-
-  # ------------------------------以下devise関連------------------------------
-
+  
   # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -77,5 +72,46 @@ class Manager < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
+  private
+  
+    #---------------------------------------------------
+     # CALLBACK_METHOD
+    #---------------------------------------------------
+    
+    def create_member_code
+      unless MemberCode.find_by(manager_id: self.id)
+        MemberCode.create(manager_id: self.id)
+      end
+    end
+    
+    def update_for_avaliable
+      if self.avaliable == true && self.resigned_on.present?
+        if Date.today > self.resigned_on
+          self.update(avaliable: false)
+        end
+      end
+    end
+    
+    #---------------------------------------------------
+     # VALIDATE_METHOD
+    #---------------------------------------------------
+    
+    # マネージャーの従業員IDは「MN-」から始めさせる
+    def manager_login_id_is_correct?
+      errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
+    end
+  
+    # # 退社日は入社日がないとNG
+    # def joined_with_resigned
+    #   errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
+    # end
+  
+    # 退社日は入社日以降
+    # def resigned_is_since_joined
+    #   if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
+    #     errors.add(:resigned_on, "は入社日以降にしてください")
+    #   end
+    # end
   
 end

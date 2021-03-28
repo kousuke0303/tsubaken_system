@@ -1,4 +1,10 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: {title_1: "Manager", title_2: "#{@manager.name} 詳細", icon: "fa-user-tie"} %>
+  
+  <div class="avator_container_for_sidebar">
+    <%= show_avator(@manager) %>
+    <h2><%= @manager.name %>詳細</h2>
+  </div>
+  
+  <%= out_of_service(@manager) %>
   <%= render "/employees/managers/partial/detail" %>  
 </div>

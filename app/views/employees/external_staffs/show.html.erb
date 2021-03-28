@@ -1,73 +1,10 @@
 <div class="col-12">
   
-  <%= render partial: 'layouts/page_title', locals: {title_1: "外部スタッフ", title_2: "#{@external_staff.name} 詳細", icon: "fa-user" } %>
-
-  <div class="table-responsive pc_type">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>名前</th>
-        <td><%= @external_staff.name %></td>
-      </tr>
-      <tr>
-        <th>フリガナ</th>
-        <td><%= @external_staff.kana %></td>
-      </tr>
-      <tr>
-        <th>ログインID</th>
-        <td><%= @external_staff.login_id %></td>
-      </tr>
-      <tr>
-        <th>電話番号</th>
-        <td><%= @external_staff.phone %></td>
-      </tr>
-      <tr>
-        <th>メールアドレス</th>
-        <td><%= @external_staff.email %></td>
-      </tr>
-      <tr>
-        <th>所属</th>
-        <td><%= @supplier.name if @supplier %></td>
-      </tr>
-    </table>
+  <div class="avator_container_for_sidebar">
+    <%= show_avator(@external_staff) %>
+    <h2><%= @external_staff.name %>詳細</h2>
   </div>
-      
-  <div class="mobile_type">
-    <div>
-      <button type="button" id="tableCollapse" class="navbar-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-    
-    <div class="responsive_table_wrapper">
-      <nav class="responsive_table_sidebar">
-        <ul class="components">
-          <li>名前</li>
-          <li>フリガナ</li>
-          <li>LOGINID</li>
-          <li>TEL</li>
-          <li>MAIL</li>
-          <li>所属</li>
-        </ul>
-      </nav>
-      <div class="table_content text-nowrap overflow-auto">
-        <div class="content"><%= @external_staff.name %></div>
-        <div class="content"><%= @external_staff.kana %></div>
-        <div class="content"><%= @external_staff.login_id %></div>
-        <div class="content">
-          <a href="tel:<%= @external_staff.phone %>" class=""><%= mobile_phone_display(@external_staff.phone) %></a>
-        </div>
-        <div class="content"><%= @external_staff.email %></div>
-        <div class="content"><%= @supplier.name if @supplier %></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="btn-area">
-    <%= link_to "編集", edit_employees_external_staff_path(@external_staff), remote: true, class: "btn btn-dark" %>
-    <%= link_to "削除", employees_external_staff_path(@external_staff), method: :delete, data: { confirm: "この外部Staffを削除してよろしいですか？" }, class: "btn btn-danger" %>
-  </div>
+  
+  <%= out_of_service(@external_staff) %>
+  <%= render "/employees/external_staffs/partial/detail" %> 
 </div>
-
-<%= javascript_include_tag "tableCollapse.js" %> 

@@ -1,14 +1,11 @@
 class Task < ApplicationRecord
   belongs_to :estimate_matter, optional: true
   belongs_to :matter, optional: true
-  belongs_to :admin, optional: true
-  belongs_to :manager, optional: true
-  belongs_to :staff, optional: true
-  belongs_to :external_staff, optional: true
+  belongs_to :member_code, optional: true
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, length: { maximum: 300 }
-  validate :only_in_charge
+  # validate :only_in_charge
   
   before_save :member_name_update
   
@@ -57,22 +54,6 @@ class Task < ApplicationRecord
     end
   end
   
-  def task_update(parameter)
-    ActiveRecord::Base.transaction do
-      self.update!(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
-      self.update!(parameter)
-    end
-  rescue => e
-    Rails.logger.error e.class
-    Rails.logger.error e.message
-    Rails.logger.error e.backtrace.join("\n")
-    # bugsnag導入後
-    # Bugsnag.notifiy e
-  end
-  
-  
-  
-  
   private
   
   #-----------------------------------------------------
@@ -90,17 +71,9 @@ class Task < ApplicationRecord
   #-----------------------------------------------------
   
   def member_name_update
-    if self.admin_id
-      member_name = Admin.find(self.admin_id).name
-    elsif self.manager_id
-      member_name = Manager.find(self.manager_id).name
-    elsif self.staff_id
-      member_name = Staff.find(self.staff_id).name
-    elsif self.external_staff_id
-      member_name = ExternalStaff.find(self.external_staff_id).name
-    else
-      member_name = nil
+    if self.member_code.present?
+      member_code = MemberCode.find(self.member_code_id)
+      self.member_name = member_code.member_name_from_member_code
     end
-    self.member_name = member_name
   end
 end

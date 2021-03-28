@@ -8,38 +8,10 @@
       <th>現場住所</th>
       <td><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></td>
     </tr>
-    <% if @staffs.exists? %>
-      <% @staffs.each_with_index do |staff, index| %>
-        <tr>
-          <% if index == 0 %>
-            <th rowspan="<%= @staffs.count %>">担当Staff</th>
-          <% end %>
-          <td><%= staff.name %></td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <th>担当Staff</th>
-        <td>登録なし</td>
-      </tr>
-    <% end %>
-
-    <% if @external_staffs.exists? %>
-      <% @external_staffs.each_with_index do |external_staff, index| %>
-        <tr>
-          <% if index == 0 %>
-            <th rowspan="<%= @external_staffs.count %>">担当外部Staff</th>
-          <% end %>
-          <td><%= external_staff.name %></td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <th>担当外部Staff</th>
-        <td>登録なし</td>
-      </tr>
-    <% end %>
-
+    <tr>
+      <th>担当スタッフ</th>
+      <td><%= person_in_charge_for(@member_name_arrey) %></td>
+    </tr>
     <tr>
       <th>進行状況</th>
       <td><%= @matter.status_i18n %></td>
@@ -102,24 +74,7 @@
     
     <div class="table_content text-nowrap">
       <div class="content"><%= @matter.title %></div>
-      <div class="content">
-        <% if @staffs.exists? %>
-          <% @staffs.each_with_index do |staff, index| %>
-            <span class="mr-05e"><%= staff.name %></span>
-          <% end %>
-        <% else %>
-          <span>登録なし</span>
-        <% end %>
-      </div>
-      <div class="content">
-        <% if @external_staffs.exists? %>
-          <% @external_staffs.each_with_index do |external_staff, index| %>
-            <span class="mr-05e"><%= external_staff.name %></span>
-          <% end %>
-        <% else %>
-          <span>登録なし</span>
-        <% end %>
-      </div>
+      <div class="content"><%= person_in_charge_for(@member_name_arrey) %></div>
       <div class="content"><%= @matter.status_i18n %></div>
       <div class="content"><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></div>
       <div class="content"><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></div>

@@ -29,8 +29,8 @@ class Employees::StaffsController < Employees::EmployeesController
     @label_color = @staff.label_color
     @estimate_matters = @staff.estimate_matters.with_sales_statuses.group_by{ |sales_status| sales_status.estimate_matter_id }
     @matters = @staff.matters
-    @tasks = @matters.joins(:tasks).where(tasks: { staff_id: @staff.id})
-                    .select('matters.title AS matter_title', 'tasks.*')
+    @tasks = @matters.joins(:tasks).where(tasks: { member_code_id: @staff.member_code.id})
+                     .select('matters.title AS matter_title', 'tasks.*')
   end
 
   def update
@@ -42,27 +42,30 @@ class Employees::StaffsController < Employees::EmployeesController
   
   def retirement_process
     @matters = @staff.matters.where.not(status:2)
+    @estimate_matters = @staff.estimate_matters.left_joins(:matter).where(matters: {estimate_matter_id: nil})
     @tasks = Matter.joins(:tasks)
-                   .where(tasks: { staff_id: @staff.id })
+                   .where(tasks: { member_code_id: @staff.member_code.id })
                    .where.not(tasks: { status: 3})
                    .select('matters.id AS matter_id, matters.title AS matter_title', 'tasks.*')
-    @schedules = @staff.schedules.where('scheduled_date >= ?', Date.today)
+    @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
   end
   
-  def resigend_registor
+  def resigned_registor
     if @staff.update(resigned_on: params[:staff][:resigned_on])
       flash[:success] = "退職日を登録しました"
     end
     redirect_to retirement_process_employees_staff_url(@staff)
   end
+  
+  def confirmation_for_destroy
+  end
 
   def destroy
-    if @staff.relation_destroy
-      flash[:info] = "#{@staff}を削除しました"
-    else
-      flash[:danger] = "#{@staff}は削除できません"
+    @staff.accept = params[:staff][:accept].to_i
+    if @staff.valid?(:destroy_check) && @staff.relation_destroy
+      flash[:notice] = "#{@staff.name}を削除しました"
+      redirect_to employees_staffs_url
     end
-    redirect_to employees_staffs_url
   end
 
   private

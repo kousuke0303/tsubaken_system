@@ -9,15 +9,12 @@ class CreateSalesStatuses < ActiveRecord::Migration[5.2]
       t.time :scheduled_end_time
       t.string :place
       t.integer :register_for_schedule, null: false, default: 0
-      t.references :staff
-      t.references :external_staff
-      t.references :manager
-      t.references :admin
+      t.integer :member_code_id, foreign_key: true
       # 担当者が削除された時のカラム
       t.string :member_name
-
       t.timestamps
     end
     add_index  :sales_statuses, :estimate_matter_id
+    add_index  :sales_statuses, :member_code_id
   end
 end

@@ -1,11 +1,12 @@
 class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
-  before_action :set_matter, except: [:new, :index]
+  before_action :set_matter, except: [:new, :create, :index]
   before_action :set_employees, only: [:new, :edit, :change_member]
+  before_action ->{set_menbers_code_for(@matter)}, only: :show
   before_action :set_suppliers, only: :edit
-  before_action :can_access_only_matter_of_being_in_charge
-  before_action :set_staff, only: :change_member
-
+  before_action ->{can_access_only_of_member(@matter)}, except: :index
+  before_action :all_staff_and_external_staff_code, only: [:edit, :change_member]
+  
   # 見積案件から案件を作成ページ
   def new
     @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
@@ -18,37 +19,31 @@ class Employees::MattersController < Employees::EmployeesController
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
                                                                             scheduled_finished_on: params[:matter][:scheduled_finished_on],
-                                                                            estimate_id: params[:matter][:estimate_id]))
-                                                                            
+                                                                            estimate_id: params[:matter][:estimate_id]
+                                                                            ))
     if @matter.save
       @responce = "success"
-      # redirect_to employees_matter_url(@matter)
     else
       @responce = "failure"
     end
   end
 
   def index
-    if current_admin || current_manager
-      @matters = Matter.all
-    elsif current_staff
-      @staff_matters = current_staff.matters
-    elsif current_external_staff
-      @external_staff_matters = current_external_staff.matters
+    @matters = Matter.all
+    unless current_admin || current_manager
+      @matters = Matter.joins(:member_codes).where(member_codes: {id: login_user.member_code.id})
     end
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "not_started"
-      @matters = @matters.not_started
+      @matters = @matters.where(status: "not_started")
     elsif params[:status] && params[:status] == "progress"
-      @matters = @matters.progress
+      @matters = @matters.where(status: "progress")
     elsif params[:status] && params[:status] == "completed"
-      @matters = @matters.completed
+      @matters = @matters.where(status: "completed")
     end
   end
 
   def show
-    @staffs = @matter.staffs
-    @external_staffs = @matter.external_staffs
     @suppliers = @matter.suppliers
     @tasks = @matter.tasks
     set_classified_tasks(@matter)    
@@ -64,6 +59,8 @@ class Employees::MattersController < Employees::EmployeesController
 
   def edit
     @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
+    @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
+    @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
   end
 
   def update
@@ -84,14 +81,27 @@ class Employees::MattersController < Employees::EmployeesController
   end
   
   def change_member
+    if params[:staff_id].present?
+      set_staff
+    elsif params[:external_staff_id].present?
+      target_external_staff
+    end
+    @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
+    @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
   end
   
   def update_member
+    params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
+    params[:matter][:member_code_ids].flatten!
     @matter.update(matter_params)
-    delete_matter_relation_table
     flash[:success] = "#{@matter.title}の担当者を変更しました"
-    @staff = Staff.find(params[:matter][:staff_id])
-    redirect_to retirement_process_employees_staff_url(@staff)
+    if params[:matter][:staff_id].present?
+      @staff = Staff.find(params[:matter][:staff_id])
+      redirect_to retirement_process_employees_staff_url(@staff)
+    elsif params[:matter][:external_staff_id].present?
+      @external_staff = ExternalStaff.find(params[:matter][:external_staff_id])
+      redirect_to retirement_process_employees_external_staff_url(@external_staff)
+    end
   end
 
   private
@@ -102,19 +112,19 @@ class Employees::MattersController < Employees::EmployeesController
     def matter_params
       params.require(:matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :address_street, :scheduled_started_on, 
                                      :scheduled_finished_on, :status, :estimate_id, :started_on, :finished_on, :maintenanced_on,
-                                     { staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
+                                     { member_code_ids: [] }, { supplier_ids: [] })
     end
     
-    def matter_staff_external_staff_client_params
-      params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
-    end
+    # def matter_staff_external_staff_client_params
+    #   params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
+    # end
     
-    def delete_matter_relation_table
-      unless params[:matter][:staff_ids].present?
-        @matter.matter_staffs.delete_all
-      end
-      unless params[:matter][:external_staff_ids].present?
-        @matter.matter_external_staffs.delete_all
-      end
-    end
+    # def delete_matter_relation_table
+    #   unless params[:matter][:staff_ids].present?
+    #     @matter.matter_staffs.delete_all
+    #   end
+    #   unless params[:matter][:external_staff_ids].present?
+    #     @matter.matter_external_staffs.delete_all
+    #   end
+    # end
 end

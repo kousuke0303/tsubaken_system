@@ -16,9 +16,10 @@
             <%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
             
             <h6 class="mt-1e">担当者</h6>
-              <div>
-                <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
-              </div>
+            <div>
+              <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+            </div>
+            
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
               <%= link_to "削除", employees_matter_task_path(matter, task), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
@@ -31,3 +32,16 @@
 </div>
 
 <%= javascript_include_tag "person_in_charge.js" %>
+
+<% if member_name(@task) %>
+  <script>
+    $(document).ready( function(){
+      var member = "<%= member_name(@task) %>";
+      $('#member_select option').each(function(){
+        if($(this).text() == member){
+          $(this).prop('selected', true);
+        }
+      });
+    });
+  </script>
+<% end %>

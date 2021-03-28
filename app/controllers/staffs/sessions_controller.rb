@@ -13,4 +13,5 @@ class Staffs::SessionsController < Devise::SessionsController
     # { scope: resource_name, recall: "#{controller_path}#new" } # デフォルト
       { scope: resource_name, recall: "#{controller_path}#failed" }
     end
+    
 end

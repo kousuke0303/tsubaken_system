@@ -1,7 +1,11 @@
 class Employees::SchedulesController < Employees::EmployeesController
   before_action :all_member, only: [:new, :edit, :change_member]
-  before_action :set_schedule, only: [:edit, :update, :destroy, :change_member, :update_member]
-  before_action :set_staff, only: [:change_member, :update_member]
+  before_action :all_member_code
+  before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application]
+  before_action :set_manager, if: :object_is_manager?, only: [:change_member]
+  before_action :set_staff, if: :object_is_staff?, only: [:change_member]
+  before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
+  before_action :schedule_application, only: :application
   
   def index
     @object_day = Date.current
@@ -13,16 +17,7 @@ class Employees::SchedulesController < Employees::EmployeesController
   end
   
   def create
-    if current_staff
-      @schedule = Schedule.new(schedule_params.merge(staff_id: current_staff.id))
-    elsif current_external_staff
-      @schedule = Schedule.new(schedule_params.merge(current_staff_id: current_external_staff.id))
-    else
-      # 担当者パラメータ整形
-      formatted_member_params(params[:schedule][:member], schedule_params)
-      @schedule = Schedule.new(@final_params)
-    end
-    
+    @schedule = Schedule.new(schedule_params)
     if @schedule.save
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
@@ -42,45 +37,28 @@ class Employees::SchedulesController < Employees::EmployeesController
       @type = "disable_update"
       @estimate_matter = SalesStatus.find(@schedule.sales_status_id).estimate_matter
     end
-    if @schedule.admin_id.present?
-      @member_value = "admin##{@schedule.admin_id}"
-    elsif @schedule.manager_id.present?
-      @member_value = "manager##{@schedule.manager_id}"
-    elsif @schedule.staff_id.present?
-      @member_value = "staff##{@schedule.staff_id}"
-    elsif @schedule.external_staff_id.present?
-      @member_value = "external_staff##{@schedule.external_staff_id}"
-    end
   end
   
   def update
-    # 担当者パラメーター整形
-    formatted_member_params(params[:schedule][:member], schedule_params)
-    @schedule.transaction do
-      @schedule.update(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
-      @schedule.update!(@final_params)
+    if  @schedule.update(schedule_params)
+      @object_day = @schedule.scheduled_date
+      set_basic_schedules(@object_day)
+      @result = "success"
+    else
+      @result = "failure"
     end
-    @object_day = @schedule.scheduled_date
-    set_basic_schedules(@object_day)
-    @result = "success"
-  rescue
-    @result = "failure" 
   end
   
   def change_member
   end
   
   def update_member
-    formatted_member_params(params[:schedule][:member], schedule_params)
-    @schedule.transaction do
-      @schedule.update(admin_id: "", manager_id: "", staff_id: "", external_staff_id: "")
-      @schedule.update!(@final_params)
+    if @schedule.update(schedule_params)
+      set_valiable
+      @result = "success"
+    else
+      @result = "failure"
     end
-    @object_day = @schedule.scheduled_date
-    @schedules = @staff.schedules.where('scheduled_date >= ?', Date.today)
-    @result = "success"
-  rescue
-    @result = "failure" 
   end
   
   def destroy
@@ -89,18 +67,60 @@ class Employees::SchedulesController < Employees::EmployeesController
     set_basic_schedules(@object_day)
   end
   
+  def apllication
+  end
+  
+  def application_detail
+    @applicated_schedule = @schedule
+    @origin_schedule = @schedule.original
+    diff
+  end
+  
+  def commit_application
+    @applicated_schedule = Schedule.find(params[:id])
+    @origin_schedule = @applicated_schedule.original
+    if @applicated_schedule.update(schedule_params.merge(schedule_id: nil))
+      @origin_schedule.destroy
+      flash[:success] = "#{@applicated_schedule.title}の変更申請を承認しました"
+      redirect_to application_employees_schedules_url
+    end
+  end
+  
   private
     def set_schedule
       @schedule = Schedule.find(params[:id])
     end
   
     def schedule_params
-      params.require(:schedule).permit(:title, 
-                                       :scheduled_date,
+      params.require(:schedule).permit(:title, :scheduled_date,
                                        :scheduled_start_time,
                                        :scheduled_end_time,
-                                       :place,
-                                       :note)
+                                       :place, :note,
+                                       :member_code_id)
+    end
+    
+    def diff
+      difference = @applicated_schedule.attributes.to_a - @origin_schedule.attributes.to_a
+      @diff = Hash[*difference.flatten]
+      @diff.delete('id')
+      @diff.delete('edit_reason')
+      @diff.delete('schedule_id')
+      @diff.delete('sales_status_id')
+      @diff.delete('created_at')
+      @diff.delete('updated_at')
+    end
+    
+    def set_valiable
+      if params[:schedule][:manager_id].present?
+        @manager = Manager.find(params[:schedule][:manager_id])
+        @schedules = Schedule.where(member_code_id: @manager.member_code.id).where('scheduled_date >= ?', Date.today)
+      elsif params[:schedule][:staff_id].present? 
+        @staff = Staff.find(params[:schedule][:staff_id])
+        @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
+      elsif params[:schedule][:external_staff_id].present? 
+        @external_staff = ExternalStaff.find(params[:schedule][:external_staff_id])
+        @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
+      end
     end
     
 end

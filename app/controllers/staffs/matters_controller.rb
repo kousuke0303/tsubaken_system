@@ -1,10 +1,11 @@
 class Staffs::MattersController < ApplicationController
-  before_action :authenticate_staff!
+  before_action->{can_access_only_of_member(object)}
   before_action :not_current_staff_return_login!
   
   def index
-    @progress_matters = current_staff.matters.where.not("status = ?", "finish")
-    @finished_matters = current_staff.matters.where("status = ?", "finish")
+    @matters = Matter.all
+    @progress_matters = @matters.longin_user_matters_for_progress(login_user)
+    @finished_matters = @matters.login_user_matters_for_finish(login_user)
   end
   
   def show

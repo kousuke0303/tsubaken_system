@@ -1,6 +1,5 @@
 var dom = "<%= dom %>";
 $(dom).html('<%= escape_javascript(render "shared/error_messages", resource: model) %>');
-
 <% model.errors.messages.keys.each do |key_attribute| %>
   <% unless key_attribute.to_s == "accept" %>
     var taget_dom = $('[name="<%= object %>[<%= key_attribute.to_s %>]"]')
@@ -9,6 +8,6 @@ $(dom).html('<%= escape_javascript(render "shared/error_messages", resource: mod
     $('[name="<%= object %>[<%= key_attribute.to_s %>]"]').wrap(addDiv);
     addLabel.wrap(addDiv);
   <% else %>
-    $('.accept_text').addClass('text-danger')
+    $('#accept').addClass('text-danger')
   <% end %>
 <% end %>

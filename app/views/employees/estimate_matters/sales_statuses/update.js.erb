@@ -1,6 +1,6 @@
 <% if @response == "success" %>
   $("#sales-status-edit").modal("hide");
-  $(".flash-wrapper").html('<div class="flash flash-notice time-limit">営業ステータスを更新しました。</div>');
+  toastr.success('<%= @sales_status.status_i18n %>を更新しました')
   <!--スケジュールから飛んできた場合の処理-->
   <% if @origin == "schedule" %>
     $(".calendar_container").html('<%= escape_javascript( render "employees/schedules/partial/calendar" ) %>'); 

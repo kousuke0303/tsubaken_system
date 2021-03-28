@@ -25,28 +25,22 @@
       <td><%= postal_code_display(@manager.postal_code) %></td>
     </tr>
     <tr>
-      <th>都道府県</th>
-      <td><%= @manager.prefecture_code %></td>
-    </tr>
-    <tr>
-      <th>市区町村</th>
-      <td><%= @manager.address_city %></td>
-    </tr>
-    <tr>
-      <th>町名番地</th>
-      <td><%= @manager.address_street %></td>
+      <th>住所</th>
+      <td><%= @manager.prefecture_code %><%= @manager.address_city %><%= @manager.address_street %></td>
     </tr>
     <tr>
       <th>入社日</th>
-      <td><%= @manager.joined_on %></td>
+      <td><%= @manager.joined_on ? l(@manager.joined_on) : "未登録" %></td>
     </tr>
-    <tr>
-      <th>退社日</th>
-      <td><%= @manager.resigned_on %></td>
-    </tr>
+    <% if @manager.resigned_on %>
+      <tr>
+        <th>退社日</th>
+        <td><%= l(@manager.resigned_on) %></td>
+      </tr>
+    <% end %>
     <tr>
       <th>生年月日</th>
-      <td><%= @manager.birthed_on %></td>
+      <td><%= @manager.birthed_on ? l(@manager.joined_on) : "未登録" %></td>
     </tr>
   </table>
 </div>
@@ -86,9 +80,11 @@
       <div class="content"><%= @manager.email %></div>
       <div class="content"><%= postal_code_display(@manager.postal_code) %></div>
       <div class="content"><%= @manager.prefecture_code %><%= @manager.address_city %><%= @manager.address_street %></div>
-      <div class="content"><%= @manager.joined_on %></div>
-      <div class="content"><%= @manager.resigned_on %></div>
-      <div class="content"><%= @manager.birthed_on %></div>
+      <div class="content"><%= @manager.joined_on ? l(@manager.joined_on) : "未登録" %></div>
+      <% if @manager.resigned_on %>
+        <div class="content"><%= l(@manager.resigned_on) if @manager.resigned_on %></div>
+      <% end %>
+      <div class="content"><%= @manager.birthed_on ? l(@manager.joined_on) : "未登録" %></div>
     </div>
   </div>
 </div>
@@ -96,7 +92,10 @@
 <% if current_admin %>
   <div class="btn-area">
     <%= link_to "編集", edit_employees_manager_path(@manager), remote: true, class: "btn btn-dark" %>
-    <%= link_to "削除", employees_manager_path(@manager), method: :delete, data: { confirm: "このManagerを削除してよろしいですか？" }, class: "btn btn-danger" %>
+    <%= link_to "退職処理", retirement_process_employees_manager_path(@manager), class: "btn btn-destroy" %>
+    <% if @manager.avaliable == false %>
+      <%= link_to "アカウント復活", restoration_employees_manager_path(@manager), method: :patch, class: "btn btn-success" %>
+    <% end %>
   </div>
 <% end %>
 

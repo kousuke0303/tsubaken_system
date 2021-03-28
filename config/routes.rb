@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   # mount ActionCable.server => '/cable'
   root "static_pages#top"
+  post "sign_in", to: "static_pages#error"
   
   get "postcode_search", to: "addresses#search_postcode"
       
@@ -203,28 +204,44 @@ Rails.application.routes.draw do
       post :avator_change
       get :avator_destroy
     end
+    
   end
 
   namespace :external_staffs do
     resources :attendances, only: [:index, :update] do
       get :change_month, on: :collection
     end
+    resources :schedules do
+      post :applicate, on: :member
+    end
   end
 
   # 従業員が行う操作
   namespace :employees do
-    resources :managers
+    resources :managers do
+      get :retirement_process, on: :member
+      patch :resigned_registor, on: :member
+      patch :restoration, on: :member
+      get :confirmation_for_destroy, on: :member
+    end
     resources :staffs do
-      get :delete_confirmation, on: :member
+      get :retirement_process, on: :member
+      patch :resigned_registor, on: :member
+      patch :restoration, on: :member
+      get :confirmation_for_destroy, on: :member
+    end
+    resources :external_staffs do
       get :retirement_process, on: :member
       patch :resigend_registor, on: :member
+      patch :out_of_service, on: :member
+      patch :restoration, on: :member
+      get :confirmation_for_destroy, on: :member
     end
     resources :clients do
       post :search_index, on: :collection
       patch :reset_password, on: :member
     end
     resources :suppliers
-    resources :external_staffs
     
     resources :attendances, only: [:new, :create, :update, :destroy] do
       collection do
@@ -235,6 +252,9 @@ Rails.application.routes.draw do
     resources :schedules do
       get :change_member, on: :member
       patch :update_member, on: :member
+      get :application, on: :collection
+      get :application_detail, on: :member
+      patch :commit_application, on: :member
     end
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
@@ -247,6 +267,8 @@ Rails.application.routes.draw do
       get :progress_table_for_three_month, on: :collection
       get :prev_progress_table, on: :collection
       get :next_progress_table, on: :collection
+      get :change_member,on: :member
+      patch :update_member, on: :member
       
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
@@ -271,7 +293,6 @@ Rails.application.routes.draw do
         get :preview, on: :collection
       end
       resources :covers, except: [:index]
-      get :person_in_charge
     end
 
     resources :matters do

@@ -75,5 +75,15 @@ module EmployeesHelper
       end)
     end    
   end
-    
+  
+  # アカウント利用停止ボタン
+  def out_of_service(user)
+    if user.avaliable == false
+      content_tag(:div, class: "text-right") do
+        content_tag(:h3) do
+          content_tag(:span, "アカウント利用停止中", class: "badge badge-danger" )
+        end
+      end
+    end
+  end
 end

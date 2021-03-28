@@ -31,6 +31,12 @@ ja:
         not_started: "未着手"
         progress: "進行中"
         completed: "完了済"
+    task:
+      status:
+        default: "デフォルト"
+        relevant: "未着手"
+        ongoing: "進行中"
+        finished: "完了済"
     category:
       classification:
         common: 共通
@@ -78,7 +84,7 @@ ja:
     - 金曜日
     - 土曜日
     formats:
-      default: "%Y/%m/%d"
+      default: "%Y年%-m月%-d日"
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
       middle: "%m/%d"

@@ -3,7 +3,7 @@
 
 <h6 class="mt-1e">担当者</h6>
 <div>
-  <%= f.select :member, options_for_select(@members.map{ |member|[member[:name], member[:auth] + "#" + member[:id].to_s] }), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+  <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
 
 <%= f.label :scheduled_date %>
@@ -39,18 +39,12 @@
 <% if member_name(@sales_status) %>
   <script>
     $(document).ready( function(){
-    
       var member = "<%= member_name(@sales_status) %>";
       $('#member_select option').each(function(){
         if($(this).text() == member){
           $(this).prop('selected', true);
         }
       });
-   
     });
   </script>
 <% end %>
-
-
-<script>
-</script>

@@ -7,6 +7,11 @@ class CreateSchedules < ActiveRecord::Migration[5.2]
       t.string :title, null: false
       t.string :place
       t.text :note
+      t.text :edit_reason
+      t.boolean :destroy_flag
+      t.string :member_name
+      t.references :schedule
+      t.references :member_code
       t.references :staff
       t.references :manager
       t.references :admin

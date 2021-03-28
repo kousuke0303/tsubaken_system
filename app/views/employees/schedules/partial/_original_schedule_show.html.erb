@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap table_line_type">
+    <tr>
+      <th style="width: 6em">タイトル</th>
+      <td colspan="2"><%= @origin_schedule.title %></td>
+    </tr>
+    <tr>
+      <th>担当者</th>
+      <td colspan="2"><%= @origin_schedule.member_name %></td>
+    </tr>
+    <tr>
+      <th>予定日</th>
+      <td colspan="2"><%= @origin_schedule.scheduled_date.month %>月<%= @schedule.scheduled_date.day %>日</td>
+    </tr>
+    <tr>
+      <th rowspan="2">予定時刻</th>
+      <td>開始予定時刻</td>
+      <td>終了予定時刻</td>
+    </tr>
+    <tr>
+      <td><%= @origin_schedule.scheduled_start_time.strftime("%H:%M") %></td>
+      <td><%= @origin_schedule.scheduled_end_time.strftime("%H:%M") %></td>
+    </tr>
+    <tr>
+      <th>場所</th>
+      <td colspan="2"><%= @origin_schedule.place %></td>
+    </tr>
+    <tr>
+      <th>備考</th>
+      <td colspan="2"><%= @origin_schedule.note %></td>
+    </tr>
+  </table>
+</div>

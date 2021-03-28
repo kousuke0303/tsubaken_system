@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_090110) do
+ActiveRecord::Schema.define(version: 2021_03_20_074136) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -193,22 +193,13 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.index ["material_id"], name: "index_estimate_details_on_material_id"
   end
 
-  create_table "estimate_matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "estimate_matter_member_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id", null: false
-    t.bigint "external_staff_id"
+    t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_estimate_matter_external_staffs_on_estimate_matter_id"
-    t.index ["external_staff_id"], name: "index_estimate_matter_external_staffs_on_external_staff_id"
-  end
-
-  create_table "estimate_matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "estimate_matter_id", null: false
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_estimate_matter_staffs_on_estimate_matter_id"
-    t.index ["staff_id"], name: "index_estimate_matter_staffs_on_staff_id"
+    t.index ["estimate_matter_id"], name: "index_estimate_matter_member_codes_on_estimate_matter_id"
+    t.index ["member_code_id"], name: "index_estimate_matter_member_codes_on_member_code_id"
   end
 
   create_table "estimate_matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -246,6 +237,8 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "kana"
     t.string "phone"
     t.string "email"
+    t.date "resigned_on"
+    t.boolean "avaliable", default: true, null: false
     t.bigint "supplier_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -324,6 +317,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
+    t.boolean "avaliable", default: true, null: false
     t.bigint "department_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -348,22 +342,13 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.index ["plan_name_id"], name: "index_materials_on_plan_name_id"
   end
 
-  create_table "matter_external_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "matter_member_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "matter_id", null: false
-    t.bigint "external_staff_id"
+    t.integer "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["external_staff_id"], name: "index_matter_external_staffs_on_external_staff_id"
-    t.index ["matter_id"], name: "index_matter_external_staffs_on_matter_id"
-  end
-
-  create_table "matter_staffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "matter_id", null: false
-    t.bigint "staff_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_matter_staffs_on_matter_id"
-    t.index ["staff_id"], name: "index_matter_staffs_on_staff_id"
+    t.index ["matter_id"], name: "index_matter_member_codes_on_matter_id"
+    t.index ["member_code_id"], name: "index_matter_member_codes_on_member_code_id"
   end
 
   create_table "matters", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -393,6 +378,19 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end
 
+  create_table "member_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "staff_id"
+    t.bigint "manager_id"
+    t.bigint "admin_id"
+    t.bigint "external_staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_member_codes_on_admin_id"
+    t.index ["external_staff_id"], name: "index_member_codes_on_external_staff_id"
+    t.index ["manager_id"], name: "index_member_codes_on_manager_id"
+    t.index ["staff_id"], name: "index_member_codes_on_staff_id"
+  end
+
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message"
     t.integer "admin_id"
@@ -403,6 +401,18 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_messages_on_matter_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "status"
+    t.integer "category"
+    t.text "content"
+    t.integer "sender_id"
+    t.integer "reciever_id"
+    t.bigint "schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_notifications_on_schedule_id"
   end
 
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -428,12 +438,12 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   end
 
   create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "authority"
-    t.integer "member_id"
     t.string "member_name"
     t.bigint "sales_status_id"
+    t.integer "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["member_code_id"], name: "index_sales_status_editors_on_member_code_id"
     t.index ["sales_status_id"], name: "index_sales_status_editors_on_sales_status_id"
   end
 
@@ -446,18 +456,12 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.time "scheduled_end_time"
     t.string "place"
     t.integer "register_for_schedule", default: 0, null: false
-    t.bigint "staff_id"
-    t.bigint "external_staff_id"
-    t.bigint "manager_id"
-    t.bigint "admin_id"
+    t.integer "member_code_id"
     t.string "member_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_sales_statuses_on_admin_id"
     t.index ["estimate_matter_id"], name: "index_sales_statuses_on_estimate_matter_id"
-    t.index ["external_staff_id"], name: "index_sales_statuses_on_external_staff_id"
-    t.index ["manager_id"], name: "index_sales_statuses_on_manager_id"
-    t.index ["staff_id"], name: "index_sales_statuses_on_staff_id"
+    t.index ["member_code_id"], name: "index_sales_statuses_on_member_code_id"
   end
 
   create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -467,6 +471,11 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "title", null: false
     t.string "place"
     t.text "note"
+    t.text "edit_reason"
+    t.boolean "destroy_flag"
+    t.string "member_name"
+    t.bigint "schedule_id"
+    t.bigint "member_code_id"
     t.bigint "staff_id"
     t.bigint "manager_id"
     t.bigint "admin_id"
@@ -477,7 +486,9 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.index ["admin_id"], name: "index_schedules_on_admin_id"
     t.index ["external_staff_id"], name: "index_schedules_on_external_staff_id"
     t.index ["manager_id"], name: "index_schedules_on_manager_id"
+    t.index ["member_code_id"], name: "index_schedules_on_member_code_id"
     t.index ["sales_status_id"], name: "index_schedules_on_sales_status_id"
+    t.index ["schedule_id"], name: "index_schedules_on_schedule_id"
     t.index ["staff_id"], name: "index_schedules_on_staff_id"
   end
 
@@ -507,6 +518,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
+    t.boolean "avaliable", default: true, null: false
     t.bigint "department_id"
     t.bigint "label_color_id"
     t.string "login_id", default: "", null: false
@@ -556,19 +568,13 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
     t.boolean "notification", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
-    t.bigint "admin_id"
-    t.bigint "manager_id"
-    t.bigint "staff_id"
-    t.bigint "external_staff_id"
+    t.bigint "member_code_id"
     t.string "member_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_tasks_on_admin_id"
     t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
-    t.index ["external_staff_id"], name: "index_tasks_on_external_staff_id"
-    t.index ["manager_id"], name: "index_tasks_on_manager_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
-    t.index ["staff_id"], name: "index_tasks_on_staff_id"
+    t.index ["member_code_id"], name: "index_tasks_on_member_code_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -583,10 +589,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   add_foreign_key "estimate_details", "constructions"
   add_foreign_key "estimate_details", "estimates"
   add_foreign_key "estimate_details", "materials"
-  add_foreign_key "estimate_matter_external_staffs", "estimate_matters"
-  add_foreign_key "estimate_matter_external_staffs", "external_staffs"
-  add_foreign_key "estimate_matter_staffs", "estimate_matters"
-  add_foreign_key "estimate_matter_staffs", "staffs"
+  add_foreign_key "estimate_matter_member_codes", "estimate_matters"
   add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "estimate_matters", "publishers"
@@ -598,25 +601,23 @@ ActiveRecord::Schema.define(version: 2021_03_07_090110) do
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "plan_names"
-  add_foreign_key "matter_external_staffs", "external_staffs"
-  add_foreign_key "matter_external_staffs", "matters"
-  add_foreign_key "matter_staffs", "matters"
-  add_foreign_key "matter_staffs", "staffs"
+  add_foreign_key "matter_member_codes", "matters"
   add_foreign_key "matters", "attract_methods"
   add_foreign_key "matters", "clients"
   add_foreign_key "matters", "estimate_matters"
   add_foreign_key "matters", "publishers"
+  add_foreign_key "member_codes", "admins"
+  add_foreign_key "member_codes", "external_staffs"
+  add_foreign_key "member_codes", "managers"
+  add_foreign_key "member_codes", "staffs"
   add_foreign_key "messages", "matters"
+  add_foreign_key "notifications", "schedules"
   add_foreign_key "plan_names", "label_colors"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "staffs", "label_colors"
   add_foreign_key "supplier_matters", "matters"
   add_foreign_key "supplier_matters", "suppliers"
-  add_foreign_key "tasks", "admins"
   add_foreign_key "tasks", "estimate_matters"
-  add_foreign_key "tasks", "external_staffs"
-  add_foreign_key "tasks", "managers"
   add_foreign_key "tasks", "matters"
-  add_foreign_key "tasks", "staffs"
 end

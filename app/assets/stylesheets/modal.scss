@@ -7,7 +7,7 @@
 }
 
 .wide_modal {
-  max-width: 820px;
+  max-width: 860px;
 }
 
 /* alert_modal */
@@ -15,5 +15,23 @@
 .alert_modal {
   .card-header {
     background: #dc3545;
+  }
+}
+
+
+/* 余白なし */
+
+.no-padding_modal {
+  margin-top: 10em;
+  .close {
+    color: white;
+  }
+  .modal-header {
+    padding-top: 10px!important;
+    padding-bottom: 10px!important;
+    font-size: 20px;
+    background: #3e5ed4;
+    color: white;
+    width: 100%;
   }
 }

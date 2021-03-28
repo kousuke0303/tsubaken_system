@@ -1,0 +1,8 @@
+<% if @type == "able" %>
+  $("#schedule-edit").html('<%= escape_javascript( render "external_staffs/schedules/partial/edit" ) %>'); 
+  $("#schedule-edit").modal();
+<% elsif @type == "disable" %>
+  $("#schedule-edit").html('<%= escape_javascript( render "external_staffs/schedules/partial/edit_application" ) %>'); 
+  $("#schedule-edit").modal();
+<% end %>
+  

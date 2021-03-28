@@ -1,0 +1,27 @@
+<%= f.label :title %>
+<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+   
+<%= f.label "担当者" %>
+<div>
+  <%= current_external_staff.name %>
+</div>
+
+<%= f.label :scheduled_date %>
+<%= f.date_field :scheduled_date, required: true, class: "form-control" %>
+            
+<div class="row">
+  <div class="col-md-6">
+    <%= f.label :scheduled_start_time %>
+    <%= f.time_field :scheduled_start_time, required: true, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= f.label :scheduled_end_time %>
+    <%= f.time_field :scheduled_end_time, required: true, class: "form-control" %>
+  </div>
+</div>
+            
+<%= f.label :place %>
+<%= f.text_field :place, class: "form-control" %>
+            
+<%= f.label :note %>
+<%= f.text_area :note, class: "form-control" %>

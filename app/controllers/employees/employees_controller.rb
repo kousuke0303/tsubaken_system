@@ -11,10 +11,30 @@ class Employees::EmployeesController < ApplicationController
       @staff = Staff.find(params[:staff_id])
     end
     
+    def set_manager
+      @manager = Manager.find(params[:manager_id])
+    end
+    
+    def target_external_staff
+      @external_staff = ExternalStaff.find(params[:external_staff_id])
+    end
+    
     def set_employees
       @clients = Client.all.order(created_at: :desc)
       @staffs = Staff.all
       @external_staffs = ExternalStaff.all
+    end
+    
+    # 担当メンベーのcode_idの配列化
+    def set_menbers_code_for(estimate_matter_or_matter)
+      @member_name_arrey = []
+      estimate_matter_or_matter.member_codes.sort_auth.each do |member_code|
+        if member_code.staff.present?
+          @member_name_arrey << member_code.staff.name
+        elsif member_code.external_staff.present?
+          @member_name_arrey << member_code.external_staff.name
+        end
+      end
     end
     
     def set_publishers
@@ -70,16 +90,11 @@ class Employees::EmployeesController < ApplicationController
     
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
-      @schedules = Schedule.all
-      target_schedules = @schedules.where(scheduled_date: day)
-      @admin_schedules = target_schedules.where.not(admin_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
-                                         .group_by{|schedule| schedule[:admin_id]}
-      @manager_schedules = target_schedules.where.not(manager_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
-                                           .group_by{|schedule| schedule[:manager_id]}
-      @staff_schedules = target_schedules.where.not(staff_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
-                                         .group_by{|schedule| schedule[:staff_id]}
-      @external_staff_schedules = target_schedules.where.not(external_staff_id: nil).sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
-                                                  .group_by{|schedule| schedule[:external_staff_id]}
+      @schedules = Schedule.origins
+      target_schedules = @schedules.joins(:member_code).where(scheduled_date: day)
+      @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
+                                          .group_by{|schedule| schedule[:member_code_id]}
+                                          .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
     end
     
     def set_matter
@@ -90,6 +105,17 @@ class Employees::EmployeesController < ApplicationController
     # -------------------------------------------------------
         # その他
     # -------------------------------------------------------
+    
+    # 全MEMBER_CORD
+    def all_member_code
+      @member_codes = MemberCode.all_member_code_of_avaliable
+    end
+    
+    
+    def all_staff_and_external_staff_code
+      @all_staff_codes = MemberCode.joins(:staff).where(staffs: {avaliable: true})
+      @all_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: {avaliable: true})
+    end
     
     # 全メンバー(配列)
     def all_member
@@ -110,39 +136,36 @@ class Employees::EmployeesController < ApplicationController
     end
   
     # 営業管理案件の担当者（配列）
-    def group_for(matter)
-      @members = []
-      Admin.all.each do |admin|
-        @members << { auth: admin.auth, id: admin.id, name: admin.name }
+    def group_for(estimate_matter_or_matter)
+      @group = []
+      @group << Admin.first.member_code.id
+      
+      Manager.where(avaliable: true).each do |manager|
+        @group << manager.member_code.id
       end
-      Manager.all.each do |manager|
-        @members << { auth: manager.auth, id: manager.id, name: manager.name }
+      
+      estimate_matter_or_matter.member_codes.sort_auth.each do |member_code|
+        @group << member_code.id
       end
-      matter.staffs.each do |staff|
-        @members << { auth: staff.auth, id: staff.id, name: staff.name }
-      end
-      matter.external_staffs.each do |external_staff|
-        @members << { auth: external_staff.auth, id: external_staff.id, name: external_staff.name }
-      end
-      return @members
+      return @group
     end
     
-    # 担当者のパラメーター整形及びストロングパラメータにマージ
-    def formatted_member_params(parameter, strong_params)
-      arrey_params = parameter.split("#")
-      member_authority = arrey_params[0]
-      params_member_id = arrey_params[1].to_i
-      case member_authority
-      when "admin"
-        @final_params = strong_params.merge(admin_id: params_member_id)
-      when "manager"
-        @final_params = strong_params.merge(manager_id: params_member_id)
-      when "staff"
-        @final_params = strong_params.merge(staff_id: params_member_id)
-      when "external_staff"
-        @final_params = strong_params.merge(external_staff_id: params_member_id)
-      end
-    end
+    # # 担当者のパラメーター整形及びストロングパラメータにマージ
+    # def formatted_member_params(parameter, strong_params)
+    #   arrey_params = parameter.split("#")
+    #   member_authority = arrey_params[0]
+    #   params_member_id = arrey_params[1].to_i
+    #   case member_authority
+    #   when "admin"
+    #     @final_params = strong_params.merge(admin_id: params_member_id)
+    #   when "manager"
+    #     @final_params = strong_params.merge(manager_id: params_member_id)
+    #   when "staff"
+    #     @final_params = strong_params.merge(staff_id: params_member_id)
+    #   when "external_staff"
+    #     @final_params = strong_params.merge(external_staff_id: params_member_id)
+    #   end
+    # end
     
     # -------------------------------------------------------
         # BAND
@@ -180,6 +203,34 @@ class Employees::EmployeesController < ApplicationController
       @file_path = Rails.root.join('public', 'temporary_storage', "#{object.id}_#{index}.jpg")
       file = open(@file_path, "wb")
       file.write(url.read)
+    end
+    
+    # -------------------------------------------------------
+        # BEFORE_ACTION 条件
+    # -------------------------------------------------------
+    
+    def object_is_staff?
+      if params[:staff_id]
+        true
+      else
+        false
+      end
+    end
+    
+    def object_is_manager?
+      if params[:manager_id]
+        true
+      else
+        false
+      end
+    end
+    
+    def object_is_external_staff?
+      if params[:external_staff_id]
+        true
+      else
+        false
+      end
     end
     
 end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  
   helper_method :current_matter
   helper_method :current_estimate_matter
 
@@ -10,8 +11,66 @@ class ApplicationController < ActionController::Base
     return current_staff if current_staff 
     return current_external_staff if current_external_staff 
     return current_client if current_client
-  end    
+  end
+  
+  # --------------------------------------------------------
+        # DEVISE関係
+  # --------------------------------------------------------
+  
+  # ログイン後のリダイレクト先
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.is_a?(Admin)
+      admins_top_path
+    elsif resource_or_scope.is_a?(Manager)
+      managers_top_path
+    elsif resource_or_scope.is_a?(Staff)
+      staffs_top_path
+    elsif resource_or_scope.is_a?(ExternalStaff)
+      external_staffs_top_path
+    elsif resource_or_scope.is_a?(Client)
+      clients_top_path
+    else
+      root_path
+    end
+  end
+  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
+  end
+  
+  
+  #-------------------------------------------------------
+      # アクセス制限
+  #------------------------------------------------------
+  
+  # AdminとManager以外はアクセス制限
+  def authenticate_admin_or_manager!
+    redirect_to root_url unless current_admin || current_manager
+  end
 
+  # 従業員以外はアクセス制限
+  def authenticate_employee!
+    redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
+  end
+  
+  # 自分の担当している案件のみアクセス可能（staff_extrnal_staff）
+  def can_access_only_of_member(object)
+    unless current_admin || current_manager
+      if object.member_codes.ids.include?(login_user.member_code)
+        flash[:alert] = "アクセス権限がありません。"
+        redirect_to root_path
+      end
+    end
+  end
+  
+  # ログインstaff以外のページ非表示
+  def not_current_staff_return_login!
+    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
+      flash[:alert] = "アクセス権限がありません。"
+      redirect_to root_path
+    end
+  end
+  
   # ---------------------------------------------------------
         # FORMAT関係
   # ---------------------------------------------------------
@@ -57,7 +116,7 @@ class ApplicationController < ActionController::Base
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "勤怠情報の取得に失敗しました。"
+    flash[:alert] = "勤怠情報の取得に失敗しました。"
     redirect_to root_url
   end
   
@@ -119,21 +178,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # 案件を担当しているユーザーのみアクセス可能
-  def can_access_only_matter_of_being_in_charge
-    if current_staff && (params[:id].present? || params[:matter_id].present?)
-      unless params[:id].to_s.in?(current_staff.matters.ids) || params[:matter_id].to_s.in?(current_staff.matters.ids)
-        flash[:alert] = "アクセス権限がありません。"
-        redirect_to root_path
-      end
-    elsif current_external_staff && (params[:id].present? || params[:matter_id].present?)
-      unless params[:id].to_s.in?(current_external_staff.matters.ids) || params[:matter_id].to_s.in?(current_external_staff.matters.ids)
-        flash[:alert] = "アクセス権限がありません。"
-        redirect_to root_path
-      end
-    end
-  end
-  
   # --------------------------------------------------------
         # ESTIMATE_MATTER関係
   # --------------------------------------------------------
@@ -185,65 +229,28 @@ class ApplicationController < ActionController::Base
     if current_admin || current_manager
       @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼")
                                                                 .where("(status = ?) OR (status = ?)", 1, 2)
-    elsif current_staff
-      @staff_scaffolding_and_order_requests_relevant_or_ongoing = current_staff.matters.joins(:tasks)
-                                                                                       .where("(tasks.title = ?) OR (tasks.title = ?)", "足場架設依頼", "発注依頼")
-                                                                                       .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
-    elsif current_external_staff
-      @external_staff_scaffolding_and_order_requests_relevant_or_ongoing = current_external_staff.matters.joins(:tasks)
-                                                                                                         .where("(tasks.title = ?) OR (tasks.title = ?)", "足場架設依頼", "発注依頼")
-                                                                                                         .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
-    end
-  end
-  
-  # --------------------------------------------------------
-        # DEVISE関係
-  # --------------------------------------------------------
-  
-  # ログイン後のリダイレクト先
-  def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(Admin)
-      admins_top_path
-    elsif resource_or_scope.is_a?(Manager)
-      managers_top_path
-    elsif resource_or_scope.is_a?(Staff)
-      staffs_top_path
-    elsif resource_or_scope.is_a?(ExternalStaff)
-      external_staffs_top_path
-    elsif resource_or_scope.is_a?(Client)
-      clients_top_path
     else
-      root_path
+      @staff_scaffolding_and_order_requests_relevant_or_ongoing = login_user.member_code.matters.joins(:tasks)
+                                                                                                .where("(tasks.title = ?) OR (tasks.title = ?)", "足場架設依頼", "発注依頼")
+                                                                                                .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)                                                                     .where("(tasks.status = ?) OR (tasks.status = ?)", 1, 2)
     end
   end
-
-  # AdminとManager以外はアクセス制限
-  def authenticate_admin_or_manager!
-    redirect_to root_url unless current_admin || current_manager
-  end
-
-  # 従業員以外はアクセス制限
-  def authenticate_employee!
-    redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
+  
+  # --------------------------------------------------------
+        # SCHDULE関係
+  # --------------------------------------------------------
+  
+  def schedule_application
+    @applicate_schedules = Schedule.edit_applications
   end
   
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
-  end
   
   # ---------------------------------------------------------
         # STAFF関係
   # ---------------------------------------------------------
-  
-  # ログインstaff以外のページ非表示
-  def not_current_staff_return_login!
-    unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません。"
-      redirect_to root_path
-    end
-  end
 
   def set_label_colors
     @label_colors = LabelColor.order(position: :asc)
   end
+  
 end

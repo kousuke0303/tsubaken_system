@@ -1,10 +1,22 @@
 <% if @result == "success" %>
   $("#change-member-for-schedule").modal("hide");
-  $('#schedule_index_for_retirement').html('<%= escape_javascript(render 'employees/staffs/retirements/schedule') %>');
-  toastr.success("<%= @schedule.title %>の担当者を変更しました");
-  <% unless @schedules.present? %>
-    $('#resigned_on_form').show();
+  <% if @manager.present? %>
+    $('#schedule_index_for_retirement').html('<%= escape_javascript(render 'employees/managers/retirements/schedule') %>'); 
+    <% unless @schedules.present? %>
+      $('#resigned_on_form').show();
+    <% end %>
+  <% elsif @staff.present? %>
+    $('#schedule_index_for_retirement').html('<%= escape_javascript(render 'employees/staffs/retirements/schedule') %>');
+    <% unless @schedules.present? %>
+      $('#resigned_on_form').show();
+    <% end %>
+  <% elsif @external_staff.present? %>
+    $('#schedule_index_for_retirement').html('<%= escape_javascript(render 'employees/external_staffs/retirements/schedule') %>');
+    <% unless @schedules.present? %>
+      $('#out_of_service').show();
+    <% end %>
   <% end %>
+  toastr.success("<%= @schedule.title %>の担当者を変更しました");
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-update-errors", model: @schedule, object: "schedule"} %>
 <% end %>

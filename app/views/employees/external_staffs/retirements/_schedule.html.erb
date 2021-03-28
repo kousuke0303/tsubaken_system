@@ -1,0 +1,24 @@
+<% if @schedules.present? %>
+  （本日以降のスケジュール一覧）
+  <table class="table table-bordered table-column-type">
+    <tr>
+      <th>予定日</th>
+      <th>予定時刻</th>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th></th>
+    </tr>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.scheduled_date.strftime("%-m月%d日") %></td>
+        <td><%= schedule.scheduled_start_time.strftime("%-I:%M %p") %></td>
+        <td><%= schedule.title %></td>
+        <td><%= schedule.note %></td>
+        <td class="text-center"><%= link_to "担当者変更", change_member_employees_schedule_path(schedule, external_staff_id: @external_staff.id), remote: true, class: "btn btn-dark" %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>現状、未着手・進行中のタスクはありません</p>
+  <% @process_4 = true %>
+<% end %>

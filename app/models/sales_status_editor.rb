@@ -1,32 +1,28 @@
 class SalesStatusEditor < ApplicationRecord
   belongs_to :sales_status
+  belongs_to :member_code, optional: true
   
   before_save :member_name_update
   
-  validate :require_editor
+  private
   
-  def require_editor
-    errors.add(:base, "実施者を選択してください") if authority.nil? || member_id.nil?
-  end
-  
-  #-----------------------------------------------------
-    # CALLBACK_METHOD
-  #-----------------------------------------------------
-  
-  def member_name_update
-    unless self.sales_status.status == 0
-      if self.authority == "admin"
-        member_name = Admin.find(self.member_id).name
-      elsif self.authority == "manager"
-        member_name = Manager.find(self.member_id).name
-      elsif self.authority == "staff"
-        member_name = Staff.find(self.member_id).name
-      elsif self.authority == "external_staff"
-        member_name = ExternalStaff.find(self.member_id).name
-      else
-        member_name = nil
+    #-----------------------------------------------------
+      # CALLBACK_METHOD
+    #-----------------------------------------------------
+    
+    def member_name_update
+      unless self.sales_status.status == 0
+        member_code = MemberCode.find(self.member_code_id)
+        if member_code.admin_id.present?
+          member_name = member_code.admin.name
+        elsif member_code.manager_id.present?
+          member_name = member_code.manager.name
+        elsif member_code.staff_id.present?
+          member_name = member_code.staff.name
+        elsif member_code.external_staff.present?
+          member_name = member_code.external_staff.name
+        end
+        self.member_name = member_name
       end
-      self.member_name =  member_name
     end
-  end
 end
