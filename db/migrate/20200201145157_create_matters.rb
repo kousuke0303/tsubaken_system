@@ -14,6 +14,7 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.integer :status,                    null: false, default: 0
       t.date :maintenanced_on
       t.string :estimate_matter_id
+      t.references :estimate, foreign_key: true
       t.references :publisher, foreign_key: true
       t.references :client, foreign_key: true
       t.references :attract_method, foreign_key: true

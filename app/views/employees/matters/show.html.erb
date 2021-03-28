@@ -15,29 +15,6 @@
       <%= render "employees/clients/partial/detail" %>
     </div>
   </div>
-
-  <div class="mt-1e">
-    <div class="accordion" id="accordion-estimate">
-      <div class="card">
-        <div class="card-header bg-dark" id="headingOne">
-          <h5 class="text-light">
-            請求書
-            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimate" aria-expanded="true" aria-controls="collapse-estimate">
-              詳細
-            </button>
-          </h5>
-        </div>
-        
-        <div id="collapse-estimate" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate">
-          <div class="card-body">
-            <div class="invoice overflow-auto">
-              <%= render "employees/matters/partial/invoice" %>
-            </div>
-          </div>
-        </div>
-      </div>      
-    </div>
-  </div>
     
   <div class="mt-1e">
     <div class="accordion" id="accordion-tasks">
@@ -63,21 +40,21 @@
   </div>
   
   <div class="mt-1e">
-    <div class="accordion" id="accordion-invoices">
+    <div class="accordion" id="accordion-estimate">
       <div class="card">
-        <div class="card-header bg-dark" id="">
+        <div class="card-header bg-dark" id="headingOne">
           <h5 class="text-light">
-            請求書作成
-            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-invoices" aria-expanded="true" aria-controls="collapse-tasks">
+            請求書
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimate" aria-expanded="true" aria-controls="collapse-estimate">
               詳細
             </button>
           </h5>
         </div>
         
-        <div id="collapse-invoices" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-invoices">
+        <div id="collapse-estimate" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate">
           <div class="card-body">
-            <div class="tasks-index overflow-auto">
-              <%= render "employees/matters/partial/change_estimate" %>
+            <div class="invoice overflow-auto">
+              <%= render "employees/matters/partial/invoice" %>
             </div>
           </div>
         </div>

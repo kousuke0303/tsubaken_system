@@ -1,5 +1,6 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
+  belongs_to :estimate
   belongs_to :publisher, optional: true
   belongs_to :client
   
@@ -26,8 +27,6 @@ class Matter < ApplicationRecord
   validates :scheduled_started_on, presence: true
   validates :scheduled_finished_on, presence: true
   validate :scheduled_finished_on_is_after_started_on
-
-  attr_accessor :estimate_id
   
   enum status: { not_started: 0, progress: 1, completed: 2 }
   
@@ -47,6 +46,24 @@ class Matter < ApplicationRecord
     end
   end
   
+  def change_invoice(estimate_id)
+    ActiveRecord::Base.transaction do
+      @matter.update!(estimate_id: estimate_id)
+      self.invoice.destroy!
+      invoice = self.build_invoice(total_price: self.estimate.total_price,
+                                   discount: self.estimate.discount,
+                                   plan_name_id: self.estimate.plan_name_id)
+      
+      invoice.save!
+    end
+  rescue => e
+      Rails.logger.error e.class
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace.join("\n")
+      # bugsnag導入後
+      # Bugsnag.notifiy e
+  end
+  
   private
   
   #----------------------------------------------
@@ -64,6 +81,10 @@ class Matter < ApplicationRecord
         self.estimate_matter.member_codes.each do |member_code|
           self.matter_member_codes.create!(member_code_id: member_code.id)
         end
+        invoice = self.build_invoice(total_price: self.estimate.total_price,
+                                     discount: self.estimate.discount,
+                                     plan_name_id: self.estimate.plan_name_id)
+        invoice.save!
       end
     rescue => e
       Rails.logger.error e.class
@@ -72,6 +93,7 @@ class Matter < ApplicationRecord
       # bugsnag導入後
       # Bugsnag.notifiy e
     end
+      
     
   #----------------------------------------------
     #VALIDATE_METHOD

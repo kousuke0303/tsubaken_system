@@ -400,6 +400,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
     t.integer "status", default: 0, null: false
     t.date "maintenanced_on"
     t.string "estimate_matter_id"
+    t.bigint "estimate_id"
     t.bigint "publisher_id"
     t.bigint "client_id"
     t.bigint "attract_method_id"
@@ -407,6 +408,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
     t.datetime "updated_at", null: false
     t.index ["attract_method_id"], name: "index_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_matters_on_client_id"
+    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
     t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end
@@ -656,6 +658,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
   add_foreign_key "matters", "attract_methods"
   add_foreign_key "matters", "clients"
   add_foreign_key "matters", "estimate_matters"
+  add_foreign_key "matters", "estimates"
   add_foreign_key "matters", "publishers"
   add_foreign_key "member_codes", "admins"
   add_foreign_key "member_codes", "external_staffs"

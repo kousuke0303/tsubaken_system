@@ -18,10 +18,9 @@ class Employees::MattersController < Employees::EmployeesController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(scheduled_started_on: params[:matter][:scheduled_started_on],
-                                                                            scheduled_finished_on: params[:matter][:scheduled_finished_on],
-                                                                            estimate_id: params[:matter][:estimate_id]
-                                                                            ))
+    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(estimate_id: params[:matter][:estimate_id].to_i,
+                                                                            scheduled_started_on: params[:matter][:scheduled_started_on],
+                                                                            scheduled_finished_on: params[:matter][:scheduled_finished_on]))
     if @matter.save
       @responce = "success"
     else
@@ -79,7 +78,13 @@ class Employees::MattersController < Employees::EmployeesController
   end
   
   def change_estimate
-    @matter.update(estimate_id: params[:matter][:estimate_id])
+    if @matter.change_invoice(params[:matter][:estimate_id])
+      @responce = "success"
+      @invoice = @matter.invoice
+      set_invoice_details
+    else
+      @responce = "failure"
+    end
   end
   
   def change_member
@@ -121,7 +126,6 @@ class Employees::MattersController < Employees::EmployeesController
     #   params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     # end
     
-<<<<<<< HEAD
     # def delete_matter_relation_table
     #   unless params[:matter][:staff_ids].present?
     #     @matter.matter_staffs.delete_all
@@ -130,10 +134,8 @@ class Employees::MattersController < Employees::EmployeesController
     #     @matter.matter_external_staffs.delete_all
     #   end
     # end
-=======
     def delete_matter_relation_table  
       @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
       @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
     end
->>>>>>> c83f954c397aac1e190cec2a5ae852b74e505605
 end

@@ -7,7 +7,9 @@ class Invoice < ApplicationRecord
 
   validates :total_price, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 10000000 }
   validates :discount, presence: true, numericality: { only_integer: true }
-
+  
+  after_commit :create_details, on: :create
+  
   # 端数値引があれば、引いた合計金額を返す
   def after_discount
     total_price - discount
@@ -38,12 +40,11 @@ class Invoice < ApplicationRecord
     # CALLBACK_METHOD
   #----------------------------------------------------
   
-    def create_detail
+    def create_details
       self.matter.estimate.estimate_details.each do |detail|
-      self.invoice_details.create!(sort_number: detail.sort_number, category_id: detail.category_id, category_name: detail.category_name,
-                                   material_id: detail.material_id, material_name: detail.material_name, construction_id: detail.construction_id,
-                                   construction_name: detail.construction_name, service_life: detail.service_life, note: detail.note,
-                                   unit: detail.unit, price: detail.price, amount: detail.amount, total: detail.total)
+        copy_attributes = detail.attributes
+        copy_attributes.delete("estimate_id")
+        self.invoice_details.create!(copy_attributes)
       end
     end
 end

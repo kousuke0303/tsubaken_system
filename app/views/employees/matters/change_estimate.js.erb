@@ -1,1 +1,4 @@
-toastr.success("請求書を変更しました");
+<% if @responce == "success" %>
+  $('.invoice').html('<%= escape_javascript(render 'employees/matters/partial/invoice') %>');
+  toastr.success("請求書を変更しました");
+<% end %>

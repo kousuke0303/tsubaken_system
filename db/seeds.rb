@@ -4,15 +4,32 @@ LabelColor.create(name: "ピンク", color_code: "#d686bd")
 LabelColor.create(name: "ブラウン", color_code: "#8a7a74")
 LabelColor.create(name: "グレー", color_code: "#b7b7b7")
 
-# 設定/見積関係
-require "./db/seeds/setting_for_estimates.rb"
+# -------------------------------------------------
+    # 設定/見積関係
+# -------------------------------------------------
+  require "./db/seeds/setting_for_estimates.rb"
 
+
+# -------------------------------------------------
+   # 業種デフォルト
+# -------------------------------------------------
+  Industry.create!(name: "塗装関係")
+  Industry.create!(name: "足場関係")
+  
+  puts "CREATE! INDUSTRY"
+
+# --------------------------------------------------
+    # 部署デフォルト
+# --------------------------------------------------
 %w[無所属 営業 経理].each do |name|
   Department.create!(name: name)
 end
 
 puts "CREATE! DEPARTMENT"
 
+# --------------------------------------------------
+    # USER
+# --------------------------------------------------
 Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")
 admin = Admin.first
 admin.avator.attach(io: File.open('app/assets/images/admin_avator.jpg'), filename: 'admin_avator.jpg')
@@ -77,10 +94,6 @@ end
 
 puts "CREATE! ExternalStaff"
 
-Industry.create!(name: "塗装関係")
-Industry.create!(name: "足場関係")
-
-puts "CREATE! INDUSTRY"
 
 # -------------------------------------------------------------
    # クライアント
@@ -109,11 +122,19 @@ end
 puts "CREATE! CLIENT"
 
 # -----------------------------------------------------
-      # 営業案件及び案件関連
+      # 営業案件
 # -----------------------------------------------------
+  require "./db/seeds/estimate_matter.rb"
 
-require "./db/seeds/estimate_matter.rb"
-require "./db/seeds/estimate.rb"
+# -----------------------------------------------------
+      # 見積
+# -----------------------------------------------------
+  require "./db/seeds/estimate.rb"
+  
+# ----------------------------------------------------
+      # 着工案件
+# ----------------------------------------------------
+  require "./db/seeds/matter.rb"
 
 # -----------------------------------------------------
       # Attendance

@@ -2,6 +2,8 @@ class Estimate < ApplicationRecord
   belongs_to :estimate_matter
   belongs_to :plan_name
   has_many :estimate_details, dependent: :destroy
+  has_one :matter
+  
   acts_as_list scope: :estimate_matter
 
   attr_accessor :category_ids  # コピーするデフォルトカテゴリのid配列を受け取る
