@@ -1,6 +1,6 @@
 <div class="col-12">
   
-  <%= render partial: 'layouts/page_title', locals: { title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard"} %>
+  <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
   
   <div class="text-right mb-1e">
     <button id="to_image_index" class="btn btn-dark">画像一覧</button>
@@ -15,11 +15,34 @@
       <%= render "employees/clients/partial/detail" %>
     </div>
   </div>
+
+  <div class="mt-1e">
+    <div class="accordion" id="accordion-estimate">
+      <div class="card">
+        <div class="card-header bg-dark" id="headingOne">
+          <h5 class="text-light">
+            請求書
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-estimate" aria-expanded="true" aria-controls="collapse-estimate">
+              詳細
+            </button>
+          </h5>
+        </div>
+        
+        <div id="collapse-estimate" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-estimate">
+          <div class="card-body">
+            <div class="invoice overflow-auto">
+              <%= render "employees/matters/partial/invoice" %>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
     
   <div class="mt-1e">
     <div class="accordion" id="accordion-tasks">
       <div class="card">
-        <div class="card-header bg-dark" id="headingOne">
+        <div class="card-header bg-dark" id="headingTwo">
           <h5 class="text-light">
             タスク管理
             <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
@@ -28,7 +51,7 @@
           </h5>
         </div>
         
-        <div id="collapse-tasks" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-tasks">
+        <div id="collapse-tasks" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-tasks">
           <div class="card-body">
             <div class="tasks-index overflow-auto">
               <%= render "employees/matters/partial/tasks" %>
@@ -42,7 +65,7 @@
   <div class="mt-1e">
     <div class="accordion" id="accordion-invoices">
       <div class="card">
-        <div class="card-header bg-dark" id="headingOne">
+        <div class="card-header bg-dark" id="">
           <h5 class="text-light">
             請求書作成
             <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-invoices" aria-expanded="true" aria-controls="collapse-tasks">
@@ -51,10 +74,10 @@
           </h5>
         </div>
         
-        <div id="collapse-invoices" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-invoices">
+        <div id="collapse-invoices" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-invoices">
           <div class="card-body">
             <div class="tasks-index overflow-auto">
-              <%= render 'employees/matters/partial/change_estimate' %>
+              <%= render "employees/matters/partial/change_estimate" %>
             </div>
           </div>
         </div>
@@ -62,10 +85,10 @@
     </div>
   </div>
   
-  <!--▼診断書関連-->
+  <!--報告書関連-->
   <div class="accordion mt-1e" id="accordion-reports">
     <div class="card">
-      <div class="card-header bg-dark" id="headingThree">
+      <div class="card-header bg-dark" id="headingFour">
         <h5 class="text-light">
           報告書作成
           <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-reports" aria-expanded="true" aria-controls="collapse-reports">
@@ -74,15 +97,15 @@
         </h5>
       </div>
   
-      <div id="collapse-reports" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-reports">
+      <div id="collapse-reports" class="collapse" aria-labelledby="headingFour" data-parent="#accordion-reports">
         <div class="card-body">
-          <div id="certificate_create_flash"></div>
+          <div id="report-create-flash"></div>
           <div class="text-right">
             <%= link_to "プレビュー", "#", class: "btn btn-success" %>
           </div>
           <h5>画像一覧</h5>
           <div class="image_flex">
-            <!--<!%= render 'employees/estimate_matters/partial/reports_images' %>-->
+            <%= render "employees/matters/partial/reports_images" %>
           </div>
           <h5 class="mt-1e">表紙</h5>
           <div id="cover_update_flash"></div>
@@ -90,9 +113,9 @@
             <!--<!%= render "employees/covers/partial/show" %>  -->
           </div>
           <h5 class="mt-1e">報告書一覧</h5>
-          <div id="certificate_update_flash"></div>
+          <div id="certificate-update-flash"></div>
           <div class="reports-index">
-            <!--<!%= render "employees/estimate_matters/partial/reports" %>-->
+            <%= render "employees/matters/partial/reports" %>
           </div>
         </div>
       </div>
@@ -103,9 +126,9 @@
 <%= javascript_include_tag "tableCollapse.js" %>
 
 <% if @message %>
-<script>
-  toastr.success("<%= @matter.title %>を作成しました");
-</script>
+  <script>
+    toastr.success("<%= @matter.title %>を作成しました");
+  </script>
 <% end %>
 
 <script>

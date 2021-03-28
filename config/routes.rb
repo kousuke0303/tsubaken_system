@@ -299,6 +299,11 @@ Rails.application.routes.draw do
       patch :change_estimate, on: :member
       get :change_member,on: :member
       patch :update_member, on: :member
+      resources :invoices, only: [:show, :edit, :update], controller: "matters/invoices"
+      resources :invoice_details, only: [:edit, :update, :destroy], controller: "matters/invoice_details" do
+        get :detail_object_edit, on: :member
+        patch :detail_object_update, on: :member
+      end
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -307,6 +312,10 @@ Rails.application.routes.draw do
       end
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
+      end
+      resources :reports, only: [:create, :new, :edit, :update, :destroy], controller: "matters/reports" do
+        patch :sort, on: :collection
+        get :preview, on: :collection
       end
       resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do

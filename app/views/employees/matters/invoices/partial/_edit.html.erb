@@ -1,0 +1,125 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">見積編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @invoice, url: employees_matter_invoice_path(@matter, @invoice), method: :patch, remote: true) do |f| %>
+            <div class="invoice-update-errors"></div>
+            
+            <%= f.label :plan_name_id %>
+            <div class="input-group">
+              <%= f.collection_select :plan_name_id, @plan_names, :id, :name, { include_blank: "登録プラン名から選択" }, class: "form-control", id: "default-plan-names" %>
+              <div class="input-group-append">        
+                <span class="input-group-text" style="width: 3em; background: <%= @color_code %>;" id="color-sample"></span>
+              </div>
+            </div>
+            
+            <%= f.label "カテゴリ選択" %>
+            <% if @type == "category_presence" %>
+              <table class="table table-striped" id="edit_select_category_table">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                
+                <% @invoice_details.each.with_index(1) do |detail, index| %>
+                  <tr>
+                    <td class="category_number"><%= index %></td>
+                    <td>
+                      <%= f.select "category_id_#{ index }".intern, @categories.map{ |category| [category.name, category.id] },
+                                    {selected: detail.category_id, include_blank:  "---削除する---"}, {class: "form-control", id: "category_#{ index }"} %>
+                    </td>
+                    <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+                  </tr>
+                <% end %>
+              </table>
+            <% else %>
+              <table class="table table-striped" id="edit_select_category_table">
+                <tr>
+                  <td style="width: 4em">順番</td>
+                  <td>カテゴリ選択</td>
+                  <td style="width: 5em"></td>
+                </tr>
+                <tr>
+                  <td class="category_number">1</td>
+                  <td>
+                    <%= f.select :category_id, @categories.map{ |category| [category.name, category.id] }, {include_blank: "選択してください"}, {class: "form-control"} %></td>
+                  <td><button type="button", class="btn btn-sm btn-dark add_btn">追加</button></td>
+                </tr>
+              </table>
+            <% end %>
+            <%= f.hidden_field :category_ids, id: "edit_category_ids" %>
+
+            <%= f.label :discount %>
+            <%= f.number_field :discount, min: 0, max: 9999999, class: "form-control" %>
+
+            <%= f.label :paid_on %>
+            <%= f.date_field :paid_on, class: "form-control" %>
+            
+            <div class="btn-area">
+              <button type="submit" class="btn btn-dark" id="category_edit_submit">更新</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--セレクト初期値-->
+<script>
+  <% if @type == "category_presence" %>
+    $(function(){
+      <% @invoice_details.each.with_index(1) do |detail, index| %>
+        $("#category_<%= index %>").val(<%= detail.category_id %>);
+      <% end %>
+    });
+  <% end %>
+</script>
+
+<!--追加ボタンアクション-->
+<script>
+  $("#edit_select_category_table .add_btn").click(function(){
+    // コピー＆リセット
+    var target_tr = $(this).parent().parent();
+    var add_html = $('#edit_select_category_table tr:last').clone(true);
+    target_tr.after(add_html);
+    
+    var add_select = target_tr.next('tr').find('select');
+    add_select.prop("selectedIndex", 0);
+    // 表示順番リセット
+    $('#edit_select_category_table .category_number').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      $(element).text(add_number);
+    });
+     // attrリセット
+    $('#edit_select_category_table .select').each(function(index, element){
+      var default_number = 1;
+      var add_number = default_number + index;
+      var attr_name = "estimate_[category_id_" + add_number + "]"
+      $(element).attr('name', attr_name);
+    });
+  });
+</script>
+
+<!--送信アクション-->
+<script>
+  $('#category_edit_submit').on('click', function(){
+    category_ids = []
+    $('#edit_select_category_table select').each(function(i, element){
+      var value = $(element).val();
+      category_ids.push(Number(value));
+    });
+    $('#edit_category_ids').val(category_ids);
+    $('#estimate_edit_form').submit;
+  });
+</script>
+
+<%= javascript_include_tag "reset_errors.js" %>

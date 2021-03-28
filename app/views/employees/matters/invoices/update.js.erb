@@ -1,0 +1,9 @@
+<% if @response == "success" %>
+  $("#invoice-edit").modal("hide");
+  $('#invoice-edit').empty();
+  $(".flash-wrapper").html('<div class="flash flash-notice time-limit">請求書を更新しました。</div>');
+  $(".invoice").html('<%= escape_javascript(render "employees/matters/partial/invoice") %>');
+  $(function(){
+    setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
+  })
+<% end %>

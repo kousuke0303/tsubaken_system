@@ -2,6 +2,7 @@ class Material < ApplicationRecord
   has_many :category_materials, dependent: :destroy
   has_many :categories, through: :category_materials
   has_many :estimate_details
+  has_many :invoice_details
   belongs_to :plan_name
   
   attr_accessor :accept
@@ -11,7 +12,7 @@ class Material < ApplicationRecord
   before_save :calc_total
 
   scope :include_category, -> { 
-    joins(:categories, :plan_name).includes([:categories, :plan_name]).order(:plan_name_id, 'categories.position': :asc)
+    joins(:categories, :plan_name).includes([:categories, :plan_name]).order(:plan_name_id, "categories.position": :asc)
   }
 
   # 引数に入れた見積案件の持つ工事のみを返す

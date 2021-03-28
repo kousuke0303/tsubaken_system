@@ -17,7 +17,6 @@ class CreateMatters < ActiveRecord::Migration[5.1]
       t.references :publisher, foreign_key: true
       t.references :client, foreign_key: true
       t.references :attract_method, foreign_key: true
-      t.references :estimate, forrign_key: true
       t.timestamps
     end
     add_foreign_key :matters, :estimate_matters

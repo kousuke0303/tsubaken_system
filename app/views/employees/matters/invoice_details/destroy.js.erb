@@ -1,0 +1,13 @@
+<% if @type == "delete_category" %>
+  $("#invoice-detail-edit").modal("hide");
+  $('#invoice-detail-edit').empty();
+<% elsif @type == "delete_object" %>
+  $("#invoice-object-edit").modal("hide");
+  $('#invoice-object-edit').empty();
+<% end %>
+
+$(".flash-wrapper").html('<div class="flash flash-notice time-limit">工事・素材を追加しました。</div>');
+$(".invoice").html('<%= escape_javascript(render "employees/matters/partial/invoice") %>');
+$(function(){
+  setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
+})

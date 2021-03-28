@@ -1,4 +1,4 @@
-class Employees::ClientsController < ApplicationController
+class Employees::ClientsController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_client, only: [:show, :edit, :update, :destroy, :reset_password]
 

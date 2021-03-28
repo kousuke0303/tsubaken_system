@@ -39,7 +39,7 @@ class Employees::Settings::Estimates::PlanNamesController < Employees::Settings:
     from = params[:from].to_i + 1
     plan_name = PlanName.find_by(position: from)
     plan_name.insert_at(params[:to].to_i + 1)
-    @plan_names = PlanName.order(position: :asc)
+    @plan_names = PlanName.with_colors
   end
 
   private

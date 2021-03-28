@@ -39,18 +39,15 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     ActiveRecord::Base.transaction do
       params[:matter][:images].each.with_index(1) do |params_image, index|
         # 画像を取り込んでフォルダに格納
-        temporary_storage_for_image(params_image["image"], index, current_matter)
+        temporary_storage_for_image(params_image["image"], index, @matter)
         # 新規テーブル作成・保存
         image_model = @matter.images.new(author: params[:matter][:author],
                                                         content: params[:matter][:content],
                                                         shooted_on: params[:matter][:shooted_on],
                                                         default_file_path: params_image["image"])
-        image_model.image.attach(io: File.open(@file_path), 
-                                  filename: @file_name,
-                                  content_type: "image/jpeg")
+        image_model.image.attach(io: File.open(@file_path), filename: @file_name, content_type: "image/jpeg")
         image_model.save!
-        # ファイル��除
-        File.delete(@file_path)
+        File.delete(@file_path) # ファイル削除
       end
       @images = @matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(@matter.band_connection.band_key)

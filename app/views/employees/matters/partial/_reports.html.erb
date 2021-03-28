@@ -1,0 +1,52 @@
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered table-column-type mt-1e">
+    <thead>
+      <tr>
+        <th>画像</th>
+        <th>報告書名</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="sortable-reports">
+      <% @reports.each do |report| %>
+        <tr class="tr-sortable">
+          <td>
+            <% if image = report.image %>
+              <%= image_tag url_for(image.image.variant(combine_options:{ gravity: :center, resize:"50x50^",crop:"50x50+0+0" })) %>
+            <% end %>
+          </td>
+          <td><%= report.title %></td>
+          <td>
+            <%= link_to "編集", edit_employees_matter_report_path(@matter, report),remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_matter_report_path(@matter, report), method: :delete, remote: true,
+                              data: { confirm: "この報告書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag "Sortable.min.js" %>
+
+<script>
+  $(function() {
+    let el = document.getElementById("sortable-reports");
+    if (el != null) {
+      const sortable = Sortable.create(el, {
+        animation: 150,
+        delay: 100,
+        onUpdate: function(evt) {
+          $.ajax({
+            type: "PATCH",
+            url: "<%= sort_employees_matter_reports_path(@matter.id) %>",
+            cache: false,
+            data: { from: evt.oldIndex, 
+                    to: evt.newIndex, 
+                    remote: true }
+          });
+        }
+      });
+    }
+  });
+</script>

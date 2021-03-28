@@ -60,6 +60,10 @@ class Employees::EmployeesController < ApplicationController
     def set_categories
       @categories = Category.order(position: :asc)
     end
+
+    def set_plan_names
+      @plan_names = PlanName.order(position: :asc)
+    end
     
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
@@ -81,11 +85,26 @@ class Employees::EmployeesController < ApplicationController
 
     def set_matter_of_estimate_matter
       @matter = @estimate_matter.matter
-      @adopted_estimate_id = @matter.estimate if @matter
     end
 
     def set_label_colors
       @label_colors = LabelColor.order(position: :asc)
+    end
+
+    def set_invoice_details
+      @invoice_details = @invoice.invoice_details.order(sort_number: :asc).group_by{ |detail| detail[:category_id] }
+    end
+
+    def set_plan_name_of_invoice
+      @plan_name = @invoice.plan_name
+    end
+
+    def set_color_code_of_invoice
+      @color_code = @plan_name.label_color.color_code
+    end
+    
+    def set_reports_of_matter
+      @reports = @matter.reports.order(created_at: "ASC")
     end
     
     # schedule/sales_statusで使用
@@ -98,6 +117,10 @@ class Employees::EmployeesController < ApplicationController
     end
     
     def set_matter
+      @matter = Matter.find(params[:matter_id])
+    end
+
+    def set_matter_by_matter_id
       @matter = Matter.find(params[:matter_id])
     end
     

@@ -50,9 +50,8 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
         image_model.image.attach(io: File.open(@file_path), 
                                   filename: @file_name,
                                   content_type: "image/jpeg")
-        image_model.save!
-        # ファイル��除
-        File.delete(@file_path)
+        image_model.save!        
+        File.delete(@file_path) # ファイル削除
       end
       @images = current_estimate_matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(current_estimate_matter.band_connection.band_key)
@@ -73,6 +72,5 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
     
     def set_image
       @image = Image.find(params[:id])
-    end
-    
+    end    
 end

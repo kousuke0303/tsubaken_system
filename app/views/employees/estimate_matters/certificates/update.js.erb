@@ -2,7 +2,7 @@
   $("#certificate-edit").modal("hide");
   $('#certificate-edit').empty();
   $(".certificates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/certificates") %>');
-  <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate_update_flash", key: "success", value: "#{@certificate.title}を更新しました。"} %>
+  <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate-update-flash", key: "success", value: "#{@certificate.title}を更新しました。"} %>
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".certificate-update-errors", model: @certificate, object: "certificate"} %>
 <% end %>

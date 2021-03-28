@@ -24,6 +24,8 @@ ja:
       plan_name: プラン名
       label_color: カラー
       inquiry: お問合せ
+      invoice: 請求書
+      invoice_ditail: 請求書詳細
     attributes:
         admin:
           name: 名前
@@ -90,7 +92,19 @@ ja:
         estimate:
           title: 見積名
           discount: 端数値引
+        invoice:
+          title: 見積名
+          discount: 端数値引
+          paid_on: 支払日
         estimate_detail:
+          category_name: カテゴリ名
+          material_name: 素材名称
+          construction_name: 工事名称
+          service_life: 耐用年数
+          price: 単価
+          amount: 数量
+          note: 摘要(仕様)
+        invoice_detail:
           category_name: カテゴリ名
           material_name: 素材名称
           construction_name: 工事名称
@@ -110,6 +124,8 @@ ja:
           staff_ids: 担当Staff
           external_staff_ids: 担当外部Staff
           supplier_ids: 担当外注先
+        report:
+          title: 報告書名
         label_color:
           name: カラー名
           color_code: カラーコード
@@ -192,3 +208,4 @@ ja:
     staff_id: Staff
     external_staff_id: 外部Staff
     label_color_id: ラベルカラー
+    plan_name_id: プラン名

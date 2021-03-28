@@ -1,0 +1,23 @@
+<div class="text-center mr-1e">
+  <button class="btn btn-primary invoice-print">印刷</button>
+</div>
+
+<div id="invoice-preview-area">
+  <%= render "shared/matters/invoice", container_type: "a4_container" %>
+</div>
+
+<div id="invoice-print-area" style="display: none">
+  <%= render "shared/matters/invoice", container_type: "a4_print_container" %>
+</div>
+
+<script>
+  $(".invoice-print").click(function() {
+    $("body > :not(#invoice-print-area)").hide();
+    $("body").addClass("bg-white");
+    $("#invoice-print-area").show();
+    window.print();
+    $('body > :not(#invoice-print-area)').show();
+    $("#invoice-print-area").hide();
+    $("body").removeClass("bg-white");
+  });
+</script>

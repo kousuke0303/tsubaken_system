@@ -15,7 +15,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
   def update
     @estimate_details = @estimate.estimate_details
     @target_category = @estimate_detail.category_id
-    @target_details = @estimate.estimate_details.where(category_id: @target_category)
+    @target_details = @estimate_details.where(category_id: @target_category)
     @target_details_include_construction = @target_details.where.not(construction_id: nil).order(:sort_number)
     @target_details_include_material = @target_details.where.not(material_id: nil).order(:sort_number)
     
@@ -26,6 +26,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     comparison
     
     if @after_construction_arrey.present?
+      p @after_construction_arrey
       # ①増加分
       register_constructions(@add_construction_arrey) if @add_construction_arrey != "nil"
       # ②減少分
@@ -49,18 +50,14 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     @estimate.calc_total_price
     set_estimates_with_plan_names_and_label_colors
     set_estimate_details
+    @response = "success"
   end
 
   def destroy
     if params[:type] == "delete_category"
-      estimate = @estimate_detail.estimate
-      delete_details = estimate.estimate_details.where(category_id: @estimate_detail.category_id)
-      delete_details.each do |details|
-        details.destroy
-      end
+      @estimate.estimate_details.where(category_id: @estimate_detail.category_id).destroy_all
       @type = "delete_category"
-    end
-    if params[:type] == "delete_object"
+    elsif params[:type] == "delete_object"
       @estimate_detail.destroy
       @type = "delete_object"
     end
@@ -102,19 +99,15 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       if params[:estimate_detail][:material_ids].present?
         params_materials = params[:estimate_detail][:material_ids].split(",").map(&:to_i)
         @after_material_arrey = []
-        params_materials.each do |params_material|
-          unless params_material == 0
-            @after_material_arrey << params_material
-          end
+        params_materials.each do |params_material|         
+          @after_material_arrey << params_material unless params_material == 0          
         end
       end
       if params[:estimate_detail][:construction_ids].present?
         params_constructions = params[:estimate_detail][:construction_ids].split(",").map(&:to_i)
         @after_construction_arrey = []
-        params_constructions.each do |params_construction|
-          unless params_construction == 0
-            @after_construction_arrey << params_construction
-          end
+        params_constructions.each do |params_construction|          
+          @after_construction_arrey << params_construction unless params_construction == 0          
         end
       end
     end
@@ -124,42 +117,22 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       if @after_material_arrey.present?
         before_material_arrey = @target_details_include_material.pluck(:material_id)
         # カテゴリが増えている場合
-        if (@after_material_arrey - before_material_arrey) == [nil]
-          @add_material_arrey = "nil"
-        elsif @after_material_arrey == before_material_arrey
-          @add_material_arrey = "nil"
-        else
-          @add_material_arrey = @after_material_arrey - before_material_arrey
-        end
+        (@after_material_arrey - before_material_arrey) == [nil] || @after_material_arrey == before_material_arrey ?
+        @add_material_arrey = "nil" : @add_material_arrey = @after_material_arrey - before_material_arrey
         # カテゴリが減っている場合
-        if (before_material_arrey - @after_material_arrey) == [nil]
-          @delete_material_arrey = "nil"
-        elsif before_material_arrey == @after_material_arrey
-          @delete_material_arrey = "nil"
-        else
-          @delete_material_arrey = before_material_arrey - @after_material_arrey
-        end
+        (before_material_arrey - @after_material_arrey) == [nil] || before_material_arrey == @after_material_arrey ?
+        @delete_material_arrey = "nil" : @delete_material_arrey = before_material_arrey - @after_material_arrey
       end
       
       if @after_construction_arrey.present?
         before_construction_arrey = @target_details_include_construction.pluck(:construction_id)
         # カテゴリが増えている場合
-        if (@after_construction_arrey - before_construction_arrey) == [nil]
-          @add_construction_arrey = "nil"
-        elsif @after_construction_arrey == before_construction_arrey
-          @add_construction_arrey = "nil"
-        else
-          @add_construction_arrey = @after_construction_arrey - before_construction_arrey
-        end
+        (@after_construction_arrey - before_construction_arrey) == [nil] || @after_construction_arrey == before_construction_arrey ?
+        @add_construction_arrey = "nil" : @add_construction_arrey = @after_construction_arrey - before_construction_arrey
         
         # カテゴリが減っている場合
-        if (before_construction_arrey - @after_construction_arrey) == [nil]
-          @delete_construction_arrey = "nil"
-        elsif before_construction_arrey == @after_construction_arrey
-          @delete_construction_arrey = "nil"
-        else
-          @delete_construction_arrey = before_construction_arrey - @after_construction_arrey
-        end
+        (before_construction_arrey - @after_construction_arrey) == [nil] || before_construction_arrey == @after_construction_arrey ?
+        @delete_construction_arrey = "nil" : @delete_construction_arrey = before_construction_arrey - @after_construction_arrey
       end
     end
     
@@ -168,42 +141,39 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
       material_id_arrey.each.with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         EstimateDetail.create(
-            estimate_id: @estimate_detail.estimate.id,
-            category_id: @estimate_detail.category_id,
-            category_name: @estimate_detail.category_name,
-            material_id: default_material.id,
-            material_name: default_material.name,
-            unit: default_material.unit, 
-            price: default_material.price, 
-            service_life: default_material.service_life, 
-            sort_number: @estimate_detail.sort_number + index + 30
-            )
+          estimate_id: @estimate_detail.estimate.id,
+          category_id: @estimate_detail.category_id,
+          category_name: @estimate_detail.category_name,
+          material_id: default_material.id,
+          material_name: default_material.name,
+          unit: default_material.unit, 
+          price: default_material.price, 
+          service_life: default_material.service_life, 
+          sort_number: @estimate_detail.sort_number + index + 30
+        )
       end
     end
     
     # 素材削除
     def decrease_materials(material_id_arrey)
       material_id_arrey.each do |material_id|
-        objects = @estimate.estimate_details.where(material_id: material_id, category_id: @target_category)
-        objects.each do |object|
-          object.destroy
-        end
+        @estimate.estimate_details.where(material_id: material_id, category_id: @target_category).destroy_all
       end
     end
     
     # 工事登録
-    def register_constructions(construction_id_arrey)
-      construction_id_arrey.each.with_index(1) do |params_construction_id, index|
+    def register_constructions(construction_id_array)
+      construction_id_array.each.with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         EstimateDetail.create(
-            estimate_id: @estimate_detail.estimate.id,
-            category_id: @estimate_detail.category_id,
-            category_name: @estimate_detail.category_name,
-            construction_id: default_construction.id,
-            construction_name: default_construction.name,
-            unit: default_construction.unit, 
-            price: default_construction.price, 
-            sort_number: @estimate_detail.sort_number + index
+          estimate_id: @estimate_detail.estimate.id,
+          category_id: @estimate_detail.category_id,
+          category_name: @estimate_detail.category_name,
+          construction_id: default_construction.id,
+          construction_name: default_construction.name,
+          unit: default_construction.unit, 
+          price: default_construction.price, 
+          sort_number: @estimate_detail.sort_number + index
         )
       end
     end
@@ -211,10 +181,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     # 工事削除
     def decrease_constructions(construction_id_arrey)
       construction_id_arrey.each do |construction_id|
-        objects = @estimate.estimate_details.where(construction_id: construction_id, category_id: @target_category)
-        objects.each do |object|
-          object.destroy
-        end
+        @estimate.estimate_details.where(construction_id: construction_id, category_id: @target_category).destroy_all
       end
     end
     

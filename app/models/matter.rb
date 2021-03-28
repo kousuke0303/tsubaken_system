@@ -1,13 +1,15 @@
 class Matter < ApplicationRecord
   belongs_to :estimate_matter
   belongs_to :publisher, optional: true
-  belongs_to :estimate, optional: true
   belongs_to :client
   
   has_one :band_connection, dependent: :destroy
   
   has_many :matter_member_codes, dependent: :destroy
   has_many :member_codes, through: :matter_member_codes
+  
+  has_one :invoice, dependent: :destroy
+  has_many :reports, dependent: :destroy
   
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy
@@ -24,7 +26,8 @@ class Matter < ApplicationRecord
   validates :scheduled_started_on, presence: true
   validates :scheduled_finished_on, presence: true
   validate :scheduled_finished_on_is_after_started_on
-  
+
+  attr_accessor :estimate_id
   
   enum status: { not_started: 0, progress: 1, completed: 2 }
   

@@ -1,6 +1,7 @@
 class Employees::MattersController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter, except: [:new, :create, :index]
+  before_action :set_reports_of_matter, only: :show
   before_action :set_employees, only: [:new, :edit, :change_member]
   before_action ->{set_menbers_code_for(@matter)}, only: :show
   before_action :set_suppliers, only: :edit
@@ -45,16 +46,17 @@ class Employees::MattersController < Employees::EmployeesController
 
   def show
     @suppliers = @matter.suppliers
-    @tasks = @matter.tasks
-    set_classified_tasks(@matter)    
-    @estimate_matter = @matter.estimate_matter
+    set_classified_tasks(@matter)        
     @client = @matter.client
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
+    @estimate_matter = @matter.estimate_matter
     set_estimates_with_plan_names_and_label_colors
-    @estimate = @matter.estimate
-    if params[:type] == "success"
-      @message = true
-    end
+    @invoice = @matter.invoice
+    set_plan_name_of_invoice
+    set_color_code_of_invoice     
+    set_invoice_details
+    @message = true if params[:type] == "success"
+    @images = @matter.images.select{ |image| image.image.attached? }
   end
 
   def edit
@@ -119,6 +121,7 @@ class Employees::MattersController < Employees::EmployeesController
     #   params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
     # end
     
+<<<<<<< HEAD
     # def delete_matter_relation_table
     #   unless params[:matter][:staff_ids].present?
     #     @matter.matter_staffs.delete_all
@@ -127,4 +130,10 @@ class Employees::MattersController < Employees::EmployeesController
     #     @matter.matter_external_staffs.delete_all
     #   end
     # end
+=======
+    def delete_matter_relation_table  
+      @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
+      @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
+    end
+>>>>>>> c83f954c397aac1e190cec2a5ae852b74e505605
 end

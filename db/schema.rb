@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_074136) do
+ActiveRecord::Schema.define(version: 2021_03_26_060805) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -296,6 +296,41 @@ ActiveRecord::Schema.define(version: 2021_03_20_074136) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoice_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "invoice_id"
+    t.integer "sort_number"
+    t.bigint "category_id"
+    t.string "category_name"
+    t.bigint "material_id"
+    t.string "material_name"
+    t.bigint "construction_id"
+    t.string "construction_name"
+    t.string "service_life"
+    t.string "note"
+    t.string "unit"
+    t.integer "price"
+    t.integer "amount"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_invoice_details_on_category_id"
+    t.index ["construction_id"], name: "index_invoice_details_on_construction_id"
+    t.index ["invoice_id"], name: "index_invoice_details_on_invoice_id"
+    t.index ["material_id"], name: "index_invoice_details_on_material_id"
+  end
+
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "total_price"
+    t.integer "discount", default: 0, null: false
+    t.string "matter_id"
+    t.date "paid_on"
+    t.bigint "plan_name_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_invoices_on_matter_id"
+    t.index ["plan_name_id"], name: "index_invoices_on_plan_name_id"
+  end
+
   create_table "label_colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "color_code", null: false
@@ -368,12 +403,10 @@ ActiveRecord::Schema.define(version: 2021_03_20_074136) do
     t.bigint "publisher_id"
     t.bigint "client_id"
     t.bigint "attract_method_id"
-    t.bigint "estimate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attract_method_id"], name: "index_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_matters_on_client_id"
-    t.index ["estimate_id"], name: "index_matters_on_estimate_id"
     t.index ["estimate_matter_id"], name: "index_matters_on_estimate_matter_id"
     t.index ["publisher_id"], name: "index_matters_on_publisher_id"
   end
@@ -435,6 +468,19 @@ ActiveRecord::Schema.define(version: 2021_03_20_074136) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "content"
+    t.integer "position"
+    t.boolean "default", default: false
+    t.integer "image_id"
+    t.integer "message_id"
+    t.string "matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_reports_on_matter_id"
   end
 
   create_table "sales_status_editors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -599,6 +645,11 @@ ActiveRecord::Schema.define(version: 2021_03_20_074136) do
   add_foreign_key "images", "matters"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "invoice_details", "categories"
+  add_foreign_key "invoice_details", "constructions"
+  add_foreign_key "invoice_details", "invoices"
+  add_foreign_key "invoice_details", "materials"
+  add_foreign_key "invoices", "plan_names"
   add_foreign_key "managers", "departments"
   add_foreign_key "materials", "plan_names"
   add_foreign_key "matter_member_codes", "matters"
@@ -613,6 +664,7 @@ ActiveRecord::Schema.define(version: 2021_03_20_074136) do
   add_foreign_key "messages", "matters"
   add_foreign_key "notifications", "schedules"
   add_foreign_key "plan_names", "label_colors"
+  add_foreign_key "reports", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "staffs", "label_colors"

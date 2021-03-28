@@ -13,14 +13,6 @@ module Employees::EstimateMatters::EstimatesHelper
   def is_last_position(estimate, size)
     @disabled = estimate.position == size ? "disabled" : nil
   end
-
-  def plan_row_span(estimate)
-    estimate.estimate_details.count
-  end
-  
-  def category_row_span(estimate, category_id)
-    estimate.estimate_details.where(category_id: category_id).count
-  end
   
   def estimate_color(estimate)
     estimate.plan_name_id.present? ? estimate.plan_name.label_color.color_code : LabelColor.first.color_code
