@@ -3,6 +3,11 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
   before_action :set_report, only: [:edit, :update, :destroy]
 
+  def preview
+    @report_cover = @matter.report_cover
+    @reports = @matter.reports
+  end
+
   def new
     @report = @matter.reports.new
     @image = Image.find(params[:image_id])
