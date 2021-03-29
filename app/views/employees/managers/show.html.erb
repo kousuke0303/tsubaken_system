@@ -1,10 +1,11 @@
 <div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{@manager.name} の編集", icon: "fa-user-edit"} %>
   
-  <div class="avator_container_for_sidebar">
-    <%= show_avator(@manager) %>
-    <h2><%= @manager.name %>詳細</h2>
+  <div class="avator_container">
+    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: @manager, 
+                                                                 edit_path: :managers_avator_change_path,
+                                                                 destroy_path: :managers_avator_destroy_path} %>
   </div>
-  
   <%= out_of_service(@manager) %>
   <%= render "/employees/managers/partial/detail" %>  
 </div>

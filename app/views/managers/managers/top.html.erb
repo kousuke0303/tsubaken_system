@@ -30,6 +30,12 @@
         <% if @error_attendances %>
           <%= render 'common_layouts/attendances/error_attendances' %>
         <% end %>
+      <!--PASS関連-->
+        <% unless current_manager.password_condition %>
+          <p><i class="fas fa-exclamation-circle fa-orange"></i>
+            <span><%= link_to "自身のログインパスワードが初期値のままです", edit_manager_registration_path(current_manager) %></span>
+          </p>
+        <% end %>
       </div>
     </div>
   </div>

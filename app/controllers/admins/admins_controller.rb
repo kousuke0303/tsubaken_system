@@ -7,10 +7,11 @@ class Admins::AdminsController < ApplicationController
   
 
   def top
+    password_condition_user
   end
   
   def avator_change
-    current_admin.avator.attach(params[:admin_avator])
+    current_admin.avator.attach(params[:avator])
     redirect_to edit_admin_registration_url(current_admin)
   end
   
@@ -18,4 +19,15 @@ class Admins::AdminsController < ApplicationController
     current_admin.avator.purge_later
     redirect_to edit_admin_registration_url(current_admin)
   end
+  
+  private
+    def password_condition_user
+      @object_member_code = []
+      Manager.all.each do |manager|
+        if manager.password_condition == false
+          @object_member_code << manager.member_code.id
+        end
+      end
+      return @object_member_code
+    end
 end

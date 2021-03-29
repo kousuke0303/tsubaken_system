@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
     t.string "phone"
     t.string "email"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "supplier_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -352,7 +352,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "department_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -566,7 +566,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_060805) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "department_id"
     t.bigint "label_color_id"
     t.string "login_id", default: "", null: false

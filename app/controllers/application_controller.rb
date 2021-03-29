@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_matter
   helper_method :current_estimate_matter
+  helper_method :self_manager
+  helper_method :self_staff
+  helper_method :self_external_staff
 
   # 利用者情報
   def login_user
@@ -11,6 +14,30 @@ class ApplicationController < ActionController::Base
     return current_staff if current_staff 
     return current_external_staff if current_external_staff 
     return current_client if current_client
+  end
+  
+  def self_manager
+    if @manager.present? && @manager == current_manager
+      current_manager
+    else
+      false
+    end
+  end
+  
+  def self_staff
+    if @staff.present? && @staff == current_staff
+      current_staff
+    else
+      false
+    end
+  end
+  
+  def self_external_staff
+    if @external_staff.present? && @external_staff == current_external_staff
+      current_external_staff
+    else
+      false
+    end
   end
   
   # --------------------------------------------------------
@@ -52,6 +79,18 @@ class ApplicationController < ActionController::Base
   def authenticate_employee!
     redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
   end
+  
+  def authenticate_admin_or_self_manager!
+    if current_admin
+      editable = true
+    elsif current_manager == @manager
+      editable = true
+    else
+      editable = false
+    end
+    redirect_to root_url if editable == false
+  end
+    
   
   # 自分の担当している案件のみアクセス可能（staff_extrnal_staff）
   def can_access_only_of_member(object)
@@ -251,6 +290,10 @@ class ApplicationController < ActionController::Base
 
   def set_label_colors
     @label_colors = LabelColor.order(position: :asc)
+  end
+  
+  def set_departments
+    @departments = Department.order(position: :asc)
   end
   
 end

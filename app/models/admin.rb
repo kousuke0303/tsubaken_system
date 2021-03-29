@@ -1,18 +1,26 @@
 class Admin < ApplicationRecord
+  
+  before_save { self.email = email.downcase if email.present? }
+  after_commit :create_member_code
+  after_find :set_password_condition
+  
   belongs_to :schedule, optional: true
   has_one :member_code, dependent: :destroy
   
   has_one_attached :avator
-  
-  before_save { self.email = email.downcase if email.present? }
-  after_commit :create_member_code
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validate :admin_login_id_is_correct?
-
+  
+  attr_accessor :password_condition
+  
+# ---------------------------------------------------------
+  # DEVISE関連
+# ---------------------------------------------------------
+  
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # 管理者の従業員IDは「AD-」から始めさせる
@@ -46,13 +54,22 @@ class Admin < ApplicationRecord
   
   private
   
-    #---------------------------------------------------
-     # CALLBACK_METHOD
-    #---------------------------------------------------
+  #---------------------------------------------------
+    # CALLBACK_METHOD
+  #---------------------------------------------------
     
     def create_member_code
       unless MemberCode.find_by(admin_id: self.id)
         MemberCode.create(admin_id: self.id)
       end
     end
+    
+    def set_password_condition
+      if self.valid_password?("password")
+        self.password_condition = false
+      else
+        self.password_condition = true
+      end
+    end
+    
 end

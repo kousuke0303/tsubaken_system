@@ -49,10 +49,6 @@ class Employees::EmployeesController < ApplicationController
       @suppliers = Supplier.all
     end
 
-    def set_departments
-      @departments = Department.order(position: :asc)
-    end
-
     def set_industries
       @industries = Industry.order(position: :asc)
     end
