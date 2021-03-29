@@ -30,7 +30,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     
     if @after_material_array.present?      
-      register_materials(@add_material_array) if @add_material_array != "nil" # ①増加分      
+      register_materials(@add_material_array, @before_material_array) if @add_material_array != "nil" # ①増加分      
       decrease_materials(@delete_material_array) if @delete_material_array != "nil" # ②減少分
     end
     
@@ -129,7 +129,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     end
     
     # 素材登録
-    def register_materials(material_id_array)
+    def register_materials(material_id_array, before_material_array)
       material_id_array.each.with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         EstimateDetail.create(
@@ -141,7 +141,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
           unit: default_material.unit, 
           price: default_material.price, 
           service_life: default_material.service_life, 
-          sort_number: @estimate_detail.sort_number + index + 30
+          sort_number: @estimate_detail.sort_number + (index + before_material_array.size) * 100
         )
       end
     end
@@ -167,9 +167,6 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
           price: default_construction.price, 
           sort_number: @estimate_detail.sort_number + (index + before_construction_array.size) * 100
         )
-        p "aaaaaaaaaa"
-        p index
-        p a.sort_number
       end
     end
     
