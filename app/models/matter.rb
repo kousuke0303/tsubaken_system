@@ -10,7 +10,7 @@ class Matter < ApplicationRecord
   has_many :member_codes, through: :matter_member_codes
   
   has_one :invoice, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :reports, -> { order(position: :asc) }, dependent: :destroy #報告書と1対多
   
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy

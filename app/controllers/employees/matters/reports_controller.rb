@@ -28,6 +28,13 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
     set_reports_of_matter
   end
 
+  def sort
+    from = params[:from].to_i + 1
+    report = @matter.reports.find_by(position: from)
+    report.insert_at(params[:to].to_i + 1)
+    set_reports_of_matter
+  end
+
   private
     def set_report
       @report = Report.find(params[:id])
