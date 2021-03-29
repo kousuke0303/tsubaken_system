@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $(".reports-index").html('<%= escape_javascript(render "employees/matters/partial/reports") %>');
+  <%= render "shared/javascript/flash", dom: "#report-update-flash", key: "success", value: "#{ @report.title }を削除しました。" %>
+<% else %>
+  <%= render "shared/javascript/flash", dom: "#report-update-flash", key: "alert", value: "#{ @report.title }を削除できませんでした。" %>
+<% end %>

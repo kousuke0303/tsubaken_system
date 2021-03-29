@@ -19,7 +19,7 @@
           <td>
             <%= link_to "編集", edit_employees_matter_report_path(@matter, report),remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_matter_report_path(@matter, report), method: :delete, remote: true,
-                              data: { confirm: "この報告書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
+                               data: { confirm: "この報告書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
           </td>
         </tr>
       <% end %>
