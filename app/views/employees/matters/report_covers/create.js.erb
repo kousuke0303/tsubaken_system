@@ -1,0 +1,7 @@
+<% if @responce == "success" %>
+  $("#report-cover-new").modal("hide");
+  $(".report-covers-index").html('<%= escape_javascript(render "employees/matters/partial/report_covers") %>');
+  <%= render "shared/javascript/flash", dom: "#report-create-flash", key: "success", value: "#{ @report.title }を作成しました。" %>
+<% else %>
+  <%= render "shared/javascript/modal_error", dom: ".report-create-errors", model: @report, object: "report" %>
+<% end %>

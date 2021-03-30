@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">報告書表紙作成</h5>
+        <div class="card-body">
+          <%= form_with(model: @report_cover, url: employees_matter_report_covers_path, method: :post) do |f| %>
+            <div class="report-cover-create-errors"></div>
+            <%= f.label :title %>
+            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+
+            <div class="tab-wrap">
+              <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">画像①</label>
+              <div class="tab-content" id="publisher_index">
+                <%= f.hidden_field :img_1_id, class: "form-control" %>
+                <div class="row">
+                  <div class="col-12 mt-05e img-1-status">未選択</div>
+                  <% @images.each do |image| %>
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e img-1-option">
+                      <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">画像②</label>
+              <div class="tab-content">
+                <%= f.text_field :img_2_id, class: "form-control" %>
+              </div>
+              <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">画像③</label>
+              <div class="tab-content">
+                <%= f.text_field :img_3_id, class: "form-control" %>
+              </div>
+              <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">画像④</label>
+              <div class="tab-content">
+                <%= f.text_field :img_4_id, class: "form-control" %>
+              </div>
+            </div>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

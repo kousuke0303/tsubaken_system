@@ -18,11 +18,16 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def update
+    @report_cover.update(report_cover_params) ? @responce = "success" : @responce = "false"
+  end
+
+  def destroy
+    @report_cover.destroy ? @responce = "success" : @responce = "false"
   end
 
   private
   def set_report_cover
-    @report = Report.find(params[:id])
+    @report_cover = ReportCover.find(params[:id])
   end
 
   def report_cover_params
