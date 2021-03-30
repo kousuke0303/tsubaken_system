@@ -316,6 +316,7 @@ Rails.application.routes.draw do
       resources :reports, only: [:index, :create, :new, :edit, :update, :destroy], controller: "matters/reports" do
         patch :sort, on: :collection
       end
+      resources :report_covers, only: [:create, :new, :edit, :update, :destroy], controller: "matters/report_covers"
       resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do
         get :scroll_get_messages, on: :collection
