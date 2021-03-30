@@ -10,7 +10,8 @@ class Matter < ApplicationRecord
   has_many :member_codes, through: :matter_member_codes
   
   has_one :invoice, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :reports, -> { order(position: :asc) }, dependent: :destroy  
+  has_one :report_covers, dependent: :destroy
   
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy
@@ -33,7 +34,7 @@ class Matter < ApplicationRecord
   before_create :identify
   after_commit :staff_external_staff_connection_and_task_set, on: :create
   
-  scope :join_estimate_matter, ->{joins(:estimate_matter)}
+  scope :join_estimate_matter, ->{ joins(:estimate_matter) }
   
   # matter_status変更
   def change_matter_status

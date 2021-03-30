@@ -22,11 +22,11 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
     refactor_params_material_and_construction_ids # ①パラメーター整形
     comparison # 差分比較  
     if @after_construction_array.present?      
-      register_constructions(@add_construction_array) if @add_construction_array != "nil" # ①増加分      
+      register_constructions(@add_construction_array, @before_construction_array) if @add_construction_array != "nil" # ①増加分      
       decrease_constructions(@delete_construction_array) if @delete_construction_array != "nil" # ②減少分
     end
     if @after_material_array.present?      
-      register_materials(@add_material_array) if @add_material_array != "nil" # ①増加分      
+      register_materials(@add_material_array, @before_material_array) if @add_material_array != "nil" # ①増加分      
       decrease_materials(@delete_material_array) if @delete_material_array != "nil" # ②減少分
     end
     
@@ -39,6 +39,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
     set_plan_name_of_invoice
     set_color_code_of_invoice
     set_invoice_details
+    @estimates = @matter.estimate_matter.estimates
     @response = "success"
   end
 
@@ -103,28 +104,28 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
 
     def comparison
       if @after_material_array.present?
-        before_material_array = @target_details_include_material.pluck(:material_id)
+        @before_material_array = @target_details_include_material.pluck(:material_id)
         # カテゴリが増えている場合
-        (@after_material_array - before_material_array) == [nil] || @after_material_array == before_material_array ?
-        @add_material_array = "nil" : @add_material_array = @after_material_array - before_material_array                  
+        (@after_material_array - @before_material_array) == [nil] || @after_material_array == @before_material_array ?
+        @add_material_array = "nil" : @add_material_array = @after_material_array - @before_material_array                  
         # カテゴリが減っている場合
-        (before_material_array - @after_material_array) == [nil] || before_material_array == @after_material_array ?
-        @delete_material_array = "nil" : @delete_material_array = before_material_array - @after_material_array
+        (@before_material_array - @after_material_array) == [nil] || @before_material_array == @after_material_array ?
+        @delete_material_array = "nil" : @delete_material_array = @before_material_array - @after_material_array
       end
       if @after_construction_array.present?
-        before_construction_array = @target_details_include_construction.pluck(:construction_id)
+        @before_construction_array = @target_details_include_construction.pluck(:construction_id)
         # カテゴリが増えている場合
-        (@after_construction_array - before_construction_array) == [nil] || @after_construction_array == before_construction_array ?
-        @add_construction_array = "nil" : @add_construction_array = @after_construction_array - before_construction_array       
+        (@after_construction_array - @before_construction_array) == [nil] || @after_construction_array == @before_construction_array ?
+        @add_construction_array = "nil" : @add_construction_array = @after_construction_array - @before_construction_array       
         # カテゴリが減っている場合
-        (before_construction_array - @after_construction_array) == [nil] || before_construction_array == @after_construction_array ?
-        @delete_construction_array = "nil" : @delete_construction_array = before_construction_array - @after_construction_array
+        (@before_construction_array - @after_construction_array) == [nil] || @before_construction_array == @after_construction_array ?
+        @delete_construction_array = "nil" : @delete_construction_array = @before_construction_array - @after_construction_array
       end
     end
 
         
     # 素材登録
-    def register_materials(material_id_array)
+    def register_materials(material_id_array, before_material_array)
       material_id_array.each.with_index(1) do |params_material_id, index|
         default_material = Material.find(params_material_id)
         InvoiceDetail.create(
@@ -136,7 +137,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
           unit: default_material.unit, 
           price: default_material.price, 
           service_life: default_material.service_life, 
-          sort_number: @invoice_detail.sort_number + index + 100
+          sort_number: @invoice_detail.sort_number + index + before_material_array.size
         )
       end
     end
@@ -149,7 +150,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
     end
     
     # 工事登録
-    def register_constructions(construction_id_array)
+    def register_constructions(construction_id_array, before_construction_array)
       construction_id_array.each.with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
         InvoiceDetail.create(
@@ -160,7 +161,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
           construction_name: default_construction.name,
           unit: default_construction.unit, 
           price: default_construction.price, 
-          sort_number: @invoice_detail.sort_number + index + 100
+          sort_number: @invoice_detail.sort_number + index + before_construction_array.size
         )
       end
     end
