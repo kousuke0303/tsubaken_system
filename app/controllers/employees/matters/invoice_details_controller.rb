@@ -137,7 +137,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
           unit: default_material.unit, 
           price: default_material.price, 
           service_life: default_material.service_life, 
-          sort_number: @invoice_detail.sort_number + (index + before_material_array.size) * 100
+          sort_number: @invoice_detail.sort_number + index + before_material_array.size
         )
       end
     end
@@ -161,7 +161,7 @@ class Employees::Matters::InvoiceDetailsController < Employees::EmployeesControl
           construction_name: default_construction.name,
           unit: default_construction.unit, 
           price: default_construction.price, 
-          sort_number: @invoice_detail.sort_number + (index + before_construction_array.size) * 100
+          sort_number: @invoice_detail.sort_number + index + before_construction_array.size
         )
       end
     end

@@ -141,7 +141,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
           unit: default_material.unit, 
           price: default_material.price, 
           service_life: default_material.service_life, 
-          sort_number: @estimate_detail.sort_number + (index + before_material_array.size) * 100
+          sort_number: @estimate_detail.sort_number + index + before_material_array.size
         )
       end
     end
@@ -165,7 +165,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
           construction_name: default_construction.name,
           unit: default_construction.unit, 
           price: default_construction.price, 
-          sort_number: @estimate_detail.sort_number + (index + before_construction_array.size) * 100
+          sort_number: @estimate_detail.sort_number + index + before_construction_array.size
         )
       end
     end
