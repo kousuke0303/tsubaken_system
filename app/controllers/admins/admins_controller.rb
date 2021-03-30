@@ -4,10 +4,13 @@ class Admins::AdminsController < ApplicationController
   before_action :scaffolding_and_order_requests_relevant_or_ongoing, only: :top
   before_action :employee_attendance_notification, only: :top
   before_action :schedule_application, only: :top
+  before_action :password_condition_user, only: [:top, :default_password_user_index]
   
 
   def top
-    password_condition_user
+  end
+  
+  def default_password_user_index
   end
   
   def avator_change
@@ -21,13 +24,24 @@ class Admins::AdminsController < ApplicationController
   end
   
   private
+  
     def password_condition_user
-      @object_member_code = []
-      Manager.all.each do |manager|
+      @object_member_code_array = []
+      Manager.includes(:member_code).each do |manager|
         if manager.password_condition == false
-          @object_member_code << manager.member_code.id
+          @object_member_code_array << manager.member_code.id
         end
       end
-      return @object_member_code
+      Staff.includes(:member_code).each do |staff|
+        if staff.password_condition == false
+          @object_member_code_array << staff.member_code.id
+        end
+      end
+      ExternalStaff.includes(:member_code).each do |ex_staff|
+        if ex_staff.password_condition == false
+          @object_member_code_array << ex_staff.member_code.id
+        end
+      end
+      @object_member_code = MemberCode.where(id: @object_member_code_array)
     end
 end

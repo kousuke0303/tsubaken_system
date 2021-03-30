@@ -1,8 +1,8 @@
 class Employees::ManagersController < Employees::EmployeesController
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_admin!, only: [:new, :create, :update, :destroy]
   before_action :authenticate_admin_or_manager!, only: [:index, :show]
   before_action :set_manager, except: [:new, :create, :index]
-  before_action :set_departments, only: [:new, :show, :edit, :update]
+  before_action :set_departments, only: [:new, :show, :update, :pass_update]
 
   def new
     @manager = Manager.new
@@ -24,12 +24,18 @@ class Employees::ManagersController < Employees::EmployeesController
   def show
   end
 
-  def edit
-  end
-
   def update
-    if @manager.update(manager_params)
+    if update_resource(@manager, manager_params)
       flash[:success] = "Manager情報を更新しました。"
+      redirect_to employees_manager_url(@manager)
+    else
+      render :show
+    end
+  end
+  
+  def pass_update
+    if @manager.update(manager_pass_params)
+      flash[:success] = "パスワードを更新しました。"
       redirect_to employees_manager_url(@manager)
     else
       render :show
@@ -69,10 +75,13 @@ class Employees::ManagersController < Employees::EmployeesController
   private
     def manager_params
       params.require(:manager).permit(:name, :login_id, :phone, :email, :birthed_on, :postal_code, :prefecture_code, :address_city,
-                                      :address_street, :department_id, :joined_on, :resigned_on,
-                                      :password, :password_confirmation)
+                                      :address_street, :department_id, :joined_on, :resigned_on)
     end
-
+    
+    def manager_pass_params
+      params.require(:manager).permit(:password, :password_confirmation)
+    end
+    
     def set_manager
       @manager = Manager.find(params[:id])
     end 

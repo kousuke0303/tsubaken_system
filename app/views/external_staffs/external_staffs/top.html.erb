@@ -18,9 +18,9 @@
   <div class="news_container">
     <div class="top_page_contents">
     <!--足場・発注勧告-->
-      <% if @external_staff_scaffolding_and_order_requests_relevant_or_ongoing.count > 0 %>
+      <% if @staff_scaffolding_and_order_requests_relevant_or_ongoing.count > 0 %>
         <p><i class="fas fa-exclamation-circle fa-orange"></i>
-          <span><%= link_to "足場架設依頼/発注依頼が残っております：#{ @external_staff_scaffolding_and_order_requests_relevant_or_ongoing.count }件", external_staffs_index_path, remote: true %></span>
+          <span><%= link_to "足場架設依頼/発注依頼が残っております：#{ @staff_scaffolding_and_order_requests_relevant_or_ongoing.count }件", external_staffs_index_path, remote: true %></span>
         </p>
       <% end %>
     <!--出退勤関係-->

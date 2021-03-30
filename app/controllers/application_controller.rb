@@ -65,6 +65,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
   end
   
+  # 変更時PASS不要
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+  
   
   #-------------------------------------------------------
       # アクセス制限

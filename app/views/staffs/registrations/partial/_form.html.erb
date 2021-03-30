@@ -44,20 +44,29 @@
     <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control" %>
   </div>
   <div class="col-md-6 col-12">
+    <%= f.label :label_color_id %>
+    <div class="input-group">
+    <%= f.collection_select :label_color_id, @label_colors, :id, :name, { prompt: "選択してください" }, class: "form-control", id: "color_select"%>
+    <div class="input-group-append">
+      <span class="input-group-text" style="width: 3em; background: <%= @staff.label_color.color_code %>" id="color-sample"></span>
+    </div>
+  </div>
+  </div>
+  <div class="col-md-6 col-12">
     <% if current_admin %>
       <%= f.label :joined_on %>
-      <% if @manager.avaliable == false && @manager.resigned_on == nil %>
+      <% if @staff.avaliable == false && @staff.resigned_on == nil %>
         <span class="precautionary_statement">※入社日以降にログイン可能</span>
       <% end %>
       <%= f.date_field :joined_on, class: "form-control" %>
     <% else %>
       <%= f.label :joined_on %>
-      <div class="form-control"><%= @manager.joined_on.strftime("%Y年%-m月%-d日") %></div>
+      <div class="form-control"><%= @staff.joined_on.strftime("%Y年%-m月%-d日") %></div>
     <% end %>
   </div>
 </div>
 
-<% unless current_admin || self_manager %>
+<% unless current_admin || current_manager || self_staff %>
 <script>
   $(document).ready(function(){
     $('input').prop('disabled', true);
@@ -67,18 +76,17 @@
 <% end %>
 
 <script>
-$(document).ready(function(){
-  <% unless @manager.password_condition %>
-    $('#password').attr('placeholder', 'password');
-    $('#password').css('border-color', '#dc3545');
-    $('#password_confirmation').attr('placeholder', 'password');
-    $('#password_confirmation').css('border-color', '#dc3545');
-  <% else %>
-    $('#password').attr('placeholder', '※※※※※※※※※');
-    $('#password_confirmation').attr('placeholder', '※※※※※※※※※');
-  <% end %>
-});
+  $('#color_select').on('change', function(){
+    var colors = {}
+    <% @label_colors.each do |label_color| %>
+      var date_id = <%= label_color.id %>;
+      var date_color = "<%= label_color.color_code.html_safe %>";
+      colors[date_id] = date_color;
+    <% end %>
+    var value_label_id = $(this).val();
+    var background_color = colors[value_label_id];
+    $('#color-sample').css("background", background_color);
+  });
 </script>
-
   
 

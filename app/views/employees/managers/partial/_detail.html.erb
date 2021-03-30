@@ -6,15 +6,18 @@
 
       <% if current_admin || self_manager %>
         <div class="btn-area">
-          <%= f.submit "更新", class: "btn btn-dark" %>
-          <% if current_admin %>
-            <%= link_to "退職処理", retirement_process_employees_manager_path(@manager), class: "btn btn-destroy" %>
-          <% end %>
-          <% if @manager.avaliable == false && @manager.resigned_on %>
-            <%= link_to "アカウント復活", restoration_employees_manager_path(@manager), method: :patch, class: "btn btn-success" %>
-          <% end %>
+          <%= f.submit "情報更新", class: "btn btn-dark" %>
         </div>
       <% end %>
     <% end %>
   </div>
 </div>
+
+<% if current_admin || self_manager %>
+  <div class="card mt-1e">
+    <div class="card-body">
+      <%= render partial: 'common_layouts/registrations/pass_form', 
+                 locals: {target: @manager, path: :pass_update_employees_manager_path} %>
+    </div>
+  </div>
+<% end %>

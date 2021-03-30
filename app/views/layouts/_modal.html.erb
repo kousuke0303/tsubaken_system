@@ -1,5 +1,9 @@
 <!--アドミン用-->
 <% if admin_signed_in? %>
+  <% if controller_name == "admins" && action_name == "top" %>
+    <div id="default_password_user_index" class="modal fade" role="dialog"></div>
+  <% end %>
+  
   <!--マネージャーCRUD-->
   <% if controller_name == "managers" %>
     <% if action_name == "index" %>
@@ -17,6 +21,10 @@
 
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
+
+  <% if controller_name == "managers" && action_name == "top" %>
+    <div id="default_password_user_index" class="modal fade" role="dialog"></div>
+  <% end %>
   <!--スタッフCRUD-->
   <% if controller_name == "staffs" %>
     <% if action_name == "index" %>

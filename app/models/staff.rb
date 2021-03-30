@@ -1,4 +1,12 @@
 class Staff < ApplicationRecord
+  
+  before_save { self.email = email.downcase if email.present? }
+  after_initialize :set_joined_on, on: :create
+  after_initialize :default_set, on: :create
+  after_commit :create_member_code, on: :create
+  after_find :update_for_avaliable
+  after_find :set_password_condition
+  
   has_one :member_code, dependent: :destroy
   
   belongs_to :department
@@ -10,10 +18,6 @@ class Staff < ApplicationRecord
   
   has_one_attached :avator
   
-  before_save { self.email = email.downcase if email.present? }
-  after_commit :create_member_code, on: :create
-  after_find :update_for_avaliable
-  
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
@@ -23,7 +27,10 @@ class Staff < ApplicationRecord
   validates :address_city, presence: true
   validates :address_street, presence: true
   validate :staff_login_id_is_correct?
+  validate :joined_with_resigned
+  validate :resigned_is_since_joined
   
+  attr_accessor :password_condition
 
   scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current) }
   scope :retired, -> { where('resigned_on <= ?', Date.current) }
@@ -89,11 +96,31 @@ class Staff < ApplicationRecord
     EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
   
+  def schedules
+    Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
   private
   
-    #---------------------------------------------------
-     # CALLBACK_METHOD
-    #---------------------------------------------------
+  #---------------------------------------------------
+      # CALLBACK_METHOD
+  #---------------------------------------------------
+    
+    def set_joined_on
+      unless self.joined_on
+        self.joined_on = Date.current
+      end
+    end
+    
+    def default_set
+      if self.login_id == nil || self.login_id.empty? 
+        self.login_id = "MN-" + "#{SecureRandom.hex(3)}"
+      end
+      if self.department_id == nil
+        self.department_id = 1
+      end
+    end
+    
     
     def create_member_code
       unless MemberCode.find_by(staff_id: self.id)
@@ -107,12 +134,28 @@ class Staff < ApplicationRecord
         if Date.today > self.resigned_on
           self.update(avaliable: false)
         end
+      elsif self.avaliable == false && self.joined_on.present?
+        if Date.today >= self.joined_on
+          self.update(avaliable: true)
+        end
+      elsif self.avaliable == true && self.joined_on.present?
+        if Date.today < self.joined_on
+          self.update(avaliable: false)
+        end
       end
     end
     
-    #---------------------------------------------------
+    def set_password_condition
+      if self.valid_password?("password")
+        self.password_condition = false
+      else
+        self.password_condition = true
+      end
+    end
+    
+  #---------------------------------------------------
      # VALIDATE_METHOD
-    #---------------------------------------------------
+  #---------------------------------------------------
     
     # スタッフの従業員IDは「ST-」から始めさせる
     def staff_login_id_is_correct?

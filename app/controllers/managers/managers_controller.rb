@@ -5,10 +5,14 @@ class Managers::ManagersController < ApplicationController
   before_action ->{ create_monthly_attendances(current_manager) }, only: :top
   before_action ->{ set_today_attendance(current_manager) }, only: :top
   before_action :employee_attendance_notification, only: :top
-  before_action :authenticate_admin_or_self_manager!, except: :top
-  before_action :target_manager, except: :top
+  before_action :authenticate_admin_or_self_manager!, only: [:avator_change, :avator_destroy]
+  before_action :target_manager, only: [:avator_change, :avator_destroy]
+  before_action :password_condition_user, only: [:top, :default_password_user_index]
   
   def top
+  end
+  
+  def default_password_user_index
   end
   
   def avator_change
@@ -32,5 +36,20 @@ class Managers::ManagersController < ApplicationController
   private
     def target_manager
       @manager = Manager.find(params[:id])
+    end
+    
+    def password_condition_user
+      @object_member_code_array = []
+      Staff.includes(:member_code).each do |staff|
+        if staff.password_condition == false
+          @object_member_code_array << staff.member_code.id
+        end
+      end
+      ExternalStaff.includes(:member_code).each do |ex_staff|
+        if ex_staff.password_condition == false
+          @object_member_code_array << ex_staff.member_code.id
+        end
+      end
+      @object_member_code = MemberCode.where(id: @object_member_code_array)
     end
 end

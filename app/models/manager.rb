@@ -23,8 +23,8 @@ class Manager < ApplicationRecord
   validates :address_city, presence: true
   validates :address_street, presence: true
   validate :manager_login_id_is_correct?
-  # validate :joined_with_resigned
-  # validate :resigned_is_since_joined
+  validate :joined_with_resigned
+  validate :resigned_is_since_joined
 
   attr_accessor :password_condition
 
@@ -139,16 +139,16 @@ class Manager < ApplicationRecord
       errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
     end
   
-    # # 退社日は入社日がないとNG
-    # def joined_with_resigned
-    #   errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
-    # end
+    # 退社日は入社日がないとNG
+    def joined_with_resigned
+      errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
+    end
   
     # 退社日は入社日以降
-    # def resigned_is_since_joined
-    #   if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
-    #     errors.add(:resigned_on, "は入社日以降にしてください")
-    #   end
-    # end
+    def resigned_is_since_joined
+      if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
+        errors.add(:resigned_on, "は入社日以降にしてください")
+      end
+    end
   
 end

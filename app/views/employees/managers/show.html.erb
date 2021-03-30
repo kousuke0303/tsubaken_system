@@ -6,6 +6,19 @@
                                                                  edit_path: :managers_avator_change_path,
                                                                  destroy_path: :managers_avator_destroy_path} %>
   </div>
-  <%= out_of_service(@manager) %>
-  <%= render "/employees/managers/partial/detail" %>  
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <% if current_admin %>
+        <%= link_to "退職処理", retirement_process_employees_manager_path(@manager), class: "btn btn-destroy" %>
+      <% end %>
+      <% if @manager.avaliable == false && @manager.resigned_on %>
+        <%= link_to "アカウント復活", restoration_employees_manager_path(@manager), method: :patch, class: "btn btn-success" %>
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <%= out_of_service(@manager) %>
+    </div>
+  </div>
+  <%= render "/employees/managers/partial/detail" %>
 </div>

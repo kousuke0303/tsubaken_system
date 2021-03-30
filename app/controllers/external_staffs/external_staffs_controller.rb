@@ -11,7 +11,7 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   end
   
   def avator_change
-    current_external_staff.avator.attach(params[:admin_avator])
+    current_external_staff.avator.attach(params[:avator])
     redirect_to edit_external_staff_registration_url(current_external_staff)
   end
   

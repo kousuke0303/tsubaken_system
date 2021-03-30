@@ -1,6 +1,6 @@
 class Employees::ExternalStaffsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
-  before_action :set_suppliers, only: [:new, :edit]
+  before_action :set_suppliers, only: [:new, :show, :update, :pass_update]
   before_action :set_external_staff, except: [:new, :create, :index]
 
   def new
@@ -27,9 +27,20 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
   end
   
   def update
-    if @external_staff.update(external_staff_params)
+    if update_resource(@external_staff, external_staff_params)
       flash[:success] = "外部Staffを更新しました。"
-      redirect_to employees_external_staff_url
+      redirect_to employees_external_staff_url(@external_staff)
+    else
+      render :show
+    end
+  end
+  
+  def pass_update
+    if @external_staff.update(external_staff_pass_params)
+      flash[:success] = "パスワードを更新しました。"
+      redirect_to employees_external_staff_url(@external_staff)
+    else
+      render :show
     end
   end
   
@@ -70,6 +81,10 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
   private
     def external_staff_params
       params.require(:external_staff).permit(:name, :kana, :login_id, :phone, :email, :supplier_id)
+    end
+    
+    def external_staff_pass_params
+      params.require(:external_staff).permit(:password, :password_confirmation)
     end
 
     def set_external_staff
