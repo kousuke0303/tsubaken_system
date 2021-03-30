@@ -3,21 +3,11 @@
 </div>
 
 <div>
-  <%= render "shared/estimate_matters/estimates", container_type: "a4_container" %>
+  <%= render "shared/estimate_matters/estimates", container_type: "a4-container" %>
 </div>
 
 <div id="print-area" style="display: none">
-  <%= render "shared/estimate_matters/estimates", container_type: "a4_print_container" %>
+  <%= render "shared/estimate_matters/estimates", container_type: "a4-print-container" %>
 </div>
 
-<script>
-  $("#print").click(function() {
-    $("body > :not(#print-area)").hide();
-    $("body").addClass("bg-white");
-    $("#print-area").show();
-    window.print();
-    $("body > :not(#print-area)").show();
-    $("#print-area").hide();
-    $("body").removeClass("bg-white");
-  });
-</script>
+<%= javascript_include_tag "print.js" %>

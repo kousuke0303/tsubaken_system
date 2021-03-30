@@ -11,7 +11,7 @@ class Matter < ApplicationRecord
   
   has_one :invoice, dependent: :destroy
   has_many :reports, -> { order(position: :asc) }, dependent: :destroy  
-  has_one :report_covers, dependent: :destroy
+  has_one :report_cover, dependent: :destroy
   
   has_many :tasks, dependent: :destroy
   has_many :images, dependent: :destroy

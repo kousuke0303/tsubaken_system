@@ -313,9 +313,8 @@ Rails.application.routes.draw do
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
       end
-      resources :reports, only: [:create, :new, :edit, :update, :destroy], controller: "matters/reports" do
+      resources :reports, only: [:index, :create, :new, :edit, :update, :destroy], controller: "matters/reports" do
         patch :sort, on: :collection
-        get :preview, on: :collection
       end
       resources :messages, only: [:index], controller: "matters/messages"
       resources :talkrooms, only: [:index, :create] do

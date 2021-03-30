@@ -3,7 +3,7 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
   before_action :set_report, only: [:edit, :update, :destroy]
 
-  def preview
+  def index
     @report_cover = @matter.report_cover
     @reports = @matter.reports
   end

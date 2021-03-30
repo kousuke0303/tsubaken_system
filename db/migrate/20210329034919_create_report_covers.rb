@@ -5,6 +5,10 @@ class CreateReportCovers < ActiveRecord::Migration[5.2]
       t.string :content
       t.string :matter_id
       t.string :publisher_id
+      t.integer :img_1_id
+      t.integer :img_2_id
+      t.integer :img_3_id
+      t.integer :img_4_id
 
       t.timestamps
     end

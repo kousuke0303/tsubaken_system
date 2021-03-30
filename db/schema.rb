@@ -477,6 +477,10 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "content"
     t.string "matter_id"
     t.string "publisher_id"
+    t.integer "img_1_id"
+    t.integer "img_2_id"
+    t.integer "img_3_id"
+    t.integer "img_4_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_report_covers_on_matter_id"
