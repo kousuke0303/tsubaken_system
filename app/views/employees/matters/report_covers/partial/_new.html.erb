@@ -65,8 +65,14 @@
 
 <script>
   $(".option-img").click(function() {
-    var wrapper = $(this).parent();
-    var imgId = $(this).data("id");
+    selectImage($(this), 1);
+    return false;
+  });
+
+  function selectImage(el, num) {
+    alert(num);
+    var wrapper = el.parent();
+    var imgId = el.data("id");    
     if(wrapper.hasClass("unselected-img")) {
       $(".option-img-wrapper").removeClass("selected-img");
       $(".option-img-wrapper").addClass("unselected-img");
@@ -82,6 +88,5 @@
       $(".img-1-status").html("未選択");
       $(".img-1-status").removeClass("selected-status");
     }         
-    return false;
-  });
+  }
 </script>
