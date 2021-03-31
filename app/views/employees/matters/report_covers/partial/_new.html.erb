@@ -30,7 +30,7 @@
                     <% else %>
                       <% @status = "unselected" %>
                     <% end %>
-                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper <%= @status %>-img">
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper option-img-1-wrapper <%= @status %>-img">
                       <a href="#" class="option-img" data-id="<%= image.id %>">
                         <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
                       </a>
@@ -73,19 +73,19 @@
     var wrapper = el.parent();
     var imgId = el.data("id");    
     if(wrapper.hasClass("unselected-img")) {
-      $(".option-img-wrapper").removeClass("selected-img");
-      $(".option-img-wrapper").addClass("unselected-img");
+      $(`.option-img-${ num }-wrapper`).removeClass("selected-img");
+      $(`.option-img-${ num }-wrapper`).addClass("unselected-img");
       wrapper.removeClass("unselected-img");
       wrapper.addClass("selected-img");
-      $(".img-1-id-form").val(imgId);
-      $(".img-1-status").html("選択済");
-      $(".img-1-status").addClass("selected-status");
+      $(`.img-${ num }-id-form`).val(imgId);
+      $(`.img-${ num }-status`).html("選択済");
+      $(`.img-${ num }-status`).addClass("selected-status");
     } else {
-      $(".option-img-wrapper").removeClass("selected-img");
-      $(".option-img-wrapper").addClass("unselected-img");
-      $(".img-1-id-form").val(""); 
-      $(".img-1-status").html("未選択");
-      $(".img-1-status").removeClass("selected-status");
+      $(`.option-img-${ num }-wrapper`).removeClass("selected-img");
+      $(`.option-img-${ num }-wrapper`).addClass("unselected-img");
+      $(`.img-${ num }-id-form`).val(""); 
+      $(`.img-${ num }-status`).html("未選択");
+      $(`.img-${ num }-status`).removeClass("selected-status");
     }         
   }
 </script>
