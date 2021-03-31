@@ -88,7 +88,6 @@ ja:
           actual_spot: 現場住所
           client_id: 顧客          
           attract_method_id: 集客方法
-          publisher_id: 発行元
         estimate:
           title: 見積名
           discount: 端数値引
@@ -215,3 +214,4 @@ ja:
     external_staff_id: 外部Staff
     label_color_id: ラベルカラー
     plan_name_id: プラン名
+    publisher_id: 発行元
