@@ -1,7 +1,12 @@
 <% if @responce == "success" %>
   $("#report-cover-new").modal("hide");
-  $(".report-covers-index").html('<%= escape_javascript(render "employees/matters/partial/report_covers") %>');
-  <%= render "shared/javascript/flash", dom: "#report-create-flash", key: "success", value: "#{ @report.title }を作成しました。" %>
+  $(".report-covers-index").html('<%= escape_javascript(render "employees/matters/partial/report_cover") %>');
+  <%= render "shared/javascript/flash", dom: "#report-cover-create-flash", key: "success", value: "報告書表紙を作成しました。" %>
 <% else %>
-  <%= render "shared/javascript/modal_error", dom: ".report-create-errors", model: @report, object: "report" %>
+  <% @report_cover.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="report_cover[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="report_cover[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
 <% end %>

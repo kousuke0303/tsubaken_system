@@ -51,7 +51,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
       end
       @images = @matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
       search_image(@matter.band_connection.band_key)
-      flash.now[:success] = "BAND画像を取り込みました"
+      flash.now[:success] = "BAND画像を取り込みました。"
     end
   rescue
     @images = @matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }

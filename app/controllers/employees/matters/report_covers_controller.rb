@@ -1,6 +1,7 @@
 class Employees::Matters::ReportCoversController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
+  before_action :set_publishers, only: [:new, :edit]
   before_action :set_report_cover, only: [:edit, :update, :destroy]
 
   def new
@@ -9,8 +10,9 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def create
-    @report_cover = @matter.reports.new(report_cover_params)
+    @report_cover = @matter.build_report_cover(report_cover_params)    
     @report_cover.save ? @responce = "success" : @responce = "false"
+    
   end
 
   def edit
