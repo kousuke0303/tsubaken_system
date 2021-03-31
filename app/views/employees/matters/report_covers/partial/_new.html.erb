@@ -7,18 +7,29 @@
         <div class="card-body">
           <%= form_with(model: @report_cover, url: employees_matter_report_covers_path, method: :post) do |f| %>
             <div class="report-cover-create-errors"></div>
-            <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+            <div class="row">
+              <div class="col-lg-6 col-12">
+                <%= f.label :title %>
+                <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+              </div>
+            </div>
 
             <div class="tab-wrap">
               <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">画像①</label>
-              <div class="tab-content" id="publisher_index">
-                <%= f.hidden_field :img_1_id, class: "form-control" %>
+              <div class="tab-content">
+                <%= f.hidden_field :img_1_id, class: "form-control img-1-id-form" %>
                 <div class="row">
-                  <div class="col-12 mt-05e img-1-status">未選択</div>
+                  <div class="col-12 mt-05e img-status img-1-status">未選択</div>
                   <% @images.each do |image| %>
-                    <div class="col-lg-3 col-md-4 col-12 mt-05e img-1-option">
-                      <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                    <% if @report_cover.img_1_id == image.id %>
+                      <% @status = "selected" %>
+                    <% else %>
+                      <% @status = "unselected" %>
+                    <% end %>
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper <%= @status %>-img">
+                      <a href="#" class="option-img" data-id="<%= image.id %>">
+                        <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                      </a>
                     </div>
                   <% end %>
                 </div>
@@ -47,3 +58,26 @@
 </div>
 
 <%= javascript_include_tag "reset_errors.js" %>
+
+<script>
+  $(".option-img").click(function() {
+    var wrapper = $(this).parent();
+    var imgId = $(this).data("id");
+    if(wrapper.hasClass("unselected-img")) {
+      $(".option-img-wrapper").removeClass("selected-img");
+      $(".option-img-wrapper").addClass("unselected-img");
+      wrapper.removeClass("unselected-img");
+      wrapper.addClass("selected-img");
+      $(".img-1-id-form").val(imgId);
+      $(".img-1-status").html("選択済");
+      $(".img-1-status").addClass("selected-status");
+    } else {
+      $(".option-img-wrapper").removeClass("selected-img");
+      $(".option-img-wrapper").addClass("unselected-img");
+      $(".img-1-id-form").val(""); 
+      $(".img-1-status").html("未選択");
+      $(".img-1-status").removeClass("selected-status");
+    }         
+    return false;
+  });
+</script>

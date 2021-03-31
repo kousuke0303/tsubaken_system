@@ -474,7 +474,6 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
 
   create_table "report_covers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "content"
     t.string "matter_id"
     t.string "publisher_id"
     t.integer "img_1_id"
