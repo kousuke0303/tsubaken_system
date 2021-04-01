@@ -87,7 +87,10 @@
           <div class="report-cover mt-1e">
             <%= render "employees/matters/partial/report_cover" %>
           </div>
-          <h5 class="mt-1e">報告書一覧</h5>
+          <h5 class="mt-1e">
+            報告書一覧            
+            <%= link_to "プレビュー", employees_matter_reports_path(@matter), class: "btn btn-success float-r" %>
+          </h5>
           <div id="report-update-flash"></div>
           <div class="reports-index">
             <%= render "employees/matters/partial/reports" %>

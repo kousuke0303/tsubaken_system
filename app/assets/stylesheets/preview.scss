@@ -439,3 +439,27 @@
     }
   }
 }
+
+.report-cover-main {
+  background: #002b80;
+  height: 600px;
+  .title {
+    color: white;
+    font-size: 2em;
+    padding: 1em 0;
+    text-align: center;
+  }
+  .img-wrapper {
+    background: white;
+    margin: 0 auto;
+    padding: 5px;
+    width: 440px;
+    .sm-img-wrapper {
+      display: flex;
+      margin-top: 5px;
+    }
+    .sm-img {
+      width: 140px;
+    }
+  }
+}
