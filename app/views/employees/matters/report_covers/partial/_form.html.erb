@@ -7,6 +7,10 @@
     <%= f.label :publisher_id %>
     <%= f.collection_select :publisher_id, @publishers, :id, :name, {}, class: "form-control" %>                
   </div>
+    <div class="col-lg-6 col-12">
+    <%= f.label :created_on %>
+    <%= f.date_field :created_on, required: true, class: "form-control" %>                
+  </div>
 </div>
 
 <div class="tab-wrap">

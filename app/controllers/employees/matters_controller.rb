@@ -68,7 +68,6 @@ class Employees::MattersController < Employees::EmployeesController
 
   def update
     if @matter.update(matter_params)
-      delete_matter_relation_table
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)
     end
@@ -136,8 +135,8 @@ class Employees::MattersController < Employees::EmployeesController
     #     @matter.matter_external_staffs.delete_all
     #   end
     # end
-    def delete_matter_relation_table  
-      @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
-      @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
-    end
+    # def delete_matter_relation_table  
+    #   @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
+    #   @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
+    # end
 end

@@ -28,6 +28,8 @@ class Matter < ApplicationRecord
   validates :scheduled_started_on, presence: true
   validates :scheduled_finished_on, presence: true
   validate :scheduled_finished_on_is_after_started_on
+  validate :finished_on_require_started_on
+  validate :finished_on_is_after_started_on
   
   enum status: { not_started: 0, progress: 1, completed: 2 }
   
@@ -103,6 +105,18 @@ class Matter < ApplicationRecord
     def scheduled_finished_on_is_after_started_on
       if scheduled_finished_on.present? && scheduled_started_on.present? && scheduled_started_on >= scheduled_finished_on
         errors.add(:scheduled_finished_on, "は着工予定日以降を入力してください")
+      end
+    end
+
+    # finished_onはstarted_on必須
+    def finished_on_require_started_on
+      errors.add(:started_on, "を入力してください") if started_on.blank? && finished_on.present?
+    end
+
+    # finished_onはstarted_on以降
+    def finished_on_is_after_started_on
+      if started_on.present? && finished_on.present?
+        errors.add(:finished_on, "は着工日より後の日付で入力してください") if finished_on <= started_on
       end
     end
 end

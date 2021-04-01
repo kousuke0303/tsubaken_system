@@ -25,6 +25,8 @@
         <div class="pt-05e"><%= @address %></div>
         <div><%= @matter.started_on %></div>
         <div><%= @matter.finished_on %></div>
+        <div><%= l(@report_cover.created_on, format: :long) %></div>
+        <div><%= image_tag("profile.jpg", size: "50x50", alt: "ロゴ") %></div>
       </div>
     </div>
   <% end %>

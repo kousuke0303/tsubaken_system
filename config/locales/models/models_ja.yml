@@ -131,6 +131,7 @@ ja:
           img_2_id: 画像②
           img_3_id: 画像③
           img_4_id: 画像④
+          created_on: 作成日
         label_color:
           name: カラー名
           color_code: カラーコード

@@ -8,6 +8,7 @@ class CreateReports < ActiveRecord::Migration[5.2]
       t.integer :image_id
       t.integer :message_id
       t.string :matter_id
+      t.date :created_on
 
       t.timestamps
     end
