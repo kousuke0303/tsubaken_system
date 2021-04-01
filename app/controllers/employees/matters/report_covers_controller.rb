@@ -26,6 +26,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
 
   def destroy
     @report_cover.destroy ? @responce = "success" : @responce = "false"
+    @report_cover = @matter.report_cover
   end
 
   private
