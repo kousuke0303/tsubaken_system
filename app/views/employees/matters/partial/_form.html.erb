@@ -52,6 +52,16 @@
     <%= f.label :scheduled_finished_on %>
     <%= f.date_field :scheduled_finished_on, class: "form-control" %>
   </div>
+
+  <label class="form-control text-white" style="background: #787a7b;">着工・完了</label>
+  <div class="col-md-6">
+    <%= f.label :started_on %>
+    <%= f.date_field :started_on, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= f.label :finished_on %>
+    <%= f.date_field :finished_on, class: "form-control" %>
+  </div>
 </div>
 
 <script>
