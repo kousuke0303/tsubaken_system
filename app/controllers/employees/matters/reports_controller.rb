@@ -5,7 +5,11 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   before_action :preview_display, only: :index
 
   def index
-    set_images_of_report_cover if @report_cover = @matter.report_cover
+    if @report_cover = @matter.report_cover
+      set_images_of_report_cover
+      publisher = @report_cover.publisher
+      @company_address = "#{ publisher.prefecture_code }#{ publisher.address_city }#{ publisher.address_street }"
+    end
     @reports = @matter.reports
     @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
   end
