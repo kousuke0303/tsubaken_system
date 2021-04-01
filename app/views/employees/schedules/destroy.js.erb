@@ -1,3 +1,4 @@
 $(".calendar_container").html('<%= escape_javascript( render "employees/schedules/partial/calendar" ) %>'); 
 $("#schedules_detail").html('<%= escape_javascript( render "employees/schedules/partial/schedules_detail" ) %>'); 
 $("#schedule-edit").modal("hide");
+toastr.info('<%= @schedule.title %>を削除しました');

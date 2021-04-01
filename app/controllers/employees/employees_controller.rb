@@ -110,6 +110,7 @@ class Employees::EmployeesController < ApplicationController
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
                                           .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
+    
     end
     
     def set_matter

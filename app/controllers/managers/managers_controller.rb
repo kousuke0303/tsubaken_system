@@ -1,5 +1,6 @@
 class Managers::ManagersController < ApplicationController
   before_action :authenticate_manager!, only: :top
+  before_action :schedule_application, only: :top
   before_action :set_one_month, only: :top
   before_action :scaffolding_and_order_requests_relevant_or_ongoing, only: :top
   before_action ->{ create_monthly_attendances(current_manager) }, only: :top
@@ -10,6 +11,7 @@ class Managers::ManagersController < ApplicationController
   before_action :password_condition_user, only: [:top, :default_password_user_index]
   
   def top
+    set_notifications(current_manager)
   end
   
   def default_password_user_index

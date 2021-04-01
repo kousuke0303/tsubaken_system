@@ -67,7 +67,7 @@ class ExternalStaff < ApplicationRecord
   end
   
   #---------------------------------------------------
-    # CLASS_METHOD
+     # INSTANCE_METHOD
   #---------------------------------------------------
   
   def matters
@@ -80,6 +80,10 @@ class ExternalStaff < ApplicationRecord
   
   def schedules
     Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
+  def recieve_notifications
+    self.member_code.recieve_notifications.where(status: 0)
   end
   
   private
@@ -96,7 +100,7 @@ class ExternalStaff < ApplicationRecord
     
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
-        if Date.today >= self.resigned_on
+        if Date.current >= self.resigned_on
           self.update(avaliable: false)
         end
       end

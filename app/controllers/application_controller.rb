@@ -301,4 +301,15 @@ class ApplicationController < ActionController::Base
     @departments = Department.order(position: :asc)
   end
   
+  #--------------------------------------------------------
+      # NOTIFICATION関係
+  #-------------------------------------------------------
+  
+  def set_notifications(login_user)
+    @notifications = login_user.recieve_notifications
+    @creation_notification_for_schedule = @notifications.creation_notification_for_schedule
+    @updation_notification_for_schedule = @notifications.updation_notification_for_schedule
+    @delete_notification_for_schedule = @notifications.delete_notification_for_schedule
+  end
+  
 end

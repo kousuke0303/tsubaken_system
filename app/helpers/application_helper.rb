@@ -165,7 +165,7 @@ module ApplicationHelper
   def own_finished_at_nil_notification(object_user)
     yesterday = Date.current - 1
     attendance = object_user.attendances.find_by(worked_on: yesterday)
-    if attendance.started_at.present? && attendance.finished_at == nil
+    if attendance && attendance.started_at.present? && attendance.finished_at == nil
       return "昨日の退勤処理がありません。管理者に報告してください！"
     end
   end

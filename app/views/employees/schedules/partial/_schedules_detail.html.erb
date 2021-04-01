@@ -6,27 +6,13 @@
 </div>
 
 <div class="mt-1e">
-<% @schedules_of_day.each do |code_id, schedules_arrey| %>
-  <span><%= member_name_from_member_code_id(code_id) %></span>
-  <%= render partial: 'employees/schedules/partial/schedule_detail_table',
-             locals: { schedules_arrey: schedules_arrey } %>
-<% end %>
-
-<!--<!% @manager_schedules.each do |key, schedules_arrey| %>-->
-<!--  <span><!%= manager_name(key) %></span>-->
-<!--  <!%= render partial: 'employees/schedules/partial/schedule_detail_table',-->
-<!--             locals: { schedules_arrey: schedules_arrey } %>-->
-<!--<!% end %>-->
-
-<!--<!% @staff_schedules.each do |key, schedules_arrey| %>-->
-<!--  <span><!%= staff_name(key) %></span>-->
-<!--  <!%= render partial: 'employees/schedules/partial/schedule_detail_table',-->
-<!--             locals: { schedules_arrey: schedules_arrey } %>-->
-<!--<!% end %>-->
-
-<!--<!% @external_staff_schedules.each do |key, schedules_arrey| %>-->
-<!--  <span><!%= external_staff_name(key) %></span>-->
-<!--  <!%= render partial: 'employees/schedules/partial/schedule_detail_table',-->
-<!--             locals: { schedules_arrey: schedules_arrey } %>-->
-<!--<!% end %>-->
+  <% if @schedules_of_day.present? %>
+    <% @schedules_of_day.each do |code_id, schedules_arrey| %>
+      <span><%= member_name_from_member_code_id(code_id) %></span>
+      <%= render partial: 'employees/schedules/partial/schedule_detail_table',
+                 locals: { schedules_arrey: schedules_arrey } %>
+    <% end %>
+  <% else %>
+    <p>スケジュールの登録はありません</p>
+  <% end %>
 </div>

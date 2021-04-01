@@ -1,4 +1,10 @@
 class Schedule < ApplicationRecord
+  
+  after_commit :create_notification, on: :create
+  after_commit :update_notification, on: :update
+  after_destroy :destroy_notification
+  before_save :member_name_update
+  
   belongs_to :admin, optional: true
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
@@ -6,13 +12,11 @@ class Schedule < ApplicationRecord
   belongs_to :sales_status, optional: true
   belongs_to :member_code
   
-  has_one :notification, dependent: :destroy
+  has_many :notification, dependent: :destroy
   
   # 変更申請用
   has_many :applications, class_name: "Schedule", foreign_key: "schedule_id"
   belongs_to :original, class_name: "Schedule", foreign_key: "schedule_id", optional: true
-  
-  before_save :member_name_update
   
   validates :title, presence: true
   validates :scheduled_date, presence: true
@@ -26,10 +30,13 @@ class Schedule < ApplicationRecord
   scope :origins, -> { where(schedule_id: nil)}
   scope :edit_applications, -> { where.not(schedule_id: nil)}
   
-  
-  def notification(reciever_code)
-    self.create_notification(status: 0, category: 1, sender_id: sender_code)
-  end
+  attr_accessor :sender #member_code
+  attr_accessor :reciever #member_code
+  attr_accessor :before_member_code
+  attr_accessor :before_scheduled_date
+  attr_accessor :before_scheduled_start_time
+  attr_accessor :before_scheduled_end_time
+  attr_accessor :before_title
 
   private
   
@@ -78,4 +85,28 @@ class Schedule < ApplicationRecord
       member_code = MemberCode.find(self.member_code_id)
       self.member_name = member_code.member_name_from_member_code
     end
+    
+    def create_notification
+      Notification.create(category: 1, action_type: 0, sender_id: self.sender.id, reciever_id: self.member_code_id, schedule_id: self.id)
+    end
+    
+    def update_notification
+      if self.before_member_code.present?
+        Notification.create(category: 1, action_type: 0, sender_id: self.sender.id, reciever_id: self.member_code_id, schedule_id: self.id)
+        Notification.create(category: 1, action_type: 2, sender_id: self.sender.id, reciever_id: self.before_member_code, schedule_id: self.id,
+                            before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
+                            before_value_3: self.before_scheduled_end_time, before_value_4: self.before_title)
+      elsif self.before_scheduled_date != nil || self.before_scheduled_start_time != nil || self.before_scheduled_end_time != nil
+        Notification.create(category: 1, action_type: 1, sender_id: self.sender.id, reciever_id: self.member_code_id, schedule_id: self.id,
+                            before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
+                            before_value_3: self.before_scheduled_end_time)
+      end
+    end
+    
+    def destroy_notification
+      Notification.create(category: 1, action_type: 2, sender_id: self.sender.id, reciever_id: self.before_member_code,
+                          before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
+                          before_value_3: self.before_scheduled_end_time, before_value_4: self.before_title)
+    end
+      
 end

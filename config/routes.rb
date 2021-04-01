@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   post "sign_in", to: "static_pages#error"
   
   get "postcode_search", to: "addresses#search_postcode"
+  
+  resources :notifications, only: :index do
+    get :schedule_index, on: :collection
+    patch :updates, on: :collection
+  end
       
   # API関連
   namespace :api do

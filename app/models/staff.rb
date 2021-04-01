@@ -85,7 +85,7 @@ class Staff < ApplicationRecord
   
   
   #---------------------------------------------------
-    # CLASS_METHOD
+    # INSTANCE_METHOD
   #---------------------------------------------------
   
   def matters
@@ -98,6 +98,10 @@ class Staff < ApplicationRecord
   
   def schedules
     Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
+  def recieve_notifications
+    self.member_code.recieve_notifications.where(status: 0)
   end
   
   private
@@ -131,15 +135,15 @@ class Staff < ApplicationRecord
     # 利用不可にする
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
-        if Date.today > self.resigned_on
+        if Date.current > self.resigned_on
           self.update(avaliable: false)
         end
       elsif self.avaliable == false && self.joined_on.present?
-        if Date.today >= self.joined_on
+        if Date.current >= self.joined_on
           self.update(avaliable: true)
         end
       elsif self.avaliable == true && self.joined_on.present?
-        if Date.today < self.joined_on
+        if Date.current < self.joined_on
           self.update(avaliable: false)
         end
       end

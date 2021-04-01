@@ -39,22 +39,31 @@
   </ul>
   
   <div class="news_container">
-    新着情報なしの場合
-    <p>新着情報はありません</p>
-    新着情報ありの場合
     <div class="top_page_contents">
-      <p><i class="fas fa-exclamation-circle fa-blue"></i>
-        <span>新規顧客が追加されました</span>
-      </p>
-      <p><i class="fas fa-exclamation-circle fa-blue"></i>
-        <span>新規案件が登録されました</span>
-      </p>
-      <p><i class="fas fa-exclamation-circle"></i>
-        <span>○○が現場に到着しました</span>
-      </p>
-      <p><i class="fas fa-exclamation-circle fa-orange"></i>
-        <span>案件○○のタスク○○が完了しました</span>
-      </p>
+      <% if @applicate_schedules.present? %>
+        <p><i class="fas fa-exclamation-circle fa-red"></i>
+          <%= link_to application_employees_schedules_path do %>
+            <span>スケジュール変更申請が<%= @applicate_schedules.count %>件あります</span>
+          <% end %>
+        </p>
+      <% end %>
+      
+      <% if @notifications %>
+        <%= render 'common_layouts/notifications/schedule_notification_lists' %>
+        <p><i class="fas fa-exclamation-circle fa-blue"></i>
+          <span>新規案件が登録されました</span>
+        </p>
+        <p><i class="fas fa-exclamation-circle"></i>
+          <span>○○が現場に到着しました</span>
+        </p>
+        <p><i class="fas fa-exclamation-circle fa-orange"></i>
+          <span>案件○○のタスク○○が完了しました</span>
+        </p>
+      <% end %>
+      
+      <% unless @applicate_schedules || @notifications %>
+        <p>新着情報はありません</p>
+      <% end %>
     </div>
   </div>
   

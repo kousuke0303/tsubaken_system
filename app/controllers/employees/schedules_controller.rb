@@ -18,6 +18,7 @@ class Employees::SchedulesController < Employees::EmployeesController
   
   def create
     @schedule = Schedule.new(schedule_params)
+    @schedule.sender = login_user.member_code
     if @schedule.save
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
@@ -40,7 +41,8 @@ class Employees::SchedulesController < Employees::EmployeesController
   end
   
   def update
-    if  @schedule.update(schedule_params)
+    attr_set_for_update
+    if @schedule.update(schedule_params)
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
       @result = "success"
@@ -62,6 +64,7 @@ class Employees::SchedulesController < Employees::EmployeesController
   end
   
   def destroy
+    attr_set_for_destroy
     @schedule.destroy
     @object_day = @schedule.scheduled_date
     set_basic_schedules(@object_day)
@@ -121,6 +124,32 @@ class Employees::SchedulesController < Employees::EmployeesController
         @external_staff = ExternalStaff.find(params[:schedule][:external_staff_id])
         @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
       end
+    end
+    
+    def attr_set_for_update
+      @schedule.sender = login_user.member_code
+      @schedule.before_title = @schedule.title
+      if params[:schedule][:member_code_id].to_i != @schedule.member_code_id
+        @schedule.before_member_code = @schedule.member_code_id
+      end
+      if params[:schedule][:scheduled_date] != @schedule.scheduled_date
+        @schedule.before_scheduled_date = @schedule.scheduled_date
+      end
+      if params[:schedule][:scheduled_start_time] != @schedule.scheduled_start_time
+        @schedule.before_scheduled_start_time = @schedule.scheduled_start_time
+      end
+      if params[:schedule][:scheduled_end_time] != @schedule.scheduled_end_time
+        @schedule.before_scheduled_end_time = @schedule.scheduled_end_time
+      end
+    end
+    
+    def attr_set_for_destroy
+      @schedule.sender = login_user.member_code
+      @schedule.before_member_code = @schedule.member_code_id
+      @schedule.before_title = @schedule.title
+      @schedule.before_scheduled_date = @schedule.scheduled_date
+      @schedule.before_scheduled_start_time = @schedule.scheduled_start_time
+      @schedule.before_scheduled_end_time = @schedule.scheduled_end_time
     end
     
 end

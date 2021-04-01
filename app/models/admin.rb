@@ -52,6 +52,13 @@ class Admin < ApplicationRecord
     false
   end
   
+  #---------------------------------------------------
+    # INSTANCE_METHOD
+  #---------------------------------------------------
+  def recieve_notifications
+    self.member_code.recieve_notifications.where(status: 0)
+  end
+  
   private
   
   #---------------------------------------------------
