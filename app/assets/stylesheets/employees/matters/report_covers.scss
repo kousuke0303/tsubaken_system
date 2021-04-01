@@ -1,0 +1,28 @@
+.img-status {
+  font-weight: bold;
+}
+
+.selected-status {
+  color: #dc3545;
+}
+
+.option-img-wrapper {  
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.unselected-img {
+  background: whitesmoke;
+}
+
+.selected-img {
+  background: #dc3545;
+}
+
+.unselected-img:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+  img {
+    opacity: 0.7;
+  }
+}

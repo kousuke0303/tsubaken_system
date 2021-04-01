@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">報告書表紙作成</h5>
+        <div class="card-body">
+          <%= form_with(model: @report_cover, url: employees_matter_report_covers_path(@matter), method: :post) do |f| %>
+            <div class="report-cover-create-errors"></div>
+            <%= render "employees/matters/report_covers/partial/form", f: f %>
+            <div class="btn-area">
+              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

@@ -2,7 +2,7 @@
   background: #343a40;
 }
 
-.a4_container {
+.a4-container {
   padding: 4em 2em 2em 3em;
   background: white;
   width: 172mm;
@@ -337,7 +337,7 @@
     display: none;
   }
   
-  .a4_print_container {
+  .a4-print-container {
     page-break-before: always;
   }
   
@@ -438,4 +438,33 @@
       font-size: 1.1em;
     }
   }
+}
+
+.report-cover-main {
+  background: #002b80;
+  height: 600px;
+  .title {
+    color: white;
+    font-size: 2em;
+    padding: 1em 0;
+    text-align: center;
+  }
+  .img-wrapper {
+    background: white;
+    margin: 0 auto;
+    padding: 5px;
+    width: 440px;
+    .sm-img-wrapper {
+      display: flex;
+      margin-top: 5px;
+    }
+    .sm-img {
+      width: 140px;
+    }
+  }
+}
+
+.report-cover-sub {
+  font-size: 1.2em;
+  text-align: center;
 }

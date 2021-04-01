@@ -2,10 +2,12 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
   before_action :set_report, only: [:edit, :update, :destroy]
+  before_action :preview_display, only: :index
 
-  def preview
-    @report_cover = @matter.report_cover
+  def index
+    set_images_of_report_cover if @report_cover = @matter.report_cover
     @reports = @matter.reports
+    @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
   end
 
   def new

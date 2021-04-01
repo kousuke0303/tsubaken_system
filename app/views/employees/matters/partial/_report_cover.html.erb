@@ -1,0 +1,26 @@
+<h5>
+  表紙
+  <% if @report_cover.present? %>
+    <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark float-r" %>
+  <% else %>
+    <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark float-r" %>
+  <% end %>
+</h5>
+<div id="report-cover-flash"></div>
+
+<% if @report_cover.present? %>
+  <div class="row report-cover-show">
+    <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
+      <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_1.present? %>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
+      <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_2.present? %>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
+      <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_3.present? %>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
+      <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_4.present? %>
+    </div>
+  </div>
+<% end %>

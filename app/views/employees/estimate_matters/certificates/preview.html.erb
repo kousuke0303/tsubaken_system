@@ -1,11 +1,10 @@
 <div class="text-center mr-1e">
-  <button class="btn btn-primary certificate_print">印刷</button>
+  <button class="btn btn-primary" id="print">印刷</button>
 </div>
-
 
 <div id="preview_area">
   <% if @cover.present? %>
-    <div class="a4_container">
+    <div class="a4-container">
       <div class="cover_image_wrapper">
         <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"500x350^",crop:"500x350+0+0"})) %>
       </div>
@@ -22,11 +21,11 @@
   <% end %>
 
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
-    <div class="a4_container">
+    <div class="a4-container">
       <% certificate_three.each.with_index(1) do |certificate, second_index| %>
       <table class="certificate_preview">
         <tr>
-          <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"290x230^",crop:"290x230+0+0"})) %></td>
+          <td rowspan="2"><%= image_tag url_for(certificate.image.image.variant(combine_options: { gravity: :center, resize: "290x230^", crop: "290x230+0+0" })) %></td>
           <td class="span"></td>
           <td class="h6_td"><h6><span><%= index * 3 + second_index %></span><%= certificate.title %></h6></td>
         </tr>
@@ -41,9 +40,9 @@
   <% end %>
 </div>
 
-<div id="print_area" style="display: none">
+<div id="print-area" style="display: none">
   <% if @cover.present? %>
-    <div class="a4_print_container">
+    <div class="a4-print-container">
       <div class="cover_image_wrapper">
         <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"850x700^",crop:"850x700+0+0"})) %>
       </div>
@@ -60,7 +59,7 @@
   <% end %>
   
   <% @certificates.each_slice(3).with_index(0) do |certificate_three, index| %>
-    <div class="a4_print_container">
+    <div class="a4-print-container">
       <% certificate_three.each.with_index(1) do |certificate, second_index| %>
         <table class="certificate_preview">
           <tr>
@@ -76,14 +75,4 @@
   <% end %>
 </div>
 
-<script>
-  $('.certificate_print').on('click', function(){
-    $('body > :not(#print_area)').hide();
-    $('body').addClass('bg-white');
-    $('#print_area').show();
-    window.print();
-    $('body > :not(#print_area)').show();
-    $('#print_area').hide();
-    $('body').removeClass('bg-white');
-  });
-</script>
+<%= javascript_include_tag "print.js" %>

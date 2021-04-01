@@ -15,7 +15,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
     @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
     @cover = current_estimate_matter.build_cover
     @covers = Cover.where(default: true)
-    @publishers = Publisher.all
+    set_publishers
     @image = Image.find(params[:image_id])
   end
   

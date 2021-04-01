@@ -138,16 +138,6 @@
   <% elsif controller_name == "suppliers" && action_name == "show" %>
     <div id="supplier-edit" class="modal fade" role="dialog"></div>
   <% end %>
-  
-  <!--着工案件関連-->
-  <% if controller_name == "matters" && action_name == "show" %> 
-    <!--BAND連結-->
-    <div id="bands-index" class="modal fade" role="dialog"></div>
-    <!--請求書関連-->
-    <div id="invoice-edit" class="modal fade" role="dialog"></div>
-    <div id="invoice-detail-edit" class="modal fade" role="dialog"></div>
-    <div id="invoice-object-edit" class="modal fade" role="dialog"></div>
-  <% end %>
 
   <!--営業案件new・edit-->
   <% if controller_name == "estimate_matters" || controller_name == "clients" %>
@@ -176,13 +166,22 @@
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
   <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
 
-  <!--案件関連-->
+  <!--着工案件関連-->
   <% if controller_name == "matters" && action_name == "show" %>
     <!--案件edit-->
     <div id="matter-edit" class="modal fade" role="dialog"></div>
+    <!--BAND連結-->
+    <div id="bands-index" class="modal fade" role="dialog"></div>
+    <!--請求書関連-->
+    <div id="invoice-edit" class="modal fade" role="dialog"></div>
+    <div id="invoice-detail-edit" class="modal fade" role="dialog"></div>
+    <div id="invoice-object-edit" class="modal fade" role="dialog"></div>
     <!--報告書new・edit-->
     <div id="report-new" class="modal fade" role="dialog"></div>
     <div id="report-edit" class="modal fade" role="dialog"></div>
+    <!--報告書表紙new・edit-->
+    <div id="report-cover-new" class="modal fade" role="dialog"></div>
+    <div id="report-cover-edit" class="modal fade" role="dialog"></div>
   <% end %>
   
   <% if controller_name == "schedules" && action_name == "application" %>
