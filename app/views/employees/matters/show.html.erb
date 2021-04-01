@@ -86,7 +86,11 @@
           </div>
           <h5 class="mt-1e">
             表紙
-            <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark btn-sm float-r" %>
+            <% if @report_cover.present? %>
+              <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark btn-sm float-r" %>
+            <% else %>
+              <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark btn-sm float-r" %>
+            <% end %>
           </h5>
           <div id="report-cover-flash"></div>
           <div class="report-cover">
