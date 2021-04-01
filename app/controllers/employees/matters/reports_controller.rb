@@ -7,6 +7,7 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   def index
     set_images_of_report_cover if @report_cover = @matter.report_cover
     @reports = @matter.reports
+    @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
   end
 
   def new

@@ -21,7 +21,10 @@
         </div>     
       </div>
       <div class="report-cover-sub">
-      
+        <div class="pt-1e"><%= @matter.title %></div>
+        <div class="pt-05e"><%= @address %></div>
+        <div><%= @matter.started_on %></div>
+        <div><%= @matter.finished_on %></div>
       </div>
     </div>
   <% end %>
