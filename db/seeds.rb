@@ -88,6 +88,7 @@ ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       supplier_id: 1,
+                      avaliable: true,
                       password: "password",
                       password_confirmation: "password")
 end

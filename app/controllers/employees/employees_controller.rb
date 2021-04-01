@@ -49,10 +49,6 @@ class Employees::EmployeesController < ApplicationController
       @suppliers = Supplier.all
     end
 
-    def set_departments
-      @departments = Department.order(position: :asc)
-    end
-
     def set_industries
       @industries = Industry.order(position: :asc)
     end
@@ -121,6 +117,7 @@ class Employees::EmployeesController < ApplicationController
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
                                           .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
+    
     end
     
     def set_matter

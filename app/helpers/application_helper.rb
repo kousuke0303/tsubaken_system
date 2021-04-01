@@ -29,13 +29,13 @@ module ApplicationHelper
         image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"150x150^",crop:"150x150+0+0"}))
       end
     else
-      if current_admin
+      if @admin
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #dc3545")
-      elsif current_manager
+      elsif @manager
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #a486d4") 
-      elsif current_staff
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{current_staff.label_color.color_code}")
-      elsif current_external_staff
+      elsif @staff
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{@staff.label_color.color_code}")
+      elsif @external_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #e4c35e")
       end
     end
@@ -165,7 +165,7 @@ module ApplicationHelper
   def own_finished_at_nil_notification(object_user)
     yesterday = Date.current - 1
     attendance = object_user.attendances.find_by(worked_on: yesterday)
-    if attendance.started_at.present? && attendance.finished_at == nil
+    if attendance && attendance.started_at.present? && attendance.finished_at == nil
       return "昨日の退勤処理がありません。管理者に報告してください！"
     end
   end
@@ -179,5 +179,28 @@ module ApplicationHelper
       return ExternalStaff.find(attendance.external_staff_id).name
     end
   end
+  
+  # ---------------------------------------------------------
+      # Alert_Lists
+  # ---------------------------------------------------------
+  
+  def member_code(id)
+    MemberCode.find(id)
+  end
+  
+  def ja_auth(auth)
+    case auth 
+    when "admin"
+      return "管理者"
+    when "manager"
+      return "マネージャー"
+    when "staff"
+      return "スタッフ"
+    when "external_staff"
+      return "外部スタッフ"
+    end
+  end
+      
+  
   
 end

@@ -280,7 +280,7 @@
 .float-r { float: right; }
 .float-l { float: left; }
 .text-left { text-align: left; }
-.text-right { text-align: right; }
+.text-right { text-align: right!important; }
 .text-center { text-align: center; }
 
 // ボタンの位置
@@ -290,4 +290,11 @@
 .title_layout {
   border-bottom: solid 3px black;
   display: inline-block;
+}
+
+//注意書き
+.precautionary_statement {
+  margin-left: 1em;
+  font-size: 12px;
+  color: #dc3545;
 }

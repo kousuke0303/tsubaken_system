@@ -4,21 +4,24 @@ place_arrey = ["厚木", "相模原", "市原", "平塚", "小田原", "藤沢",
 schedules_arrey.each do |schedule|
   place_arrey.each do |place|
     setting_time = Date.current - rand(1..7).hour
-    Schedule.create(title: schedule,
+    schedule_1 = Schedule.new(title: schedule,
                     scheduled_date: Date.current - rand(1..24).day,
                     scheduled_start_time: setting_time,
                     scheduled_end_time: setting_time + 1.hour,
                     place: place,
                     member_code_id: rand(1..10)
                     )
-    Schedule.create(title: schedule,
+    schedule_1.sender = MemberCode.first
+    schedule_1.save
+    schedule_2 = Schedule.new(title: schedule,
                     scheduled_date: Date.current + 21.day - rand(1..15).day,
                     scheduled_start_time: setting_time,
                     scheduled_end_time: setting_time + 1.hour,
                     place: place,
                     member_code_id: rand(1..10)
                     )
-    
+    schedule_2.sender = MemberCode.first
+    schedule_2.save
   end
 end
 

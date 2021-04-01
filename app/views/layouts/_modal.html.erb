@@ -1,5 +1,9 @@
 <!--アドミン用-->
 <% if admin_signed_in? %>
+  <% if controller_name == "admins" && action_name == "top" %>
+    <div id="top_page_modal" class="modal fade" role="dialog"></div>
+  <% end %>
+  
   <!--マネージャーCRUD-->
   <% if controller_name == "managers" %>
     <% if action_name == "index" %>
@@ -17,6 +21,10 @@
 
 <!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
+
+  <% if controller_name == "managers" && action_name == "top" %>
+    <div id="top_page_modal" class="modal fade" role="dialog"></div>
+  <% end %>
   <!--スタッフCRUD-->
   <% if controller_name == "staffs" %>
     <% if action_name == "index" %>
@@ -109,6 +117,11 @@
 
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
+  
+  <% if controller_name == "staffs" && action_name == "top" %>
+    <div id="top_page_modal" class="modal fade" role="dialog"></div>
+  <% end %>
+  
   <!--顧客new・edit-->
   <% if controller_name == "clients" && action_name == "index" %>
     <div id="client-new" class="modal fade" role="dialog"></div>
@@ -179,6 +192,10 @@
 
 <!--アドミン・マネージャー・スタッフ・外部スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? || external_staff_signed_in? %>
+  
+  <% if controller_name == "external_staffs" && action_name == "top" %>
+    <div id="top_page_modal" class="modal fade" role="dialog"></div>
+  <% end %>
   
   <% if controller_name == "estimate_matters" && action_name == "show" %> 
     <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>

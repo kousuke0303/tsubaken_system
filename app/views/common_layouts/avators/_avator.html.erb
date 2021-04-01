@@ -1,14 +1,16 @@
 <%= edit_avator(login_user) %>
 
-<%= form_with url: send(edit_path, id: login_user.id), local: true, method: :post, id: "avator_change" do |f| %>
-  <label class="edit_avator" for="avator">
-    <i class="fas fa-camera"></i> 変更
-    <%= f.file_field :admin_avator, id: "avator", accept: 'image/jpg,image/jpeg,image/png,image/gif' %>
-  </label>
-<% end %>
-
-<% if login_user.avator.attached? %>
-  <%= link_to "削除", send(destroy_path, id: login_user.id), class: "btn btn-danger btn-sm" %>
+<% if current_admin || self_manager || self_staff || self_external_staff %>
+  <%= form_with url: send(edit_path, id: login_user.id), local: true, method: :post, id: "avator_change" do |f| %>
+    <label class="edit_avator" for="avator">
+      <i class="fas fa-camera"></i> 変更
+      <%= f.file_field :avator, id: "avator", accept: 'image/jpg,image/jpeg,image/png,image/gif' %>
+    </label>
+  <% end %>
+  
+  <% if login_user.avator.attached? %>
+    <%= link_to "削除", send(destroy_path, id: login_user.id), class: "btn btn-danger btn-sm" %>
+  <% end %>
 <% end %>
 
 <script>

@@ -1,0 +1,8 @@
+<% if @creation_schedules %>
+  $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/schedules/creation_notification') %>');
+<% elsif @updation_schedules %>
+  $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/schedules/updation_notification') %>');
+<% elsif @deletion_notification_for_schedules %>
+  $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/schedules/deletion_notification') %>');
+<% end %>
+$('#top_page_modal').modal();

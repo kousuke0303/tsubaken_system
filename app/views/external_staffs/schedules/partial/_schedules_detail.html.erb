@@ -6,32 +6,36 @@
 </div>
 
 <div class="mt-1e">
-  <div class="table-responsive">
-    <table class="table text-nowrap table_line_type table-bordered">
-      <tr>
-        <th style="width: 4em;">時間</th>
-        <% @schedules_for_target_day.each do |schedule| %>
-          <td>
-            <%= schedule.scheduled_start_time.strftime("%-H:%M") %>
-            <span>〜</span>
-            <%= schedule.scheduled_end_time.strftime("%-H:%M") %>
-            <% if schedule.applications.present? %>
-          　   <span class="badge badge-danger">変更申請中</span>
-          　<% end %>
-          </td>
-        <% end %>
-      </tr>
-      <tr>
-        <th style="width: 4em;">内容</th>
-        <% @schedules_for_target_day.each do |schedule| %>
-          <td>
-            <%= link_to edit_external_staffs_schedule_path(schedule.id), remote: true do %>
-              <%= schedule.title %>
-              <%= "(" + schedule.place + ")" if schedule.place.present? %>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    </table>
-  </div>
+  <% if @schedules_for_target_day.present? %>
+    <div class="table-responsive">
+      <table class="table text-nowrap table_line_type table-bordered">
+        <tr>
+          <th style="width: 4em;">時間</th>
+          <% @schedules_for_target_day.each do |schedule| %>
+            <td>
+              <%= schedule.scheduled_start_time.strftime("%-H:%M") %>
+              <span>〜</span>
+              <%= schedule.scheduled_end_time.strftime("%-H:%M") %>
+              <% if schedule.applications.present? %>
+            　   <span class="badge badge-danger">変更申請中</span>
+            　<% end %>
+            </td>
+          <% end %>
+        </tr>
+        <tr>
+          <th style="width: 4em;">内容</th>
+          <% @schedules_for_target_day.each do |schedule| %>
+            <td>
+              <%= link_to edit_external_staffs_schedule_path(schedule.id), remote: true do %>
+                <%= schedule.title %>
+                <%= "(" + schedule.place + ")" if schedule.place.present? %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+  <% else %>
+    <p>スケジュールの登録はありません</p>
+  <% end %>
 </div>

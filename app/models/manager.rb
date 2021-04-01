@@ -1,14 +1,18 @@
 class Manager < ApplicationRecord
+  
+  before_save { self.email = email.downcase if email.present? }
+  after_initialize :set_joined_on, on: :create
+  after_initialize :default_set, on: :create
+  after_commit :create_member_code, on: :create
+  after_find :update_for_avaliable
+  after_find :set_password_condition
+  
   has_one :member_code, dependent: :destroy
   belongs_to :department
   belongs_to :schedule, optional: true
   
   has_many :attendances, dependent: :destroy
   has_one_attached :avator
-
-  before_save { self.email = email.downcase if email.present? }
-  after_commit :create_member_code, on: :create
-  after_find :update_for_avaliable
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
@@ -19,8 +23,10 @@ class Manager < ApplicationRecord
   validates :address_city, presence: true
   validates :address_street, presence: true
   validate :manager_login_id_is_correct?
-  # validate :joined_with_resigned
-  # validate :resigned_is_since_joined
+  validate :joined_with_resigned
+  validate :resigned_is_since_joined
+
+  attr_accessor :password_condition
 
   scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current)}
   scope :retired, -> { where('resigned_on <= ?', Date.current) }
@@ -73,11 +79,34 @@ class Manager < ApplicationRecord
     false
   end
   
+  #---------------------------------------------------
+     # INSTANCE_METHOD
+  #---------------------------------------------------
+  
+  def recieve_notifications
+    self.member_code.recieve_notifications.where(status: 0)
+  end
+  
   private
   
-    #---------------------------------------------------
+  #---------------------------------------------------
      # CALLBACK_METHOD
-    #---------------------------------------------------
+  #---------------------------------------------------
+    
+    def set_joined_on
+      unless self.joined_on
+        self.joined_on = Date.current
+      end
+    end
+    
+    def default_set
+      if self.login_id == nil || self.login_id.empty? 
+        self.login_id = "MN-" + "#{SecureRandom.hex(3)}"
+      end
+      if self.department_id == nil
+        self.department_id = 1
+      end
+    end
     
     def create_member_code
       unless MemberCode.find_by(manager_id: self.id)
@@ -87,31 +116,47 @@ class Manager < ApplicationRecord
     
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
-        if Date.today > self.resigned_on
+        if Date.current > self.resigned_on
+          self.update(avaliable: false)
+        end
+      elsif self.avaliable == false && self.joined_on.present?
+        if Date.current >= self.joined_on
+          self.update(avaliable: true)
+        end
+      elsif self.avaliable == true && self.joined_on.present?
+        if Date.current < self.joined_on
           self.update(avaliable: false)
         end
       end
     end
     
-    #---------------------------------------------------
+    def set_password_condition
+      if self.valid_password?("password")
+        self.password_condition = false
+      else
+        self.password_condition = true
+      end
+    end
+    
+  #---------------------------------------------------
      # VALIDATE_METHOD
-    #---------------------------------------------------
+  #---------------------------------------------------
     
     # マネージャーの従業員IDは「MN-」から始めさせる
     def manager_login_id_is_correct?
       errors.add(:login_id, "は「MN-」から始めてください") if login_id.present? && !login_id.start_with?("MN-")
     end
   
-    # # 退社日は入社日がないとNG
-    # def joined_with_resigned
-    #   errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
-    # end
+    # 退社日は入社日がないとNG
+    def joined_with_resigned
+      errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
+    end
   
     # 退社日は入社日以降
-    # def resigned_is_since_joined
-    #   if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
-    #     errors.add(:resigned_on, "は入社日以降にしてください")
-    #   end
-    # end
+    def resigned_is_since_joined
+      if self.joined_on.present? && self.resigned_on.present? && self.joined_on > self.resigned_on
+        errors.add(:resigned_on, "は入社日以降にしてください")
+      end
+    end
   
 end

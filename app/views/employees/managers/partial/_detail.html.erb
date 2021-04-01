@@ -1,103 +1,23 @@
-<div class="table-responsive pc_type">
-  <table class="table table-bordered text-nowrap common-table">
-    <tr>
-      <th style="width: 10em;">名前</th>
-      <td><%= @manager.name %></td>
-    </tr>
-    <tr>
-      <th>部署</th>
-      <td><%= @manager.department.name %></td>
-    </tr>
-    <tr>
-      <th>ログインID</th>
-      <td><%= @manager.login_id %></td>
-    </tr>
-    <tr>
-      <th>電話番号</th>
-      <td><%= @manager.phone %></td>
-    </tr>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= @manager.email %></td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= postal_code_display(@manager.postal_code) %></td>
-    </tr>
-    <tr>
-      <th>住所</th>
-      <td><%= @manager.prefecture_code %><%= @manager.address_city %><%= @manager.address_street %></td>
-    </tr>
-    <tr>
-      <th>入社日</th>
-      <td><%= @manager.joined_on ? l(@manager.joined_on) : "未登録" %></td>
-    </tr>
-    <% if @manager.resigned_on %>
-      <tr>
-        <th>退社日</th>
-        <td><%= l(@manager.resigned_on) %></td>
-      </tr>
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: @manager, url: employees_manager_path(@manager), local: true) do |f| %>
+      <%= render "shared/error_messages", resource: @manager %>
+      <%= render 'managers/registrations/partial/form', f: f %>
+
+      <% if current_admin || self_manager %>
+        <div class="btn-area">
+          <%= f.submit "情報更新", class: "btn btn-dark" %>
+        </div>
+      <% end %>
     <% end %>
-    <tr>
-      <th>生年月日</th>
-      <td><%= @manager.birthed_on ? l(@manager.joined_on) : "未登録" %></td>
-    </tr>
-  </table>
+  </div>
 </div>
 
-<div class="mobile_type">
-  <div>
-    <button type="button" id="tableLongCollapse" class="navbar-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-    
-  <div class="responsive_table_wrapper">
-    <nav class="responsive_table_long_sidebar">
-      <ul class="components">
-        <li>名前</li>
-        <li>部署</li>
-        <li>LOGIN-ID</li>
-        <li>TEL</li>
-        <li>MAIL</li>
-        <li>郵便番号</li>
-        <li>住所</li>
-        <li>入社日</li>
-        <li>退社日</li>
-        <li>生年月日</li>
-      </ul>
-    </nav>
-    
-    <div class="table_content text-nowrap overflow-auto">
-      <div class="content"><%= @manager.name %></div>
-      <div class="content"><%= @manager.department.name %></div>
-      <div class="content"><%= @manager.login_id %></div>
-      <div class="content">
-        <a href="tel:<%= @manager.phone %>" class=""><%= mobile_phone_display(@manager.phone) %></a>
-      </div>
-      <div class="content"><%= @manager.email %></div>
-      <div class="content"><%= postal_code_display(@manager.postal_code) %></div>
-      <div class="content"><%= @manager.prefecture_code %><%= @manager.address_city %><%= @manager.address_street %></div>
-      <div class="content"><%= @manager.joined_on ? l(@manager.joined_on) : "未登録" %></div>
-      <% if @manager.resigned_on %>
-        <div class="content"><%= l(@manager.resigned_on) if @manager.resigned_on %></div>
-      <% end %>
-      <div class="content"><%= @manager.birthed_on ? l(@manager.joined_on) : "未登録" %></div>
+<% if current_admin || self_manager %>
+  <div class="card mt-1e">
+    <div class="card-body">
+      <%= render partial: 'common_layouts/registrations/pass_form', 
+                 locals: {target: @manager, path: :pass_update_employees_manager_path} %>
     </div>
   </div>
-</div>
-
-<% if current_admin %>
-  <div class="btn-area">
-    <%= link_to "編集", edit_employees_manager_path(@manager), remote: true, class: "btn btn-dark" %>
-    <%= link_to "退職処理", retirement_process_employees_manager_path(@manager), class: "btn btn-destroy" %>
-    <% if @manager.avaliable == false %>
-      <%= link_to "アカウント復活", restoration_employees_manager_path(@manager), method: :patch, class: "btn btn-success" %>
-    <% end %>
-  </div>
 <% end %>
-
-
-<%= javascript_include_tag "tableCollapse.js" %> 

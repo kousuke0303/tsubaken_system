@@ -1,4 +1,9 @@
 class ExternalStaff < ApplicationRecord
+  
+  before_save { self.email = email.downcase if email.present? }
+  after_commit :create_member_code, on: :create
+  after_find :update_for_avaliable
+  
   has_one :member_code, dependent: :destroy
   belongs_to :supplier, optional: true
   belongs_to :schedule, optional: true
@@ -10,6 +15,7 @@ class ExternalStaff < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
+  after_find :set_password_condition
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :kana, presence: true, length: { maximum: 30 }
@@ -17,6 +23,8 @@ class ExternalStaff < ApplicationRecord
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
   validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validate :external_staff_login_id_is_correct?
+
+  attr_accessor :password_condition
 
   # --------------------------------------------------
     # DEVISE関連
@@ -58,12 +66,24 @@ class ExternalStaff < ApplicationRecord
     false
   end
   
+  #---------------------------------------------------
+     # INSTANCE_METHOD
+  #---------------------------------------------------
+  
   def matters
     Matter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
   
   def estimate_matters
     EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
+  end
+  
+  def schedules
+    Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
+  def recieve_notifications
+    self.member_code.recieve_notifications.where(status: 0)
   end
   
   private
@@ -80,9 +100,17 @@ class ExternalStaff < ApplicationRecord
     
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
-        if Date.today >= self.resigned_on
+        if Date.current >= self.resigned_on
           self.update(avaliable: false)
         end
+      end
+    end
+    
+    def set_password_condition
+      if self.valid_password?("password")
+        self.password_condition = false
+      else
+        self.password_condition = true
       end
     end
     

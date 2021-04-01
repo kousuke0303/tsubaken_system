@@ -1,10 +1,24 @@
 <div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{@external_staff.name} の編集", icon: "fa-user-edit"} %>
   
-  <div class="avator_container_for_sidebar">
-    <%= show_avator(@external_staff) %>
-    <h2><%= @external_staff.name %>詳細</h2>
+  <div class="avator_container">
+    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: @external_staff, 
+                                                                 edit_path: :external_staffs_avator_change_path,
+                                                                 destroy_path: :external_staffs_avator_destroy_path} %>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <% if current_admin || current_manager %>
+        <%= link_to "退職処理", retirement_process_employees_external_staff_path(@external_staff), class: "btn btn-destroy" %>
+      <% end %>
+      <% if @external_staff.avaliable == false %>
+        <%= link_to "アカウント利用許可", restoration_employees_external_staff_path(@external_staff), method: :patch, class: "btn btn-success" %>
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <%= out_of_service(@external_staff) %>
+    </div>
   </div>
   
-  <%= out_of_service(@external_staff) %>
   <%= render "/employees/external_staffs/partial/detail" %> 
 </div>

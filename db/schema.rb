@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "phone"
     t.string "email"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "supplier_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -352,7 +352,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "department_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -439,11 +439,16 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.integer "category"
-    t.text "content"
+    t.integer "action_type"
     t.integer "sender_id"
     t.integer "reciever_id"
+    t.string "before_value_1"
+    t.string "before_value_2"
+    t.string "before_value_3"
+    t.string "before_value_4"
+    t.text "content"
     t.bigint "schedule_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -580,7 +585,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "address_street"
     t.date "joined_on"
     t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
+    t.boolean "avaliable", default: false, null: false
     t.bigint "department_id"
     t.bigint "label_color_id"
     t.string "login_id", default: "", null: false

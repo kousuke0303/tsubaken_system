@@ -1,0 +1,21 @@
+<% if @creation_notification_for_schedule.present? %>
+  <p><i class="fas fa-exclamation-circle fa-blue"></i>
+    <%= link_to schedule_index_notifications_path(category: "schedule", action_type: "create"), remote: true do %>
+      <span>スケジュールが<%= @creation_notification_for_schedule.count %>件追加されました</span>
+    <% end %>
+  </p>
+<% end %>
+<% if @updation_notification_for_schedule.present? %>
+  <p><i class="fas fa-exclamation-circle fa-blue"></i>
+    <%= link_to schedule_index_notifications_path(category: "schedule", action_type: "update"), remote: true do %>
+      <span>スケジュールが<%= @updation_notification_for_schedule.count %>件変更されました</span>
+    <% end %>
+  </p>
+<% end %>
+<% if @delete_notification_for_schedule.present? %>
+  <p><i class="fas fa-exclamation-circle fa-blue"></i>
+    <%= link_to schedule_index_notifications_path(category: "schedule", action_type: "delete"), remote: true do %>
+      <span>スケジュールが<%= @delete_notification_for_schedule.count %>件キャンセルされました</span>
+    <% end %>
+  </p>
+<% end %>

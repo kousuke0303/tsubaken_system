@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   post "sign_in", to: "static_pages#error"
   
   get "postcode_search", to: "addresses#search_postcode"
+  
+  resources :notifications, only: :index do
+    get :schedule_index, on: :collection
+    patch :updates, on: :collection
+  end
       
   # API関連
   namespace :api do
@@ -143,6 +148,7 @@ Rails.application.routes.draw do
     namespace :admins do
       get :top
       get :index
+      get :default_password_user_index
       post :avator_change
       get :avator_destroy
     end
@@ -156,6 +162,7 @@ Rails.application.routes.draw do
     namespace :managers do
       get :top
       get :index
+      get :default_password_user_index
       post :avator_change
       get :avator_destroy
     end
@@ -218,20 +225,23 @@ Rails.application.routes.draw do
 
   # 従業員が行う操作
   namespace :employees do
-    resources :managers do
+    resources :managers, except: :edit do
       get :retirement_process, on: :member
+      patch :pass_update, on: :member
       patch :resigned_registor, on: :member
       patch :restoration, on: :member
       get :confirmation_for_destroy, on: :member
     end
-    resources :staffs do
+    resources :staffs, except: :edit do
       get :retirement_process, on: :member
+      patch :pass_update, on: :member
       patch :resigned_registor, on: :member
       patch :restoration, on: :member
       get :confirmation_for_destroy, on: :member
     end
-    resources :external_staffs do
+    resources :external_staffs, except: :edit do
       get :retirement_process, on: :member
+      patch :pass_update, on: :member
       patch :resigend_registor, on: :member
       patch :out_of_service, on: :member
       patch :restoration, on: :member
