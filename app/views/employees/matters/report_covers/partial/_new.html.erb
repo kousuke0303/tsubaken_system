@@ -59,11 +59,41 @@
               </div>
               <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">画像③</label>
               <div class="tab-content">
-                <%= f.text_field :img_3_id, class: "form-control" %>
+                <%= f.hidden_field :img_3_id, class: "form-control img-3-id-form" %>
+                <div class="row">
+                  <div class="col-12 mt-05e img-status img-3-status">未選択</div>
+                  <% @images.each do |image| %>
+                    <% if @report_cover.img_3_id == image.id %>
+                      <% @status = "selected" %>
+                    <% else %>
+                      <% @status = "unselected" %>
+                    <% end %>
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper option-img-3-wrapper <%= @status %>-img">
+                      <a href="#" class="option-img option-img-3" data-id="<%= image.id %>">
+                        <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                      </a>
+                    </div>
+                  <% end %>
+                </div>
               </div>
               <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">画像④</label>
               <div class="tab-content">
-                <%= f.text_field :img_4_id, class: "form-control" %>
+                <%= f.hidden_field :img_4_id, class: "form-control img-2-id-form" %>
+                <div class="row">
+                  <div class="col-12 mt-05e img-status img-4-status">未選択</div>
+                  <% @images.each do |image| %>
+                    <% if @report_cover.img_4_id == image.id %>
+                      <% @status = "selected" %>
+                    <% else %>
+                      <% @status = "unselected" %>
+                    <% end %>
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper option-img-4-wrapper <%= @status %>-img">
+                      <a href="#" class="option-img option-img-4" data-id="<%= image.id %>">
+                        <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                      </a>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
             <div class="btn-area">
@@ -86,6 +116,16 @@
 
   $(".option-img-2").click(function() {
     selectImage($(this), 2);
+    return false;
+  });
+
+  $(".option-img-3").click(function() {
+  selectImage($(this), 3);
+  return false;
+  });
+
+  $(".option-img-4").click(function() {
+    selectImage($(this), 4);
     return false;
   });
 
