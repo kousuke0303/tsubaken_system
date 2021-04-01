@@ -12,7 +12,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   def create
     @report_cover = @matter.build_report_cover(report_cover_params)    
     @report_cover.save ? @responce = "success" : @responce = "false"
-    
+    set_images_of_report_cover
   end
 
   def edit
@@ -21,6 +21,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
 
   def update
     @report_cover.update(report_cover_params) ? @responce = "success" : @responce = "false"
+    set_images_of_report_cover
   end
 
   def destroy

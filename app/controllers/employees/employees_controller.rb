@@ -106,6 +106,13 @@ class Employees::EmployeesController < ApplicationController
     def set_reports_of_matter
       @reports = @matter.reports.order(created_at: "ASC")
     end
+
+    def set_images_of_report_cover
+      @cover_img_1 = Image.find_by(id: @report_cover.img_1_id)
+      @cover_img_2 = Image.find_by(id: @report_cover.img_2_id)
+      @cover_img_3 = Image.find_by(id: @report_cover.img_3_id)
+      @cover_img_4 = Image.find_by(id: @report_cover.img_4_id)
+    end
     
     # schedule/sales_statusで使用
     def set_basic_schedules(day)

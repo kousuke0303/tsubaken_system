@@ -56,7 +56,8 @@ class Employees::MattersController < Employees::EmployeesController
     set_invoice_details
     @message = true if params[:type] == "success"
     @images = @matter.images.select{ |image| image.image.attached? }
-    @report_cover = @matter.report_cover
+    @report_cover = @matter.report_cover    
+    set_images_of_report_cover if @report_cover.present?
   end
 
   def edit

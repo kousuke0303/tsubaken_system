@@ -31,7 +31,7 @@
                       <% @status = "unselected" %>
                     <% end %>
                     <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper option-img-1-wrapper <%= @status %>-img">
-                      <a href="#" class="option-img" data-id="<%= image.id %>">
+                      <a href="#" class="option-img option-img-1" data-id="<%= image.id %>">
                         <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
                       </a>
                     </div>
@@ -40,7 +40,22 @@
               </div>
               <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">画像②</label>
               <div class="tab-content">
-                <%= f.text_field :img_2_id, class: "form-control" %>
+                <%= f.hidden_field :img_2_id, class: "form-control img-2-id-form" %>
+                <div class="row">
+                  <div class="col-12 mt-05e img-status img-2-status">未選択</div>
+                  <% @images.each do |image| %>
+                    <% if @report_cover.img_1_id == image.id %>
+                      <% @status = "selected" %>
+                    <% else %>
+                      <% @status = "unselected" %>
+                    <% end %>
+                    <div class="col-lg-3 col-md-4 col-12 mt-05e option-img-wrapper option-img-2-wrapper <%= @status %>-img">
+                      <a href="#" class="option-img option-img-2" data-id="<%= image.id %>">
+                        <%= image_tag url_for(image.image.variant(combine_options: { gravity: :center, resize: "145x115^", crop: "145x115+0+0" })) %>
+                      </a>
+                    </div>
+                  <% end %>
+                </div>
               </div>
               <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">画像③</label>
               <div class="tab-content">
@@ -64,8 +79,13 @@
 <%= javascript_include_tag "reset_errors.js" %>
 
 <script>
-  $(".option-img").click(function() {
+  $(".option-img-1").click(function() {
     selectImage($(this), 1);
+    return false;
+  });
+
+  $(".option-img-2").click(function() {
+    selectImage($(this), 2);
     return false;
   });
 
