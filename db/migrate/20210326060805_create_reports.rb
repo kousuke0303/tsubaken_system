@@ -7,8 +7,7 @@ class CreateReports < ActiveRecord::Migration[5.2]
       t.boolean :default,        default: false
       t.integer :image_id
       t.integer :message_id
-      t.string :matter_id
-      t.date :created_on
+      t.string :matter_id      
 
       t.timestamps
     end

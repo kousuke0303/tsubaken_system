@@ -35,6 +35,6 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def report_cover_params
-    params.require(:report_cover).permit(:title, :publisher_id, :img_1_id, :img_2_id, :img_3_id, :img_4_id)
+    params.require(:report_cover).permit(:title, :publisher_id, :created_on, :img_1_id, :img_2_id, :img_3_id, :img_4_id)
   end
 end

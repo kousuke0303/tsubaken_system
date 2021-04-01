@@ -18,11 +18,19 @@
     </tr>
     <tr>
       <th>着工予定日</th>
-      <td><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></td>
+      <td><%= l(@matter.scheduled_started_on, format: :default) if @matter.scheduled_started_on.present? %></td>
     </tr>
     <tr>
-      <th>完了予定日</th>
-      <td><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></td>
+      <th>完工予定日</th>
+      <td><%= l(@matter.scheduled_finished_on, format: :default) if @matter.scheduled_finished_on.present? %></td>
+    </tr>
+        <tr>
+      <th>着工日</th>
+      <td><%= l(@matter.started_on, format: :default) if @matter.started_on.present? %></td>
+    </tr>
+    <tr>
+      <th>完工日</th>
+      <td><%= l(@matter.finished_on, format: :default) if @matter.finished_on.present? %></td>
     </tr>
 
     <% if @suppliers.exists? %>

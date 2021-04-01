@@ -8,6 +8,7 @@ class CreateReportCovers < ActiveRecord::Migration[5.2]
       t.integer :img_2_id
       t.integer :img_3_id
       t.integer :img_4_id
+      t.date :created_on
 
       t.timestamps
     end
