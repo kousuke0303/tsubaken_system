@@ -379,8 +379,8 @@
     margin-left: 15mm;
     margin-right: 10mm;
   }
-  
   body {
+    -webkit-print-color-adjust: exact;
     background: white;
     width: 172mm;
     height: 251mm;
@@ -390,6 +390,7 @@
   .a4-print-container {
     page-break-before: always;
   }
+
   .cover_image_wrapper {
     text-align: center;
     margin-top: 2em;
@@ -488,14 +489,14 @@
 
   // 報告書
   .report-cover-main {
-    height: 900px;
+    height: 950px;
     .title {
       color: white;
       font-size: 3em;
       padding: 1em 0;
     }
     .img-wrapper {
-      width: 700px;
+      width: 710px;
       .sm-img {
         width: 230px;
       }
@@ -522,7 +523,7 @@
       padding: 0.5em 0;
       position: absolute;
       bottom: 15px;
-      width: 90%;
+      width: 100%;
     }
   }
 }
