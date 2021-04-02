@@ -488,30 +488,29 @@
   // 報告書
   .report-cover-main {
     background: #002b80;
-    height: 560px;
+    height: 900px;
     .title {
       color: white;
       font-size: 3em;
       padding: 1em 0;
-      text-align: center;
     }
     .img-wrapper {
       background: white;
       margin: 0 auto;
       padding: 5px;
-      width: 440px;
+      width: 610px;
       .sm-img-wrapper {
         display: flex;
         margin-top: 5px;
       }
       .sm-img {
-        width: 140px;
+        width: 200px;
       }
     }
   }
   
   .report-cover-sub {
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-align: center;
   }
   
