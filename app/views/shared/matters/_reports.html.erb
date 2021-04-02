@@ -36,7 +36,11 @@
           <%= l(@report_cover.created_on, format: :semi_long) %>
         </div>
         <div class="mt-05e"><%= image_tag("profile.jpg", size: "50x50", alt: "ロゴ") %></div>
-        <div class="mt-05e"><%= @company_address %></div>
+        <div class="mt-05e"><%= @publisher_address %></div>
+        <div class="mt-05e">
+          <span class="mr-1e">TEL:<%= @publisher.phone %></span>
+          FAX:<%= @publisher.fax %>
+        </div>
       </div>
     </div>
   <% end %>
@@ -99,7 +103,11 @@
           <%= l(@report_cover.created_on, format: :semi_long) %>
         </div>
         <div class="mt-05e"><%= image_tag("profile.jpg", size: "50x50", alt: "ロゴ") %></div>
-        <div class="mt-05e"><%= @company_address %></div>
+        <div class="mt-05e"><%= @publisher_address %></div>
+        <div class="mt-05e">
+          <span class="mr-1e">TEL:<%= @publisher.phone %></span>
+          FAX:<%= @publisher.fax %>
+        </div>
       </div>
     </div>
   <% end %>
