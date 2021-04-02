@@ -471,33 +471,30 @@
 
 .report-page {
   position: relative;
-}
-
-.page-logo {
-  margin-top: -30px;
-  padding-right: 2em;
-  text-align: right;
-}
-
-.report-item {
-  margin: 0 auto 2em auto;
-  width: 250px;
-  .report-title {
+  .page-logo {
+    margin-top: -30px;
+    padding-right: 2em;
+    text-align: right;
+  }
+  .report-item {
+    margin: 0 auto 2em auto;
+    width: 250px;
+    .report-title {
+      background: #002b80;
+      color: white;
+      font-size: 0.8em;
+      padding: 0.5em 0;
+      text-align: center;
+    }
+  }
+  .page-footer {
     background: #002b80;
     color: white;
     font-size: 0.8em;
     padding: 0.5em 0;
+    position: absolute;
+    bottom: 15px;
     text-align: center;
+    width: 90%;
   }
-}
-
-.page-footer {
-  background: #002b80;
-  color: white;
-  font-size: 0.8em;
-  padding: 0.5em 0;
-  position: absolute;
-  bottom: 15px;
-  text-align: center;
-  width: 90%;
 }
