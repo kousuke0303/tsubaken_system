@@ -488,7 +488,6 @@
 
   // 報告書
   .report-cover-main {
-    background: #002b80;
     height: 900px;
     .title {
       color: white;
@@ -496,50 +495,33 @@
       padding: 1em 0;
     }
     .img-wrapper {
-      background: white;
-      margin: 0 auto;
-      padding: 5px;
       width: 700px;
-      .sm-img-wrapper {
-        display: flex;
-        margin-top: 5px;
-      }
       .sm-img {
         width: 230px;
       }
     }
   }
-  
   .report-cover-sub {
     font-size: 1.5em;
-    text-align: center;
   }
-  
   .report-page {
     position: relative;
     .page-logo {
       padding-right: 4em;
-      text-align: right;
     }
     .report-item {
       margin: 0 auto 2em auto;
-      width: 350px;
+      width: 400px;
       .report-title {
-        background: #002b80;
-        color: white;
         font-size: 0.8em;
         padding: 0.5em 0;
-        text-align: center;
       }
     }
     .page-footer {
-      background: #002b80;
-      color: white;
       font-size: 0.8em;
       padding: 0.5em 0;
       position: absolute;
       bottom: 15px;
-      text-align: center;
       width: 90%;
     }
   }
