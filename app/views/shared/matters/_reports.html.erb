@@ -42,18 +42,21 @@
   <% end %>
 
   <% @reports.each_slice(6).with_index(0) do |report_six, index| %>
-    <div class="a4-container">
-      <div class="text-right"><%= image_tag("profile.jpg", size: "30x30", alt: "ロゴ") %></div>
+    <div class="a4-container report-page">
+      <div class="page-logo"><%= image_tag("profile.jpg", size: "30x30", alt: "ロゴ") %></div>
       <div class="row">
         <% report_six.each.with_index(1) do |report, second_index| %>
           <div class="col-6 mt-05e">
-            <div>
-              <%= image_tag url_for(report.image.image.variant(combine_options: { gravity: :center, resize: "240x190^",crop: "240x190+0+0"})) %>
-            </div>
-            <div class="report-title"><%= report.title %></div>           
+            <div class="report-item">
+              <div>
+                <%= image_tag url_for(report.image.image.variant(combine_options: { gravity: :center, resize: "250x190^", crop: "250x190+0+0"})) %>
+              </div>
+              <div class="report-title"><%= report.title %></div>            
+            </div>         
           </div>
         <% end %>
       </div>
+      <div class="page-footer"><%= index * 6 + report_six.size %>/<%= @reports.count %></div>  
     </div>
   <% end %>
 </div>
@@ -106,10 +109,12 @@
       <div class="row">
         <% report_six.each.with_index(1) do |report, second_index| %>
           <div class="col-6">
-            <div>
-              <%= image_tag url_for(report.image.image.variant(combine_options: { gravity: :center, resize: "290x230^",crop: "290x230+0+0"})) %>
+            <div class="report-item">
+              <div>
+                <%= image_tag url_for(report.image.image.variant(combine_options: { gravity: :center, resize: "290x230^", crop: "290x230+0+0"})) %>
+              </div>
+              <div class="report-title"><%= report.title %></div>            
             </div>
-            <div class="report-title"><%= report.title %></div>            
           </div>
         <% end %>
       </div>
