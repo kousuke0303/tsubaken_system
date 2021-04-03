@@ -3,6 +3,19 @@
   $(".report-cover").html('<%= escape_javascript(render "employees/matters/partial/report_cover") %>');
   <%= render "shared/javascript/flash", dom: "#report-cover-flash", key: "success", value: "報告書表紙を作成しました。" %>
 <% else %>
+  $(".matter-of-report-cover-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @matter) %>');
+  <% @matter.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    <% if key_attribute.to_s == "started_on" %>
+      $('[name="report_cover[matter_attributes][started_on]"]').prev().wrap(addDiv);
+      $('[name="report_cover[matter_attributes][started_on]"]').wrap(addDiv);
+    <% end %>
+    <% if key_attribute.to_s == "finished_on" %>
+      $('[name="report_cover[matter_attributes][finished_on]"]').prev().wrap(addDiv);
+      $('[name="report_cover[matter_attributes][finished_on]"]').wrap(addDiv);
+    <% end %>
+  <% end %>
+  $(".report-cover-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @report_cover) %>');
   <% @report_cover.errors.messages.keys.each do |key_attribute| %>
     var addDiv = $('<div class="field-with-errors">');
     var addLabel = $('[name="report_cover[<%= key_attribute.intern.to_s %>]"]').prev();
