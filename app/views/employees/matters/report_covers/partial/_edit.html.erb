@@ -6,7 +6,6 @@
         <h5 class="card-header">報告書表紙編集</h5>
         <div class="card-body">
           <%= form_with(model: @report_cover, url: employees_matter_report_cover_path(@matter, @report_cover), method: :patch) do |f| %>
-            <div class="report-cover-create-errors"></div>
             <%= render "employees/matters/report_covers/partial/form", f: f %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>

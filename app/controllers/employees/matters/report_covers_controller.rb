@@ -20,7 +20,8 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def update
-    @report_cover.update(report_cover_params) ? @responce = "success" : @responce = "false"
+    matter_of_report_cover_params
+    @report_cover.update(report_cover_params) && @matter.update(started_on: @started_on, finished_on: @finished_on) ? @responce = "success" : @responce = "false"
     set_images_of_report_cover
   end
 
@@ -36,5 +37,10 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
 
   def report_cover_params
     params.require(:report_cover).permit(:title, :publisher_id, :created_on, :img_1_id, :img_2_id, :img_3_id, :img_4_id)
+  end
+
+  def matter_of_report_cover_params
+    @started_on = params["report_cover"]["matter_attributes"]["started_on"]
+    @finished_on = params["report_cover"]["matter_attributes"]["finished_on"]
   end
 end
