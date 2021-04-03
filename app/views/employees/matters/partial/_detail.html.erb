@@ -33,7 +33,7 @@
       <td><%= l(@matter.finished_on, format: :default) if @matter.finished_on.present? %></td>
     </tr>
 
-    <% if @suppliers.exists? %>
+    <% if @suppliers.present? %>
       <% @suppliers.each_with_index do |supplier, index| %>
         <tr>
           <% if index == 0 %>

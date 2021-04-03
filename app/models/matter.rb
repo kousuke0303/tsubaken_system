@@ -17,11 +17,10 @@ class Matter < ApplicationRecord
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images
   has_many :messages, dependent: :destroy
-  has_many :supplier_matters, dependent: :destroy
-  has_many :suppliers, through: :supplier_matters
-  
-  accepts_nested_attributes_for :supplier_matters, allow_destroy: true
-  accepts_nested_attributes_for :tasks, allow_destroy: true
+  # has_many :supplier_matters, dependent: :destroy
+  # has_many :suppliers, through: :supplier_matters
+  # accepts_nested_attributes_for :supplier_matters, allow_destroy: true
+  # accepts_nested_attributes_for :tasks, allow_destroy: true
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }
@@ -65,6 +64,11 @@ class Matter < ApplicationRecord
       Rails.logger.error e.backtrace.join("\n")
       # bugsnag導入後
       # Bugsnag.notifiy e
+  end
+  
+  def suppliers
+    exstaff_ids = ExternalStaff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}}).ids
+    Supplier.joins(:external_staffs).where(external_staffs: {id: exstaff_ids})
   end
   
   private

@@ -141,7 +141,9 @@ class Employees::EmployeesController < ApplicationController
     
     def all_staff_and_external_staff_code
       @all_staff_codes = MemberCode.joins(:staff).where(staffs: {avaliable: true})
+                                   .select('member_codes.*, staffs.name AS staff_name')
       @all_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: {avaliable: true})
+                                            .select('member_codes.*, external_staffs.name AS external_staff_name')
     end
     
     # 全メンバー(配列)
