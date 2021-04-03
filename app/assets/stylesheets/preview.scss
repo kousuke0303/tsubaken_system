@@ -10,6 +10,7 @@
   margin: 1em auto;
 }
 
+/*------------------------------診断書------------------------------*/
 .cover_image_wrapper {
   text-align: center;
 }
@@ -94,11 +95,6 @@
     padding-left: 16px;
     color: #fff;
   }
-}
-
-.print_body {
-  width: 172mm;
-  height: 251mm;
 }
 
 // 見積書プレビュー
@@ -313,39 +309,92 @@
   }
 }
 
+/*------------------------------報告書------------------------------*/
+.report-cover-main {
+  background: #002b80;
+  height: 560px;
+  .title {
+    color: white;
+    font-size: 1.8em;
+    padding: 1em 0;
+    text-align: center;
+  }
+  .img-wrapper {
+    background: white;
+    margin: 0 auto;
+    padding: 5px;
+    width: 440px;
+    .sm-img-wrapper {
+      display: flex;
+      margin-top: 5px;
+    }
+    .sm-img {
+      width: 140px;
+    }
+  }
+}
+
+.report-cover-sub {
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.report-page {
+  position: relative;
+  .page-logo {
+    margin-bottom: 0.5em;
+    padding-right: 2em;
+    text-align: right;
+  }
+  .report-item {
+    margin: 0 auto 2em auto;
+    width: 250px;
+    .report-title {
+      background: #002b80;
+      color: white;
+      font-size: 0.8em;
+      padding: 0.5em 0;
+      text-align: center;
+    }
+  }
+  .page-footer {
+    background: #002b80;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.5em 0;
+    position: absolute;
+    bottom: 15px;
+    text-align: center;
+    width: 90%;
+  }
+}
+
 /* -----------------------------------------------------------------------------------
     PRINT 
 ----------------------------------------------------- */
 
 @media print {
-  
   @page {
     margin-top: 20mm;
     margin-left: 15mm;
     margin-right: 10mm;
   }
-  
   body {
+    -webkit-print-color-adjust: exact;
     background: white;
     width: 172mm;
     height: 251mm;
     margin-left: 50px;
     margin-top: 50px;
   }
-  
-  .certificate_print {
-    display: none;
-  }
-  
   .a4-print-container {
     page-break-before: always;
   }
-  
-  .cover_image_wrapper {
-  text-align: center;
-  margin-top: 2em;
-  }
 
+  .cover_image_wrapper {
+    text-align: center;
+    margin-top: 2em;
+  }
   .cover_title_wrapper {
     letter-spacing: 0.5em;
     text-align: center;
@@ -370,7 +419,6 @@
     margin-top: 4em;
     text-align: center;
   }
-  
   .certificate_preview {
     margin-bottom: 70px;
     td {
@@ -438,33 +486,44 @@
       font-size: 1.1em;
     }
   }
-}
 
-.report-cover-main {
-  background: #002b80;
-  height: 560px;
-  .title {
-    color: white;
-    font-size: 1.8em;
-    padding: 1em 0;
-    text-align: center;
-  }
-  .img-wrapper {
-    background: white;
-    margin: 0 auto;
-    padding: 5px;
-    width: 440px;
-    .sm-img-wrapper {
-      display: flex;
-      margin-top: 5px;
+  // 報告書
+  .report-cover-main {
+    height: 950px;
+    .title {
+      color: white;
+      font-size: 3em;
+      padding: 1em 0;
     }
-    .sm-img {
-      width: 140px;
+    .img-wrapper {
+      width: 710px;
+      .sm-img {
+        width: 230px;
+      }
     }
   }
-}
-
-.report-cover-sub {
-  font-size: 0.9em;
-  text-align: center;
+  .report-cover-sub {
+    font-size: 1.5em;
+  }
+  .report-page {
+    position: relative;
+    .page-logo {
+      padding-right: 4em;
+    }
+    .report-item {
+      margin: 0 auto 2em auto;
+      width: 400px;
+      .report-title {
+        font-size: 0.8em;
+        padding: 0.5em 0;
+      }
+    }
+    .page-footer {
+      font-size: 0.8em;
+      padding: 0.5em 0;
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+    }
+  }
 }
