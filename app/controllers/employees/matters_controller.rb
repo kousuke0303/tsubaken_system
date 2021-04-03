@@ -44,16 +44,12 @@ class Employees::MattersController < Employees::EmployeesController
   end
 
   def show
-    @suppliers = @matter.suppliers
-    set_classified_tasks(@matter)        
+    set_matter_detail_valiable
     @client = @matter.client
-    @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
     @estimate_matter = @matter.estimate_matter
+    set_classified_tasks(@matter)
     set_estimates_with_plan_names_and_label_colors
-    @invoice = @matter.invoice
-    set_plan_name_of_invoice
-    set_color_code_of_invoice     
-    set_invoice_details
+    set_invoice_valiable
     @message = true if params[:type] == "success"
     @images = @matter.images.select{ |image| image.image.attached? }
     @report_cover = @matter.report_cover    
@@ -62,8 +58,8 @@ class Employees::MattersController < Employees::EmployeesController
 
   def edit
     @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
-    @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
-    @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
+    @staff_codes_ids = @matter.member_codes.joins(:staff).ids
+    @external_staff_codes_ids = @matter.member_codes.joins(:external_staff).ids
   end
 
   def update
@@ -123,20 +119,16 @@ class Employees::MattersController < Employees::EmployeesController
                                      { member_code_ids: [] }, { supplier_ids: [] })
     end
     
-    # def matter_staff_external_staff_client_params
-    #   params.permit({ staff_ids: [] }, { external_staff_ids: [] }, { supplier_ids: [] })
-    # end
+    def set_matter_detail_valiable
+      @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
+      @suppliers = @matter.suppliers
+    end
     
-    # def delete_matter_relation_table
-    #   unless params[:matter][:staff_ids].present?
-    #     @matter.matter_staffs.delete_all
-    #   end
-    #   unless params[:matter][:external_staff_ids].present?
-    #     @matter.matter_external_staffs.delete_all
-    #   end
-    # end
-    # def delete_matter_relation_table  
-    #   @matter.matter_staffs.delete_all unless params[:matter][:staff_ids].present?      
-    #   @matter.matter_external_staffs.delete_all unless params[:matter][:external_staff_ids].present?
-    # end
+    def set_invoice_valiable
+      @invoice = @matter.invoice
+      set_plan_name_of_invoice
+      set_color_code_of_invoice     
+      set_invoice_details
+    end
+    
 end
