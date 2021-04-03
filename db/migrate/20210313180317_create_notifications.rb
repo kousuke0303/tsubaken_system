@@ -13,6 +13,7 @@ class CreateNotifications < ActiveRecord::Migration[5.2]
       t.text :content
       
       t.references :schedule, foreign_key: true
+      t.references :task, foreign_key: true
 
       t.timestamps
     end

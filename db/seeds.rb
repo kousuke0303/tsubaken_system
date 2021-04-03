@@ -28,6 +28,16 @@ end
 puts "CREATE! DEPARTMENT"
 
 # --------------------------------------------------
+    # TASKデフォルト
+# --------------------------------------------------
+
+Task.create!(status: 0, title: "足場架設依頼", alert: true, auto_set: true)
+Task.create!(status: 0, title: "発注", alert: true, auto_set: true)
+Task.create!(status: 0, title: "現場清掃", content: "掃除")
+Task.create!(status: 0, title: "近隣挨拶", content: "隣の家に挨拶")
+puts "CREATE! DEFALTE_TASK"
+
+# --------------------------------------------------
     # USER
 # --------------------------------------------------
 Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")

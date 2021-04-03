@@ -3,3 +3,12 @@
 
 <%= f.label :content %>
 <%= f.text_area :content, required: true, class: "form-control", maxlength: 3000 %>
+
+<label class="form-control text-white" style="background:#787a7b;">その他設定</label>   
+<div class="check_boxes mt-1e">
+  <%= f.check_box :alert, id: "alert" %>
+  <label for="alert">警告表示</label>
+
+  <%= f.check_box :auto_set, id: "auto_set" %>
+  <label for="auto_set">常時設定</label>
+</div>

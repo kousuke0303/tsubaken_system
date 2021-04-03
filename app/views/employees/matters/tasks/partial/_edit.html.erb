@@ -1,32 +1,29 @@
-<div class="modal-dialog">
+<div class="modal-dialog no-padding_modal">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-    <div class="modal-body pa-2e">
-      <div class="card mb-3">
-        <h4 class="modal-header-<%= task.status %> text-center card-header">タスク編集</h4>
+    <div class="modal-header modal-header-<%= task.status %>">
+      TASK：<%= task.title %>編集
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: task, url: employees_matter_task_path(matter, task), method: :patch, remote: true, id: "edit-task-form") do |f| %>
+        <div class="task-update-errors"></div>
 
-        <div class="card-body">
-          <%= form_with(model: task, url: employees_matter_task_path(matter, task), method: :patch, remote: true, id: "edit-task-form") do |f| %>
-            <div class="task-update-errors"></div>
+        <%= f.label :title %>
+        <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-title" %>
 
-            <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-title" %>
-
-            <%= f.label :content %>
-            <%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
-            
-            <h6 class="mt-1e">担当者</h6>
-            <div>
-              <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
-            </div>
-            
-            <div class="btn-area">
-              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_matter_task_path(matter, task), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
-            </div>
-          <% end %>
+        <%= f.label :content %>
+        <%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+        
+        <h6 class="mt-1e">担当者</h6>
+        <div>
+          <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
         </div>
-      </div>
+        
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          <%= link_to "削除", employees_matter_task_path(matter, task), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

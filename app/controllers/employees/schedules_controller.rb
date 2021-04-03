@@ -18,7 +18,7 @@ class Employees::SchedulesController < Employees::EmployeesController
   
   def create
     @schedule = Schedule.new(schedule_params)
-    @schedule.sender = login_user.member_code
+    @schedule.sender = login_user.member_code.id
     if @schedule.save
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
@@ -127,7 +127,7 @@ class Employees::SchedulesController < Employees::EmployeesController
     end
     
     def attr_set_for_update
-      @schedule.sender = login_user.member_code
+      @schedule.sender = login_user.member_code.id
       @schedule.before_title = @schedule.title
       if params[:schedule][:member_code_id].to_i != @schedule.member_code_id
         @schedule.before_member_code = @schedule.member_code_id
@@ -144,7 +144,7 @@ class Employees::SchedulesController < Employees::EmployeesController
     end
     
     def attr_set_for_destroy
-      @schedule.sender = login_user.member_code
+      @schedule.sender = login_user.member_code.id
       @schedule.before_member_code = @schedule.member_code_id
       @schedule.before_title = @schedule.title
       @schedule.before_scheduled_date = @schedule.scheduled_date

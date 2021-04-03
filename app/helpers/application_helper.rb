@@ -200,6 +200,11 @@ module ApplicationHelper
       return "外部スタッフ"
     end
   end
+  
+  def alert_task_title(alert_tasks)
+    alert_tasks.keys.map{|id| Task.title_from_id(id)}.join('/')
+    
+  end    
       
   
   

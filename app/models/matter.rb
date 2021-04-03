@@ -79,8 +79,9 @@ class Matter < ApplicationRecord
     
     def staff_external_staff_connection_and_task_set
       ActiveRecord::Base.transaction do
-        self.tasks.create!(title: "足場架設依頼", status: 1, sort_order: 1) 
-        self.tasks.create!(title: "発注依頼", status: 1, sort_order: 2)
+        Task.auto_set_lists.each_with_index do |task, index|
+          self.tasks.create!(title: task.title, status: 1, sort_order: index, default_task_id: task.id) 
+        end
         self.estimate_matter.member_codes.each do |member_code|
           self.matter_member_codes.create!(member_code_id: member_code.id)
         end

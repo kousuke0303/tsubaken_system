@@ -1,0 +1,21 @@
+<% if @creation_notification_for_task.present? %>
+  <p><i class="fas fa-exclamation-circle fa-green"></i>
+    <%= link_to task_index_notifications_path(action_type: "create"), remote: true do %>
+      <span>担当タスクが<%= @creation_notification_for_task.count %>件追加されました</span>
+    <% end %>
+  </p>
+<% end %>
+<% if @updation_notification_for_task.present? %>
+  <p><i class="fas fa-exclamation-circle fa-green"></i>
+    <%= link_to task_index_notifications_path(action_type: "update"), remote: true do %>
+      <span>担当タスクが<%= @updation_notification_for_task.count %>件変更されました</span>
+    <% end %>
+  </p>
+<% end %>
+<% if @delete_notification_for_task.present? %>
+  <p><i class="fas fa-exclamation-circle fa-green"></i>
+    <%= link_to task_index_notifications_path(action_type: "delete"), remote: true do %>
+      <span>担当タスクが<%= @delete_notification_for_task.count %>件キャンセルされました</span>
+    <% end %>
+  </p>
+<% end %>

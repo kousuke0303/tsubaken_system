@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   resources :notifications, only: :index do
     get :schedule_index, on: :collection
+    get :task_index, on: :collection
     patch :updates, on: :collection
   end
       

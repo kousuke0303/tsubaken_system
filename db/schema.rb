@@ -450,9 +450,11 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "before_value_4"
     t.text "content"
     t.bigint "schedule_id"
+    t.bigint "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["schedule_id"], name: "index_notifications_on_schedule_id"
+    t.index ["task_id"], name: "index_notifications_on_task_id"
   end
 
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -633,7 +635,8 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.string "content"
     t.integer "default_task_id"
     t.integer "default_task_id_count"
-    t.boolean "notification", default: false
+    t.boolean "alert", default: false
+    t.boolean "auto_set", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
     t.bigint "member_code_id"
@@ -686,6 +689,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   add_foreign_key "member_codes", "staffs"
   add_foreign_key "messages", "matters"
   add_foreign_key "notifications", "schedules"
+  add_foreign_key "notifications", "tasks"
   add_foreign_key "plan_names", "label_colors"
   add_foreign_key "reports", "matters"
   add_foreign_key "sales_status_editors", "sales_statuses"

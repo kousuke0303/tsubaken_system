@@ -1,12 +1,12 @@
 <% if current_admin || current_manager %>
   <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-paint-roller"></i><span class="ml-1e">着工案件管理</span>
+    <%= link_to employees_estimate_matters_path do %>
+      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
   <li>
-    <%= link_to employees_estimate_matters_path do %>
-      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
+    <%= link_to employees_matters_path do %>
+      <i class="fas fa-paint-roller"></i><span class="ml-1e">着工案件管理</span>
     <% end %>
   </li>
   <li>
@@ -112,13 +112,13 @@
   
 <% elsif current_staff || current_external_staff %>
   <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <%= link_to employees_estimate_matters_path do %>
+      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
   <li>
-    <%= link_to employees_estimate_matters_path do %>
-      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
+    <%= link_to employees_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
     <% end %>
   </li>
   <li>

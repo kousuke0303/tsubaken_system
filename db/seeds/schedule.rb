@@ -11,7 +11,7 @@ schedules_arrey.each do |schedule|
                     place: place,
                     member_code_id: rand(1..10)
                     )
-    schedule_1.sender = MemberCode.first
+    schedule_1.sender = MemberCode.first.id
     schedule_1.save
     schedule_2 = Schedule.new(title: schedule,
                     scheduled_date: Date.current + 21.day - rand(1..15).day,
@@ -20,7 +20,7 @@ schedules_arrey.each do |schedule|
                     place: place,
                     member_code_id: rand(1..10)
                     )
-    schedule_2.sender = MemberCode.first
+    schedule_2.sender = MemberCode.first.id
     schedule_2.save
   end
 end

@@ -78,6 +78,8 @@ ja:
           title: タスク名
           content: 内容
           moved_on: 移動日
+          alert: 警告表示
+          auto_set: 常時設定
           status: ステータス
           before_status: 前回のステータス
           sort_order: 優先順位

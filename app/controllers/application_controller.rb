@@ -256,7 +256,7 @@ class ApplicationController < ActionController::Base
 
   # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
-    @default_tasks = Task.are_default
+    @default_tasks = Task.are_matter_default_task
     Task.reload_sort_order(@default_tasks)
     
     @relevant_tasks = resource.tasks.are_relevant
@@ -269,6 +269,19 @@ class ApplicationController < ActionController::Base
     Task.reload_sort_order(@finished_tasks)
   end
   
+  def alert_tasks
+    if current_admin || current_manager
+      alert_tasks = Task.all.alert_lists
+      @alert_tasks_count = alert_tasks.count
+      @alert_tasks = alert_tasks.includes(:matter).group_by{|task| task.default_task_id}
+    elsif current_staff || current_external_staff
+      alert_tasks = Task.alert_lists.joins(matter: :member_codes)
+                                    .where(matters: {member_codes: {id: login_user.member_code.id}})
+      @alert_tasks_count = alert_tasks.count
+      @alert_tasks = alert_tasks.group_by{|task| task.default_task_id}
+    end
+  end
+    
   def scaffolding_and_order_requests_relevant_or_ongoing
     if current_admin || current_manager
       @scaffolding_and_order_requests_relevant_or_ongoing = Task.where("(title = ?) OR (title = ?)", "足場架設依頼", "発注依頼")
@@ -310,6 +323,9 @@ class ApplicationController < ActionController::Base
     @creation_notification_for_schedule = @notifications.creation_notification_for_schedule
     @updation_notification_for_schedule = @notifications.updation_notification_for_schedule
     @delete_notification_for_schedule = @notifications.delete_notification_for_schedule
+    @creation_notification_for_task = @notifications.creation_notification_for_task
+    @updation_notification_for_task = @notifications.updation_notification_for_task
+    @delete_notification_for_task = @notifications.delete_notification_for_task
   end
   
 end

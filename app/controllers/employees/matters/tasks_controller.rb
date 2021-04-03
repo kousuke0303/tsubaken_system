@@ -27,7 +27,7 @@ class Employees::Matters::TasksController < Employees::TasksController
         if task.default?
           # デフォルトタスクからコピー
           @matter.tasks.create(title: task.title, content: task.content, status: new_status, default_task_id: task.id, sort_order: sort_order)
-          Task.count_default_tasks(@default_tasks)
+          # Task.count_default_tasks(@default_tasks)
         else
           # タスク移動
           task.update(status: new_status, moved_on: Time.current, before_status: task.status, sort_order: sort_order)
@@ -53,10 +53,13 @@ class Employees::Matters::TasksController < Employees::TasksController
   end
   
   def update
+    @task.sender = login_user.member_code.id
+    set_attr_variable
     set_classified_tasks(@matter) if @task.update(task_params)
   end
   
   def destroy
+     @task.sender = login_user.member_code.id
     if @task.destroy
       flash[:danger] = "タスクを削除しました。"
       unless params[:submit_type] == "change_member"
@@ -89,6 +92,20 @@ class Employees::Matters::TasksController < Employees::TasksController
   private
     def task_params
       params.require(:task).permit(:title, :content, :member_code_id)
+    end
+    
+    def set_attr_variable
+      if @task.member_code_id == nil && params[:task][:member_code_id].present?
+        @task.notification_type = "create"
+      elsif @task.member_code_id != params[:task][:member_code_id].to_i
+        @task.notification_type = "create_destroy"
+        @task.before_member_code = @task.member_code_id
+        @task.before_title = @task.title
+      elsif @task.member_code_id == params[:task][:member_code_id].to_i
+        @task.notification_type = "update"
+        @task.before_title = @task.title
+        @task.before_content = @task.content
+      end
     end
 
 end
