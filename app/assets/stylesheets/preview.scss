@@ -340,32 +340,36 @@
 }
 
 .report-page {
-  position: relative;
   .page-logo {
     margin-bottom: 0.5em;
     padding-right: 2em;
     text-align: right;
   }
   .report-item {
+    background: red;
     margin: 0 auto 2em auto;
     width: 250px;
     .report-title {
       background: #002b80;
       color: white;
       font-size: 0.8em;
-      padding: 0.5em 0;
-      text-align: center;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+  }
+  .empty-report-item {
+    height: 220px;
+    margin-bottom: 2em;
   }
   .page-footer {
     background: #002b80;
     color: white;
     font-size: 0.8em;
+    margin-top: 1em;
     padding: 0.5em 0;
-    position: absolute;
-    bottom: 15px;
     text-align: center;
-    width: 90%;
   }
 }
 
@@ -506,24 +510,23 @@
     font-size: 1.5em;
   }
   .report-page {
-    position: relative;
+    position: static;
     .page-logo {
       padding-right: 4em;
     }
     .report-item {
       margin: 0 auto 2em auto;
-      width: 400px;
+      width: 450px;
       .report-title {
         font-size: 0.8em;
         padding: 0.5em 0;
       }
     }
+    .empty-report-item {
+      height: 390px;
+    }
     .page-footer {
-      font-size: 0.8em;
-      padding: 0.5em 0;
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
+      margin-top: 5em;
     }
   }
 }
