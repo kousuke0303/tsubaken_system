@@ -22,25 +22,5 @@
   </table>
 </div>
 
-<%= javascript_include_tag "Sortable.min.js" %>
-<script>
-  $(function() {
-    let el = document.getElementById("sortable-categories");
-    if (el != null) {
-      const sortable = Sortable.create(el, {
-        animation: 150,
-        delay: 100,
-        onUpdate: function(evt) {
-          $.ajax({
-            type: "PATCH",
-            url: "<%= sort_employees_settings_estimates_categories_path %>",
-            cache: false,
-            data: { from: evt.oldIndex, 
-                    to: evt.newIndex, 
-                    remote: true }
-          });
-        }
-      });
-    }
-  });
-</script>
+<%= javascript_include_tag "sortable/Sortable.min.js" %>
+<%= javascript_include_tag "sortable/categories.js" %>
