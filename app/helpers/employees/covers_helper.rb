@@ -1,2 +1,0 @@
-module Employees::CoversHelper
-end

@@ -19,7 +19,7 @@
   </div>  
   <div class="col-lg-6 col-12">
     <%= f.label :title %>
-    <%= f.text_field :title, required: false, class: "form-control", maxlength: 30 %>
+    <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
   </div>
   <div class="col-lg-6 col-12">
     <%= f.label :publisher_id %>
@@ -97,7 +97,7 @@
   </div>
   <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">画像④</label>
   <div class="tab-content">
-    <%= f.hidden_field :img_4_id, class: "form-control img-2-id-form" %>
+    <%= f.hidden_field :img_4_id, class: "form-control img-4-id-form" %>
     <div class="row">
       <div class="col-12 mt-05e img-status img-4-status <%= "selected-status" if @report_cover.img_1_id.present? %>">
         <%= @report_cover.img_status(@report_cover.img_4_id) %>

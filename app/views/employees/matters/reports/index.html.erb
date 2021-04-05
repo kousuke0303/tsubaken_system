@@ -9,17 +9,33 @@
         <div class="title"><%= @matter.title %> 報告書</div>
         <div class="img-wrapper">
           <div>
-            <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "430x300^", crop: "430x300+0+0" })) %>
+            <% if @cover_img_1.present? %>
+              <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "430x300^", crop: "430x300+0+0" })) %>
+            <% else %>
+              <div class="no-big-img-msg align-center">No<br>Image</div>
+            <% end %>
           </div>
           <div class="sm-img-wrapper">
             <div class="sm-img mr-5">
-              <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "430x110^", crop: "140x110+0+0" })) %>
+              <% if @cover_img_2.present? %>
+                <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "430x110^", crop: "140x110+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
             <div class="sm-img mr-5">
-              <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "140x110^", crop: "140x110+0+0" })) %>
+              <% if @cover_img_3.present? %>
+                <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "140x110^", crop: "140x110+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
             <div class="sm-img">
-              <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "140x110^", crop: "140x110+0+0" })) %>
+              <% if @cover_img_4.present? %>
+                <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "140x110^", crop: "140x110+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
           </div>   
         </div>     
@@ -81,17 +97,33 @@
         <div class="title"><%= @matter.title %> 報告書</div>
         <div class="img-wrapper">
           <div>
-            <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "700x520^", crop: "700x520+0+0" })) %>
+            <% if @cover_img_1.present? %>
+              <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "700x520^", crop: "700x520+0+0" })) %>
+            <% else %>
+              <div class="no-big-img-msg align-center">No<br>Image</div>
+            <% end %>
           </div>
           <div class="sm-img-wrapper">
             <div class="sm-img mr-5">
-              <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% if @cover_img_2.present? %>
+                <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
             <div class="sm-img mr-5">
-              <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% if @cover_img_3.present? %>
+                <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
             <div class="sm-img">
-              <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% if @cover_img_4.present? %>
+                <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "230x180^", crop: "230x180+0+0" })) %>
+              <% else %>
+                <div class="no-sm-img-msg align-center">No<br>Image</div>
+              <% end %>
             </div>
           </div>   
         </div>     

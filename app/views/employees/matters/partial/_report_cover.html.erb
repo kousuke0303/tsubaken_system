@@ -1,26 +1,42 @@
-<h5>
-  表紙
+<h5 class="text-right">
+  <span class="float-l">表紙</span>
   <% if @report_cover.present? %>
-    <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark float-r" %>
+    <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark" %>
   <% else %>
-    <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark float-r" %>
+    <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark" %>
   <% end %>
 </h5>
 <div id="report-cover-flash"></div>
 
 <% if @report_cover.present? %>
-  <div class="row report-cover-show">
+  <div class="row report-cover-show text-center">
     <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
-      <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_1.present? %>
+      <% if @cover_img_1.present? %>
+        <%= image_tag url_for(@cover_img_1.image.variant(combine_options: { gravity: :center, resize: "200x200^", crop: "200x200+0+0" })) %>
+      <% else %>
+        <div class="empty-img-msg align-center">画像①<br>未登録</div>
+      <% end %>
     </div>
     <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
-      <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_2.present? %>
+      <% if @cover_img_2.present? %>
+        <%= image_tag url_for(@cover_img_2.image.variant(combine_options: { gravity: :center, resize: "200x200^", crop: "200x200+0+0" })) %>
+      <% else %>
+        <div class="empty-img-msg align-center">画像②<br>未登録</div>
+      <% end %>
     </div>
     <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
-      <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_3.present? %>
+    <% if @cover_img_3.present? %>
+      <%= image_tag url_for(@cover_img_3.image.variant(combine_options: { gravity: :center, resize: "200x200^", crop: "200x200+0+0" })) %>
+    <% else %>
+      <div class="empty-img-msg align-center">画像③<br>未登録</div>
+    <% end %>
     </div>
     <div class="col-xl-3 col-lg-4 col-md-6 mt-05e">
-      <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "200x200^",crop: "200x200+0+0" })) if @cover_img_4.present? %>
+    <% if @cover_img_4.present? %>
+      <%= image_tag url_for(@cover_img_4.image.variant(combine_options: { gravity: :center, resize: "200x200^", crop: "200x200+0+0" })) %>
+    <% else %>
+      <div class="empty-img-msg align-center">画像④<br>未登録</div>
+    <% end %>
     </div>
   </div>
 <% end %>

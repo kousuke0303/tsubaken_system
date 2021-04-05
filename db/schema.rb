@@ -480,14 +480,14 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   end
 
   create_table "report_covers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "matter_id"
-    t.string "publisher_id"
+    t.string "title", null: false
+    t.string "matter_id", null: false
+    t.string "publisher_id", null: false
     t.integer "img_1_id"
     t.integer "img_2_id"
     t.integer "img_3_id"
     t.integer "img_4_id"
-    t.date "created_on"
+    t.date "created_on", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_report_covers_on_matter_id"
@@ -496,12 +496,11 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
 
   create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
-    t.string "content"
     t.integer "position"
     t.boolean "default", default: false
     t.integer "image_id"
     t.integer "message_id"
-    t.string "matter_id"
+    t.string "matter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_reports_on_matter_id"
