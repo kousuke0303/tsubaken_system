@@ -327,13 +327,14 @@
     .no-big-img-msg {
       background: gainsboro;
       color: white;
-      font-size: 3em;
+      font-size: 4em;
       font-weight: bold;
       height: 300px;
     }
     .no-sm-img-msg {
       background: gainsboro;
       color: white;
+      font-size: 1.5em;
       font-weight: bold;
       height: 110px;
     }
@@ -514,6 +515,14 @@
     }
     .img-wrapper {
       width: 710px;
+      .no-big-img-msg {
+        font-size: 7em;
+        height: 520px;
+      }
+      .no-sm-img-msg {
+        font-size: 3em;
+        height: 230px;
+      }
       .sm-img {
         width: 230px;
       }

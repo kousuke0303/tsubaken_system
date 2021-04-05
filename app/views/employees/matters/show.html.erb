@@ -76,7 +76,6 @@
   
       <div id="collapse-reports" class="collapse" aria-labelledby="headingFour" data-parent="#accordion-reports">
         <div class="card-body">
-          <div id="report-create-flash"></div>
           <h5>画像一覧</h5>
           <div class="image_flex">
             <%= render "employees/matters/partial/reports_images" %>
@@ -88,7 +87,7 @@
             <span class="float-l">報告書一覧</span>       
             <%= link_to "プレビュー", employees_matter_reports_path(@matter), class: "btn btn-success" %>
           </h5>
-          <div id="report-update-flash"></div>
+          <div id="report-flash"></div>
           <div class="reports-index">
             <%= render "employees/matters/partial/reports" %>
           </div>

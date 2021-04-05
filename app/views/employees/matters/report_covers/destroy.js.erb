@@ -1,3 +1,4 @@
+$("#report-cover-edit").modal("hide");
 <% if @responce == "success" %>
   $(".report-cover").html('<%= escape_javascript(render "employees/matters/partial/report_cover") %>');
   <%= render "shared/javascript/flash", dom: "#report-cover-flash", key: "success", value: "報告書表紙を削除しました。" %>
