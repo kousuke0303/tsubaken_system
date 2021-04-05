@@ -48,8 +48,10 @@ module EmployeesHelper
   end
   
   # STAFF_COLOR
-  def staff_color(id)
-    Staff.find(id).label_color.color_code
+  def staff_color(staff_id)
+    if staff_id.present?
+      Staff.find(staff_id).label_color.color_code
+    end
   end
   
   #PUBLISHER_NAME

@@ -1,0 +1,43 @@
+<span class="husen_admin husen mr-1e">
+  <span style="font-size: 15px;">
+    管理者
+  </span>
+</span>
+
+<span class="husen_manager husen mr-1e">
+  <span style="font-size: 15px;">
+    マネージャー
+  </span>
+</span>
+
+<% @staffs.each do |staff| %>
+  <span class="husen_<%= staff.id %> husen mr-1e">
+    <span style="font-size: 15px;">
+      <%= staff.name %>
+    </span>
+  </span>
+<% end %>
+
+<span class="husen_external_staff husen mr-1e">
+  <span style="font-size: 15px;">
+    外部スタッフ
+  </span>
+</span>
+
+
+<script>
+<% @staffs.each do |staff| %>
+  $(document).ready( function(){
+    var staff_color = "<%= staff.label_color.color_code %>";
+    $('.husen_<%= staff.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': `${staff_color}`, 'background': `${staff_color}3b`});
+  });
+<% end %>
+</script>
+
+<script>
+  $(document).ready( function(){
+    $('.husen_manager').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#a486d4", 'background': "#a486d43b"}); 
+    $('.husen_admin').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#dc3545", 'background': "#dc35453b"}); 
+    $('.husen_external_staff').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#e4c35e", 'background': "#e4c35e3b"});
+  });
+</script>

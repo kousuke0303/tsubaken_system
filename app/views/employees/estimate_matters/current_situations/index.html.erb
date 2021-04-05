@@ -1,7 +1,11 @@
 <div class="col-sm-12">
   
   <div id="span_set" class="ml-1e">
-    <%= render partial: 'employees/estimate_matters/progress_table/span_set', locals: { table_type: @table_type, first_day: @first_day, last_day: @last_day } %>
+    <%= render partial: 'employees/estimate_matters/current_situations/partial/span_set' %>
+  </div>
+  
+  <div class="color-detail-container">
+    <%= render partial: 'employees/estimate_matters/current_situations/partial/color_detail' %>
   </div>
   
   <div class="table-responsive progress_table_design">
@@ -24,7 +28,7 @@
         </tr>
       </thead>
       <tbody id="progress_table">
-        <%= render partial: 'employees/estimate_matters/progress_table/progress_table', locals: { target_est_matters: @target_est_matters } %>
+        <%= render partial: 'employees/estimate_matters/current_situations/partial/progress_table' %>
       </tbody>
     </table>
   </div>

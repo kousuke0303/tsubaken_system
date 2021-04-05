@@ -128,6 +128,10 @@ class ApplicationController < ActionController::Base
     @type = "other_tab"
   end
   
+  def current_situations_display
+    @type = "current_situations"
+  end
+  
   def preview_display
     @type = "preview"
   end

@@ -305,6 +305,14 @@ Rails.application.routes.draw do
       end
       resources :covers, except: [:index]
     end
+    
+    scope module: :estimate_matters do
+      resources :current_situations, only: :index do
+        get :move_span, on: :collection
+        get :change_span, on: :collection
+      end
+    end
+    
 
     resources :matters do
       patch :change_estimate, on: :member

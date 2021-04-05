@@ -1,5 +1,4 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
-  # before_action :authenticate_employee!
   
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy, :change_member, :update_member]
   before_action ->{can_access_only_of_member(@estiumate_matter)}, except: :index
@@ -12,10 +11,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   before_action :set_estimate_details, only: :show
   before_action :set_matter_of_estimate_matter, only: :show
   before_action ->{set_menbers_code_for(@estimate_matter)}, only: :show
-  
-  # 現況一覧
-  before_action :set_three_month, only: [:progress_table, :progress_table_for_three_month]
-  before_action :set_six_month, only: :progress_table_for_six_month
   
   def index
     @sales_statuses = SalesStatus.order(created_at: "DESC")
@@ -89,61 +84,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました。" : flash[:alert] = "見積案件を削除できませんでした。"
     redirect_to employees_estimate_matters_url
   end
-
-  def progress_table
-    @type = "progress_table"
-    @table_type = "three_month"
-    est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
-    @target_est_matters = est_matters.group_by{|list| list.created_at.month} 
-  end
-  
-  def progress_table_for_three_month
-    @table_type = "three_month"
-    est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
-    @target_est_matters = est_matters.group_by{|list| list.created_at.month}
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-  def progress_table_for_six_month
-    @table_type = "six_month"
-    est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
-    @target_est_matters = est_matters.group_by{|list| list.created_at.month}
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-  def prev_progress_table
-    if params[:table_type] == "three_month"
-      @table_type = "three_month"
-      set_three_month
-    elsif params[:table_type] == "six_month"
-      @table_type = "six_month"
-      set_six_month
-    end
-    est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
-    @target_est_matters = est_matters.group_by{|list| list.created_at.month}
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-  def next_progress_table
-    if params[:table_type] == "three_month"
-      @table_type = "three_month"
-      set_three_month
-    elsif params[:table_type] == "six_month"
-      @table_type = "six_month"
-      set_six_month
-    end
-    est_matters = EstimateMatter.where(created_at: @first_day..@last_day)
-    @target_est_matters = est_matters.group_by{|list| list.created_at.month}
-    respond_to do |format|
-      format.js
-    end
-  end
   
   def change_member
     if params[:staff_id].present?
@@ -188,16 +128,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       elsif current_external_staff
         @estimate_matters = current_external_staff.estimate_matters.order(created_at: :desc)
       end
-    end
-
-    def set_three_month
-      @last_day = params[:date].nil? ? Date.current.end_of_month : params[:date].to_date.end_of_month
-      @first_day = @last_day.ago(2.month).beginning_of_month
-    end
-    
-    def set_six_month
-      @last_day = params[:date].nil? ? Date.current.end_of_month : params[:date].to_date.end_of_month
-      @first_day = @last_day.ago(5.month).beginning_of_month
     end
     
     def delete_estimate_matter_relation_table

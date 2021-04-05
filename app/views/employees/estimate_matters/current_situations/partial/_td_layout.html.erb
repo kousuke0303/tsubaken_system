@@ -1,0 +1,24 @@
+<div class="husen_<%= est_matter.id %> husen">
+  <%= est_matter.title %>
+  <div>
+    <span style="font-size: 12px;">
+      <%= est_matter.sales_statuses.last.scheduled_date.strftime("%m/%d") %>
+      <%= member_name(est_matter.sales_statuses.last) %>
+    </span>
+  </div>
+</div>
+
+<script>
+$(document).ready( function(){
+  <% if @staff_id = est_matter.sales_statuses.last.member_code.staff_id %>
+    var staff_color = "<%= staff_color( @staff_id) %>";
+    $('.husen_<%= est_matter.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': `${staff_color}`, 'background': `${staff_color}3b`});
+  <% elsif @manager_id = est_matter.sales_statuses.last.member_code.manager_id %>
+    $('.husen_<%= est_matter.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#a486d4", 'background': "#a486d43b"}); 
+  <% elsif @admin_id = est_matter.sales_statuses.last.member_code.admin_id %>
+    $('.husen_<%= est_matter.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#dc3545", 'background': "#dc35453b"}); 
+  <% elsif @external_staff_id = est_matter.sales_statuses.last.member_code.external_staff_id %>
+    $('.husen_<%= est_matter.id %>').css({'border-left-style': 'solid', 'border-left-width': '10px', 'border-left-color': "#e4c35e", 'background': "#e4c35e3b"});
+  <% end %>
+});
+</script>

@@ -25,6 +25,7 @@ class EstimateMatter < ApplicationRecord
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{ name }").ids) }
   scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{ year + "-" + format('%02d', month) }%") }
+  scope :for_span, ->(first_day, last_day){ where(created_at: first_day..last_day).order(:created_at)}
 
   # 営業履歴と左外部結合
   scope :with_sales_statuses, -> {
@@ -40,6 +41,7 @@ class EstimateMatter < ApplicationRecord
   scope :for_progress, -> {
     joins(:sales_statuses).where.not(sales_statuses: { status: 14})
   }
+  
   
   private
   

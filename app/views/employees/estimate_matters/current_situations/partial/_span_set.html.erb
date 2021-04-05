@@ -1,0 +1,73 @@
+<div class="row">
+
+  <% if @span.span == 3 %>
+    <div class="col-sm-8 progress_table_pager">
+      <ul class="pagination">
+        <li>
+          <%= link_to move_span_employees_current_situations_path(date: @span.first_day.prev_month, span: @span.span), remote: true do %>
+            <span class="fas fa-angle-double-left"></span>
+          <% end %>
+        </li>
+        <li class="span_disp"><span><%= @span.first_day.strftime('%y/%m') %>月 - <%= @span.last_day.strftime('%y/%m') %>月</span></li>
+        <li>
+          <%= link_to move_span_employees_current_situations_path(date: @span.last_day.since(3.month), span: @span.span), remote: true do  %>
+          <span class="fas fa-angle-double-right"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <button id="six_month", class="btn btn-dark float-r mt-1e mr-1e mb-05e">６ヶ月表示</button>
+    </div>
+    
+  <% elsif @span.span == 6 %>
+    <div class="col-sm-8 progress_table_pager">
+      <ul class="pagination">
+        <li>
+          <%= link_to move_span_employees_current_situations_path(date: @span.first_day.prev_month, table_type: "six_month"), remote: true do %>
+            <span class="fas fa-angle-double-left"></span>
+          <% end %>
+        </li>
+        <li class="span_disp"><span><%= @span.first_day.strftime('%y/%m') %>月 - <%= @span.last_day.strftime('%y/%m') %>月</span></li>
+        <li>
+          <%= link_to move_span_employees_current_situations_path(date: @span.last_day.since(6.month), table_type: "six_month"), remote: true do %>
+            <span class="fas fa-angle-double-right"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <button id="three_month", class="btn btn-dark float-r mt-1e mr-1e mb-05e">３ヶ月表示</button>
+    </div>
+  <% end %>
+</div>
+
+<!--6月表示に切り替え-->
+<script>
+  $('#six_month').on('click', function(){
+    var last_day = new Date(<%= @span.last_day.to_time.to_f * 1000 %>);
+    $.ajax({
+      type: "GET",
+      url: "<%= change_span_employees_current_situations_path %>",
+      cache: false,
+      data: { span: 6,
+              reference_date: last_day,
+              remote: true }
+    })
+  })
+</script>
+
+<!--３月表示に切り替え-->
+<script>
+  $('#three_month').on('click', function(){
+    var last_day = new Date(<%= @span.last_day.to_time.to_f * 1000 %>);
+    $.ajax({
+      type: "GET",
+      url: "<%= change_span_employees_current_situations_path %>",
+      cache: false,
+      data: { span: 3,
+              reference_date: last_day,
+              remote: true }
+    })
+  })
+</script>
