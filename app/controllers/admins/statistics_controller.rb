@@ -11,28 +11,10 @@ class Admins::StatisticsController < ApplicationController
     @est_matters_for_span = est_matters.where(created_at: @first_day..@last_day)
     @matters_for_span = matters.where(created_at: @first_day..@last_day)
     ## 年間
-    day_for_one_years_ago = (Date.current - 12.month).beginning_of_month
-    est_matters_for_one_year = est_matters.where(created_at: day_for_one_years_ago..@last_day)
-    matter_for_one_year = matters.where(created_at: day_for_one_years_ago..@last_day)
+    @day_for_one_years_ago = (Date.current - 12.month).beginning_of_month
     
-    ###### 月別営業カウント ########
-    est_count_for_month = est_matters_for_one_year.group("YEAR(created_at)").group("MONTH(created_at)").count
-    @hash_est_count_for_month = Hash.new() 
-    est_count_for_month.each do |key, value|
-      new_key = "#{key[0]}/#{key[1]}"
-      @hash_est_count_for_month.store(new_key, value)
-    end
-    
-    ###### 月別売上 #########
-    total_price_for_matter = matter_for_one_year.joins(:estimate)
-                                          .group("YEAR(matters.created_at)").group("MONTH(matters.created_at)")
-                                          .sum('estimates.total_price')
-    @hash_total_price_for_month = Hash.new() 
-    total_price_for_matter.each do |key, value|
-      new_key = "#{key[0]}/#{key[1]}"
-      @hash_total_price_for_month.store(new_key, value)
-    end 
-    
+    ###### 年間：月別統計 ########
+    statics_for_month
     
     ###### 営業詳細分析 ########
     date_for_estimate_matters_count
@@ -61,6 +43,37 @@ class Admins::StatisticsController < ApplicationController
   end
   
   private
+    def statics_for_month
+      # 営業案件数データ
+      @hash_est_count_for_month = Hash.new()
+      # 売上データ
+      @hash_total_price_for_month = Hash.new()
+      
+      13.times do |n|
+        first_day = @day_for_one_years_ago + n.month
+        last_day = first_day.end_of_month
+        estimate_matters = EstimateMatter.where(created_at: first_day..last_day)
+        matters = Matter.where(created_at: first_day..last_day)
+        key = "#{first_day.year}/#{first_day.month}"
+        if estimate_matters.present?
+          value = estimate_matters.count
+          @hash_est_count_for_month.store(key, value)
+        else
+          value = 0
+          @hash_est_count_for_month.store(key, value)
+        end
+        if matters.present?
+          value = matters.joins(:invoice).sum('invoices.total_price')
+          
+          @hash_total_price_for_month.store(key, value)
+        else
+          value = 0
+          @hash_total_price_for_month.store(key, value)
+        end
+      end        
+    end
+  
+  
     #### 営業案件関連DATE ########
     def date_for_estimate_matters_count
       # 1.グラフ用配列型を作成（中身はHash）
@@ -77,16 +90,18 @@ class Admins::StatisticsController < ApplicationController
       # 2.表示用データの型作成
       @est_matter_date_for_table = []
       
-      # 3.包括的変数
-      est_join_contracts = @est_matters_for_span.left_joins(:estimate_matter_staffs, :sales_statuses).where(sales_statuses: {status: 6})
-      matter_join_price = @est_matters_for_span.left_joins(estimates: {matter: :matter_staffs})
+      #### 3.包括的変数 ####
+      #　ステータスが契約の営業案件
+      est_matter_for_contracts = @est_matters_for_span.joins(:sales_statuses).where(sales_statuses: {status: 6})
+      #  
+      matter_join_price = @est_matters_for_span.joins(matter: :invoice)
       
       # 4.各配列にデータを格納(staff関連)
       Staff.all.each do |staff|
         # 変数取得
-        number_of_contracts_of_staff = est_join_contracts.where(estimate_matter_staffs: { staff_id: staff.id }).count
+        number_of_contracts_of_staff = est_matter_for_contracts.joins(:member_codes).where(member_codes: { staff_id: staff.id }).count
         est_number = staff.estimate_matters.where(created_at: @first_day..@last_day).count
-        total_price_of_staff = matter_join_price.where(estimates: {matters: { matter_staffs: { staff_id: staff.id }}}).sum('estimates.total_price')
+        total_price_of_staff = matter_join_price.joins(:member_codes).where( member_codes: { staff_id: staff.id }).sum('invoices.total_price')
         # グラフ用
         contract_hash[:data] << [staff.name, number_of_contracts_of_staff]
         uncontract_hash[:data] << [staff.name, est_number - number_of_contracts_of_staff]
@@ -100,18 +115,18 @@ class Admins::StatisticsController < ApplicationController
       end
       
       # 5.staffが関係していない営業案件
-        number_of_contracts_of_nonstaff = est_join_contracts.where(estimate_matter_staffs: { estimate_matter_id: nil }).count
-        est_number_of_nonstaff = @est_matters_for_span.left_joins(:estimate_matter_staffs).where(estimate_matter_staffs: {estimate_matter_id: nil}).count
-        total_price_of_nonstaff = matter_join_price.where(matter_staffs: { matter_id: nil }).sum('estimates.total_price')
+        number_of_contracts_except_staff = est_matter_for_contracts.joins(:member_codes).where(member_codes: { staff_id: nil }).count
+        est_number_except_stafff = est_matter_for_contracts.joins(:member_codes).where(member_codes: {staff_id: nil}).count
+        total_price_except_staff = matter_join_price.joins(:member_codes).where(member_codes: { staff: nil }).sum('invoices.total_price')
         # グラフ用
-        contract_hash[:data] << ["その他", number_of_contracts_of_nonstaff]
-        uncontract_hash[:data] << ["その他", est_number_of_nonstaff - number_of_contracts_of_nonstaff]
+        contract_hash[:data] << ["その他", number_of_contracts_except_staff]
+        uncontract_hash[:data] << ["その他", est_number_except_stafff - number_of_contracts_except_staff]
         # 表示用
         tr_hash = Hash.new()
         tr_hash[:name] = "その他"
-        tr_hash[:est_number] = est_number_of_nonstaff
-        tr_hash[:contract] = number_of_contracts_of_nonstaff
-        tr_hash[:price] = total_price_of_nonstaff
+        tr_hash[:est_number] = est_number_except_stafff
+        tr_hash[:contract] = number_of_contracts_except_staff
+        tr_hash[:price] = total_price_except_staff
         @est_matter_date_for_table << tr_hash
     end
     
@@ -160,34 +175,75 @@ class Admins::StatisticsController < ApplicationController
     end
     
     ##### 広告別営業件数 #########
+    
     def date_for_estimate_matters_attract_count
+      # graph用型
+      # {"タウンページ"=>1, "チラシ広告"=>1, "未設定"=>0}
       # 営業件数
-      @graph_date_for_attract_count = AttractMethod.left_joins(:estimate_matters).where(estimate_matters: { created_at: @first_day..@last_day}).group(:name).count
+      @graph_date_for_attract_count = Hash.new()
+      
+      AttractMethod.includes(:estimate_matters).each do |attract|
+        if EstimateMatter.where(created_at: @first_day..@last_day, attract_method_id: attract.id).present?
+          value = EstimateMatter.where(created_at: @first_day..@last_day, attract_method_id: attract.id).count
+        else
+          value = 0
+        end
+        @graph_date_for_attract_count.store(attract.name, value)
+      end
+      
       # 広告未設定の数
       date_for_no_attract_count = @est_matters_for_span.where(attract_method_id: nil).count
       # 未設定数追加
       @graph_date_for_attract_count.store("未設定", date_for_no_attract_count)
       
       ### 表示用 ###
-      # 成約数
-      date_for_attract_count = AttractMethod.left_joins(estimate_matters: :sales_statuses).where(estimate_matters: { created_at: @first_day..@last_day}).where(estimate_matters: { sales_statuses: { status: 6}}).group(:name).count
-      # 売上高
-      date_for_price = AttractMethod.left_joins(estimate_matters: {matter: :estimate}).where(estimate_matters: { created_at: @first_day..@last_day}).where.not(estimate_matters: {matters: {estimate_matter_id: nil}})
-                                    .group(:name).sum('estimates.total_price')
-      # 未設定売上高
-      non_date_for_price = @est_matters_for_span.joins(matter: :estimate).where(matters: {estimate_matter_id: nil}).where(attract_method_id: nil).sum('estimates.total_price')
-      # 未設定数追加
-      date_for_price.store("未設定", non_date_for_price)
-      # 整形　merageだとnilの時配列にならない
+      # 表示用型
+      # {"name"=>[案件数, 成約数, 売上], "チラシ広告"=>[1, 0, 10000], "未設定"=>[0,0,0]}
       @table_date_for_attract_count = Hash.new()
-      @graph_date_for_attract_count.each do |key, val|
-        if date_for_attract_count.keys.include?(key)
-          date = [val, date_for_attract_count[key]]
+      
+      # 成約数
+      contract_count_for_attract_method = AttractMethod.left_joins(estimate_matters: :sales_statuses)
+                                             .where(estimate_matters: { created_at: @first_day..@last_day})
+                                             .where(estimate_matters: { sales_statuses: { status: 6}})
+                                             .group(:name).count
+      # 売上高
+      price_for_attract_method = AttractMethod.left_joins(estimate_matters: {matter: :invoice})
+                                 .where(estimate_matters: { created_at: @first_day..@last_day})
+                                 .where.not(estimate_matters: {matters: {estimate_matter_id: nil}})
+                                 .group(:name).sum('invoices.total_price')
+      # 未設定成約数
+      contract_for_no_attract = Matter.joins(:estimate_matter)
+                                      .where(estimate_matters: {created_at: @first_day..@last_day, attract_method_id: nil})
+      # 未設定売上高
+      price_for_no_attract = @est_matters_for_span.joins(matter: :invoice).where(attract_method_id: nil).sum('invoices.total_price')
+      
+      @graph_date_for_attract_count.each do |key, est_count|
+        attract_date = []
+        attract_date << est_count
+        if key == "未設定"
+          if contract_for_no_attract.present?
+            attract_date << contract_for_no_attract
+          else
+            attract_date << 0
+          end
+          if price_for_no_attract.present?
+            attract_date << price_for_no_attract
+          else
+            attract_date << 0
+          end
         else
-          date =[val, 0]
+          if contract_count_for_attract_method[key].present?
+            attract_date << contract_count_for_attract_method[key]
+          else
+            attract_date << 0
+          end
+          if price_for_attract_method[key].present?
+            attract_date << price_for_attract_method[key]
+          else
+            attract_date << 0
+          end
         end
-        @table_date_for_attract_count.store(key, date)
+        @table_date_for_attract_count.store(key, attract_date)
       end
-      @table_date_for_attract_count.merge(date_for_price){|k, v1, v2| v1 << v2}
     end
 end
