@@ -324,6 +324,19 @@
     margin: 0 auto;
     padding: 5px;
     width: 440px;
+    .no-big-img-msg {
+      background: gainsboro;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+      height: 300px;
+    }
+    .no-sm-img-msg {
+      background: gainsboro;
+      color: white;
+      font-weight: bold;
+      height: 110px;
+    }
     .sm-img-wrapper {
       display: flex;
       margin-top: 5px;
