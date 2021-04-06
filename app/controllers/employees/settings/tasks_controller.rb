@@ -13,7 +13,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
 
   def create
     sort_order = Task.are_default.length
-    @task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
+    @task = Task.new(default_task_params.merge(status: 0))
     if @task.save
       flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_settings_tasks_url
@@ -39,8 +39,6 @@ class Employees::Settings::TasksController < Employees::EmployeesController
     from = params[:from].to_i + 1
     task = Task.find_by(position: from)
     task.insert_at(params[:to].to_i + 1)
-    task.save
-    p task.position
     @tasks = Task.are_default
   end
 
