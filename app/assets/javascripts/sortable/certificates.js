@@ -7,7 +7,7 @@ $(function() {
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: "<%= sort_employees_estimate_matter_certificates_path(@estimate_matter.id) %>",
+          url: "/employees/estimate_matters/:estimate_matter_id/certificates/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 
