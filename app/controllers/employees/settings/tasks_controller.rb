@@ -15,7 +15,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
     sort_order = Task.are_default.length
     @task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
     if @task.save
-      flash[:success] = "デフォルトタスクを作成しました。"
+      flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_settings_tasks_url
     end
   end
@@ -25,14 +25,13 @@ class Employees::Settings::TasksController < Employees::EmployeesController
 
   def update
     if @task.update(default_task_params)
-      flash[:success] = "デフォルトタスクを更新しました。"
+      flash[:success] = "デフォルトタスクを更新しました"
       redirect_to employees_settings_tasks_url
     end
   end
 
   def destroy
-    @task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
-    Task.reload_sort_order(Task.are_default)
+    @task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
     redirect_to employees_settings_tasks_url
   end
 
@@ -40,6 +39,8 @@ class Employees::Settings::TasksController < Employees::EmployeesController
     from = params[:from].to_i + 1
     task = Task.find_by(position: from)
     task.insert_at(params[:to].to_i + 1)
+    task.save
+    p task.position
     @tasks = Task.are_default
   end
 

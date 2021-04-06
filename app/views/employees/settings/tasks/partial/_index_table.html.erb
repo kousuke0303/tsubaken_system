@@ -22,7 +22,7 @@
           <td class="text-center">
             <% if task.auto_set %>
               <i class="fas fa-check"></i>
-            <% end %>
+            <% end %><%= task.position %>
           </td>
           <td class="text-center">
             <%= link_to "編集", edit_employees_settings_task_path(task), remote: true, class: "btn btn-sm btn-dark" %>
