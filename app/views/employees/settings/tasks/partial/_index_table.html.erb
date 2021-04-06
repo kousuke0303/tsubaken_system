@@ -10,23 +10,23 @@
       </tr>
     </thead>
     <tbody id="sortable-tasks">
-      <% @default_tasks.each do |default_task| %>
+      <% @tasks.each do |task| %>
         <tr class="tr-sortable">
-          <td><%= default_task.title %></td>
-          <td><%= default_task.content %></td>
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
           <td class="text-center">
-            <% if default_task.alert %>
+            <% if task.alert %>
               <i class="fas fa-check"></i>
             <% end %>
           </td>
           <td class="text-center">
-            <% if default_task.auto_set %>
+            <% if task.auto_set %>
               <i class="fas fa-check"></i>
             <% end %>
           </td>
           <td class="text-center">
-            <%= link_to "編集", edit_employees_settings_task_path(default_task), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+            <%= link_to "編集", edit_employees_settings_task_path(task), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_task_path(task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
           </td>
         </tr>
       <% end %>

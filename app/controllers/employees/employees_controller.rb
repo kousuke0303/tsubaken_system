@@ -36,6 +36,10 @@ class Employees::EmployeesController < ApplicationController
         end
       end
     end
+
+    def set_task
+      @task = Task.find(params[:id])
+    end
     
     def set_publishers
       @publishers = Publisher.order(position: :asc)

@@ -7,7 +7,7 @@ $(function() {
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: "<%= sort_employees_settings_tasks_path %>",
+          url: "/employees/settings/tasks/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 
