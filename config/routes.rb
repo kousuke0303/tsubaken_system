@@ -387,7 +387,9 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       
