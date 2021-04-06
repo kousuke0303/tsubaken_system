@@ -277,12 +277,12 @@ class ApplicationController < ActionController::Base
     if current_admin || current_manager
       alert_tasks = Task.all.alert_lists
       @alert_tasks_count = alert_tasks.count
-      @alert_tasks = alert_tasks.includes(:matter).group_by{|task| task.default_task_id}
+      @alert_tasks = alert_tasks.includes(:matter).group_by{ |task| task.default_task_id }
     elsif current_staff || current_external_staff
       alert_tasks = Task.alert_lists.joins(matter: :member_codes)
-                                    .where(matters: {member_codes: {id: login_user.member_code.id}})
+                                    .where(matters: { member_codes: { id: login_user.member_code.id } })
       @alert_tasks_count = alert_tasks.count
-      @alert_tasks = alert_tasks.group_by{|task| task.default_task_id}
+      @alert_tasks = alert_tasks.group_by{ |task| task.default_task_id }
     end
   end
     
