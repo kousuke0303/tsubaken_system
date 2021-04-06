@@ -54,6 +54,7 @@ class Employees::MattersController < Employees::EmployeesController
     @images = @matter.images.select{ |image| image.image.attached? }
     @report_cover = @matter.report_cover    
     set_images_of_report_cover if @report_cover.present?
+    gon.matter_id = @matter.id
   end
 
   def edit

@@ -47,6 +47,7 @@ gem 'chartkick'
 gem 'acts_as_list'
 # seed用の偽名作成
 gem 'gimei'
+gem 'gon'
 
 group :development, :test do
   gem 'mysql2'
