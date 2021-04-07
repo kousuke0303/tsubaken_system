@@ -10,7 +10,7 @@
   
 <div class="news_container">
   <% if @estimate_matters.present? %>
-    <%= render 'employees/staffs/retirements/estimate_matter' %>
+    <%= render "employees/staffs/retirements/estimate_matter" %>
   <% else %>
    <p>現状、未着手・着工中の担当案件はありません</p>
    <% @process_2 = true %>
@@ -26,7 +26,7 @@
   
   <div class="news_container">
     <% if @matters.present? %>
-      <%= render 'employees/staffs/retirements/matter' %>
+      <%= render "employees/staffs/retirements/matter" %>
     <% else %>
      <p>現状、未着手・着工中の担当案件はありません</p>
      <% @process_3 = true %>
@@ -43,7 +43,7 @@
   
   <div class="news_container">
     <% if @tasks.present? %>
-      <%= render 'employees/staffs/retirements/task' %>
+      <%= render "employees/staffs/retirements/task" %>
     <% else %>
      <p>現状、未着手・進行中のタスクはありません</p>
      <% @process_4 = true %>
@@ -60,7 +60,7 @@
     
   <div class="news_container">
     <div id="schedule_index_for_retirement">
-      <%= render 'employees/staffs/retirements/schedule' %>
+      <%= render ”employees/staffs/retirements/schedule” %>
     </div>
   </div>
 <% end %>
@@ -78,7 +78,7 @@
         <div class="input-group col-md-6">
           <%= f.date_field :resigned_on, required: true, class: "form-control" %>
           <div class="input-group-append">        
-            <input type="submit" value="更新" class="btn btn-primary" id="create_btn">
+            <input type="submit" value="更新" class="btn btn-primary">
           </div>
         </div>
       <% end %>

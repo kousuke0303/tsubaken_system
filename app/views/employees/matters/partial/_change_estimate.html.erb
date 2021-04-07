@@ -2,7 +2,7 @@
   <div class="input-group">
     <%= f.collection_select :estimate_id, @estimates, :id, :name, { prompt: "採用見積を選択" }, class: "form-control", required: true, id: "change_estimate" %>
     <div class="input-group-append">        
-      <input type="submit" value="変更" class="btn btn-primary" id="create_btn">
+      <input type="submit" value="変更" class="btn btn-primary">
     </div>
   </div>
 <% end %>
