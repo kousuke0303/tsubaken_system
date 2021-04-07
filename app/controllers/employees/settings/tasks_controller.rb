@@ -1,6 +1,5 @@
 class Employees::Settings::TasksController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
-  before_action :set_employees_settings_tasks, only: :index
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
@@ -13,7 +12,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
 
   def create
     sort_order = Task.are_default.length
-    @task = Task.new(default_task_params.merge(status: 0))
+    @task = Task.new(default_task_params.merge(status: "default"))
     if @task.save
       flash[:success] = "デフォルトタスクを作成しました"
       redirect_to employees_settings_tasks_url
@@ -43,10 +42,6 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   end
 
   private
-    def set_employees_settings_tasks
-      @employees_settings_tasks = "employees_settings_tasks"
-    end
-
     def default_task_params
       params.require(:task).permit(:title, :content, :alert, :auto_set)
     end
