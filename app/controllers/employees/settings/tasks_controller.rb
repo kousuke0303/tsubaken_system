@@ -11,7 +11,6 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   end
 
   def create
-    sort_order = Task.are_default.length
     @task = Task.new(default_task_params.merge(status: "default"))
     if @task.save
       flash[:success] = "デフォルトタスクを作成しました"
@@ -36,7 +35,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
 
   def sort
     from = params[:from].to_i + 1
-    task = Task.find_by(position: from)
+    task = Task.are_default.find_by(position: from)
     task.insert_at(params[:to].to_i + 1)
     @tasks = Task.are_default
   end
