@@ -2,17 +2,24 @@
   <h4 class="title_layout">取引先業種一覧</h4>
                        
   <div class="industry-create-errors"></div>
-  <%= form_with(model: @industry, url: employees_settings_companies_industries_path, method: :post, remote: true) do |f| %>    
-    <div class="input-group col-md-6">
-      <%= f.label "業種" %>
-      <%= f.text_field :name, class: "form-control", id: "industry-create" %>
-      <div class="input-group-append">        
-        <input type="submit" value="新規作成" class="btn btn-primary">
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <label>業種</label>
     </div>
-  <% end %>
-  
-  <%= render "shared/sortable_explanation" %>
+    <div class="col-md-6">
+      <%= form_with(model: @industry, url: employees_settings_companies_industries_path, method: :post, remote: true) do |f| %>    
+        <div class="input-group">          
+          <%= f.text_field :name, class: "form-control", id: "industry-create" %>
+          <div class="input-group-append">        
+            <input type="submit" value="新規作成" class="btn btn-primary">
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= render "shared/sortable_explanation" %>
+    </div>
+  </div>
   
   <div class="industries-index">
     <%= render "employees/settings/companies/industries/partial/index_table" %>
