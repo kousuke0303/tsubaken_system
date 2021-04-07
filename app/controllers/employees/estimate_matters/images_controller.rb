@@ -10,7 +10,7 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
   def create
     @image = current_estimate_matter.images.new(image_params)
     if @image.save
-      @image.update("#{login_user.auth}_id".to_sym => login_user.id)
+      @image.update("#{ login_user.auth }_id".to_sym => login_user.id)
       flash[:success] = "写真を作成しました"
       redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
     end

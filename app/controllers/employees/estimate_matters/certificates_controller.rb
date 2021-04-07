@@ -12,7 +12,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
 
   def new
     @certificate = Certificate.new
-    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
+    @certificates = Certificate.where(default: true).group_by{ |certificate| certificate.title }
     @cover = current_estimate_matter.build_cover
     @covers = Cover.where(default: true)
     set_publishers
@@ -20,7 +20,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
   end
   
   def select_title
-    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
+    @certificates = Certificate.where(default: true).group_by{ |certificate| certificate.title }
     @select_certificates = @certificates[params[:title]]
   end
 
@@ -40,7 +40,7 @@ class Employees::EstimateMatters::CertificatesController < Employees::EstimateMa
 
   def edit
     @image = @certificate.image
-    @certificates = Certificate.where(default: true).group_by{|certificate| certificate.title}
+    @certificates = Certificate.where(default: true).group_by{ |certificate| certificate.title }
   end
 
   def update

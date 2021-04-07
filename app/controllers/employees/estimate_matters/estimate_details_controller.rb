@@ -36,9 +36,8 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     
     #素材・工事が空のものを削除     
     @target_details.where(material_id: nil).where(construction_id: nil).destroy_all if @add_material_array != "nil" || @add_construction_array != "nil"
-    
-    # 順番変更
-    change_order
+        
+    change_order # 順番変更
     @estimate.calc_total_price
     set_estimates_with_plan_names_and_label_colors
     set_estimate_details
