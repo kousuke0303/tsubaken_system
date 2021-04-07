@@ -1,5 +1,5 @@
 class Employees::Settings::Companies::PublishersController < Employees::Settings::CompaniesController
-  before_action :set_publisher, except: [:new, :create]
+  before_action :set_publisher, except: [:new, :create, :sort]
 
   def new
     @publisher = Publisher.new
@@ -8,7 +8,7 @@ class Employees::Settings::Companies::PublishersController < Employees::Settings
   def create
     @publisher = Publisher.new(publisher_params)
     if @publisher.save
-      flash[:success] = "発行元を作成しました。"
+      flash[:success] = "発行元を作成しました"
       redirect_to employees_settings_companies_url
     end
   end
@@ -19,7 +19,7 @@ class Employees::Settings::Companies::PublishersController < Employees::Settings
 
   def update
     if @publisher.update(publisher_params)
-      flash[:success] = "発行元を更新しました。"
+      flash[:success] = "発行元を更新しました"
       redirect_to employees_settings_companies_url
     end
   end

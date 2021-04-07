@@ -29,7 +29,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     if params[:client_id]
       client = Client.find(params[:client_id])
       @id = client.id
-      @title = "#{client.name} 様邸" 
+      @title = "#{ client.name } 様邸" 
       @postal_code = client.postal_code
       @prefecture_code = client.prefecture_code
       @address_city = client.address_city
@@ -42,7 +42,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     params[:estimate_matter][:member_code_ids].flatten!
     @estimate_matter = EstimateMatter.new(estimate_matter_params)
     if @estimate_matter.save
-      flash[:success] = "見積案件を作成しました。"
+      flash[:success] = "見積案件を作成しました"
       redirect_to employees_estimate_matters_url(@estimate_matter)
     end
   end
@@ -75,13 +75,13 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     params[:estimate_matter][:member_code_ids].flatten!
     if @estimate_matter.update(estimate_matter_params)
       delete_estimate_matter_relation_table
-      flash[:success] = "見積案件を更新しました。"
+      flash[:success] = "見積案件を更新しました"
       redirect_to employees_estimate_matter_url(@estimate_matter)
     end
   end
 
   def destroy
-    @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました。" : flash[:alert] = "見積案件を削除できませんでした。"
+    @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました" : flash[:alert] = "見積案件を削除できませんでした"
     redirect_to employees_estimate_matters_url
   end
   
@@ -100,7 +100,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     params[:estimate_matter][:member_code_ids].flatten!
     @estimate_matter.update(estimate_matter_params)
     delete_estimate_matter_relation_table
-    flash[:success] = "#{@estimate_matter.title}の担当者を変更しました"
+    flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
     if params[:estimate_matter][:staff_id].present?
       @staff = Staff.find(params[:estimate_matter][:staff_id])
       redirect_to retirement_process_employees_staff_url(@staff)

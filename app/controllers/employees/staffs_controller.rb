@@ -12,7 +12,7 @@ class Employees::StaffsController < Employees::EmployeesController
   def create
     @staff = Staff.new(staff_params.merge(password: "password", password_confirmation: "password"))
     if @staff.save
-      flash[:success] = "Staffを作成しました。"
+      flash[:success] = "Staffを作成しました"
       redirect_to employees_staff_url(@staff)
     end
   end
@@ -27,7 +27,7 @@ class Employees::StaffsController < Employees::EmployeesController
 
   def update
     if update_resource(@staff, staff_params)
-      flash[:success] = "Staff情報を更新しました。"
+      flash[:success] = "Staff情報を更新しました"
       redirect_to employees_staff_url(@staff)
     else
       render :show
@@ -36,7 +36,7 @@ class Employees::StaffsController < Employees::EmployeesController
   
   def pass_update
     if @staff.update(staff_pass_params)
-      flash[:success] = "パスワードを更新しました。"
+      flash[:success] = "パスワードを更新しました"
       redirect_to employees_staff_url(@staff)
     else
       render :show
