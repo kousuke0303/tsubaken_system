@@ -21,11 +21,7 @@ class Employees::MattersController < Employees::EmployeesController
     @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(estimate_id: params[:matter][:estimate_id].to_i,
                                                                             scheduled_started_on: params[:matter][:scheduled_started_on],
                                                                             scheduled_finished_on: params[:matter][:scheduled_finished_on]))
-    if @matter.save
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @matter.save ? @responce = "success" : @responce = "failure"
   end
 
   def index
@@ -131,5 +127,4 @@ class Employees::MattersController < Employees::EmployeesController
       set_color_code_of_invoice     
       set_invoice_details
     end
-    
 end

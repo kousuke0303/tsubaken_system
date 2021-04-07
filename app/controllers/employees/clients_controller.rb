@@ -15,7 +15,7 @@ class Employees::ClientsController < Employees::EmployeesController
     end
     @client = Client.new(client_params.merge(login_id: login_id, password: "password", password_confirmation: "password"))
     if @client.save
-      flash[:success] = "顧客を作成しました。"
+      flash[:success] = "顧客を作成しました"
       redirect_to employees_client_url(@client)
     end
   end
@@ -43,14 +43,14 @@ class Employees::ClientsController < Employees::EmployeesController
   end
 
   def destroy
-    @client.destroy ? flash[:success] = "顧客を削除しました。" : flash[:alert] = "顧客を削除できませんでした。"
+    @client.destroy ? flash[:success] = "顧客を削除しました" : flash[:alert] = "顧客を削除できませんでした"
     redirect_to employees_clients_url
   end
 
   def reset_password
     password = (0...8).map{ ("a".."z").to_a[rand(26)] }.join
     @client.update(tmp_password: password, password: password, password_confirmation: password)
-    flash[:notice] = "顧客の仮パスワードを発行しました。"
+    flash[:notice] = "顧客の仮パスワードを発行しました"
     redirect_to employees_client_path(@client)
   end
 
