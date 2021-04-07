@@ -15,14 +15,10 @@
           <td><%= task.title %></td>
           <td><%= task.content %></td>
           <td class="text-center">
-            <% if task.alert %>
-              <i class="fas fa-check"></i>
-            <% end %>
+            <%= content_tag(:i, "", class: "fas fa-check") if task.alert %>
           </td>
           <td class="text-center">
-            <% if task.auto_set %>
-              <i class="fas fa-check"></i>
-            <% end %>
+            <%= content_tag(:i, "", class: "fas fa-check") if task.auto_set %>
           </td>
           <td class="text-center">
             <%= link_to "編集", edit_employees_settings_task_path(task), remote: true, class: "btn btn-sm btn-dark" %>
