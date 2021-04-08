@@ -2,7 +2,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
-  before_action :set_employees, only: [:daily, :individual]
+  before_action :set_employees, only: [:new, :daily, :individual]
   before_action :set_new_attendance, only: [:daily, :individual]
   before_action :set_attendance, only: [:update, :destroy]
 
@@ -38,9 +38,6 @@ class Employees::AttendancesController < Employees::EmployeesController
 
   def new
     @attendance = Attendance.new
-    @managers = Manager.all
-    @staffs = Staff.all
-    @external_staffs = ExternalStaff.all
     @prev_action = params[:prev_action]
   end
   
@@ -59,7 +56,7 @@ class Employees::AttendancesController < Employees::EmployeesController
     end
     create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
     if @attendance.update(employee_attendance_params)
-      flash[:success] = "勤怠を作成しました。"
+      flash[:success] = "勤怠を作成しました"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
       else
@@ -70,7 +67,7 @@ class Employees::AttendancesController < Employees::EmployeesController
 
   def update
     if @attendance.update(employee_attendance_params.except(:worked_on, :manager_id, :staff_id, :external_staff_id))
-      flash[:success] = "勤怠を更新しました。"
+      flash[:success] = "勤怠を更新しました"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
       else
@@ -125,7 +122,7 @@ class Employees::AttendancesController < Employees::EmployeesController
         @attendance = resource.attendances.where(worked_on: date).first
       end
     rescue ActiveRecord::RecordInvalid 
-      flash[:alert] = "ページ情報の取得に失敗しました。"
+      flash[:alert] = "ページ情報の取得に失敗しました"
       redirect_to root_url
     end
 end

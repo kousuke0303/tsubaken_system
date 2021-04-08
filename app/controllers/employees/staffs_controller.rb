@@ -48,7 +48,7 @@ class Employees::StaffsController < Employees::EmployeesController
     @estimate_matters = @staff.estimate_matters.left_joins(:matter).where(matters: {estimate_matter_id: nil})
     @tasks = Matter.joins(:tasks)
                    .where(tasks: { member_code_id: @staff.member_code.id })
-                   .where.not(tasks: { status: 3})
+                   .where.not(tasks: { status: 3 })
                    .select('matters.id AS matter_id, matters.title AS matter_title', 'tasks.*')
     @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
   end
@@ -66,7 +66,7 @@ class Employees::StaffsController < Employees::EmployeesController
   def destroy
     @staff.accept = params[:staff][:accept].to_i
     if @staff.valid?(:destroy_check) && @staff.relation_destroy
-      flash[:notice] = "#{@staff.name}を削除しました"
+      flash[:notice] = "#{ @staff.name }を削除しました"
       redirect_to employees_staffs_url
     end
   end

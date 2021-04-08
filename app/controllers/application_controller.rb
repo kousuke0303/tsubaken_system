@@ -17,27 +17,15 @@ class ApplicationController < ActionController::Base
   end
   
   def self_manager
-    if @manager.present? && @manager == current_manager
-      current_manager
-    else
-      false
-    end
+    @manager.present? && @manager == current_manager ? current_manager : false
   end
   
   def self_staff
-    if @staff.present? && @staff == current_staff
-      current_staff
-    else
-      false
-    end
+    @staff.present? && @staff == current_staff ? current_staff : false
   end
   
   def self_external_staff
-    if @external_staff.present? && @external_staff == current_external_staff
-      current_external_staff
-    else
-      false
-    end
+    @external_staff.present? && @external_staff == current_external_staff ? current_external_staff : false
   end
   
   # --------------------------------------------------------

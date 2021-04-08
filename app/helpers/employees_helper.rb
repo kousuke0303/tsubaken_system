@@ -3,48 +3,28 @@ module EmployeesHelper
   # 編集権限があるかどうか(1対多) ※estimate_matter
   def update_authority?(object)
     if current_admin || current_manager
-      return true
+      true
     elsif current_staff
-      if object.staffs.find(current_staff.id).present?
-        return true
-      else
-        return false
-      end
+      object.staffs.find(current_staff.id).present? ? true : false
     elsif current_external_staff
-      if object.external_staffs.find(current_external_staff.id).present?
-        return true
-      else
-        return false
-      end
+       object.external_staffs.find(current_external_staff.id).present? ? true : false
     end
   end
   
   # 編集権限があるかどうか(1対1) ※schedule
   def update_authority_for_one?(object)
     if current_admin || current_manager
-      return true
+      true
     elsif current_staff
-      if object.staff_id == current_staff.id
-        return true
-      else
-        return false
-      end
+      object.staff_id == current_staff.id ? true : false
     elsif current_external_staff
-      if object.external_staff_id == current_external_staff.id
-        return true
-      else
-        return false
-      end
+      object.external_staff_id == current_external_staff.id ? true : false
     end
   end
   
   # 担当者の名前表示
   def member_name(schedule_or_sales_status)
-    if schedule_or_sales_status.member_name.present?
-      schedule_or_sales_status.member_name
-    else
-      "登録なし"
-    end
+    schedule_or_sales_status.member_name.present? ? schedule_or_sales_status.member_name : "登録なし"
   end
   
   # STAFF_COLOR
@@ -56,17 +36,13 @@ module EmployeesHelper
   
   #PUBLISHER_NAME
   def publisher_name(id)
-    if id.present?
-      Publisher.find(id).name
-    else
-      false
-    end
+    id.present? ? Publisher.find(id).name : false
   end
   
   def home_icon(color, text)
     content_tag(:div, class: "home_icon") do
-      concat(content_tag(:div, "", class: "triangle", style: "border-bottom-color: #{color}"))
-      concat(content_tag(:div, class: "square", style: "background: #{color}") do
+      concat(content_tag(:div, "", class: "triangle", style: "border-bottom-color: #{ color }"))
+      concat(content_tag(:div, class: "square", style: "background: #{ color }") do
         concat(content_tag(:div, class: "window") do
           concat(content_tag(:div) do
             concat(content_tag(:p, "■■"))
@@ -83,7 +59,7 @@ module EmployeesHelper
     if user.avaliable == false
       content_tag(:div, class: "text-right") do
         content_tag(:h3) do
-          content_tag(:span, "アカウント利用停止中", class: "badge badge-danger" )
+          content_tag(:span, "アカウント利用停止中", class: "badge badge-danger")
         end
       end
     end
