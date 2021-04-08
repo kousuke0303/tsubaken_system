@@ -1,4 +1,4 @@
-<div class="col-lg-12 col-md-12">
+<div class="col-12">
   <!--▼出退勤ボタンの表示-->
   <ul class="nav nav-tabs title_tab_bar">
     <li class="nav-item">
@@ -6,7 +6,7 @@
     </li>
   </ul>
   <div class="mt-1e text-center">
-    <%= render partial: "common_layouts/attendances/top_attendance", locals: { target: current_staff, attendance: @attendance, path: :staffs_attendance_path } %>
+    <%= render "common_layouts/attendances/top_attendance", target: current_staff, attendance: @attendance, path: :staffs_attendance_path %>
   </div>
   
   <ul class="nav nav-tabs title_tab_bar">
@@ -19,18 +19,19 @@
     <div class="top_page_contents">
     <!--足場・発注勧告-->
       <% if @alert_tasks %>
-        <p><i class="fas fa-exclamation-circle fa-orange"></i>
-          <span><%= link_to "未完了タスク【#{alert_task_title(@alert_tasks)}】：#{ @alert_tasks_count }件", staffs_index_path, remote: true %></span>
+        <p>
+          <i class="fas fa-exclamation-circle fa-orange"></i>
+          <span><%= link_to "未完了タスク【#{ alert_task_title(@alert_tasks) }】：#{ @alert_tasks_count }件", staffs_index_path, remote: true %></span>
         </p>
       <% end %>
     <!--出退勤関係-->
       <% if @own_error_attendances %>
-        <%= render partial: 'common_layouts/attendances/own_error_attendances', 
-                   locals: {path: :staffs_attendances_path} %>
+        <%= render "common_layouts/attendances/own_error_attendances", path: :staffs_attendances_path %>
       <% end %>
     <!--PASS関連--> 
       <% unless current_staff.password_condition %>
-        <p><i class="fas fa-exclamation-circle fa-red"></i>
+        <p>
+          <i class="fas fa-exclamation-circle fa-red"></i>
           <span><%= link_to "自身のログインパスワードが初期値のままです", edit_staff_registration_path(current_staff) %></span>
         </p>
       <% end %>
@@ -48,8 +49,8 @@
   <div class="news_container">
     <div class="top_page_contents">
       <% if @notifications %>
-        <%= render 'common_layouts/notifications/schedule_notification_lists' %>
-        <%= render 'common_layouts/notifications/task_notification_lists' %>
+        <%= render "common_layouts/notifications/schedule_notification_lists" %>
+        <%= render "common_layouts/notifications/task_notification_lists" %>
       <% end %>   
       <% unless @applicate_schedules || @notifications %>
         <p>新着情報はありません</p>
@@ -66,6 +67,4 @@
   <div class="mt-1e">
     <!--<!%= render 'matter/ganttchart/index' %>-->
   </div>
-
 </div>
-

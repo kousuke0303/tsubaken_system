@@ -1,5 +1,5 @@
 <div class="col-12">
-   <%= render partial: 'layouts/page_title', locals: { title_1: "STAFF一覧", title_2: nil, icon: "fa-user-tie"} %>
+   <%= render "layouts/page_title", title_1: "STAFF一覧", title_2: nil, icon: "fa-user-tie" %>
   
   <div class="row">
     <div class="col-md-5 col-12">
@@ -28,23 +28,14 @@
           <th>入社日</th>
         </tr>
       </thead>
-      <tbody id="enrolled">
+      <tbody id="tab1">
         <%= render "/employees/staffs/partial/index_table", objects: @enrolled_staffs %>
       </tbody>
-      <tbody id="retired" style="display: none;">
+      <tbody id="tab2" style="display: none;">
         <%= render "/employees/staffs/partial/index_table", objects: @retired_staffs %>
       </tbody>
     </table>
   </div>
 </div>
 
-<script>
-  $("#radio1").on("click", function(){
-    $("#enrolled").show();
-    $("#retired").hide();
-  });
-  $("#radio2").on("click", function(){
-    $("#enrolled").hide();
-    $("#retired").show();
-  });
-</script>
+<%= javascript_include_tag "switch_tab.js" %>

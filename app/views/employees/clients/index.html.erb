@@ -40,10 +40,10 @@
           <th></th>
         </tr>
       </thead>
-      <tbody id="has_matter">
+      <tbody id="tab1">
         <%= render "/employees/clients/partial/index_table", objects: @clients, display_type: @display_type %>
       </tbody>
-      <tbody id="no_matter" style="display: none;">
+      <tbody id="tab2" style="display: none;">
         <%= render "/employees/clients/partial/index_table", objects: @no_matter_clients, display_type: @display_type %>
       </tbody>
       <tbody id="search_clients"></tbody>
@@ -51,15 +51,4 @@
   </div>
 </div>
 
-<script>
-  $('#radio2').on('click', function(){
-    $('#no_matter').show();
-    $('#has_matter').hide();
-    $('#search_clients').hide();
-  });
-  $('#radio1').on('click', function(){
-    $('#no_matter').hide();
-    $('#has_matter').show();
-    $('#search_clients').hide();
-  });
-</script>
+<%= javascript_include_tag "switch_tab.js" %>
