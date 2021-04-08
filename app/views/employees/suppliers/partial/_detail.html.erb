@@ -38,4 +38,37 @@
     <%= link_to "編集", edit_employees_supplier_path(@supplier), remote: true, class: "btn btn-dark" %>
     <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
   </div>
+
+  <div class="accordion mt-1e" id="staffs-of-supplier">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingOne">
+        <h5 class="text-light">
+          所属外部Staff
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-staffs" aria-expanded="true" aria-controls="collapse-staffs">
+            詳細
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapse-staffs" class="collapse" aria-labelledby="headingOne" data-parent="#staffs-of-supplier">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered text-nowrap common-table">
+              <tr>
+                <th>名前</th>
+                <th>ログインID</th>
+                <th>電話番号</th>
+              </tr>
+              <% @external_staffs.each do |external_staff| %>
+                <tr>
+                  <td><%= link_to external_staff.name,employees_external_staff_path(external_staff) %></td>
+                  <td><%= external_staff.login_id %></td>
+                  <td><%= external_staff.phone %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

@@ -1,5 +1,5 @@
-<div class="col-lg-12 col-md-12">
-  <%= render partial: 'layouts/page_title', locals: { title_1: "顧客情報", title_2: "#{@client.name} 様 詳細", icon: "fa-address-book"} %>
+<div class="col-12">
+  <%= render "layouts/page_title", title_1: "顧客情報", title_2: "#{ @client.name } 様 詳細", icon: "fa-address-book" %>
   
   <div class="select-switch mt-1e">
     <input type="radio" name="switch" id="radio1" checked>
@@ -8,23 +8,13 @@
     <label for="radio2" class="mt-0">関連案件</label>
   </div>
   
-  <div class="client_info">
+  <div id="tab1">
     <%= render "employees/clients/partial/detail" %>
   </div>
   
-  <div class="client_matters mt-1e" style="display: none;">
+  <div id="tab2" class="mt-1e" style="display: none;">
     <%= render "employees/clients/partial/relation_matters" %>
   </div>
 </div>
 
-<script>
-  $('#radio2').on('click', function(){
-    $('.client_matters').show();
-    $('.client_info').hide();
-  });
-  
-  $('#radio1').on('click', function(){
-    $('.client_matters').hide();
-    $('.client_info').show();
-  });
-</script>
+<%= javascript_include_tag "switch_tab.js" %>
