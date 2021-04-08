@@ -1,10 +1,9 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{current_admin.name} の編集", icon: "fa-user-edit"} %>
+  <%= render "layouts/page_title", title_1: "アカウント", title_2: "#{ current_admin.name } の編集", icon: "fa-user-edit" %>
   
   <div class="avator_container">
-    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: current_admin, 
-                                                         edit_path: :admins_avator_change_path,
-                                                         destroy_path: :admins_avator_destroy_path} %>
+    <%= render "common_layouts/avators/avator", login_user: current_admin, edit_path: :admins_avator_change_path,
+                                                destroy_path: :admins_avator_destroy_path %>
   </div>
       
   <div class="card mt-1e">
@@ -13,13 +12,13 @@
         <%= render "shared/error_messages", resource: resource %>
         
         <div class="row">
-          <label class="form-control text-white" style="background:#787a7b;">氏名</label>   
+          <label class="form-control text-white" style="background: #787a7b;">氏名</label>   
           <div class="col-md-6">
             <%= f.label :name %>
             <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
           </div>
           <div class="col-md-6"></div>
-          <label class="form-control text-white" style="background:#787a7b;">連絡先</label>   
+          <label class="form-control text-white" style="background: #787a7b;">連絡先</label>   
           <div class="col-md-6">
             <%= f.label :phone %>
             <%= f.telephone_field :phone, class: "form-control", pattern: "^0\[0-9]{2,3}\[0-9]{1,4}\[0-9]{4}$", maxlength: 11 %>

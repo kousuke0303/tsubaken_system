@@ -628,13 +628,13 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "category"
     t.string "title", default: "", null: false
+    t.integer "position"
     t.integer "status"
     t.integer "before_status"
     t.datetime "moved_on"
     t.integer "sort_order"
     t.string "content"
     t.integer "default_task_id"
-    t.integer "default_task_id_count"
     t.boolean "alert", default: false
     t.boolean "auto_set", default: false
     t.string "estimate_matter_id"

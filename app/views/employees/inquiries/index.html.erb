@@ -6,22 +6,12 @@
     <input type="radio" name="switch" id="radio2">
     <label for="radio2" class="mt-0">解決済</label>
   </div>
-  <div id="unsolved">
+  <div id="tab1">
     <%= render "employees/inquiries/partial/index_table", inquiries: @unsolved_inquiries, type: "unsolved" %>
   </div>
-  <div id="solved" style="display: none;">
+  <div id="tab2" style="display: none;">
     <%= render "employees/inquiries/partial/index_table", inquiries: @solved_inquiries, type: "solved" %>
   </div>
 </div>
 
-<script>
-  $("#radio1").click(function(){
-    $("#unsolved").show();
-    $("#solved").hide();
-  });
-  $("#radio2").click(function(){
-    $("#solved").show();
-    $("#unsolved").hide();
-  });
-</script>
-
+<%= javascript_include_tag "switch_tab.js" %>

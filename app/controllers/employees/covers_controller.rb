@@ -2,27 +2,19 @@ class Employees::CoversController < Employees::EstimateMatters::EstimateMattersC
 
   def create
     @cover = current_estimate_matter.build_cover(covers_params)
-    if @cover.save
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @cover.save ? @responce = "success" : @responce = "failure"
   end
   
   def edit
     @cover = Cover.find(params[:id])
     @image = @cover.image
-    @publishers = Publisher.all
+    set_publishers
     @covers = Cover.where(default: true)
   end
   
   def update
     @cover = Cover.find(params[:id])
-    if @cover.update(covers_params)
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @cover.update(covers_params) ? @responce = "success" : @responce = "failure"
   end
   
   def destroy
@@ -34,5 +26,4 @@ class Employees::CoversController < Employees::EstimateMatters::EstimateMattersC
     def covers_params
       params.require(:cover).permit(:publisher_id, :title, :content, :image_id)
     end
-
 end

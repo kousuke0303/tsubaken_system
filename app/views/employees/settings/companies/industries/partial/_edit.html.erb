@@ -1,0 +1,22 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body pa-2e">
+      <div class="card mb-3">
+        <h5 class="card-header">業種編集</h5>
+        <div class="card-body">
+          <%= form_with(model: @industry, url: employees_settings_companies_industry_path(@industry), method: :patch, remote: true) do |f| %>
+            <div class="industry-update-errors"></div>
+              <%= f.label :name %>
+              <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+            <div class="btn-area">
+              <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>

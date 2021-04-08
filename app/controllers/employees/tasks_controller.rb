@@ -23,10 +23,6 @@ class Employees::TasksController < Employees::EmployeesController
   end
 
   private
-    def set_task
-      @task = Task.find(params[:id])
-    end
-
     # paramsで送られてきたstatusをenumの数値に変換
     def convert_to_status_num(status)
       case status

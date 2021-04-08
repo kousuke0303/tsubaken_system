@@ -7,11 +7,7 @@ class Employees::Settings::Companies::AttractMethodsController < Employees::Sett
 
   def create
     @attract_method = AttractMethod.new(attract_method_params)
-    if @attract_method.save
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @attract_method.save ? @responce = "success" : @responce = "failure"
     set_attract_methods
   end
 
@@ -19,20 +15,12 @@ class Employees::Settings::Companies::AttractMethodsController < Employees::Sett
   end
 
   def update
-    if @attract_method.update(attract_method_params)
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @attract_method.update(attract_method_params) ? @responce = "success" : @responce = "failure"    
     set_attract_methods
   end
 
   def destroy
-    if @attract_method.destroy
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @attract_method.destroy ? @responce = "success" : @responce = "failure"    
     set_attract_methods
   end
 

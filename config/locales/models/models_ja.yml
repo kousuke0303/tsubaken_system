@@ -16,7 +16,6 @@ ja:
       industry: 取引先業種
       department: 部署
       category: 工事部位
-      kind: 見積書タイプ
       image: 画像
       construction: 工事
       material: 素材
@@ -26,24 +25,16 @@ ja:
       inquiry: お問合せ
       invoice: 請求書
       invoice_ditail: 請求書詳細
+      report: 報告書
+      report_cover: 報告書表紙
     attributes:
         admin:
           name: 名前
         manager:
-          name: 名前
-          joined_on: 入社日
-          department_id: 部署
-          resigned_on: 退社日
-          postal_code: 郵便番号
-          prefecture_code: 都道府県
-          address_city: 市区町村及び町名
-          address_street: 番地以下
+          name: 名前        
           accept: 同意
         staff:
-          name: 名前
-          department_id: 部署
-          joined_on: 入社日
-          resigned_on: 退社日
+          name: 名前                    
           accept: 同意
         external_staff:
           name: 名前
@@ -51,12 +42,10 @@ ja:
           accept: 同意
         client:
           name: 名前
-          gender: 性別
-          fax: FAX番号
+          gender: 性別          
           confirmed: ログインを許可
         supplier:
           name: 業者名
-          fax: FAX番号
           representative: 代表者名
           industries: 業種
         attendance:
@@ -69,7 +58,6 @@ ja:
           scheduled_start_time: 開始予定時刻
           scheduled_end_time: 終了予定時刻
           place: 場所
-          note: 備考
           edit_reason: 変更理由
         publisher:
           name: 会社名
@@ -88,16 +76,12 @@ ja:
           limited_on: 期限
         estimate_matter:
           title: 案件名
-          status: 進行状況
-          actual_spot: 現場住所
-          client_id: 顧客          
+          status: 進行状況                              
           attract_method_id: 集客方法
         estimate:
-          title: 見積名
-          discount: 端数値引
+          title: 見積名          
         invoice:
           title: 見積名
-          discount: 端数値引
           paid_on: 支払日
         estimate_detail:
           category_name: カテゴリ名
@@ -118,7 +102,6 @@ ja:
         matter:
           title: 案件名
           status: 進行状況
-          actual_spot: 現場住所
           scheduled_started_on: 着工予定日
           started_on: 着工日
           scheduled_finished_on: 完工予定日
@@ -153,8 +136,7 @@ ja:
           images: 写真
           shooted_on: 撮影日
         construction:
-          name: 工事名
-          category_id: カテゴリ
+          name: 工事名          
           accept: 確認事項
         material:
           name: 素材名
@@ -166,8 +148,7 @@ ja:
           accept: 確認事項
         certificate:
           title: 診断書名
-          content: 内容
-          category_id: カテゴリ
+          content: 内容          
           default: デフォルト
         cover:
           title: タイトル
@@ -197,6 +178,9 @@ ja:
     kana: フリガナ
     phone_1: 電話番号①
     phone_2: 電話番号②
+    fax: FAX番号
+    joined_on: 入社日
+    resigned_on: 退社日
     postal_code: 郵便番号
     prefecture_code: 都道府県
     address_city: 市区町村及び町名
@@ -211,12 +195,17 @@ ja:
     updated_at: 更新日
     password: パスワード
     password_confirmation: パスワード再入力
+    discount: 端数値引
+    actual_spot: 現場住所
     client: 顧客
     manager: Manager
     staff: Staff
     supplier: 外注先
     staff_id: Staff
     external_staff_id: 外部Staff
-    label_color_id: ラベルカラー
+    label_color_id: カラー
     plan_name_id: プラン名
     publisher_id: 発行元
+    department_id: 部署
+    client_id: 顧客
+    category_id: カテゴリ

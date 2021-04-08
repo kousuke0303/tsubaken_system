@@ -7,7 +7,7 @@ $(function() {
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: "<%= sort_employees_settings_others_label_colors_path %>",
+          url: "/employees/settings/others/label_colors/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 

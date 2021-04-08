@@ -7,11 +7,7 @@ class Employees::Settings::Companies::DepartmentsController < Employees::Setting
 
   def create
     @department = Department.new(department_params)
-    if @department.save
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @department.save ? @responce = "success" : @responce = "failure"
     set_departments
   end
 
@@ -19,11 +15,7 @@ class Employees::Settings::Companies::DepartmentsController < Employees::Setting
   end
 
   def update
-    if @department.update(department_params)
-      @responce = "success"
-    else
-      @responce = "faliure"
-    end
+    @department.update(department_params) ? @responce = "success" : @responce = "failure"      
     set_departments
   end
 

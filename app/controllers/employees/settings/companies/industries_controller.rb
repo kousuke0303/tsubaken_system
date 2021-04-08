@@ -3,29 +3,20 @@ class Employees::Settings::Companies::IndustriesController < Employees::Settings
 
   def create
     @industry = Industry.new(industry_params)
-    if @industry.save
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @industry.save ? @responce = "success" : @responce = "failure"
     set_industries
   end
 
+  def edit
+  end
+
   def update
-    if @industry.update(industry_params)
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @industry.update(industry_params) ? @responce = "success" : @responce = "failure"
     set_industries
   end
 
   def destroy
-    if @industry.destroy
-      @responce = "success"
-    else
-      @responce = "failure"
-    end
+    @industry.destroy ? @responce = "success" : @responce = "failure"
     set_industries
   end
 

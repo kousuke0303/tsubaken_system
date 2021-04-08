@@ -5,7 +5,7 @@ class Span
   attr_accessor :last_day
   attr_accessor :span
   
-  def one_manth
+  def one_month
     self.first_day = Date.current.beginning_of_month
     self.last_day = first_day.end_of_month
   end
@@ -21,6 +21,4 @@ class Span
     self.last_day = reference_date.end_of_month
     self.span = 6
   end
-    
-      
 end

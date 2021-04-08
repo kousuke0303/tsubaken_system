@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>内容</th>
+        <th>警告表示設定</th>
+        <th>常時設定</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="sortable-tasks">
+      <% @tasks.each do |task| %>
+        <tr class="tr-sortable">
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td class="text-center">
+            <%= content_tag(:i, "", class: "fas fa-check") if task.alert %>
+          </td>
+          <td class="text-center">
+            <%= content_tag(:i, "", class: "fas fa-check") if task.auto_set %>
+          </td>
+          <td class="text-center">
+            <%= link_to "編集", edit_employees_settings_task_path(task), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_task_path(task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

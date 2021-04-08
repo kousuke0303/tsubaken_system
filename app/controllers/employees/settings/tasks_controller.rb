@@ -1,6 +1,5 @@
 class Employees::Settings::TasksController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
-  before_action :set_employees_settings_tasks, only: :index
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
@@ -11,7 +10,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   end
 
   def new
-    @default_task = Task.new
+    @task = Task.new
   end
 
   def create
@@ -28,28 +27,26 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   end
 
   def update
-    if @default_task.update(default_task_params)
-      flash[:success] = "デフォルトタスクを更新しました。"
+    if @task.update(default_task_params)
+      flash[:success] = "デフォルトタスクを更新しました"
       redirect_to employees_settings_tasks_url
     end
   end
 
   def destroy
-    @default_task.destroy ? flash[:success] = "デフォルトタスクを削除しました。" : flash[:alert] = "デフォルトタスクを削除できませんでした。"
-    Task.reload_sort_order(Task.are_default)
+    @task.destroy ? flash[:success] = "デフォルトタスクを削除しました" : flash[:alert] = "デフォルトタスクを削除できませんでした"
     redirect_to employees_settings_tasks_url
   end
 
-  private
-    def set_employees_settings_tasks
-      @employees_settings_tasks = "employees_settings_tasks"
-    end
+  def sort
+    from = params[:from].to_i + 1
+    task = Task.are_default.find_by(position: from)
+    task.insert_at(params[:to].to_i + 1)
+    @tasks = Task.are_default
+  end
 
+  private
     def default_task_params
       params.require(:task).permit(:category, :title, :content, :alert, :auto_set)
-    end
-
-    def set_task
-      @default_task = Task.find(params[:id])
     end
 end

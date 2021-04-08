@@ -1,17 +1,16 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{current_staff.name} の編集", icon: "fa-user-edit"} %>
+  <%= render "layouts/page_title", title_1: "アカウント", title_2: "#{ current_staff.name } の編集", icon: "fa-user-edit" %>
   
   <div class="avator_container">
-    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: current_staff, 
-                                                                 edit_path: :staffs_avator_change_path,
-                                                                 destroy_path: :staffs_avator_destroy_path} %>
+    <%= render "common_layouts/avators/avator",login_user: current_staff, edit_path: :staffs_avator_change_path,
+                                                                          destroy_path: :staffs_avator_destroy_path %>
   </div>
   
   <div class="card mt-1e">
     <div class="card-body">
       <%= form_with(model:@staff, url: staff_registration_path, local: true) do |f| %>
         <%= render "shared/error_messages", resource: @staff %>
-        <%= render 'staffs/registrations/partial/form', f: f %>
+        <%= render "staffs/registrations/partial/form", f: f %>
       
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>

@@ -16,13 +16,13 @@ class Employees::InquiriesController < Employees::EmployeesController
 
   def update
     if @inquiry.update(inquiry_params)
-      flash[:notice] = "お問合せを更新しました。"
+      flash[:notice] = "お問合せを更新しました"
       redirect_to employees_inquiry_url(@inquiry)
     end
   end
 
   def destroy
-    @inquiry.destroy ? flash[:notice] = "お問合せを削除しました。" : flash[:alert] = "お問合せの削除に失敗しました。"
+    @inquiry.destroy ? flash[:notice] = "お問合せを削除しました" : flash[:alert] = "お問合せの削除に失敗しました"
     redirect_to employees_inquiries_url
   end
 

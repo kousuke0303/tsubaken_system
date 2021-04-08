@@ -3,13 +3,13 @@ class CreateTasks < ActiveRecord::Migration[5.1]
     create_table :tasks do |t|
       t.integer :category
       t.string :title,         null: false, default: ""
+      t.integer :position
       t.integer :status
       t.integer :before_status
       t.datetime :moved_on
       t.integer :sort_order
       t.string :content
       t.integer :default_task_id
-      t.integer :default_task_id_count
       t.boolean :alert, default: false
       t.boolean :auto_set, default: false
       t.string :estimate_matter_id

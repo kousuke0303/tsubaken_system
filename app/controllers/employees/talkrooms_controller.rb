@@ -24,14 +24,14 @@ class Employees::TalkroomsController < Employees::EmployeesController
       renderer_env["warden"] = warden
       
       if message.photo.attached?
-        recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: {message: message, sender: @sender, photo: url_for(message.photo) })
-        sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: {message: message, sender: @sender, photo: url_for(message.photo)})
+        recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: { message: message, sender: @sender, photo: url_for(message.photo) })
+        sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: { message: message, sender: @sender, photo: url_for(message.photo)})
       else
         photo = nil
-        recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: {message: message, sender: @sender, photo: photo })
-        sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: {message: message, sender: @sender, photo: photo})
+        recieve_html = renderer.render(partial: "employees/talkrooms/add_recieve_message", locals: { message: message, sender: @sender, photo: photo })
+        sender_html = renderer.render(partial: "employees/talkrooms/add_own_message", locals: { message: message, sender: @sender, photo: photo})
       end
-      ActionCable.server.broadcast "talk_room_channel_#{@matter.id}", recieve_html: recieve_html, sender_html: sender_html, sender: @sender
+      ActionCable.server.broadcast "talk_room_channel_#{ @matter.id }", recieve_html: recieve_html, sender_html: sender_html, sender: @sender
     end
   end
   
@@ -44,7 +44,7 @@ class Employees::TalkroomsController < Employees::EmployeesController
     # 先頭のidから以前のデータが６個以上あるか否かで場合分
     if next_front_id >= matter_first_message_id
       matter_messages = Message.where(matter_id: @matter.id).limit(6).offset(next_front_id - 1)
-      @messages_by_date = matter_messages.group_by{|list| list.created_at.to_date} 
+      @messages_by_date = matter_messages.group_by{ |list| list.created_at.to_date } 
       @search = "true"
       respond_to do |format|
         format.js
@@ -56,7 +56,7 @@ class Employees::TalkroomsController < Employees::EmployeesController
       end
     elsif matter_first_message_id > next_front_id
       matter_messages = Message.where(matter_id: @matter.id).limit(matter_first_message_id - next_front_id)
-      @messages_by_date = matter_messages.group_by{|list| list.created_at.to_date} 
+      @messages_by_date = matter_messages.group_by{ |list| list.created_at.to_date } 
       @search = "true"
       respond_to do |format|
         format.js

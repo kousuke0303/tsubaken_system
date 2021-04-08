@@ -1,20 +1,16 @@
 class Task < ApplicationRecord
-  
+  belongs_to :estimate_matter, optional: true
+  belongs_to :matter, optional: true
+  belongs_to :member_code, optional: true
+  has_many :notifications, dependent: :destroy
+
   before_save :member_name_update
   after_commit :add_default_task_for_auto_set, on: :create
   after_commit :create_notification, on: :update
   after_commit :default_deadline
   after_destroy :destroy_notification
-  after_find :count
   
-  # 自己結合
-  has_many :copy_task, class_name: "Task", foreign_key: "default_task_id"
-  belongs_to :original, class_name: "Task", foreign_key: "default_task_id", optional: true
-  
-  belongs_to :estimate_matter, optional: true
-  belongs_to :matter, optional: true
-  belongs_to :member_code, optional: true
-  has_many :notifications, dependent: :destroy
+  acts_as_list scope: [:status]
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, length: { maximum: 300 }
@@ -23,11 +19,9 @@ class Task < ApplicationRecord
   
   enum status: { default: 0, relevant: 1, ongoing: 2, finished: 3 }
   enum category: { individual: 0, estimate_matter: 1, matter: 2} 
-  
-  scope :are_default, -> { default.order(alert: :desc)
-                                  .order(auto_set: :desc)
-                                  .order(default_task_id_count: :desc) }
-  scope :are_matter_default_task, -> {default.where(auto_set: false).order(default_task_id_count: :desc) }
+   
+  scope :are_default, -> { default.order(position: :asc) }
+  scope :are_matter_default_task, -> { are_default.where(auto_set: false) }
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
@@ -105,21 +99,10 @@ class Task < ApplicationRecord
   end
   
   private
-  
-  #-----------------------------------------------------
-    # VALIDATION_METHOD
-  #-----------------------------------------------------
-  
-  # 担当者は一名に制限
-  def only_in_charge
-    errors.add(:base, "担当者は一名までです") if self.staff && self.external_staff
-  end
-  
-  
   #-----------------------------------------------------
     # CALLBACK_METHOD
   #-----------------------------------------------------
-  
+
   def count
     if self.default?
       count = Task.where("default_task_id = ?", self.id).count
@@ -142,8 +125,7 @@ class Task < ApplicationRecord
     if self.default? && self.auto_set?
       matters_for_add_task = Matter.where.not(status: 2)
       matters_for_add_task.each do |matter|
-        matter.tasks.create(title: self.title, content: self.content,
-                            status: 1, default_task_id: self.id)
+        matter.tasks.create(title: self.title, content: self.content, status: 1, default_task_id: self.id)
       end
     end
   end

@@ -47,6 +47,8 @@ gem 'chartkick'
 gem 'acts_as_list'
 # seed用の偽名作成
 gem 'gimei'
+# JSにRubyの変数を渡す
+gem 'gon'
 
 group :development, :test do
   gem 'mysql2'

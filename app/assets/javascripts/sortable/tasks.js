@@ -1,5 +1,5 @@
 $(function() {
-  let el = document.getElementById("sortable-categories");
+  let el = document.getElementById("sortable-tasks");
   if (el != null) {
     const sortable = Sortable.create(el, {
       animation: 150,
@@ -7,7 +7,7 @@ $(function() {
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: "/employees/settings/estimates/categories/sort",
+          url: "/employees/settings/tasks/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 

@@ -26,7 +26,7 @@ class Employees::ManagersController < Employees::EmployeesController
 
   def update
     if update_resource(@manager, manager_params)
-      flash[:success] = "Manager情報を更新しました。"
+      flash[:success] = "Manager情報を更新しました"
       redirect_to employees_manager_url(@manager)
     else
       render :show
@@ -35,7 +35,7 @@ class Employees::ManagersController < Employees::EmployeesController
   
   def pass_update
     if @manager.update(manager_pass_params)
-      flash[:success] = "パスワードを更新しました。"
+      flash[:success] = "パスワードを更新しました"
       redirect_to employees_manager_url(@manager)
     else
       render :show
@@ -61,14 +61,14 @@ class Employees::ManagersController < Employees::EmployeesController
   def destroy
     @manager.accept = params[:manager][:accept].to_i
     if @manager.valid?(:destroy_check) && @manager.relation_destroy
-      flash[:notice] = "#{@manager.name}を削除しました"
+      flash[:notice] = "#{ @manager.name }を削除しました"
       redirect_to employees_managers_url
     end
   end
   
   def restoration
     @manager.update(resigned_on: "", avaliable: true)
-    flash[:success] = "#{@manager.name}のアカウントが利用できるようになりました"
+    flash[:success] = "#{ @manager.name }のアカウントが利用できるようになりました"
     redirect_to employees_manager_url(@manager)
   end
 

@@ -11,6 +11,8 @@
   </div>
   
   <div class="tab-wrap">
+    <%= render "shared/sortable_explanation" %>
+    
     <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">個別タスク</label>
     <div class="tab-content">
       <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @individual_tasks} %>
@@ -23,6 +25,5 @@
     <div class="tab-content">
       <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @matter_tasks} %>
     </div>
-  </div>
 
 </div>

@@ -366,7 +366,7 @@ Rails.application.routes.draw do
         resources :attract_methods, except: :index do
           patch :sort, on: :collection
         end
-        resources :industries, only: [:create, :update, :destroy] do
+        resources :industries, only: [:create, :edit, :update, :destroy] do
           patch :sort, on: :collection
         end
       end
@@ -395,7 +395,9 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
+      resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy] do
+        patch :sort, on: :collection
+      end
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       

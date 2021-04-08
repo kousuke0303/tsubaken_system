@@ -1,8 +1,14 @@
 <% if @responce == "success" %>
-  $('.industries-index').html('<%= escape_javascript(render 'employees/settings/companies/industries/partial/index_table') %>');
+  $("#industry-edit").modal("hide");
+  $(".industries-index").html('<%= escape_javascript(render "employees/settings/companies/industries/partial/index_table") %>');
   toastr.success("<%= @industry.name %>に変更しました");
 <% else %>
-  toastr.error("<%= params[:industry][:name] %>は既に存在します");
+  $(".industry-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @industry) %>');
+  <% @industry.errors.messages.keys.each do |key_attribute| %>
+    var addDiv = $('<div class="field-with-errors">');
+    var addLabel = $('[name="industry[<%= key_attribute.intern.to_s %>]"]').prev();
+    $('[name="industry[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
+    addLabel.wrap(addDiv);
+  <% end %>
 <% end %>
-  
   
