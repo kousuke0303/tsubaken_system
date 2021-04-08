@@ -7,6 +7,9 @@ class Employees::Settings::Companies::IndustriesController < Employees::Settings
     set_industries
   end
 
+  def edit
+  end
+
   def update
     @industry.update(industry_params) ? @responce = "success" : @responce = "failure"
     set_industries

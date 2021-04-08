@@ -9,17 +9,9 @@
     <tbody id="sortable-industries">
       <% @industries.each do |industry| %>
         <tr class="tr-sortable">
-          <td class="pl-2e">
-            <%= form_with(model: industry, url: employees_settings_companies_industry_path(industry), method: :patch, remote: true) do |f| %>
-              <div class="input-group">
-                <%= f.text_field :name, class: "form-control" %>
-                <div class="input-group-append">        
-                  <input type="submit" value="変更" class="btn btn-dark">
-                </div>
-              </div>
-            <% end %>
-          </td>
-          <td>
+          <td style="width: 50%;"><%= industry.name %></td>
+          <td>          
+            <%= link_to "編集", edit_employees_settings_companies_industry_path(industry), remote: true, class: "btn btn-sm btn-dark" %>
             <%= link_to "削除", employees_settings_companies_industry_path(industry), method: :delete, data: { confirm: "この業種を削除してよろしいですか？", remote: true }, class: "btn btn-sm btn-danger" %>
           </td>
         </tr>
