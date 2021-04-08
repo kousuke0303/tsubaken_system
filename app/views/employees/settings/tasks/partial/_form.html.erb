@@ -1,3 +1,6 @@
+<%= f.label :category %>
+<%= f.select :category, Task.categories.map{|k, v| [I18n.t("enums.task.category.#{k}"), v]},{}, class: "form-control" %>
+
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
 

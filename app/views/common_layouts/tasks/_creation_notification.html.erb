@@ -15,7 +15,7 @@
           </tr>
           <% @creation_tasks.each do |task| %>
             <tr>
-              <td class="text-center">
+              <td class="text-center creation_task">
                 <input type="checkbox" name="confirmation" value="<%= task.notification_id %>" checked="checked">
               </td>
               <td><%= task.title %></td>
@@ -35,7 +35,7 @@
 <script>
   $('#confirmation_btn').on('click', function(){
     var checked_notification_array = [];
-    $('input').each( function(index, element){
+    $('.creation_task input').each( function(index, element){
       if($(element).prop('checked')){
         var val = $(this).val();
         checked_notification_array.push(val);

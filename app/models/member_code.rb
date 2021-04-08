@@ -71,5 +71,4 @@ class MemberCode < ApplicationRecord
     self.parent.name
   end
 
-
 end

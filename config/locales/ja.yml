@@ -37,6 +37,10 @@ ja:
         relevant: "未着手"
         ongoing: "進行中"
         finished: "完了済"
+      category:
+        individual: "個別"
+        estimate_matter: "営業案件"
+        matter: "着工案件"
     category:
       classification:
         common: 共通

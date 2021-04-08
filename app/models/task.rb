@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   before_save :member_name_update
   after_commit :add_default_task_for_auto_set, on: :create
   after_commit :create_notification, on: :update
+  after_commit :default_deadline
   after_destroy :destroy_notification
   after_find :count
   
@@ -17,11 +18,12 @@ class Task < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, length: { maximum: 300 }
+  validates :category, presence: true, if: :status_is_default?
   # validate :only_in_charge
   
-  
   enum status: { default: 0, relevant: 1, ongoing: 2, finished: 3 }
-   
+  enum category: { individual: 0, estimate_matter: 1, matter: 2} 
+  
   scope :are_default, -> { default.order(alert: :desc)
                                   .order(auto_set: :desc)
                                   .order(default_task_id_count: :desc) }
@@ -29,7 +31,8 @@ class Task < ApplicationRecord
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
-  scope :auto_set_lists, -> { where(status: 0, auto_set: true)} 
+  scope :auto_set_lists, -> { where(status: 0, auto_set: true)}
+  scope :sort_deadline, -> {order(deadline: :desc)}
   
   # notification関連
   attr_accessor :notification_type
@@ -41,12 +44,37 @@ class Task < ApplicationRecord
   def self.alert_lists
     setting_alert_ids = Task.where(status: 0, alert: true).ids
     Task.where(default_task_id: setting_alert_ids).where.not(status: 3)
-  end    
+  end
   
   #-----------------------------------------------------
     # INSTANCE_METHOD
   #-----------------------------------------------------
-
+  def status_is_default?
+    true if self.default?
+    false
+  end
+  
+  def created_at_disp
+    self.created_at.strftime("%-m月%-d日")
+  end
+  
+  def deadline_disp
+    self.deadline.strftime("%-m月%-d日")
+  end
+  
+  def member
+    if self.matter_id.present?
+      matter = Matter.find(self.matter_id)
+      return matter.member
+    elsif self.estimate_matter_id.present?
+      estimate_matter
+    end
+  end
+  
+  def person_in_charge
+    self.member_code.member_name_from_member_code
+  end
+  
   def self.title_from_id(id)
     Task.find(id).title    
   end
@@ -97,6 +125,10 @@ class Task < ApplicationRecord
       count = Task.where("default_task_id = ?", self.id).count
       self.update_column(:default_task_id_count, count)
     end  
+  end
+  
+  def default_deadline
+    self.update(deadline: Date.current) unless self.deadline.present?
   end
   
   def member_name_update

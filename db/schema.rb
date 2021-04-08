@@ -626,6 +626,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "category"
     t.string "title", default: "", null: false
     t.integer "status"
     t.integer "before_status"
@@ -638,6 +639,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.boolean "auto_set", default: false
     t.string "estimate_matter_id"
     t.string "matter_id"
+    t.date "deadline"
     t.bigint "member_code_id"
     t.string "member_name"
     t.datetime "created_at", null: false

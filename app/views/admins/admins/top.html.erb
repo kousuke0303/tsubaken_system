@@ -36,7 +36,7 @@
     <!--information-->
     <ul class="nav nav-tabs title_tab_bar">
       <li class="nav-item">
-        <a class="nav-link title_tab">新着情報</a>
+        <a class="nav-link info_tab">新着情報</a>
       </li>
     </ul>
     
@@ -51,15 +51,42 @@
         <% end %>
         
         <% if @notifications %>
-          <%= render 'common_layouts/notifications/schedule_notification_lists' %>
-          <%= render 'common_layouts/notifications/task_notification_lists' %>
+          <div id="schedule_notification_lists">
+            <%= render 'common_layouts/notifications/schedule_notification_lists' %>
+          </div>
+          <div id="task_notification_lists">
+            <%= render 'common_layouts/notifications/task_notification_lists' %>
+          </div>
         <% end %>
         
-        <% unless @applicate_schedules || @notifications %>
+        <% unless @applicate_schedules && @notifications %>
           <p>新着情報はありません</p>
         <% end %>
       </div>
     </div>
+    
+    <div class="mt-1e">
+    <div class="accordion" id="accordion-tasks">
+      <div class="card">
+        <div class="card-header bg-dark" id="headingTwo">
+          <h5 class="text-light">
+            タスク管理
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
+              詳細
+            </button>
+          </h5>
+        </div>
+        
+        <div id="collapse-tasks" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-tasks">
+          <div class="card-body">
+            <div class="tasks-index overflow-auto">
+              <%= render "common_layouts/tops/tasks/tasks_index" %>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
     
     <!--ghanttcart-->
     <ul class="nav nav-tabs title_tab_bar">

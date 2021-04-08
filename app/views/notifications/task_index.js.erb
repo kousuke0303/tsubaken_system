@@ -1,3 +1,4 @@
+$('#top_page_modal').empty();
 <% if @creation_tasks %>
   $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/tasks/creation_notification') %>');
 <% elsif @updation_tasks %>

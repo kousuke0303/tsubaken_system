@@ -9,7 +9,8 @@ class Admins::AdminsController < ApplicationController
 
   def top
     alert_tasks
-    set_notifications(current_admin)
+    set_tasks
+    set_notifications
   end
   
   def default_password_user_index
@@ -46,5 +47,6 @@ class Admins::AdminsController < ApplicationController
       end
       @object_member_code = MemberCode.where(id: @object_member_code_array)
     end
+      
     
 end

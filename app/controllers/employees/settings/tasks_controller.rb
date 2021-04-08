@@ -4,7 +4,10 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   before_action :set_task, only: [:edit, :update, :destroy]
 
   def index
-    @default_tasks = Task.are_default
+    default_tasks = Task.are_default
+    @individual_tasks = default_tasks.individual
+    @estimate_matter_tasks = default_tasks.estimate_matter
+    @matter_tasks = default_tasks.matter
   end
 
   def new
@@ -12,6 +15,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
   end
 
   def create
+    params[:task][:category] = params[:task][:category].to_i
     sort_order = Task.are_default.length
     @default_task = Task.new(default_task_params.merge(status: 0, sort_order: sort_order))
     if @default_task.save
@@ -42,7 +46,7 @@ class Employees::Settings::TasksController < Employees::EmployeesController
     end
 
     def default_task_params
-      params.require(:task).permit(:title, :content, :alert, :auto_set)
+      params.require(:task).permit(:category, :title, :content, :alert, :auto_set)
     end
 
     def set_task

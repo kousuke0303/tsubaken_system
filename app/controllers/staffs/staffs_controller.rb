@@ -8,7 +8,7 @@ class Staffs::StaffsController < ApplicationController
   before_action :own_attendance_notification, only: :top
 
   def top
-    set_notifications(current_staff)
+    set_notifications
   end
   
   def avator_change

@@ -16,13 +16,13 @@
           </tr>
           <% @updation_tasks.each do |task| %>
             <tr>
-              <td rowspan="2" style="vertical-align: middle; text-align: center;">
+              <td rowspan="2" class="text-center updation_task" style="vertical-align: middle;">
                 <input type="checkbox" name="confirmation" value=<%= task.notification_id %> checked="checked">
               </td>
               <td>変更後</td>
               <td><%= task.title %></td>
               <td><%= task.content %></td>
-              <td rowspan="2" style="vertical-align: middle;"><%= member_name_from_member_code_id(task.sender_id) %></td>
+              <td rowspan="2" style="vertical-align: middle;"><%= member_name_from_member_code_id(task.sender) %></td>
             </tr>
             <tr>
               <td>変更前</td>
@@ -43,7 +43,7 @@
 <script>
   $('#confirmation_btn').on('click', function(){
     var checked_notification_array = [];
-    $('input').each( function(index, element){
+    $('.updation_task input').each( function(index, element){
       if($(element).prop('checked')){
         var val = $(this).val();
         checked_notification_array.push(val);

@@ -21,7 +21,7 @@
           </tr>
           <% @updation_schedules.each do |schedule| %>
             <tr>
-              <td rowspan="2" style="vertical-align: middle; text-align: center;">
+              <td rowspan="2" class="text-center updation_schedule" style="vertical-align: middle;">
                 <input type="checkbox" name="confirmation" value=<%= schedule.notification_id %> checked="checked">
               </td>
               <td rowspan="2" style="vertical-align: middle;"><%= schedule.title %></td>
@@ -50,7 +50,7 @@
 <script>
   $('#confirmation_btn').on('click', function(){
     var checked_notification_array = [];
-    $('input').each( function(index, element){
+    $('.updation_schedule input').each( function(index, element){
       if($(element).prop('checked')){
         var val = $(this).val();
         checked_notification_array.push(val);

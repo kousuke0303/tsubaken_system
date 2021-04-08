@@ -144,6 +144,7 @@ module ApplicationHelper
       return content
     end
   end
+  
   # ---------------------------------------------------------
       # ATTENDANCE
   # ---------------------------------------------------------
@@ -204,8 +205,19 @@ module ApplicationHelper
   def alert_task_title(alert_tasks)
     alert_tasks.keys.map{|id| Task.title_from_id(id)}.join('/')
     
-  end    
-      
+  end
   
+  # ---------------------------------------------------------
+      # TASK
+  # ---------------------------------------------------------
+  
+  def task_remarks(task, title)
+    if task.matter_id.present?
+      @relation_title = title
+      @type = "着工案件"
+      @path = "employees_matter_path"
+      @path_id = task.matter_id
+    end
+  end
   
 end

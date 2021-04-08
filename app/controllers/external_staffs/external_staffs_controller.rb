@@ -8,7 +8,8 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   before_action :own_attendance_notification, only: :top
   
   def top
-    set_notifications(current_external_staff)
+    set_notifications
+    set_tasks
   end
   
   def avator_change

@@ -17,7 +17,7 @@
           </tr>
           <% @deletion_notification_for_schedules.each do |notification| %>
             <tr>
-              <td class="text-center">
+              <td class="text-center deletion_schedule">
                 <input type="checkbox" name="confirmation" value=<%= notification.id %> checked="checked">
               </td>
               <td><%= notification.before_value_4 %></td>
@@ -39,7 +39,7 @@
 <script>
   $('#confirmation_btn').on('click', function(){
     var checked_notification_array = [];
-    $('input').each( function(index, element){
+    $('.deletion_schedule input').each( function(index, element){
       if($(element).prop('checked')){
         var val = $(this).val();
         checked_notification_array.push(val);

@@ -75,8 +75,10 @@ ja:
           name: 会社名
           image: ロゴ画像
         task:
+          category: 分類
           title: タスク名
           content: 内容
+          deadline: 期限
           moved_on: 移動日
           alert: 警告表示
           auto_set: 常時設定

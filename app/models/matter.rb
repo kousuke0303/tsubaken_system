@@ -37,6 +37,35 @@ class Matter < ApplicationRecord
   
   scope :join_estimate_matter, ->{ joins(:estimate_matter) }
   
+  def self.title_from_id(id)
+    Matter.find(id).title
+  end
+  
+  def member
+    member_arrey = []
+    MemberCode.new
+    all_member_code = MemberCode.all_member_code_of_avaliable
+    all_member_code.joins(:admin).select('member_codes.*, admins.name AS admin_name').each do |member_code|
+      date = []
+      date.push(member_code.admin_name)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    all_member_code.joins(:manager).select('member_codes.*, managers.name AS manager_name').each do |member_code|
+      date = []
+      date.push(member_code.manager_name)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    all_member_code.joins(:matters).where(matters: {id: self.id}).each do |member_code|
+      date = [] 
+      date.push(member_code.member_name_from_member_code)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    return member_arrey
+  end
+  
   # matter_status変更
   def change_matter_status
     if self.tasks.where(status: 2).present?

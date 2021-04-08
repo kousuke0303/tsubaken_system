@@ -1,6 +1,7 @@
 class CreateTasks < ActiveRecord::Migration[5.1]
   def change
     create_table :tasks do |t|
+      t.integer :category
       t.string :title,         null: false, default: ""
       t.integer :status
       t.integer :before_status
@@ -13,6 +14,7 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.boolean :auto_set, default: false
       t.string :estimate_matter_id
       t.string :matter_id
+      t.date :deadline
       t.references :member_code
       # 担当者が削除された時のカラム
       t.string :member_name

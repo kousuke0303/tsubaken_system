@@ -179,23 +179,7 @@ class Employees::EmployeesController < ApplicationController
       return @group
     end
     
-    # # 担当者のパラメーター整形及びストロングパラメータにマージ
-    # def formatted_member_params(parameter, strong_params)
-    #   arrey_params = parameter.split("#")
-    #   member_authority = arrey_params[0]
-    #   params_member_id = arrey_params[1].to_i
-    #   case member_authority
-    #   when "admin"
-    #     @final_params = strong_params.merge(admin_id: params_member_id)
-    #   when "manager"
-    #     @final_params = strong_params.merge(manager_id: params_member_id)
-    #   when "staff"
-    #     @final_params = strong_params.merge(staff_id: params_member_id)
-    #   when "external_staff"
-    #     @final_params = strong_params.merge(external_staff_id: params_member_id)
-    #   end
-    # end
-    
+   
     # -------------------------------------------------------
         # BAND
     # -------------------------------------------------------

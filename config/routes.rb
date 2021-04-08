@@ -267,6 +267,13 @@ Rails.application.routes.draw do
       get :application_detail, on: :member
       patch :commit_application, on: :member
     end
+    
+    resources :tasks do
+      patch :change_status, on: :member
+      get :registor_member, on: :member
+      patch :update_member, on: :member
+    end
+    
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
@@ -281,9 +288,10 @@ Rails.application.routes.draw do
       get :change_member,on: :member
       patch :update_member, on: :member
       
-      resources :talkrooms, only: [:index, :create] do
-        get :scroll_get_messages, on: :collection
-      end
+      # resources :talkrooms, only: [:index, :create] do
+      #   get :scroll_get_messages, on: :collection
+      # end
+      
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member

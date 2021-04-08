@@ -297,6 +297,38 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def set_tasks
+    @tasks = Task.joins(:member_code)
+    relevant_tasks = @tasks.relevant.where(member_code_id: login_user.member_code.id)
+    @relevant_tasks = relevant_tasks.left_joins(:matter, :estimate_matter)
+                                    .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                    .sort_deadline
+    ongoing_tasks = @tasks.ongoing.where(member_code_id: login_user.member_code.id)
+    @ongoing_tasks = ongoing_tasks.left_joins(:matter, :estimate_matter)
+                                  .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                  .sort_deadline
+    finished_tasks = @tasks.finished.where(member_code_id: login_user.member_code.id)
+    @finished_tasks = finished_tasks.left_joins(:matter, :estimate_matter)
+                                    .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                    .sort_deadline
+    no_member_tasks = Task.all.left_joins(:member_code).where(member_code_id: nil).where.not(status: "default")
+    @no_member_tasks = no_member_tasks.left_joins(:matter, :estimate_matter)
+                                      .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                      .sort_deadline
+    others_relevant_tasks = @tasks.relevant.where.not(member_code_id: login_user.member_code.id)
+    @others_relevant_tasks = others_relevant_tasks.left_joins(:matter, :estimate_matter)
+                                                  .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                                  .sort_deadline
+    others_ongoing_tasks = @tasks.ongoing.where.not(member_code_id: login_user.member_code.id)
+    @others_ongoing_tasks = others_ongoing_tasks.left_joins(:matter, :estimate_matter)
+                                                .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                                .sort_deadline
+    others_finished_tasks = @tasks.finished.where.not(member_code_id: login_user.member_code.id)
+    @others_finished_tasks = others_finished_tasks.left_joins(:matter, :estimate_matter)
+                                                  .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
+                                                  .sort_deadline
+  end
+  
   # --------------------------------------------------------
         # SCHDULE関係
   # --------------------------------------------------------
@@ -322,7 +354,7 @@ class ApplicationController < ActionController::Base
       # NOTIFICATION関係
   #-------------------------------------------------------
   
-  def set_notifications(login_user)
+  def set_notifications
     @notifications = login_user.recieve_notifications
     @creation_notification_for_schedule = @notifications.creation_notification_for_schedule
     @updation_notification_for_schedule = @notifications.updation_notification_for_schedule

@@ -11,7 +11,8 @@ class Managers::ManagersController < ApplicationController
   before_action :password_condition_user, only: [:top, :default_password_user_index]
   
   def top
-    set_notifications(current_manager)
+    set_notifications
+    set_tasks
   end
   
   def default_password_user_index
