@@ -1,10 +1,6 @@
 class Employees::Settings::Companies::AttractMethodsController < Employees::Settings::CompaniesController
   before_action :set_attract_method, only: [:edit, :update, :destroy]
 
-  def new
-    @attract_method = AttractMethod.new
-  end
-
   def create
     @attract_method = AttractMethod.new(attract_method_params)
     @attract_method.save ? @responce = "success" : @responce = "failure"

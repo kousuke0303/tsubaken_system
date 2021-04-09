@@ -355,7 +355,7 @@ Rails.application.routes.draw do
         resources :departments, except: :index do
           patch :sort, on: :collection
         end
-        resources :attract_methods, except: :index do
+        resources :attract_methods, only: [:create, :edit, :update, :destroy] do
           patch :sort, on: :collection
         end
         resources :industries, only: [:create, :edit, :update, :destroy] do

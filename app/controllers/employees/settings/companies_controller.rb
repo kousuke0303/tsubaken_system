@@ -6,6 +6,7 @@ class Employees::Settings::CompaniesController < Employees::EmployeesController
   before_action :set_industries
   
   def index
+    @attract_method = AttractMethod.new
     @industry = Industry.new
   end
 end
