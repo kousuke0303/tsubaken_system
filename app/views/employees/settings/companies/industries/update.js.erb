@@ -4,9 +4,9 @@
   toastr.success("<%= @industry.name %>に変更しました");
 <% else %>
   $(".industry-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @industry) %>');
-    var addDiv = $('<div class="field-with-errors">');
-    var addLabel = $("#name-field").prev();
-    $("name-field").wrap(addDiv);
-    addLabel.wrap(addDiv);
+  var addDiv = $('<div class="field-with-errors">');
+  var addLabel = $("#industry-name-field").prev();
+  $("#industry-name-field").wrap(addDiv);
+  addLabel.wrap(addDiv);
 <% end %>
   

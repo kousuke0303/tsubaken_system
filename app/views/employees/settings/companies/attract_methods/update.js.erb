@@ -1,7 +1,11 @@
 <% if @responce == "success" %>
   $("#attract-method-edit").modal("hide");
   $(".attract-methods-index").html('<%= escape_javascript(render "employees/settings/companies/attract_methods/partial/index_table") %>');
-  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @attract_method.name }を更新しました。" %>
+  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @attract_method.name }を更新しました" %>
 <% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".attract-method-update-errors", model: @attract_method, object: "attract_method"} %>
+  $(".attract-method-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @attract_method) %>');
+  var addDiv = $('<div class="field-with-errors">');
+  var addLabel = $("#attract-method-name-field").prev();
+  $("#attract-method-name-field").wrap(addDiv);
+  addLabel.wrap(addDiv);
 <% end %>
