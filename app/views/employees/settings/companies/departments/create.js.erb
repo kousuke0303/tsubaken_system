@@ -1,7 +1,7 @@
 <% if @responce == "success" %>
-  $("#department-new").modal('hide');
-  $('.departments-index').html('<%= escape_javascript(render 'employees/settings/companies/departments/partial/index_table') %>');
-  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@department.name}を作成しました。"} %>
+  $(".departments-index").html('<%= escape_javascript(render "employees/settings/companies/departments/partial/index_table") %>');
+  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @department.name }を作成しました" %>
+  $("#department-create").val("");
 <% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".department-create-errors", model: @department, object: "department"} %>
-<% end %>  
+  toastr.error("<%= params[:department][:name] %>は既に存在します");
+<% end %>

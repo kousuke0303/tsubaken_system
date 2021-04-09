@@ -1,8 +1,12 @@
 <% if @responce == "success" %>
   $("#department-edit").modal("hide");
   $(".departments-index").html('<%= escape_javascript(render "employees/settings/companies/departments/partial/index_table") %>');
-  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @department.name }を更新しました。" %>
+  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @department.name }を更新しました" %>
 <% else %>
-  <%= render "shared/javascript/modal_error", dom: ".department-update-errors", model: @department, object: "department" %>
+    $(".department-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @department) %>');
+  var addDiv = $('<div class="field-with-errors">');
+  var addLabel = $("#department-name-field").prev();
+  $("#department-name-field").wrap(addDiv);
+  addLabel.wrap(addDiv);
 <% end %> 
   

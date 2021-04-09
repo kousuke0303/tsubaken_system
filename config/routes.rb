@@ -352,7 +352,7 @@ Rails.application.routes.draw do
           post :image_change, on: :member
           patch :image_delete, on: :member
         end
-        resources :departments, except: :index do
+        resources :departments, only: [:create, :edit, :update, :destroy] do
           patch :sort, on: :collection
         end
         resources :attract_methods, only: [:create, :edit, :update, :destroy] do

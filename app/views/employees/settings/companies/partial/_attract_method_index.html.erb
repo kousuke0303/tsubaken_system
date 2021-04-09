@@ -1,22 +1,22 @@
 <div class="col-12">
   <h4 class="title_layout">集客方法一覧</h4>
   
-    <div class="attract-method-create-errors"></div>
-    <div class="row mt-1e">
-      <div class="col-md-6">
-        <%= form_with(model: @attract_method, url: employees_settings_companies_attract_methods_path, method: :post, remote: true) do |f| %>    
-          <div class="input-group">          
-            <%= f.text_field :name, class: "form-control", maxlength: 30 %>
-            <div class="input-group-append">        
-              <input type="submit" value="新規作成" class="btn btn-primary">
-            </div>
+  <div class="attract-method-create-errors"></div>
+  <div class="row mt-1e">
+    <div class="col-md-6">
+      <%= form_with(model: @attract_method, url: employees_settings_companies_attract_methods_path, method: :post, remote: true) do |f| %>    
+        <div class="input-group">          
+          <%= f.text_field :name, maxlength: 30, class: "form-control", id: "attract-method-create" %>
+          <div class="input-group-append">        
+            <input type="submit" value="新規作成" class="btn btn-primary">
           </div>
-        <% end %>
-      </div>
-      <div class="col-md-6">
-        <%= render "shared/sortable_explanation" %>
-      </div>
+        </div>
+      <% end %>
     </div>
+    <div class="col-md-6">
+      <%= render "shared/sortable_explanation" %>
+    </div>
+  </div>
 
   <div class="attract-methods-index">
     <%= render "employees/settings/companies/attract_methods/partial/index_table" %>

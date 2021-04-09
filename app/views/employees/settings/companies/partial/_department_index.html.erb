@@ -1,9 +1,22 @@
 <div class="col-12">
-  <%= render partial: 'employees/settings/partial/index_title', 
-             locals: { model_name: t('activerecord.models.department'),
-                       path: :new_employees_settings_companies_department_path } %>
+    <h4 class="title_layout">部署一覧</h4>
   
-  <%= render "shared/sortable_explanation" %>
+  <div class="department-create-errors"></div>
+  <div class="row mt-1e">
+    <div class="col-md-6">
+      <%= form_with(model: @department, url: employees_settings_companies_departments_path, method: :post, remote: true) do |f| %>    
+        <div class="input-group">          
+          <%= f.text_field :name, maxlength: 30, class: "form-control", id: "department-create" %>
+          <div class="input-group-append">        
+            <input type="submit" value="新規作成" class="btn btn-primary">
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= render "shared/sortable_explanation" %>
+    </div>
+  </div>
   
   <div class="departments-index">
     <%= render "employees/settings/companies/departments/partial/index_table" %>

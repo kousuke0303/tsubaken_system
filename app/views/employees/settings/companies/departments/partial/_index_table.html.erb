@@ -9,7 +9,7 @@
     <tbody id="sortable-departments">
       <% @departments.each do |department| %>
         <tr class="tr-sortable">
-          <td><%= department.name %></td>
+          <td style="width: 50%;"><%= department.name %></td>
           <td>
             <div hidden><%= department.id %></div>
             <%= link_to "編集", edit_employees_settings_companies_department_path(department), remote: true, class: "btn btn-sm btn-dark" %>
