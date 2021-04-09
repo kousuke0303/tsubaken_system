@@ -1,5 +1,5 @@
+
 class ExternalStaff < ApplicationRecord
-  
   before_save { self.email = email.downcase if email.present? }
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
@@ -7,8 +7,6 @@ class ExternalStaff < ApplicationRecord
   has_one :member_code, dependent: :destroy
   belongs_to :supplier, optional: true
   belongs_to :schedule, optional: true
-  
-  has_many :attendances, dependent: :destroy
   
   has_one_attached :avator
   

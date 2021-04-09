@@ -11,7 +11,6 @@ class Manager < ApplicationRecord
   belongs_to :department
   belongs_to :schedule, optional: true
   
-  has_many :attendances, dependent: :destroy
   has_one_attached :avator
 
   validates :name, presence: true, length: { maximum: 30 }

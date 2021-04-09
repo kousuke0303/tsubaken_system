@@ -51,14 +51,10 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.datetime "started_at"
     t.datetime "finished_at"
     t.string "working_minutes"
-    t.bigint "manager_id"
-    t.bigint "staff_id"
-    t.bigint "external_staff_id"
+    t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["external_staff_id"], name: "index_attendances_on_external_staff_id"
-    t.index ["manager_id"], name: "index_attendances_on_manager_id"
-    t.index ["staff_id"], name: "index_attendances_on_staff_id"
+    t.index ["member_code_id"], name: "index_attendances_on_member_code_id"
   end
 
   create_table "attract_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -648,9 +644,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "attendances", "external_staffs"
-  add_foreign_key "attendances", "managers"
-  add_foreign_key "attendances", "staffs"
+  add_foreign_key "attendances", "member_codes"
   add_foreign_key "category_materials", "categories"
   add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
