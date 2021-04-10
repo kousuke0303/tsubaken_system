@@ -11,6 +11,16 @@ class Attendance < ApplicationRecord
 
   scope :start_exist, -> { where.not(started_at: nil) }
   scope :finish_exist, -> { where.not(finished_at: nil) }
+  scope :with_member_codes, -> { 
+    left_joins(member_code: [:manager, :staff, :external_staff]).
+    select(
+      "attendances.*",
+      "member_codes.*",
+      "managers.name AS manager_name",
+      "staffs.name AS staff_name",
+      "external_staffs.name AS external_staff_name"
+    )
+  }
   
   # 出勤の無い退勤は無効
   def started_is_with_finished

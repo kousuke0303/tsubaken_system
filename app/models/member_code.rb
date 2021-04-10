@@ -22,7 +22,6 @@ class MemberCode < ApplicationRecord
   
   scope :sort_auth, -> { order(:external_staff_id, :staff_id, :manager_id, :admin_id) }
   
-  
   # 利用できるメンバーの全コード
   def self.all_member_code_of_avaliable
     remove_ids = []

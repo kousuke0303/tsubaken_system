@@ -1,6 +1,6 @@
 <h5><%= employee_type %></h5>
 
-<% if employee_type == "Manager" && attendances.count == 0 %>
+<% if employee_type == "Manager" && attendances.blank? %>
   <h6>出勤なし</h6>
 <% else %>
   <div class="table-responsive">
@@ -23,17 +23,8 @@
         <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
           data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
           <td class="name">
-            <% if attendance.manager %>
-              <%= attendance.manager.name %>
-            <% elsif attendance.staff %>
-              <%= attendance.staff.name %>
-            <% elsif attendance.external_staff %>
-              <%= attendance.external_staff.name %>
-            <% end %>
+            <%= attendance.manager_name %><%= attendance.staff_name %><%= attendance.external_staff_name %>
           </td>
-          <% if employee_type == "外部Staff" %>
-            <td width=20%><%= attendance.external_staff.supplier.name %></td>
-          <% end %>
           <td width=20%><%= l(attendance.started_at, format: :time) %></td>
           <% if finished_nil?(attendance) %>
             <td class="text-danger" width=20%>
