@@ -86,7 +86,7 @@ class Employees::AttendancesController < Employees::EmployeesController
     end
 
     def set_attendance
-      @attendance = Attendance.find(params[:id])
+      @attendance = Attendance.with_employees.where(attendances: { id: params[:id] }).first
     end
 
     def employee_attendance_params

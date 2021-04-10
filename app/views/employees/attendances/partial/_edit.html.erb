@@ -5,7 +5,11 @@
       <div class="card mb-3">
         <h5 class="card-header">勤怠編集</h5>
         <div class="card-body">
-          <h5 class="text-center"></h5>
+          <h5 class="text-center">
+            <%= @attendance.manager_name %>
+            <%= @attendance.staff_name %>
+            <%= @attendance.external_staff_name %>
+          </h5>
           <h5 class="text-center"><%= l(@attendance.worked_on, format: :long) %></h5>
           <%= form_with(model: @attendance, url: employees_attendance_path(@attendance), method: :patch, remote: true) do |f| %>
             <div class="attendance-update-errors"></div>
