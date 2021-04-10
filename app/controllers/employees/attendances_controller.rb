@@ -24,13 +24,13 @@ class Employees::AttendancesController < Employees::EmployeesController
     end
     if params[:type] && params[:type] == "1" && params[:manager_id] && params[:manager_id].present?
       manager_id = params[:manager_id]
-      @resource = Manager.find(manager_id)
+      @resource = Manager.find(manager_id).member_code
     elsif params[:type] && params[:type] == "2" && params[:staff_id] && params[:staff_id].present?
       staff_id = params[:staff_id]
-      @resource = Staff.find(staff_id)
+      @resource = Staff.find(staff_id).member_code
     elsif params[:type] && params[:type] == "3" && params[:external_staff_id] && params[:external_staff_id].present?
       external_staff_id = params[:external_staff_id]
-      @resource = ExternalStaff.find(external_staff_id)
+      @resource = ExternalStaff.find(external_staff_id).member_code
     end
     @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
   end
