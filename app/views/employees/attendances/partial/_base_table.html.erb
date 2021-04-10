@@ -21,18 +21,16 @@
           <% finished_at = "not-entered" %>
         <% end %>
         <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
-          <td class="name">
+          <td>
             <%= attendance.manager_name %><%= attendance.staff_name %><%= attendance.external_staff_name %>
           </td>
-          <td width=20%><%= l(attendance.started_at, format: :time) %></td>
+          <td><%= l(attendance.started_at, format: :time) %></td>
           <% if finished_nil?(attendance) %>
-            <td class="text-danger" width=20%>
-                退勤未処理
-            </td>
+            <td class="text-danger">退勤未処理</td>
           <% else %>
-            <td width=20%><%= finished_at if attendance.finished_at.present? %></td>
+            <td><%= finished_at if attendance.finished_at.present? %></td>
           <% end %>
-          <td width=20%><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+          <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
         </tr>
       <% end %>
     </table>

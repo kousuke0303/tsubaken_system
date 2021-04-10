@@ -17,11 +17,11 @@
 
           <div class="col-lg-3 col-md-3 flex pl-0 pr-0">
             <div class="pl-5 pr-5" style="width: 60%;">
-              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
+              <%= f.select :year, @years_hash, { selected: params[:year] }, { class: "form-control", required: true } %>
             </div>
               
             <div class="pl-5 pr-5"  style="width: 40%;">
-              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control", required: true } %>
+              <%= f.select :month, Constants::MONTH_HASH, { selected: params[:month] }, { class: "form-control", required: true } %>
             </div>
           </div>
 
@@ -46,7 +46,7 @@
           </div>
 
           <div class="col-lg-3 col-md-3 pl-5 pr-5 text-left">
-            <%= f.submit "検索", class: "btn btn-gray" %>
+            <%= f.submit "検索", class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>
@@ -74,8 +74,12 @@
               <% end %>
               <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
                 <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
-                <td><%= l(attendance.started_at, format: :time) %></td>
-                <td><%= finished_at if attendance.finished_at.present? %></td>
+                <td><%= l(attendance.started_at, format: :time) %></td>                
+                <% if attendance.finished_at.present? %>
+                  <td><% finished_at = l(attendance.finished_at, format: :time) %></td>
+                <% else %>
+                  <td class="text-danger">退勤未処理</td>
+                <% end %>                
                 <td>
                   <% if attendance.working_minutes.present? %>
                     <%= daily_working_time(attendance.working_minutes) %>
@@ -92,8 +96,7 @@
             </tr>
             <tr>
               <td><%= @attendances.length %>日</td>
-              <td></td>
-              <td></td>
+              <%= empty_td(2) %>
               <td><%= monthly_working_time(@total_working_minutes) %></td>
             </tr>
           <% end %>
