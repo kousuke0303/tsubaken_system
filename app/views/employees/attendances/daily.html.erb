@@ -11,11 +11,11 @@
   </div>
       
   <div class="card mt-1e">
-    <div class="card-header bg-dark tab-wrapper text-center text-white" style="font-size: 1.9em;">
-      <%= link_to "＜＜", daily_employees_attendances_path(day: @day.yesterday), class: "btn btn-gray" %>
+    <div class="card-header bg-dark text-white align-center" style="font-size: 1.9em;">
+      <%= link_to "＜＜", daily_employees_attendances_path(day: @day.yesterday), class: "btn btn-gray mr-1e" %>
       <%= l(@day, format: :long) %>
       <% if @day < Date.current %>
-        <%= link_to "＞＞", daily_employees_attendances_path(day: @day.tomorrow), class: "btn btn-gray" %>
+        <%= link_to "＞＞", daily_employees_attendances_path(day: @day.tomorrow), class: "btn btn-gray ml-1e" %>
       <% end %>
     </div>
         

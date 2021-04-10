@@ -54,8 +54,4 @@
   </div>
 </div>
 
-<script>
-  $("tr[data-link]").click(function() {
-    window.location = $(this).data("link")
-  })
-</script>
+<%= javascript_include_tag "tr_link.js" %>
