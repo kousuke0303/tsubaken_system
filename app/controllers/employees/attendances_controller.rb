@@ -22,17 +22,14 @@ class Employees::AttendancesController < Employees::EmployeesController
       @first_day = "#{ params[:year] }-#{ params[:month] }-01".to_date
       @last_day = @first_day.end_of_month
     end
-    if params[:type] && params[:type] == "1" && params[:manager_id] && params[:manager_id].present?
-      manager_id = params[:manager_id]
-      @resource = Manager.find(manager_id).member_code
-    elsif params[:type] && params[:type] == "2" && params[:staff_id] && params[:staff_id].present?
-      staff_id = params[:staff_id]
-      @resource = Staff.find(staff_id).member_code
-    elsif params[:type] && params[:type] == "3" && params[:external_staff_id] && params[:external_staff_id].present?
-      external_staff_id = params[:external_staff_id]
-      @resource = ExternalStaff.find(external_staff_id).member_code
+    if (manager_id = params[:manager_id]).present? 
+      @resource = Manager.find(manager_id)
+    elsif (staff_id = params[:staff_id]).present?    
+      @resource = Staff.find(staff_id)
+    elsif (external_staff_id = params[:external_staff_id]).present?
+      @resource = ExternalStaff.find(external_staff_id)
     end
-    @attendances = @resource.attendances.where(worked_on: @first_day..@last_day).where.not(started_at: nil).order(:worked_on) if @resource
+    @attendances = @resource.member_code.attendances.where(worked_on: @first_day..@last_day).start_exist.order(:worked_on) if @resource
   end
 
   def new
@@ -43,20 +40,16 @@ class Employees::AttendancesController < Employees::EmployeesController
   # 管理者からの勤怠作成
   def create
     if (manager_id = params[:attendance]["manager_id"]).present?
-      resource = Manager.find(manager_id).member_code
+      member_code = Manager.find(manager_id).member_code
     elsif (staff_id = params[:attendance]["staff_id"]).present?
-      resource = Staff.find(staff_id).member_code
+      member_code = Staff.find(staff_id).member_code
     elsif (external_staff_id = params[:attendance]["external_staff_id"]).present?
-      resource = ExternalStaff.find(external_staff_id).member_code
+      member_code = ExternalStaff.find(external_staff_id).member_code
     end
-    create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
+    create_monthly_attendance_by_date(member_code, params[:attendance]["worked_on"].to_date)
     if @attendance.update(employee_attendance_params)
       flash[:success] = "勤怠を作成しました"
-      if params["prev_action"].eql?("daily")
-        redirect_to daily_employees_attendances_url
-      else
-        redirect_to individual_employees_attendances_url
-      end
+      params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
     end
   end
 
@@ -93,14 +86,15 @@ class Employees::AttendancesController < Employees::EmployeesController
       params.require(:attendance).permit(:worked_on, :started_at, :finished_at)
     end
 
-    def create_monthly_attendance_by_date(resource, date)
+    # member_codeの一ヶ月分の勤怠レコード作成
+    def create_monthly_attendance_by_date(member_code, date)
       ActiveRecord::Base.transaction do
-        unless resource.attendances.where(worked_on: date).exists?
+        unless member_code.attendances.where(worked_on: date).exists?
           first_day = date.beginning_of_month
           last_day = first_day.end_of_month
-          [*first_day..last_day].each { |day| resource.attendances.create!(worked_on: day) }
+          [*first_day..last_day].each { |day| member_code.attendances.create!(worked_on: day) }
         end
-        @attendance = resource.attendances.where(worked_on: date).first
+        @attendance = member_code.attendances.where(worked_on: date).first
       end
     rescue ActiveRecord::RecordInvalid 
       flash[:alert] = "ページ情報の取得に失敗しました"

@@ -72,8 +72,7 @@
               <% else %>
                 <% finished_at = "not-entered" %>
               <% end %>
-              <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>" data-name="<%= @resource.name %>"
-                  data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+              <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
                 <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
                 <td><%= l(attendance.started_at, format: :time) %></td>
                 <td><%= finished_at if attendance.finished_at.present? %></td>
@@ -105,87 +104,94 @@
 </div>
 
 <script>
-  $(document).on("turbolinks:load", function() {
-    const manager = $("#manager");
-    const managerSelect = $('select[name="manager_id"]');
-    const staff = $("#staff");
-    const staffSelect = $('select[name="staff_id"]');
-    const externalStaff = $("#external-staff");
-    const externalStaffSelect = $('select[name="external_staff_id"]');
-    const initial = $("#initial");
-
-    // マネージャー選択フォーム表示し、それ以外はリセットして非表示
-    function showManagerSelect() {
-      manager.show();
-      managerSelect.attr("required", "true");
-      staff.hide();
-      staffSelect.removeAttr("required");
-      staffSelect.val("");
-      externalStaff.hide();
-      externalStaffSelect.removeAttr("required");
-      externalStaffSelect.val("");
-      initial.hide();
-    };
-
-    // スタッフ選択フォーム表示し、それ以外はリセットして非表示
-    function showStaffSelect() {
-      manager.hide();
-      managerSelect.removeAttr("required");
-      managerSelect.val("");
-      staff.show();
-      staffSelect.attr("required", "true");
-      externalStaff.hide();
-      externalStaffSelect.removeAttr("required");
-      externalStaffSelect.val("");
-      initial.hide();
-    };
-
-    // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
-    function showExternalStaffSelect() {
-      manager.hide();
-      managerSelect.removeAttr("required");
-      managerSelect.val("");
-      staff.hide();
-      staffSelect.removeAttr("required");
-      externalStaff.show();
-      staffSelect.val("");
-      externalStaffSelect.attr("required", "true");
-      initial.hide();
-    };
-
-    // 全タイプの従業員選択フォームをリセットして非表示
-    function showInitialSelect() {
-      initial.show();
-      manager.hide();
-      managerSelect.val("");
-      staff.hide();
-      staffSelect.val("");
-      externalStaff.hide();
-      externalStaffSelect.val("");
-    };
-
-    // 検索結果を、選択フォームに初期表示
-    <% if params[:type] && params[:type] == "1" %>
-      showManagerSelect();
-    <% elsif params[:type] && params[:type] == "2" %>
-      showStaffSelect();
-    <% elsif params[:type] && params[:type] == "3" %>
-      showExternalStaffSelect();
-    <% else %>
-      showInitialSelect();
-    <% end %>
-
-    // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
-    $("#type").change(function() {
-      if($(this).val() == "1"){
-        showManagerSelect();
-      } else if ($(this).val() == "2") {
-        showStaffSelect();
-      } else if ($(this).val() == "3") {
-        showExternalStaffSelect();
-      } else {
-        showInitialSelect();
-      };
+  // trクリックで、勤怠編集モーダルを開く
+  $("tr[data-link]").click(function() {
+    $.ajax({
+      type: "GET",
+      url: $(this).data("link"),
+      data: { prev_action: "individual" }      
     });
+  });
+
+  const manager = $("#manager");
+  const managerSelect = $('select[name="manager_id"]');
+  const staff = $("#staff");
+  const staffSelect = $('select[name="staff_id"]');
+  const externalStaff = $("#external-staff");
+  const externalStaffSelect = $('select[name="external_staff_id"]');
+  const initial = $("#initial");
+
+  // マネージャー選択フォーム表示し、それ以外はリセットして非表示
+  function showManagerSelect() {
+    manager.show();
+    managerSelect.attr("required", "true");
+    staff.hide();
+    staffSelect.removeAttr("required");
+    staffSelect.val("");
+    externalStaff.hide();
+    externalStaffSelect.removeAttr("required");
+    externalStaffSelect.val("");
+    initial.hide();
+  };
+
+  // スタッフ選択フォーム表示し、それ以外はリセットして非表示
+  function showStaffSelect() {
+    manager.hide();
+    managerSelect.removeAttr("required");
+    managerSelect.val("");
+    staff.show();
+    staffSelect.attr("required", "true");
+    externalStaff.hide();
+    externalStaffSelect.removeAttr("required");
+    externalStaffSelect.val("");
+    initial.hide();
+  };
+
+  // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
+  function showExternalStaffSelect() {
+    manager.hide();
+    managerSelect.removeAttr("required");
+    managerSelect.val("");
+    staff.hide();
+    staffSelect.removeAttr("required");
+    externalStaff.show();
+    staffSelect.val("");
+    externalStaffSelect.attr("required", "true");
+    initial.hide();
+  };
+
+  // 全タイプの従業員選択フォームをリセットして非表示
+  function showInitialSelect() {
+    initial.show();
+    manager.hide();
+    managerSelect.val("");
+    staff.hide();
+    staffSelect.val("");
+    externalStaff.hide();
+    externalStaffSelect.val("");
+  };
+
+  // 検索結果を、選択フォームに初期表示
+  <% if params[:type] && params[:type] == "1" %>
+    showManagerSelect();
+  <% elsif params[:type] && params[:type] == "2" %>
+    showStaffSelect();
+  <% elsif params[:type] && params[:type] == "3" %>
+    showExternalStaffSelect();
+  <% else %>
+    showInitialSelect();
+  <% end %>
+
+  // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
+  $("#type").change(function() {
+    if($(this).val() == "1"){
+      showManagerSelect();
+    } else if ($(this).val() == "2") {
+      showStaffSelect();
+    } else if ($(this).val() == "3") {
+      showExternalStaffSelect();
+    } else {
+      showInitialSelect();
+    };
   });
 </script>
