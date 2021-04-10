@@ -43,9 +43,7 @@
     </div>
         
     <div class="card-body">
-      <% if @resource %>
-        <h5><%= @resource.name %></h5>
-      <% end %>
+      <%= content_tag(:h5, @resource.name) if @resource %>
       <div class="table-responsive">
         <table class="table table-bordered text-nowrap common-table">
           <tr>
