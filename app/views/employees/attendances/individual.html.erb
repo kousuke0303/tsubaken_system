@@ -14,8 +14,7 @@
     <div class="card-header bg-dark tab-wrapper">
       <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
-
-          <div class="col-lg-3 col-md-3 flex pl-0 pr-0">
+          <div class="col-md-5 flex pl-0 pr-0">
             <div class="pl-5 pr-5" style="width: 60%;">
               <%= f.select :year, @years_hash, { selected: params[:year] }, { class: "form-control", required: true } %>
             </div>
@@ -25,28 +24,28 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5">
+          <div class="col-md-2 pl-5 pr-5">
             <%= f.select :type, Constants::EMPLOYEES_TYPE_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="initial">
+          <div class="col-md-4 pl-5 pr-5" id="initial">
             <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="manager">
+          <div class="col-md-4 pl-5 pr-5" id="manager">
             <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="staff">
+          <div class="col-md-4 pl-5 pr-5" id="staff">
             <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="external-staff">
+          <div class="col-md-4 pl-5 pr-5" id="external-staff">
             <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5 text-left">
-            <%= f.submit "検索", class: "btn btn-primary" %>
+          <div class="col-md-1 pl-5 pr-5 text-left">
+            <input type="submit" value="&#xf002;" class="fas btn btn-primary" style="height: 100%;">
           </div>
         </div>
       <% end %>
@@ -116,85 +115,87 @@
     });
   });
 
-  const manager = $("#manager");
-  const managerSelect = $('select[name="manager_id"]');
-  const staff = $("#staff");
-  const staffSelect = $('select[name="staff_id"]');
-  const externalStaff = $("#external-staff");
-  const externalStaffSelect = $('select[name="external_staff_id"]');
-  const initial = $("#initial");
+  $(document).ready(function () {
+    const manager = $("#manager");
+    const managerSelect = $('select[name="manager_id"]');
+    const staff = $("#staff");
+    const staffSelect = $('select[name="staff_id"]');
+    const externalStaff = $("#external-staff");
+    const externalStaffSelect = $('select[name="external_staff_id"]');
+    const initial = $("#initial");
 
-  // マネージャー選択フォーム表示し、それ以外はリセットして非表示
-  function showManagerSelect() {
-    manager.show();
-    managerSelect.attr("required", "true");
-    staff.hide();
-    staffSelect.removeAttr("required");
-    staffSelect.val("");
-    externalStaff.hide();
-    externalStaffSelect.removeAttr("required");
-    externalStaffSelect.val("");
-    initial.hide();
-  };
-
-  // スタッフ選択フォーム表示し、それ以外はリセットして非表示
-  function showStaffSelect() {
-    manager.hide();
-    managerSelect.removeAttr("required");
-    managerSelect.val("");
-    staff.show();
-    staffSelect.attr("required", "true");
-    externalStaff.hide();
-    externalStaffSelect.removeAttr("required");
-    externalStaffSelect.val("");
-    initial.hide();
-  };
-
-  // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
-  function showExternalStaffSelect() {
-    manager.hide();
-    managerSelect.removeAttr("required");
-    managerSelect.val("");
-    staff.hide();
-    staffSelect.removeAttr("required");
-    externalStaff.show();
-    staffSelect.val("");
-    externalStaffSelect.attr("required", "true");
-    initial.hide();
-  };
-
-  // 全タイプの従業員選択フォームをリセットして非表示
-  function showInitialSelect() {
-    initial.show();
-    manager.hide();
-    managerSelect.val("");
-    staff.hide();
-    staffSelect.val("");
-    externalStaff.hide();
-    externalStaffSelect.val("");
-  };
-
-  // 検索結果を、選択フォームに初期表示
-  <% if params[:type] && params[:type] == "1" %>
-    showManagerSelect();
-  <% elsif params[:type] && params[:type] == "2" %>
-    showStaffSelect();
-  <% elsif params[:type] && params[:type] == "3" %>
-    showExternalStaffSelect();
-  <% else %>
-    showInitialSelect();
-  <% end %>
-
-  // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
-  $("#type").change(function() {
-    if($(this).val() == "1"){
-      showManagerSelect();
-    } else if ($(this).val() == "2") {
-      showStaffSelect();
-    } else if ($(this).val() == "3") {
-      showExternalStaffSelect();
-    } else {
-      showInitialSelect();
+    // マネージャー選択フォーム表示し、それ以外はリセットして非表示
+    function showManagerSelect() {
+      manager.show();
+      managerSelect.attr("required", "true");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
     };
+
+    // スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.show();
+      staffSelect.attr("required", "true");
+      externalStaff.hide();
+      externalStaffSelect.removeAttr("required");
+      externalStaffSelect.val("");
+      initial.hide();
+    };
+
+    // 外部スタッフ選択フォーム表示し、それ以外はリセットして非表示
+    function showExternalStaffSelect() {
+      manager.hide();
+      managerSelect.removeAttr("required");
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.removeAttr("required");
+      externalStaff.show();
+      staffSelect.val("");
+      externalStaffSelect.attr("required", "true");
+      initial.hide();
+    };
+
+    // 全タイプの従業員選択フォームをリセットして非表示
+    function showInitialSelect() {
+      initial.show();
+      manager.hide();
+      managerSelect.val("");
+      staff.hide();
+      staffSelect.val("");
+      externalStaff.hide();
+      externalStaffSelect.val("");
+    };
+
+    // 検索結果を、選択フォームに初期表示
+    <% if params[:type] && params[:type] == "1" %>
+      showManagerSelect();
+    <% elsif params[:type] && params[:type] == "2" %>
+      showStaffSelect();
+    <% elsif params[:type] && params[:type] == "3" %>
+      showExternalStaffSelect();
+    <% else %>
+      showInitialSelect();
+    <% end %>
+
+    // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
+    $("#type").change(function() {
+      if($(this).val() == "1"){
+        showManagerSelect();
+      } else if ($(this).val() == "2") {
+        showStaffSelect();
+      } else if ($(this).val() == "3") {
+        showExternalStaffSelect();
+      } else {
+        showInitialSelect();
+      };
+    });
   });
 </script>
