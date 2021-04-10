@@ -57,8 +57,7 @@
         </tr>
         <tr>
           <td><%= @total_working_days %>日</td>
-          <td></td>
-          <td></td>
+          <%= empty_td(2) %>
           <td><%= monthly_working_time(@total_working_minutes) %></td>
         </tr>
       </table>

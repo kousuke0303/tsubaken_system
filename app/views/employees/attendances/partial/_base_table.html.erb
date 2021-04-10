@@ -24,6 +24,9 @@
           <td>
             <%= attendance.manager_name %><%= attendance.staff_name %><%= attendance.external_staff_name %>
           </td>
+          <% if employee_type == "外部Staff" %>
+            <td></td>
+          <% end %>
           <td><%= l(attendance.started_at, format: :time) %></td>
           <% if finished_nil?(attendance) %>
             <td class="text-danger">退勤未処理</td>
