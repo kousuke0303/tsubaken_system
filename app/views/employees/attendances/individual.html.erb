@@ -75,11 +75,11 @@
               <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
                 <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
                 <td><%= l(attendance.started_at, format: :time) %></td>                
-                <% if attendance.finished_at.present? %>
-                  <td><% finished_at = l(attendance.finished_at, format: :time) %></td>
-                <% else %>
+                <% if finished_nil?(attendance) %>
                   <td class="text-danger">退勤未処理</td>
-                <% end %>                
+                <% else %>
+                  <td><%= finished_at if attendance.finished_at.present? %></td>
+                <% end %>             
                 <td>
                   <% if attendance.working_minutes.present? %>
                     <%= daily_working_time(attendance.working_minutes) %>
