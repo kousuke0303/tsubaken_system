@@ -5,22 +5,22 @@
       <div class="card mb-3">
         <h5 class="card-header">勤怠編集</h5>
         <div class="card-body">
-          <h5 class="text-center" id="edit-attendance-name"></h5>
-          <h5 class="text-center" id="edit-attendance-worked-on"></h5>
-          <%= form_with(model: @attendance, url: employees_attendance_path(@attendance), method: :patch, remote: true, id: "edit-attendance-form") do |f| %>
+          <h5 class="text-center"></h5>
+          <h5 class="text-center"><%= l(@attendance.worked_on, format: :long) %></h5>
+          <%= form_with(model: @attendance, url: employees_attendance_path(@attendance), method: :patch, remote: true) do |f| %>
             <div class="attendance-update-errors"></div>
 
             <%= f.label :started_at %>
-            <%= f.time_field :started_at, class: "form-control", required: true, id: "edit-attendance-started-at" %>
+            <%= f.time_field :started_at, class: "form-control", required: true %>
 
             <%= f.label :finished_at %>
-            <%= f.time_field :finished_at, class: "form-control", required: true, id: "edit-attendance-finished-at" %>
+            <%= f.time_field :finished_at, class: "form-control", required: true %>
 
-            <input name="prev_action" hidden>
+            <input name="prev_action" value="<%= @prev_action %>" hidden>
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", employees_attendance_path(@attendance), method: :delete, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger", id: "to-destroy-attendance" %>
+              <%= link_to "削除", employees_attendance_path(@attendance, prev_action: @prev_action), method: :delete, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
@@ -30,9 +30,3 @@
 </div>
 
 <%= javascript_include_tag "reset_errors.js" %>
-
-<script>
-  $(document).on("turbolinks:load", function() {
-    $('[name="prev_action"]').val("<%= controller.action_name %>");
-  });
-</script>

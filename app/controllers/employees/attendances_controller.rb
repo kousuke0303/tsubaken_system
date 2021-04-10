@@ -10,7 +10,7 @@ class Employees::AttendancesController < Employees::EmployeesController
     # 対象日を定義
     params[:day] && params[:day].present? ? @day = params[:day].to_date : @day = Date.current
     # 勤怠モデルと、マネージャー・スタッフ・外部スタッフ(所属の外注先を含めて)を事前に読み込む
-    attendances = Attendance.where(worked_on: @day).start_exist.with_member_codes
+    attendances = Attendance.where(worked_on: @day).start_exist.with_employees
     @manager_attendances = attendances.where.not(member_codes: { manager_id: nil })
     @staff_attendances = attendances.where.not(member_codes: { staff_id: nil })
     @external_staff_attendances = attendances.where.not(member_codes: { external_staff_id: nil })
@@ -61,26 +61,19 @@ class Employees::AttendancesController < Employees::EmployeesController
   end
 
   def edit
+    @prev_action = params[:prev_action]
   end
 
   def update
     if @attendance.update(employee_attendance_params.except(:worked_on))
       flash[:success] = "勤怠を更新しました"
-      if params["prev_action"].eql?("daily")
-        redirect_to daily_employees_attendances_url
-      else
-        redirect_to individual_employees_attendances_url
-      end
+      params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
     end
   end
 
   def destroy
     @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました" : flash[:alert] = "勤怠を削除できませんでした"
-    if params["prev_action"].eql?("daily")
-      redirect_to daily_employees_attendances_url
-    else
-      redirect_to individual_employees_attendances_url
-    end
+    params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
   end
 
   private

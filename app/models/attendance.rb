@@ -14,7 +14,7 @@ class Attendance < ApplicationRecord
 
   scope :start_exist, -> { where.not(started_at: nil) }
   scope :finish_exist, -> { where.not(finished_at: nil) }
-  scope :with_member_codes, -> { 
+  scope :with_employees, -> { 
     left_joins(member_code: [:manager, :staff, :external_staff]).
     select(
       "attendances.*",
