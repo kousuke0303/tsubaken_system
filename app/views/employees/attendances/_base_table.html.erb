@@ -1,6 +1,6 @@
 <h5><%= employee_type %></h5>
 
-<% if employee_type == "Manager" && attendances.blank? %>
+<% if attendances.blank? %>
   <h6>出勤なし</h6>
 <% else %>
   <div class="table-responsive">
