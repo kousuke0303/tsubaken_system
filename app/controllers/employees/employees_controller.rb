@@ -20,7 +20,7 @@ class Employees::EmployeesController < ApplicationController
     end
     
     def set_employees
-      @clients = Client.all.order(created_at: :desc)
+      @managers = Manager.all
       @staffs = Staff.all
       @external_staffs = ExternalStaff.all
     end

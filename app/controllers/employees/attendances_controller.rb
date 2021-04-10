@@ -3,7 +3,6 @@ class Employees::AttendancesController < Employees::EmployeesController
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:new, :daily, :individual]
-  before_action :set_new_attendance, only: [:daily, :individual]
   before_action :set_attendance, only: [:update, :destroy]
 
   # 日別勤怠表示ページ
@@ -43,15 +42,11 @@ class Employees::AttendancesController < Employees::EmployeesController
   
   # 管理者からの勤怠作成
   def create
-    case params[:attendance]["employee_type"]
-    when "1"
-      manager_id = params[:attendance]["manager_id"]
+    if (manager_id = params[:attendance]["manager_id"]).present?
       resource = Manager.find(manager_id).member_code
-    when "2"
-      staff_id = params[:attendance]["staff_id"]
+    elsif (staff_id = params[:attendance]["staff_id"]).present?
       resource = Staff.find(staff_id).member_code
-    when "3"
-      external_staff_id = params[:attendance]["external_staff_id"]
+    elsif (external_staff_id = params[:attendance]["external_staff_id"]).present?
       resource = ExternalStaff.find(external_staff_id).member_code
     end
     create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
@@ -66,7 +61,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   end
 
   def update
-    if @attendance.update(employee_attendance_params.except(:worked_on, :manager_id, :staff_id, :external_staff_id))
+    if @attendance.update(employee_attendance_params.except(:worked_on))
       flash[:success] = "勤怠を更新しました"
       if params["prev_action"].eql?("daily")
         redirect_to daily_employees_attendances_url
@@ -77,7 +72,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   end
 
   def destroy
-    @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました。" : flash[:notice] = "勤怠を削除できませんでした。"
+    @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました" : flash[:alert] = "勤怠を削除できませんでした"
     if params["prev_action"].eql?("daily")
       redirect_to daily_employees_attendances_url
     else
@@ -94,22 +89,12 @@ class Employees::AttendancesController < Employees::EmployeesController
       @years_hash = @years_hash.sort.reverse.to_h
     end
 
-    def set_employees
-      @managers = Manager.all
-      @staffs = Staff.all
-      @external_staffs = ExternalStaff.all
-    end
-
-    def set_new_attendance
-      @attendance = Attendance.new
-    end
-
     def set_attendance
       @attendance = Attendance.find(params[:id])
     end
 
     def employee_attendance_params
-      params.require(:attendance).permit(:employee_type, :worked_on, :started_at, :finished_at)
+      params.require(:attendance).permit(:worked_on, :started_at, :finished_at)
     end
 
     def create_monthly_attendance_by_date(resource, date)
