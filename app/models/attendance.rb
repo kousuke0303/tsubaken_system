@@ -19,6 +19,7 @@ class Attendance < ApplicationRecord
     select(
       "attendances.*",
       "member_codes.*",
+      "attendances.id AS id",
       "managers.name AS manager_name",
       "staffs.name AS staff_name",
       "external_staffs.name AS external_staff_name"

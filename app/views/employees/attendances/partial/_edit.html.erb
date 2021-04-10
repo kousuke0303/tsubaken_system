@@ -7,7 +7,7 @@
         <div class="card-body">
           <h5 class="text-center" id="edit-attendance-name"></h5>
           <h5 class="text-center" id="edit-attendance-worked-on"></h5>
-          <%= form_with(model: @attendance, url: "#", method: :patch, remote: true, id: "edit-attendance-form") do |f| %>
+          <%= form_with(model: @attendance, url: employees_attendance_path(@attendance), method: :patch, remote: true, id: "edit-attendance-form") do |f| %>
             <div class="attendance-update-errors"></div>
 
             <%= f.label :started_at %>
@@ -20,7 +20,7 @@
 
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              <%= link_to "削除", "#", method: :delete, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger", id: "to-destroy-attendance" %>
+              <%= link_to "削除", employees_attendance_path(@attendance), method: :delete, data: { confirm: "この勤怠を削除してよろしいですか？" }, class: "btn btn-danger", id: "to-destroy-attendance" %>
             </div>
           <% end %>
         </div>

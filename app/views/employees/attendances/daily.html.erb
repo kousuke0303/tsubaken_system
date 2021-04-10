@@ -20,13 +20,20 @@
     </div>
         
     <div class="card-body">
-      <%= render "employees/attendances/base_table", employee_type: "Manager", attendances: @manager_attendances %>
+      <%= render "employees/attendances/partial/base_table", employee_type: "Manager", attendances: @manager_attendances %>
       <div class="my-5">
-        <%= render "employees/attendances/base_table", employee_type: "Staff", attendances: @staff_attendances %>
+        <%= render "employees/attendances/partial/base_table", employee_type: "Staff", attendances: @staff_attendances %>
       </div> 
-      <%= render "employees/attendances/base_table", employee_type: "外部Staff", attendances: @external_staff_attendances %> 
+      <%= render "employees/attendances/partial/base_table", employee_type: "外部Staff", attendances: @external_staff_attendances %> 
     </div>
   </div>
 </div>
 
-<%= javascript_include_tag "attendance_edit.js" %>
+<script>
+  $("tr[data-link]").click(function() {
+    $.ajax({
+      type: "GET",
+      url: $(this).data("link"),
+    });
+  });
+</script>

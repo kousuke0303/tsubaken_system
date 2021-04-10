@@ -3,7 +3,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   before_action :set_one_month, only: :individual
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:new, :daily, :individual]
-  before_action :set_attendance, only: [:update, :destroy]
+  before_action :set_attendance, only: [:edit, :update, :destroy]
 
   # 日別勤怠表示ページ
   def daily
@@ -58,6 +58,9 @@ class Employees::AttendancesController < Employees::EmployeesController
         redirect_to individual_employees_attendances_url
       end
     end
+  end
+
+  def edit
   end
 
   def update

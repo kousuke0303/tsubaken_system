@@ -254,7 +254,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers
     
-    resources :attendances, only: [:new, :create, :update, :destroy] do
+    resources :attendances, only: [:new, :create, :edit, :update, :destroy] do
       collection do
         get :daily
         get :individual

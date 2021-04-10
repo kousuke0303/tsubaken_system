@@ -14,13 +14,13 @@
         <th width=20%>退勤</th>
         <th width=20%>勤務</th>
       </tr>
-      <% attendances.each do |attendance| %>
+      <% attendances.each do |attendance| %>        
         <% if attendance.finished_at.present? %>
           <% finished_at = l(attendance.finished_at, format: :time) %>
         <% else %>
           <% finished_at = "not-entered" %>
         <% end %>
-        <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>"
+        <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>"
           data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
           <td class="name">
             <%= attendance.manager_name %><%= attendance.staff_name %><%= attendance.external_staff_name %>
