@@ -6,6 +6,9 @@ class Attendance < ApplicationRecord
   validate :finished_is_after_started
 
   attr_accessor :employee_type
+  attr_accessor :manager_id
+  attr_accessor :staff_id
+  attr_accessor :external_staff_id
 
   before_save { save_working_minutes }
 

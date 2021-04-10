@@ -20,7 +20,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   # 従業員別の月毎の勤怠表示ページ
   def individual
     if params[:year] && params[:year].present? && params[:month] && params[:month].present?
-      @first_day = "#{params[:year]}-#{params[:month]}-01".to_date
+      @first_day = "#{ params[:year] }-#{ params[:month] }-01".to_date
       @last_day = @first_day.end_of_month
     end
     if params[:type] && params[:type] == "1" && params[:manager_id] && params[:manager_id].present?
@@ -46,13 +46,13 @@ class Employees::AttendancesController < Employees::EmployeesController
     case params[:attendance]["employee_type"]
     when "1"
       manager_id = params[:attendance]["manager_id"]
-      resource = Manager.find(manager_id)
+      resource = Manager.find(manager_id).member_code
     when "2"
       staff_id = params[:attendance]["staff_id"]
-      resource = Staff.find(staff_id)
+      resource = Staff.find(staff_id).member_code
     when "3"
       external_staff_id = params[:attendance]["external_staff_id"]
-      resource = ExternalStaff.find(external_staff_id)
+      resource = ExternalStaff.find(external_staff_id).member_code
     end
     create_monthly_attendance_by_date(resource, params[:attendance]["worked_on"].to_date)
     if @attendance.update(employee_attendance_params)
@@ -109,7 +109,7 @@ class Employees::AttendancesController < Employees::EmployeesController
     end
 
     def employee_attendance_params
-      params.require(:attendance).permit(:employee_type, :manager_id, :staff_id, :external_staff_id, :worked_on, :started_at, :finished_at)
+      params.require(:attendance).permit(:employee_type, :worked_on, :started_at, :finished_at)
     end
 
     def create_monthly_attendance_by_date(resource, date)
