@@ -139,9 +139,9 @@ module ApplicationHelper
   # cut/context
   def content_display(content, limit)
     if content.size > limit
-      return content[0, limit] + "......"
+      content[0, limit] + "......"
     else
-      return content
+      content
     end
   end
   
@@ -158,16 +158,14 @@ module ApplicationHelper
   end
   
   def finished_nil?(attendance)
-    if attendance.worked_on != Date.current && attendance.started_at.present? && attendance.finished_at == nil
-      return true
-    end
+    attendance.worked_on != Date.current && attendance.started_at.present? && attendance.finished_at == nil
   end
   
   def own_finished_at_nil_notification(object_user)
     yesterday = Date.current - 1
     attendance = object_user.attendances.find_by(worked_on: yesterday)
     if attendance && attendance.started_at.present? && attendance.finished_at == nil
-      return "昨日の退勤処理がありません。管理者に報告してください！"
+      "昨日の退勤処理がありません。管理者に報告してください！"
     end
   end
   
@@ -192,13 +190,13 @@ module ApplicationHelper
   def ja_auth(auth)
     case auth 
     when "admin"
-      return "管理者"
+      "管理者"
     when "manager"
-      return "マネージャー"
+      "マネージャー"
     when "staff"
-      return "スタッフ"
+      "スタッフ"
     when "external_staff"
-      return "外部スタッフ"
+      "外部スタッフ"
     end
   end
   

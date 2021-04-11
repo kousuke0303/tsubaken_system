@@ -156,7 +156,7 @@ class Employees::EstimateMatters::EstimateDetailsController < Employees::Estimat
     def register_constructions(construction_id_array, before_construction_array)
       construction_id_array.each.with_index(1) do |params_construction_id, index|
         default_construction = Construction.find(params_construction_id)
-        a = EstimateDetail.create(
+        EstimateDetail.create(
           estimate_id: @estimate_detail.estimate.id,
           category_id: @estimate_detail.category_id,
           category_name: @estimate_detail.category_name,

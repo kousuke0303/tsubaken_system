@@ -7,7 +7,7 @@ module EmployeesHelper
     elsif current_staff
       object.staffs.find(current_staff.id).present? ? true : false
     elsif current_external_staff
-       object.external_staffs.find(current_external_staff.id).present? ? true : false
+      object.external_staffs.find(current_external_staff.id).present? ? true : false
     end
   end
   
@@ -28,10 +28,8 @@ module EmployeesHelper
   end
   
   # STAFF_COLOR
-  def staff_color(staff_id)
-    if staff_id.present?
-      Staff.find(staff_id).label_color.color_code
-    end
+  def staff_color(staff_id)    
+    Staff.find(staff_id).label_color.color_code if staff_id.present?
   end
   
   #PUBLISHER_NAME
@@ -49,7 +47,7 @@ module EmployeesHelper
             concat(content_tag(:p, "■■"))
           end)
         end)
-        concat(content_tag(:div, "#{text}", class: "text"))
+        concat(content_tag(:div, "#{ text }", class: "text"))
       end)
     end    
   end

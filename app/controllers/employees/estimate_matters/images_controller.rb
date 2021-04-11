@@ -26,14 +26,14 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
   
   def update
     if @image.update(image_content_and_shooted_on_params)
-      flash[:success] = "写真を編集しました。"
+      flash[:success] = "写真を編集しました"
       redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
     end
   end
   
   def destroy
     @image.destroy
-    flash[:success] = "写真を削除しました。"
+    flash[:success] = "写真を削除しました"
     redirect_to employees_estimate_matter_images_url(current_estimate_matter, @image)
   end
   

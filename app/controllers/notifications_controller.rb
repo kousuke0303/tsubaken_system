@@ -30,7 +30,7 @@ class NotificationsController < ApplicationController
       @notifications_for_update_task = Notification.includes(:task).where(id: notification_ids)
     elsif params[:action_type] == "delete"
       notification_ids = @recieve_notifications.delete_notification_for_task.ids
-      @deletion_notification_for_tasks = Notification.where(notifications: {id: notification_ids})
+      @deletion_notification_for_tasks = Notification.where(notifications: { id: notification_ids })
     end
   end
   
@@ -39,6 +39,6 @@ class NotificationsController < ApplicationController
       notification = Notification.find(n_id.to_i)
       notification.update(status: 1)
     end
-    redirect_to send("#{login_user.auth}s_top_url")
+    redirect_to send("#{ login_user.auth }s_top_url")
   end
 end

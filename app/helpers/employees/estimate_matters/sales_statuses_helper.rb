@@ -10,9 +10,9 @@ module Employees::EstimateMatters::SalesStatusesHelper
   
   def schedule_save?(sales_status)
     if Schedule.find_by(sales_status_id: sales_status.id).present?
-      return "登録済み"
+      "登録済み"
     else
-      return "無し"
+      "無し"
     end
   end
     

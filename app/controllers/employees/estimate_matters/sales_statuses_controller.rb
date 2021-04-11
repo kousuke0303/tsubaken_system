@@ -90,6 +90,5 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     def common_variable_for_view
       @sales_statuses = @estimate_matter.sales_statuses.includes(:sales_status_editor).order(created_at: "DESC")
       @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
-    end
-    
+    end    
 end
