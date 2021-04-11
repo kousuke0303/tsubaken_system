@@ -1,10 +1,10 @@
 <div class="table-responsive">
-  <table class="table table-bordered table-column-type">
+  <table class="table text-nowrap table-bordered table-column-type">
     <tr>
       <th>期限</th>
       <th>タイトル</th>
       <th>内容</th>
-      <th>その他事項</th>
+      <th>関連事項</th>
       <th>作成日</th>
       <th>ステータス</th>
     </tr>
@@ -13,11 +13,16 @@
       <td><%= task.deadline_disp %></td>
       <td><%= task.title %></td>
       <td><%= task.content %></td>
-      <td>
-        <% if task.matter_id.present? || task.estimate_matter_id.present? %>
+      <% if task.matter_id.present? || task.estimate_matter_id.present? %>
+        <td>
           <% task_remarks(task, task.matter_title) %>
           <%= link_to "#{@type}/#{@relation_title}", send(@path, id: "#{@path_id}"), data: {turbolinks: false} %>
-        <% end %>
+        </td>
+      <% else %>
+        <td class="text-center">
+          <%= link_to "編集", edit_employees_task_path(task), class: "btn btn-dark", remote: true %>
+        </td>
+      <% end %>
       </td>
       <td><%= task.created_at_disp %></td>
       <td id="<%= task.id %>">

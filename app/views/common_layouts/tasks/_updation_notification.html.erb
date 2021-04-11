@@ -14,21 +14,21 @@
             <th style="vertical-align: middle;">内容</th>
             <th style="vertical-align: middle;">通知人</th>
           </tr>
-          <% @updation_tasks.each do |task| %>
+          <% @notifications_for_update_task.each do |notification| %>
             <tr>
               <td rowspan="2" class="text-center updation_task" style="vertical-align: middle;">
-                <input type="checkbox" name="confirmation" value=<%= task.notification_id %> checked="checked">
+                <input type="checkbox" name="confirmation" value=<%= notification.id %> checked="checked">
               </td>
               <td>変更後</td>
-              <td><%= task.title %></td>
-              <td><%= task.content %></td>
-              <td rowspan="2" style="vertical-align: middle;"><%= member_name_from_member_code_id(task.sender) %></td>
+              <td><%= notification.task.title %></td>
+              <td><%= notification.task.content %></td>
+              <td rowspan="2" style="vertical-align: middle;"><%= member_name_from_member_code_id(notification.sender_id) %></td>
             </tr>
             <tr>
               <td>変更前</td>
-              <td><%= task.before_value_1 %></td>
-              <td><%= task.before_value_2 %></td>
-              <td><%= task.before_value_3 %></td>
+              <td><%= notification.before_value_1 %></td>
+              <td><%= notification.before_value_2 %></td>
+              <td><%= notification.before_value_3 %></td>
             </tr>
           <% end %>
         </table>

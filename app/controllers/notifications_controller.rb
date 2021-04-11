@@ -27,8 +27,7 @@ class NotificationsController < ApplicationController
                                                   .select('tasks.*, notifications.id AS notification_id, notifications.sender_id AS sender_code')
     elsif params[:action_type] == "update"
       notification_ids = @recieve_notifications.updation_notification_for_task.ids
-      @updation_tasks = Task.joins(:notifications).where(notifications: {id: notification_ids})
-                            .select('tasks.*, notifications.*, notifications.id AS notification_id')
+      @notifications_for_update_task = Notification.includes(:task).where(id: notification_ids)
     elsif params[:action_type] == "delete"
       notification_ids = @recieve_notifications.delete_notification_for_task.ids
       @deletion_notification_for_tasks = Notification.where(notifications: {id: notification_ids})

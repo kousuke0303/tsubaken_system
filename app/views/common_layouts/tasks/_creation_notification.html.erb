@@ -19,7 +19,7 @@
                 <input type="checkbox" name="confirmation" value="<%= task.notification_id %>" checked="checked">
               </td>
               <td><%= task.title %></td>
-              <td><%= task.matter.title %></td>
+              <td><%= task.parent_title %></td>
               <td><%= member_name_from_member_code_id(task.sender_code) %></td>
             </tr>
           <% end %>

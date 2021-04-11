@@ -58,7 +58,7 @@ class Employees::Matters::TasksController < Employees::TasksController
   end
   
   def destroy
-     @task.sender = login_user.member_code.id
+    @task.sender = login_user.member_code.id
     if @task.destroy
       flash[:danger] = "タスクを削除しました。"
       unless params[:submit_type] == "change_member"

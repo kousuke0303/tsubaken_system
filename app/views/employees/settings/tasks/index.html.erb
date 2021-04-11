@@ -11,19 +11,18 @@
   </div>
   
   <div class="tab-wrap">
-    <%= render "shared/sortable_explanation" %>
     
     <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">個別タスク</label>
     <div class="tab-content">
-      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @individual_tasks} %>
+      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @individual_tasks, type: "individual"} %>
     </div>
     <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">営業案件タスク</label>
     <div class="tab-content">
-      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @estimate_matter_tasks} %>
+      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @estimate_matter_tasks, type: "estimate_matter"} %>
     </div>
     <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">着工案件タスク</label>
     <div class="tab-content">
-      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @matter_tasks} %>
+      <%= render partial: 'employees/settings/tasks/partial/table', locals: {tasks: @matter_tasks, type: "matter"} %>
     </div>
 
 </div>

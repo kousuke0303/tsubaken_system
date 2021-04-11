@@ -116,7 +116,7 @@ module ApplicationHelper
   
   def member_name_from_member_code_id(code_id)
     membercode = MemberCode.find(code_id)
-    member_name_from_member_code(membercode)
+    membercode.parent.name
   end
   
   def postal_code_display(post_code)

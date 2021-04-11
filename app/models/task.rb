@@ -5,9 +5,9 @@ class Task < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   before_save :member_name_update
+  before_commit :default_deadline
   after_commit :add_default_task_for_auto_set, on: :create
-  after_commit :create_notification, on: :update
-  after_commit :default_deadline
+  after_commit :create_notification
   after_destroy :destroy_notification
   
   acts_as_list scope: [:status]
@@ -27,6 +27,7 @@ class Task < ApplicationRecord
   scope :are_finished, -> { finished.order(:sort_order) }
   scope :auto_set_lists, -> { where(status: 0, auto_set: true)}
   scope :sort_deadline, -> {order(deadline: :desc)}
+  scope :are_default_individual, -> {default.individual.order(position: :asc)}
   
   # notification関連
   attr_accessor :notification_type
@@ -98,20 +99,31 @@ class Task < ApplicationRecord
     end
   end
   
+  def parent_title
+    if self.matter_id.present?
+      self.matter.title
+    elsif self.estimate_matter_id.present?
+      self.estimate_matter.title
+    else
+      "個別タスク"
+    end
+  end
+      
+  
   private
   #-----------------------------------------------------
     # CALLBACK_METHOD
   #-----------------------------------------------------
 
-  def count
-    if self.default?
-      count = Task.where("default_task_id = ?", self.id).count
-      self.update_column(:default_task_id_count, count)
-    end  
-  end
+  # def count
+  #   if self.default?
+  #     count = Task.where("default_task_id = ?", self.id).count
+  #     self.update_column(:default_task_id_count, count)
+  #   end  
+  # end
   
   def default_deadline
-    self.update(deadline: Date.current) unless self.deadline.present?
+    self.update(deadline: Date.current + 1.day) unless self.deadline.present?
   end
   
   def member_name_update
@@ -132,21 +144,33 @@ class Task < ApplicationRecord
   
   # 通常の割り振りタスクの通知
   def create_notification
-    if self.status != "default" && self.notification_type == "create_destroy"
-      self.notifications.create(category: 2, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id)
-      self.notifications.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code)
-    elsif self.status != "default" && self.notification_type == "create"
-      self.notifications.create(category: 2, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id)
-    elsif self.status != "default" && self.notification_type == "update"
-      self.notifications.create(category: 2, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id,
-                                before_value_1: self.before_title)
+    if self.sender.present? && self.status != "default"
+      if self.notification_type == "create_destroy"
+        self.notifications.create(category: 2, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id)
+        self.notifications.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code)
+      elsif self.notification_type == "create"
+        self.notifications.create(category: 2, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id)
+      elsif self.notification_type == "update"
+        self.notifications.create(category: 2, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id,
+                                  before_value_1: self.before_title, before_value_2: self.before_content)
+      end
     end
   end
   
   def destroy_notification
     if self.status != "default"
-      Notification.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
-                          before_value_1: self.title, before_value_2: self.matter.title)
+      case self.category
+      when "matter"
+        Notification.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
+                            before_value_1: self.title, before_value_2: self.matter.title)
+      when "estimate_matter"
+        Notification.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
+                            before_value_1: self.title, before_value_2: self.estimate_matter.title)
+      when "individual"
+        Notification.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
+                            before_value_1: self.title, before_value_2: "個別タスク")
+      end
     end
   end
+  
 end

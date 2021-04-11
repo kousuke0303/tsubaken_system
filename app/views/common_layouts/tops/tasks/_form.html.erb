@@ -1,0 +1,78 @@
+<div class="form-group form-check">
+  <%= f.check_box :check, class: "form-check-input", id: "check" %>
+  <label class="mt-0 form-check-label", for="check">直接タスク名を入力する</label>
+</div>
+
+<%= f.label :title %>
+<%= f.select :select_title, options_for_select(@default_tasks.pluck(:title)), {include_blank: "選択してください"}, class: "form-control", id: "select_title" %> 
+
+<div id="title_form" style="display: none;">
+  <%= f.text_field :title, class: "form-control", maxlength: 30, id: "task-title" %>
+</div>
+
+<%= f.label :content %>
+<%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+
+<%= f.label :deadline %>
+<%= f.date_field :deadline, class: "form-control" %>
+
+<h6 class="mt-1e">担当者</h6>
+<div>
+  <%= f.select :member_code_id, options_for_select(@member_codes.map{|code|[code.member_name_from_member_code, code.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+</div>
+        
+
+<%= javascript_include_tag "person_in_charge.js" %>
+
+<% if member_name(@task) %>
+  <script>
+    $(document).ready( function(){
+      var member = "<%= member_name(@task) %>";
+      $('#member_select option').each(function(){
+        if($(this).text() == member){
+          $(this).prop('selected', true);
+        }
+      });
+    });
+  </script>
+<% end %>
+
+<script>
+  $('#check').on('change', function(){
+    var val = $(this).prop('checked');
+    if(val){
+      $('#select_title').hide();
+      $('#title_form').show();
+      $('#task-content').val('');
+    } else {
+      $('#select_title').val('');
+      $('#task-content').val('');
+      $('#select_title').show();
+      $('#title_form').hide();
+    }
+  });
+</script>
+
+<script>
+  $('#select_title').on('change', function(){
+    var title_arrey = [<%= raw @title_content_array %>];
+    var selected_title = $(this).val();
+    $.each(title_arrey[0], function(index, value){
+      if(selected_title == value[0]){
+        $('#task-content').val(title_arrey[0][index][1]);
+      } 
+    });
+  });
+</script>
+
+<script>
+  $( function(){
+    <% if @task.present? && @default_tasks.where(title: @task.title).present? %>
+      $('#select_title').val("<%= @task.title %>");
+    <% elsif @task.present? %>
+      $('#check').prop('checked', true);
+      $('#select_title').hide();
+      $('#title_form').show();
+    <% end %>
+  });
+</script>

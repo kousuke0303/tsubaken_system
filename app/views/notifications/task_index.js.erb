@@ -1,7 +1,7 @@
 $('#top_page_modal').empty();
 <% if @creation_tasks %>
   $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/tasks/creation_notification') %>');
-<% elsif @updation_tasks %>
+<% elsif @notifications_for_update_task %>
   $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/tasks/updation_notification') %>');
 <% elsif @deletion_notification_for_tasks %>
   $('#top_page_modal').html('<%= escape_javascript(render 'common_layouts/tasks/deletion_notification') %>');

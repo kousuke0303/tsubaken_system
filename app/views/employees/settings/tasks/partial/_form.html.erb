@@ -1,5 +1,5 @@
 <%= f.label :category %>
-<%= f.select :category, Task.categories.map{|k, v| [I18n.t("enums.task.category.#{k}"), v]},{}, class: "form-control" %>
+<%= f.select :category, Task.categories.map{|k, v| [I18n.t("enums.task.category.#{k}"), v]},{include_blank: "選択してください"}, required: true, class: "form-control", id: "select_category" %>
 
 <%= f.label :title %>
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
@@ -11,7 +11,19 @@
 <div class="check_boxes mt-1e">
   <%= f.check_box :alert, id: "alert" %>
   <label for="alert">警告表示</label>
-
-  <%= f.check_box :auto_set, id: "auto_set" %>
-  <label for="auto_set">常時設定</label>
+  
+  <div id="auto_set_select">
+    <%= f.check_box :auto_set, id: "auto_set" %>
+    <label for="auto_set">常時設定</label>
+  </div>
 </div>
+
+<script>
+  $('#select_category').on('change', function(){
+    if($(this).val() == "0"){
+      $('#auto_set_select').hide();
+    } else {
+      $('#auto_set_select').show();
+    }
+  });
+</script>

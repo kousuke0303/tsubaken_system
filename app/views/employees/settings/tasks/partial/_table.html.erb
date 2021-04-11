@@ -1,39 +1,35 @@
+<div class="text-right">
+  <%= render "shared/sortable_explanation" %>
+</div>
 <div class="table-responsive">
-  <table class="table table-bordered text-nowrap common-table">
-    <tr>
-      <th class="text-center">名前</th>
-      <th class="text-center">内容</th>
-      <th class="text-center">警告表示設定</th>
-      <th class="text-center">常時設定</th>
-      <th class="text-center">コピー回数</th>
-      <th></th>
-    </tr>
-    <% tasks.each do |default_task| %>
+  <table class="table text-nowrap table-bordered common-table">
+    <thead>
       <tr>
-        <td><%= default_task.title %></td>
-        <td><%= default_task.content %></td>
-        <td class="text-center">
-          <% if default_task.alert == true %>
-            <i class="fas fa-check"></i>
-          <% end %>
-        </td>
-        <td class="text-center">
-          <% if default_task.auto_set %>
-            <i class="fas fa-check"></i>
-          <% end %>
-        </td>
-        <td class="text-center">
-          <% unless default_task.auto_set %>
-            <%= default_task.default_task_id_count %>
-          <% end %>
-        </td>
-        
-        <td class="text-center">
-          <%= link_to "編集", edit_employees_settings_task_path(default_task), remote: true, class: "btn btn-sm btn-dark" %>
-          <%= link_to "削除", employees_settings_task_path(default_task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
-        </td>
+        <th class="text-center">名前</th>
+        <th class="text-center">内容</th>
+        <th class="text-center">警告表示設定</th>
+        <th class="text-center">常時設定</th>
+        <th></th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody id="sortable-<%= type %>-tasks">
+      <% tasks.each do |task| %>
+        <tr class="tr-sortable">
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td class="text-center">
+            <%= content_tag(:i, "", class: "fas fa-check") if task.alert %>
+          </td>
+          <td class="text-center">
+            <%= content_tag(:i, "", class: "fas fa-check") if task.auto_set %>
+          </td>
+          <td class="text-center">
+            <%= link_to "編集", edit_employees_settings_task_path(task), remote: true, class: "btn btn-sm btn-dark" %>
+            <%= link_to "削除", employees_settings_task_path(task), method: :delete, data: { confirm: "本当に削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
 
