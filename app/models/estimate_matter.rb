@@ -1,4 +1,8 @@
 class EstimateMatter < ApplicationRecord
+  
+  before_create :identify
+  after_commit :create_sales_status_task_set, on: :create
+  
   belongs_to :attract_method, optional: true
   belongs_to :client
   belongs_to :publisher, optional: true
@@ -19,9 +23,6 @@ class EstimateMatter < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }
-
-  before_create :identify
-  after_commit :create_sales_status, on: :create
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{ name }").ids) }
   scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{ year + "-" + format('%02d', month) }%") }
@@ -53,9 +54,12 @@ class EstimateMatter < ApplicationRecord
       self.id ||= SecureRandom.hex(num)
     end
     
-    def create_sales_status
+    def create_sales_status_task_set
       unless self.sales_statuses.present?
         self.sales_statuses.create!(status: "not_set", scheduled_date: Date.current)
+      end
+      Task.auto_set_lists_for_estimate_matter.each_with_index do |task, index|
+        self.tasks.create!(title: task.title, status: 1, sort_order: index, default_task_id: task.id) 
       end
     end
 end

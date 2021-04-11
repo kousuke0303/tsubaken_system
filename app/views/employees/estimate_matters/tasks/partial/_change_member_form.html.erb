@@ -1,0 +1,43 @@
+<div class="modal-dialog no-padding_modal">
+  <div class="modal-content">
+    <div class="modal-header modal-header-<%= @task.status %>">
+      <%= @task.title %> 担当者変更 <span class="ml-1e">（<%= @task.status_i18n %>）</span>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @task, url: update_member_employees_matter_task_path(@matter, @task, staff_id: @staff), method: :patch, local: true) do |f| %>
+        <div class="task-update-errors"></div>
+        <h6 class="mt-1e">担当者</h6>
+        <div>
+          <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+        </div>
+        <% if @manager.present? %>
+          <%= f.hidden_field :manager_id, value: @manager.id %>
+        <% elsif @staff.present? %>
+          <%= f.hidden_field :staff_id, value: @staff.id %>
+        <% elsif @external_staff.present? %>
+          <%= f.hidden_field :external_staff_id, value: @external_staff.id %>
+        <% end %>  
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          <%= link_to "削除", employees_matter_task_path(@matter, @task, submit_type: "change_member"), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "person_in_charge.js" %>
+
+<% if @task.member_name.present? %>
+  <script>
+    $(document).ready( function(){
+      var member = "<%= member_name(@task) %>";
+      $('#member_select option').each(function(){
+        if($(this).text() == member){
+          $(this).prop('selected', true);
+        }
+      });
+    });
+  </script>
+<% end %>

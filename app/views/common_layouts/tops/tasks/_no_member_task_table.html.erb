@@ -16,7 +16,7 @@
       <td><%= task.content %></td>
       <% if task.matter_id.present? || task.estimate_matter_id.present? %>
         <td>
-          <% task_remarks(task, task.matter_title) %>
+          <% task_remarks(task, task.parent_title) %>
           <%= link_to "#{@type}/#{@relation_title}", send(@path, id: "#{@path_id}"), data: {turbolinks: false} %>
         </td>
       <% else %>

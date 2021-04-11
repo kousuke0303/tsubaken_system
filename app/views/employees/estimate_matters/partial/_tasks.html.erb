@@ -1,0 +1,152 @@
+<div class="col-12 text-right mb-1e pc_type">
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
+</div>
+<div class="col-12 text-left mb-1e mobile_type">
+  <button class="btn btn-primary" id="add-task"><i class="fas fa-plus"></i>タスク追加</button>
+</div>
+
+<div id="kanban-tasks"></div>
+
+<%= javascript_include_tag "jkanban.js" %>
+
+<!--タスク関連-->
+<script>
+$(document).ready(function(){
+
+  //初期状態のタスク管理ボード用JSONデータ
+  const defaultBoards = [
+    {
+      "id": "default",
+      "title": "デフォルトタスク一覧",
+      "class": "default",
+      "item": [
+        <% @default_tasks.each do |task| %>
+          { 
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+          },
+        <% end %>
+      ]
+    },
+    
+    {
+      "id": "relevant",
+      "title": "タスク一覧",
+      "class": "relevant",
+      "item": [
+        <% @relevant_tasks.each do |task| %>    
+          {
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "ongoing",
+      "title": "進行中",
+      "class": "ongoing",
+      "item": [
+        <% @ongoing_tasks.each do |task| %> 
+          {
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+          },
+        <% end %>
+      ]
+    },
+
+    {
+      "id": "finished",
+      "title": "完了",
+      "class": "finished",
+      "item": [
+        <% @finished_tasks.each do |task| %>    
+          { 
+            "title": "<%= task.title %>",
+            "id": "<%= task.id %>",
+          },
+        <% end %>
+      ]
+    }
+  ];
+  
+  //jKanbanのインスタンス作成
+  var kanban = new jKanban({
+    element         : '#kanban-tasks',  //タスク管理ボードを表示するHTML要素
+    gutter          : '13px',           //ボード同士の間隔
+    widthBoard      : '220px',          //ボードのサイズ
+    boards          : defaultBoards,    //初期状態のJSONデータ
+    
+    dropEl: function(el, target, a, b){
+      var task = el.getAttribute("data-eid");
+      var status = target.parentNode.getAttribute("data-id");
+      var item_arrey = target.children;
+      item_arrey = [].slice.call(item_arrey);
+      var item_index = item_arrey.indexOf(el);
+
+      $.ajax({
+        type: "POST",
+        url: "<%= move_employees_estimate_matter_tasks_path(@estimate_matter) %>",
+        cache: false,
+        data: { task: task, status: status, item_index: item_index, remote: true }
+      });
+    }
+  });
+
+  var addTaskButton = document.getElementById("add-task");
+  addTaskButton.addEventListener("click",function(){
+    
+    const formItem = document.createElement("form");
+    formItem.innerHTML = '<input type="text", id="new-task-form">';
+    kanban.addForm("relevant", formItem);
+
+    $("#new-task-form").blur(function(){
+      var title = $("#new-task-form").val();
+
+      $.ajax({
+        type: "POST",
+        url: "<%= employees_estimate_matter_tasks_path(@estimate_matter) %>",
+        cache: false,
+        data: { title: title, remote: true }
+      });
+    });
+  });
+  // 現状使用しない
+  //var removeItem = document.getElementById('Item_reset');
+  //removeItem.addEventListener('click',function(){
+  //    $('div[data-id="finished_task"] main div').each(function(index, element){
+  //      kanban.removeElement(element)
+  //    });
+  //    $.ajax({
+  //        type: "GET",
+  //        url: "",
+  //        cache: false,
+  //    });
+  //  });
+  });
+
+  <% @default_tasks.each do |task| %>
+    $(function(){
+      $("[data-eid=<%= task.id %>]").html('<div class="default-task-title"><div><%= task.title.truncate(11) %></div></div>');
+    });
+  <% end %>
+
+  <% @estimate_matter.tasks.each do |task| %>
+    $(function(){
+      $("[data-eid=<%= task.id %>]").html('<%= escape_javascript(render partial: 'employees/estimate_matters/tasks/partial/card_content', locals:{ task: task }) %>');
+
+      // タスク編集モーダル
+      $("[data-eid=<%= task.id %>]").on("click",function(){
+        $.ajax({
+          type: "GET",
+          url: "<%= edit_employees_estimate_matter_task_path(@estimate_matter, task) %>",
+          cache: false,
+          data: { remote: true }
+        });
+      });
+    });
+  <% end %>
+</script>
+

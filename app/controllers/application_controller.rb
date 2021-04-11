@@ -248,8 +248,14 @@ class ApplicationController < ActionController::Base
 
   # 案件の持つタスクを分類、sort_orderを連番にupdateして定義
   def set_classified_tasks(resource)
-    @default_tasks = Task.are_matter_default_task
-    Task.reload_sort_order(@default_tasks)
+    case resource.class.name
+    when "EstimateMatter"
+      @default_tasks = Task.are_matter_default_task.estimate_matter
+      Task.reload_sort_order(@default_tasks)
+    when "Matter"
+      @default_tasks = Task.are_matter_default_task.matter
+      Task.reload_sort_order(@default_tasks)
+    end
     
     @relevant_tasks = resource.tasks.are_relevant
     Task.reload_sort_order(@relevant_tasks)

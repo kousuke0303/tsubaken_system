@@ -217,6 +217,11 @@ module ApplicationHelper
       @type = "着工案件"
       @path = "employees_matter_path"
       @path_id = task.matter_id
+    elsif task.estimate_matter_id
+      @relation_title = title
+      @type = "見積案件"
+      @path = "employees_estimate_matter_path"
+      @path_id = task.estimate_matter_id
     end
   end
   

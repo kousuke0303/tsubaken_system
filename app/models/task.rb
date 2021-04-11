@@ -25,7 +25,8 @@ class Task < ApplicationRecord
   scope :are_relevant, -> { relevant.order(:sort_order) }
   scope :are_ongoing, -> { ongoing.order(:sort_order) }
   scope :are_finished, -> { finished.order(:sort_order) }
-  scope :auto_set_lists, -> { where(status: 0, auto_set: true)}
+  scope :auto_set_lists_for_matter, -> { where(status: 0, category:2, auto_set: true)}
+  scope :auto_set_lists_for_estimate_matter, -> { where(status: 0, category:1, auto_set: true)}
   scope :sort_deadline, -> {order(deadline: :desc)}
   scope :are_default_individual, -> {default.individual.order(position: :asc)}
   

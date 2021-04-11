@@ -51,6 +51,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
+    set_classified_tasks(@estimate_matter)
     @cover = @estimate_matter.cover
     @certificates = @estimate_matter.certificates.order(position: :asc)
     @images = @estimate_matter.images.select { |image| image.image.attached? }

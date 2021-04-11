@@ -279,6 +279,7 @@ Rails.application.routes.draw do
       get :get_album, on: :member
       get :reload, on: :collection
     end
+    
     resources :estimate_matters do
       get :progress_table, on: :collection
       get :progress_table_for_six_month, on: :collection
@@ -291,6 +292,12 @@ Rails.application.routes.draw do
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
       # end
+      resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
+        post :move, on: :collection
+        post :create, on: :collection
+        get :change_member, on: :member
+        patch :update_member, on: :member
+      end
       
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection

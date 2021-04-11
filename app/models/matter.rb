@@ -112,7 +112,7 @@ class Matter < ApplicationRecord
     
     def staff_external_staff_connection_and_task_set
       ActiveRecord::Base.transaction do
-        Task.auto_set_lists.each_with_index do |task, index|
+        Task.auto_set_lists_for_matter.each_with_index do |task, index|
           self.tasks.create!(title: task.title, status: 1, sort_order: index, default_task_id: task.id) 
         end
         self.estimate_matter.member_codes.each do |member_code|

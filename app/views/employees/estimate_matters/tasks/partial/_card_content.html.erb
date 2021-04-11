@@ -1,0 +1,13 @@
+<div class="avator_container_for_task">
+  <% if task.member_code.present? %>
+    <%= task_avator(task.member_code.parent) %>
+  <% elsif task.member_name %>
+   <%= content_tag(:div, task.member_name[0, 1], 
+                   class: "default_avator_layout_for_task", 
+                   style: "background: #f8f9fa") %>
+  <% end %>
+</div>
+
+<div class="task-title ml-05e">
+  <div><%= task.title.truncate(10) %>
+</div>
