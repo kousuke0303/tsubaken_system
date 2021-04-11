@@ -154,22 +154,10 @@ today = Date.current
 year = today.year
 month = today.month
 day = today.day
-Manager.all.each do |manager|
-  one_month.each { |day| manager.attendances.create!(worked_on: day) }
-  manager.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
+MemberCode.all.each do |member_code|
+  one_month.each { |day| member_code.attendances.create!(worked_on: day) }
+  member_code.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
                                                                           finished_at: "#{year}-#{month}-#{day} 17:13:23")
-end
-
-Staff.all.each do |staff|
-  one_month.each { |day| staff.attendances.create!(worked_on: day) }
-  staff.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
-                                                                        finished_at: "#{year}-#{month}-#{day} 17:13:23")
-end
-
-ExternalStaff.all.each do |external_staff|
-  one_month.each { |day| external_staff.attendances.create!(worked_on: day) }
-  external_staff.attendances.find_by(worked_on: Date.current).update(started_at: "#{year}-#{month}-#{day} 09:00:00",
-                                                                                 finished_at: "#{year}-#{month}-#{day} 17:00:00")
 end
 
 puts "CREATE! ATTENDANCE"

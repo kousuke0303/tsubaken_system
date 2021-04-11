@@ -51,10 +51,7 @@
   <!--勤怠new・edit-->
   <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
     <div id="attendance-new" class="modal fade" role="dialog"></div>
-
-    <div id="attendance-edit" class="modal fade" role="dialog">
-      <%= render "employees/attendances/edit" %>
-    </div>
+    <div id="attendance-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
   <!--デフォルトタスクnew・edit-->
@@ -67,9 +64,7 @@
   <% if controller_name == "companies" && action_name == "index" %>
     <div id="publisher-new" class="modal fade" role="dialog"></div>
     <div id="publisher-edit" class="modal fade" role="dialog"></div>
-    <div id="department-new" class="modal fade" role="dialog"></div>
     <div id="department-edit" class="modal fade" role="dialog"></div>
-    <div id="attract-method-new" class="modal fade" role="dialog"></div>
     <div id="attract-method-edit" class="modal fade" role="dialog"></div>
     <div id="industry-edit" class="modal fade" role="dialog"></div>
   <% end %>

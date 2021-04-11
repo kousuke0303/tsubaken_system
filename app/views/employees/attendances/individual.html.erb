@@ -11,51 +11,39 @@
   </div>
       
   <div class="card mt-1e">
-    <div class="card-header bg-dark tab-wrapper">
+    <div class="card-header bg-dark tab-wrapper pt-0 pb-05e">
       <%= form_with(url: individual_employees_attendances_path, method: :get, local: true) do |f| %>
         <div class="row">
-
-          <div class="col-lg-3 col-md-3 flex pl-0 pr-0">
+          <div class="col-lg-4 col-md-5 flex pt-05e pl-0 pr-0">
             <div class="pl-5 pr-5" style="width: 60%;">
-              <%= f.select :year, @years_hash, { selected: @first_day.year }, { class: "form-control", required: true } %>
+              <%= f.select :year, @years_hash, { selected: params[:year] }, { class: "form-control", required: true } %>
             </div>
               
             <div class="pl-5 pr-5"  style="width: 40%;">
-              <%= f.select :month, Constants::MONTH_HASH, { selected: @first_day.month }, { class: "form-control", required: true } %>
+              <%= f.select :month, Constants::MONTH_HASH, { selected: params[:month] }, { class: "form-control", required: true } %>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5">
+          <div class="col-md-2 col-sm-6 pt-05e pl-5 pr-5">
             <%= f.select :type, Constants::EMPLOYEES_TYPE_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="initial">
-            <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control", disabled: true %>
+          <div class="col-lg-3 col-md-4 col-sm-6 pt-05e pl-5 pr-5">
+            <%= f.select :initial, {}, { include_blank: "従業員を選択" }, class: "form-control",  id: "initial", disabled: true %>
+            <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control", id: "manager" %>
+            <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control", id: "staff" %>
+            <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control", id: "external-staff" %>
           </div>
 
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="manager">
-            <%= f.collection_select :manager_id, @managers, :id, :name, { selected: params[:manager_id], include_blank: "Managerを選択" }, class: "form-control" %>
-          </div>
-
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="staff">
-            <%= f.collection_select :staff_id, @staffs, :id, :name, { selected: params[:staff_id], include_blank: "Staffを選択" }, class: "form-control" %>
-          </div>
-
-          <div class="col-lg-3 col-md-3 pl-5 pr-5" id="external-staff">
-            <%= f.collection_select :external_staff_id, @external_staffs, :id, :name, { selected: params[:external_staff_id], include_blank: "外部Staffを選択" }, class: "form-control" %>
-          </div>
-
-          <div class="col-lg-3 col-md-3 pl-5 pr-5 text-left">
-            <%= f.submit "検索", class: "btn btn-gray" %>
+          <div class="col-md-1 pl-5 pr-5 pt-05e">
+            <input type="submit" value="&#xf002;" class="fas btn btn-block btn-primary" style="height: 100%;">
           </div>
         </div>
       <% end %>
     </div>
         
     <div class="card-body">
-      <% if @resource %>
-        <h5><%= @resource.name %></h5>
-      <% end %>
+      <%= content_tag(:h5, @resource.name) if @resource %>
       <div class="table-responsive">
         <table class="table table-bordered text-nowrap common-table">
           <tr>
@@ -72,11 +60,14 @@
               <% else %>
                 <% finished_at = "not-entered" %>
               <% end %>
-              <tr class="tr-link to-edit-attendance" data-toggle="modal" data-target="#attendance-edit" data-id="<%= attendance.id %>" data-name="<%= @resource.name %>"
-                  data-worled-on="<%= l(attendance.worked_on, format: :long) %>" data-started-at="<%= l(attendance.started_at, format: :time) %>" data-finished-at="<%= finished_at %>">
+              <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
                 <td><%= l(attendance.worked_on, format: :middle) %> (<%= Constants::DAYS_OF_THE_WEEK[attendance.worked_on.wday] %>)</td>
-                <td><%= l(attendance.started_at, format: :time) %></td>
-                <td><%= finished_at if attendance.finished_at.present? %></td>
+                <td><%= l(attendance.started_at, format: :time) %></td>                
+                <% if finished_nil?(attendance) %>
+                  <td class="text-danger">退勤未処理</td>
+                <% else %>
+                  <td><%= finished_at if attendance.finished_at.present? %></td>
+                <% end %>             
                 <td>
                   <% if attendance.working_minutes.present? %>
                     <%= daily_working_time(attendance.working_minutes) %>
@@ -93,8 +84,7 @@
             </tr>
             <tr>
               <td><%= @attendances.length %>日</td>
-              <td></td>
-              <td></td>
+              <%= empty_td(2) %>
               <td><%= monthly_working_time(@total_working_minutes) %></td>
             </tr>
           <% end %>
@@ -105,7 +95,16 @@
 </div>
 
 <script>
-  $(document).on("turbolinks:load", function() {
+  // trクリックで、勤怠編集モーダルを開く
+  $("tr[data-link]").click(function() {
+    $.ajax({
+      type: "GET",
+      url: $(this).data("link"),
+      data: { prev_action: "individual" }      
+    });
+  });
+
+  $(document).ready(function () {
     const manager = $("#manager");
     const managerSelect = $('select[name="manager_id"]');
     const staff = $("#staff");
@@ -189,5 +188,3 @@
     });
   });
 </script>
-
-<%= javascript_include_tag "attendance_edit.js" %>

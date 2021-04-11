@@ -8,7 +8,7 @@
           <%= form_with(model: @industry, url: employees_settings_companies_industry_path(@industry), method: :patch, remote: true) do |f| %>
             <div class="industry-update-errors"></div>
               <%= f.label :name %>
-              <%= f.text_field :name, required: true, class: "form-control", maxlength: 30 %>
+              <%= f.text_field :name, required: true, maxlength: 30, class: "form-control", id: "industry-name-field" %>
             <div class="btn-area">
               <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
             </div>

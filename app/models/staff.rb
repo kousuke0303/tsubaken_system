@@ -14,7 +14,6 @@ class Staff < ApplicationRecord
   
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
-  has_many :attendances, dependent: :destroy
   
   has_one_attached :avator
   

@@ -1,0 +1,41 @@
+<h5><%= employee_type %></h5>
+
+<% if attendances.blank? %>
+  <h6>出勤なし</h6>
+<% else %>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>名前</th>
+        <% if employee_type == "外部Staff" %>
+          <th width=20%>外注先名</th>
+        <% end %>
+        <th width=20%>出勤</th>
+        <th width=20%>退勤</th>
+        <th width=20%>勤務</th>
+      </tr>
+      <% attendances.each do |attendance| %>        
+        <% if attendance.finished_at.present? %>
+          <% finished_at = l(attendance.finished_at, format: :time) %>
+        <% else %>
+          <% finished_at = "not-entered" %>
+        <% end %>
+        <tr class="tr-link" data-link="<%= edit_employees_attendance_path(attendance.id) %>">
+          <td>
+            <%= attendance.manager_name %><%= attendance.staff_name %><%= attendance.external_staff_name %>
+          </td>
+          <% if employee_type == "外部Staff" %>
+            <td></td>
+          <% end %>
+          <td><%= l(attendance.started_at, format: :time) %></td>
+          <% if finished_nil?(attendance) %>
+            <td class="text-danger">退勤未処理</td>
+          <% else %>
+            <td><%= finished_at if attendance.finished_at.present? %></td>
+          <% end %>
+          <td><%= daily_working_time(attendance.working_minutes) if attendance.working_minutes.present? %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>

@@ -1,9 +1,5 @@
 class Employees::Settings::Companies::DepartmentsController < Employees::Settings::CompaniesController
   before_action :set_department, only: [:edit, :update, :destroy]
-  
-  def new
-    @department = Department.new
-  end
 
   def create
     @department = Department.new(department_params)

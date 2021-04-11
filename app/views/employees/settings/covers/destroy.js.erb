@@ -1,2 +1,2 @@
-$('#certificate_cover').html('<%= escape_javascript(render 'employees/settings/certificates/partial/cover_index')%>');
-<%= render partial: "layouts/flash_for_modal", locals: {key: "alert", value: "#{@cover.title}を削除しました。"} %>
+$("#certificate_cover").html('<%= escape_javascript(render "employees/settings/certificates/partial/cover_index")%>');
+<%= render "layouts/flash_for_modal", key: "alert", value: "#{ @cover.title }を削除しました" %>

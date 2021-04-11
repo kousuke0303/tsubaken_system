@@ -254,7 +254,7 @@ Rails.application.routes.draw do
     end
     resources :suppliers
     
-    resources :attendances, only: [:new, :create, :update, :destroy] do
+    resources :attendances, only: [:new, :create, :edit, :update, :destroy] do
       collection do
         get :daily
         get :individual
@@ -360,10 +360,10 @@ Rails.application.routes.draw do
           post :image_change, on: :member
           patch :image_delete, on: :member
         end
-        resources :departments, except: :index do
+        resources :departments, only: [:create, :edit, :update, :destroy] do
           patch :sort, on: :collection
         end
-        resources :attract_methods, except: :index do
+        resources :attract_methods, only: [:create, :edit, :update, :destroy] do
           patch :sort, on: :collection
         end
         resources :industries, only: [:create, :update, :destroy] do

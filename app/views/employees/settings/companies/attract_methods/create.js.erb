@@ -1,7 +1,7 @@
 <% if @responce == "success" %>
-  $("#attract-method-new").modal('hide');
-  $('.attract-methods-index').html('<%= escape_javascript(render 'employees/settings/companies/attract_methods/partial/index_table') %>');
-  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@attract_method.name}を作成しました。"} %>
+  $(".attract-methods-index").html('<%= escape_javascript(render "employees/settings/companies/attract_methods/partial/index_table") %>');
+  <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @attract_method.name }を作成しました" %>
+  $("#attract-method-create").val("");
 <% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".attract-method-create-errors", model: @attract_method, object: "attract_method"} %>
+  toastr.error("<%= params[:attract_method][:name] %>は既に存在します");
 <% end %>

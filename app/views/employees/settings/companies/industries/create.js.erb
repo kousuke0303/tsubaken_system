@@ -1,7 +1,7 @@
 <% if @responce == "success" %>
-  $('.industries-index').html('<%= escape_javascript(render "employees/settings/companies/industries/partial/index_table") %>');
+  $(".industries-index").html('<%= escape_javascript(render "employees/settings/companies/industries/partial/index_table") %>');
   <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @industry.name }を作成しました。" %>
-  $('#industry-create').val("");
+  $("#industry-create").val("");
 <% else %>
   toastr.error("<%= params[:industry][:name] %>は既に存在します");
 <% end %>

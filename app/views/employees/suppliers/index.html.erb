@@ -20,8 +20,8 @@
         <th>町名番地</th>
       </tr>
       <% @suppliers.each do |supplier| %>
-        <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>" >
-          <td><%= supplier.name %></td>
+        <tr>
+          <td><%= link_to supplier.name, employees_supplier_path(supplier) %></td>
           <td><%= supplier.phone_1 %></td>
           <td><%= supplier.prefecture_code %></td>
           <td><%= supplier.address_city %></td>

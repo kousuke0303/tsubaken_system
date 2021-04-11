@@ -19,8 +19,8 @@
         <th>電話番号</th>
       </tr>
       <% @external_staffs.each do |external_staff| %>
-        <tr class="tr-link" data-link="<%= employees_external_staff_path(external_staff) %>">
-          <td><%= external_staff.name %></td>
+        <tr>
+          <td><%= link_to external_staff.name, employees_external_staff_path(external_staff) %></td>
           <td><%= external_staff.login_id %></td>
           <td><%= external_staff.phone %></td>
         </tr>

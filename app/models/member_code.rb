@@ -3,6 +3,8 @@ class MemberCode < ApplicationRecord
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
+
+  has_many :attendances, dependent: :destroy
   
   has_many :estimate_matter_member_codes, dependent: :destroy
   has_many :estimate_matters, through: :estimate_matter_member_codes
@@ -20,22 +22,21 @@ class MemberCode < ApplicationRecord
   
   scope :sort_auth, -> { order(:external_staff_id, :staff_id, :manager_id, :admin_id) }
   
-  
   # 利用できるメンバーの全コード
   def self.all_member_code_of_avaliable
     remove_ids = []
     if Manager.where(avaliable: false).present?
-      remove_manager_codes = MemberCode.includes(:manager).where(managers: {avaliable: false})
+      remove_manager_codes = MemberCode.includes(:manager).where(managers: { avaliable: false })
       remove_manager_code_ids = remove_manager_codes.ids
       remove_ids.push(remove_manager_code_ids).flatten
     end
     if Staff.where(avaliable: false).present? 
-      remove_staff_codes = MemberCode.joins(:staff).where(staffs: {avaliable: false})
+      remove_staff_codes = MemberCode.joins(:staff).where(staffs: { avaliable: false })
       remove_staff_code_ids = remove_staff_codes.ids
       remove_ids.push(remove_staff_code_ids).flatten
     end
     if ExternalStaff.where(avaliable: false).present? 
-      remove_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: {avaliable: false})
+      remove_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: { avaliable: false })
       remove_external_staff_code_ids = remove_external_staff_codes.ids
       remove_ids.push(remove_external_staff_code_ids).flatten
     end
