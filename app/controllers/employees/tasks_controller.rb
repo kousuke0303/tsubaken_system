@@ -106,6 +106,5 @@ class Employees::TasksController < Employees::EmployeesController
       elsif @task.member_code_id == nil && params[:task][:member_code_id].present?
         @task.notification_type = "create"
       end
-    end
-    
+    end    
 end

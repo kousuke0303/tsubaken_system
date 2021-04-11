@@ -27,7 +27,7 @@ class Employees::MattersController < Employees::EmployeesController
   def index
     @matters = Matter.all
     unless current_admin || current_manager
-      @matters = Matter.joins(:member_codes).where(member_codes: {id: login_user.member_code.id})
+      @matters = Matter.joins(:member_codes).where(member_codes: { id: login_user.member_code.id })
     end
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "not_started"
@@ -95,7 +95,7 @@ class Employees::MattersController < Employees::EmployeesController
     params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
     params[:matter][:member_code_ids].flatten!
     @matter.update(matter_params)
-    flash[:success] = "#{@matter.title}の担当者を変更しました"
+    flash[:success] = "#{ @matter.title }の担当者を変更しました"
     if params[:matter][:staff_id].present?
       @staff = Staff.find(params[:matter][:staff_id])
       redirect_to retirement_process_employees_staff_url(@staff)
@@ -106,10 +106,6 @@ class Employees::MattersController < Employees::EmployeesController
   end
 
   private
-    def set_matter
-      @matter = Matter.find(params[:id])
-    end
-
     def matter_params
       params.require(:matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :address_street, :scheduled_started_on, 
                                      :scheduled_finished_on, :status, :estimate_id, :started_on, :finished_on, :maintenanced_on,

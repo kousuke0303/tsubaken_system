@@ -81,8 +81,7 @@ class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatte
   # 見積複製アクション
   def copy
     new_estimate = @estimate.deep_dup
-    new_estimate.save
-    
+    new_estimate.save    
     @estimate.estimate_details.each do |detail|
       new_detail = detail.deep_dup
       new_detail.estimate_id = new_estimate.id

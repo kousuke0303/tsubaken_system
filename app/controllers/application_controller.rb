@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
   def can_access_only_of_member(object)
     unless current_admin || current_manager
       if object.member_codes.ids.include?(login_user.member_code)
-        flash[:alert] = "アクセス権限がありません。"
+        flash[:alert] = "アクセス権限がありません"
         redirect_to root_path
       end
     end
@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
   # ログインstaff以外のページ非表示
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
-      flash[:alert] = "アクセス権限がありません。"
+      flash[:alert] = "アクセス権限がありません"
       redirect_to root_path
     end
   end
@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
       @attendances = resource.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
   rescue ActiveRecord::RecordInvalid 
-    flash[:alert] = "勤怠情報の取得に失敗しました。"
+    flash[:alert] = "勤怠情報の取得に失敗しました"
     redirect_to root_url
   end
   
@@ -226,17 +226,17 @@ class ApplicationController < ActionController::Base
   def can_access_only_estimate_matter_of_being_in_charge
     if current_staff && (params[:id].present? || params[:estimate_matter_id].present?)
       unless params[:id].to_s.in?(current_staff.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_staff.estimate_matters.ids)
-        flash[:alert] = "アクセス権限がありません。"
+        flash[:alert] = "アクセス権限がありません"
         redirect_to root_path
       end
     elsif current_external_staff && (params[:id].present? || params[:estimate_matter_id].present?)
       unless params[:id].to_s.in?(current_external_staff.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_external_staff.estimate_matters.ids)
-        flash[:alert] = "アクセス権限がありません。"
+        flash[:alert] = "アクセス権限がありません"
         redirect_to root_path
       end
     elsif current_client && (params[:id].present? || params[:estimate_matter_id].present?)
       unless params[:id].to_s.in?(current_client.estimate_matters.ids) || params[:estimate_matter_id].to_s.in?(current_client.estimate_matters.ids)
-        flash[:alert] = "アクセス権限がありません。"
+        flash[:alert] = "アクセス権限がありません"
         redirect_to root_path
       end
     end

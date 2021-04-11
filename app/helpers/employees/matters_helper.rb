@@ -88,7 +88,7 @@ module Employees::MattersHelper
       @matter_work_day_arrey = [*matter.scheduled_start_at..matter.scheduled_finish_at]
       @gantt_type = "scheduled"
     else
-      return false
+      false
     end
   end
   
