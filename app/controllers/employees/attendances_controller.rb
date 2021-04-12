@@ -60,9 +60,16 @@ class Employees::AttendancesController < Employees::EmployeesController
   def update
     if @attendance.update(employee_attendance_params.except(:worked_on))
       flash[:success] = "勤怠を更新しました"
+      set_auth(@attendance.member_code)
       params["prev_action"].eql?("daily") ?
       (redirect_to daily_employees_attendances_url(day: @attendance.worked_on)) :
-      (redirect_to individual_employees_attendances_url)
+      (redirect_to individual_employees_attendances_url(
+        year: @attendance.worked_on.year,
+        month: @attendance.worked_on.month,
+        auth: @auth,
+        manager_id: @manager_id,
+        staff_id: @staff_id,
+        external_staff_id: @external_staff_id))
     end
   end
 
@@ -74,6 +81,16 @@ class Employees::AttendancesController < Employees::EmployeesController
   end
 
   private
+    def set_auth(member_code)
+      if (@manager_id = member_code.manager_id).present?
+        @auth = 1
+      elsif (@staff_id = member_code.staff_id).present?
+        @auth = 2
+      else (@external_staff_id = member_code.external_staff_id).present?
+        @auth = 3
+      end
+    end
+    
     # 直近30年をhashに(フォーム用)
     def set_latest_30_year
       @years_hash = Hash.new

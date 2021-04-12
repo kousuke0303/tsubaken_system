@@ -25,7 +25,7 @@
           </div>
 
           <div class="col-md-2 col-sm-6 pt-05e pl-5 pr-5">
-            <%= f.select :type, Constants::EMPLOYEES_AUTH_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
+            <%= f.select :auth, Constants::EMPLOYEES_AUTH_HASH, { selected: params[:auth], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "auth", required: true } %>
           </div>
 
           <div class="col-lg-3 col-md-4 col-sm-6 pt-05e pl-5 pr-5">
@@ -164,18 +164,18 @@
     };
 
     // 検索結果を、選択フォームに初期表示
-    <% if params[:type] && params[:type] == "1" %>
+    <% if params[:auth] && params[:auth] == "1" %>
       showManagerSelect();
-    <% elsif params[:type] && params[:type] == "2" %>
+    <% elsif params[:auth] && params[:auth] == "2" %>
       showStaffSelect();
-    <% elsif params[:type] && params[:type] == "3" %>
+    <% elsif params[:auth] && params[:auth] == "3" %>
       showExternalStaffSelect();
     <% else %>
       showInitialSelect();
     <% end %>
 
     // 従業員タイプの選択が変わる度に、該当のセレクトフォームを表示
-    $("#type").change(function() {
+    $("#auth").change(function() {
       if($(this).val() == "1"){
         showManagerSelect();
       } else if ($(this).val() == "2") {
