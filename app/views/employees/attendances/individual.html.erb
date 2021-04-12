@@ -25,7 +25,7 @@
           </div>
 
           <div class="col-md-2 col-sm-6 pt-05e pl-5 pr-5">
-            <%= f.select :type, Constants::EMPLOYEES_TYPE_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
+            <%= f.select :type, Constants::EMPLOYEES_AUTH_HASH, { selected: params[:type], include_blank: "従業員タイプを選択" }, { class: "form-control", id: "type", required: true } %>
           </div>
 
           <div class="col-lg-3 col-md-4 col-sm-6 pt-05e pl-5 pr-5">

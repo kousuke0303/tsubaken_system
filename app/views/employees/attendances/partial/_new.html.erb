@@ -9,7 +9,7 @@
             <div class="attendance-create-errors"></div>
 
             <%= f.label "従業員タイプ" %>
-            <%= f.select :employee_type, Constants::EMPLOYEES_TYPE_HASH, { include_blank: "従業員タイプを選択" }, { class: "form-control", required: true } %>
+            <%= f.select :employee_type, Constants::EMPLOYEES_AUTH_HASH, { include_blank: "従業員タイプを選択" }, { class: "form-control", required: true } %>
             
             <div id="manager-select">
               <%= f.label :manager_id %>

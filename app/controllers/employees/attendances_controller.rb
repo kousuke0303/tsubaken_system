@@ -60,13 +60,17 @@ class Employees::AttendancesController < Employees::EmployeesController
   def update
     if @attendance.update(employee_attendance_params.except(:worked_on))
       flash[:success] = "勤怠を更新しました"
-      params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
+      params["prev_action"].eql?("daily") ?
+      (redirect_to daily_employees_attendances_url(day: @attendance.worked_on)) :
+      (redirect_to individual_employees_attendances_url)
     end
   end
 
   def destroy
     @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました" : flash[:alert] = "勤怠を削除できませんでした"
-    params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
+    params["prev_action"].eql?("daily") ?
+    (redirect_to daily_employees_attendances_url(day: @attendance.worked_on)) :
+    (redirect_to individual_employees_attendances_url)
   end
 
   private
