@@ -17,8 +17,6 @@ class Client < ApplicationRecord
   
   enum gender: { male: 0, female: 1 }
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # 名前検索

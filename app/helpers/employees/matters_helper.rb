@@ -37,13 +37,13 @@ module Employees::MattersHelper
       if event_scheduled_start_at.present?
         event_scheduled_start_at.update(date: matter.scheduled_start_at)
       else
-          Event.create!(event_name: "着工予定日",
-            event_type: "D",
-            date: matter.scheduled_start_at,
-            note: "",
-            manager_id: dependent_manager.id,
-            matter_id: matter.id
-          )
+        Event.create!(event_name: "着工予定日",
+          event_type: "D",
+          date: matter.scheduled_start_at,
+          note: "",
+          manager_id: dependent_manager.id,
+          matter_id: matter.id
+        )
       end
     else
       if event_scheduled_start_at.present?
