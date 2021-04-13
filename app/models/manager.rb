@@ -82,6 +82,10 @@ class Manager < ApplicationRecord
      # INSTANCE_METHOD
   #---------------------------------------------------
   
+  def tasks
+    Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
   def recieve_notifications
     self.member_code.recieve_notifications.where(status: 0)
   end
@@ -115,16 +119,12 @@ class Manager < ApplicationRecord
     
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
-        if Date.current > self.resigned_on
+        if Date.current >= self.resigned_on
           self.update(avaliable: false)
         end
-      elsif self.avaliable == false && self.joined_on.present?
+      elsif self.avaliable == false && self.resigned_on.nil? && self.joined_on.present?
         if Date.current >= self.joined_on
           self.update(avaliable: true)
-        end
-      elsif self.avaliable == true && self.joined_on.present?
-        if Date.current < self.joined_on
-          self.update(avaliable: false)
         end
       end
     end

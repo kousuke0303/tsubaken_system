@@ -137,12 +137,6 @@ class Employees::EmployeesController < ApplicationController
         # その他
     # -------------------------------------------------------
     
-    # 全MEMBER_CORD
-    def all_member_code
-      @member_codes = MemberCode.all_member_code_of_avaliable
-    end
-    
-    
     def all_staff_and_external_staff_code
       @all_staff_codes = MemberCode.joins(:staff).where(staffs: {avaliable: true})
                                    .select('member_codes.*, staffs.name AS staff_name')

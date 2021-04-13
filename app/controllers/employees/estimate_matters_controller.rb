@@ -25,6 +25,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def new
     @estimate_matter = EstimateMatter.new
+    @clients = Client.all
     @attract_methods = AttractMethod.order(position: :asc)
     if params[:client_id]
       client = Client.find(params[:client_id])
@@ -61,6 +62,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def edit
+    @clients = Client.all
     @attract_methods = AttractMethod.order(position: :asc)
     @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
     @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')

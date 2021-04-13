@@ -44,24 +44,11 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
     end
   end
   
-  def retirement_process
-    @matters = @external_staff.matters.where.not(status:2)
-    @estimate_matters = @external_staff.estimate_matters.for_progress
-    @tasks = Matter.joins(:tasks)
-                   .where(tasks: { member_code_id: @external_staff.member_code.id })
-                   .where.not(tasks: { status: 3})
-                   .select('matters.id AS matter_id, matters.title AS matter_title', 'tasks.*')
-    @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
-  end
-  
   def out_of_service
     if @external_staff.update(resigned_on: Date.current)
       flash[:notice] = "#{ @external_staff.name }のアカウントを停止しました"
     end
     redirect_to employees_external_staff_url(@external_staff)
-  end
-  
-  def confirmation_for_destroy
   end
 
   def destroy

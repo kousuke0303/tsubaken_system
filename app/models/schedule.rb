@@ -36,6 +36,15 @@ class Schedule < ApplicationRecord
   attr_accessor :before_scheduled_start_time
   attr_accessor :before_scheduled_end_time
   attr_accessor :before_title
+  
+  def member
+    if self.sales_status_id.present?
+      sales_status = SalesStatus.find(self.sales_status_id)
+      return sales_status.estimate_matter.member
+    else
+      MemberCode.all_member_for_select_form
+    end
+  end
 
   private
   

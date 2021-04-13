@@ -63,7 +63,9 @@ class Task < ApplicationRecord
       matter = Matter.find(self.matter_id)
       return matter.member
     elsif self.estimate_matter_id.present?
-      estimate_matter
+      estimate_matter.member
+    else
+      MemberCode.all_member_for_select_form
     end
   end
   
@@ -97,6 +99,14 @@ class Task < ApplicationRecord
         new_sort_order = task.sort_order.to_i - 1
         task.update_column(:sort_order, new_sort_order)
       end
+    end
+  end
+  
+  def parent_id
+    if self.matter_id.present?
+      self.matter.id
+    elsif self.estimate_matter_id.present?
+      self.estimate_matter.id
     end
   end
   

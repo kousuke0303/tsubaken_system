@@ -73,6 +73,8 @@ class Employees::EstimateMatters::TasksController < Employees::TasksController
   end
   
   def update_member
+    @task.sender = login_user.member_code.id
+    set_attr_variable
     set_classified_tasks(@estimate_matter) if @task.update(task_params)
     flash[:success] = "#{@task.title}の担当者を変更しました"
     if params[:task][:manager_id].present?

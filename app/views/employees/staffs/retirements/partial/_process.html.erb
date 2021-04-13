@@ -1,0 +1,102 @@
+<ul class="nav nav-tabs title_tab_bar mt-2e">
+  <li class="nav-item">
+    <a class="nav-link title_tab" id="process_1">① 営業案件の担当者変更</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+  <% if @process == 1 %>
+    <%= render "employees/staffs/retirements/partial/estimate_matter" %>
+  <% else %>
+    <p>現状、未着手・着工中の担当案件はありません</p>
+  <% end %>
+</div>
+
+<% if @process > 1 %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab" id="process_2">② 着工案件の担当者変更</a>
+    </li>
+  </ul>
+  
+  <div class="news_container">
+    <% if @process == 2 %>
+      <%= render "employees/staffs/retirements/partial/matter" %>
+    <% else %>
+      <p>現状、未着手・着工中の担当案件はありません</p>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @process > 2 %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab" id="process_3">③ 割振タスクの担当者変更</a>
+    </li>
+  </ul>
+  
+  <div class="news_container">
+    <% if @process == 3 %> 
+      <%= render "employees/staffs/retirements/partial/task" %>
+    <% else %>
+      <p>現状、未完了の担当タスクはありません</p>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @process > 3 %>
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab" id="process_4">④ 本日以降のスケジュール担当者変更</a>
+    </li>
+  </ul>
+    
+  <div class="news_container">
+    <% if @process == 4 %>
+      <%= render "employees/staffs/retirements/partial/schedule" %>
+    <% else %>
+      <p>本日以降のスケジュールはありません</p>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="resigned_on_form" style= "display: none">
+  <ul class="nav nav-tabs title_tab_bar mt-2e">
+    <li class="nav-item">
+      <a class="nav-link title_tab" id="process_5">⑤ 退職日登録</a>
+    </li>
+  </ul>
+
+  <div class="news_container">
+    <div>
+      <%= form_with model: @staff, url: resigned_registor_employees_staff_retirements_path(@staff), local: true do |f| %>
+        <div class="input-group col-md-6">
+          <%= f.date_field :resigned_on, required: true, class: "form-control" %>
+          <div class="input-group-append">        
+            <input type="submit" value="更新" class="btn btn-primary">
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @staff.resigned_on.present? && @staff.avaliable == false %>
+  <div class="text-center">
+    <%= link_to "削除", confirmation_for_destroy_employees_staff_retirements_path(@staff), remote: true, class: "btn btn-danger" %>
+  </div>
+<% end %>
+
+<script>
+  $(function(){
+    var status = <%= @process %>
+    $("#process_" + status).addClass('active');
+  });
+</script>
+
+<% if @staff.resigned_on.present? || @process > 4 %>
+  <script>
+    $('#resigned_on_form').show();
+  </script>
+<% end %>
+

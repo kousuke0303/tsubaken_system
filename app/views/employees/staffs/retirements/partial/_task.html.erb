@@ -1,0 +1,25 @@
+（現在未着手・進行中の割り振りタスク一覧）
+<div class="mt-1e">
+  <% if @tasks_for_estimate_matter.present? %>
+    <h6>営業案件関連タスク</h6>
+    <%= render partial: 'employees/staffs/retirements/partial/task_table', locals: {tasks: @tasks_for_estimate_matter,
+                                                                           path: :change_member_employees_estimate_matter_task_path} %>
+  <% end %>
+</div>
+
+<div class="mt-1e">
+  <% if @tasks_for_matter.present? %>
+    <h6>着工案件関連タスク</h6>
+    <%= render partial: 'employees/staffs/retirements/partial/task_table', locals: {tasks: @tasks_for_matter,
+                                                                           path: :change_member_employees_matter_task_path} %>
+  <% end %>
+</div>
+
+<div class="mt-1e">
+  <% if @tasks_for_individual.present? %>
+    <h6>個別タスク</h6>
+    <%= render partial: 'employees/staffs/retirements/partial/task_table', locals: {tasks: @tasks_for_individual,
+                                                                           path: :change_member_for_task_employees_staff_retirements_path} %>
+  <% end %>
+</div>
+

@@ -41,22 +41,6 @@ class Employees::ManagersController < Employees::EmployeesController
       render :show
     end
   end
-  
-  def retirement_process
-    @tasks = Task.where(member_code_id: @manager.member_code.id)
-                 .where.not(status: 3)
-    @schedules = Schedule.where(member_code_id: @manager.member_code.id).where('scheduled_date >= ?', Date.today)
-  end
-  
-  def resigned_registor
-    if @manager.update(resigned_on: params[:manager][:resigned_on])
-      flash[:success] = "退職日を登録しました"
-    end
-    redirect_to retirement_process_employees_manager_url(@manager)
-  end
-  
-  def confirmation_for_destroy
-  end
 
   def destroy
     @manager.accept = params[:manager][:accept].to_i

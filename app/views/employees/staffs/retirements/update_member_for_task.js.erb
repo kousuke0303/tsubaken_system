@@ -1,0 +1,4 @@
+$('#retirement_modal').modal('hide');
+$('#retirement_modal').empty();
+$('#process').html('<%= escape_javascript(render 'employees/staffs/retirements/partial/process') %>');
+toastr.success("<%= @task.title %>の担当者を変更しました");

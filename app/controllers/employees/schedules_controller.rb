@@ -51,18 +51,6 @@ class Employees::SchedulesController < Employees::EmployeesController
     end
   end
   
-  def change_member
-  end
-  
-  def update_member
-    if @schedule.update(schedule_params)
-      set_valiable
-      @result = "success"
-    else
-      @result = "failure"
-    end
-  end
-  
   def destroy
     attr_set_for_destroy
     @schedule.destroy
@@ -113,18 +101,18 @@ class Employees::SchedulesController < Employees::EmployeesController
       @diff.delete('updated_at')
     end
     
-    def set_valiable
-      if params[:schedule][:manager_id].present?
-        @manager = Manager.find(params[:schedule][:manager_id])
-        @schedules = Schedule.where(member_code_id: @manager.member_code.id).where('scheduled_date >= ?', Date.today)
-      elsif params[:schedule][:staff_id].present? 
-        @staff = Staff.find(params[:schedule][:staff_id])
-        @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
-      elsif params[:schedule][:external_staff_id].present? 
-        @external_staff = ExternalStaff.find(params[:schedule][:external_staff_id])
-        @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
-      end
-    end
+    # def set_valiable
+    #   if params[:schedule][:manager_id].present?
+    #     @manager = Manager.find(params[:schedule][:manager_id])
+    #     @schedules = Schedule.where(member_code_id: @manager.member_code.id).where('scheduled_date >= ?', Date.today)
+    #   elsif params[:schedule][:staff_id].present? 
+    #     @staff = Staff.find(params[:schedule][:staff_id])
+    #     @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
+    #   elsif params[:schedule][:external_staff_id].present? 
+    #     @external_staff = ExternalStaff.find(params[:schedule][:external_staff_id])
+    #     @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
+    #   end
+    # end
     
     def attr_set_for_update
       @schedule.sender = login_user.member_code.id

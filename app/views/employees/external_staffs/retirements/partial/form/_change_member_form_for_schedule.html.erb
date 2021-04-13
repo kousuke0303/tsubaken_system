@@ -1,0 +1,30 @@
+<div class="modal-dialog no-padding_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      スケジュール：<%= @schedule.title %>担当者変更
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @schedule, url: update_member_for_schedule_employees_external_staff_retirements_path(@external_staff, schedule_id: @schedule.id), method: :patch, remote: true) do |f| %>
+        <div class="schedule-update-errors"></div>
+            
+        <h6 class="mt-1e">担当者</h6>
+        <div>
+          <%= f.select :member_code_id, options_for_select(@member), {include_blank: "選択してください" }, required: true, class: "form-control" %>
+        </div>
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          <%= link_to "削除", employees_schedule_path(@schedule), method: :delete, data: { confirm: "このスケジュールを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @schedule.member_code_id.present? %>
+  <script>
+    $(document).ready( function(){
+      $('select').val("<%= @schedule.member_code_id %>");
+    });
+  </script>
+<% end %>

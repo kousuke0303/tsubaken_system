@@ -1,6 +1,7 @@
 class Employees::TasksController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_task, except: [:new, :create]
+  
 
   def new
     @task = Task.new
@@ -18,7 +19,8 @@ class Employees::TasksController < Employees::EmployeesController
     @task.notification_type = "create"
     if @task.save
       @responce = "success"
-      set_tasks
+      set_my_tasks
+      set_no_member_tasks
       set_notifications
     else
       @responce = "failure"
@@ -39,7 +41,8 @@ class Employees::TasksController < Employees::EmployeesController
     @task.sender = login_user.member_code.id
     if @task.update(task_params)
       @responce = "success"
-      set_tasks
+      set_my_tasks
+      set_no_member_tasks
       set_notifications
     else
       @responce = "failure"
@@ -48,18 +51,23 @@ class Employees::TasksController < Employees::EmployeesController
   
   def change_status
     @task.update(status: params[:status].to_i)
-    set_tasks
+    set_my_tasks
+    set_no_member_tasks
     set_notifications
   end
   
   def registor_member
   end
   
+  def change_member
+  end
+  
   def update_member
     @task.sender = login_user.member_code.id
     set_attr_variable
     if @task.update(task_params)
-      set_tasks
+      set_my_tasks
+      set_no_member_tasks
       set_notifications
     end
   end
@@ -68,7 +76,8 @@ class Employees::TasksController < Employees::EmployeesController
     @task.sender = login_user.member_code.id
     if @task.destroy
       @responce = "success"
-      set_tasks
+      set_my_tasks
+      set_no_member_tasks
       set_notifications
     else
       @responce = "failure"
@@ -106,5 +115,6 @@ class Employees::TasksController < Employees::EmployeesController
       elsif @task.member_code_id == nil && params[:task][:member_code_id].present?
         @task.notification_type = "create"
       end
-    end    
+    end
+    
 end

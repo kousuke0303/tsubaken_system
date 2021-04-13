@@ -9,7 +9,8 @@ class Admins::AdminsController < ApplicationController
 
   def top
     alert_tasks
-    set_tasks
+    set_my_tasks
+    set_no_member_tasks
     set_notifications
   end
   

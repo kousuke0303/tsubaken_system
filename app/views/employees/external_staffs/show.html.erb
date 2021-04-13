@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-sm-6">
       <% if current_admin || current_manager %>
-        <%= link_to "退職処理", retirement_process_employees_external_staff_path(@external_staff), class: "btn btn-destroy" %>
+        <%= link_to "退職処理", employees_external_staff_retirements_path(@external_staff), class: "btn btn-destroy" %>
       <% end %>
       <% if @external_staff.avaliable == false %>
         <%= link_to "アカウント利用許可", restoration_employees_external_staff_path(@external_staff), method: :patch, class: "btn btn-success" %>

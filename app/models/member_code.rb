@@ -41,12 +41,25 @@ class MemberCode < ApplicationRecord
       remove_ids.push(remove_external_staff_code_ids).flatten
     end
     unless remove_ids.empty?
+      remove_ids = remove_ids.flatten
       MemberCode.left_joins(:admin, :manager, :staff, :external_staff)
                 .where.not(id: remove_ids)
                 .sort_auth
     else
       MemberCode.all.sort_auth
     end
+  end
+  
+  def self.all_member_for_select_form
+    all_member_codes = self.all_member_code_of_avaliable
+    member_arrey = []
+    all_member_codes.each do |member_code|
+      date = []
+      date.push(member_code.member_name_from_member_code)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    return member_arrey
   end
   
   

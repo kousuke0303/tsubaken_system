@@ -1,0 +1,27 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap table-column-type">
+    <tr>
+      <th>期限</th>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th>関連事項</th>
+      <th>ステータス</th>
+      <th></th>
+    </tr>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= task.deadline_disp %></td>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.parent_title %></td>
+        <td class="text-center">
+          <% if task.matter_id.present? || task.estimate_matter_id.present? %>
+            <%= link_to "担当者変更", send(path, task.parent_id, task, manager_id: @manager.id), remote: true, class: "btn btn-dark" %>
+          <% else %>
+            <%= link_to "担当者変更", send(path, task_id: task.id, manager_id: @manager.id), remote: true, class: "btn btn-dark" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -28,6 +28,11 @@ class ApplicationController < ActionController::Base
     @external_staff.present? && @external_staff == current_external_staff ? current_external_staff : false
   end
   
+  # 全MEMBER_CORD
+  def all_member_code
+    @member_codes = MemberCode.all_member_code_of_avaliable
+  end
+  
   # --------------------------------------------------------
         # DEVISE関係
   # --------------------------------------------------------
@@ -291,7 +296,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def set_tasks
+  def set_my_tasks
     @tasks = Task.joins(:member_code)
     relevant_tasks = @tasks.relevant.where(member_code_id: login_user.member_code.id)
     @relevant_tasks = relevant_tasks.left_joins(:matter, :estimate_matter)
@@ -305,6 +310,10 @@ class ApplicationController < ActionController::Base
     @finished_tasks = finished_tasks.left_joins(:matter, :estimate_matter)
                                     .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                     .sort_deadline
+  end
+  
+  def set_no_member_tasks
+    @tasks = Task.joins(:member_code)
     no_member_tasks = Task.all.left_joins(:member_code).where(member_code_id: nil).where.not(status: "default")
     @no_member_tasks = no_member_tasks.left_joins(:matter, :estimate_matter)
                                       .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')

@@ -42,26 +42,6 @@ class Employees::StaffsController < Employees::EmployeesController
       render :show
     end
   end
-  
-  def retirement_process
-    @matters = @staff.matters.where.not(status:2)
-    @estimate_matters = @staff.estimate_matters.left_joins(:matter).where(matters: {estimate_matter_id: nil})
-    @tasks = Matter.joins(:tasks)
-                   .where(tasks: { member_code_id: @staff.member_code.id })
-                   .where.not(tasks: { status: 3 })
-                   .select('matters.id AS matter_id, matters.title AS matter_title', 'tasks.*')
-    @schedules = Schedule.where(member_code_id: @staff.member_code.id).where('scheduled_date >= ?', Date.today)
-  end
-  
-  def resigned_registor
-    if @staff.update(resigned_on: params[:staff][:resigned_on])
-      flash[:success] = "退職日を登録しました"
-    end
-    redirect_to retirement_process_employees_staff_url(@staff)
-  end
-  
-  def confirmation_for_destroy
-  end
 
   def destroy
     @staff.accept = params[:staff][:accept].to_i
@@ -92,5 +72,12 @@ class Employees::StaffsController < Employees::EmployeesController
       @matters = @staff.matters
       @tasks = @matters.joins(:tasks).where(tasks: { member_code_id: @staff.member_code.id})
                        .select('matters.title AS matter_title', 'tasks.*')
+    end
+    
+    def set_staff_task
+      @tasks = @staff.tasks.where.not(status: 3)
+      @tasks_for_estimate_matter = @tasks.joins(:estimate_matter)
+      @tasks_for_matter = @tasks.joins(:matter)
+      @tasks_for_individual = @tasks.individual
     end
 end

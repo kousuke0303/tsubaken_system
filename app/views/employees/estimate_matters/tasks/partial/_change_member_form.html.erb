@@ -5,7 +5,7 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body">
-      <%= form_with(model: @task, url: update_member_employees_matter_task_path(@matter, @task, staff_id: @staff), method: :patch, local: true) do |f| %>
+      <%= form_with(model: @task, url: update_member_employees_estimate_matter_task_path(@estimate_matter, @task, staff_id: @staff), method: :patch, local: true) do |f| %>
         <div class="task-update-errors"></div>
         <h6 class="mt-1e">担当者</h6>
         <div>
@@ -20,7 +20,7 @@
         <% end %>  
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-          <%= link_to "削除", employees_matter_task_path(@matter, @task, submit_type: "change_member"), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
+          <%= link_to "削除", employees_estimate_matter_task_path(@estimate_matter, @task, submit_type: "change_member"), method: :delete, data: { confirm: "このタスクを削除してよろしいですか？" }, remote: true, class: "btn btn-danger", id: "destroy-task" %>
         </div>
       <% end %>
     </div>

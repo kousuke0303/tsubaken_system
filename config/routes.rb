@@ -227,27 +227,54 @@ Rails.application.routes.draw do
   # 従業員が行う操作
   namespace :employees do
     resources :managers, except: :edit do
-      get :retirement_process, on: :member
       patch :pass_update, on: :member
-      patch :resigned_registor, on: :member
       patch :restoration, on: :member
-      get :confirmation_for_destroy, on: :member
+      
+      scope module: :managers do
+        resources :retirements, only: :index do
+          get :change_member_for_task, on: :collection
+          patch :update_member_for_task, on: :collection
+          get :change_member_for_schedule, on: :collection
+          patch :update_member_for_schedule, on: :collection
+          patch :resigned_registor, on: :collection
+          get :confirmation_for_destroy, on: :collection
+        end
+      end
     end
+    
     resources :staffs, except: :edit do
-      get :retirement_process, on: :member
       patch :pass_update, on: :member
-      patch :resigned_registor, on: :member
       patch :restoration, on: :member
-      get :confirmation_for_destroy, on: :member
+      
+      scope module: :staffs do
+        resources :retirements, only: :index do
+          get :change_member_for_task, on: :collection
+          patch :update_member_for_task, on: :collection
+          get :change_member_for_schedule, on: :collection
+          patch :update_member_for_schedule, on: :collection
+          patch :resigned_registor, on: :collection
+          get :confirmation_for_destroy, on: :collection
+        end
+      end
     end
+    
     resources :external_staffs, except: :edit do
-      get :retirement_process, on: :member
       patch :pass_update, on: :member
-      patch :resigend_registor, on: :member
       patch :out_of_service, on: :member
       patch :restoration, on: :member
-      get :confirmation_for_destroy, on: :member
+      
+      scope module: :external_staffs do
+        resources :retirements, only: :index do
+          get :change_member_for_task, on: :collection
+          patch :update_member_for_task, on: :collection
+          get :change_member_for_schedule, on: :collection
+          patch :update_member_for_schedule, on: :collection
+          patch :resigned_registor, on: :collection
+          get :confirmation_for_destroy, on: :collection
+        end
+      end
     end
+    
     resources :clients do
       post :search_index, on: :collection
       patch :reset_password, on: :member
@@ -271,6 +298,7 @@ Rails.application.routes.draw do
     resources :tasks do
       patch :change_status, on: :member
       get :registor_member, on: :member
+      get :change_member, on: :member
       patch :update_member, on: :member
     end
     

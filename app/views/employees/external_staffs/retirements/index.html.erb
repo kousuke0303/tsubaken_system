@@ -1,0 +1,9 @@
+<h4 class="title_layout">
+  <i class="fas fa-clipboard-list"></i> <%= @external_staff.name %>の引き継ぎ項目
+</h4>
+
+<%= out_of_service(@external_staff) %>
+
+<div id="process">
+  <%= render 'employees/external_staffs/retirements/partial/process' %>
+</div>
