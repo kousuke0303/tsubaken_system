@@ -43,6 +43,7 @@
     $('#select_<%= task.id %>').on('change', function(){
       var id = <%= task.id %>
       var status = $(this).val();
+      dispLoading("... 処理中 ...");
       $.ajax({
         type: 'patch',
         url: "<%= change_status_employees_task_path(task) %>",
@@ -51,3 +52,5 @@
     });
   <% end %>
 </script>
+
+<%= javascript_include_tag "loading.js" %>

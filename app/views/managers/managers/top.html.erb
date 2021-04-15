@@ -1,4 +1,5 @@
 <div class="col-12">
+  
   <!--▼出退勤ボタンの表示-->
   <div>
     <ul class="nav nav-tabs title_tab_bar">
@@ -55,25 +56,46 @@
   
   <div class="news_container">
     <div class="top_page_contents">
-        <% if @applicate_schedules.present? %>
-          <p>
-            <i class="fas fa-exclamation-circle fa-red"></i>
-            <%= link_to application_employees_schedules_path do %>
-              <span>スケジュール変更申請が<%= @applicate_schedules.count %>件あります</span>
-            <% end %>
-          </p>
-        <% end %>
+      <% if @applicate_schedules.present? %>
+        <p>
+          <i class="fas fa-exclamation-circle fa-red"></i>
+          <%= link_to application_employees_schedules_path do %>
+            <span>スケジュール変更申請が<%= @applicate_schedules.count %>件あります</span>
+          <% end %>
+        </p>
+      <% end %>
+      
+      <% if @notifications %>
+        <%= render "common_layouts/notifications/schedule_notification_lists" %>
+        <%= render "common_layouts/notifications/task_notification_lists" %>
+      <% end %>
+      
+      <% unless @applicate_schedules || @notifications %>
+        <p>新着情報はありません</p>
+      <% end %>
+    </div>
+  </div>
+    
+  <div class="accordion mt-1e" id="accordion-tasks">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingTwo">
+        <h5 class="text-light">
+          タスク管理
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
+            詳細
+          </button>
+        </h5>
+      </div>
         
-        <% if @notifications %>
-          <%= render "common_layouts/notifications/schedule_notification_lists" %>
-          <%= render "common_layouts/notifications/task_notification_lists" %>
-        <% end %>
-        
-        <% unless @applicate_schedules || @notifications %>
-          <p>新着情報はありません</p>
-        <% end %>
+      <div id="collapse-tasks" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-tasks">
+        <div class="card-body">
+          <div class="tasks-index">
+            <%= render "common_layouts/tops/tasks/tasks_index" %>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   
   <!--ghanttcart-->
   <ul class="nav nav-tabs title_tab_bar">

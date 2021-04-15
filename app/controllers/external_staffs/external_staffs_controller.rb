@@ -9,7 +9,7 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   
   def top
     set_notifications
-    set_tasks
+    set_my_tasks
   end
   
   def avator_change

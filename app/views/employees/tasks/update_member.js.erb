@@ -2,4 +2,10 @@ $('#top_page_modal').empty();
 $('#top_page_modal').modal('hide');
 $('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
 $('.tasks-index').html('<%= escape_javascript(render 'common_layouts/tops/tasks/tasks_index') %>');
+$('#radio2').prop('checked', true);
+$('#own').hide();
+$('#others').show();
+$('#tab04').prop('checked', true);
+removeLoading();
+
 toastr.success('<%= @task.title%>の担当者を<%= @task.person_in_charge %>に設定しました');

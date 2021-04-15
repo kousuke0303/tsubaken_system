@@ -59,6 +59,28 @@
     </div>
   </div>
   
+  <div class="accordion mt-1e" id="accordion-tasks">
+    <div class="card">
+      <div class="card-header bg-dark" id="headingTwo">
+        <h5 class="text-light">
+          タスク管理
+          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
+            詳細
+          </button>
+        </h5>
+      </div>
+        
+      <div id="collapse-tasks" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-tasks">
+        <div class="card-body">
+          <div class="tasks-index">
+            <%= render "external_staffs/tasks/partial/tasks_index" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
   <!--ghanttcart-->
   <ul class="nav nav-tabs title_tab_bar">
     <li class="nav-item">

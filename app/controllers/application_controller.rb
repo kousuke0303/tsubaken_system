@@ -298,36 +298,53 @@ class ApplicationController < ActionController::Base
   
   def set_my_tasks
     @tasks = Task.joins(:member_code)
+    @finished_matter_ids = Matter.completed.ids
+    @constraction_estimate_matters_ids = EstimateMatter.for_start_of_constraction.ids
+    
+    # 完了案件及び着工済み営業案件に紐づくものは除く
     relevant_tasks = @tasks.relevant.where(member_code_id: login_user.member_code.id)
     @relevant_tasks = relevant_tasks.left_joins(:matter, :estimate_matter)
+                                    .where.not(matters: {id: @finished_matter_ids})
+                                    .where.not(estimate_matters: {id: @constraction_estimate_matters_ids})
                                     .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                     .sort_deadline
     ongoing_tasks = @tasks.ongoing.where(member_code_id: login_user.member_code.id)
     @ongoing_tasks = ongoing_tasks.left_joins(:matter, :estimate_matter)
+                                  .where.not(matters: {id: @finished_matter_ids})
+                                  .where.not(estimate_matters: {id: @constraction_estimate_matters_ids})
                                   .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                   .sort_deadline
     finished_tasks = @tasks.finished.where(member_code_id: login_user.member_code.id)
     @finished_tasks = finished_tasks.left_joins(:matter, :estimate_matter)
+                                    .where.not(matters: {id: @finished_matter_ids})
+                                    .where.not(estimate_matters: {id: @constraction_estimate_matters_ids})
                                     .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                     .sort_deadline
   end
   
-  def set_no_member_tasks
-    @tasks = Task.joins(:member_code)
+  def set_no_member_tasks(tasks, finished_matter_ids, constraction_estimate_matters_ids)
     no_member_tasks = Task.all.left_joins(:member_code).where(member_code_id: nil).where.not(status: "default")
     @no_member_tasks = no_member_tasks.left_joins(:matter, :estimate_matter)
+                                      .where.not(matters: {id: finished_matter_ids})
+                                      .where.not(estimate_matters: {id: constraction_estimate_matters_ids})
                                       .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                       .sort_deadline
     others_relevant_tasks = @tasks.relevant.where.not(member_code_id: login_user.member_code.id)
     @others_relevant_tasks = others_relevant_tasks.left_joins(:matter, :estimate_matter)
+                                                  .where.not(matters: {id: finished_matter_ids})
+                                                  .where.not(estimate_matters: {id: constraction_estimate_matters_ids})
                                                   .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                                   .sort_deadline
     others_ongoing_tasks = @tasks.ongoing.where.not(member_code_id: login_user.member_code.id)
     @others_ongoing_tasks = others_ongoing_tasks.left_joins(:matter, :estimate_matter)
+                                                .where.not(matters: {id: finished_matter_ids})
+                                                .where.not(estimate_matters: {id: constraction_estimate_matters_ids})
                                                 .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                                 .sort_deadline
     others_finished_tasks = @tasks.finished.where.not(member_code_id: login_user.member_code.id)
     @others_finished_tasks = others_finished_tasks.left_joins(:matter, :estimate_matter)
+                                                  .where.not(matters: {id: finished_matter_ids})
+                                                  .where.not(estimate_matters: {id: constraction_estimate_matters_ids})
                                                   .select('tasks.*, matters.title AS matter_title, estimate_matters.title AS estimate_matter_title')
                                                   .sort_deadline
   end

@@ -8,6 +8,8 @@ class Staffs::StaffsController < ApplicationController
   before_action :own_attendance_notification, only: :top
 
   def top
+    alert_tasks
+    set_my_tasks
     set_notifications
   end
   

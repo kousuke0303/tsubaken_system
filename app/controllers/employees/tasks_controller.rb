@@ -20,7 +20,7 @@ class Employees::TasksController < Employees::EmployeesController
     if @task.save
       @responce = "success"
       set_my_tasks
-      set_no_member_tasks
+      set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
       set_notifications
     else
       @responce = "failure"
@@ -42,7 +42,7 @@ class Employees::TasksController < Employees::EmployeesController
     if @task.update(task_params)
       @responce = "success"
       set_my_tasks
-      set_no_member_tasks
+      set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
       set_notifications
     else
       @responce = "failure"
@@ -52,7 +52,7 @@ class Employees::TasksController < Employees::EmployeesController
   def change_status
     @task.update(status: params[:status].to_i)
     set_my_tasks
-    set_no_member_tasks
+    set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
     set_notifications
   end
   
@@ -67,7 +67,7 @@ class Employees::TasksController < Employees::EmployeesController
     set_attr_variable
     if @task.update(task_params)
       set_my_tasks
-      set_no_member_tasks
+      set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
       set_notifications
     end
   end
@@ -77,7 +77,7 @@ class Employees::TasksController < Employees::EmployeesController
     if @task.destroy
       @responce = "success"
       set_my_tasks
-      set_no_member_tasks
+      set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
       set_notifications
     else
       @responce = "failure"

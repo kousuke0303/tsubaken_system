@@ -1,5 +1,5 @@
 <div class="form-group form-check">
-  <%= f.check_box :check, class: "form-check-input", id: "check" %>
+  <%= f.check_box :check, class: "form-check-input", id: "form-type" %>
   <label class="mt-0 form-check-label", for="check">直接タスク名を入力する</label>
 </div>
 
@@ -38,11 +38,13 @@
 <% end %>
 
 <script>
-  $('#check').on('change', function(){
+  $('#form-type').on('change', function(){
     var val = $(this).prop('checked');
     if(val){
       $('#select_title').hide();
+      $('#select_title').val('');
       $('#title_form').show();
+      $('#title-title').val('');
       $('#task-content').val('');
     } else {
       $('#select_title').val('');
@@ -67,10 +69,11 @@
 
 <script>
   $( function(){
-    <% if @task.present? && @default_tasks.where(title: @task.title).present? %>
+    <% if @default_tasks.where(title: @task.title).present? %>
       $('#select_title').val("<%= @task.title %>");
-    <% elsif @task.present? %>
-      $('#check').prop('checked', true);
+      $('#task-title').val('');
+    <% elsif @task.title.present? %>
+      $('#form-type').prop('checked', true);
       $('#select_title').hide();
       $('#title_form').show();
     <% end %>

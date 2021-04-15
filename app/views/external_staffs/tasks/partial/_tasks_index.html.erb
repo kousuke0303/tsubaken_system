@@ -1,0 +1,20 @@
+<div class="text-right">
+  <%= link_to "追加", new_external_staffs_task_path, class: "btn btn-dark", remote: true %>
+</div>
+
+<div id="own">
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">割振タスク一覧</label>
+    <div class="tab-content">
+      <%= render partial: 'external_staffs/tasks/partial/tasks_table', locals: {tasks: @relevant_tasks} %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">進行中タスク一覧</label>
+    <div class="tab-content">
+      <%= render partial: 'external_staffs/tasks/partial/tasks_table', locals: {tasks: @ongoing_tasks} %>
+    </div>
+    <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">完了タスク一覧</label>
+    <div class="tab-content">
+      <%= render partial: 'external_staffs/tasks/partial/tasks_table', locals: {tasks: @finished_tasks} %>
+    </div>
+  </div>
+</div>

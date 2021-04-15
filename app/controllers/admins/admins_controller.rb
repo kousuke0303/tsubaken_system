@@ -10,7 +10,7 @@ class Admins::AdminsController < ApplicationController
   def top
     alert_tasks
     set_my_tasks
-    set_no_member_tasks
+    set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
     set_notifications
   end
   

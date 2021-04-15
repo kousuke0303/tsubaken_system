@@ -202,6 +202,9 @@ Rails.application.routes.draw do
     resources :attendances, only: [:index, :update] do
       get :change_month, on: :collection
     end
+    resources :tasks do
+      patch :change_status, on: :collection
+    end
   end
 
   # ExternalStaff関係
@@ -221,6 +224,9 @@ Rails.application.routes.draw do
     end
     resources :schedules do
       post :applicate, on: :member
+    end
+    resources :tasks do 
+      patch :change_status, on: :collection
     end
   end
 

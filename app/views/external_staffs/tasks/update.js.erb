@@ -1,0 +1,9 @@
+<% if @responce == "success" %>
+  $('#top_page_modal').empty();
+  $('#top_page_modal').modal('hide');
+  $('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
+  $('.tasks-index').html('<%= escape_javascript(render 'external_staffs/tasks/partial/tasks_index') %>');
+  toastr.success('<%= @task.title%>を変更しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".task-update-errors", model: @task, object: "task"} %>;
+<% end %>

@@ -5,14 +5,14 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body">
-      <%= form_with(model: @task, url: update_member_employees_task_path(@task, link_source: @type), method: :patch, remote: true) do |f| %>
+      <%= form_with(model: @task, url: update_member_employees_task_path(@task), method: :patch, remote: true) do |f| %>
         <div class="task-update-errors"></div>
         <h6 class="mt-1e">担当者</h6>
         <div>
           <%= f.select :member_code_id, options_for_select(@task.member), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
         </div>
         <div class="btn-area">
-          <%= f.submit "設定", class: "btn btn-dark reset-errors" %>
+          <%= f.submit "設定", class: "btn btn-dark reset-errors", id: "indicator" %>
         </div>
       <% end %>
     </div>
@@ -33,3 +33,15 @@
     });
   </script>
 <% end %>
+
+<script>
+  $('#indicator').on('click', function(){
+    var val = $('#member_select').val();
+    console.log(val);
+    if(val > 0){
+      dispLoading("... 処理中 ...");
+    }
+  })
+</script>
+
+<%= javascript_include_tag "loading.js" %>

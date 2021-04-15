@@ -103,6 +103,10 @@ class Staff < ApplicationRecord
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
   
+  def attendances
+    Attendance.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  end
+  
   def recieve_notifications
     self.member_code.recieve_notifications.where(status: 0)
   end

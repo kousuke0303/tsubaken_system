@@ -11,10 +11,19 @@
     </tr>
     <% tasks.each do |task| %>
     <tr>
-      <td></td>
+      <td><%= task.deadline_disp %></td>
       <td><%= task.title %></td>
       <td><%= task.content %></td>
-      <td><% %></td>
+      <% if task.matter_id.present? || task.estimate_matter_id.present? %>
+        <td>
+          <% task_remarks(task, task.parent_title) %>
+          <%= link_to "#{@type}/#{@relation_title}", send(@path, id: "#{@path_id}"), data: {turbolinks: false} %>
+        </td>
+      <% else %>
+        <td class="text-center">
+          <%= link_to "編集", edit_employees_task_path(task), class: "btn btn-dark", remote: true %>
+        </td>
+      <% end %>
       <td><%= task.member_code.member_name_from_member_code %></td>
       <td><%= task.created_at_disp %></td>
       <td id="<%= task.id %>">
@@ -32,6 +41,7 @@
     $('#select_<%= task.id %>').on('change', function(){
       var id = <%= task.id %>
       var status = $(this).val();
+      dispLoading("... 処理中 ...");
       $.ajax({
         type: 'patch',
         url: "<%= change_status_employees_task_path(task) %>",
@@ -40,3 +50,5 @@
     });
   <% end %>
 </script>
+
+<%= javascript_include_tag "loading.js" %>

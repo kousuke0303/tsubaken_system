@@ -15,7 +15,7 @@
       <td><%= task.content %></td>
       <% if task.matter_id.present? || task.estimate_matter_id.present? %>
         <td>
-          <% task_remarks(task, task.matter_title) %>
+          <% task_remarks(task, task.parent_title) %>
           <%= link_to "#{@type}/#{@relation_title}", send(@path, id: "#{@path_id}"), data: {turbolinks: false} %>
         </td>
       <% else %>
@@ -40,6 +40,7 @@
     $('#select_<%= task.id %>').on('change', function(){
       var id = <%= task.id %>
       var status = $(this).val();
+      dispLoading("... 処理中 ...");
       $.ajax({
         type: 'patch',
         url: "<%= change_status_employees_task_path(task) %>",
@@ -48,3 +49,5 @@
     });
   <% end %>
 </script>
+
+<%= javascript_include_tag "loading.js" %>

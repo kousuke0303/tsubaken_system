@@ -38,11 +38,40 @@ class EstimateMatter < ApplicationRecord
     )
   }
   
+  # 着工済みの営業案件
+  scope :for_start_of_constraction, -> {
+    joins(:sales_statuses).where(sales_statuses: {status: 14})
+  }
+  
   # 進行中
   scope :for_progress, -> {
     joins(:sales_statuses).where.not(sales_statuses: { status: 14})
   }
   
+  def member
+    member_arrey = []
+    MemberCode.new
+    all_member_code = MemberCode.all_member_code_of_avaliable
+    all_member_code.joins(:admin).select('member_codes.*, admins.name AS admin_name').each do |member_code|
+      date = []
+      date.push(member_code.admin_name)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    all_member_code.joins(:manager).select('member_codes.*, managers.name AS manager_name').each do |member_code|
+      date = []
+      date.push(member_code.manager_name)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    all_member_code.joins(:estimate_matters).where(estimate_matters: {id: self.id}).each do |member_code|
+      date = [] 
+      date.push(member_code.member_name_from_member_code)
+      date.push(member_code.id)
+      member_arrey.push(date)
+    end
+    return member_arrey
+  end
   
   private
   

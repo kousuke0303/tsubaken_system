@@ -1,0 +1,4 @@
+$('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
+$('.tasks-index').html('<%= escape_javascript(render 'external_staffs/tasks/partial/tasks_index') %>');
+removeLoading();
+toastr.success('<%= @task.title%>を<%= @task.status_i18n %>に設定しました');
