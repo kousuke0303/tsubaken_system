@@ -10,6 +10,12 @@ class Span
     self.last_day = first_day.end_of_month
   end
   
+  def after_two_month(reference_date)
+    self.first_day = reference_date.beginning_of_month
+    self.last_day = first_day.next_month.end_of_month
+    self.span = 2
+  end
+  
   def three_month(reference_date)
     self.first_day = reference_date.beginning_of_month - 2.month
     self.last_day = reference_date.end_of_month

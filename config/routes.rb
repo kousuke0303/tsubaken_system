@@ -355,12 +355,12 @@ Rails.application.routes.draw do
       resources :covers, except: [:index]
     end
     
-    scope module: :estimate_matters do
-      resources :current_situations, only: :index do
-        get :move_span, on: :collection
-        get :change_span, on: :collection
-      end
-    end
+    # scope module: :estimate_matters do
+    #   resources :current_situations, only: :index do
+    #     get :move_span, on: :collection
+    #     get :change_span, on: :collection
+    #   end
+    # end
     
 
     resources :matters do
@@ -392,6 +392,12 @@ Rails.application.routes.draw do
     end
 
     resources :inquiries, only: [:index, :show, :edit, :update, :destroy]
+    
+    resources :current_situations, only: :index do
+      get :move_span_for_progress, on: :collection
+      get :move_span_for_ganttchart, on: :collection
+      get :change_span, on: :collection
+    end
     
     namespace :settings do
       resources :companies, only: :index

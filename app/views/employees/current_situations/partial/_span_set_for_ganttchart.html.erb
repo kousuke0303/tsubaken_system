@@ -1,0 +1,15 @@
+<div class="col-sm-8 progress_table_pager">
+  <ul class="pagination">
+    <li>
+      <%= link_to move_span_for_ganttchart_employees_current_situations_path(date: @ganttchart_span.first_day.prev_month), remote: true do %>
+        <span class="fas fa-angle-double-left"></span>
+      <% end %>
+    </li>
+    <li class="span_disp"><span><%= @ganttchart_span.first_day.strftime('%y/%m') %>月 - <%= @ganttchart_span.last_day.strftime('%y/%m') %>月</span></li>
+    <li>
+      <%= link_to move_span_for_ganttchart_employees_current_situations_path(date: @ganttchart_span.first_day.next_month), remote: true do  %>
+      <span class="fas fa-angle-double-right"></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

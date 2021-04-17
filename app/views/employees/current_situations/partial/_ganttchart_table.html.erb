@@ -1,0 +1,38 @@
+<div class="ganttchart">
+  <div class="text-right mb-05e">
+    <div class="disp_scheduled"><span class="disp_span">予定</span></div>
+    <div class="disp_progress"><span class="disp_span">着工中</span></div>
+    <div class="disp_complete"><span class="disp_span">完了済</span></div>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="text-nowrap">
+      <tr>
+        <th></th>
+        <% [*@ganttchart_span.first_day..@ganttchart_span.last_day].each do |day| %>
+          <th class="gantt_day_area"><%= day.strftime("%d").to_i %></th>
+        <% end %>
+      </tr>
+      
+      <% @target_matters.each do |matter| %>
+      <tr>
+        <td class="title_area"><%= matter.title.truncate(14) %></td>
+        <% [*@ganttchart_span.first_day..@ganttchart_span.last_day].each do |day| %>
+          <td class="chart_area">
+             <div class="gantt_task">
+               <% ganttchart(matter) %>
+                 <% if @matter_work_day_arrey.include?(day) %>
+                   <div id="<%= @gantt_type %>"></div>
+                 <% end %>
+             </div>
+          </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<script>
+  $(".title_area:last").addClass("pb-1e");
+</script>

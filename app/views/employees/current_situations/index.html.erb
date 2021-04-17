@@ -1,0 +1,61 @@
+<div class="col-sm-12">
+  
+  <div id="progress_table_container">
+    <ul class="nav nav-tabs title_tab_bar mt-2e">
+      <li class="nav-item">
+        <a class="nav-link title_tab_grey">営業STATUS</a>
+      </li>
+    </ul>
+    
+    <div id="span_set_for_progress_table" class="ml-1e">
+      <%= render partial: 'employees/current_situations/partial/span_set_for_progress' %>
+    </div>
+    
+    <div class="color-detail-container">
+      <%= render partial: 'employees/current_situations/partial/color_detail' %>
+    </div>
+    
+    <div class="table-responsive progress_table_design">
+      <table class="text-nowrap">
+        <thead>
+          <tr>
+            <th></th>
+            <th>アポイント</th>
+            <th>現調</th>
+            <th>見積作成</th>
+            <th>火災保険</th>
+            <th>商談</th>
+            <th>提出済</th>
+            <th>追客</th>
+            <th>契約</th>
+            <th>着工</th>
+            <th>失注</th>
+            <th>失注（他社）</th>
+            <th>その他</th>
+          </tr>
+        </thead>
+        <tbody id="progress_table">
+          <%= render partial: 'employees/current_situations/partial/progress_table' %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div id="ganttchart_container">
+    <ul class="nav nav-tabs title_tab_bar mt-2e">
+      <li class="nav-item">
+        <a class="nav-link title_tab_grey">着工GanttChart</a>
+      </li>
+    </ul>
+    
+    <div id="span_set_for_ganttchart" class="ml-1e">
+      <%= render partial: 'employees/current_situations/partial/span_set_for_ganttchart' %>
+    </div>
+    
+    <div class="mt-1e" id="ganttchart_table">
+      <%= render 'employees/current_situations/partial/ganttchart_table' %>
+    </div>
+  </div>
+  
+</div>
+
