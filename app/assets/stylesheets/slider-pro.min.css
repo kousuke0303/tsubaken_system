@@ -4,12 +4,14 @@
 * Author: bqworks
 * Author URL: http://bqworks.com/
 */
+
 .slider-pro{
   position: relative;
   margin: 0 auto;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+
 .sp-slides-container{
   position: relative;
 }
@@ -271,6 +273,12 @@
   background: rgba(0,0,0,.7);
 }
 
+.sp-green {
+  color: white;
+  background: #000;
+  background: rgba(33, 140, 140, .7);
+}
+
 .sp-white{
   color: #000;
   background: #fff;
@@ -285,12 +293,16 @@
   padding: 15px;
 }
 
-.sp-grab{
-  cursor: url(images/openhand.cur),move;
+.certificate-content {
+  font-size: 16px;
 }
-.sp-grabbing{
-  cursor: url(images/closedhand.cur),move;
-}
+
+/*.sp-grab{*/
+/*  cursor: url(images/openhand.cur),move;*/
+/*}*/
+/*.sp-grabbing{*/
+/*  cursor: url(images/closedhand.cur),move;*/
+/*}*/
 
 .sp-selectable{
   cursor: default;

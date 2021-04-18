@@ -12,9 +12,9 @@
       <div class="sp-slides">
         <% current_client.certificates.each do |certificate| %>
           <div class="sp-slide">
-            <h4 class="mt-1e"><%= certificate.title %></h4>
+            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= certificate.title %></h4>
             <%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
-            <p class="sp-layer sp-black sp-padding" data-position="bottomCenter" data-height="100px" data-width="100%" data-show-transition="up" data-hide-transition="down">
+            <p class="sp-layer sp-green sp-padding" data-position="bottomCenter" data-height="100px" data-width="100%" data-show-transition="up" data-hide-transition="down">
               <span class="certificate-content"><%= certificate.content %></span>
             </p>
           </div>
@@ -30,17 +30,17 @@
 <script type="text/javascript">
 $(function(){
     $('#slider-area').sliderPro({
-    width:800,//横幅
-    height:650,//横幅
+    width: 800,//横幅
+    height: 650,//横幅
     buttons: false,//ナビゲーションボタン
     autoScaleLayers: false,//キャプションの自動変形
     waitForLayers: true,//キャプションのアニメーションが終了してからスライドするか
-    autoplay:false,//自動再生
+    autoplay: false,//自動再生
     thumbnailPointer: true,//アクティブなサムネイルにマークを付ける
     thumbnailWidth: 180,//サムネイルの横幅
     thumbnailHeight: 120,//サムネイルの縦幅
     arrows: true,//左右の矢印
-    slideDistance:0,//スライド同士の距離
+    slideDistance: 0,//スライド同士の距離
     breakpoints: {
       480: {
         //表示方法を変えるサイズ
