@@ -7,7 +7,7 @@ $(function() {
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: `/employees/matters/${ gon.matter_id }/reports/sort`,
+          url: "/employees/matters/" + gon.matter_id + "/reports/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 
