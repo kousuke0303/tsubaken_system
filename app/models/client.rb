@@ -62,4 +62,9 @@ class Client < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
+  
+  def certificates
+    Certificate.joins(:estimate_matter).where(estimate_matters: {client_id: self.id})
+  end
+  
 end
