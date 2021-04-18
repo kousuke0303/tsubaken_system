@@ -1,5 +1,5 @@
 $(function() {
-  let el = document.getElementById("sortable-reports");
+  var el = document.getElementById("sortable-reports");
   if (el != null) {
     const sortable = Sortable.create(el, {
       animation: 150,

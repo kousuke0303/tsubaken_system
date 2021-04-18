@@ -1,5 +1,5 @@
 $(function() {
-  let el = document.getElementById("sortable-attract-methods");
+  var el = document.getElementById("sortable-attract-methods");
   if (el != null) {
     const sortable = Sortable.create(el, {
       animation: 150,

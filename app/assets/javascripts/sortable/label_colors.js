@@ -1,5 +1,5 @@
 $(function() {
-  let el = document.getElementById("sortable-label-colors");
+  var el = document.getElementById("sortable-label-colors");
   if (el != null) {
     const sortable = Sortable.create(el, {
       animation: 150,
