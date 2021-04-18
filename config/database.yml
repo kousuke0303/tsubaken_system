@@ -16,15 +16,10 @@ test:
   database: tsubaken_test
 
 production:
-  <<: *default
+  adapter: mysql2
+  encoding: utf8
+  host: <%= ENV["RDS_HOSTNAME"] %>
+  port: 3306
+  username: <%= ENV["RDS_USERNAME"] %>
+  password: <%= ENV["RDS_PASSWORD"] %>
   database: tsubaken_production
-
-# awsデプロイ用
-# production:
-#   adapter: mysql2
-#   encoding: utf8
-#   database: <%= ENV["RDS_DB_NAME"] %>
-#   host: <%= ENV["RDS_HOSTNAME"] %>
-#   port: <%= ENV["RDS_PORT"] %>
-#   username: <%= ENV["RDS_USERNAME"] %>
-#   password: <%= ENV["RDS_PASSWORD"] %>
