@@ -67,12 +67,9 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
 end
 
 group :production do
-  # gem 'pg', '0.20.0'
 end
 
 # Windows環境では、このgemを含める必要があります。（mac環境でもこのままで問題ありません）
