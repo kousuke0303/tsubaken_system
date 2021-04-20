@@ -1,7 +1,7 @@
 $(function() {
-  let el = document.getElementById("sortable-matter-tasks");
+  var el = document.getElementById("sortable-matter-tasks");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {
@@ -20,9 +20,9 @@ $(function() {
 });
 
 $(function() {
-  let el = document.getElementById("sortable-individual-tasks");
+  var el = document.getElementById("sortable-individual-tasks");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {
@@ -41,9 +41,9 @@ $(function() {
 });
 
 $(function() {
-  let el = document.getElementById("sortable-estimate_matter-tasks");
+  var el = document.getElementById("sortable-estimate_matter-tasks");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {

@@ -1,7 +1,7 @@
 $(function() {
-  let el = document.getElementById("sortable-industries");
+  var el = document.getElementById("sortable-industries");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {

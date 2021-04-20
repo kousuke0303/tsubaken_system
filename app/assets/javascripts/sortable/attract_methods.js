@@ -1,7 +1,7 @@
 $(function() {
-  let el = document.getElementById("sortable-attract-methods");
+  var el = document.getElementById("sortable-attract-methods");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {

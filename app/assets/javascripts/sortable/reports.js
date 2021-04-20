@@ -1,13 +1,13 @@
 $(function() {
-  let el = document.getElementById("sortable-reports");
+  var el = document.getElementById("sortable-reports");
   if (el != null) {
-    const sortable = Sortable.create(el, {
+    var sortable = Sortable.create(el, {
       animation: 150,
       delay: 100,
       onUpdate: function(evt) {
         $.ajax({
           type: "PATCH",
-          url: `/employees/matters/${ gon.matter_id }/reports/sort`,
+          url: "/employees/matters/" + gon.matter_id + "/reports/sort",
           cache: false,
           data: { from: evt.oldIndex, 
                   to: evt.newIndex, 
