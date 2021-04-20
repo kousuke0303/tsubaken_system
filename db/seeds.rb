@@ -121,7 +121,6 @@ str_array = %w[山 川 田 森 林 木]
                  prefecture_code: prefectures[rand(5)],
                  address_city: str_array[rand(6)],
                  address_street: "1-1-#{ n + 1 }",
-                 confirmed: n < 10,
                  password: "password",
                  password_confirmation: "password")                 
 end

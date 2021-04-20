@@ -1,0 +1,55 @@
+<% if current_client.estimate_matters.present? %>
+  <div id="client-est">
+    <h4><i class="fas fa-folder-open"></i> お見積もりのご依頼</h4>
+    <table class="table table-bordered text-nowrap">
+      <tr>
+        <th style="width: 7em;">詳細表示</th>
+        <th>ご依頼日</th>
+        <th>案件名</th>
+        <th>見積書</th>
+      </tr>
+      <% current_client.estimate_matters.each do |est| %>
+        <tr>
+          <td class="text-center">
+            <input type="checkbox" id="<%= est.id %>" class="checkbox" value="estimate_matter#<%= est.id %>"></input>
+          </td>
+          <td><%= est.calculation_day%></td>
+          <td><%= est.title %></td>
+          <td class="text-center">
+            <%= link_to clients_estimate_path(estimate_matter_id: est.id), target: :_blank, rel: "noopener noreferrer" do %>
+              <i class="fas fa-file-alt fa-2x"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+<% if current_client.matters.present? %>
+  <div id="client-matter">
+    <h4><i class="fas fa-folder-open"></i> 工事のご依頼</h4>
+    <table class="table table-bordered text-nowrap">
+      <tr>
+        <th style="width: 7em;">状況</th>
+        <th>着工日（着工予定日）</th>
+        <th>完了日（完了予定日）</th>
+        <th>請求書</th>
+      </tr>
+      <% current_client.matters.each do |matter| %>
+        <tr>
+          <td class="text-center">
+            <input type="checkbox" id="<%= matter.id %>", class="checkbox" value="matter#<%= matter.id %>"></input>
+          </td>
+          <td><%= matter.started_on_display || matter.scheduled_started_on_display %></td>
+          <td><%= matter.finished_on_display || matter.scheduled_finished_on_display %></td>
+          <td class="text-center">
+            <%= link_to clients_invoice_path(matter_id: matter.id), target: :_blank, rel: "noopener noreferrer" do %>
+              <i class="fas fa-file-alt fa-2x"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>

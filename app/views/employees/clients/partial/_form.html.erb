@@ -20,12 +20,12 @@
       <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
     </div>
     <div class="col-md-6 col-12">
-    <%= f.label :confirmed %>
+    <%= f.label :avaliable %>
       <br>
-      <%= f.radio_button :confirmed, true %>
-      <%= f.label :confirmed, "する", value: true, class: "mr-1e" %>
-      <%= f.radio_button :confirmed, false %>
-      <%= f.label :confirmed, "しない", value: false %>
+      <%= f.radio_button :avaliable, true %>
+      <%= f.label :avaliable, "する", value: true, class: "mr-1e" %>
+      <%= f.radio_button :avaliable, false %>
+      <%= f.label :avaliable, "しない", value: false %>
     </div>
   <% end %>
   <div class="col-md-6 col-12">

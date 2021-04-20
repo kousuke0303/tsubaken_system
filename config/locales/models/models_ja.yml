@@ -43,7 +43,7 @@ ja:
         client:
           name: 名前
           gender: 性別          
-          confirmed: ログインを許可
+          available: ログインを許可
         supplier:
           name: 業者名
           representative: 代表者名

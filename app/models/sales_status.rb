@@ -13,6 +13,7 @@ class SalesStatus < ApplicationRecord
   validate :scheduled_end_time_is_after_start_time
   validate :except_duplicate_schedule, on: :schedule_register
   validate :except_duplicate_schedule_for_update, on: :schedule_update
+  validate :only_one_for_calculation
   validates :scheduled_start_time, presence: true, on: [:schedule_register, :schedule_update]
   validates :scheduled_end_time, presence: true, on: [:schedule_register, :schedule_update]
   
@@ -92,6 +93,18 @@ class SalesStatus < ApplicationRecord
   
   
   private
+    #-----------------------------------------------------
+      # VALIDATE_METHOD
+    #-----------------------------------------------------
+    
+    # 見積算出は１回のみ
+    def only_one_for_calculation
+      if self.status == "calculation"
+        if self.estimate_matter.sales_statuses.where(sales_statuses: {status: 4}).present?
+          errors.add(:status, "見積算出は既に設定されています") 
+        end
+      end
+    end
  
     def scheduled_end_time_is_after_start_time
       if scheduled_start_time.present? && scheduled_end_time.present? && scheduled_start_time >= scheduled_end_time

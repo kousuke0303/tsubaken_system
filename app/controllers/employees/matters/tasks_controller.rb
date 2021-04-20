@@ -1,5 +1,5 @@
 class Employees::Matters::TasksController < Employees::TasksController
-  before_action :set_matter
+  before_action :set_matter_by_matter_id
   before_action :set_task, except: [:move, :create]
   before_action ->{ group_for(@matter) }, only: [:edit, :change_member]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]

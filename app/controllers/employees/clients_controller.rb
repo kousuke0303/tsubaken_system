@@ -56,7 +56,7 @@ class Employees::ClientsController < Employees::EmployeesController
 
   private
     def client_params
-      params.require(:client).permit(:name, :kana, :gender, :login_id, :confirmed, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street)
+      params.require(:client).permit(:name, :kana, :gender, :login_id, :avaliable, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street)
     end
 
     def set_client

@@ -5,7 +5,7 @@ class DeviseCreateClients < ActiveRecord::Migration[5.1]
     create_table :clients do |t|
       t.string :auth,               null: false, default: "client"
       t.string :name,               null: false
-      t.boolean :confirmed,         null: false, default: false
+      t.boolean :avaliable,         null: false, default: false
       t.string :kana
       t.integer :gender
       t.string :phone_1

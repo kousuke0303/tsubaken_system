@@ -1,0 +1,13 @@
+<div class="text-center mr-1e">
+  <button class="btn btn-primary" id="print">印刷</button>
+</div>
+
+<div>
+  <%= render "shared/estimate_matters/estimates", container_type: "a4-container" %>
+</div>
+
+<div id="print-area" style="display: none">
+  <%= render "shared/estimate_matters/estimates", container_type: "a4-print-container" %>
+</div>
+
+<%= javascript_include_tag "print.js" %>

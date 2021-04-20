@@ -1,0 +1,70 @@
+<% if @estimate_matter.present? && current_client.certificates.present? %>
+  <div id="certificate-container">
+    <ul class="nav nav-tabs title_tab_bar mt-2e">
+      <li class="nav-item">
+        <a class="nav-link title_tab_grey">診断結果</a>
+      </li>
+    </ul>
+      
+    <div id="slider-area" class="slider-pro">
+      <div class="sp-slides">
+        <% current_client.certificates.each do |certificate| %>
+          <div class="sp-slide">
+            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= certificate.title %></h4>
+            <%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
+            <p class="sp-layer sp-green sp-padding" data-position="bottomCenter" data-height="100px" data-width="100%" data-show-transition="up" data-hide-transition="down">
+              <span class="certificate-content"><%= certificate.content %></span>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @matter.present? && current_client.reports.present? %>
+  <div id="certificate-container">
+    <ul class="nav nav-tabs title_tab_bar mt-2e">
+      <li class="nav-item">
+        <a class="nav-link title_tab_grey">施工後</a>
+      </li>
+    </ul>
+      
+    <div id="slider-area" class="slider-pro">
+      <div class="sp-slides">
+        <% current_client.reports.each do |report| %>
+          <div class="sp-slide">
+            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= report.title %></h4>
+            <%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_include_tag "jquery.sliderPro.min.js" %>
+
+<script type="text/javascript">
+$(function(){
+    $('#slider-area').sliderPro({
+    width: 800,//横幅
+    height: 650,//横幅
+    buttons: false,//ナビゲーションボタン
+    autoScaleLayers: false,//キャプションの自動変形
+    waitForLayers: true,//キャプションのアニメーションが終了してからスライドするか
+    autoplay: false,//自動再生
+    thumbnailPointer: true,//アクティブなサムネイルにマークを付ける
+    thumbnailWidth: 180,//サムネイルの横幅
+    thumbnailHeight: 120,//サムネイルの縦幅
+    arrows: true,//左右の矢印
+    slideDistance: 0,//スライド同士の距離
+    breakpoints: {
+      480: {
+        //表示方法を変えるサイズ
+      }
+    }
+    });
+  });
+</script>
+

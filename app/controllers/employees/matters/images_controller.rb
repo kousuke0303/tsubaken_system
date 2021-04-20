@@ -58,6 +58,11 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
   end
   
   private
+  
+    def set_matter
+      @matter = Matter.find(params[:matter_id])
+    end
+    
     def image_params
       params.require(:image).permit(:content, :shooted_on, :image, :matter_id)
     end

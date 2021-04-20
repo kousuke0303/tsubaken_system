@@ -15,12 +15,18 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     @sales_status = @estimate_matter.sales_statuses.new(sales_status_params)
     @sales_status.login_user = login_user
     if params[:sales_status][:register_for_schedule] == 0
-      @sales_status.save
-    elsif params[:sales_status][:register_for_schedule] == 1
-      @sales_status.set_schedule
+      if @sales_status.save
+        @response = "success"
+        common_variable_for_view
+      else
+        @responce = "failure"
+      end
     end
-    @response = "success"
-    common_variable_for_view
+    if params[:sales_status][:register_for_schedule] == 1
+      @sales_status.set_schedule
+      @response = "success"
+      common_variable_for_view
+    end
   rescue
     @response = "failure"
   end

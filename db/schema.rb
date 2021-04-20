@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "auth", default: "client", null: false
     t.string "name", null: false
-    t.boolean "confirmed", default: false, null: false
+    t.boolean "avaliable", default: false, null: false
     t.string "kana"
     t.integer "gender"
     t.string "phone_1"

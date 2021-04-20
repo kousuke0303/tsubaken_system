@@ -30,8 +30,12 @@ class Employees::Managers::RetirementsController < Employees::EmployeesControlle
     @schedule.sender = login_user.member_code.id
     set_schedule_notification_attr_variable
     if @schedule.update(schedule_params)
+      @responce = "success"
       retirement_process_variable
-    end
+    else
+      @responce = "faliure"
+      @target_mamber_name = MemberCode.find(@schedule.member_code_id).parent.name
+    end  
   end
   
   def resigned_registor

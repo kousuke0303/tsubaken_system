@@ -1,4 +1,8 @@
-$('#retirement_modal').modal('hide');
-$('#retirement_modal').empty();
-$('#process').html('<%= escape_javascript(render 'employees/managers/retirements/partial/process') %>');
-toastr.success("<%= @schedule.title %>の担当者を変更しました");
+<% if @responce == "success" %>
+  $('#retirement_modal').modal('hide');
+  $('#retirement_modal').empty();
+  $('#process').html('<%= escape_javascript(render 'employees/managers/retirements/partial/process') %>');
+  toastr.success("<%= @schedule.title %>の担当者を変更しました");
+<% else %>
+  $('.schedule-update-errors').html('<span class="text-danger"><%= @target_mamber_name %>はその時間帯に他のスケジュールがあります</span>');
+<% end %>

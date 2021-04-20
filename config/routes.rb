@@ -179,7 +179,9 @@ Rails.application.routes.draw do
   scope module: :clients do
     namespace :clients do
       get :top
-      get :index
+      get :detail
+      get :estimate
+      get :invoice
     end
   end
 

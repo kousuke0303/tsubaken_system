@@ -1,10 +1,12 @@
 class Client < ApplicationRecord
-  has_many :estimate_matters, dependent: :destroy
-  has_many :matters, dependent: :destroy
-  has_one_attached :avator
   
   before_save { self.email = email.downcase if email.present? }
-
+  
+  has_many :estimate_matters, dependent: :destroy
+  has_many :matters, dependent: :destroy
+  
+  has_one_attached :avator
+  
   validates :name, presence: true, length: { maximum: 30 }
   validates :kana, presence: true, length: { maximum: 30 }, format: { with: VALID_KANA_REGEX }
   validates :phone_1, format: { with: VALID_PHONE_REGEX }, allow_blank: true
@@ -17,7 +19,6 @@ class Client < ApplicationRecord
   
   enum gender: { male: 0, female: 1 }
 
-  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
 
   # 名前検索
   scope :get_by_name, ->(name) { where("name like ?", "%#{ name }%") }
@@ -33,6 +34,22 @@ class Client < ApplicationRecord
     or(Client.where(phone_2: phone)).
     or(Client.where(email: email))
   }
+  
+  #---------------------------------------------------
+    # DEVISE関連
+  #---------------------------------------------------
+  
+  devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
+  
+  # ログイン条件追加
+  def active_for_authentication?
+    super && self.avaliable
+  end
+  
+  # 上記エラーメッセージ変更
+  def inactive_message
+    self.avaliable ? super : :not_avaliable
+  end
 
   # 顧客IDは「CL-」から始めさせる
   def client_login_id_is_correct?
@@ -43,7 +60,7 @@ class Client < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login_id = conditions.delete(:login_id)
-      where(conditions).where(login_id: login_id, confirmed: true).first
+      where(conditions).where(login_id: login_id).first
     else
       where(conditions).first
     end
@@ -63,8 +80,21 @@ class Client < ApplicationRecord
     false
   end
   
+  def matters
+    Matter.where(client_id: self.id)
+  end
+  
+  def estimate_matters
+    EstimateMatter.joins(:sales_statuses).where(client_id: self.id)
+                                         .where(sales_statuses: {status: 4})
+  end
+  
   def certificates
     Certificate.joins(:estimate_matter).where(estimate_matters: {client_id: self.id})
+  end
+  
+  def reports
+    Report.joins(:matter).where(matters: {client_id: self.id})
   end
   
 end
