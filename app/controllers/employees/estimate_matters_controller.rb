@@ -51,6 +51,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   def show
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
+    @client = @estimate_matter.client
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
     @cover = @estimate_matter.cover

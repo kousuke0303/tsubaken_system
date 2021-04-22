@@ -1,0 +1,27 @@
+<div class="table-responsible">
+  <table class="table table-bordered text-nowrap table-column-type">
+    <tr>
+      <th>作業名称</th>
+      <th>担当者</th>
+      <th>作業内容</th>
+      <th>開始予定日</th>
+      <th>完了予定日</th>
+      <th></th>
+    </tr>
+    <% if @construction_schedules.present? %>
+      <% @construction_schedules.each do |construction| %>
+        <tr>
+          <td><%= construction.title %></td>
+          <td><%= construction.supplier.name %></td>
+          <td><%= construction.content %></td>
+          <td><%= construction.scheduled_started_on_disp %></td>
+          <td><%= construction.scheduled_finished_on_disp %></td>
+          <td>
+            <%= link_to "編集", edit_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-dark" %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  
+</div>

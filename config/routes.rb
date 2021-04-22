@@ -380,6 +380,7 @@ Rails.application.routes.draw do
         get :change_member, on: :member
         patch :update_member, on: :member
       end
+      resources :construction_schedules, controller: "matters/construction_schedules"
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
       end

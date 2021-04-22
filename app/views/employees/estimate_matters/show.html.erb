@@ -1,69 +1,70 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: { title_1: "営業案件", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
   
-  <div class="text-right mb-1e">
-    <button id="to_image_index" class="btn btn-dark">画像一覧</button>
-    <!--<!%= link_to "チャットルーム", "#", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>-->
-  </div>
-  
-  <div class="table-responsive pc_type">
-    <table class="table table-bordered table-column-type text-nowrap">
-      <tr>
-        <th style="width: 10em">状況</th>
-        <td colspan="2"><%= @sales_statuses.first.status_i18n %></td>
-      </tr>
-      <tr>
-        <th>タイトル</th>
-        <td colspan="2"><%= @estimate_matter.title %></td>
-      </tr>
-      <tr>
-        <th>顧客</th>
-        <td><%= @estimate_matter.client.name %></td>
-        <td>
-          <div class="mr-1e">
-            <a href="tel:<%= @estimate_matter.client.phone_1 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_1) %></a>
-          </div>
-          <div class="mr-1e">
-            <a href="tel:<%= @estimate_matter.client.phone_2 %>" class=""><%= mobile_phone_display(@estimate_matter.client.phone_2) %></a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>郵便番号</th>
-        <td colspan="2"><%= postal_code_display(@estimate_matter.postal_code) %></td>
-      </tr>
-      <tr>
-        <th>現場住所</th>
-        <td colspan="2">          
-          <%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %>
-        </td>
-      </tr>
-      <tr>
-        <th>集客方法</th>
-        <td colspan="2"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
-      </tr>
-      <tr>
-        <th>発行元</th>
-        <td colspan="2"><%= @publisher.name %></td>
-      </tr>
-      <tr>
-        <th>内容</th>
-        <td colspan="2"><%= @estimate_matter.content %></td>
-      </tr>
-      <tr>
-        <th>担当スタッフ</th>
-        <td colspan="2"><%= person_in_charge_for(@member_name_arrey) %></td>
-      </tr>
-      <tr>
-        <th>BAND選択</th>
-        <td colspan="2" id="select_band">
-          <%= render 'employees/estimate_matters/partial/select_band_display' %>
-        </td>
-      </tr>
-    </table>
+  <div class="pc_type">
+    <div class="row">
+      <div class="col-md-6">
+        <%= render partial: 'layouts/page_title', locals: { title_1: "営業案件", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "この営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+    
+    <h3 class="mt-1e" id="matter-title"><i class="fas fa-paint-roller"></i> <%= @estimate_matter.content %> <%= sales_status_disp(@sales_statuses.first.status_i18n) %></h3>
+    
+    <div id="matter_show" class="pa-1e">
+      <div class="mt-1e">
+        <h4>基本情報</h4>
+        <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark float-r" %>
+        
+        <div class="table-responsive">
+          <table class="table table-bordered text-nowrap mt-5">
+            <tr>
+              <th style="width: 8em;">現場住所</th>
+              <td colspan="3">
+                <%= postal_code_display(@estimate_matter.postal_code) %>
+                <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+              </td>
+            </tr>
+            <tr>
+              <th>引受会社</th>
+              <td><%= @publisher.name %></td>
+              <th>集客方法</th>
+              <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="mt-2e">
+        <%= render 'common_layouts/clients/detail_table' %>
+      </div>
+    
+    
+      <div class="mt-2e">
+        <h4>担当者</h4>
+        <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "person_in_charge"), remote: true, class: "btn btn-success float-r" %>
+        <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
+                   locals: { object: @estimate_matter } %>
+      </div>
+      
+      <div class="mt-2e">
+        <%= render partial: 'common_layouts/band_select/band_select',
+                   locals: { path: "employees/estimate_matters/partial/select_band_display"} %>
+      </div>
+    
+    </div>
   </div>
   
   <div class="mobile_type">
+    
+    <%= render partial: 'layouts/page_title', locals: { title_1: "営業案件", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
+    
+    <div class="text-right mb-1e">
+      <button id="to_image_index" class="btn btn-dark">画像一覧</button>
+      <!--<!%= link_to "チャットルーム", "#", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>-->
+    </div>
+    
     <div>
       <button type="button" id="tableCollapse" class="navbar-btn">
         <span></span>
@@ -114,20 +115,22 @@
         <div class="content"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></div>
       </div>
     </div>
+    
+    <div class="btn-area mb-1e">
+      <% if @matter %>
+        <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
+      <% end %>
+      <span class="to-create-matter">
+        <% if @contracted_estimate_matter.present? && @matter.nil? %>      
+          <%= link_to "案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-dark" %>
+        <% end %>
+      </span>
+      <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
+      <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+    </div>
   </div>
   
-  <div class="btn-area mb-1e">
-    <% if @matter %>
-      <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
-    <% end %>
-    <span class="to-create-matter">
-      <% if @contracted_estimate_matter.present? && @matter.nil? %>      
-        <%= link_to "案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-dark" %>
-      <% end %>
-    </span>
-    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
-    <%= link_to "削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
-  </div>
+  
   
   <div class="accordion" id="accordion-sales">
     <div class="card">

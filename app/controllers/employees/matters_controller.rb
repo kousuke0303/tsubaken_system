@@ -51,15 +51,24 @@ class Employees::MattersController < Employees::EmployeesController
     @report_cover = @matter.report_cover    
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
+    @construction_schedules = @matter.construction_schedules.order_started_on
   end
 
   def edit
     @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
     @staff_codes_ids = @matter.member_codes.joins(:staff).ids
     @external_staff_codes_ids = @matter.member_codes.joins(:external_staff).ids
+    case params[:edit_type]
+    when "basic"
+      @edit_type = "basic"
+    when "person_in_charge"
+      @edit_type = "person_in_charge"
+    end
   end
 
   def update
+    params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
+    params[:matter][:member_code_ids].flatten!
     if @matter.update(matter_params)
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)

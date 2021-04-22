@@ -1,0 +1,13 @@
+<div class="col-12 text-right mb-1e pc_type">
+  <%= link_to new_employees_matter_construction_schedule_path(@matter), remote: true, class: "btn btn-primary" do %>
+    <i class="fas fa-plus"></i> 工程追加
+  <% end %>
+</div>
+
+<div class="col-12 text-left mb-1e mobile_type">
+  <button class="btn btn-primary" id="add-construcrion_schedule"><i class="fas fa-plus"></i>工程追加</button>
+</div>
+
+<div id="construction_schedule_table">
+  <%= render 'employees/matters/construction_schedules/partial/table' %>
+</div>

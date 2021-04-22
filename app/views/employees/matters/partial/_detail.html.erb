@@ -1,63 +1,3 @@
-<div class="table-responsive pc_type">
-  <table class="table table-bordered text-nowrap common-table">
-    <tr>
-      <th style="width: 5em">タイトル</th>
-      <td><%= @matter.title %></td>
-    </tr>
-    <tr>
-      <th>現場住所</th>
-      <td><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></td>
-    </tr>
-    <tr>
-      <th>担当スタッフ</th>
-      <td><%= person_in_charge_for(@member_name_arrey) %></td>
-    </tr>
-    <tr>
-      <th>進行状況</th>
-      <td><%= @matter.status_i18n %></td>
-    </tr>
-    <tr>
-      <th>着工予定日</th>
-      <td><%= l(@matter.scheduled_started_on, format: :default) if @matter.scheduled_started_on.present? %></td>
-    </tr>
-    <tr>
-      <th>完工予定日</th>
-      <td><%= l(@matter.scheduled_finished_on, format: :default) if @matter.scheduled_finished_on.present? %></td>
-    </tr>
-        <tr>
-      <th>着工日</th>
-      <td><%= l(@matter.started_on, format: :default) if @matter.started_on.present? %></td>
-    </tr>
-    <tr>
-      <th>完工日</th>
-      <td><%= l(@matter.finished_on, format: :default) if @matter.finished_on.present? %></td>
-    </tr>
-
-    <% if @suppliers.present? %>
-      <% @suppliers.each_with_index do |supplier, index| %>
-        <tr>
-          <% if index == 0 %>
-            <th rowspan="<%= @suppliers.count %>">外注先</th>
-          <% end %>
-          <td><%= supplier.name %></td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <th>外注先</th>
-        <td>登録なし</td>
-      </tr>
-    <% end %>
-    
-    <tr>
-      <th>BAND選択</th>
-      <td colspan="2" id="select_band">
-        <%= render "employees/matters/partial/select_band_display" %>
-      </td>
-    </tr>
-  </table>
-</div>
-
 <div class="mobile_type">
   <div>
     <button type="button" id="tableLongCollapse" class="navbar-btn">
@@ -67,8 +7,8 @@
     </button>
   </div>
 
-  <div class="responsive_table_wrapper">
-    <nav class="responsive_table_long_sidebar text-nowrap">
+  <div class="table-responsive responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar text-nowrap active">
       <ul class="components">
         <li>タイトル</li>
         <li>STAFF</li>
@@ -103,3 +43,10 @@
   <%= link_to "編集", edit_employees_matter_path(@matter), remote: true, class: "btn btn-dark" %>
   <%= link_to "削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
 </div>
+
+<script>
+  $("#tableLongCollapse").on("click", function(){
+    $(".responsive_table_long_sidebar").toggleClass("active");
+    $("#tableLongCollapse").toggleClass("active");
+  });
+</script>

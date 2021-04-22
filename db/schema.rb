@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_034919) do
+ActiveRecord::Schema.define(version: 2021_04_21_004538) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -129,6 +129,20 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
+  end
+
+  create_table "construction_schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.integer "status"
+    t.string "content"
+    t.date "scheduled_started_on", null: false
+    t.date "scheduled_finished_on", null: false
+    t.string "matter_id"
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_construction_schedules_on_matter_id"
+    t.index ["supplier_id"], name: "index_construction_schedules_on_supplier_id"
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -650,6 +664,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_034919) do
   add_foreign_key "category_materials", "categories"
   add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
+  add_foreign_key "construction_schedules", "suppliers"
   add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_details", "categories"
   add_foreign_key "estimate_details", "constructions"

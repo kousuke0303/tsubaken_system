@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $('#matter-show-modal').empty();
+  $('#matter-show-modal').modal('hide');
+  $('#construction_schedule_table').html('<%= escape_javascript(render 'employees/matters/construction_schedules/partial/table') %>');
+  toastr.success('<%= @construction_schedule.title %>を作成しました');
+<% else %>
+  <%= render "shared/javascript/modal_error", dom: ".construction_schedule-update-errors", model: @construction_schedule, object: "construction_schedule" %>
+<% end %>

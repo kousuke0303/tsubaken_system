@@ -14,5 +14,6 @@ class Supplier < ApplicationRecord
   has_many :industry_suppliers, dependent: :destroy
   has_many :industries, through: :industry_suppliers
   accepts_nested_attributes_for :industry_suppliers, allow_destroy: true
+  has_many :construcrion_schedules, dependent: :destroy
 
 end

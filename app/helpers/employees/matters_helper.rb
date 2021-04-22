@@ -75,4 +75,22 @@ module Employees::MattersHelper
     end
   end
   
+  def status_disp(status)
+    if status == "not_started"
+      content_tag(:span, "未着工", class: "badge badge-danger")
+    elsif status == "progress"
+      content_tag(:span, "着工中", class: "badge badge-info")
+    elsif status == "completed"
+      content_tag(:span, "完了", class: "badge badge-success")
+    end
+  end
+  
+  def client_avaliable_disp(client_avaliable)
+    if client_avaliable
+      content_tag(:span, "ログイン可能", class: "badge badge-primary ml-2e")
+    else
+      content_tag(:span, "ログイン未許可", class: "badge badge-dark ml-2e")
+    end
+  end
+  
 end
