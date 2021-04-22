@@ -49,6 +49,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def show
+    gon.estimate_matter_id = @estimate_matter.id
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
