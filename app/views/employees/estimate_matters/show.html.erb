@@ -43,7 +43,7 @@
     
       <div class="mt-2e">
         <h4>担当者</h4>
-        <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "person_in_charge"), remote: true, class: "btn btn-success float-r" %>
+        <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "person_in_charge"), remote: true, class: "btn btn-success float-r" %>
         <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
                    locals: { object: @estimate_matter } %>
       </div>
