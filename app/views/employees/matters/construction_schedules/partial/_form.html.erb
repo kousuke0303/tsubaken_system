@@ -1,0 +1,29 @@
+<%= f.label :title %>
+<%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-title" %>
+
+<%= f.label :content %>
+<%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+
+<%= f.label :scheduled_started_on %>
+<%= f.date_field :scheduled_started_on, class: "form-control" %>
+
+<%= f.label :scheduled_finished_on %>
+<%= f.date_field :scheduled_finished_on, class: "form-control" %>
+
+<h6 class="mt-1e">担当者</h6>
+<div>
+  <%= f.select :supplier_id, options_for_select(@suppliers.map{|supplier| [supplier.name, supplier.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "supplier_select" %>
+</div>
+
+<script>
+  <% if @construction_schedule.supplier_id.present? %>
+    $(function(){
+      var value = <%=  @construction_schedule.supplier_id %>
+      $('#supplier_select').val(value);
+    });
+  <% end %>
+</script>
+        
+        
+
+

@@ -48,6 +48,15 @@ class EstimateMatter < ApplicationRecord
     joins(:sales_statuses).where.not(sales_statuses: { status: 14})
   }
   
+  def staffs_in_charge
+    Staff.joins(member_code: :estimate_matters).where(member_codes: {estimate_matters: {id: self.id}})
+  end
+  
+  def external_staffs_in_charge_for_group_by_supplier
+    ExternalStaff.joins(member_code: :estimate_matters).where(member_codes: {estimate_matters: {id: self.id}})
+                 .group_by{|external_staff| external_staff.supplier_id }
+  end
+  
   def member
     member_arrey = []
     MemberCode.new

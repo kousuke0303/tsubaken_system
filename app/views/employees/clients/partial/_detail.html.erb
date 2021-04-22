@@ -52,8 +52,8 @@
     </button>
   </div>
   
-  <div class="responsive_table_wrapper">
-    <nav class="responsive_table_sidebar">
+  <div class="table-responsive responsive_table_wrapper">
+    <nav class="responsive_table_sidebar text-nowrap">
       <ul class="components">
         <li>お名前</li>
         <li>フリガナ</li>
@@ -88,11 +88,7 @@
 </div>
 
 <div class="btn-area">
-  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>  
-  <%= link_to "パスワード再発行", reset_password_employees_client_path(@client), method: :patch, class: "btn btn-dark",
-                                 data: { confirm: "仮パスワードを発行してよろしいですか？\n既存のパスワードはリセットされます。" } %>
-  <%= link_to "削除", employees_client_path(@client), method: :delete, data: { confirm: "この顧客を削除してよろしいですか？" },
-                      class: "btn btn-danger" %>
+  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>
 </div>
 
 <%= javascript_include_tag 'tableCollapse.js' %>

@@ -125,7 +125,7 @@
   <!--顧客new・edit-->
   <% if controller_name == "clients" && action_name == "index" %>
     <div id="client-new" class="modal fade" role="dialog"></div>
-  <% elsif (controller_name == "clients" && action_name == "show") || (controller_name == "matters" && action_name == "show") %>
+  <% elsif controller_name == "clients" && action_name == "show" %>
     <div id="client-edit" class="modal fade" role="dialog"></div>
   <% end %>
   <% if controller_name == "clients" && action_name == "show" %>
@@ -147,6 +147,7 @@
   <% end %>
   <% if controller_name == "estimate_matters" && action_name == "show" %> 
     <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>
+    <div id="client-edit" class="modal fade" role="dialog"></div>
     <div id="task-edit" class="modal fade" role="dialog"></div>
     <!--見積関連-->
     <div id="estimate-new" class="modal fade" role="dialog"></div>
@@ -169,8 +170,8 @@
 
   <!--着工案件関連-->
   <% if controller_name == "matters" && action_name == "show" %>
-    <!--案件edit-->
-    <div id="matter-edit" class="modal fade" role="dialog"></div>
+    <div id="matter-show-modal" class="modal fade" role="dialog"></div>
+    <div id="client-edit" class="modal fade" role="dialog"></div>
     <!--BAND連結-->
     <div id="bands-index" class="modal fade" role="dialog"></div>
     <!----TASK_EDIT---->

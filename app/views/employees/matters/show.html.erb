@@ -1,18 +1,79 @@
 <div class="col-12">
-  
-  <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
-  
-  <div class="text-right mb-1e">
-    <button id="to_image_index" class="btn btn-dark">画像一覧</button>
+
+  <div class="pc_type">
+    <div class="row">
+      <div class="col-md-6">
+        <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "この着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+    
+    <h3 class="mt-1e" id="matter-title"><i class="fas fa-paint-roller"></i> <%= @matter.content %> <%= status_disp(@matter.status) %></h3>
+    
+    <div id="matter_show" class="pa-1e">
+      <div class="mt-1e">
+        <h4>基本情報</h4>
+        <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+        
+        <div class="table-responsive">
+          <table class="table table-bordered text-nowrap mt-5">
+            <tr>
+              <th style="width: 8em;">現場住所</th>
+              <td colspan="7">
+                <%= postal_code_display(@matter.postal_code) %>
+                <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+              </td>
+            </tr>
+            <tr>
+              <th>竣工予定日</th>
+              <td><%= @matter.scheduled_started_on_display %></td>
+              <th>完了予定日</th>
+              <td><%= @matter.scheduled_finished_on_display %></td>
+              <th>竣工日</th>
+              <td>
+                <%= @matter.started_on.present? ? @matter.started_on_display : "未設定" %></td>
+              <th>完了日</th>
+              <td><%= @matter.finished_on.present? ? @matter.finished_on_display : "未設定" %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="mt-2e">
+        <%= render partial: 'common_layouts/clients/detail_table' %>
+      </div>
+      
+      <div class="mt-2e">
+        <h4>担当者</h4>
+        <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "person_in_charge"), remote: true, class: "btn btn-success float-r" %>
+        <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
+                   locals: { object: @matter } %>
+      </div>
+      
+      <div class="mt-2e">
+        <%= render partial: 'common_layouts/band_select/band_select',
+                   locals: { path: "employees/matters/partial/select_band_display"} %>
+      </div>
+    
+    </div>
   </div>
 
-  <h4><i class="fas fa-paint-roller"></i> <%= @matter.content %></h4>
-  <div class="row">
-    <div class="col-lg-6 col-12">
-      <%= render "employees/matters/partial/detail" %>
+  <div class="mobile_type">
+    <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
+    
+    <div class="text-right mb-1e">
+      <button id="to_image_index" class="btn btn-dark">画像一覧</button>
     </div>
-    <div class="col-lg-6 col-12 clients-matter-index">
-      <%= render "employees/clients/partial/detail" %>
+    
+    <div class="row">
+      <div class="col-lg-6 col-12">
+        <%= render "employees/matters/partial/detail" %>
+      </div>
+      <div class="col-lg-6 col-12 clients-matter-index">
+        <%= render "common_layouts/clients/detail_table_for_mobile" %>
+      </div>
     </div>
   </div>
     
@@ -32,6 +93,30 @@
           <div class="card-body">
             <div class="tasks-index overflow-auto">
               <%= render "employees/matters/partial/tasks" %>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+  
+  
+  <div class="mt-1e">
+    <div class="accordion" id="accordion-construction_schedules">
+      <div class="card">
+        <div class="card-header bg-dark" id="headingTwo">
+          <h5 class="text-light">
+            工程表
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-construction_schedules" aria-expanded="true" aria-controls="collapse-construction_schedules">
+              詳細
+            </button>
+          </h5>
+        </div>
+        
+        <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
+          <div class="card-body">
+            <div class="construction_schedules-index overflow-auto">
+              <%= render "employees/matters/partial/construction_schedules" %>
             </div>
           </div>
         </div>
@@ -96,8 +181,6 @@
     </div>
   </div>
 </div>
-
-<%= javascript_include_tag "tableCollapse.js" %>
 
 <% if @message %>
   <script>

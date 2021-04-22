@@ -52,6 +52,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     gon.estimate_matter_id = @estimate_matter.id
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
+    @client = @estimate_matter.client
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
     @cover = @estimate_matter.cover

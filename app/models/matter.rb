@@ -14,6 +14,7 @@ class Matter < ApplicationRecord
   has_one :report_cover, dependent: :destroy
   
   has_many :tasks, dependent: :destroy
+  has_many :construction_schedules, dependent: :destroy
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images
   has_many :messages, dependent: :destroy
@@ -63,6 +64,15 @@ class Matter < ApplicationRecord
     if self.scheduled_finished_on.present?
       self.scheduled_finished_on.strftime("%Y年%-m月%-d日")
     end
+  end
+  
+  def staffs_in_charge
+    Staff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}})
+  end
+  
+  def external_staffs_in_charge_for_group_by_supplier
+    ExternalStaff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}})
+                 .group_by{|external_staff| external_staff.supplier_id }
   end
   
   def member

@@ -4,10 +4,3 @@ $(document).ready(function () {
     $(this).toggleClass("active");
   });
 });
-
-$(document).ready(function () {
-  $("#tableLongCollapse").on("click", function () {
-    $(".responsive_table_long_sidebar").toggleClass("active");
-    $(this).toggleClass("active");
-  });
-});
