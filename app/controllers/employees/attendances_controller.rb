@@ -4,6 +4,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   before_action :set_latest_30_year, only: :individual
   before_action :set_employees, only: [:new, :daily, :individual]
   before_action :set_attendance, only: [:edit, :update, :destroy]
+  before_action :set_prev_action, only: [:new, :create, :edit, :update, :destroy]
 
   # 日別勤怠表示ページ
   def daily
@@ -33,8 +34,7 @@ class Employees::AttendancesController < Employees::EmployeesController
   end
 
   def new
-    @attendance = Attendance.new
-    @prev_action = params[:prev_action]
+    @attendance = Attendance.new    
   end
   
   # 管理者からの勤怠作成
@@ -49,38 +49,31 @@ class Employees::AttendancesController < Employees::EmployeesController
     create_monthly_attendance_by_date(member_code, params[:attendance]["worked_on"].to_date)
     if @attendance.update(employee_attendance_params)
       flash[:success] = "勤怠を作成しました"
-      params["prev_action"].eql?("daily") ? (redirect_to daily_employees_attendances_url) : (redirect_to individual_employees_attendances_url)
+      attendance = Attendance.with_employees.where(attendances: { id: @attendance.id }).first
+      redirect_to_daily_or_individual(@prev_action, attendance)
     end
   end
 
   def edit
-    @prev_action = params[:prev_action]
   end
 
   def update
     if @attendance.update(employee_attendance_params.except(:worked_on))
       flash[:success] = "勤怠を更新しました"
-      set_auth(@attendance.member_code)
-      params["prev_action"].eql?("daily") ?
-      (redirect_to daily_employees_attendances_url(day: @attendance.worked_on)) :
-      (redirect_to individual_employees_attendances_url(
-        year: @attendance.worked_on.year,
-        month: @attendance.worked_on.month,
-        auth: @auth,
-        manager_id: @manager_id,
-        staff_id: @staff_id,
-        external_staff_id: @external_staff_id))
+      redirect_to_daily_or_individual(@prev_action, @attendance)
     end
   end
 
   def destroy
     @attendance.update(started_at: nil, finished_at: nil, working_minutes: nil) ? flash[:success] = "勤怠を削除しました" : flash[:alert] = "勤怠を削除できませんでした"
-    params["prev_action"].eql?("daily") ?
-    (redirect_to daily_employees_attendances_url(day: @attendance.worked_on)) :
-    (redirect_to individual_employees_attendances_url)
+    redirect_to_daily_or_individual(@prev_action, @attendance)
   end
 
   private
+    def set_prev_action
+      @prev_action = params[:prev_action]
+    end
+
     def set_auth(member_code)
       if (@manager_id = member_code.manager_id).present?
         @auth = 1
@@ -89,6 +82,20 @@ class Employees::AttendancesController < Employees::EmployeesController
       else (@external_staff_id = member_code.external_staff_id).present?
         @auth = 3
       end
+    end
+
+    # 日別or従業員毎の勤怠一覧へリダイレクト
+    def redirect_to_daily_or_individual(prev_action, attendance)
+      set_auth(attendance.member_code)
+      prev_action.eql?("daily") ?
+      (redirect_to daily_employees_attendances_url(day: attendance.worked_on)) :
+      (redirect_to individual_employees_attendances_url(
+        year: attendance.worked_on.year,
+        month: attendance.worked_on.month,
+        auth: @auth,
+        manager_id: @manager_id,
+        staff_id: @staff_id,
+        external_staff_id: @external_staff_id))
     end
     
     # 直近30年をhashに(フォーム用)
