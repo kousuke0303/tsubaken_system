@@ -43,7 +43,7 @@
     </div>
         
     <div class="card-body">
-      <%= content_tag(:h5, @resource.name) if @resource %>
+      <%= content_tag(:h5, "#{ params[:year] }年#{ params[:month] }月　#{ @resource.name }") if @resource %>
       <div class="table-responsive">
         <table class="table table-bordered text-nowrap common-table">
           <tr>
