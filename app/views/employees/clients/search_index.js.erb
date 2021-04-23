@@ -1,5 +1,5 @@
 <% if @display_type == "success" %>
-  $('#search_clients').html('<%= escape_javascript(render partial: "/employees/clients/partial/index_table", locals: { objects: @search_clients }) %>');
+  $('#search_clients').html('<%= escape_javascript(render "/employees/clients/partial/index_table", objects: @search_clients) %>');
 <% else %>
   $('#search_clients').html('<tr><td colspan="7">検索にヒットしませんでした</td></tr>');
 <% end %>  

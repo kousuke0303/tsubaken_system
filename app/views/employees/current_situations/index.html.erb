@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+<div class="col-12">
   
   <div id="progress_table_container">
     <ul class="nav nav-tabs title_tab_bar mt-2e">
@@ -8,11 +8,11 @@
     </ul>
     
     <div id="span_set_for_progress_table" class="ml-1e">
-      <%= render partial: 'employees/current_situations/partial/span_set_for_progress' %>
+      <%= render "employees/current_situations/partial/span_set_for_progress" %>
     </div>
     
     <div class="color-detail-container">
-      <%= render partial: 'employees/current_situations/partial/color_detail' %>
+      <%= render "employees/current_situations/partial/color_detail" %>
     </div>
     
     <div class="table-responsive progress_table_design">
@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody id="progress_table">
-          <%= render partial: 'employees/current_situations/partial/progress_table' %>
+          <%= render "employees/current_situations/partial/progress_table" %>
         </tbody>
       </table>
     </div>
@@ -53,7 +53,7 @@
     </div>
     
     <div class="mt-1e" id="ganttchart_table">
-      <%= render 'employees/current_situations/partial/ganttchart_table' %>
+      <%= render "employees/current_situations/partial/ganttchart_table" %>
     </div>
   </div>
   

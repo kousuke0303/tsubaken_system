@@ -34,7 +34,7 @@
           <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
                               remote: true, class: "btn btn-sm btn-dark" %>
           <%= link_to "削除", employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), method: :delete, remote: true,
-                              data: { confirm: "この営業ステータス(及びスケジュール)を削除してよろしいですか？" },class: "btn btn-sm btn-danger"  %>
+                              data: { confirm: "この営業ステータス(及びスケジュール)を削除してよろしいですか？" }, class: "btn btn-sm btn-danger"  %>
         <% end %>
       </td>
     </tr>
