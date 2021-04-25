@@ -18,7 +18,7 @@ gem 'font-awesome-sass'
 gem 'toastr-rails'
 gem 'mechanize'
 # Devise
-gem 'devise'
+gem "devise", git: "https://github.com/heartcombo/devise"
 # decorator
 gem 'active_decorator'
 # line_login
@@ -52,7 +52,6 @@ gem 'gon'
 
 group :development, :test do
   gem 'mysql2'
-  # gem 'byebug',  '9.0.6', platform: :mri
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   gem 'rspec-rails'
@@ -67,6 +66,8 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'webdrivers'
 end
 
 group :production do
