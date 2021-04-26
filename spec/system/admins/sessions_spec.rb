@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "管理者ログイン機能", type: :system do
   let(:admin) { Admin.first }
+  before do
+    Capybara.page.current_window.resize_to(1200, 600)
+  end
 
   context "ログイン" do
     context "ログインID・パスワードが適性" do
@@ -36,5 +39,11 @@ RSpec.describe "管理者ログイン機能", type: :system do
   end
 
   context "ログアウト" do
+    it "ログアウトが出来る" do
+      sign_in admin
+      find("a.session-name").click
+      click_link("ログアウト")
+      expect(page).to have_content("ログアウトしました")
+    end
   end
 end
