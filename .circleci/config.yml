@@ -26,8 +26,6 @@ jobs:
           command: |
             gem install bundler -v 2.1.4
             bundle install
-      - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run: bundle exec rake db:setup
       - run: bundle exec rake db:schema:load
       - run:
