@@ -26,6 +26,7 @@ jobs:
           command: |
             gem install bundler -v 2.1.4
             bundle install
+      - run: mv config/database.yml.ci config/database.yml 
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - run:
