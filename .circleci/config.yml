@@ -12,11 +12,15 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-          - MYSQL_ROOT_HOST: '%'
+          - MYSQL_ROOT_HOST: "127.0.0.1"
     executor: ruby/default
-    working_directory: ~/repo
+    working_directory: ~/tsubaken_system
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
