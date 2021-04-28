@@ -5,6 +5,4 @@ test:
   timeout: 5000
   host: 127.0.0.1
   username: root
-  password:
-  socket: /var/lib/mysqld/mysqld.sock
   database: tsubaken_test
