@@ -30,15 +30,13 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - run: bundle exec rake db:seed
-      - run: #STABLE
-          name: Install Chromedriver latest version
+      - run:
+          name: Install Chrome
           command: |
-            sudo apt-get update
-            sudo apt-get install lsb-release libappindicator3-1
-            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome.deb
-            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
-            rm google-chrome.deb
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | Sudo apt-key add -
+            Sudo sh -c 'echo "deb [Arch=AMD64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            Sudo apt-get update
+            Sudo apt-get install google-chrome-stable
       - run:
           name: run tests
           command: |
