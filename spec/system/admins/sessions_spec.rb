@@ -7,9 +7,12 @@ RSpec.describe "管理者ログイン機能", type: :system do
   end
 
   context "ログイン" do
+    before do
+      visit_login_modal
+    end
+
     context "ログインID・パスワードが適性" do
       it "ログインが出来る" do
-        visit_login_modal
         fill_in "login_id", with: admin.login_id
         fill_in "password", with: "password"
         find("#login-submit").send_keys(:enter)
@@ -19,7 +22,6 @@ RSpec.describe "管理者ログイン機能", type: :system do
 
     context "ログインIDが不正" do
       it "ログインが出来ない" do
-        visit_login_modal
         fill_in "login_id", with: "AD-miss"
         fill_in "password", with: "password"
         find("#login-submit").send_keys(:enter)
@@ -29,7 +31,6 @@ RSpec.describe "管理者ログイン機能", type: :system do
 
     context "パスワードが不正" do
       it "ログインが出来ない" do
-        visit_login_modal
         fill_in "login_id", with: admin.login_id
         fill_in "password", with: "passmiss"
         find("#login-submit").send_keys(:enter)
