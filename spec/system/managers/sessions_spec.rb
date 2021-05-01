@@ -41,8 +41,7 @@ RSpec.describe "Managerログイン機能", type: :system do
     end
 
     context "ログインが無効" do
-      before do
-        manager.update(avaliable: false)        
+      it "ログインが出来ない" do
       end
     end
   end
