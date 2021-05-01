@@ -38,6 +38,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install google-chrome-stable
       - run:
+          name: rspec_junit_formatter
+          command: gem install rspec_junit_formatter
+      - run:
           name: run tests
           command: |
             mkdir /tmp/test-results

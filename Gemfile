@@ -67,8 +67,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'webdrivers'
-  gem 'rspec_junit_formatter'
+  gem 'webdrivers'  
 end
 
 group :production do
