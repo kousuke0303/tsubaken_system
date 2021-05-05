@@ -1,0 +1,3 @@
+$('.construction-schedules-index').html('<%= escape_javascript(render 'external_staffs/matters/partial/construction_schedule') %>');
+$('#sub-title-container').html('<%= escape_javascript(render 'common_layouts/matters/title') %>');
+toastr.success('<%= @construction_schedule.title %>を作成しました');

@@ -1,0 +1,50 @@
+/* ---------------------------------------------------
+    TOP
+----------------------------------------------------- */
+
+#client-name span {
+ color: #999999;
+ margin-right: 1em;
+}
+
+#client-est table{
+ th {
+   background: #17a2b8;
+   color: white;
+ }
+}
+
+#client-matter table{
+ th {
+   background: #237eab;
+   color: white;
+ }
+}
+
+
+.certificate-content {
+  padding: 2px 1em;
+}
+
+#construction_schedules, #certificate-container {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #343a40;
+  border-radius: 5px;
+}
+
+#construction_schedules table {
+  margin: 0 auto;
+  td {
+    vertical-align: middle;
+    padding: 0 1em 1em 0;
+    h3 {
+     margin: 0;
+    }
+  }
+  .status {
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 0;
+  }
+}

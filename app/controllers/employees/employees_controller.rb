@@ -68,6 +68,14 @@ class Employees::EmployeesController < ApplicationController
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
+    
+    def set_matter
+      @matter = Matter.find(params[:id])
+    end
+
+    def set_matter_by_matter_id
+      @matter = Matter.find(params[:matter_id])
+    end
 
     def set_default_color_code
       @default_color_code = LabelColor.first.color_code
@@ -122,14 +130,6 @@ class Employees::EmployeesController < ApplicationController
                                           .group_by{|schedule| schedule[:member_code_id]}
                                           .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
     
-    end
-    
-    def set_matter
-      @matter = Matter.find(params[:id])
-    end
-
-    def set_matter_by_matter_id
-      @matter = Matter.find(params[:matter_id])
     end
     
     

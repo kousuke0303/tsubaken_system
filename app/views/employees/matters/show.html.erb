@@ -10,8 +10,9 @@
       </div>
     </div>
     
-    <h3 class="mt-1e" id="matter-title"><i class="fas fa-paint-roller"></i> <%= @matter.content %> <%= status_disp(@matter.status) %></h3>
-    
+    <div id="sub-title-container">
+      <%= render 'ommon_layouts/matters/title' %>
+    </div>
     <div id="matter_show" class="pa-1e">
       <div class="mt-1e">
         <h4>基本情報</h4>
@@ -42,7 +43,7 @@
       </div>
       
       <div class="mt-2e">
-        <%= render partial: 'common_layouts/clients/detail_table' %>
+        <%= render partial: 'employees/matters/clients/partial/client_table' %>
       </div>
       
       <div class="mt-2e">

@@ -145,24 +145,18 @@
       <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
     <% end %>
   <% end %>
+  
   <% if controller_name == "estimate_matters" && action_name == "show" %> 
-    <div id="estimate-matter-edit" class="modal fade" role="dialog"></div>
+    <div id="estimate-matter-show-modal" class="modal fade" role="dialog"></div>
     <div id="client-edit" class="modal fade" role="dialog"></div>
-    <div id="task-edit" class="modal fade" role="dialog"></div>
-    <!--見積関連-->
-    <div id="estimate-new" class="modal fade" role="dialog"></div>
-    <div id="estimate-edit" class="modal fade" role="dialog"></div>
-    <div id="estimate-detail-edit" class="modal fade" role="dialog"></div>
-    <div id="estimate-object-edit" class="modal fade" role="dialog"></div>
-    <!--BAND連結-->
     <div id="bands-index" class="modal fade" role="dialog"></div>
   <% end %>
   
   <!--診断書new・edit-->
-  <div id="certificate-new" class="modal fade" role="dialog"></div>
-  <div id="certificate-edit" class="modal fade" role="dialog"></div>
-  <div id="certificate-cover-new" class="modal fade" role="dialog" ></div>
-  <div id="certificate-cover-edit" class="modal fade" role="dialog" ></div>
+  <!--<div id="certificate-new" class="modal fade" role="dialog"></div>-->
+  <!--<div id="certificate-edit" class="modal fade" role="dialog"></div>-->
+  <!--<div id="certificate-cover-new" class="modal fade" role="dialog" ></div>-->
+  <!--<div id="certificate-cover-edit" class="modal fade" role="dialog" ></div>-->
   
   <!--見積案件に紐づいている写真に対しての診断書new・edit-->
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
@@ -172,10 +166,12 @@
   <% if controller_name == "matters" && action_name == "show" %>
     <div id="matter-show-modal" class="modal fade" role="dialog"></div>
     <div id="client-edit" class="modal fade" role="dialog"></div>
-    <!--BAND連結-->
     <div id="bands-index" class="modal fade" role="dialog"></div>
+    
     <!----TASK_EDIT---->
-    <div id="task-edit" class="modal fade" role="dialog"></div>
+    <!--<div id="task-edit" class="modal fade" role="dialog"></div>-->
+    
+    <!--ここまで確認済み-->
     <!--請求書関連-->
     <div id="invoice-edit" class="modal fade" role="dialog"></div>
     <div id="invoice-detail-edit" class="modal fade" role="dialog"></div>
@@ -213,6 +209,7 @@
   <div id="person_in_charge" class="modal fade" role="dialog"></div>
   <div id="matter-new" class="modal fade" role="dialog"></div>
   
+  
   <!--タスクindex-->
   <div id="task-index" class="modal fade" role="dialog"></div>
 
@@ -231,4 +228,10 @@
 
 <% if controller_name == "static_pages" && action_name == "top" %>
   <div id="inquiry-new" class="modal fade" role="dialog"></div>
+<% end %>
+
+<% if current_external_staff %>
+  <% if controller_name == "matters" && action_name == "show" %>
+    <div id="matter-show-modal" class="modal fade" role="dialog"></div>
+  <% end %>
 <% end %>

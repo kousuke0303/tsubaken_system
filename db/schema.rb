@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_004538) do
+ActiveRecord::Schema.define(version: 2021_04_25_035306) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -131,13 +131,35 @@ ActiveRecord::Schema.define(version: 2021_04_21_004538) do
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
+  create_table "construction_schedule_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "construction_schedule_id", null: false
+    t.bigint "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["construction_schedule_id"], name: "fk_rails_7db56321bd"
+    t.index ["image_id"], name: "index_construction_schedule_images_on_image_id"
+  end
+
+  create_table "construction_schedule_materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "construction_schedule_id", null: false
+    t.bigint "material_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["construction_schedule_id"], name: "construction_schedule_image_index"
+    t.index ["construction_schedule_id"], name: "construction_schedule_index"
+    t.index ["material_id"], name: "index_construction_schedule_materials_on_material_id"
+  end
+
   create_table "construction_schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.integer "status"
     t.string "content"
-    t.date "scheduled_started_on", null: false
-    t.date "scheduled_finished_on", null: false
+    t.date "scheduled_started_on"
+    t.date "scheduled_finished_on"
+    t.date "started_on"
+    t.date "finished_on"
     t.string "matter_id"
+    t.boolean "disclose", default: true, null: false
     t.bigint "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -664,6 +686,10 @@ ActiveRecord::Schema.define(version: 2021_04_21_004538) do
   add_foreign_key "category_materials", "categories"
   add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
+  add_foreign_key "construction_schedule_images", "construction_schedules"
+  add_foreign_key "construction_schedule_images", "images"
+  add_foreign_key "construction_schedule_materials", "construction_schedules"
+  add_foreign_key "construction_schedule_materials", "materials"
   add_foreign_key "construction_schedules", "suppliers"
   add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_details", "categories"
@@ -686,7 +712,6 @@ ActiveRecord::Schema.define(version: 2021_04_21_004538) do
   add_foreign_key "invoice_details", "materials"
   add_foreign_key "invoices", "plan_names"
   add_foreign_key "managers", "departments"
-  add_foreign_key "materials", "plan_names"
   add_foreign_key "matter_member_codes", "matters"
   add_foreign_key "matters", "attract_methods"
   add_foreign_key "matters", "clients"

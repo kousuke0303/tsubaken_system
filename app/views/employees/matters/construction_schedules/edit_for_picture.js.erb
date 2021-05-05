@@ -1,0 +1,6 @@
+<% if @type == "success" %>
+  $('#matter-show-modal').html('<%= escape_javascript(render 'employees/matters/construction_schedules/partial/edit_for_picture') %>');
+  $('#matter-show-modal').modal();
+<% else %>
+  toastr.error('この着工案件に基づく見積案件に写真がありません');
+<% end %>

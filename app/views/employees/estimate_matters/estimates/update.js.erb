@@ -1,9 +1,9 @@
 <% if @response == "success" %>
-  $("#estimate-edit").modal("hide");
-  $('#estimate-edit').empty();
-  $(".flash-wrapper").html('<div class="flash flash-notice time-limit">見積を更新しました。</div>');
+  $("#estimate-matter-show-modal").modal("hide");
+  toastr.success('<%= @estimate.name %>プランを更新しました');
   $(".estimates-index").html('<%= escape_javascript(render partial: "employees/estimate_matters/partial/estimates_index", locals: {estimates: @estimates, estimate_matter: @estimate_matter}) %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
-  })
+  });
+  $('#estimate-matter-show-modal').empty();
 <% end %>

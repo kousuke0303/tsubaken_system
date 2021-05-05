@@ -15,7 +15,7 @@
     <div id="matter_show" class="pa-1e">
       <div class="mt-1e">
         <h4>基本情報</h4>
-        <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter), remote: true, class: "btn btn-dark float-r" %>
+        <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
         
         <div class="table-responsive">
           <table class="table table-bordered text-nowrap mt-5">
@@ -27,7 +27,7 @@
               </td>
             </tr>
             <tr>
-              <th>引受会社</th>
+              <th>引受屋号</th>
               <td><%= @publisher.name %></td>
               <th>集客方法</th>
               <td><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></td>
@@ -37,7 +37,7 @@
       </div>
       
       <div class="mt-2e">
-        <%= render 'common_layouts/clients/detail_table' %>
+        <%= render 'employees/estimate_matters/clients/partial/client_table' %>
       </div>
     
     

@@ -4,7 +4,11 @@
     <h5 style="display: inline"><%= client_avaliable_disp(@client.avaliable) %></h5>
   </div>
   <div class="col-md-6 text-right">
-    <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-success" %>
+    <% if @matter.present? %>
+      <%= link_to "編集", edit_employees_matter_client_path(@matter, @client), remote: true, class: "btn btn-success" %>
+    <% elsif @estimate_matter.present? %>
+      <%= link_to "編集", edit_employees_estimate_matter_client_path(@estimate_matter, @client), remote: true, class: "btn btn-success" %>
+    <% end %>
   </div>
 </div>
 

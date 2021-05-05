@@ -1,0 +1,50 @@
+<div class="modal-dialog modal-xl no-padding_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <%= @construction_schedule.title %>の写真選択
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body text-center">
+      <%= form_with(model: @construction_schedule, url: update_for_picture_employees_matter_construction_schedule_path(@matter, @construction_schedule), method: :patch, remote: true) do |f| %>
+        <%= f.fields_for "image_ids[]", @construction_schedule.construction_schedule_images.new do |fi| %>
+        <div class="construction_schedule-update-errors"></div>
+        <table class="table">
+          <% @pictures.each_slice(5) do |pictures| %>
+            <tr>
+              <% pictures.each do |picture| %>
+                <td>
+                  <div><%= fi.check_box :image_id, {checked: false, id: "#{picture.id}"}, picture.id, false %></div>
+                  <div>
+                    <%= image_tag url_for(picture.image.variant(combine_options:{gravity: :center, resize:"140x140^",crop:"140x140+0+0"})) %>
+                  </div>
+                </td>
+              <% end %>
+            </tr>
+            <% end %>
+          <% end %>
+        </table>
+        
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          <%= link_to "削除", employees_matter_construction_schedule_path(@matter, @construction_schedule), method: :delete, remote: true, class: "btn btn-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  <% if @construction_schedule.images.present? %>
+    
+    $(function(){
+      <% @construction_schedule.images.each do |image| %>
+        var id = "<%= image.id %>"
+        $('input').each(function(index){
+          if($(this).attr('id') == id){
+            $(this).prop('checked', true);
+          }
+        });
+      <% end %>
+    });
+  <% end %>
+</script>

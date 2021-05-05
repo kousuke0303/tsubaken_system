@@ -2,10 +2,15 @@
     PROGRESS_TABLE    
 ----------------------------------------------------- */
 .progress_container  {
+  padding-top: 2em;
   padding-left: 1em;
   padding-right: 1em;
   height: 100vh;
   background: #ececec;
+}
+
+.color-detail-container table {
+  height: 2em;
 }
 
 .progress_table_design {
@@ -142,6 +147,10 @@
 /* ---------------------------------------------------
     GANTTCHART
 ----------------------------------------------------- */
+
+#ganttchart_container {
+  padding-bottom: 2em;
+}
 
 .disp_scheduled {
   display: inline-block;

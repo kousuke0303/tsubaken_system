@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#certificate-edit").modal("hide");
-  $('#certificate-edit').empty();
+  $("#estimate-matter-show-modal").modal("hide");
   $(".certificates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/certificates") %>');
   <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate-update-flash", key: "success", value: "#{@certificate.title}を更新しました。"} %>
+  $("#estimate-matter-show-modal").empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".certificate-update-errors", model: @certificate, object: "certificate"} %>
 <% end %>

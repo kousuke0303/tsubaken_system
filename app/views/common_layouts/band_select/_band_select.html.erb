@@ -1,5 +1,9 @@
-<h4>画像取込設定</h4>
-<button id="to_image_index" class="btn btn-dark float-r">画像一覧</button>
+<% unless current_external_staff %>
+  <h4>画像取込設定</h4>
+  <button id="to_image_index" class="btn btn-dark float-r">画像一覧</button>
+<% else %>
+  <h4>BAND</h4>
+<% end %>
 
 <div class="table-responsive">
   <table class="table table-bordered text-nowrap mt-5">

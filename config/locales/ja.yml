@@ -30,13 +30,18 @@ ja:
       status:
         not_started: "未着手"
         progress: "進行中"
-        completed: "完了済"
+        completed: "完了"
+    construction_schedule:
+      status:
+        not_started: "未着手"
+        progress: "着工中"
+        completed: "完了"
     task:
       status:
         default: "デフォルト"
         relevant: "未着手"
         ongoing: "進行中"
-        finished: "完了済"
+        finished: "完了"
       category:
         individual: "個別"
         estimate_matter: "営業案件"

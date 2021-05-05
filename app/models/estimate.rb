@@ -15,7 +15,7 @@ class Estimate < ApplicationRecord
   scope :with_plan_names_and_label_colors, -> {
     left_joins(plan_name: :label_color).select(
       "estimates.*",
-      "plan_names.name AS name",
+      "plan_names.name AS name_of_plan",
       "label_colors.color_code"
     )
   }
@@ -26,6 +26,10 @@ class Estimate < ApplicationRecord
       "estimate_details.*"
     )
   }
+  
+  def name
+    PlanName.find(self.plan_name_id).name
+  end
 
   # 合計金額を計算
   def calc_total_price

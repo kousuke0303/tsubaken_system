@@ -110,7 +110,7 @@
     </ul>
   </li>
   
-<% elsif current_staff || current_external_staff %>
+<% elsif current_staff %>
   <li>
     <%= link_to employees_estimate_matters_path do %>
       <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
@@ -137,17 +137,43 @@
     <% end %>
   </li>
   <li>
-    <% if current_staff %> 
-      <%= link_to staffs_attendances_path do %>
-        <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
-      <% end %>
-    <% elsif current_external_staff  %>
-      <%= link_to external_staffs_attendances_path do %>
-        <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
-      <% end %>
+    <%= link_to staffs_attendances_path do %>
+      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+    <% end %>
+  </li>
+
+<% elsif current_external_staff %>
+  <li>
+    <%= link_to employees_estimate_matters_path do %>
+      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
   <li>
+    <%= link_to external_staffs_matters_path do %>
+      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_suppliers_path do %>
+      <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to employees_clients_path do %>
+      <i class="fas fa-address-book"></i><span class="ml-1e">顧客管理</span>
+   <% end %>
+  </li>
+  <li>
+    <%= link_to external_staffs_schedules_path(external_staff_id: current_external_staff) do %>
+     <i class="fas fa-calendar-alt"></i><span class="ml-1e">スケジュール管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to external_staffs_attendances_path do %>
+      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+    <% end %>
+  </li>
+
 
 <% elsif current_client %>
   <li>

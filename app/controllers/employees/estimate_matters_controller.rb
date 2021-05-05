@@ -1,7 +1,7 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
   
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy, :change_member, :update_member]
-  before_action ->{can_access_only_of_member(@estiumate_matter)}, except: :index
+  before_action ->{can_access_only_of_member(@estimate_matter)}, except: :index
   
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_employees, only: [:new, :show, :edit, :change_member, :update_member]
@@ -64,22 +64,23 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def edit
-    @clients = Client.all
     @attract_methods = AttractMethod.order(position: :asc)
-    @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
-    @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')
-    @id = @estimate_matter.client_id
-    @postal_code = @estimate_matter.postal_code
-    @prefecture_code = @estimate_matter.prefecture_code
-    @address_city = @estimate_matter.address_city
-    @address_street = @estimate_matter.address_street
+    @staff_codes_ids = @estimate_matter.member_codes.joins(:staff).ids
+    @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
+    case params[:edit_type]
+    when "basic"
+      @edit_type = "basic"
+    when "person_in_charge"
+      @edit_type = "person_in_charge"
+    end
   end
 
   def update
-    params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
-    params[:estimate_matter][:member_code_ids].flatten!
+    if params[:type] == "person_in_charge"
+      params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
+      params[:estimate_matter][:member_code_ids].flatten!
+    end
     if @estimate_matter.update(estimate_matter_params)
-      delete_estimate_matter_relation_table
       flash[:success] = "見積案件を更新しました"
       redirect_to employees_estimate_matter_url(@estimate_matter)
     end
@@ -104,7 +105,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
     params[:estimate_matter][:member_code_ids].flatten!
     @estimate_matter.update(estimate_matter_params)
-    delete_estimate_matter_relation_table
+    # delete_estimate_matter_relation_table
     flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
     if params[:estimate_matter][:staff_id].present?
       @staff = Staff.find(params[:estimate_matter][:staff_id])

@@ -8,7 +8,7 @@ class CreateMaterials < ActiveRecord::Migration[5.2]
       t.integer :price
       t.integer :amount
       t.string :total
-      t.references :plan_name,    foreign_key: true
+      t.references :plan_name
 
       t.timestamps
     end

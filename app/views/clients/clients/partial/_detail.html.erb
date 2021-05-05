@@ -22,25 +22,34 @@
   </div>
 <% end %>
 
-<% if @matter.present? && current_client.reports.present? %>
-  <div id="certificate-container">
+<% if @matter.present? %>
+  <div id="index-container">
     <ul class="nav nav-tabs title_tab_bar mt-2e">
       <li class="nav-item">
-        <a class="nav-link title_tab_grey">施工後</a>
+        <a class="nav-link title_tab_grey">詳細</a>
       </li>
     </ul>
-      
-    <div id="slider-area" class="slider-pro">
-      <div class="sp-slides">
-        <% current_client.reports.each do |report| %>
-          <div class="sp-slide">
-            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= report.title %></h4>
-            <%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
-          </div>
-        <% end %>
+    <div id="construction_schedules">
+      <h4><i class="fas fa-clipboard-list"></i> 作業工程</h4>
+      <%= render "clients/clients/partial/construction_schedule" %>
+    </div>
+
+  <% if current_client.reports.present? %>
+    <div id="certificate-container">
+      <h4><i class="fas fa-camera-retro"></i> 施工後写真</h4>
+        
+      <div id="slider-area" class="slider-pro">
+        <div class="sp-slides">
+          <% current_client.reports.each do |report| %>
+            <div class="sp-slide">
+              <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= report.title %></h4>
+              <%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <%= javascript_include_tag "jquery.sliderPro.min.js" %>

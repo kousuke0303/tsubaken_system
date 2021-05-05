@@ -1,24 +1,53 @@
 <div class="table-responsible">
   <table class="table table-bordered text-nowrap table-column-type">
     <tr>
-      <th>作業名称</th>
-      <th>担当者</th>
-      <th>作業内容</th>
+      <th rowspan="2">状況</th>
+      <th rowspan="2">作業名称</th>
+      <th rowspan="2">担当者</th>
+      <th rowspan="2">材料</th>
+      <th rowspan="2">写真/詳細</th>
       <th>開始予定日</th>
       <th>完了予定日</th>
-      <th></th>
+      <th th rowspan="2"></th>
+    </tr>
+    <tr>
+      <th>開始日</th>
+      <th>完了日</th>
     </tr>
     <% if @construction_schedules.present? %>
-      <% @construction_schedules.each do |construction| %>
+      <% @construction_schedules.each_with_index do |construction, index| %>
         <tr>
-          <td><%= construction.title %></td>
-          <td><%= construction.supplier.name %></td>
-          <td><%= construction.content %></td>
+          <td rowspan="2" class="text-center">
+            <%= construction.status_i18n %>
+            <p><%= construction.status_of_public %></p>
+          </td>
+          <td rowspan="2"><%= construction.title %></td>
+          <td rowspan="2"><%= construction.supplier_disp(construction.supplier) %></td>
+          <td rowspan="2">
+            <% if construction.construction_schedule_materials.present? %>
+              <% construction.construction_schedule_materials.each do |construction_schedule_material| %>
+                <%= content_tag(:div, "#{Material.find(construction_schedule_material.material_id).name}") %>
+              <% end %>
+            <% end %>
+            <div class="text-right">
+              <%= link_to "素材編集", edit_for_materials_employees_matter_construction_schedule_path(@matter, construction), remote: true %>
+            </div>
+          </td>
+          <td rowspan="2" class="text-center">
+            <div>
+              <%= link_to "表示", picture_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-dark" %>
+            </div>
+            <div class="mt-1e"><%= link_to "写真選択", edit_for_picture_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-info" %></div>
+          </td>
           <td><%= construction.scheduled_started_on_disp %></td>
           <td><%= construction.scheduled_finished_on_disp %></td>
-          <td>
-            <%= link_to "編集", edit_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-dark" %>
+          <td rowspan="2" class="text-center">
+            <%= link_to "編集", edit_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-success" %>
           </td>
+        </tr>
+        <tr>
+          <td><%= construction.started_on_disp %></td>
+          <td><%= construction.finished_on_disp %></td>
         </tr>
       <% end %>
     <% end %>
