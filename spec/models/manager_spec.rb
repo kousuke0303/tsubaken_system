@@ -1,175 +1,85 @@
 require 'rails_helper'
 
 RSpec.describe Manager, type: :model do
-  before do
-    @department = Department.create(name: "無所属")
-    @manager = create(:manager, department: @department)
-  end
+  let(:manager) { Manager.first }
   
-  # 次のバリデーションの確認
   # validates :name, presence: true, length: { maximum: 30 }
+  context "name" do
+    it "存在しなければ無効" do
+      manager.name = ""
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "31文字以上は無効" do
+      manager.name = (1..31).map{ "a" }.join
+      expect(manager.valid?).to eq(false)
+    end
+  end
+
   # validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
-  # validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
-  # validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   # validate :manager_login_id_is_correct?
-  it "nameとlogin_idが存在すれば有効、phoneとemailは存在しなくても有効、nameが30文字以内の場合有効、login_idが8から12文字以内の場合有効、login_idがMN-から始まっていれば有効" do 
-    @manager.phone = ""
-    @manager.email = ""
-    expect(@manager.valid?).to eq(true)
+  context "login_id" do
+    it "存在しない場合無効" do
+      manager.login_id = ""
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "8文字未満は無効" do
+      manager.login_id = "MN-mn"
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "13文字以上は無効" do
+      manager.login_id = "MN-" + (1..10).map{ "a" }.join
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "MN-から始まっていなければ無効" do
+      manager.login_id = "M-managertest"
+      expect(manager.valid?).to eq(false)
+    end
   end
 
-  # 次のバリデーションの確認
-  # validates :name, presence: true
-  it "nameが存在しなければ無効" do 
-    @manager.name = ""
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validates :name, length: { maximum: 30 }
-  it "nameが30文字より多い場合無効" do 
-    @manager.name = "confirmation_of_manager_name_length"
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validates :login_id, presence: true
-  it "login_idが存在しなければ無効" do
-    @manager.login_id = ""
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validates :login_id, length: { in: 8..12 }
-  it "login_idが8文字より少なく、12文字より多い場合無効" do
-    @manager.login_id = "MN-manager-9-test"
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validates :login_id, uniqueness: true
-  it "login_idが一意でない場合無効" do
-    @manager2 = @department.managers.build(
-      name: "マネージャーテスト",
-      login_id: "MN-manager-9",
-      department_id: 1,
-      password: "password",
-      password_confirmation: "password"
-    )
-    expect(@manager2.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
   # validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
-  it "phoneが11桁の場合有効" do
-    expect(@manager.valid?).to eq(true)
+  context "phone" do
+    it "10桁未満は無効" do
+      manager.phone = "090111111"
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "12桁の異常は無効" do
+      manager.phone = "090111122223"
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "0から始まっていなければは無効" do
+      manager.phone = "1111111111"
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "数字以外の値は無効" do
+      manager.phone = "aaaaaaaaaa"
+      expect(manager.valid?).to eq(false)
+    end
   end
 
-  # 次のバリデーションの確認
-  # validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
-  it "phoneが12桁の場合無効" do
-    @manager.phone = "080333344445"
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validates :email, length: { maximum: 254 }, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
-  it "emailが254文字以内の場合有効、emailに「@」が含まれる場合有効" do
-    expect(@manager.valid?).to eq(true)
-  end
-
-  # 次のバリデーションの確認
   # validates :email, length: { maximum: 254 }, allow_blank: true
-  it "emailが254文字より多い場合無効" do
-    @manager.email = "test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length_test_length@email.com"
-    expect(@manager.valid?).to eq(false)
+  context "email" do
+    it "255文字以上は無効" do
+      manager.email = (1..245).map{ "a" }.join + "@email.com"
+      expect(manager.valid?).to eq(false)
+    end
+
+    it "emailに「@」が含まれない場合無効" do
+      manager.email = "test_formattest.com"
+      expect(manager.valid?).to eq(false)
+    end
   end
 
-  # 次のバリデーションの確認
-  # validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
-  it "emailに「@」が含まれない場合無効" do
-    @manager.email = "test_formattest.com"
-    expect(@manager.valid?).to eq(false)
+  context "department_id" do
+    it "blankは無効" do
+      manager.department_id = nil
+      expect(manager.valid?).to eq(false)
+    end
   end
-
-  # 次のバリデーションの確認
-  # validate :manager_login_id_is_correct?
-  it "login_idがMN-から始まっていなければ無効" do
-    @manager.login_id = "M-manager-9"
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validate :joined_with_resigned
-  # validate :resigned_is_since_joined
-  it "退社日は入社日があれば有効、退社日は入社日より前であれば有効" do
-    @manager.joined_on = "2014-04-01"
-    @manager.resigned_on = "2015-04-01"
-    expect(@manager.valid?).to eq(true)
-  end
-
-  # 次のバリデーションの確認
-  # validate :joined_with_resigned
-  it "退社日は入社日がないと無効" do
-    @manager.resigned_on = "2015-04-01"
-    expect(@manager.valid?).to eq(false)
-  end
-
-  # 次のバリデーションの確認
-  # validate :resigned_is_since_joined
-  it "退社日は入社日以降でないと無効" do
-    @manager.joined_on = "2016-04-01"
-    @manager.resigned_on = "2015-04-01"
-    expect(@manager.valid?).to eq(false)
-  end
-  
-  # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
-    it "郵便番号が存在し、なおかつハイフンなしの7桁で設定されていたら、有効" do
-      expect(@manager.valid?).to eq(true)
-    end
-    
-    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
-    it "郵便番号が存在しなければ、無効" do
-      @manager.postal_code = ""
-      expect(@manager.valid?).to eq(false)
-    end
-    
-    # validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX }, presence: true
-    it "郵便番号が7桁でなければ、無効" do
-       @manager.postal_code = "11122"
-      expect(@manager.valid?).to eq(false)
-    end
-    
-    # validates :prefecture_code, presence: true
-    it "都道府県が存在していたら、有効" do
-      expect(@manager.valid?).to eq(true)
-    end
-    
-    # validates :prefecture_code, presence: true
-    it "都道府県が存在していなかったら、無効" do
-      @manager.prefecture_code = ""
-      expect(@manager.valid?).to eq(false)
-    end
-    
-    # validates :address_city, presence: true
-    it "市区町村が存在していたら、有効" do
-      expect(@manager.valid?).to eq(true)
-    end
-    
-    # validates :address_city, presence: true
-    it "市区町村が存在していなかったら、無効" do
-      @manager.address_city = ""
-      expect(@manager.valid?).to eq(false)
-    end
-    
-    # validates :address_street, presence: true
-    it "町名番地が存在していたら、有効" do
-      expect(@manager.valid?).to eq(true)
-    end
-    
-    # validates :address_street, presence: true
-    it "町名番地が存在していなかったら、無効" do
-      @manager.address_street = ""
-      expect(@manager.valid?).to eq(false)
-    end
 end
