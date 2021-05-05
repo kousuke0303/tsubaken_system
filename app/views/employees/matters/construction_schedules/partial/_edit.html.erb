@@ -1,4 +1,4 @@
-<div class="modal-dialog no-padding_modal">
+<div class="modal-dialog modal-lg no-padding_modal">
   <div class="modal-content">
     <div class="modal-header">
       工程編集
@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
       <%= form_with(model: @construction_schedule, url: employees_matter_construction_schedule_path(@matter, @construction_schedule), method: :patch, remote: true) do |f| %>
-        <div class="construction_schedule-update-errors"></div>
+        <div class="construction-schedule-update-errors"></div>
           <%= render 'employees/matters/construction_schedules/partial/form', f: f %>
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>

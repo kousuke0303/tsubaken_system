@@ -7,7 +7,7 @@
   
   <div class="col-md-6">
     <%= f.label "発行元" %>
-    <%= f.select :publisher_id, @publishers.map{|pub| [pub.name, pub.id]}, {include_blank: "選択する", required: true}, class: "form-control" %>
+    <%= f.select :publisher_id, @publishers.map{|pub| [pub.name, pub.id]}, {include_blank: "選択する", required: true}, class: "form-control", id: "publisher_select" %>
     
     <%= f.label :title %>
     <%= f.text_field :title, value: "#{ current_estimate_matter.title } 写真説明", maxlength: 30, class: "form-control" %>
@@ -31,4 +31,13 @@
     var replace_value = eval("content_" + value);
     $('#cover_content').val(replace_value.replace(/(<br>|<br \/>)/gi, '\n'));
   })
+</script>
+
+<script>
+  <% if @estimate_matter.publisher_id.present? %>
+    $(function(){
+      var value = <%= @estimate_matter.publisher_id %>;
+      $('#publisher_select').val(value);
+    });
+  <% end %>
 </script>

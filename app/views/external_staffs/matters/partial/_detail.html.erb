@@ -1,0 +1,47 @@
+<div class="mobile_type">
+  <div>
+    <button type="button" id="tableLongCollapse" class="navbar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="table-responsive responsive_table_wrapper">
+    <nav class="responsive_table_long_sidebar text-nowrap active">
+      <ul class="components">
+        <li>タイトル</li>
+        <li>STAFF</li>
+        <li>外部STAFF</li>
+        <li>状況</li>
+        <li>着工予定日</li>
+        <li>完了予定日</li>
+        <li>外注先</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap">
+      <div class="content"><%= @matter.title %></div>
+      <div class="content"><%= person_in_charge_for(@member_name_arrey) %></div>
+      <div class="content"><%= @matter.status_i18n %></div>
+      <div class="content"><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></div>
+      <div class="content"><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></div>
+      <div class="content">
+        <% if @suppliers.exists? %>
+          <% @suppliers.each_with_index do |supplier, index| %>
+            <span class="mr-05e"><%= supplier.name %></span>
+          <% end %>
+        <% else %>
+          <span>登録なし</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#tableLongCollapse").on("click", function(){
+    $(".responsive_table_long_sidebar").toggleClass("active");
+    $("#tableLongCollapse").toggleClass("active");
+  });
+</script>

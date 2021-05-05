@@ -1,0 +1,59 @@
+<div class="modal-dialog no-padding_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <%= @construction_schedule.title %>の写真/作業内容
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body text-center bg-white">
+      
+      <div class="content_container">
+        <h5><i class="fas fa-pencil-alt"> 作業内容</i></h5>
+        <p><%= @construction_schedule.content_disp %></p>
+      </div>
+      
+      <% if @construction_schedule.images.present? %>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <% @construction_schedule.images.each_with_index do |picture, index| %>
+              <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="active"></li>
+            <% end %>
+          </ol>
+          <div class="carousel-inner">
+            <% @construction_schedule.images.each_with_index do |picture, index| %>
+            <div class="carousel-item">
+              <%= image_tag url_for(picture.image.variant(combine_options:{gravity: :center, resize:"400x400^",crop:"400x400+0+0"})) %>
+            </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      <% else %>
+        <p>登録された写真はありません</p>
+      <% end %>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).ready( function(){
+  $('.carousel-indicators li:first').addClass('active');
+  $('.carousel-inner div:first').addClass('active');
+});
+</script>
+
+
+
+
+
+
+

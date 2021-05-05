@@ -1,0 +1,92 @@
+<div class="row">
+  <% if @edit_type == "basic" %>
+    <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
+    <div class="col-md-4">
+      <%= f.label :title %>
+      <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
+    </div>
+    <div class="col-md-8">
+      <%= f.label :content %>
+      <%= f.text_field :content, required: true, class: "form-control", maxlength: 300 %>
+    </div>
+    
+    <label class="form-control text-white" style="background: #787a7b;">現場住所</label>
+    <div class="col-12">
+      <%= f.label :postal_code %>
+      <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+    </div>
+    <div class="col-12 row">
+      <div class="col-md-6">
+        <%= f.label :prefecture_code %>
+        <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, id: "prefecture_code", class: "form-control" %>
+      </div>
+      <div class="col-md-6">
+        <%= f.label :address_city %>
+        <%= f.text_field :address_city, value: @address_city, id: "address_city", class: "form-control" %>
+      </div>
+      <div class="col-12">
+        <%= f.label :address_street %>
+        <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
+      </div>
+    </div>
+    
+    <label class="form-control text-white" style="background:#787a7b;">引受屋号：集客方法</label>
+    <div class="col-md-6">
+      <%= f.label :publisher_id %>
+      <%= f.collection_select :publisher_id, @publishers, :id, :name, {}, class: "form-control" %>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= f.label :attract_method_id %>
+      <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
+    </div>
+    
+  <% end %>
+  
+  <% if @edit_type == "person_in_charge" %>
+    <label class="form-control text-white" style="background: #787a7b;">担当者</label>
+    <div class="col-md-6">
+      <%= f.label "担当スタッフ" %>
+      <div>
+        <%= f.collection_select :staff_ids, @all_staff_codes, :id, :staff_name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "staff_select" } %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <%= f.label "担当外部スタッフ" %>
+      <div>
+        <%= f.collection_select :external_staff_ids, @all_external_staff_codes, :id, :external_staff_name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "external_staff_select" } %>
+      </div>
+    </div>
+  <% end %>
+  
+</div>
+
+<script>
+  $(document).ready( function(){
+    $('#postcode').val('<%= @estimate_matter.postal_code %>');
+    $('#prefecture_code').val('<%= @estimate_matter.prefecture_code %>');
+    $('#address_city').val('<%= @estimate_matter.address_city %>');
+    $('#address_street').val('<%= @estimate_matter.address_street %>');    
+  });
+</script>
+
+
+
+<% if @staff_codes_ids.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#staff_select').val(<%= @staff_codes_ids %>).trigger('change');
+    });
+  </script>
+<% end %>
+
+<% if @external_staff_codes_ids.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#external_staff_select').val(<%= @external_staff_codes_ids %>).trigger('change');
+    });
+  </script>
+<% end %>
+
+<%= javascript_include_tag "select_members.js" %>
+<%= javascript_include_tag "postal_code_to_address.js" %>
+<%= render "shared/javascript/auto_postcode" %>

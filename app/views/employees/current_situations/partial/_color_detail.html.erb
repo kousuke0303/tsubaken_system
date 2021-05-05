@@ -1,28 +1,42 @@
-<span class="husen_admin husen mr-1e">
-  <span style="font-size: 15px;">
-    管理者
-  </span>
-</span>
-
-<span class="husen_manager husen mr-1e">
-  <span style="font-size: 15px;">
-    マネージャー
-  </span>
-</span>
-
-<% @staffs.each do |staff| %>
-  <span class="husen_<%= staff.id %> husen mr-1e">
-    <span style="font-size: 15px;">
-      <%= staff.name %>
-    </span>
-  </span>
-<% end %>
-
-<span class="husen_external_staff husen mr-1e">
-  <span style="font-size: 15px;">
-    外部スタッフ
-  </span>
-</span>
+<div class="table-responsive">
+  <table class="text-nowrap">
+    <tr>
+      <td>
+        <span class="husen_admin husen mr-1e">
+          <span style="font-size: 15px;">
+            管理者
+          </span>
+        </span>
+      </td>
+      
+      <td>
+        <span class="husen_manager husen mr-1e">
+          <span style="font-size: 15px;">
+            マネージャー
+          </span>
+        </span>
+      </td>
+      
+      <% @staffs.each do |staff| %>
+        <td>
+          <span class="husen_<%= staff.id %> husen mr-1e">
+            <span style="font-size: 15px;">
+              <%= staff.name %>
+            </span>
+          </span>
+        </td>
+      <% end %>
+      
+      <td>
+        <span class="husen_external_staff husen mr-1e">
+          <span style="font-size: 15px;">
+            外部スタッフ
+          </span>
+        </span>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 <script>

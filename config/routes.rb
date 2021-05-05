@@ -230,6 +230,11 @@ Rails.application.routes.draw do
     resources :tasks do 
       patch :change_status, on: :collection
     end
+    resources :matters, only: [:index, :show] do
+      resources :construction_schedules, only: :update, controller: "matters/construction_schedules" do
+        get :picture, on: :member
+      end
+    end
   end
 
   # 従業員が行う操作
@@ -328,6 +333,7 @@ Rails.application.routes.draw do
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
       # end
+      resources :clients, only: [:edit, :update], controller: "estimate_matters/clients"
       resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
@@ -374,13 +380,21 @@ Rails.application.routes.draw do
         get :detail_object_edit, on: :member
         patch :detail_object_update, on: :member
       end
+      resources :clients, only: [:edit, :update], controller: "matters/clients"
       resources :tasks, only: [:edit, :update, :destroy], controller: "matters/tasks" do
         post :move, on: :collection
         post :create, on: :collection
         get :change_member, on: :member
         patch :update_member, on: :member
       end
-      resources :construction_schedules, controller: "matters/construction_schedules"
+      resources :construction_schedules, except: [:index, :show], controller: "matters/construction_schedules" do
+        get :set_estimate_category, on: :collection
+        get :edit_for_materials, on: :member
+        patch :update_for_materials, on: :member
+        get :picture, on: :member
+        get :edit_for_picture, on: :member
+        patch :update_for_picture, on: :member
+      end
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
       end

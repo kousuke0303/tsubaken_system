@@ -1,5 +1,5 @@
 class Employees::MattersController < Employees::EmployeesController
-  before_action :authenticate_employee!
+  before_action :authenticate_employee_except_external_staff!
   before_action :set_matter, except: [:new, :create, :index]
   before_action :set_reports_of_matter, only: :show
   before_action :set_employees, only: [:new, :edit, :change_member]
@@ -51,7 +51,7 @@ class Employees::MattersController < Employees::EmployeesController
     @report_cover = @matter.report_cover    
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
-    @construction_schedules = @matter.construction_schedules.order_started_on
+    @construction_schedules = @matter.construction_schedules.order_reference_date
   end
 
   def edit
@@ -67,8 +67,10 @@ class Employees::MattersController < Employees::EmployeesController
   end
 
   def update
-    params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
-    params[:matter][:member_code_ids].flatten!
+    if params[:type] == "person_in_charge"
+      params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
+      params[:matter][:member_code_ids].flatten!
+    end
     if @matter.update(matter_params)
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)

@@ -1,3 +1,4 @@
-$("#task-edit").modal("hide");
-$("#task-edit").empty();
+$("#estimate-matter-show-modal").modal("hide");
 $(".tasks-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/tasks") %>');
+toastr.success('<%= @task.title %>を更新しました');
+$("#estimate-matter-show-modal").empty();

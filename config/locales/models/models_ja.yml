@@ -43,7 +43,7 @@ ja:
         client:
           name: 名前
           gender: 性別          
-          available: ログインを許可
+          avaliable: ログインを許可
         supplier:
           name: 業者名
           representative: 代表者名
@@ -80,10 +80,13 @@ ja:
           supplier_id: 担当業者様
           scheduled_started_on: 開始予定日
           scheduled_finished_on: 終了予定日
+          started_on: 着工日
+          finished_on: 完了日
         estimate_matter:
           title: 案件名
           status: 進行状況                              
           attract_method_id: 集客方法
+          publisher_id: 引受屋号
         estimate:
           title: 見積名          
         invoice:

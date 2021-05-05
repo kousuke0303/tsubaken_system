@@ -4,6 +4,8 @@ class Image < ApplicationRecord
   belongs_to :matter, optional: true
   has_many :certificates, dependent: :destroy
   has_one :cover
+  has_many :construction_schedule_images, dependent: :destroy
+  has_many :construction_schedules, through: :construction_schedule_images
    
   validates :image, :shooted_on, presence: true
   

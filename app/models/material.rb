@@ -4,6 +4,8 @@ class Material < ApplicationRecord
   has_many :estimate_details
   has_many :invoice_details
   belongs_to :plan_name
+  has_many :construction_schedule_materials
+  has_many :construction_schedules, through: :construction_schedule_materials
   
   attr_accessor :accept
 
@@ -22,4 +24,5 @@ class Material < ApplicationRecord
   def calc_total    
     self.total = price * amount if price.present? && amount.present?
   end
+  
 end

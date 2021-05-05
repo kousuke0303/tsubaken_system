@@ -34,7 +34,6 @@ class Employees::Matters::TasksController < Employees::TasksController
       end
     end
     set_classified_tasks(@matter)
-    @matter.change_matter_status
   end
   
   def create

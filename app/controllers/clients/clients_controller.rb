@@ -13,6 +13,9 @@ class Clients::ClientsController < ApplicationController
       @estimate_matter = current_client.estimate_matters.find(target[1])
     elsif target[0] == "matter"
       @matter = current_client.matters.find(target[1])
+      @construction_schedules = @matter.construction_schedules
+                                       .where(disclose: true)
+                                       .order_reference_date
     end
   end
   

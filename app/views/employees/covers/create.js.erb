@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#estimate-matter-certificate-new").modal("hide");
-  $("#estimate-matter-certificate-new").empty();
+  $("#estimate-matter-show-modal").modal("hide");
   <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate-create-flash", key: "success", value: "#{@cover.title}を作成しました。"} %>
   $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');
+  $("#estimate-matter-show-modal").empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".cover-create-errors", model: @cover, object: "cover"} %>
 <% end %>

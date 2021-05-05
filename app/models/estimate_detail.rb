@@ -9,13 +9,13 @@ class EstimateDetail < ApplicationRecord
   validates :category_name, presence: true
   validates :note, length: { maximum: 100 }
   
-  with_options on: :object_update do
-    validates :unit, presence: true
-    validates :amount, presence: true
+  with_options on: :object_update do |object_update|
+    object_update.validates :amount, presence: true
   end
   
   # 単価と数量から合計金額を保存
   def calc_total
     price.present? && amount.present? ? self.total = price * amount : self.total = 0
   end
+  
 end

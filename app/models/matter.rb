@@ -1,4 +1,9 @@
 class Matter < ApplicationRecord
+  
+  before_create :identify
+  after_commit :staff_external_staff_connection_and_task_set, on: :create
+  after_find :change_matter_status
+  
   belongs_to :estimate_matter
   belongs_to :estimate
   belongs_to :publisher, optional: true
@@ -32,9 +37,6 @@ class Matter < ApplicationRecord
   validate :finished_on_is_after_started_on
   
   enum status: { not_started: 0, progress: 1, completed: 2 }
-  
-  before_create :identify
-  after_commit :staff_external_staff_connection_and_task_set, on: :create
   
   scope :join_estimate_matter, ->{ joins(:estimate_matter) }
   
@@ -102,12 +104,17 @@ class Matter < ApplicationRecord
   
   # matter_status変更
   def change_matter_status
-    if self.tasks.where(status: 2).present?
-      self.update(status: 1)
-    elsif self.tasks.where(status: 1).empty? && self.tasks.where(status: 2).empty?
-      self.update(status: 2)
-    else
-      self.update(status: 0)
+    if self.construction_schedules.present?
+      construction_schedules = self.construction_schedules.order_reference_date
+      if construction_schedules.first.status != "not_started"
+        date = construction_schedules.first.started_on
+        self.update(status: 1, started_on: date)
+      elsif construction_schedules.last.status == "complete"
+        date = construction_schedules.last.finished_on
+        self.update(status: 2, finished_on: date)
+      else
+        self.update(status: 0, started_on: nil, finished_on: nil)
+      end
     end
   end
   

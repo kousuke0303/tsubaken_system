@@ -78,6 +78,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
   end
   
+  def authenticate_employee_except_external_staff!
+    redirect_to root_url unless current_admin || current_manager || current_staff
+  end
+  
   def authenticate_admin_or_self_manager!
     if current_admin
       editable = true

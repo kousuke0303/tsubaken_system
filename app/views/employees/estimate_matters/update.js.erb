@@ -1,8 +1,2 @@
-$(".estimate-matter-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @estimate_matter) %>');
-<% @estimate_matter.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="estimate_matter[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="estimate_matter[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
-<% end %>
+<%= render "shared/javascript/modal_error", dom: ".estimate-matter-update-errors", model: @estimate_matter, object: "estimate_matter" %>
   

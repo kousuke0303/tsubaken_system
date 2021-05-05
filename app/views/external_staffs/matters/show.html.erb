@@ -1,0 +1,101 @@
+<div class="col-12">
+
+  <div class="pc_type">
+    <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
+  </div>
+    
+  <h3 class="mt-1e" id="sub-title-container">
+    <%= render 'common_layouts/matters/title' %>
+  </h3>
+    
+  <div id="matter_show" class="pa-1e">
+    <div class="mt-1e">
+      <h4>基本情報</h4>
+      
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap mt-5">
+          <tr>
+            <th style="width: 8em;">現場住所</th>
+            <td colspan="7">
+              <%= postal_code_display(@matter.postal_code) %>
+              <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+            </td>
+          </tr>
+          <tr>
+            <th>竣工予定日</th>
+            <td><%= @matter.scheduled_started_on_display %></td>
+            <th>完了予定日</th>
+            <td><%= @matter.scheduled_finished_on_display %></td>
+            <th>竣工日</th>
+            <td>
+              <%= @matter.started_on.present? ? @matter.started_on_display : "未設定" %></td>
+            <th>完了日</th>
+            <td><%= @matter.finished_on.present? ? @matter.finished_on_display : "未設定" %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+      
+    <div class="mt-2e">
+      <%= render partial: 'external_staffs/matters/partial/client_detail' %>
+    </div>
+    
+    <div class="mt-2e">
+      <h4>担当者</h4>
+      <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
+                 locals: { object: @matter } %>
+    </div>
+      
+    <div class="mt-2e">
+      <%= render partial: 'common_layouts/band_select/band_select',
+                 locals: { path: "common_layouts/external_staffs/band/select_band_display"} %>
+    </div>
+  </div>
+
+  <div class="mobile_type">
+    <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{@matter.title} 詳細", icon: "fa-clipboard" %>
+    
+    <div class="row">
+      <div class="col-lg-6 col-12">
+        <%= render "employees/matters/partial/detail" %>
+      </div>
+      <div class="col-lg-6 col-12 clients-matter-index">
+        <%= render "common_layouts/clients/detail_table_for_mobile" %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mt-1e">
+    <div class="accordion" id="accordion-construction_schedules">
+      <div class="card">
+        <div class="card-header bg-dark" id="headingTwo">
+          <h5 class="text-light">
+            工程表
+            <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-construction_schedules" aria-expanded="true" aria-controls="collapse-construction_schedules">
+              詳細
+            </button>
+          </h5>
+        </div>
+        
+        <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
+          <div class="card-body">
+            <div class="construction-schedules-index overflow-auto">
+              <%= render "external_staffs/matters/partial/construction_schedule" %>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+
+<% if @message %>
+  <script>
+    toastr.success("<%= @matter.title %>を作成しました");
+  </script>
+<% end %>
+
+<script>
+  $("#to_image_index").click(function() {
+    window.open( "<%= employees_matter_images_path(@matter) %>", "new", "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no, status=no");
+  });
+</script>
