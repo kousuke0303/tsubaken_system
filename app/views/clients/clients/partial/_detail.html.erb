@@ -34,22 +34,63 @@
       <%= render "clients/clients/partial/construction_schedule" %>
     </div>
 
+  <!--<!% if current_client.reports.present? %>-->
+  <!--  <div id="certificate-container">-->
+  <!--    <h4><i class="fas fa-camera-retro"></i> 施工後写真</h4>-->
+        
+  <!--    <div id="slider-area" class="slider-pro">-->
+  <!--      <div class="sp-slides">-->
+  <!--        <!% current_client.reports.each do |report| %>-->
+  <!--          <div class="sp-slide">-->
+  <!--            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <!%= report.title %></h4>-->
+  <!--            <div class="pc_type">-->
+  <!--              <!%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>-->
+  <!--            </div>-->
+  <!--            <div class="mobile_type">-->
+  <!--              <!%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"500x600^",crop:"500x600+0+0"})) %>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        <!% end %>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--<!% end %>-->
+  
   <% if current_client.reports.present? %>
     <div id="certificate-container">
       <h4><i class="fas fa-camera-retro"></i> 施工後写真</h4>
-        
-      <div id="slider-area" class="slider-pro">
-        <div class="sp-slides">
+      
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <% current_client.reports.each_with_index do |picture, index| %>
+            <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="active"></li>
+          <% end %>
+        </ol>
+        <div class="carousel-inner text-center">
           <% current_client.reports.each do |report| %>
-            <div class="sp-slide">
+            <div class="carousel-item">
               <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= report.title %></h4>
-              <%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
+              <div class="pc_type">
+                <%= image_tag url_for(report.image.image.variant(combine_options:{gravity: :center, resize:"800x500^",crop:"800x500+0+0"})) %>
+              </div>
+              <div class="mobile_type">
+                <%= image_tag url_for(report.image.image.variant(resize:"400x400").processed) %>
+              </div>
             </div>
           <% end %>
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
     </div>
   <% end %>
+  
 <% end %>
 
 <%= javascript_include_tag "jquery.sliderPro.min.js" %>
@@ -60,7 +101,7 @@ $(function(){
     width: 800,//横幅
     height: 650,//横幅
     buttons: false,//ナビゲーションボタン
-    autoScaleLayers: false,//キャプションの自動変形
+    autoScaleLayers: true,//キャプションの自動変形
     waitForLayers: true,//キャプションのアニメーションが終了してからスライドするか
     autoplay: false,//自動再生
     thumbnailPointer: true,//アクティブなサムネイルにマークを付ける
@@ -75,5 +116,12 @@ $(function(){
     }
     });
   });
+</script>
+
+<script>
+$(document).ready( function(){
+  $('.carousel-indicators li:first').addClass('active');
+  $('.carousel-inner div:first').addClass('active');
+});
 </script>
 

@@ -253,16 +253,27 @@ a.current_situation, a.current_situation:hover {
     text-align: center;
     margin-top: 1.5em;
   }
+   
   .navi-custom {
+    margin-top: 10px;
     background: #343a40;
-    padding-left: 1em;
     .nav-link {
-      color: white !important;
+      padding-left: 1em;
+      padding-right: 1em;
+      color: white!important;
+    }
+    .nav-link:hover {
+      background: #afadad!important;
     }
   }
+  
   .tab-wrapper {
     ul li a {
       font-size: 20px;
     }
+  }
+  
+  .dropdown-item:hover{
+    background: #e3e5e6;
   }
 }
