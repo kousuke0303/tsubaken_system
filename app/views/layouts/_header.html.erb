@@ -1,19 +1,17 @@
 <header class="header-login smp-center">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4 col-12 smp-center">
+      <div class="col-12 smp-center">
         <%= image_tag "logo_image.png", size: "300x75", alt: "ロゴ" %>
-      </div>
-      <div class="col-sm-8">
         <button class="btn btn-lg btn-dark to-login-btn">ログイン</button>
       </div>
     </div>
           
     <!--login_modal-->
-      <div class="modal" id="login">
-        <div class="modal__bg js-modal-close"></div>
-        <%= render "static_pages/partial/login" %>
-      </div>
+    <div class="modal" id="login">
+      <div class="modal__bg js-modal-close"></div>
+      <%= render "static_pages/partial/login" %>
+    </div>
     
   </div>
 </header>

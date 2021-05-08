@@ -313,6 +313,12 @@ $color-bg: #eae9e9;
   .select-switch {
     display: block;
   }
+  .to-login-btn {    
+    bottom: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* ------------------------------ MEDIAQUERIES ------------------------------ */
