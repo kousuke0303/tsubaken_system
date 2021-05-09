@@ -3,11 +3,13 @@
   <!-- Page Content -->
   <div id="content">
     <div class="container-fluid">
-      <div>
-        <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
-      </div>
+     
       <!-- Header -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
+        <div class="mobile_type">
+          <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
+        </div>
+        
         <button type="button" id="sidebar-collapse" class="navbar-btn">
           <span></span>
           <span></span>
@@ -18,15 +20,18 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="pc_type">
+            <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
+          </div>
+          
           <ul class="nav navbar-nav ml-auto navi-custom">
             <li class="nav-item">
               <%= link_to "#", class: "nav-link" do %>
                 <i class="fas fa-home"></i> Home
               <% end %>
             </li>
-            <li class="nav-item"> <a class="nav-link" href="#">Page</a></li>
             <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= current_client.name %>
               </a>
               <div class="dropdown-menu dropdown-position header-dropdown-menu">
