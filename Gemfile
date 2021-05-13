@@ -49,6 +49,8 @@ gem 'acts_as_list'
 gem 'gimei'
 # JSにRubyの変数を渡す
 gem 'gon'
+# PWA
+gem 'serviceworker-rails'
 
 group :development, :test do
   gem 'mysql2'
