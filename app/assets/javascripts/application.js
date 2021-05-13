@@ -20,4 +20,6 @@
 //= require select2
 //= require chartkick
 //= require Chart.bundle
+//= require serviceworker-companion
 //= require turbolinks
+
