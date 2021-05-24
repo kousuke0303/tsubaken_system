@@ -1,32 +1,26 @@
+<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
 {
-    "theme_color": "#000000",
-    "background_color": "#FFFFFF",
-    "display": "standalone",
-    "orientation": "portrait",
-    "scope": "/",
-    "start_url": "/",
-    "name": "AZABU",
-    "short_name": "AZABU",
-    "icons": [
-        {
-            "src": "appicon/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "appicon/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        },
-        {
-            "src": "appicon/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "appicon/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+  "name": "ツバケン",
+  "short_name": "ツバケン",
+  "start_url": "/",
+  "icons": [
+  <% icon_sizes.map { |s| "#{s}x#{s}" }.each.with_index do |dim, i| %>
+    {
+      "src": "<%= image_path "/appicon/icon-#{dim}.png" %>",
+      "sizes": "<%= dim %>",
+      "type": "image/png",
+      "purpose": "any"
+    },
+  <% end %>
+    {
+      "src": "<%= image_path "/appicon/maskable-icon-196x196.png" %>",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait"
 }

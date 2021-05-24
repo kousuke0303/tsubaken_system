@@ -8,14 +8,20 @@
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
-    <link rel="apple-touch-icon" href="/appicon/azabu_logo_mini.jpeg" />
+
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.1.0/jquery.sidebar.min.js"></script>
     <%= javascript_include_tag "jquery.sliderPro.min.js" %>
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
     <%= render "layouts/shim" %>
-    <%= favicon_link_tag("favicon.ico") %>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ツバケン">
+    <%= render "layouts/apple_touch_icon" %>
+    <%= favicon_link_tag '/appicon/favicon.ico' %>
+    
+    
   </head>
   
   <!--ログイン画面のレイアウト-->
@@ -54,7 +60,18 @@
   <!--通常ページのレイアウト-->
   <% else %>
     <%= render "layouts/modal" %>
+    <%= javascript_include_tag 'setLocalStorage' %>
     <body>
+      <!--localStorage-->
+      <script>
+        $(function(){
+          var memberCode = <%= login_user.member_code.id %>;
+          var myCount = <%= login_user.member_code.recieve_notifications.count %>
+          var totalCount = <%= Notification.all.count %>
+          setLocalStorage(memberCode, myCount, totalCount);
+        });
+      </script>
+      
       <% if admin_signed_in? %>
         <%= render "layouts/layout_type/admin_layout" %>
       <% elsif manager_signed_in? %>
