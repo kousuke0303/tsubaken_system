@@ -1,0 +1,23 @@
+<% @alert_tasks_for_individual.each do |key, tasks| %>
+  <h3 class="text-center">【<%= Task.title_from_id(key) %>】</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm text-nowrap common-table">
+      <thead>
+        <tr>
+          <th>担当者</th>
+          <th>タイトル</th>
+          <th>進行状況</th>
+          <th>期限</th>
+        </tr>
+      </thead>
+      <% tasks.each do |task| %>
+        <tr>
+          <td><%= task.member_code ? task.member_code.member_name_from_member_code : "未設定" %></td>
+          <td><%= task.title %></td>
+          <td><%= I18n.t("enums.task.status.#{ task.status }") %></td>
+          <td><%= task.deadline_disp %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>

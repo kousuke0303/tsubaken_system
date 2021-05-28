@@ -10,14 +10,13 @@ class Staffs::TasksController < Employees::EmployeesController
   
   def create
     if params[:task][:title].empty?
-      params[:task][:title] = params[:task][:select_title]
+      params[:task][:title] = Task.find(params[:task][:select_title].to_i).title
     end
     @task = Task.new(task_params.merge(category: 0, status: 1,))
     @task.member_code_id = login_user.member_code.id
     if @task.save
       @responce = "success"
-      set_my_tasks
-      set_notifications
+      top_page_variable
     else
       @responce = "failure"
     end
@@ -30,12 +29,11 @@ class Staffs::TasksController < Employees::EmployeesController
   
   def update
     if params[:task][:title].empty?
-      params[:task][:title] = params[:task][:select_title]
+      params[:task][:title] = Task.find(params[:task][:select_title].to_i).title
     end
     if @task.update(task_params)
       @responce = "success"
-      set_my_tasks
-      set_notifications
+      top_page_variable
     else
       @responce = "failure"
     end 
@@ -43,15 +41,13 @@ class Staffs::TasksController < Employees::EmployeesController
   
   def change_status
     @task.update(status: params[:status].to_i)
-    set_my_tasks
-    set_notifications
+    top_page_variable
   end
   
   def destroy
     if @task.destroy
       @responce = "success"
-      set_my_tasks
-      set_notifications
+      top_page_variable
     else
       @responce = "failure"
     end
@@ -73,7 +69,7 @@ class Staffs::TasksController < Employees::EmployeesController
     end
     
     def task_params
-      params.require(:task).permit(:title, :content, :deadline, :member_code_id)
+      params.require(:task).permit(:title, :content, :deadline, :default_task_id, :member_code_id, :alert)
     end
     
     def set_attr_variable
@@ -88,6 +84,15 @@ class Staffs::TasksController < Employees::EmployeesController
       elsif @task.member_code_id == nil && params[:task][:member_code_id].present?
         @task.notification_type = "create"
       end
-    end 
+    end
+    
+    def top_page_variable
+      if @task.member_code
+        @reciever_notification_count = @task.member_code.recieve_notifications.count
+      end
+      alert_tasks
+      set_my_tasks
+      set_notifications
+    end
   
 end

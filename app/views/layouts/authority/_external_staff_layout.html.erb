@@ -1,0 +1,39 @@
+<div class="entire-wrapper">
+
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <%= image_tag "logo_image.png", size: "250x50", alt:"ロゴ" %>
+    </div>
+    
+    <div class="user-panel">
+      <div class="avator_container_for_sidebar">
+        <%= sidebar_avator(current_external_staff) %><span><%= current_external_staff.name %></span>
+      </div>
+    </div>
+
+    <ul class="components">
+      <%= render 'layouts/flamework/sidebar_item' %>
+    </ul>
+  </nav>
+
+  <!-- Page Content -->
+
+  <div id="content">
+    <div class="container-fluid">
+
+      <!-- Header -->
+      <%= render partial: "layouts/flamework/header", locals: {home_path: :external_staffs_top_path,
+                                                               edit_path: :edit_external_staff_registration_path,
+                                                               logout_path: :destroy_external_staff_session_path} %>
+    </div>
+        
+    <!-- Main-content -->
+    <%= render "shared/flash" %>
+    <%= yield %>
+    <div class="line"></div>
+    <div class="debug"><%= debug(params) if Rails.env.development? %></div>
+  </div>
+</div>
+
+<%= javascript_include_tag "layout.js" %>

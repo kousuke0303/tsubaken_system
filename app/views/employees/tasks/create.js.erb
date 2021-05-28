@@ -1,9 +1,19 @@
 <% if @responce == "success" %>
   $('#top_page_modal').empty();
   $('#top_page_modal').modal('hide');
+  $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/alert_task_list') %>');
   $('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
-  $('.tasks-index').html('<%= escape_javascript(render 'common_layouts/tops/tasks/tasks_index') %>');
+  $('.tasks-index').html('<%= escape_javascript(render 'shared/top_pages/tasks/index') %>');
   toastr.success('<%= @task.title%>の担当者を<%= @task.person_in_charge %>に設定しました');
+  <!--バッジ変更-->
+  <% if @reciever_notification_count %>
+    var totalCount = <%= Notification.all.count %>;
+    var reciever = <%= @task.member_code_id %>
+    var recieverCount = <%= @reciever_notification_count %>;
+    var countArrey = [totalCount, reciever, recieverCount]
+    localStorage.setItem('totalNotificationCount', totalCount);
+    App.badge.speak(countArrey);
+  <% end %>
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".task-create-errors", model: @task, object: "task"} %>;
 <% end %>

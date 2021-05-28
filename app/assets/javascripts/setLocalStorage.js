@@ -26,7 +26,6 @@ function setLocalStorage(memberCode, myCount, totalCount){
     } else {
       localStorage.setItem('totalNotificationCount', totalCount);
       catchBadge();
-      App.badge.speak(totalCount);
     };
 
   }

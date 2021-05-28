@@ -57,9 +57,7 @@ function onFetch(event) {
         if ('setAppBadge' in navigator) {
           navigator.setAppBadge(++requestCounter);
         }
-        window.addEventListener("storage", function (event) {
-          catchBadge();
-        });
+        
         // if not found in cache, return default offline content for navigate requests
         if (event.request.mode === 'navigate' ||
           (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {

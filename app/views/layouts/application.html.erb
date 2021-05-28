@@ -4,6 +4,9 @@
     <title>AZABU</title>
      <%= include_gon %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ツバケン">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -13,12 +16,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.1.0/jquery.sidebar.min.js"></script>
     <%= javascript_include_tag "jquery.sliderPro.min.js" %>
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
-    <%= render "layouts/shim" %>
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="ツバケン">
-    <%= render "layouts/apple_touch_icon" %>
+    <%= render "layouts/head/shim" %>
+    <%= render "layouts/head/apple_touch_icon" %>
     <%= favicon_link_tag '/appicon/favicon.ico' %>
     
     
@@ -73,15 +72,15 @@
       </script>
       
       <% if admin_signed_in? %>
-        <%= render "layouts/layout_type/admin_layout" %>
+        <%= render "layouts/authority/admin_layout" %>
       <% elsif manager_signed_in? %>
-        <%= render "layouts/layout_type/manager_layout" %>
+        <%= render "layouts/authority/manager_layout" %>
       <% elsif staff_signed_in? %>
-        <%= render "layouts/layout_type/staff_layout" %>
+        <%= render "layouts/authority/staff_layout" %>
       <% elsif client_signed_in? %>
-        <%= render "layouts/layout_type/client_layout" %>
+        <%= render "layouts/authority/client_layout" %>
       <% elsif external_staff_signed_in? %>
-        <%= render "layouts/layout_type/external_staff_layout" %>
+        <%= render "layouts/authority/external_staff_layout" %>
       <% end %>
     </body>
   <% end %>

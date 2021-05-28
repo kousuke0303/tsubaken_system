@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  
+
   # mount ActionCable.server => '/cable'
   root "static_pages#top"
   post "sign_in", to: "static_pages#error"
   
+  get "badge_count", to: "badges#count"
   get "postcode_search", to: "addresses#search_postcode"
+  get "alert", to: "alerts#index"
   
   resources :notifications, only: :index do
     get :schedule_index, on: :collection
@@ -148,7 +150,7 @@ Rails.application.routes.draw do
   scope module: :admins do
     namespace :admins do
       get :top
-      get :index
+      get :alert
       get :default_password_user_index
       post :avator_change
       get :avator_destroy

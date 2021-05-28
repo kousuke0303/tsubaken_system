@@ -53,13 +53,19 @@ class Employees::Matters::TasksController < Employees::TasksController
   def update
     @task.sender = login_user.member_code.id
     set_attr_variable
-    set_classified_tasks(@matter) if @task.update(task_params)
+    if @task.update(task_params)
+      set_classified_tasks(@matter) 
+      @reciever_notification_count = @task.member_code.recieve_notifications.count
+    end
   end
   
   def destroy
     @task.sender = login_user.member_code.id
     if @task.destroy
       flash[:danger] = "タスクを削除しました。"
+      if @task.member_code
+        @reciever_notification_count = @task.member_code.recieve_notifications.count
+      end
       unless params[:submit_type] == "change_member"
         set_classified_tasks(@matter)
       else

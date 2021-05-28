@@ -3,6 +3,14 @@ require 'employees_helper.rb'
 module ApplicationHelper
   include EmployeesHelper
   
+  def login_user
+    return current_admin if current_admin
+    return current_manager if current_manager 
+    return current_staff if current_staff 
+    return current_external_staff if current_external_staff 
+    return current_client if current_client
+  end
+  
   def admin_name(id)
     Admin.find(id).name
   end

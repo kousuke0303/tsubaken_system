@@ -280,12 +280,27 @@ class ApplicationController < ActionController::Base
     if current_admin || current_manager
       alert_tasks = Task.all.alert_lists
       @alert_tasks_count = alert_tasks.count
-      @alert_tasks = alert_tasks.includes(:matter).group_by{ |task| task.default_task_id }
+      @alert_tasks_for_matter = alert_tasks.joins(:matter).group_by{ |task| task.default_task_id }
+      @alert_tasks_for_estimate_matter = alert_tasks.joins(:estimate_matter).order(:deadline).group_by{ |task| task.default_task_id }
+      @alert_tasks_for_individual = alert_tasks.individual.where(member_code_id: login_user.member_code.id).group_by{ |task| task.default_task_id }
     elsif current_staff || current_external_staff
-      alert_tasks = Task.alert_lists.joins(matter: :member_codes)
-                                    .where(matters: { member_codes: { id: login_user.member_code.id } })
-      @alert_tasks_count = alert_tasks.count
-      @alert_tasks = alert_tasks.group_by{ |task| task.default_task_id }
+      alert_tasks = Task.alert_lists
+      # 案件関連タスク
+      alert_tasks_for_matter = alert_tasks.joins(matter: :member_codes)
+                                          .where(matters: { member_codes: { id: login_user.member_code.id } })
+      @alert_tasks_for_matter = alert_tasks_for_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_matter_count = alert_tasks_for_matter.count
+      # 見積案件関連タスク
+      alert_tasks_for_estimate_matter = alert_tasks.joins(estimate_matter: :member_codes)
+                                                   .where(estimate_matters: { member_codes: { id: login_user.member_code.id } })
+      @alert_tasks_for_estimate_matter = alert_tasks_for_estimate_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_estimate_matter_count = alert_tasks_for_estimate_matter.count
+      # 個別タスク
+      alert_tasks_for_individual = alert_tasks.individual.where(member_code_id: login_user.member_code.id)
+      @alert_tasks_for_individual = alert_tasks_for_individual.group_by{ |task| task.default_task_id }
+      alert_tasks_for_individual_count = alert_tasks_for_individual.count
+      # 総数
+      @alert_tasks_count = alert_tasks_for_matter_count + alert_tasks_for_estimate_matter_count + alert_tasks_for_individual_count
     end
   end
     

@@ -2,3 +2,12 @@ $("#estimate-matter-show-modal").modal("hide");
 $(".tasks-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/tasks") %>');
 toastr.success('<%= @task.title %>を更新しました');
 $("#estimate-matter-show-modal").empty();
+<!--バッジ変更-->
+<% if @reciever_notification_count %>
+  var totalCount = <%= Notification.all.count %>;
+  var reciever = <%= @task.member_code_id %>
+  var recieverCount = <%= @reciever_notification_count %>;
+  var countArrey = [totalCount, reciever, recieverCount]
+  localStorage.setItem('totalNotificationCount', totalCount);
+  App.badge.speak(countArrey);
+<% end %>

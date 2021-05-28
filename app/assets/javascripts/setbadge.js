@@ -17,3 +17,8 @@ function catchBadge(){
     data: {member_code: memberCode}
   });
 };
+
+window.addEventListener("storage", function (event) {
+  console.log('storage_change');
+  catchBadge();
+});

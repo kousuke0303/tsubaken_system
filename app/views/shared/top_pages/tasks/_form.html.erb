@@ -4,7 +4,8 @@
 </div>
 
 <%= f.label :title %>
-<%= f.select :select_title, options_for_select(@default_tasks.pluck(:title)), {include_blank: "選択してください"}, class: "form-control", id: "select_title" %> 
+<%= f.collection_select(:select_title, @default_tasks, :id, :title, {include_blank: "選択してください"}, {class: "form-control", id: "select_title"}) %> 
+<%= f.hidden_field :default_task_id, id: "default_task_id" %>
 
 <div id="title_form" style="display: none;">
   <%= f.text_field :title, class: "form-control", maxlength: 30, id: "task-title" %>
@@ -20,7 +21,6 @@
 <div>
   <%= f.select :member_code_id, options_for_select(@member_codes.map{|code|[code.member_name_from_member_code, code.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
 </div>
-        
 
 <%= javascript_include_tag "person_in_charge.js" %>
 
@@ -46,9 +46,11 @@
       $('#title_form').show();
       $('#title-title').val('');
       $('#task-content').val('');
+      $('#default_task_id').val('');
     } else {
       $('#select_title').val('');
       $('#task-content').val('');
+      $('#default_task_id').val('');
       $('#select_title').show();
       $('#title_form').hide();
     }
@@ -58,7 +60,9 @@
 <script>
   $('#select_title').on('change', function(){
     var title_arrey = [<%= raw @title_content_array %>];
-    var selected_title = $(this).val();
+    var default_task_id = $(this).val();
+    var selected_title = $('#select_title option:selected').text();
+    $('#default_task_id').val(default_task_id);
     $.each(title_arrey[0], function(index, value){
       if(selected_title == value[0]){
         $('#task-content').val(title_arrey[0][index][1]);
@@ -69,8 +73,8 @@
 
 <script>
   $( function(){
-    <% if @default_tasks.where(title: @task.title).present? %>
-      $('#select_title').val("<%= @task.title %>");
+    <% if @task.default_task_id.present? %>
+      $('#select_title').val("<%= @task.default_task_id %>");
       $('#task-title').val('');
     <% elsif @task.title.present? %>
       $('#form-type').prop('checked', true);
@@ -79,3 +83,4 @@
     <% end %>
   });
 </script>
+

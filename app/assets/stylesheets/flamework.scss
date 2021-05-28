@@ -204,6 +204,25 @@ a.current_situation, a.current_situation:hover {
   border: none;
 }
 
+.notifi {
+  position: relative;
+  margin-right: 2em;
+}
+
+.notifi-badge {
+  position: absolute;
+  top: 0;
+  left: 4em;
+}
+
+@media screen and (max-width: 480px) { 
+  .notifi-badge {
+    position: absolute;
+    top: 0;
+    left: 6em;
+  }
+}
+
 /* -----------------------------------------------------------------------------------
     MAINCONTENT      
 ----------------------------------------------------- */

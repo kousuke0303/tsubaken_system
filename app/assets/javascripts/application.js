@@ -21,5 +21,7 @@
 //= require chartkick
 //= require Chart.bundle
 //= require serviceworker-companion
+//= require cable
+//= require setbadge
 //= require turbolinks
 

@@ -17,12 +17,10 @@
   
   <div class="news_container">
     <div class="top_page_contents">
-    <!--足場・発注勧告-->
-      <% if @alert_tasks %>
-        <p><i class="fas fa-exclamation-circle fa-orange"></i>
-          <span><%= link_to "未完了タスク【#{alert_task_title(@alert_tasks)}】：#{ @alert_tasks_count }件", external_staffs_index_path, remote: true %></span>
-        </p>
-      <% end %>
+    <!--タスク勧告-->
+      <div id="alert_task_list">
+        <%= render 'shared/top_pages/alert_list/alert_task_list' %>
+      </div>
     <!--出退勤関係-->
       <% if @own_error_attendances %>
         <%= render partial: 'common_layouts/attendances/own_error_attendances', 

@@ -3,6 +3,12 @@
   $("#schedules_detail").html('<%= escape_javascript( render "employees/schedules/partial/schedules_detail" ) %>'); 
   $("#schedule-edit").modal("hide");
   toastr.success("<%= @schedule.title %>を更新しました");
+  var totalCount = <%= Notification.all.count %>;
+  var reciever = <%= @schedule.member_code_id %>
+  var recieverCount = <%= @reciever_notification_count %>;
+  var countArrey = [totalCount, reciever, recieverCount]
+  localStorage.setItem('totalNotificationCount', totalCount);
+  App.badge.speak(countArrey);
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-edit-errors", model: @schedule, object: "schedule"} %>
 <% end %>

@@ -20,6 +20,7 @@ class Employees::SchedulesController < Employees::EmployeesController
     @schedule = Schedule.new(schedule_params)
     @schedule.sender = login_user.member_code.id
     if @schedule.save
+      @reciever_notification_count = @schedule.member_code.recieve_notifications.count
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
       @result = "success"
@@ -43,6 +44,7 @@ class Employees::SchedulesController < Employees::EmployeesController
   def update
     attr_set_for_update
     if @schedule.update(schedule_params)
+      @reciever_notification_count = @schedule.member_code.recieve_notifications.count
       @object_day = @schedule.scheduled_date
       set_basic_schedules(@object_day)
       @result = "success"

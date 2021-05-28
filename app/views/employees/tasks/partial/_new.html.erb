@@ -7,7 +7,7 @@
     <div class="modal-body">
       <%= form_with(model: @task, url: employees_tasks_path, method: :post, remote: true) do |f| %>
         <div class="task-create-errors"></div>
-        <%= render 'common_layouts/tops/tasks/form', f: f %>
+        <%= render 'shared/top_pages/tasks/form', f: f %>
         <div class="btn-area">
           <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
         </div>
