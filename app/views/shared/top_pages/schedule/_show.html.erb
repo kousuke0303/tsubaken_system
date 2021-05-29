@@ -1,0 +1,44 @@
+<div class="modal-dialog no-padding_modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      スケジュール詳細
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body bg-white">
+      <table class="table table-bordered common-table">
+        <tr>
+          <th style="width: 6em">タイトル</th>
+          <td colspan="2"><%= @schedule.title %></td>
+        </tr>
+        <tr>
+          <th>予定日</th>
+          <td colspan="2"><%= @schedule.scheduled_date.month %>月<%= @schedule.scheduled_date.day %>日</td>
+        </tr>
+        <tr>
+          <th rowspan="2">予定時刻</th>
+          <td>開始予定時刻</td>
+          <td>終了予定時刻</td>
+        </tr>
+        <tr>
+          <td><%= @schedule.scheduled_start_time.strftime("%H:%M") %></td>
+          <td><%= @schedule.scheduled_end_time.strftime("%H:%M") %></td>
+        </tr>
+        <tr>
+          <th>場所</th>
+          <td colspan="2"><%= @schedule.place %></td>
+        </tr>
+        <tr>
+          <th>備考</th>
+          <td colspan="2"><%= @schedule.note %></td>
+        </tr>
+        <tr>
+          <% if @estimate_matter %>
+            <th>関連事項</th>
+            <td colspan="2"><%= @estimate_matter.title %></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

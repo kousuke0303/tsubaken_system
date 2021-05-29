@@ -372,6 +372,10 @@ class ApplicationController < ActionController::Base
         # SCHDULE関係
   # --------------------------------------------------------
   
+  def schedules_for_today
+    @schedules_for_today = login_user.schedules.where(scheduled_date: Date.current)
+  end
+  
   def schedule_application
     @applicate_schedules = Schedule.edit_applications
   end

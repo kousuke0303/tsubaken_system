@@ -1,0 +1,29 @@
+<% if @schedules_for_today %>
+  <div class="table-responsive">
+    <table class="table table-bordered common-table text-nowrap">
+      <tr>
+        <th>開始時間</th>
+        <th>終了予定時間</th>
+        <th>タイトル</th>
+        <th>詳細</th>
+      </tr>
+      <% @schedules_for_today.each do |schedule| %>
+        <tr>
+          <td><%= schedule.scheduled_start_time_display %></td>
+          <td><%= schedule.scheduled_end_time_display %></td>
+          <td><%= schedule.title %></td>
+          <td>
+            <% unless current_external_staff %>
+              <%= link_to "詳細", employees_schedule_show_for_top_page_path(schedule), remote: true %>
+            <% else %>
+              <%= link_to "詳細", external_staffs_schedule_show_for_top_page_path(schedule), remote: true %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% else %>
+  <p>本日のスケジュールはありません</p>
+<% end %>
+  

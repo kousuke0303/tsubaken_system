@@ -196,7 +196,6 @@ Rails.application.routes.draw do
   scope module: :staffs do
     namespace :staffs do
       get :top
-      get :index
       post :avator_change
       get :avator_destroy
     end
@@ -228,6 +227,7 @@ Rails.application.routes.draw do
     end
     resources :schedules do
       post :applicate, on: :member
+      get :show_for_top_page
     end
     resources :tasks do 
       patch :change_status, on: :collection
@@ -303,6 +303,7 @@ Rails.application.routes.draw do
       end
     end
     resources :schedules do
+      get :show_for_top_page
       get :change_member, on: :member
       patch :update_member, on: :member
       get :application, on: :collection

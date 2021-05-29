@@ -27,6 +27,13 @@ class ExternalStaffs::SchedulesController < ApplicationController
     set_basic_schedules(@object_day)
   end
   
+  def show_for_top_page
+    @schedule = Schedule.find(params[:schedule_id])
+    if @schedule.sales_status_id
+      @estimate_matter = EstimateMatter.find(@schedule.sales_status.estimate_matter_id)
+    end 
+  end
+  
   def edit
     if @schedule.sales_status_id.present?
       @type = "disable"

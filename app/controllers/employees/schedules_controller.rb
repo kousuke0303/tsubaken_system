@@ -1,7 +1,7 @@
 class Employees::SchedulesController < Employees::EmployeesController
   before_action :all_member, only: [:new, :edit, :change_member]
   before_action :all_member_code
-  before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application]
+  before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application, :show_for_top_page]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]
   before_action :set_staff, if: :object_is_staff?, only: [:change_member]
   before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
@@ -32,6 +32,13 @@ class Employees::SchedulesController < Employees::EmployeesController
   def show
     @object_day = Schedule.find(params[:id]).scheduled_date
     set_basic_schedules(@object_day)
+  end
+  
+  def show_for_top_page
+    @schedule = Schedule.find(params[:schedule_id])
+    if @schedule.sales_status_id
+      @estimate_matter = EstimateMatter.find(@schedule.sales_status.estimate_matter_id)
+    end
   end
   
   def edit
