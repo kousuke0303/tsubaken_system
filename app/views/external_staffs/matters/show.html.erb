@@ -5,7 +5,7 @@
   </div>
     
   <h3 class="mt-1e" id="sub-title-container">
-    <%= render 'common_layouts/matters/title' %>
+    <%= render 'shared/matters/sub_title' %>
   </h3>
     
   <div id="matter_show" class="pa-1e">
@@ -80,7 +80,8 @@
         <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
           <div class="card-body">
             <div class="construction-schedules-index overflow-auto">
-              <%= render "external_staffs/matters/partial/construction_schedule" %>
+              <%= render partial: "external_staffs/matters/partial/construction_schedule",
+                         locals: {construction_schedules: @construction_schedules} %>
             </div>
           </div>
         </div>

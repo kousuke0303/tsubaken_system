@@ -1,6 +1,7 @@
 <!--スケジュールから飛んできた場合-->
 <% if @origin == "schedule" %>
   $("#schedule-show").modal('hide');
+  $("#schedule-show").empty();
 <% end %>
 <!--共通-->
 $("#sales-status-edit").html('<%= escape_javascript(render "employees/estimate_matters/sales_statuses/partial/edit") %>'); 

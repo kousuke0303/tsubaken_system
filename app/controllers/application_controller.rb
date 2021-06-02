@@ -373,13 +373,29 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------
   
   def schedules_for_today
-    @schedules_for_today = login_user.schedules.where(scheduled_date: Date.current)
+    @schedules_for_today = Schedule.where(scheduled_date: Date.current, member_code_id: login_user.member_code.id)
   end
   
   def schedule_application
     @applicate_schedules = Schedule.edit_applications
   end
   
+  # --------------------------------------------------------
+        # CONSTRUCTION_SCHDULE関係
+  # --------------------------------------------------------
+  
+  def construction_schedules_for_today
+    if current_admin || current_manager
+      @construction_schedules_for_today = ConstructionSchedule.includes(:matter).where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)
+    elsif current_staff
+      target_matters_ids = login_user.matters.ids
+      @construction_schedules_for_today = ConstructionSchedule.where(matter_id: target_matters_ids)
+                                                              .where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)
+    elsif current_external_staff
+      @construction_schedules_for_today = ConstructionSchedule.where(supplier_id: login_user.supplier.id)
+                                                              .where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)
+    end
+  end
   
   # ---------------------------------------------------------
         # STAFF関係

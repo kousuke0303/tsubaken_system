@@ -112,9 +112,9 @@ class Schedule < ApplicationRecord
     end
     
     def destroy_notification
-      Notification.create(category: 1, action_type: 2, sender_id: self.sender.id, reciever_id: self.before_member_code,
-                          before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
-                          before_value_3: self.before_scheduled_end_time, before_value_4: self.before_title)
+      Notification.create(category: 1, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
+                          before_value_1: self.scheduled_date, before_value_2: self.scheduled_start_time,
+                          before_value_3: self.scheduled_end_time, before_value_4: self.title)
     end
       
 end

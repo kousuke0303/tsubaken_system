@@ -7,13 +7,13 @@
     
     <div class="modal-body bg-white">
       <% if @alert_tasks_for_matter %>
-        <%= render 'shared/top_pages/alert_list/matter_alert' %>
+        <%= render 'shared/top_pages/alert_list/tasks/matter_alert' %>
       <% end %>
       <% if @alert_tasks_for_estimate_matter %>
-        <%= render 'shared/top_pages/alert_list/estimate_alert' %>
+        <%= render 'shared/top_pages/alert_list/tasks/estimate_alert' %>
       <% end %>
       <% if @alert_tasks_for_individual %>
-        <%= render 'shared/top_pages/alert_list/individual_alert' %>
+        <%= render 'shared/top_pages/alert_list/tasks/individual_alert' %>
       <% end %>
     </div>
   </div>

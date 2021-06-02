@@ -1,0 +1,9 @@
+<% @error_attendances.each do |error_attendance| %>
+  <p><i class="fas fa-exclamation-circle fa-orange"></i>
+    <span>
+      <%= link_to daily_employees_attendances_path(day: error_attendance.worked_on) do %>
+        <%= error_attendance.target_user_name %>さんの<%= error_attendance.worked_on_disp %>の退勤処理が未処理です
+      <% end %>
+    </span>
+  </p>
+<% end %>

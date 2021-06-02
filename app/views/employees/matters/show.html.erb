@@ -3,7 +3,7 @@
   <div class="pc_type">
     <div class="row">
       <div class="col-md-6">
-        <%= render "layouts/page_title", title_1: "着工案件", title_2: "#{ @matter.title } 詳細", icon: "fa-clipboard" %>
+        <%= render partial: "layouts/page_title", locals: { title_1: "着工案件", title_2: "#{ @matter.title } 詳細", icon: "fa-clipboard"} %>
       </div>
       <div class="col-md-6 text-right">
         <%= link_to "この着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
@@ -11,8 +11,9 @@
     </div>
     
     <div id="sub-title-container">
-      <%= render "common_layouts/matters/title" %>
+      <%= render 'shared/matters/sub_title' %>
     </div>
+    
     <div id="matter_show" class="pa-1e">
       <div class="mt-1e">
         <h4>基本情報</h4>

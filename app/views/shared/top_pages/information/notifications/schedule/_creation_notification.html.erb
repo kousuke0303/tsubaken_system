@@ -24,7 +24,7 @@
               <td><%= schedule.scheduled_date.strftime("%-m月%-d日") %></td>
               <td><%= schedule.scheduled_start_time.strftime("%-H:%M") %></td>
               <td><%= schedule.scheduled_end_time.strftime("%-H:%M") %></td>
-              <td><%= member_name_from_member_code_id(schedule.sender_code) %></td>
+              <td><%= member_name_from_member_code_id(schedule.sender_code.to_i) if schedule.sender_code.present? %></td>
             </tr>
           <% end %>
         </table>

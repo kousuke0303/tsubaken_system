@@ -10,6 +10,9 @@ module ConstructionScheduleDecorator
     end
   end
   
+  def supplier_status(supplier)
+  end
+  
   def content_disp
     if self.content.present?
       content
@@ -37,12 +40,16 @@ module ConstructionScheduleDecorator
   def started_on_disp
     if self.started_on
       self.started_on.strftime("%-m月%-d日")
+    else
+      content_tag(:p, "未着手", class: "text-danger")
     end
   end
   
   def finished_on_disp
     if self.finished_on
       self.finished_on.strftime("%-m月%-d日")
+    elsif self.started_on.present?
+      content_tag(:p, "未完了", class: "text-danger")
     end
   end
   

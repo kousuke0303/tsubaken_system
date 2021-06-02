@@ -12,10 +12,10 @@ class CreateSchedules < ActiveRecord::Migration[5.2]
       t.string :member_name
       t.references :schedule
       t.references :member_code
-      t.references :staff
-      t.references :manager
-      t.references :admin
-      t.references :external_staff
+      # t.references :staff
+      # t.references :manager
+      # t.references :admin
+      # t.references :external_staff
       t.references :sales_status
       t.timestamps
     end

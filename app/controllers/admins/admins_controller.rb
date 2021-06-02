@@ -6,9 +6,11 @@ class Admins::AdminsController < ApplicationController
   before_action :password_condition_user, only: [:top, :default_password_user_index]
 
   def top
+    set_notifications
     set_my_tasks
     set_no_member_tasks(@tasks, @finished_matter_ids, @constraction_estimate_matters_ids)
-    set_notifications
+    schedules_for_today
+    construction_schedules_for_today
   end
   
   def default_password_user_index

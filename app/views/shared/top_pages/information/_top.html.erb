@@ -1,0 +1,33 @@
+<ul class="nav nav-tabs title_tab_bar">
+  <li class="nav-item">
+    <a class="nav-link info_tab">新着情報</a>
+  </li>
+</ul>
+  
+<div class="news_container">
+  <div class="top_page_contents">
+    <% if current_admin || current_manager %>
+      <% if @applicate_schedules.present? %>
+        <p>
+          <i class="fas fa-exclamation-circle fa-red"></i>
+          <%= link_to application_employees_schedules_path do %>
+            <span>スケジュール変更申請が<%= @applicate_schedules.count %>件あります</span>
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+    
+    <% if @notifications %>
+      <div id="schedule_notification_lists">
+        <%= render 'shared/top_pages/information/notifications/schedule_notification_lists' %>
+      </div>
+      <div id="task_notification_lists">
+        <%= render 'shared/top_pages/information/notifications/task_notification_lists' %>
+      </div>
+    <% end %>
+    
+    <% unless @applicate_schedules || @notifications %>
+      <p>新着情報はありません</p>
+    <% end %>
+  </div>
+</div>

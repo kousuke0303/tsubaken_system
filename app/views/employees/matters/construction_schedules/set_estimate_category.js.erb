@@ -1,4 +1,4 @@
-$('#matter-show-modal').empty();
-$('#matter-show-modal').modal('hide');
+$('#construction-schedule-modal').modal('hide');
 $('#construction_schedule_table').html('<%= escape_javascript(render 'employees/matters/construction_schedules/partial/table') %>');
 toastr.success('工程表に見積書を反映しました');
+$('#construction-schedule-modal').empty();

@@ -8,6 +8,8 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   before_action :own_attendance_notification, only: :top
   
   def top
+    schedules_for_today
+    construction_schedules_for_today
     set_notifications
     set_my_tasks
   end

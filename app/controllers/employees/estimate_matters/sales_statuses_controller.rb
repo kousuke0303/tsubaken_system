@@ -2,7 +2,6 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   before_action :set_estimate_matter
   before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
   before_action :set_statuses, only: [:new, :edit]
-  # before_action ->{ set_person_in_charge(@estimate_matter) }, only: [:new, :edit]
   before_action ->{ group_for(@estimate_matter) }, only: [:new, :edit]
   
   def new
@@ -53,7 +52,7 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
     
     @sales_status.login_user = login_user
     
-    # 元々スケジュール登録なしの場合
+    # 元々スケジュール登録なしの場合またはスケジュール未登録に変更
     if @sales_status.register_for_schedule == "not_register" || @sales_status.register_for_schedule == "schedule_destroy"
       if params[:sales_status][:register_for_schedule] == 0
         @sales_status.update(sales_status_params)
@@ -76,6 +75,13 @@ class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateM
   end
 
   def destroy
+    # スケジュール登録している場合はスケジュール削除
+    if @sales_status.register_for_schedule == "schedule_register"
+      # notification_variable
+      schedule = Schedule.find_by(sales_status_id: @sales_status.id)
+      @sales_status.login_user = login_user
+      @sales_status.schedule_destroy(schedule)
+    end
     @sales_status.destroy
     common_variable_for_view
   end

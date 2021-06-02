@@ -1,0 +1,21 @@
+<div class="accordion mt-1e" id="accordion-construction-schedules">
+  <div class="card">
+    <div class="card-header bg-dark" id="headingTwo">
+      <h5 class="text-light">
+        本日の作業状況
+        <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-construction-schedules" aria-expanded="true" aria-controls="collapse-construction-schedules">
+          詳細
+        </button>
+      </h5>
+    </div>
+      
+    <div id="collapse-construction-schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction-schedules">
+      <div class="card-body">
+        <div class="construction-schedule-index">
+          <%= render partial: 'shared/top_pages/construction_schedule/table',
+                     locals: {construction_schedules: @construction_schedules_for_today} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

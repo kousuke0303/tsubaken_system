@@ -30,19 +30,19 @@
               <% end %>
             <% end %>
             <div class="text-right">
-              <%= link_to "素材編集", edit_for_materials_employees_matter_construction_schedule_path(@matter, construction), remote: true %>
+              <%= link_to "素材編集", edit_for_materials_employees_matter_construction_schedule_path(construction.matter, construction), remote: true %>
             </div>
           </td>
           <td rowspan="2" class="text-center">
             <div>
-              <%= link_to "表示", picture_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-dark" %>
+              <%= link_to "表示", picture_employees_matter_construction_schedule_path(construction.matter, construction), remote: true, class: "btn btn-dark" %>
             </div>
-            <div class="mt-1e"><%= link_to "写真選択", edit_for_picture_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-info" %></div>
+            <div class="mt-1e"><%= link_to "写真選択", edit_for_picture_employees_matter_construction_schedule_path(construction.matter, construction), remote: true, class: "btn btn-info" %></div>
           </td>
           <td><%= construction.scheduled_started_on_disp %></td>
           <td><%= construction.scheduled_finished_on_disp %></td>
           <td rowspan="2" class="text-center">
-            <%= link_to "編集", edit_employees_matter_construction_schedule_path(@matter, construction), remote: true, class: "btn btn-success" %>
+            <%= link_to "編集", edit_employees_matter_construction_schedule_path(construction.matter, construction), remote: true, class: "btn btn-success" %>
           </td>
         </tr>
         <tr>

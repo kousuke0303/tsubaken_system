@@ -68,7 +68,9 @@ class SalesStatus < ApplicationRecord
   end
   
   def schedule_create
-    Schedule.create!(copy_attributes.merge(sales_status_id: self.id))
+    schedule = Schedule.new(copy_attributes.merge(sales_status_id: self.id))
+    schedule.sender = self.login_user.member_code.id
+    schedule.save!
   end
   
   def schedule_update(schedule)
@@ -76,6 +78,7 @@ class SalesStatus < ApplicationRecord
   end
   
   def schedule_destroy(schedule)
+    schedule.sender = self.login_user.member_code.id
     schedule.destroy!
   end
   
@@ -86,7 +89,6 @@ class SalesStatus < ApplicationRecord
     params_hash.delete("estimate_matter_id")
     params_hash.delete("status")
     params_hash.delete("register_for_schedule")
-    params_hash.delete("member_name")
     params_hash.store("title", title)
     return params_hash
   end

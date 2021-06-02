@@ -1,0 +1,20 @@
+<div class="accordion mt-1e" id="accordion-schedules">
+  <div class="card">
+    <div class="card-header bg-dark" id="headingTwo">
+      <h5 class="text-light">
+        本日のスケジュール
+        <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-schedules" aria-expanded="true" aria-controls="collapse-schedules">
+          詳細
+        </button>
+      </h5>
+    </div>
+      
+    <div id="collapse-schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-schedules">
+      <div class="card-body">
+        <div class="schedules-index">
+          <%= render "shared/top_pages/schedule/schedule_for_today" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

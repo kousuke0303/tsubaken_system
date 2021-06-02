@@ -177,16 +177,6 @@ module ApplicationHelper
     end
   end
   
-  def object_user_name(attendance)
-    if attendance.manager_id.present?
-      return Manager.find(attendance.manager.id).name
-    elsif attendance.staff_id.present?
-      return Staff.find(attendance.staff_id).name
-    elsif attendance.external_staff_id.present?
-      return ExternalStaff.find(attendance.external_staff_id).name
-    end
-  end
-  
   # ---------------------------------------------------------
       # Alert_Lists
   # ---------------------------------------------------------

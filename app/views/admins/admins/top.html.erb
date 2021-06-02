@@ -1,116 +1,20 @@
 <div class="col-12 mt-1e">
   
-  <ul class="nav nav-tabs title_tab_bar">
-    <li class="nav-item">
-      <a class="nav-link warning_tab">警告事項</a>
-    </li>
-  </ul>
-    
-  <div class="news_container">
-    <div class="top_page_contents">
-    <!--タスク勧告-->
-      <div id="alert_task_list">
-        <%= render 'shared/top_pages/alert_list/alert_task_list' %>
-      </div>
-    <!--出退勤関係-->
-      <% if @error_attendances %>
-        <%= render "common_layouts/attendances/error_attendances" %>
-      <% end %>
-    <!--PASS関連-->
-      <% unless @object_member_code.empty? %>
-        <p>
-          <i class="fas fa-exclamation-circle fa-orange"></i>
-          <span><%= link_to "ログインパスワードが初期値のユーザーがいます：#{ @object_member_code.length }件", admins_default_password_user_index_path, remote: true %></span>
-        </p>
-      <% end %>
-      <% unless current_admin.password_condition %>
-        <p>
-          <i class="fas fa-exclamation-circle fa-red"></i>
-          <span><%= link_to "自身のログインパスワードが初期値のままです", edit_admin_registration_path(current_admin) %></span>
-        </p>
-      <% end %>
-    </div>
-  </div>
-    
-  <!--information-->
-  <ul class="nav nav-tabs title_tab_bar">
-    <li class="nav-item">
-      <a class="nav-link info_tab">新着情報</a>
-    </li>
-  </ul>
-    
-  <div class="news_container">
-    <div class="top_page_contents">
-      <% if @applicate_schedules.present? %>
-        <p>
-          <i class="fas fa-exclamation-circle fa-red"></i>
-          <%= link_to application_employees_schedules_path do %>
-            <span>スケジュール変更申請が<%= @applicate_schedules.count %>件あります</span>
-          <% end %>
-        </p>
-      <% end %>
-      
-      <% if @notifications %>
-        <div id="schedule_notification_lists">
-          <%= render 'common_layouts/notifications/schedule_notification_lists' %>
-        </div>
-        <div id="task_notification_lists">
-          <%= render 'common_layouts/notifications/task_notification_lists' %>
-        </div>
-      <% end %>
-      
-      <% unless @applicate_schedules && @notifications %>
-        <p>新着情報はありません</p>
-      <% end %>
-    </div>
-  </div>
+  <!--▼--alert--▼-->
+  <%= render 'shared/top_pages/alert_list/top' %>
+  
+  <!--▼--information--▼-->
+  <%= render 'shared/top_pages/information/top' %>
+  
+  <!--▼--construction_schedule--▼-->
+  <%= render 'shared/top_pages/construction_schedule/top' %>
   
   <!--▼--schedule--▼-->
-  <div class="accordion mt-1e" id="accordion-schedules">
-    <div class="card">
-      <div class="card-header bg-dark" id="headingTwo">
-        <h5 class="text-light">
-          本日のスケジュール
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-schedules" aria-expanded="true" aria-controls="collapse-schedules">
-            詳細
-          </button>
-        </h5>
-      </div>
-        
-      <div id="collapse-schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-schedules">
-        <div class="card-body">
-          <div class="tasks-index">
-            <%= render "shared/top_pages/schedule/schedule_for_today" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--▲schedule▲-->
+  <%= render 'shared/top_pages/schedule/top' %>
     
-  <!--▼タスク▼-->
-  <div class="accordion mt-1e" id="accordion-tasks">
-    <div class="card">
-      <div class="card-header bg-dark" id="headingTwo">
-        <h5 class="text-light">
-          タスク管理
-          <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-tasks" aria-expanded="true" aria-controls="collapse-tasks">
-            詳細
-          </button>
-        </h5>
-      </div>
-        
-      <div id="collapse-tasks" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-tasks">
-        <div class="card-body">
-          <div class="tasks-index">
-            <%= render "shared/top_pages/tasks/index" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--▼--task--▼-->
+  <%= render 'shared/top_pages/tasks/top' %>
     
-  
 </div>
 
 <script>
