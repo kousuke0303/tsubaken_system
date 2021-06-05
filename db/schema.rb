@@ -577,20 +577,12 @@ ActiveRecord::Schema.define(version: 2021_04_25_035306) do
     t.string "member_name"
     t.bigint "schedule_id"
     t.bigint "member_code_id"
-    t.bigint "staff_id"
-    t.bigint "manager_id"
-    t.bigint "admin_id"
-    t.bigint "external_staff_id"
     t.bigint "sales_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_schedules_on_admin_id"
-    t.index ["external_staff_id"], name: "index_schedules_on_external_staff_id"
-    t.index ["manager_id"], name: "index_schedules_on_manager_id"
     t.index ["member_code_id"], name: "index_schedules_on_member_code_id"
     t.index ["sales_status_id"], name: "index_schedules_on_sales_status_id"
     t.index ["schedule_id"], name: "index_schedules_on_schedule_id"
-    t.index ["staff_id"], name: "index_schedules_on_staff_id"
   end
 
   create_table "staff_event_titles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
