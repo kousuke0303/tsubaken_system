@@ -60,6 +60,12 @@
     <div id="default-task-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
+  <!--デフォルト報告書new・edit-->
+  <% if controller_name == "reports" && action_name == "index" %>
+    <div id="default-report-new" class="modal fade" role="dialog"></div>
+    <div id="default-report-edit" class="modal fade" role="dialog"></div>
+  <% end %>
+
   <!--屋号/部署/集客/取引先業種new・edit-->
   <% if controller_name == "companies" && action_name == "index" %>
     <div id="publisher-new" class="modal fade" role="dialog"></div>

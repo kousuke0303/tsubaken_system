@@ -465,7 +465,7 @@ Rails.application.routes.draw do
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
-      
+      resources :reports, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
 end
