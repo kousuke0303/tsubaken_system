@@ -6,8 +6,23 @@
   </div>
 
   <div class="col-md-6">
+    <label>デフォルトから選択</label>    
+    <select class="form-control default-title">
+      <option value="">選択してください</option>
+      <% @reports.each do |report| %>
+        <option value="<%= report.title %>"><%= report.title %></option>
+      <% end %>
+    </select>
+
     <%= f.label :title %>
-    <%= f.text_field :title, id: "title", maxlength: 30, class: "form-control" %>
+    <%= f.text_field :title, maxlength: 30, class: "form-control report-title" %>
     <%= f.hidden_field :image_id, value: @image.id %>
   </div>
 </div>
+
+<script>
+  $(".default-title").on("change", function(){    
+    var defaultTitle = $(this).val();
+    $(".report-title").val(defaultTitle);
+  });
+</script>

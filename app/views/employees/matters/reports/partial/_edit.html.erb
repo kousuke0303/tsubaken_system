@@ -3,7 +3,7 @@
     <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
     <div class="modal-body pa-2e">
       <div class="card mb-3">
-        <h5 class="card-header">報告書作成</h5>
+        <h5 class="card-header">報告書編集</h5>
         <div class="card-body">
         <%= form_with(model: @report, url: employees_matter_report_path(@matter, @report), method: :patch) do |f| %>
             <div class="report-update-errors"></div>
