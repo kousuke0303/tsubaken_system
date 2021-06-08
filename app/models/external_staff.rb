@@ -2,17 +2,12 @@ class ExternalStaff < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
+  after_find :set_password_condition
   
   has_one :member_code, dependent: :destroy
   belongs_to :supplier, optional: true
-  belongs_to :schedule, optional: true
   
   has_one_attached :avator
-  
-  before_save { self.email = email.downcase if email.present? }
-  after_commit :create_member_code, on: :create
-  after_find :update_for_avaliable
-  after_find :set_password_condition
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :kana, presence: true, length: { maximum: 30 }

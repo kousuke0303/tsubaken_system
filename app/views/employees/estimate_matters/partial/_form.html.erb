@@ -44,16 +44,10 @@
   </div>
   
   <label class="form-control text-white" style="background: #787a7b;">担当者</label>
-  <div class="col-md-6">
-    <%= f.label "担当スタッフ" %>
+  <div class="col-12">
+    <%= f.label "当社担当スタッフ" %>
     <div>
       <%= f.select :staff_ids, options_for_select(@all_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, multiple: true, class: "form-control select-members", id: "select_staff" %>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <%= f.label "担当外部スタッフ" %>
-    <div>
-      <%= f.select :external_staff_ids, options_for_select(@all_external_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, multiple: true, class: "form-control select-members", id: "select_external_staff" %>
     </div>
   </div>
 </div>
@@ -78,14 +72,6 @@
   <script>
     $(document).ready( function(){
       $('#select_staff').val(<%= @staff_codes.ids %>).trigger('change');
-    });
-  </script>
-<% end %>
-
-<% if @external_staff_codes.present? %>
-  <script>
-    $(document).ready( function(){
-      $('#select_external_staff').val(<%= @external_staff_codes.ids %>).trigger('change');
     });
   </script>
 <% end %>

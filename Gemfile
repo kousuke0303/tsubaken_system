@@ -47,6 +47,8 @@ gem 'chartkick'
 gem 'acts_as_list'
 # seed用の偽名作成
 gem 'gimei'
+# 電話番号
+gem 'phonelib'
 # JSにRubyの変数を渡す
 gem 'gon'
 # PWA

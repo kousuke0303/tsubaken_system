@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $('#manager').html('<%= escape_javascript(render 'employees/suppliers/partial/manager') %>');
+  toastr.success('#{@supplier_manager.name}を登録しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: "#supplier-manager-create-errors", model: @supplier_manager, object: "supplier_manager"} %>
+<% end %>

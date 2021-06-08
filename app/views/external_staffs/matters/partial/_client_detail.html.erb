@@ -11,13 +11,13 @@
       <th>フリガナ</th>
       <td><%= @client.kana %></td>
       <th>連絡先１</th>
-      <td><%= @client.phone_1 %></td>
+      <td><%= phone_formatted(@client.phone_1) %></td>
     </tr>
     <tr>
       <th>住所</th>
       <td colspan="3"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
       <th>連絡先２</th>
-      <td><%= @client.phone_2 %></td>
+      <td><%= phone_formatted(@client.phone_2) %></td>
     </tr>
   </table>
 </div>

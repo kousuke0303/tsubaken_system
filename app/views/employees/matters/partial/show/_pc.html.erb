@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: "layouts/page_title", locals: { title_1: "着工案件", title_2: "#{ @matter.title } 詳細", icon: "fa-clipboard"} %>
+  </div>
+  <div class="col-md-6 text-right">
+    <%= link_to "この着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+  </div>
+</div>
+
+<div id="sub-title-container">
+  <%= render partial: 'shared/employees/sub_title',
+             locals: { object: @matter, status: status_disp(@matter.status)}%>
+</div>
+
+<div id="matter_show" class="pa-1e double-line">
+  <div class="mt-1e">
+    <h4>基本情報</h4>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered text-nowrap mt-5">
+        <tr>
+          <th style="width: 8em;">現場住所</th>
+          <td colspan="7">
+            <%= postal_code_display(@matter.postal_code) %>
+            <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+          </td>
+        </tr>
+        <tr>
+          <th>竣工予定日</th>
+          <td><%= @matter.scheduled_started_on_display %></td>
+          <th>完了予定日</th>
+          <td><%= @matter.scheduled_finished_on_display %></td>
+          <th>竣工日</th>
+          <td>
+            <%= @matter.started_on.present? ? @matter.started_on_display : "未登録" %></td>
+          <th>完了日</th>
+          <td><%= @matter.finished_on.present? ? @matter.finished_on_display : "未登録" %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <div class="mt-2e">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 style="display: inline">お客様情報</h4>
+        <h5 style="display: inline" class="ml-2e"><%= @client.avaliable_disp %></h5>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "編集", edit_employees_matter_client_path(@matter, @client), remote: true, class: "btn btn-success" %>
+      </div>
+    </div>
+    <%= render partial: 'employees/matters/clients/partial/client_table' %>
+  </div>
+  
+  <div class="mt-2e">
+    <h4>当社担当者</h4>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "staff"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
+               locals: { object: @matter } %>
+  </div>
+  
+  <div class="mt-2e">
+    <h4>担当業者様</h4>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "supplier"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_employees_matter_path} %>
+  </div>
+  
+  <div class="mt-2e">
+    <%= render partial: 'shared/employees/band_select/band_select',
+               locals: { path: "employees/matters/partial/select_band_display"} %>
+  </div>
+
+</div>

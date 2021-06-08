@@ -1,0 +1,31 @@
+<div class="modal-dialog non-card-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <%= @matter.title %> 担当者変更
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @matter, url: member_change_for_staff_employees_matter_members_path(@matter), method: :patch, remote: true) do |f| %>
+        <div class="matter-update-errors"></div>
+        <label class="form-control text-white" style="background: #787a7b;">当社担当スタッフ</label>
+        <div class="col-12">
+          <%= f.collection_select :staff_ids, @all_staff_codes, :id, :staff_name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "staff_select" } %>
+        　<%= f.hidden_field :redirect_staff_id, value: @staff.id %>
+        </div>
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "select_members.js" %>
+
+<% if @staff_codes.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#staff_select').val(<%= @staff_codes.ids %>).trigger('change');
+    });
+  </script>
+<% end %>

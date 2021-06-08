@@ -1,0 +1,55 @@
+<div id="avator-disp">
+  <%= edit_avator(target_user) %>
+</div>
+
+<% if current_admin || current_manager %>
+  <div id="file-form">
+    <%= render 'shared/avator/file_form' %>
+  </div>
+  
+  <div id="avator-destroy">
+    <% if target_user.avator.attached? %>
+      <%= link_to "削除", avator_delete_employees_avators_path(member_code_id: target_user.member_code.id), remote: true, method: :delete, class: "btn btn-danger btn-sm" %>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  $(document).on('change', '#avator', function(){
+    var $form = $('#avator-change');
+    var formData = new FormData($("#avator-change").get(0));
+    $.ajax({
+      url: "<%= employees_avators_path(member_code_id: target_user.member_code.id) %>",
+      type: "POST",
+      data: formData,
+      dataType: "json",
+      processData: false,  //FormDataを使用した場合に必要となる
+      contentType: false
+    })
+    .done(function(data){
+      console.log($form);
+      $('#avator').off('change');
+      $('#avator-disp').empty();
+      $('#file-form').empty();
+      $('#avator-disp').html('<div class="avator_layout_for_edit" id="avator-image"></div>')
+      $('#avator-image').html('<img src=' + data["avator"] + '>');
+      $('#file-form').html('<%= escape_javascript(render 'shared/avator/file_form') %>');
+      $('#avator').val('');
+      $('.edit_avator').css('bottom', '35px');
+      $('#avator-destroy').html('<%= link_to "削除", avator_delete_employees_avators_path(member_code_id: target_user.member_code.id), remote: true, method: :delete, class: "btn btn-danger btn-sm" %>')
+    })
+    .fail(function() {
+      toastr.error("選択した画像は使用できません");
+    });
+  });
+</script>
+
+<script>
+  $( function(){
+    <% unless target_user.avator.attached? %>
+      $('.edit_avator').css('bottom', 0);
+    <% else %>
+      $('.edit_avator').css('bottom', '35px');
+    <% end %>
+  });
+</script>

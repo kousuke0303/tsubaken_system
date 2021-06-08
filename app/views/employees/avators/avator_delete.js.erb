@@ -1,0 +1,12 @@
+$('.avator_container').html('<%= escape_javascript(render partial: 'shared/avator/edit', locals:{target_user: @target_user}) %>');
+<% if @target_user.auth == "admin" %>
+  $('#avator-disp').html('<div class="default_avator_layout_for_edit" style="background: #dc3545"><%= @target_user.name[0, 1] %></div>');
+<% elsif @target_user.auth == "manager" %>
+  $('#avator-disp').html('<div class="default_avator_layout_for_edit" style="background: #a486d4"><%= @target_user.name[0, 1] %></div>');
+<% elsif @target_user.auth == "staff" %>
+  $('#avator-disp').html('<div class="default_avator_layout_for_edit" style="background: <%= @target_user.label_color.color_code %>"><%= @target_user.name[0, 1] %></div>');
+<% elsif @target_user.auth == "supplier_manager" %>
+  $('#avator-disp').html('<div class="default_avator_layout_for_edit" style="background: #343a40"><%= @target_user.name[0, 1] %></div>');
+<% elsif @target_user.auth == "external_staff" %>
+  $('#avator-disp').html('<div class="default_avator_layout_for_edit" style="background: #e4c35e"><%= @target_user.name[0, 1] %></div>');
+<% end %>

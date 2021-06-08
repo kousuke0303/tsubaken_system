@@ -79,6 +79,8 @@
         <%= render "layouts/authority/staff_layout" %>
       <% elsif client_signed_in? %>
         <%= render "layouts/authority/client_layout" %>
+      <% elsif supplier_manager_signed_in? %>
+        <%= render "layouts/authority/supplier_manager_layout" %>
       <% elsif external_staff_signed_in? %>
         <%= render "layouts/authority/external_staff_layout" %>
       <% end %>

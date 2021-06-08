@@ -87,6 +87,22 @@ end
 
 puts "CREATE! Supplier"
 
+
+3.times do |n|
+SupplierManager.create!(name: "取引先代表#{ n + 1 }",
+                      kana: "トリヒキサキダイヒョウ",
+                      login_id: "SM-manager-#{ n + 1 }",
+                      phone: "08054545454",
+                      email: "testexternal-a@email.com",
+                      supplier_id: n + 1,
+                      avaliable: true,
+                      password: "password",
+                      password_confirmation: "password")
+end
+
+puts "CREATE! SupplierManager"
+
+
 3.times do |n|
 ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       kana: "ガイブスタッフ",

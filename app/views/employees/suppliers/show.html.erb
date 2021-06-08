@@ -1,20 +1,33 @@
 <div class="col-12">
-  <h2>外注先詳細</h2>
+  
+  <div class="pc_type">
+    <div class="row">
+      <div class="col-md-6">
+        <%= render partial: "layouts/page_title", locals: { title_1: "登録企業", title_2: "#{ @supplier.name} 詳細", icon: "fa-clipboard"} %>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "削除", employees_supplier_path(@supplier), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">企業情報</label>
+    <div class="tab-content">
+      <%= render "employees/suppliers/partial/detail" %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">代表者情報</label>
+    <div class="tab-content" id="manager">
+      <%= render "employees/suppliers/partial/manager" %>
+    </div>
+    <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">従業員情報</label>
+    <div class="tab-content">
+      <%= render "employees/suppliers/partial/external_staff" %>
+    </div>
+    <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">関連案件</label>
+    <div class="tab-content">
+      <%= render "employees/suppliers/partial/matters" %>
+    </div>
+  </div>
       
-  <div class="select-switch mt-1e">
-    <input type="radio" name="switch" id="radio1" checked>
-    <label for="radio1" class="mt-0">顧客情報詳細</label>
-    <input type="radio" name="switch" id="radio2">
-    <label for="radio2" class="mt-0">関連案件</label>
-  </div>
-  
-  <div id="tab1">
-    <%= render "employees/suppliers/partial/detail" %>
-  </div>
-  
-  <div id="tab2" class="mt-1e" style="display: none;">
-    <%= render "employees/suppliers/partial/matters" %>
-  </div>
 </div>
-
-<%= javascript_include_tag "switch_tab.js" %>

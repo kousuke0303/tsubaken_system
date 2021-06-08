@@ -1,30 +1,28 @@
-<div class="modal-dialog">
+<div class="modal-dialog non-card-modal">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-    <div class="modal-body pa-2e">
-      <div class="card mb-3">
-        <h5 class="card-header">案件設定</h5>
-        <div class="card-body">
-          <%= form_with(model: @matter, url: employees_matters_path(estimate_matter_id: @estimate_matter.id), method: :post, remote: true) do |f| %>
-            <div class="matter-create-errors"></div>
-            <div>
-              <%= f.label :scheduled_started_on %>
-              <%= f.date_field :scheduled_started_on, class: "form-control", required: true %>
-            </div>
-            <div>
-              <%= f.label :scheduled_finished_on %>
-              <%= f.date_field :scheduled_finished_on, class: "form-control", required: true %>
-            </div>
-            <div>
-              <%= f.label :estimate_id %>
-              <%= f.collection_select :estimate_id, @estimates, :id, :name, { prompt: "採用見積を選択" }, class: "form-control", required: true %>
-            </div>
-            <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
-            </div>
-          <% end %>
+    <div class="modal-header">
+      案件設定
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body bg-white pa-2e">
+      <%= form_with(model: @matter, url: employees_matters_path(estimate_matter_id: @estimate_matter.id), method: :post, remote: true) do |f| %>
+        <div class="matter-create-errors"></div>
+        <div>
+          <%= f.label :scheduled_started_on %>
+          <%= f.date_field :scheduled_started_on, class: "form-control", required: true %>
         </div>
-      </div>
+        <div>
+          <%= f.label :scheduled_finished_on %>
+          <%= f.date_field :scheduled_finished_on, class: "form-control", required: true %>
+        </div>
+        <div>
+          <%= f.label :estimate_id %>
+          <%= f.collection_select :estimate_id, @estimates, :id, :name, { prompt: "採用見積を選択" }, class: "form-control", required: true %>
+        </div>
+        <div class="btn-area">
+          <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

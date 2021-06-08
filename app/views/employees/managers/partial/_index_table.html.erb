@@ -3,7 +3,7 @@
     <td><%= manager.department_name %></td>
     <td><%= link_to manager.name, employees_manager_path(manager) %></td>
     <td><%= manager.login_id %></td>
-    <td><%= manager.phone %></td>
+    <td><%= phone_formatted(manager.phone) %></td>
     <td><%= manager.joined_on %></td>
   </tr>
 <% end %>

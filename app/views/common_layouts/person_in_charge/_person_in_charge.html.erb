@@ -1,4 +1,3 @@
-<h6>当社スタッフ</h6>
 <div class="table-responsive">
   <table class="table table-bordered text-nowrap mt-5">
     <tr>
@@ -9,23 +8,4 @@
     </tr>
   </table>
 </div>
-</div>
 
-<div class="mt-1e">
-<h6>依頼業者様</h6>
-<div class="table-responsive">
-  <table class="table table-bordered text-nowrap mt-5">
-    <tr>
-      <th style="width: 18em;">外注先会社</th>
-      <th>担当者</th>
-    </tr>
-    <% object.external_staffs_in_charge_for_group_by_supplier.each do |supplier_id, external_staffs| %>
-      <tr>
-        <td><%= Supplier.find(supplier_id).name %></td>
-        <% external_staffs.each do |external_staff| %>
-          <td><%= external_staff.name %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-</div>

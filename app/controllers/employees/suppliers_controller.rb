@@ -1,6 +1,6 @@
 class Employees::SuppliersController < Employees::EmployeesController
   before_action :authenticate_employee!
-  before_action :set_suppliers, only: :index
+  before_action :set_suppliers, only: [:index, :show]
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
   before_action :set_industries, only: [:new, :edit]
 
@@ -30,8 +30,10 @@ class Employees::SuppliersController < Employees::EmployeesController
   end
 
   def show
-    @matters = @supplier.matters.all.join_estimate_matter
-    @external_staffs = @supplier.external_staffs.all
+    @supplier_manager = @supplier.supplier_manager
+    @external_staffs = @supplier.external_staffs
+    @matters = @supplier.matters
+    @estimate_matters = @supplier.estimate_matters
   end
 
   def destroy

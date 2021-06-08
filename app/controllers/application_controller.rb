@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
+  helper_method :login_user
   helper_method :current_matter
   helper_method :current_estimate_matter
   helper_method :self_manager
   helper_method :self_staff
   helper_method :self_external_staff
+  helper_method :self_supplier_manager
+  
 
   # 利用者情報
   def login_user
@@ -28,6 +31,10 @@ class ApplicationController < ActionController::Base
     @external_staff.present? && @external_staff == current_external_staff ? current_external_staff : false
   end
   
+  def self_supplier_manager
+    @supplier_manager.present? && @supplier_manager == login_user ? current_supplier_manager : false
+  end
+  
   # 全MEMBER_CORD
   def all_member_code
     @member_codes = MemberCode.all_member_code_of_avaliable
@@ -45,6 +52,8 @@ class ApplicationController < ActionController::Base
       managers_top_path
     elsif resource_or_scope.is_a?(Staff)
       staffs_top_path
+    elsif resource_or_scope.is_a?(SupplierManager)
+      supplier_managers_top_path
     elsif resource_or_scope.is_a?(ExternalStaff)
       external_staffs_top_path
     elsif resource_or_scope.is_a?(Client)

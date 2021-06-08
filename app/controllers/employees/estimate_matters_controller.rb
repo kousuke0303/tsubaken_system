@@ -53,6 +53,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @matter = @estimate_matter.matter
     @publisher = @estimate_matter.publisher
     @client = @estimate_matter.client
+    @suppliers = @estimate_matter.suppliers
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
     @cover = @estimate_matter.cover
@@ -65,22 +66,33 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def edit
     @attract_methods = AttractMethod.order(position: :asc)
-    @staff_codes_ids = @estimate_matter.member_codes.joins(:staff).ids
-    @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
+    # @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
     when "basic"
       @edit_type = "basic"
-    when "person_in_charge"
-      @edit_type = "person_in_charge"
+    when "staff"
+      @edit_type = "staff"
+      @staff_codes_ids = @estimate_matter.member_codes.joins(:staff).ids
+    when "supplier"
+      @edit_type = "supplier"
+      @suppliers = Supplier.all
+    when "supplier_staff"
+      @edit_type = "supplier_staff"
+      @supplier = Supplier.find(params[:supplier_id])
+      @supplier_staff_codes_ids = @supplier.external_staffs.joins(:member_code)
+                                                           .select('external_staffs.*, member_codes.id AS member_code_id')
+    when "alert"
+      @edit_type = "supplier_alert"
+      difference_ids = params[:difference].map{|id| id.to_i }
+      @alert_suppliers = Supplier.where(id: difference_ids)
     end
   end
 
   def update
-    if params[:type] == "person_in_charge"
-      params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
-      params[:estimate_matter][:member_code_ids].flatten!
-    end
     if @estimate_matter.update(estimate_matter_params)
+      if params[:estimate_matter][:supplier_ids].present?
+        delete_supplier_staff_for_delete_supplier
+      end
       flash[:success] = "見積案件を更新しました"
       redirect_to employees_estimate_matter_url(@estimate_matter)
     end
@@ -91,30 +103,30 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     redirect_to employees_estimate_matters_url
   end
   
-  def change_member
-    if params[:staff_id].present?
-      set_staff
-    elsif params[:external_staff_id].present?
-      target_external_staff
-    end
-    @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
-    @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')
-  end
+  # def change_member
+  #   if params[:staff_id].present?
+  #     set_staff
+  #   elsif params[:external_staff_id].present?
+  #     target_external_staff
+  #   end
+  #   @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
+  #   @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')
+  # end
   
-  def update_member
-    params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
-    params[:estimate_matter][:member_code_ids].flatten!
-    @estimate_matter.update(estimate_matter_params)
-    # delete_estimate_matter_relation_table
-    flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
-    if params[:estimate_matter][:staff_id].present?
-      @staff = Staff.find(params[:estimate_matter][:staff_id])
-      redirect_to retirement_process_employees_staff_url(@staff)
-    elsif params[:estimate_matter][:external_staff_id].present?
-      @external_staff = ExternalStaff.find(params[:estimate_matter][:external_staff_id])
-      redirect_to retirement_process_employees_external_staff_url(@external_staff)
-    end
-  end
+  # def update_member
+  #   params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
+  #   params[:estimate_matter][:member_code_ids].flatten!
+  #   @estimate_matter.update(estimate_matter_params)
+  #   # delete_estimate_matter_relation_table
+  #   flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
+  #   if params[:estimate_matter][:staff_id].present?
+  #     @staff = Staff.find(params[:estimate_matter][:staff_id])
+  #     redirect_to retirement_process_employees_staff_url(@staff)
+  #   elsif params[:estimate_matter][:external_staff_id].present?
+  #     @external_staff = ExternalStaff.find(params[:estimate_matter][:external_staff_id])
+  #     redirect_to retirement_process_employees_external_staff_url(@external_staff)
+  #   end
+  # end
 
   private
     def set_estimate_matter
@@ -123,7 +135,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :publisher_id, :client_id, { member_code_ids: [] })
+                                              :address_street, :publisher_id, :client_id, { member_code_ids: [] }, { supplier_ids: []})
     end
     
     def current_person_in_charge
@@ -142,6 +154,16 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       end
       unless params[:estimate_matter][:external_staff_ids].present?
         @estimate_matter.estimate_matter_external_staffs.delete_all    
+      end
+    end
+    
+    def delete_supplier_staff_for_delete_supplier
+      suppliers_ids = @estimate_matter.suppliers.ids
+      delete_supplier_staffs = @estimate_matter.member_codes.joins(:external_staff)
+                                               .where.not(external_staffs: {supplier_id: suppliers_ids})
+      delete_matter_member_codes = @estimate_matter.estimate_matter_member_codes.where(member_code_id: delete_supplier_staffs)
+      delete_matter_member_codes.each do |matter_member_code|
+        matter_member_code.destroy
       end
     end
 end

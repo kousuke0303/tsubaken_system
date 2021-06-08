@@ -22,7 +22,7 @@
         <tr>
           <td><%= link_to external_staff.name, employees_external_staff_path(external_staff) %></td>
           <td><%= external_staff.login_id %></td>
-          <td><%= external_staff.phone %></td>
+          <td><%= phone_formatted(external_staff.phone) %></td>
         </tr>
       <% end %>
     </table>

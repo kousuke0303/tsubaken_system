@@ -14,6 +14,9 @@ class EstimateMatter < ApplicationRecord
   has_many :estimate_matter_member_codes, dependent: :destroy
   has_many :member_codes, through: :estimate_matter_member_codes
   
+  has_many :supplier_estimate_matters, dependent: :destroy
+  has_many :suppliers, through: :supplier_estimate_matters
+  
   has_many :tasks, dependent: :destroy  # タスクと1対多
   has_many :estimates, -> { order(position: :asc) }, dependent: :destroy # 見積と1対多
   has_many :images, dependent: :destroy #画像と1対多

@@ -4,7 +4,6 @@ class Employees::MattersController < Employees::EmployeesController
   before_action :set_reports_of_matter, only: :show
   before_action :set_employees, only: [:new, :edit, :change_member]
   before_action ->{set_menbers_code_for(@matter)}, only: :show
-  before_action :set_suppliers, only: :edit
   before_action ->{can_access_only_of_member(@matter)}, except: :index
   before_action :all_staff_and_external_staff_code, only: [:edit, :change_member]
   
@@ -55,23 +54,34 @@ class Employees::MattersController < Employees::EmployeesController
   end
 
   def edit
-    @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
-    @staff_codes_ids = @matter.member_codes.joins(:staff).ids
-    @external_staff_codes_ids = @matter.member_codes.joins(:external_staff).ids
+    # @estimates = @matter.estimate_matter.estimates.with_plan_names_and_label_colors
+    # @external_staff_codes_ids = @matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
     when "basic"
       @edit_type = "basic"
-    when "person_in_charge"
-      @edit_type = "person_in_charge"
+    when "staff"
+      @edit_type = "staff"
+      @staff_codes_ids = @matter.member_codes.joins(:staff).ids
+    when "supplier"
+      @edit_type = "supplier"
+      @suppliers = Supplier.all
+    when "supplier_staff"
+      @edit_type = "supplier_staff"
+      @supplier = Supplier.find(params[:supplier_id])
+      @supplier_staff_codes_ids = @supplier.external_staffs.joins(:member_code)
+                                                           .select('external_staffs.*, member_codes.id AS member_code_id')
+    when "alert"
+      @edit_type = "supplier_alert"
+      difference_ids = params[:difference].map{|id| id.to_i }
+      @alert_suppliers = Supplier.where(id: difference_ids)
     end
   end
 
   def update
-    if params[:type] == "person_in_charge"
-      params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
-      params[:matter][:member_code_ids].flatten!
-    end
     if @matter.update(matter_params)
+      if params[:matter][:supplier_ids].present?
+        delete_supplier_staff_for_delete_supplier
+      end
       flash[:success] = "案件情報を更新しました"
       redirect_to employees_matter_url(@matter)
     end
@@ -92,35 +102,35 @@ class Employees::MattersController < Employees::EmployeesController
     end
   end
   
-  def change_member
-    if params[:staff_id].present?
-      set_staff
-    elsif params[:external_staff_id].present?
-      target_external_staff
-    end
-    @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
-    @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
-  end
+  # def change_member
+  #   if params[:staff_id].present?
+  #     set_staff
+  #   elsif params[:external_staff_id].present?
+  #     target_external_staff
+  #   end
+  #   @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
+  #   @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
+  # end
   
-  def update_member
-    params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
-    params[:matter][:member_code_ids].flatten!
-    @matter.update(matter_params)
-    flash[:success] = "#{ @matter.title }の担当者を変更しました"
-    if params[:matter][:staff_id].present?
-      @staff = Staff.find(params[:matter][:staff_id])
-      redirect_to retirement_process_employees_staff_url(@staff)
-    elsif params[:matter][:external_staff_id].present?
-      @external_staff = ExternalStaff.find(params[:matter][:external_staff_id])
-      redirect_to retirement_process_employees_external_staff_url(@external_staff)
-    end
-  end
+  # def update_member
+  #   params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
+  #   params[:matter][:member_code_ids].flatten!
+  #   @matter.update(matter_params)
+  #   flash[:success] = "#{ @matter.title }の担当者を変更しました"
+  #   if params[:matter][:staff_id].present?
+  #     @staff = Staff.find(params[:matter][:staff_id])
+  #     redirect_to retirement_process_employees_staff_url(@staff)
+  #   elsif params[:matter][:external_staff_id].present?
+  #     @external_staff = ExternalStaff.find(params[:matter][:external_staff_id])
+  #     redirect_to retirement_process_employees_external_staff_url(@external_staff)
+  #   end
+  # end
 
   private
     def matter_params
       params.require(:matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :address_street, :scheduled_started_on, 
                                      :scheduled_finished_on, :status, :estimate_id, :started_on, :finished_on, :maintenanced_on,
-                                     { member_code_ids: [] }, { supplier_ids: [] })
+                                     { supplier_ids: [] })
     end
     
     def set_matter_detail_valiable
@@ -133,5 +143,15 @@ class Employees::MattersController < Employees::EmployeesController
       set_plan_name_of_invoice
       set_color_code_of_invoice     
       set_invoice_details
+    end
+    
+    def delete_supplier_staff_for_delete_supplier
+      suppliers_ids = @matter.suppliers.ids
+      delete_supplier_staffs = @matter.member_codes.joins(:external_staff)
+                                                   .where.not(external_staffs: {supplier_id: suppliers_ids})
+      delete_matter_member_codes = @matter.matter_member_codes.where(member_code_id: delete_supplier_staffs)
+      delete_matter_member_codes.each do |matter_member_code|
+        matter_member_code.destroy
+      end
     end
 end

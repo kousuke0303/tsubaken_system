@@ -1,0 +1,40 @@
+<div class="text-center"><h4>基本情報</h4></div>
+
+<div class="mb-5">
+  <button type="button" id="tableLongCollapse" class="navbar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+</div>
+
+<div class="table-responsive responsive_table_wrapper">
+  <nav class="responsive_table_long_sidebar text-nowrap active">
+    <ul class="components">
+      <li>現場住所</li>
+      <li>着工予定日</li>
+      <li>完了予定日</li>
+      <li>竣工日</li>
+      <li>完了日</li>
+    </ul>
+  </nav>
+  
+  <div class="table_content text-nowrap">
+    <div class="content">
+      <%= postal_code_display(@matter.postal_code) %>
+      <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+    </div>
+    <div class="content"><%= @matter.scheduled_started_on_display %></div>
+    <div class="content"><%= @matter.scheduled_finished_on_display %></div>
+    <div class="content"><%= @matter.started_on.present? ? @matter.started_on_display : "未登録" %></div>
+    <div class="content"><%= @matter.finished_on.present? ? @matter.finished_on_display : "未登録" %></div>
+  </div>
+</div>
+
+<script>
+$("#tableLongCollapse").on("click", function(){
+  $(".responsive_table_long_sidebar").toggleClass("active");
+  $("#tableLongCollapse").toggleClass("active");
+});
+</script>

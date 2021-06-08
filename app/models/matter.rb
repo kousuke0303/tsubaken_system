@@ -14,6 +14,9 @@ class Matter < ApplicationRecord
   has_many :matter_member_codes, dependent: :destroy
   has_many :member_codes, through: :matter_member_codes
   
+  has_many :supplier_matters, dependent: :destroy
+  has_many :suppliers, through: :supplier_matters
+  
   has_one :invoice, dependent: :destroy
   has_many :reports, -> { order(position: :asc) }, dependent: :destroy  
   has_one :report_cover, dependent: :destroy
@@ -23,8 +26,7 @@ class Matter < ApplicationRecord
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images
   has_many :messages, dependent: :destroy
-  # has_many :supplier_matters, dependent: :destroy
-  # has_many :suppliers, through: :supplier_matters
+  
   # accepts_nested_attributes_for :supplier_matters, allow_destroy: true
   # accepts_nested_attributes_for :tasks, allow_destroy: true
 
@@ -134,11 +136,6 @@ class Matter < ApplicationRecord
       Rails.logger.error e.backtrace.join("\n")
       # bugsnag導入後
       # Bugsnag.notifiy e
-  end
-  
-  def suppliers
-    exstaff_ids = ExternalStaff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}}).ids
-    Supplier.joins(:external_staffs).where(external_staffs: {id: exstaff_ids})
   end
   
   private

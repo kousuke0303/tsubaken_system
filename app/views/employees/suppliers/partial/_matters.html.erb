@@ -1,18 +1,51 @@
-<div class="table-responsive">
-  <table class="table table-bordered text-nowrap common-table">
-    <tr>
-      <th>タイトル</th>
-      <th>現場住所</th>
-      <th>着工予定日</th>
-      <th>完了予定日</th>
-    </tr>
-    <% @matters.each_with_index do |matter, i| %>
-      <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
-        <td><%= matter.title %></td>
-        <td><%= @matters.pluck(:prefecture_code, :address_city, :address_street)["#{ i }".to_i].join %></td>
-        <td><%= matter.scheduled_started_on %></td>
-        <td><%= matter.scheduled_finished_on %></td>
+<% if @matters.present? %>
+  <div class="double-line mt-1e"><h4>着工案件</h4></div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table tr-bold">
+      <tr>
+        <th>タイトル</th>
+        <th>現場住所</th>
+        <th>着工予定日</th>
+        <th>完了予定日</th>
       </tr>
-    <% end %>
-  </table>
-</div>
+      <% @matters.each_with_index do |matter, i| %>
+        <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
+          <td><%= matter.title %></td>
+          <td><%= @matters.pluck(:prefecture_code, :address_city, :address_street)["#{ i }".to_i].join %></td>
+          <td><%= matter.scheduled_started_on %></td>
+          <td><%= matter.scheduled_finished_on %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+<% if @estimate_matters.present? %>
+  <div class="double-line mt-1e"><h4>営業案件</h4></div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table tr-bold">
+      <tr>
+        <th>状況</th>
+        <th>タイトル</th>
+        <th>現場住所</th>
+      </tr>
+      <% @estimate_matters.each_with_index do |estimate_matter, i| %>
+        <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
+          <td><%= estimate_matter.sales_statuses.last.status_i18n %></td>
+          <td><%= estimate_matter.title %></td>
+          <td><%= @estimate_matters.pluck(:prefecture_code, :address_city, :address_street)["#{ i }".to_i].join %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+<% unless @matters.present? || @estimate_matters.present? %>
+  <p class="mt-1e">登録がありません</p>
+<% end %>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data("link")
+  });
+</script>

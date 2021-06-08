@@ -12,7 +12,7 @@
       <td><%= matter.content %></td>
       <td><%= matter.prefecture_code %><%= matter.address_city %><%= matter.address_street %></td>
       <td>
-        <%= link_to "担当者変更", change_member_employees_matter_path(matter, staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
+        <%= link_to "担当者変更", edit_employees_matter_members_path(matter, retire_staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
       </td>
     </tr>
   <% end %>

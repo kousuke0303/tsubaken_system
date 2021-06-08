@@ -4,6 +4,10 @@
     <%= f.label :name, class: "float-l" %>
     <%= f.text_field :name, maxlength: 30, required: true, class: "form-control" %>
   </div>
+  <div class="col-md-6 col-12"> 
+    <%= f.label :kana, class: "float-l" %>
+    <%= f.text_field :kana, maxlength: 30, required: true, class: "form-control" %>
+  </div>
   <div class="col-md-6 col-12">
     <% if current_admin || current_manager %>
       <%= f.label :supplier_id %>

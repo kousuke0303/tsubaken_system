@@ -3,6 +3,7 @@ class MemberCode < ApplicationRecord
   belongs_to :manager, optional: true
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
+  belongs_to :supplier_manager, optional: true
 
   has_many :attendances, dependent: :destroy
   
@@ -77,7 +78,9 @@ class MemberCode < ApplicationRecord
       self.staff
     elsif self.external_staff.present?
       self.external_staff
-    end 
+    elsif self.supplier_manager.present?
+      self.supplier_manager
+    end
   end
   
   # 親インスタンスの名前

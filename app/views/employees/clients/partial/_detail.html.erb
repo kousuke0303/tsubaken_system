@@ -22,11 +22,11 @@
     </tr>
     <tr>
       <th>電話番号①</th>
-      <td><%= @client.phone_1 %></td>
+      <td><%= phone_formatted(@client.phone_1) %></td>
     </tr>
     <tr>
       <th>電話番号②</th>
-      <td><%= @client.phone_2 %></td>
+      <td><%= phone_formatted(@client.phone_2) %></td>
     </tr>
     <tr>
       <th>Mail</th>
@@ -75,10 +75,10 @@
       <div class="content"><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></div>
       <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
       <div class="content">
-        <a href="tel:<%= @client.phone_1 %>" class=""><%= mobile_phone_display(@client.phone_1) %></a>
+        <%= phone_formatted(@client.phone_1) %>
       </div>
       <div class="content">
-        <a href="tel:<%= @client.phone_2 %>" class=""><%= mobile_phone_display(@client.phone_2) %></a>
+        <%= phone_formatted(@client.phone_2) %>
       </div>
       <div class="content"><%= @client.email %></div>
       <div class="content"><%= @client.birthed_on %></div>

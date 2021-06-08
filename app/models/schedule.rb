@@ -5,10 +5,10 @@ class Schedule < ApplicationRecord
   after_destroy :destroy_notification
   before_save :member_name_update
   
-  belongs_to :admin, optional: true
-  belongs_to :manager, optional: true
-  belongs_to :staff, optional: true
-  belongs_to :external_staff, optional: true
+  # belongs_to :admin, optional: true
+  # belongs_to :manager, optional: true
+  # belongs_to :staff, optional: true
+  # belongs_to :external_staff, optional: true
   belongs_to :sales_status, optional: true
   belongs_to :member_code
   

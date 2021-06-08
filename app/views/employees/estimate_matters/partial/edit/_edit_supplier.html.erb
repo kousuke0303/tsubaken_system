@@ -1,0 +1,24 @@
+<label class="form-control text-white" style="background: #787a7b;">担当業者</label>
+<div class="col-12">
+  <div>
+    <%= f.collection_select :supplier_ids, @suppliers, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "supplier_select" } %>
+  </div>
+</div>
+
+
+<div id="alert_container" class="mt-1e col-sm-8 offset-sm-2"></div>
+
+<script>
+  $('#supplier_select').on('change', function(){
+    var registed_suppliers = <%= @estimate_matter.suppliers.ids %>;
+    var update_suppliers = $(this).val().map(Number);
+    var difference = registed_suppliers.filter(i => update_suppliers.indexOf(i) == -1 );
+    if(difference.length > 0){
+      $.ajax({
+        type: 'GET',
+        url: '<%= edit_employees_estimate_matter_path(@estimate_matter) %>',
+        data: {difference: difference, edit_type: "alert"}
+      });
+    }
+  });
+</script>

@@ -1,0 +1,50 @@
+<div class="text-center"><h4>基本情報</h4></div>
+
+<div class="mb-5">
+  <button type="button" id="tableCollapse" class="navbar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+</div>
+
+<div class="responsive_table_wrapper">
+  <nav class="responsive_table_sidebar">
+    <ul class="components">
+      <li>現場住所</li>
+      <li>請負屋号</li>
+      <li>集客方法</li>
+    </ul>
+  </nav>
+  <div class="table_content text-nowrap overflow-auto">
+    <div class="content">
+      <%= postal_code_display(@estimate_matter.postal_code) %>
+      <span class="ml-1e"><%= link_to @address, "https://www.google.com/maps/search/?api=1&query=#{ @address }", target: :blank %></span>
+    </div>
+    <div class="content"><%= @publisher.name %></div>
+    <div class="content"><%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></div>
+  </div>
+</div>
+
+<!--<div class="content">-->
+<!--      <!%= phone_formatted(@estimate_matter.client.phone_1) %>-->
+<!--      <span>/</span>-->
+<!--      <!%= phone_formatted(@estimate_matter.client.phone_2) %>-->
+<!--    </div>-->
+<!--    <div class="content"><!%= postal_code_display(@estimate_matter.postal_code) %></div>-->
+<!--    <div class="content"><!%= @estimate_matter.prefecture_code %><!%= @estimate_matter.address_city %><!%= @estimate_matter.address_street %></div>-->
+<!--    <div class="content"><!%= person_in_charge_for(@member_name_arrey) %></div>-->
+<!--    <div id="select_band" class="band_area content">-->
+<!--      <!% if current_estimate_matter.band_connection.nil? %>-->
+<!--        <!%= link_to "BAND連結", employees_band_connections_path(estimate_matter_id: @estimate_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>-->
+<!--      <!% else %>-->
+<!--        <div class="band_box">-->
+<!--          <!%=image_tag current_estimate_matter.band_connection.band_icon, :size =>'50x50' %>-->
+<!--          <div class="band_name"><!%= current_estimate_matter.band_connection.band_name %></div>-->
+<!--          <!%= link_to "変更", employees_band_connections_path(estimate_matter_id: current_estimate_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>-->
+<!--        </div>-->
+<!--      <!% end %>-->
+<!--    </div>-->
+<!--    <div class="content"><!%= @publisher.name %></div>-->
+<!--    <div class="content"><!%= @estimate_matter.attract_method.name if @estimate_matter.attract_method %></div>-->

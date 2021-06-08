@@ -3,13 +3,14 @@ require 'employees_helper.rb'
 module ApplicationHelper
   include EmployeesHelper
   
-  def login_user
-    return current_admin if current_admin
-    return current_manager if current_manager 
-    return current_staff if current_staff 
-    return current_external_staff if current_external_staff 
-    return current_client if current_client
-  end
+  # def login_user
+  #   return current_admin if current_admin
+  #   return current_manager if current_manager 
+  #   return current_staff if current_staff 
+  #   return current_supplier_manager if current_supplier_manager 
+  #   return current_external_staff if current_external_staff 
+  #   return current_client if current_client
+  # end
   
   def admin_name(id)
     Admin.find(id).name
@@ -33,18 +34,20 @@ module ApplicationHelper
   
   def edit_avator(login_user)
     if login_user.avator.attached? 
-      content_tag(:div, class: "avator_layoput_for_edit") do
+      content_tag(:div, class: "avator_layout_for_edit", id: "avator-image") do
         image_tag url_for(login_user.avator.variant(combine_options:{gravity: :center, resize:"150x150^",crop:"150x150+0+0"}))
       end
     else
       if @admin
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #dc3545")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #dc3545")
       elsif @manager
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #a486d4") 
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #a486d4") 
       elsif @staff
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #{@staff.label_color.color_code}")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #{@staff.label_color.color_code}")
+      elsif @supplier_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #343a40")
       elsif @external_staff
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_edit", style: "background: #e4c35e")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #e4c35e")
       end
     end
   end
@@ -133,14 +136,29 @@ module ApplicationHelper
     return "〒" + block_1 + "-" + block_2
   end
   
-  def mobile_phone_display(phone_number)
-    if phone_number.size == 11
-      block_1 = phone_number[0..2]
-      block_2 = phone_number[3..6]
-      block_3 = phone_number[7..10]
-      return block_1 + "-" + block_2 + "-" + block_3
+  # def mobile_phone_display(phone_number)
+  #   if phone_number.size == 11
+  #     block_1 = phone_number[0..2]
+  #     block_2 = phone_number[3..6]
+  #     block_3 = phone_number[7..10]
+  #     return block_1 + "-" + block_2 + "-" + block_3
+  #   else
+  #     return phone_number
+  #   end
+  # end
+  
+  def phone_formatted(phone_number)
+    if phone_number.present?
+      phone = Phonelib.parse("#{phone_number}", :jp)
+      if phone.valid?
+        content_tag(:a, href: 'tel:#{phone_number}') do
+          phone.national
+        end
+      else
+        "日本の電話番号ではありません。"
+      end
     else
-      return phone_number
+      "未設定"
     end
   end
   

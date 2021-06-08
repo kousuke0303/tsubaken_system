@@ -8,32 +8,6 @@
   margin-left: 1em;
 }
 
-#matter_show h4 {
-  position: relative;
-  display: inline-block;
-  padding: 0 65px;
-  text-align: center;
-}
-
-#matter_show h4:before,
-#matter_show h4:after {
-  position: absolute;
-  top: calc(50% - 3px);
-  width: 50px;
-  height: 6px;
-  content: '';
-  border-top: solid 2px #000;
-  border-bottom: solid 2px #000;
-}
-
-#matter_show h4:before {
-  left: 0;
-}
-
-#matter_show h4:after {
-  right: 0;
-}
-
 #matter_show table {
   border-color: #666!important;
   th { 
@@ -44,7 +18,6 @@
     border-color: #666!important;
   }
 }
-
 
 
 .kanban-container {

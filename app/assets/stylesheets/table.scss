@@ -250,3 +250,24 @@
   height: 4em!important;
   align-items: center;
 }
+
+/* -----------------------------------------------------------------------------------
+    SUB-TITLE 
+----------------------------------------------------- */
+
+.sub-title-table td {
+  vertical-align: middle;
+}
+
+.sub-title-table h5 {
+  margin-bottom: 0;
+}
+
+.sub-title-table .badge {
+  line-height: 1.2;
+}
+
+
+.tr-bold tr:hover {
+  font-weight: bold;
+}

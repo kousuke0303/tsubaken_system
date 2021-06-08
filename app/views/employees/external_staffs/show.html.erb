@@ -2,9 +2,7 @@
   <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{@external_staff.name} の編集", icon: "fa-user-edit"} %>
   
   <div class="avator_container">
-    <%= render partial: 'common_layouts/avators/avator', locals:{login_user: @external_staff, 
-                                                                 edit_path: :external_staffs_avator_change_path,
-                                                                 destroy_path: :external_staffs_avator_destroy_path} %>
+    <%= render partial: 'shared/avator/edit', locals:{target_user: @external_staff} %>
   </div>
   <div class="row">
     <div class="col-sm-6">

@@ -1,0 +1,15 @@
+<span class="text-danger">以下の担当者も本件から削除されます</span>
+<div class="table-responsive">
+  <table class="table text-nowrap table-bordered common-table">
+    <tr>
+      <th>会社名</th>
+      <th>本件担当者</th>
+    </tr>
+    <% @alert_suppliers.each do |supplier| %>
+      <tr>
+        <td><%= supplier.name %></td>
+        <td><%= supplier.person_in_charge_for_matter(object) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

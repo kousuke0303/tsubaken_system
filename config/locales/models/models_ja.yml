@@ -45,9 +45,11 @@ ja:
           gender: 性別          
           avaliable: ログインを許可
         supplier:
-          name: 業者名
+          name: 会社名
           representative: 代表者名
           industries: 業種
+        supplier_manager:
+          name: 名前
         attendance:
           started_at: 出勤時間
           finished_at: 退勤時間

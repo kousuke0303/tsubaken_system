@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<% if current_admin || current_manager || self_staff %>
+<% if current_admin || current_manager || self_external_staff %>
   <div class="card mt-1e">
     <div class="card-body">
       <%= render partial: 'common_layouts/registrations/pass_form', 

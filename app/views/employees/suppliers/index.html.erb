@@ -11,21 +11,39 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
+    <table class="table table-bordered text-nowrap common-table tr-bold">
       <tr>
+        <th>ログイン</th>
         <th>名前</th>
+        <th>業種</th>
         <th>電話番号①</th>
-        <th>都道府県</th>
-        <th>市町村区</th>
-        <th>町名番地</th>
+        <th>郵便番号</th>
+        <th>会社住所</th>
+        <th>代表者</th>
       </tr>
       <% @suppliers.each do |supplier| %>
         <tr>
+          <td class="text-center"><%= supplier.avaliable_disp %></td>
           <td><%= link_to supplier.name, employees_supplier_path(supplier) %></td>
-          <td><%= supplier.phone_1 %></td>
-          <td><%= supplier.prefecture_code %></td>
-          <td><%= supplier.address_city %></td>
-          <td><%= supplier.address_street %></td>
+          <td>
+            <% if supplier.industries %>
+              <% supplier.industries.pluck(:name).each do |name| %>
+                <div><%= name %></div>
+              <% end %>
+            <% else %>
+              <span>未設定</span>
+            <% end %>
+          </td>
+          <td><%= phone_formatted(supplier.phone_1) %></td>
+          <td><%= postal_code_display(supplier.postal_code) %></td>
+          <td><%= supplier.prefecture_code %><%= supplier.address_city %><%= supplier.address_street %></td>
+          <td>
+            <% if supplier.supplier_manager %>
+              <%= supplier.supplier_manager.name %>
+            <% else %>
+              <%= link_to "代表者登録", "#" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>

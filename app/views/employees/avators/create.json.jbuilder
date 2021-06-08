@@ -1,0 +1,1 @@
+json.avator url_for(@target_user.avator.variant(combine_options:{gravity: :center, resize:"150x150^",crop:"150x150+0+0"}))
