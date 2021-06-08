@@ -1,8 +1,13 @@
 <div class="col-12">
   <h2><i class="fas fa-address-book"></i> 顧客一覧</h2>
+  <div class="text-right">
+    <%= link_to new_employees_client_path, remote: true, class: "btn btn-dark" do %>
+      <i class="fas fa-user-plus"></i> 新規顧客
+    <% end %>
+  </div>
 
-  <div class="row">
-    <div class="col-md-5 col-12">
+  <div class="mt-1e">
+    <div class="text-center">
       <div class="select-switch">
         <input type="radio" name="switch" id="radio1" checked>
         <label for="radio1" class="mt-0">成約済顧客</label>
@@ -10,6 +15,7 @@
         <label for="radio2" class="mt-0">未成約顧客</label>
       </div>
     </div>
+    
     <div class="col-md-4 col-12">
       <%= form_with(url: search_index_employees_clients_path, method: :post, remote: true) do |f| %>
         <div class="input-group">
@@ -20,35 +26,39 @@
         </div>
       <% end %>
     </div>
-    <div class="col-md-3 col-12">
-      <%= link_to new_employees_client_path, remote: true, class: "btn btn-dark float-r" do %>
-        <i class="fas fa-plus"></i> 新規顧客
-      <% end %>
-    </div>
   </div>
   
   <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
+    <table class="table table-bordered text-nowrap clients-table">
       <thead>
         <tr>
           <th>名前</th>
           <th>顧客ID</th>
-          <th>性別</th>
           <th>電話番号①</th>
-          <th>電話番号②</th>
           <th>メールアドレス</th>
-          <th></th>
+          <th>最終更新日</th>
         </tr>
       </thead>
+      <tbody id="search_clients"></tbody>
       <tbody id="tab1">
         <%= render "/employees/clients/partial/index_table", objects: @clients, display_type: @display_type %>
       </tbody>
       <tbody id="tab2" style="display: none;">
         <%= render "/employees/clients/partial/index_table", objects: @no_matter_clients, display_type: @display_type %>
       </tbody>
-      <tbody id="search_clients"></tbody>
     </table>
   </div>
 </div>
 
-<%= javascript_include_tag "switch_tab.js" %>
+<script>
+  $("#radio1").click(function(){
+    $('#search_clients').empty();
+    $("#tab2").hide();
+    $("#tab1").show();
+  });
+  $("#radio2").click(function(){
+    $('#search_clients').empty();
+    $("#tab2").show();
+    $("#tab1").hide();
+  });
+</script>

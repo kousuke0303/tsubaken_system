@@ -1,94 +1,27 @@
-<div class="table-responsive pc_type">
-  <table class="table table-bordered text-nowrap common-table">
-    <tr>
-      <th style="width: 7em">名前</th>
-      <td><%= @client.name %></td>
-    </tr>
-    <tr>
-      <th>フリガナ</th>
-      <td><%= @client.kana %></td>
-    </tr>
-    <tr>
-      <th>ログインID</th>
-      <td><%= @client.login_id %></td>
-    </tr>
-    <tr>
-      <th>郵便番号</th>
-      <td><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></td>
-    </tr>
-    <tr>
-      <th>住所</th>
-      <td><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
-    </tr>
-    <tr>
-      <th>電話番号①</th>
-      <td><%= phone_formatted(@client.phone_1) %></td>
-    </tr>
-    <tr>
-      <th>電話番号②</th>
-      <td><%= phone_formatted(@client.phone_2) %></td>
-    </tr>
-    <tr>
-      <th>Mail</th>
-      <td><%= @client.email %></td>
-    </tr>
-    <tr>
-      <th>生年月日</th>
-      <td><%= @client.birthed_on %></td>
-    </tr>
-    <tr>
-      <th>仮パスワード</th>
-      <td><%= @client.tmp_password %></td>
-    </tr>
-  </table>
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: @client, url: employees_client_path(@client), remote: true) do |f| %>
+      <div id="supplier-manager-update-errors"></div>
+      <%= render 'clients/registrations/partial/form', f: f %>
+
+      <% if current_admin || current_manager || self_supplier_manager %>
+        <div class="btn-area">
+          <%= f.submit "更新", class: "btn btn-dark" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
-<div class="mobile_type">
-  <div>
-    <button type="button" id="tableCollapse" class="navbar-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-  
-  <div class="table-responsive responsive_table_wrapper">
-    <nav class="responsive_table_sidebar text-nowrap">
-      <ul class="components">
-        <li>お名前</li>
-        <li>フリガナ</li>
-        <li>ID</li>
-        <li>郵便番号</li>
-        <li>ご住所</li>
-        <li>TEL①</li>
-        <li>TEL②</li>
-        <li>MAIL</li>
-        <li>生年月日</li>
-        <li>仮パスワード</li>
-      </ul>
-    </nav>
-    
-    <div class="table_content text-nowrap">
-      <div class="content"><%= @client.name %></div>
-      <div class="content"><%= @client.kana %></div>
-      <div class="content"><%= @client.login_id %></div>
-      <div class="content"><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></div>
-      <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
-      <div class="content">
-        <%= phone_formatted(@client.phone_1) %>
+<% if current_admin || current_manager || self_supplier_manager %>
+  <div class="card mt-1e">
+    <div class="card-body">
+      <div id="pass-form">
+      <%= render 'employees/clients/partial/pass_form' %>
       </div>
-      <div class="content">
-        <%= phone_formatted(@client.phone_2) %>
-      </div>
-      <div class="content"><%= @client.email %></div>
-      <div class="content"><%= @client.birthed_on %></div>
-      <div class="content"><%= @client.tmp_password %></div>
     </div>
   </div>
-</div>
+<% end %>
 
-<div class="btn-area">
-  <%= link_to "編集", edit_employees_client_path(@client), remote: true, class: "btn btn-dark" %>
-</div>
 
 <%= javascript_include_tag 'tableCollapse.js' %>

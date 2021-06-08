@@ -125,7 +125,7 @@ class Staff < ApplicationRecord
     
     def default_set
       if self.login_id == nil || self.login_id.empty? 
-        self.login_id = "MN-" + "#{SecureRandom.hex(3)}"
+        self.login_id = "ST-" + "#{SecureRandom.hex(3)}"
       end
       if self.department_id == nil
         self.department_id = 1

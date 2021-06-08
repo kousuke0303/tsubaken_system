@@ -4,6 +4,7 @@ class MemberCode < ApplicationRecord
   belongs_to :staff, optional: true
   belongs_to :external_staff, optional: true
   belongs_to :supplier_manager, optional: true
+  belongs_to :client, optional: true
 
   has_many :attendances, dependent: :destroy
   

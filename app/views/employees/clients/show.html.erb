@@ -1,20 +1,21 @@
 <div class="col-12">
   <%= render "layouts/page_title", title_1: "顧客情報", title_2: "#{ @client.name } 様 詳細", icon: "fa-address-book" %>
   
-  <div class="select-switch mt-1e">
-    <input type="radio" name="switch" id="radio1" checked>
-    <label for="radio1" class="mt-0">顧客情報詳細</label>
-    <input type="radio" name="switch" id="radio2">
-    <label for="radio2" class="mt-0">関連案件</label>
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">顧客情報詳細</label>
+    <div class="tab-content">
+      <%= render "employees/clients/partial/detail" %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">関連案件</label>
+    <div class="tab-content" id="manager">
+      <%= render "employees/clients/partial/relation_matters" %>
+    </div>
   </div>
   
-  <div id="tab1">
-    <%= render "employees/clients/partial/detail" %>
-  </div>
-  
-  <div id="tab2" class="mt-1e" style="display: none;">
-    <%= render "employees/clients/partial/relation_matters" %>
-  </div>
+  <!--<div class="select-switch mt-1e">-->
+  <!--  <input type="radio" name="switch" id="radio1" checked>-->
+  <!--  <label for="radio1" class="mt-0">顧客情報詳細</label>-->
+  <!--  <input type="radio" name="switch" id="radio2">-->
+  <!--  <label for="radio2" class="mt-0">関連案件</label>-->
+  <!--</div>-->
 </div>
-
-<%= javascript_include_tag "switch_tab.js" %>

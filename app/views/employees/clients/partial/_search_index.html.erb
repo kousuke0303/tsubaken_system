@@ -1,0 +1,9 @@
+<% @search_clients.each do |client| %>
+  <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+    <td><%= client.name %></td>
+    <td><%= client.login_id %></td>
+    <td><%= phone_formatted(client.phone_1) %></td>
+    <td><%= client.email %></td>
+    <td><%= client.last_update_for_estimate_matter_or_matter %></td>
+  </tr>
+<% end %>

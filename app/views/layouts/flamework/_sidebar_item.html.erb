@@ -10,21 +10,9 @@
     <% end %>
   </li>
   <li>
-    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
-      <i class="fas fa-user-tie"></i><span class="ml-1e">従業員管理</span>
-    <% end %>
-    <ul class="collapse list-unstyled" id="employees-menu">
-      <li>
-        <%= link_to employees_managers_path do %>
-          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Manager</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to employees_staffs_path do %>
-          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Staff</span>
-        <% end %>
-      </li>
-    </ul>
+    <%= link_to employees_clients_path do %>
+     <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
+   <% end %>
   </li>
   <li>
     <%= link_to "#supplier-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
@@ -39,6 +27,24 @@
       <li>
         <%= link_to employees_external_staffs_path do %>
           <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">外部STAFF登録</span>
+        <% end %>
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-user-tie"></i><span class="ml-1e">従業員管理</span>
+    <% end %>
+    <ul class="collapse list-unstyled" id="employees-menu">
+      <li>
+        <%= link_to employees_managers_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Manager</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_staffs_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">Staff</span>
         <% end %>
       </li>
     </ul>
@@ -60,11 +66,6 @@
         <% end %>
       </li>
     </ul>
-  </li>
-  <li>
-    <%= link_to employees_clients_path do %>
-     <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
-   <% end %>
   </li>
   <li>
     <%= link_to employees_schedules_path do %>

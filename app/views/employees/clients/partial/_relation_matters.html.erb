@@ -1,59 +1,86 @@
-<ul class="nav nav-tabs title_tab_bar">
-  <li class="nav-item">
-    <span class="nav-link title_tab" style="font-size: 18px">未成約案件</span>
-  </li>
-</ul>
-<% if @client_estimate_matters.present? %>
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>最終更新日</th>
-        <th>タイトル</th>
-        <th>現場住所</th>
-        <th>状況</th>
-      </tr>
-      <% @client_estimate_matters.each do |estimate_matter| %>
-        <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
-          <td><%= estimate_matter.sales_statuses.last.created_at.strftime("%Y月%m月%d日") %></td>
-          <td><%= estimate_matter.title %></td>
-          <td><%= estimate_matter.prefecture_code %><%= estimate_matter.address_city %><%= estimate_matter.address_street %></td>
-          <td><%= estimate_matter.sales_statuses.last.status_i18n %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-<% else %>
-  <div class="text-center">
-    <p class="mt-05e">登録がありません</p>
-    <%= link_to "営業案件新規作成", new_employees_estimate_matter_path(client_id: @client.id), remote: true, class: "btn btn-success" %>
-  </div>
-<% end %>
+<div class="text-right">
+  <%= link_to new_employees_estimate_matter_path(client_id: @client.id), remote: true, class: "btn btn-dark" do %>
+    <i class="fas fa-plus"></i> 営業案件作成
+  <% end %>
+</div>
 
-<ul class="nav nav-tabs title_tab_bar">
-  <li class="nav-item">
-    <span class="nav-link title_tab" style="font-size: 18px">成約案件</span>
-  </li>
-</ul>
-<% if @client_matters.present? %>
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table">
-      <tr>
-        <th>タイトル</th>
-        <th>現場住所</th>
-      </tr>
-      <% @client_matters.each do |matter| %>
-        <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
-          <td><%= matter.title %></td>
-          <td><%= matter.prefecture_code %><%= matter.address_city %><%= matter.address_street %></td>
-        </tr>
-      <% end %>
-    </table>
+<div class="card">
+  <div class="card-body">
+    <!--▼営業案件▼-->
+    <div class="pc_type">
+      <div class="double-line mt-1e"><h4>営業案件</h4></div>
+    </div>
+    
+    <div class="mobile_type">
+      <div class="double-line mt-1e text-center"><h4>営業案件</h4></div>
+    </div>
+    
+    <% if @client_estimate_matters.present? %>
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap common-table tr-bold">
+          <tr>
+            <th>状況</th>
+            <th>内容</th>
+            <th>現場住所</th>
+            <th>最終更新日</th>
+          </tr>
+          <% @client_estimate_matters.each_with_index do |estimate_matter, i| %>
+            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
+              <td><%= estimate_matter.sales_statuses.last.status_i18n %></td>
+              <td><%= estimate_matter.content %></td>
+              <td><%= @client_estimate_matters.pluck(:prefecture_code, :address_city, :address_street)["#{ i }".to_i].join %></td>
+              <td><%= estimate_matter.updated_at.strftime("%y年%-m月%-d日") %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="mt-05e">未登録</p>
+      </div>
+    <% end %>
   </div>
-<% else %>
-  <div class="text-center">
-    <p class="mt-05e">登録がありません</p>
+</div>
+
+
+<!--▼着工案件▼-->
+
+<div class="card mt-1e">
+  <div class="card-body">
+    <div class="pc_type">
+      <div class="double-line mt-1e"><h4>着工案件</h4></div>
+    </div>
+    
+    <div class="mobile_type">
+      <div class="double-line mt-1e text-center"><h4>着工案件</h4></div>
+    </div>
+    
+    <% if @client_matters.present? %>
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap common-table tr-bold">
+          <tr>
+            <th>タイトル</th>
+            <th>現場住所</th>
+            <th>着工予定日</th>
+            <th>完了予定日</th>
+          </tr>
+          <% @client_matters.each_with_index do |matter, i| %>
+            <tr class="tr-link" data-link="<%= employees_matter_path(matter) %>">
+              <td><%= matter.content %></td>
+              <td><%= @client_matters.pluck(:prefecture_code, :address_city, :address_street)["#{ i }".to_i].join %></td>
+              <td><%= matter.scheduled_started_on %></td>
+              <td><%= matter.scheduled_finished_on %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="mt-05e">未登録</p>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <%= javascript_include_tag "tr_link.js" %>
   

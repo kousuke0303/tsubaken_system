@@ -450,10 +450,12 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.bigint "manager_id"
     t.bigint "admin_id"
     t.bigint "external_staff_id"
+    t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "supplier_manager_id"
     t.index ["admin_id"], name: "index_member_codes_on_admin_id"
+    t.index ["client_id"], name: "index_member_codes_on_client_id"
     t.index ["external_staff_id"], name: "index_member_codes_on_external_staff_id"
     t.index ["manager_id"], name: "index_member_codes_on_manager_id"
     t.index ["staff_id"], name: "index_member_codes_on_staff_id"
@@ -740,6 +742,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
   add_foreign_key "matters", "estimates"
   add_foreign_key "matters", "publishers"
   add_foreign_key "member_codes", "admins"
+  add_foreign_key "member_codes", "clients"
   add_foreign_key "member_codes", "external_staffs"
   add_foreign_key "member_codes", "managers"
   add_foreign_key "member_codes", "staffs"

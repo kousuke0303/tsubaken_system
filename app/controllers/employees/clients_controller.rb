@@ -21,8 +21,13 @@ class Employees::ClientsController < Employees::EmployeesController
   end
 
   def show
-    @client_estimate_matters = EstimateMatter.left_joins(:matter).where(matters: {estimate_matter_id: nil}).where(client_id: @client.id)
-    @client_matters =  Matter.joins(:estimate_matter).where(estimate_matters: { client_id: @client.id }).select("matters.*, estimate_matters.*")
+    @client_estimate_matters = EstimateMatter.left_joins(:matter)
+                                             .where(matters: {estimate_matter_id: nil})
+                                             .where(client_id: @client.id).order(updated_at: "DESC")
+    @client_matters =  Matter.joins(:estimate_matter)
+                             .where(estimate_matters: { client_id: @client.id })
+                             .order(updated_at: "DESC")
+                             .select("matters.*, estimate_matters.*")
   end
 
   def edit
@@ -34,8 +39,9 @@ class Employees::ClientsController < Employees::EmployeesController
   end
   
   def search_index
-    @search_clients = Client.get_by_name params[:name]
-    @search_clients.present? ? @display_type = "success" : @display_type = "failure"
+    @target_name = params[:name]
+    @search_clients = Client.get_by_name @target_name
+    @search_clients.present? ? @responce = "success" : @responce = "failure"
   end
 
   def update

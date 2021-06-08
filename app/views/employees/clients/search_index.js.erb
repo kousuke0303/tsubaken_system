@@ -1,10 +1,11 @@
-<% if @display_type == "success" %>
-  $('#search_clients').html('<%= escape_javascript(render "/employees/clients/partial/index_table", objects: @search_clients) %>');
-<% else %>
-  $('#search_clients').html('<tr><td colspan="7">検索にヒットしませんでした</td></tr>');
-<% end %>  
-$('#has_matter').hide();
-$('#no_matter').hide();
 $('#radio1').prop('checked', false);
 $('#radio2').prop('checked', false);
-$('#search_name').val('');
+$('#tab1').hide();
+$('#tab2').hide();
+$('#search_clients').show();
+
+<% if @responce == "success" %>
+  $('#search_clients').html('<%= escape_javascript(render "/employees/clients/partial/search_index") %>');
+<% else %>
+  $('#search_clients').html('<tr><td colspan="7">検索にヒットしませんでした（検索内容：<%= @target_name %>）</td></tr>');
+<% end %>
