@@ -1,5 +1,6 @@
-class ExternalStaffs::Matters::ConstructionSchedulesController < Employees::Matters::ConstructionSchedulesController
+class ExternalStaffs::Matters::ConstructionSchedulesController < ApplicationController
   before_action :authenticate_external_staff!
+  before_action :set_construction_schedule
   
   def update
     if @construction_schedule.started_on.nil?
@@ -12,8 +13,13 @@ class ExternalStaffs::Matters::ConstructionSchedulesController < Employees::Matt
   end
   
   def picture
-    super
+    @construction_schedule_pictures = @construction_schedule.images
   end
+  
+  private
+    def set_construction_schedule
+      @construction_schedule = ConstructionSchedule.find(params[:id])
+    end
   
   
 end

@@ -26,7 +26,13 @@
       
       <div class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle session-name text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= login_user.name %>
+          <% if current_supplier_manager %>
+            <%= login_user.supplier.name %> 様
+          <% elsif current_external_staff %>
+            <%= login_user.name %> 様
+          <% else %>
+            <%= login_user.name %>
+          <% end %> 
         </a>
         <div class="dropdown-menu dropdown-position header-dropdown-menu">
           <%= link_to send(edit_path), class: "dropdown-item item-link" do %>

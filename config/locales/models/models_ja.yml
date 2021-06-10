@@ -5,6 +5,7 @@ ja:
       manager: マネージャー
       staff: スタッフ
       client: 顧客
+      supplier_manager: 外注先管理者
       external_staff: 外部スタッフ
       supplier: 外注先
       attendance: 勤怠
@@ -36,6 +37,8 @@ ja:
         staff:
           name: 名前                    
           accept: 同意
+        supplier_manager:
+          name: 名前
         external_staff:
           name: 名前
           supplier_id: 外注先
@@ -48,8 +51,6 @@ ja:
           name: 会社名
           representative: 代表者名
           industries: 業種
-        supplier_manager:
-          name: 名前
         attendance:
           started_at: 出勤時間
           finished_at: 退勤時間

@@ -6,7 +6,9 @@
     <span></span>
     <span></span>
   </button>
-  <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+  <% unless current_external_staff %>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
+  <% end %>
 </div>
 
 <div class="table-responsive responsive_table_wrapper">

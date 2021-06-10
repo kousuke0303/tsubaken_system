@@ -121,13 +121,19 @@ Rails.application.routes.draw do
   
   # SupplierManager関係
   scope module: :supplier_managers do
-    namespace :supplier_managers do
-      get :top
-      get :index
-      get :default_password_user_index
-      post :avator_change
-      get :avator_destroy
+    resources :supplier_managers, only: :index do
+      collection do
+        get :top
+        get :default_password_user_index
+        post :avator_change
+        get :avator_destroy
+      end
     end
+  end
+  
+  namespace :supplier_managers do
+    resources :matters 
+    resources :suppliers
   end
 
   # ExternalStaff関係

@@ -3,9 +3,7 @@
   <div class="col-sm-12">
     <div>
       <%= f.label :industries %><br>
-      <%= f.collection_check_boxes(:industry_ids, industries, :id, :name) do |c| %>
-        <%= c.check_box %><%= c.text %>
-      <% end %> 
+      <%= f.collection_select :industry_ids, @industries, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "industries_select" } %>
     </div>
   </div>
   
@@ -61,3 +59,12 @@
 </div>
 
 <%= javascript_include_tag "postal_code_to_address.js" %>
+<%= javascript_include_tag "select_members.js" %>
+
+<% if @supplier.industries.present? %>
+  <script>
+    $(document).ready( function(){
+      $('#industries_select').val(<%= @supplier.industries.ids %>).trigger('change');
+    });
+  </script>
+<% end %>

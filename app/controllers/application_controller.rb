@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   def login_user
     return current_admin if current_admin
     return current_manager if current_manager 
-    return current_staff if current_staff 
+    return current_staff if current_staff
+    return current_supplier_manager if current_supplier_manager
     return current_external_staff if current_external_staff 
     return current_client if current_client
   end
@@ -40,6 +41,12 @@ class ApplicationController < ActionController::Base
     @member_codes = MemberCode.all_member_code_of_avaliable
   end
   
+  # supplierの全memberコード
+  def supplier_members_member_code_ids(supplier)
+    external_staffs_code_ids_for_supplier = MemberCode.where(external_staff_id: supplier.external_staffs.ids).ids
+    supplier_members_member_code_ids = external_staffs_code_ids_for_supplier << supplier.supplier_manager.member_code.id
+  end  
+  
   # --------------------------------------------------------
         # DEVISE関係
   # --------------------------------------------------------
@@ -53,7 +60,7 @@ class ApplicationController < ActionController::Base
     elsif resource_or_scope.is_a?(Staff)
       staffs_top_path
     elsif resource_or_scope.is_a?(SupplierManager)
-      supplier_managers_top_path
+      top_supplier_managers_path
     elsif resource_or_scope.is_a?(ExternalStaff)
       external_staffs_top_path
     elsif resource_or_scope.is_a?(Client)
@@ -84,7 +91,7 @@ class ApplicationController < ActionController::Base
 
   # 従業員以外はアクセス制限
   def authenticate_employee!
-    redirect_to root_url unless current_admin || current_manager || current_staff || current_external_staff
+    redirect_to root_url unless current_admin || current_manager || current_staff
   end
   
   def authenticate_employee_except_external_staff!
@@ -286,14 +293,13 @@ class ApplicationController < ActionController::Base
   end
   
   def alert_tasks
+    alert_tasks = Task.alert_lists
     if current_admin || current_manager
-      alert_tasks = Task.all.alert_lists
       @alert_tasks_count = alert_tasks.count
       @alert_tasks_for_matter = alert_tasks.joins(:matter).group_by{ |task| task.default_task_id }
       @alert_tasks_for_estimate_matter = alert_tasks.joins(:estimate_matter).order(:deadline).group_by{ |task| task.default_task_id }
       @alert_tasks_for_individual = alert_tasks.individual.where(member_code_id: login_user.member_code.id).group_by{ |task| task.default_task_id }
-    elsif current_staff || current_external_staff
-      alert_tasks = Task.alert_lists
+    elsif current_staff
       # 案件関連タスク
       alert_tasks_for_matter = alert_tasks.joins(matter: :member_codes)
                                           .where(matters: { member_codes: { id: login_user.member_code.id } })
@@ -309,6 +315,50 @@ class ApplicationController < ActionController::Base
       @alert_tasks_for_individual = alert_tasks_for_individual.group_by{ |task| task.default_task_id }
       alert_tasks_for_individual_count = alert_tasks_for_individual.count
       # 総数
+      @alert_tasks_count = alert_tasks_for_matter_count + alert_tasks_for_estimate_matter_count + alert_tasks_for_individual_count
+    elsif current_supplier_manager
+      ##### 案件関連タスク(自社のもの)
+      # 自社担当の案件のID
+      supplier = current_supplier_manager.supplier
+      member_ids = supplier_members_member_code_ids(supplier)
+      relation_matter_ids = supplier.matters.ids
+      alert_tasks_for_matter = alert_tasks.joins(matter: :member_codes)
+                                          .where(member_code_id: member_ids)
+                                          .where(matters: {id: relation_matter_ids})
+                                          
+      @alert_tasks_for_matter = alert_tasks_for_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_matter_count = alert_tasks_for_matter.count
+      
+      # 見積案件関連タスク(自分が担当のもののみ表示)
+      relation_estimate_matter_ids = supplier.estimate_matters.ids
+      alert_tasks_for_estimate_matter = alert_tasks.joins(estimate_matter: :member_codes)
+                                                   .where(member_code_id: member_ids)
+                                                   .where(estimate_matters: {id: relation_matter_ids})
+      @alert_tasks_for_estimate_matter = alert_tasks_for_estimate_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_estimate_matter_count = alert_tasks_for_estimate_matter.count
+      
+      # 個別タスク(自分が担当のもののみ表示)
+      alert_tasks_for_individual = alert_tasks.individual.where(member_code_id: login_user.member_code.id)
+      @alert_tasks_for_individual = alert_tasks_for_individual.group_by{ |task| task.default_task_id }
+      alert_tasks_for_individual_count = alert_tasks_for_individual.count
+    
+      @alert_tasks_count = alert_tasks_for_matter_count + alert_tasks_for_estimate_matter_count + alert_tasks_for_individual_count
+    elsif current_external_staff
+      # 案件関連タスク(自分が担当のもののみ表示)
+      alert_tasks_for_matter = alert_tasks.joins(matter: :member_codes)
+                                          .where(member_code_id: login_user.member_code.id)
+      @alert_tasks_for_matter = alert_tasks_for_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_matter_count = alert_tasks_for_matter.count
+      # 見積案件関連タスク(自分が担当のもののみ表示)
+      alert_tasks_for_estimate_matter = alert_tasks.joins(estimate_matter: :member_codes)
+                                                   .where(member_code_id: login_user.member_code.id)
+      @alert_tasks_for_estimate_matter = alert_tasks_for_estimate_matter.group_by{ |task| task.default_task_id }
+      alert_tasks_for_estimate_matter_count = alert_tasks_for_estimate_matter.count
+      # 個別タスク(自分が担当のもののみ表示)
+      alert_tasks_for_individual = alert_tasks.individual.where(member_code_id: login_user.member_code.id)
+      @alert_tasks_for_individual = alert_tasks_for_individual.group_by{ |task| task.default_task_id }
+      alert_tasks_for_individual_count = alert_tasks_for_individual.count
+    
       @alert_tasks_count = alert_tasks_for_matter_count + alert_tasks_for_estimate_matter_count + alert_tasks_for_individual_count
     end
   end
@@ -400,9 +450,15 @@ class ApplicationController < ActionController::Base
       target_matters_ids = login_user.matters.ids
       @construction_schedules_for_today = ConstructionSchedule.where(matter_id: target_matters_ids)
                                                               .where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)
+    elsif current_supplier_manager
+      supplier_members_member_code_ids(current_supplier_manager.supplier)
+      @construction_schedules_for_today = ConstructionSchedule.joins(matter: :member_codes).where('construction_schedules.scheduled_finished_on >= ? and ? >= construction_schedules.scheduled_started_on', Date.current, Date.current)
+                                                              .where(matters: { member_codes: { external_staff_id: login_user.id }})
+    
     elsif current_external_staff
-      @construction_schedules_for_today = ConstructionSchedule.where(supplier_id: login_user.supplier.id)
-                                                              .where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)
+      @construction_schedules_for_today = ConstructionSchedule.joins(matter: :member_codes).where('construction_schedules.scheduled_finished_on >= ? and ? >= construction_schedules.scheduled_started_on', Date.current, Date.current)
+                                                              .where(matters: { member_codes: { external_staff_id: login_user.id }})
+                                                              
     end
   end
   

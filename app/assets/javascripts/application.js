@@ -23,5 +23,6 @@
 //= require serviceworker-companion
 //= require jkanban
 //= require setbadge
+//= require cable
 //= require turbolinks
 

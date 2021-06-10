@@ -1,0 +1,35 @@
+<div class="sign-in-container">
+  <div class="mt-1e">
+    <%= render "shared/flash" %>
+  </div>
+  
+  <div class="sign-in-icon">
+    <h3 class="circle" id="sign-btn">
+      <i class="fas fa-pen-nib"></i>
+    </h3>
+  </div>
+  
+  <div class="icon-name">Login</div>
+</div>
+
+<div class="modal" id="login">
+  <div class="modal__bg js-modal-close"></div>
+  <%= render "static_pages/partial/login" %>
+</div>
+
+
+<script>
+$('#sign-btn').on('click', function(){
+  $("#login").fadeIn();
+  return false;
+});
+</script>
+
+<script>
+  $(document).on('click touchend', function(event) {
+  // 表示したポップアップ以外の部分をクリックしたとき
+  if (!$(event.target).closest('#login-modal-grid').length) {
+    $('#login').fadeOut();
+  }
+});
+</script>

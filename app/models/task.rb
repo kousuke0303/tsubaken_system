@@ -1,14 +1,15 @@
 class Task < ApplicationRecord
-  belongs_to :estimate_matter, optional: true
-  belongs_to :matter, optional: true
-  belongs_to :member_code, optional: true
-  has_many :notifications, dependent: :destroy
-
+  
   before_save :member_name_update
   before_commit :default_deadline
   after_commit :add_default_task_for_auto_set, on: :create
   after_commit :create_notification
   after_destroy :destroy_notification
+  
+  belongs_to :estimate_matter, optional: true
+  belongs_to :matter, optional: true
+  belongs_to :member_code, optional: true
+  has_many :notifications, dependent: :destroy
   
   acts_as_list scope: [:status]
 
@@ -169,7 +170,7 @@ class Task < ApplicationRecord
   end
   
   def destroy_notification
-    if self.status != "default"
+    if self.sender.present? && self.status != "default"
       case self.category
       when "matter"
         Notification.create(category: 2, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,

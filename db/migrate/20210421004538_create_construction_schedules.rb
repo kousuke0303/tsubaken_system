@@ -11,6 +11,7 @@ class CreateConstructionSchedules < ActiveRecord::Migration[5.2]
       t.string :matter_id
       t.boolean :disclose,  null: false, default: true
       t.references :supplier, foreign_key: true
+      t.references :member_code, foreign_key: true
       t.timestamps
     end
     add_index  :construction_schedules, :matter_id

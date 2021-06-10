@@ -1,0 +1,69 @@
+<div class="table-responsible">
+  <table class="table table-bordered text-nowrap table-column-type">
+    <tr>
+      <th colspan="3">タイトル</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">材料</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">写真/詳細</th>
+      <th>開始予定日</th>
+      <th>完了予定日</th>
+    </tr>
+    <tr>
+      <th style="border-bottom: 1px solid black">状況</th>
+      <th style="border-bottom: 1px solid black">作業名称</th>
+      <th style="border-bottom: 1px solid black">担当者</th>
+      <th style="border-bottom: 1px solid black">開始日</th>
+      <th style="border-bottom: 1px solid black">完了日</th>
+    </tr>
+    <% construction_schedules.each_with_index do |construction, index| %>
+      <tr>
+        <td colspan="3">
+          <%= link_to supplier_managers_matter_path(construction.matter) do %>
+            <%= construction.matter.title %>
+          <% end %>
+        </td>
+        <td rowspan="2" style="border-bottom: 1px solid black">
+          <% if construction.construction_schedule_materials.present? %>
+            <% construction.construction_schedule_materials.each do |construction_schedule_material| %>
+              <%= content_tag(:div, "#{Material.find(construction_schedule_material.material_id).name}", class: "text-left") %>
+            <% end %>
+          <% end %>
+        </td>
+        <td rowspan="2" class="text-center" style="border-bottom: 1px solid black">
+          <div>
+            <%= link_to "表示", picture_external_staffs_matter_construction_schedule_path(construction.matter, construction), remote: true, class: "btn btn-dark" %>
+          </div>
+        </td>
+        <td class="text-center"><%= construction.scheduled_started_on_disp %></td>
+        <td class="text-center"><%= construction.scheduled_finished_on_disp %></td>
+      </tr>
+      <tr>
+        <td style="border-bottom: 1px solid black"><%= construction.status_i18n %></td>
+        <td style="border-bottom: 1px solid black"><%= construction.title %></td>
+        <td style="border-bottom: 1px solid black"><%= construction.supplier_disp(construction.supplier) %></td>
+        <td class="text-center" style="border-bottom: 1px solid black"><%= construction.started_on_display_for_external_staff(current_external_staff) %></td>
+        <td class="text-center" style="border-bottom: 1px solid black"><%= construction.finished_on_display_for_external_staff(current_external_staff) %></td>
+      </tr>
+    <% end %>
+  </table>
+  
+</div>
+
+<script>
+  <% construction_schedules.each do |construction| %>
+    $('#started_on_for_<%= construction.id %>').on('click', function(){
+      $.ajax({
+        type: "PATCH",
+        url: "<%= external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
+        data: { object: "started_on"}
+      });
+    });
+    
+    $('#finished_on_for_<%= construction.id %>').on('click', function(){
+      $.ajax({
+        type: "PATCH",
+        url: "<%=external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
+        data: { object: "finished_on"}
+      }); 
+    });
+  <% end %>
+</script>

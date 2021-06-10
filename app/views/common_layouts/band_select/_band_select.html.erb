@@ -1,16 +1,13 @@
-<% unless current_external_staff %>
-  <div class="text-center"><h4>画像取込設定</h4></div>
-  <button id="to_image_index" class="btn btn-dark float-r">画像一覧</button>
-<% else %>
-  <div  class="text-center"><h4>BAND</h4></div>
-<% end %>
+
+<div class="text-center"><h4>画像取込設定</h4></div>
+<button id="to_image_index" class="btn btn-dark float-r">画像一覧</button>
 
 <div class="table-responsive">
   <table class="table table-bordered text-nowrap mt-5">
     <tr>
       <th style="width: 8em;">BAND選択</th>
       <td colspan="2" id="select_band">
-        <%= render path %>
+        <%= render "employees/estimate_matters/partial/select_band_display" %>
       </td>
     </tr>
   </table>

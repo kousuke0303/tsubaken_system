@@ -1,0 +1,41 @@
+<div class="accordion mt-1e" id="accordion-schedules">
+  <div class="card">
+    <div class="card-header bg-dark" id="headingTwo">
+      <h5 class="text-light">
+        本日以降のスケジュール
+        <button class="btn btn-link float-r text-light" type="button" data-toggle="collapse" data-target="#collapse-schedules" aria-expanded="true" aria-controls="collapse-schedules">
+          詳細
+        </button>
+      </h5>
+    </div>
+      
+    <div id="collapse-schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-schedules">
+      <div class="card-body">
+        <div class="schedules-index">
+          <% if @construction_schedules.present? %>
+            <div class="table-responsive">
+              <table class="table table-bordered common-table">
+                <tr>
+                  <th>開始予定日</th>
+                  <th>終了予定日</th>
+                  <th>作業内容</th>
+                  <th>案件タイトル</th>
+                </tr>
+                <% @construction_schedules.each do |schedule| %>
+                  <tr class="tr-link" data-link="<%= supplier_managers_matter_path(schedule.matter) %>">
+                    <td><%= schedule.scheduled_started_on_disp %></td>
+                    <td><%= schedule.scheduled_finished_on_disp %></td>
+                    <td><%= schedule.title %></td>
+                    <td><%= schedule.matter.title %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "tr_link.js" %>

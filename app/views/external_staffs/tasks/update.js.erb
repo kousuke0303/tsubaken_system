@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $('#top_page_modal').empty();
-  $('#top_page_modal').modal('hide');
-  $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/alert_task_list') %>');
-  $('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
+  $('#top-page-modal').empty();
+  $('#top-page-modal').modal('hide');
+  $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/tasks/alert_task_list') %>');
+  $('#task_notification_lists').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/task_notification_lists') %>');
   $('.tasks-index').html('<%= escape_javascript(render 'external_staffs/tasks/partial/tasks_index') %>');
   toastr.success('<%= @task.title%>を変更しました');
   <!--バッジ変更-->

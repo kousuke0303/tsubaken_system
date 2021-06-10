@@ -8,9 +8,11 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
   before_action :own_attendance_notification, only: :top
   
   def top
-    schedules_for_today
-    construction_schedules_for_today
     set_notifications
+    construction_schedules_for_today
+    @construction_schedules = ConstructionSchedule.joins(matter: :member_codes)
+                                                  .where('construction_schedules.scheduled_finished_on >= ? and ? >= construction_schedules.scheduled_started_on', Date.current, @last_day)
+                                                  .where( matters: { member_codes:{ external_staff_id: current_external_staff.id }})
     set_my_tasks
   end
   
@@ -23,4 +25,5 @@ class ExternalStaffs::ExternalStaffsController < ApplicationController
     current_external_staff.avator.purge_later
     redirect_to edit_external_staff_registration_url(current_external_staff)
   end
+  
 end

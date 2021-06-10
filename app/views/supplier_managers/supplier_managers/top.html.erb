@@ -1,2 +1,49 @@
-<h1>SupplierManagers::SupplierManagers#top</h1>
-<p>Find me in app/views/supplier_managers/supplier_managers/top.html.erb</p>
+<div class="col-12">
+  
+  <!--▼--alert--▼-->
+  <% if alert_present?(@alert_tasks_count, @own_error_attendances) %> 
+    <%= render 'shared/top_pages/alert_list/top' %>
+  <% end %>
+  
+  <!--▼--information--▼-->
+  <% if information_present?(@notifications) %>
+    <%= render 'shared/top_pages/information/top' %>
+  <% end %>
+  
+  <!--▼--construction_schedule--▼-->
+  <div id="today-construction-schedule">
+    <ul class="nav nav-tabs title_tab_bar">
+      <li class="nav-item">
+        <a class="nav-link title_tab">本日の作業</a>
+      </li>
+    </ul>
+    
+    <% if @construction_schedules_for_today.present? %>
+      <div class="mt-1e text-center">
+        <%= render partial: "common_layouts/attendances/top_attendance", locals: { target: current_supplier_manager, attendance: @attendance, path: :supplier_manager_attendance_path } %>
+      </div>
+    
+      <div class="mt-1e text-center overflow-auto">
+        <%= render partial: "supplier_managers/matters/partial/construction_schedule",
+                   locals: {construction_schedules: @construction_schedules_for_today } %>
+      </div>
+    <% else %>
+      <p class="ml-1e mt-1e">本日の作業はありません</p>
+    <% end %>
+  </div>
+  
+  <!--▼--schedule--▼-->
+  <%= render 'external_staffs/external_staffs/partial/construction_schedules_table' %>
+  
+  <!--▼--task--▼-->
+  <%= render 'shared/top_pages/tasks/top' %>
+
+</div>
+  
+<script>
+  $(document).ready(function(){
+    $('#default_password_user_index').modal('hide');
+    $('#default_password_user_index').empty();
+  });
+</script>
+

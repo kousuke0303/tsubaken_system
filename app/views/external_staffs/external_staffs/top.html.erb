@@ -1,32 +1,36 @@
-<div class="col-lg-12 col-md-12">
-  <!--▼出退勤ボタンの表示-->
-  <ul class="nav nav-tabs title_tab_bar">
-    <li class="nav-item">
-      <a class="nav-link attendance_tab">本日の出退勤</a>
-    </li>
-  </ul>
-  <div class="mt-1e text-center">
-    <%= render partial: "common_layouts/attendances/top_attendance", locals: { target: current_external_staff, attendance: @attendance, path: :external_staffs_attendance_path } %>
-  </div>
+<div class="col-12 mt-1e">
+  
   
   <!--▼--alert--▼-->
-  <%= render 'shared/top_pages/alert_list/top' %>
+  <% if alert_present?(@alert_tasks_count, @own_error_attendances) %> 
+    <%= render 'shared/top_pages/alert_list/top' %>
+  <% end %>
   
   <!--▼--information--▼-->
-  <%= render 'shared/top_pages/information/top' %>
+  <% if information_present?(@notifications) %>
+    <%= render 'shared/top_pages/information/top' %>
+  <% end %>
   
-  <ul class="nav nav-tabs title_tab_bar">
-    <li class="nav-item">
-      <a class="nav-link title_tab">本日の作業</a>
-    </li>
-  </ul>
-  <div class="mt-1e text-center">
-    <%= render partial: "external_staffs/matters/partial/construction_schedule",
-               locals: {construction_schedules: @construction_schedules_for_today } %>
+  <!--▼--construction_schedule--▼-->
+  <div id="today-construction-schedule">
+    <ul class="nav nav-tabs title_tab_bar">
+      <li class="nav-item">
+        <a class="nav-link title_tab">本日の作業</a>
+      </li>
+    </ul>
+  
+    <div class="mt-1e text-center">
+      <%= render partial: "common_layouts/attendances/top_attendance", locals: { target: current_external_staff, attendance: @attendance, path: :external_staffs_attendance_path } %>
+    </div>
+  
+    <div class="mt-1e text-center overflow-auto">
+      <%= render partial: "external_staffs/matters/partial/construction_schedule",
+                 locals: {construction_schedules: @construction_schedules_for_today } %>
+    </div>
   </div>
   
   <!--▼--schedule--▼-->
-  <%= render 'shared/top_pages/schedule/top' %>
+  <%= render 'external_staffs/external_staffs/partial/construction_schedules_table' %>
   
   <!--▼--task--▼-->
   <%= render 'shared/top_pages/tasks/top' %>

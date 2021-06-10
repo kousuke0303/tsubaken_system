@@ -18,14 +18,14 @@
       <% construction_schedules.each_with_index do |construction, index| %>
         <tr>
           <td colspan="3">
-            <%= link_to employees_matter_path(construction.matter) do %>
+            <%= link_to external_staffs_matter_path(construction.matter) do %>
               <%= construction.matter.title %>
             <% end %>
           </td>
           <td rowspan="2" style="border-bottom: 1px solid black">
             <% if construction.construction_schedule_materials.present? %>
               <% construction.construction_schedule_materials.each do |construction_schedule_material| %>
-                <%= content_tag(:div, "#{Material.find(construction_schedule_material.material_id).name}") %>
+                <%= content_tag(:div, "#{Material.find(construction_schedule_material.material_id).name}", class: "text-left") %>
               <% end %>
             <% end %>
           </td>

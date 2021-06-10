@@ -1,4 +1,4 @@
-class ExternalStaffs::TasksController < Employees::EmployeesController
+class ExternalStaffs::TasksController < ApplicationController
   before_action :authenticate_external_staff!
   before_action :set_task, except: [:new, :create]
   
@@ -93,5 +93,9 @@ class ExternalStaffs::TasksController < Employees::EmployeesController
       alert_tasks
       set_my_tasks
       set_notifications
+    end
+    
+    def set_task
+      @task = Task.find(params[:id])
     end
 end

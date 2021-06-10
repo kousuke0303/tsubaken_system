@@ -1,6 +1,6 @@
 
 * {
-  box-sizing: inherit  
+  box-sizing: inherit;
 }
 
 html {
@@ -96,9 +96,9 @@ $color-bg: #eae9e9;
   line-height: 1.5;
   margin: 0;
   min-height: 100%;
-  .top-bg {
+   .top-bg {
     margin-top: -1em;
-  }
+   }
   .flash-wrapper {
     padding: 0;
   }
@@ -119,8 +119,8 @@ $color-bg: #eae9e9;
 }
 
 .login-content {
-  height: 88Vh;
-  background-image: url(/assets/images/login_background.jpeg);
+  height: 100Vh;
+  background-image: url(/assets/images/login-image.png);
   background-size: cover;
   background-position: center;
 }
@@ -327,3 +327,4 @@ $color-bg: #eae9e9;
     display: none;
   }
 }
+

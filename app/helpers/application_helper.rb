@@ -3,15 +3,6 @@ require 'employees_helper.rb'
 module ApplicationHelper
   include EmployeesHelper
   
-  # def login_user
-  #   return current_admin if current_admin
-  #   return current_manager if current_manager 
-  #   return current_staff if current_staff 
-  #   return current_supplier_manager if current_supplier_manager 
-  #   return current_external_staff if current_external_staff 
-  #   return current_client if current_client
-  # end
-  
   def admin_name(id)
     Admin.find(id).name
   end
@@ -45,7 +36,7 @@ module ApplicationHelper
       elsif @staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #{@staff.label_color.color_code}")
       elsif @supplier_manager
-        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #343a40")
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #17a2b8")
       elsif @external_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layout_for_edit", style: "background: #e4c35e")
       end
@@ -64,6 +55,8 @@ module ApplicationHelper
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #a486d4")
       elsif current_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #{current_staff.label_color.color_code}")
+      elsif current_supplier_manager
+        content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #17a2b8")
       elsif current_external_staff
         content_tag(:div, login_user.name[0, 1], class: "default_avator_layoput_for_sidebar", style: "background: #e4c35e")
       end
@@ -135,17 +128,6 @@ module ApplicationHelper
     block_2 = post_code[3..6]
     return "〒" + block_1 + "-" + block_2
   end
-  
-  # def mobile_phone_display(phone_number)
-  #   if phone_number.size == 11
-  #     block_1 = phone_number[0..2]
-  #     block_2 = phone_number[3..6]
-  #     block_3 = phone_number[7..10]
-  #     return block_1 + "-" + block_2 + "-" + block_3
-  #   else
-  #     return phone_number
-  #   end
-  # end
   
   def phone_formatted(phone_number)
     if phone_number.present?

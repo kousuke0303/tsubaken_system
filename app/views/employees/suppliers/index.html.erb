@@ -11,7 +11,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table tr-bold">
+    <table class="table table-bordered text-nowrap clients-table">
       <tr>
         <th>ログイン</th>
         <th>名前</th>
@@ -22,9 +22,9 @@
         <th>代表者</th>
       </tr>
       <% @suppliers.each do |supplier| %>
-        <tr>
+        <tr class="tr-link" data-link="<%= employees_supplier_path(supplier) %>">
           <td class="text-center"><%= supplier.avaliable_disp %></td>
-          <td><%= link_to supplier.name, employees_supplier_path(supplier) %></td>
+          <td><%= supplier.name %></td>
           <td>
             <% if supplier.industries %>
               <% supplier.industries.pluck(:name).each do |name| %>
@@ -49,3 +49,5 @@
     </table>
   </div>
 </div>
+
+<%= javascript_include_tag "tr_link.js" %>

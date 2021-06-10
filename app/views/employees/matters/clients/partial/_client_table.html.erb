@@ -1,18 +1,62 @@
-<div class="table-responsive">
-  <table class="table table-bordered text-nowrap mt-5">
-    <tr>
-      <th style="width: 8em;">氏名</th>
-      <td><%= @client.name %></td>
-      <th>フリガナ</th>
-      <td><%= @client.kana %></td>
-      <th>連絡先１</th>
-      <td><%= phone_formatted(@client.phone_1) %></td>
-    </tr>
-    <tr>
-      <th>住所</th>
-      <td colspan="3"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
-      <th>連絡先２</th>
-      <td><%= phone_formatted(@client.phone_2) %></td>
-    </tr>
-  </table>
+<div class="pc_type">
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap mt-5">
+      <tr>
+        <th style="width: 8em;">氏名</th>
+        <td><%= @client.name %></td>
+        <th>フリガナ</th>
+        <td><%= @client.kana %></td>
+        <th>連絡先１</th>
+        <td><%= phone_formatted(@client.phone_1) %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td colspan="3"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></td>
+        <th>連絡先２</th>
+        <td><%= phone_formatted(@client.phone_2) %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="mobile_type">
+  <button type="button" id="tableCollapse" class="navbar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="table-responsive responsive_table_wrapper">
+    <nav class="responsive_table_sidebar text-nowrap active">
+      <ul class="components">
+        <li>お名前</li>
+        <li>フリガナ</li>
+        <li>郵便番号</li>
+        <li>ご住所</li>
+        <li>TEL①</li>
+        <li>TEL②</li>
+      </ul>
+    </nav>
+    
+    <div class="table_content text-nowrap">
+      <div class="content"><%= @client.name %></div>
+      <div class="content"><%= @client.kana %></div>
+      <div class="content"><%= postal_code_display(@client.postal_code) if @client.postal_code.present? %></div>
+      <div class="content"><%= @client.prefecture_code %><%= @client.address_city %><%= @client.address_street %></div> 
+      <div class="content">
+        <%= phone_formatted(@client.phone_1) %>
+      </div>
+      <div class="content">
+        <%= phone_formatted(@client.phone_2) %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $("#tableCollapse").on("click", function(){
+      $(".responsive_table_sidebar").toggleClass("active");
+      $("#tableCollapse").toggleClass("active");
+    });
+  </script>
+  
 </div>

@@ -4,6 +4,8 @@ class ConstructionSchedule < ApplicationRecord
   
   belongs_to :matter
   belongs_to :supplier, optional: true
+  belongs_to :member_code, optional: true
+  
   has_many :construction_schedule_materials, dependent: :destroy
   has_many :materials, through: :construction_schedule_materials
   has_many :construction_schedule_images, dependent: :destroy

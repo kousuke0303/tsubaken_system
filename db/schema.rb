@@ -161,9 +161,11 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.string "matter_id"
     t.boolean "disclose", default: true, null: false
     t.bigint "supplier_id"
+    t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_construction_schedules_on_matter_id"
+    t.index ["member_code_id"], name: "index_construction_schedules_on_member_code_id"
     t.index ["supplier_id"], name: "index_construction_schedules_on_supplier_id"
   end
 
@@ -713,6 +715,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
   add_foreign_key "construction_schedule_images", "images"
   add_foreign_key "construction_schedule_materials", "construction_schedules"
   add_foreign_key "construction_schedule_materials", "materials"
+  add_foreign_key "construction_schedules", "member_codes"
   add_foreign_key "construction_schedules", "suppliers"
   add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_details", "categories"

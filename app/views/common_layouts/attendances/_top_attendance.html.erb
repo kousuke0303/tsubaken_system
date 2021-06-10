@@ -5,20 +5,26 @@
 
 <!--出退勤ボタン-->
 <% if attendance.started_at.nil? %>
-  <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-primary btn-attendance" do %>
-    <% if target == current_manager || current_staff %>
+  <% if target == current_manager || current_staff %>
+    <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-primary btn-attendance" do %>
       出勤
-    <% elsif target == current_external_staff %>
+    <% end %>
+  <% elsif target == current_external_staff %>
+    <p>おはようございます。本日もよろしくお願いいたします。</p>
+    <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-primary btn-attendance" do %>
       本日の作業開始
     <% end %>
   <% end %>
   
 <% elsif attendance.finished_at.nil? %>
-  <p class="mb-0">本日の出勤時間：<span><%= attendance.started_at.strftime("%H時%M分") %></span></p>
-  <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-danger btn-attendance" do %>
-    <% if target == current_manager || current_staff %>
+  <% if target == current_manager || current_staff %>
+    <p class="mb-0">本日の出勤時間：<span><%= attendance.started_at.strftime("%H時%M分") %></span></p>
+    <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-danger btn-attendance" do %>
       退勤
-    <% elsif target == current_external_staff %>
+    <% end %>
+  <% elsif target == current_external_staff %>
+    <p class="mb-0">本日の作業開始時間：<span><%= attendance.started_at.strftime("%H時%M分") %></span></p>
+    <%= link_to send(path, id: attendance.id, page: "top"), method: :patch, class: "btn btn-danger btn-attendance" do %>
       本日の作業終了
     <% end %>
   <% end %>

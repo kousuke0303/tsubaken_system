@@ -1,7 +1,6 @@
-class ExternalStaffs::MattersController < Employees::EmployeesController
+class ExternalStaffs::MattersController < ApplicationController
   before_action :authenticate_external_staff!
   before_action :set_matter, except: :index
-  before_action ->{set_menbers_code_for(@matter)}, only: :show
   
   def index
     @matters = Matter.joins(:member_codes).where(member_codes: { id: login_user.member_code.id })
@@ -42,6 +41,10 @@ class ExternalStaffs::MattersController < Employees::EmployeesController
     def set_matter_detail_valiable
       @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
       @suppliers = @matter.suppliers
+    end
+    
+    def set_matter
+      @matter = Matter.find(params[:id])
     end
 
 end

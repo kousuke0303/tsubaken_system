@@ -1,0 +1,2 @@
+module SupplierManagers::SuppliersHelper
+end

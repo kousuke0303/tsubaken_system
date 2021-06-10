@@ -21,6 +21,7 @@ class MemberCode < ApplicationRecord
   has_one :sales_status
   has_one :sales_status_editor
   has_one :task
+  has_one :construction_schedule, dependent: :destroy
   
   scope :sort_auth, -> { order(:external_staff_id, :staff_id, :manager_id, :admin_id) }
   
