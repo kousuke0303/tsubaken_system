@@ -19,6 +19,14 @@ module ApplicationHelper
     ExternalStaff.find(id).name
   end
   
+  def own_staff?
+    if current_admin || current_manager || current_staff
+      true
+    else
+      false
+    end
+  end
+  
   # ---------------------------------------------------------
       # AVATOR
   # ---------------------------------------------------------

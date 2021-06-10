@@ -4,7 +4,7 @@ class SupplierManagers::MattersController < ApplicationController
   before_action :set_supplier
   
   def index
-    @matters = @supplier.matters
+    @matters = current_supplier_manager.matters
     # 進行状況での絞り込みがあった場合
     if params[:status] && params[:status] == "not_started"
       @matters = @matters.where(status: "not_started")
@@ -26,6 +26,19 @@ class SupplierManagers::MattersController < ApplicationController
     @construction_schedules = @construction_schedules.order_reference_date
   end
   
+  def edit
+    @supplier = Supplier.find(params[:supplier_id])
+    @supplier_staff_codes_ids = @supplier.external_staffs.joins(:member_code)
+                                                         .select('external_staffs.*, member_codes.id AS member_code_id')
+  end
+  
+  def update
+    if @matter.update(matter_params)
+      flash[:success] = "案件情報を更新しました"
+      redirect_to supplier_managers_matter_path(@matter)
+    end
+  end
+  
   def registor_started_on
     @construction_schedule = ConstructionSchedule.find(params[:construction_schedule_id])
     @construction_schedule.update(started_on: Date.current)
@@ -39,6 +52,10 @@ class SupplierManagers::MattersController < ApplicationController
   end
   
   private
+    def matter_params
+      params.require(:matter).permit( member_code_ids: [] )
+    end
+  
     def set_matter_detail_valiable
       @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
       @suppliers = @matter.suppliers
@@ -49,7 +66,7 @@ class SupplierManagers::MattersController < ApplicationController
     end
     
     def set_supplier
-      @supplier = @supplier_manager.supplier
+      @supplier = current_supplier_manager.supplier
     end
 
 end

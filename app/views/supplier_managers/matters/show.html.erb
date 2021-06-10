@@ -1,11 +1,11 @@
 <div class="col-12">
 
   <div class="pc_type">
-    <%= render 'external_staffs/matters/show/pc' %>
+    <%= render 'supplier_managers/matters/show/pc' %>
   </div>
 
   <div class="mobile_type">
-    <%= render 'external_staffs/matters/show/mobile' %>
+    <%= render 'supplier_managers/matters/show/mobile' %>
   </div>
   
   <div class="mt-1e">
@@ -23,7 +23,7 @@
         <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
           <div class="card-body">
             <div class="construction-schedules-index overflow-auto">
-              <%= render partial: "external_staffs/matters/partial/construction_schedule",
+              <%= render partial: "supplier_managers/matters/partial/construction_schedule",
                          locals: {construction_schedules: @construction_schedules} %>
             </div>
           </div>

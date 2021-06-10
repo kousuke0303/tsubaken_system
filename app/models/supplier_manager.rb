@@ -66,6 +66,10 @@ class SupplierManager < ApplicationRecord
      # INSTANCE_METHOD
   #---------------------------------------------------
   
+  def matters
+    self.supplier.matters
+  end
+  
   def tasks
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
