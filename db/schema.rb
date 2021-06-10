@@ -538,7 +538,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.boolean "default", default: false
     t.integer "image_id"
     t.integer "message_id"
-    t.string "matter_id", null: false
+    t.string "matter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_reports_on_matter_id"

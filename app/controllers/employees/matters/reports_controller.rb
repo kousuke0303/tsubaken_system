@@ -17,6 +17,7 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
   def new
     @report = @matter.reports.new
     @image = Image.find(params[:image_id])
+    @reports = Report.where(default: true)
   end
 
   def create
@@ -25,8 +26,9 @@ class Employees::Matters::ReportsController < Employees::EmployeesController
     set_reports_of_matter
   end
 
-  def edit
+  def edit    
     @image = @report.image
+    @reports = Report.where(default: true)
   end
 
   def update

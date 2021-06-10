@@ -34,6 +34,16 @@ puts "CREATE! DEPARTMENT"
   require "./db/seeds/default_task.rb"
 
 # --------------------------------------------------
+    # 報告書デフォルト
+# --------------------------------------------------
+
+3.times do |n|
+  Report.create!(title: "デフォルト報告書#{ n + 1 }", default: true)
+end
+
+puts "CREATE! DEFAULT REPORT"
+
+# --------------------------------------------------
     # USER
 # --------------------------------------------------
 Admin.create!(name: "管理者", login_id: "AD-admin", password: "password", password_confirmation: "password")

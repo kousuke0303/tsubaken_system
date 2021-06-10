@@ -3,7 +3,7 @@ class CreateReportCovers < ActiveRecord::Migration[5.2]
     create_table :report_covers do |t|
       t.string :title,                null: false
       t.string :matter_id,            null: false
-      t.string :publisher_id,         null: false
+      t.string :publisher_id,         null: false      
       t.integer :img_1_id
       t.integer :img_2_id
       t.integer :img_3_id
