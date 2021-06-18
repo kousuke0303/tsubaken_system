@@ -28,7 +28,7 @@ class Span
     self.span = 6
   end
   
-  def construction_schedule_calendar(reference_date)
+  def simple_calendar(reference_date)
     self.first_day = reference_date.beginning_of_month - 7.days
     self.last_day = reference_date.end_of_month + 7.days
   end

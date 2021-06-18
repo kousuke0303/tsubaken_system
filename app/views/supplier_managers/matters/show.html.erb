@@ -21,7 +21,9 @@
         </div>
         
         <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
+          
           <div class="card-body">
+            <%= link_to "CALENDAR", calendar_supplier_managers_matter_path(@matter), class: "btn btn-info mb-1e", remote: true %>
             <div class="construction-schedules-index overflow-auto">
               <%= render partial: "supplier_managers/matters/partial/construction_schedule",
                          locals: {construction_schedules: @construction_schedules} %>

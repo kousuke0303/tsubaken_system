@@ -8,6 +8,7 @@
     <div class="modal-body">
       <%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @construction_schedules) do |date, schedules| %>
         <span class="pl-10"><%= date.day %></span>
+        
         <% @schedule_date_ids = schedules.pluck(:id) %>
         <% @construction_schedules.each do |construction_schedule| %>
           
@@ -36,11 +37,19 @@
   <% @construction_schedules.each do |schedule| %>
     $('.<%= schedule.id %>').on('click', function(){
       var day = $(this).parent().attr('id');
-      $.ajax({
-        type: "GET",
-        url: "<%= employees_matter_construction_schedule_path(@matter, schedule.id) %>",
-        data: {day: day}
-      });
+      <% unless current_supplier_manager %>
+        $.ajax({
+          type: "GET",
+          url: "<%= employees_matter_construction_schedule_path(@matter, schedule.id) %>",
+          data: {day: day}
+        });
+      <% else %>
+        $.ajax({
+          type: "GET",
+          url: "<%= employees_matter_construction_schedule_path(@matter, schedule.id) %>",
+          data: {day: day}
+        });
+      <% end %>
     });
   <% end %>
 </script>

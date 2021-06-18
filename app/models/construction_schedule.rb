@@ -5,7 +5,8 @@ class ConstructionSchedule < ApplicationRecord
   after_find :set_start_date
   after_find :set_end_date
   after_find :set_report_count
-  after_commit :set_member_code
+  after_commit :set_member_code, on: :update
+  after_commit :create_notification, on: :create
   
   belongs_to :matter
   belongs_to :supplier, optional: true
@@ -32,6 +33,15 @@ class ConstructionSchedule < ApplicationRecord
   scope :order_start_date, ->{ order(:start_date)}
   scope :today_work, -> { where('scheduled_finished_on >= ? and ? >= scheduled_started_on', Date.current, Date.current)}
   scope :before_yesterday_work, -> { where('? >= scheduled_started_on', Date.current.yesterday)}
+  
+  # notification用変数
+  attr_accessor :sender #member_code_id
+  attr_accessor :before_member_code
+  attr_accessor :before_scheduled_date
+  attr_accessor :before_scheduled_start_time
+  attr_accessor :before_scheduled_end_time
+  attr_accessor :before_title
+  
   
   # calendar
   def set_start_date
@@ -112,21 +122,52 @@ class ConstructionSchedule < ApplicationRecord
     end
     
     # calendar
-  def set_start_date
-    if self.started_on.present?
-      self.update(start_date: self.started_on)
-    elsif self.scheduled_started_on.present?
-      self.update(start_date: self.scheduled_started_on)
+    def set_start_date
+      if self.started_on.present?
+        self.update(start_date: self.started_on)
+      elsif self.scheduled_started_on.present?
+        self.update(start_date: self.scheduled_started_on)
+      end
     end
-  end
-  
-  def set_end_date
-    if self.finished_on.present?
-      self.update(end_date: self.finished_on)
-    elsif self.scheduled_finished_on.present?
-      self.update(end_date: self.scheduled_finished_on)
+    
+    def set_end_date
+      if self.finished_on.present?
+        self.update(end_date: self.finished_on)
+      elsif self.scheduled_finished_on.present?
+        self.update(end_date: self.scheduled_finished_on)
+      end
     end
-  end
+    
+    def member_name_update
+      member_code = MemberCode.find(self.member_code_id)
+      self.member_name = member_code.member_name_from_member_code
+    end
+    
+    def create_notification
+      set_member_code
+      if self.member_code_id.present?
+        Notification.create(category: 4, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id)
+      end
+    end
+    
+    def update_notification
+      if self.before_member_code.present?
+        Notification.create(category: 4, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id, schedule_id: self.id)
+        Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code, schedule_id: self.id,
+                            before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
+                            before_value_3: self.before_scheduled_end_time, before_value_4: self.before_title)
+      elsif self.before_scheduled_date != nil || self.before_scheduled_start_time != nil || self.before_scheduled_end_time != nil
+        Notification.create(category: 4, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id, schedule_id: self.id,
+                            before_value_1: self.before_scheduled_date, before_value_2: self.scheduled_start_time,
+                            before_value_3: self.before_scheduled_end_time)
+      end
+    end
+    
+    def destroy_notification
+      Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
+                          before_value_1: self.scheduled_date, before_value_2: self.scheduled_start_time,
+                          before_value_3: self.scheduled_end_time, before_value_4: self.title)
+    end
   
     #----------------------------------------------
       #VALIDATION_METHOD

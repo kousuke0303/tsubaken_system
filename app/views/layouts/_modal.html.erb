@@ -217,6 +217,8 @@
 
 <!--共通-->
 
+<div id="modal-container" class="modal fade" role="dialog"></div>
+
 <% if controller_name == "static_pages" && action_name == "top" %>
   <div id="inquiry-new" class="modal fade" role="dialog"></div>
 <% end %>
@@ -244,6 +246,8 @@
   <% end %>
 <% end %>
 
-
-<div id="modal-container" class="modal fade" role="dialog"></div>
-  
+<% if supplier_manager_signed_in? %>
+  <% if controller_name == "construction_schedules" && action_name == "index" %>
+    <div id="schedule-detail" class="modal fade" role="dialog"></div>
+  <% end %>
+<% end %>

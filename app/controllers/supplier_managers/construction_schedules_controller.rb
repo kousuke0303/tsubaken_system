@@ -4,14 +4,20 @@ class SupplierManagers::ConstructionSchedulesController < ApplicationController
   before_action :set_construction_schedule, except: :index
   
   def index
-    @type = "construction_schedule"
-    @object_day = Date.current
-    @ganttchart_span = Span.new
-    @ganttchart_span.construction_schedule_calendar(@object_day)
-    month_construction_schedules(@ganttchart_span.first_day, @ganttchart_span.last_day)
+    @calendar_type = "vendors_schedule"
+    if params[:start_date].present?
+      @object_day = params[:start_date].to_date
+    else
+      @object_day = Date.current
+    end
+    @calendar_span = Span.new
+    @calendar_span.simple_calendar(@object_day)
+    construction_schedules_for_calendar(@calendar_span.first_day, @calendar_span.last_day)
   end
   
   def show
+    date = params[:day].to_date
+    @construction_report = @construction_schedule.construction_reports.find_by(work_date: date)
   end
   
   def edit
@@ -40,11 +46,4 @@ class SupplierManagers::ConstructionSchedulesController < ApplicationController
       params.require(:construction_schedule).permit(:member_code_id)
     end
     
-    def month_construction_schedules(first_day, last_day)
-      construction_schedules = current_supplier_manager.supplier.construction_schedules
-      @target_construction_schedules = construction_schedules.where(started_on: first_day..last_day)
-                               .or(construction_schedules.where(finished_on: first_day..last_day))
-                               .or(construction_schedules.where(scheduled_started_on: first_day..last_day))
-                               .or(construction_schedules.where(scheduled_finished_on: first_day..last_day))
-    end
 end

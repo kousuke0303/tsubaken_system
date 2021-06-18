@@ -143,4 +143,16 @@ module ConstructionScheduleDecorator
     end
   end
   
+  def title_disp
+    if current_supplier_manager
+      content_tag(:a, href: supplier_managers_matter_path(self.matter)) do
+        concat self.matter.title
+      end
+    else
+      content_tag(:a, href: employees_matter_path(self.matter)) do
+        concat self.matter.title
+      end
+    end
+  end
+  
 end

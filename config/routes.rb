@@ -135,7 +135,9 @@ Rails.application.routes.draw do
   end
   
   namespace :supplier_managers do
-    resources :matters, only: [:index, :show, :edit, :update] 
+    resources :matters, except: [:create] do
+      get :calendar, on: :member
+    end
     resources :suppliers, only: :update
     resources :construction_schedules, only: [:index, :show, :edit, :update] do
       member do
@@ -478,6 +480,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :construction_schedules
   end
   
   

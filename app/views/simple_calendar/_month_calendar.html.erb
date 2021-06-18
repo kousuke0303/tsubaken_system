@@ -1,4 +1,4 @@
-<% if @type == "construction_schedule" %>
+<% if @calendar_type == "vendors_schedule" %>
   <div id="construction_schedule_calendar">
     <div class="simple-calendar">
       <div class="calendar-heading">
@@ -19,41 +19,43 @@
         </div>
       </div>
       
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <% date_range.slice(0, 7).each do |day| %>
-              <% if t('date.abbr_day_names')[day.wday] == "土" %>
-                <th><span class="saturday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
-              <% elsif t('date.abbr_day_names')[day.wday] == "日" %>
-                <th><span class="sunday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
-              <% else %>
-                <th><span class="normal_week"><%= t('date.abbr_day_names')[day.wday] %></span></th>
-              <% end %>
-            <% end %>
-          </tr>
-        </thead>
-    
-        <tbody>
-          <% date_range.each_slice(7) do |week| %>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <% week.each do |day| %>
-                <%= content_tag :td, id: "#{day}", class: calendar.td_classes_for(day) do %>
-                  <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
-                    <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
-                  <% else %>
-                    <% passed_block.call day, sorted_events.fetch(day, []) %>
-                  <% end %>
+              <% date_range.slice(0, 7).each do |day| %>
+                <% if t('date.abbr_day_names')[day.wday] == "土" %>
+                  <th><span class="saturday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
+                <% elsif t('date.abbr_day_names')[day.wday] == "日" %>
+                  <th><span class="sunday_disp"><%= t('date.abbr_day_names')[day.wday] %></span></th>
+                <% else %>
+                  <th><span class="normal_week"><%= t('date.abbr_day_names')[day.wday] %></span></th>
                 <% end %>
               <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+      
+          <tbody>
+            <% date_range.each_slice(7) do |week| %>
+              <tr>
+                <% week.each do |day| %>
+                  <%= content_tag :td, id: "#{day}", class: calendar.td_classes_for(day) do %>
+                    <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                      <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+                    <% else %>
+                      <% passed_block.call day, sorted_events.fetch(day, []) %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-<% elsif @type == "construction_schedule_for_matter" %>
+<% elsif @calendar_type == "construction_schedule_for_matter" %>
 
   <div id="construction_schedule_calendar">
     <div class="simple-calendar">

@@ -9,9 +9,11 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
   
   def create
     @construction_schedule = @matter.construction_schedules.new(construction_schedule_params)
+    @construction_schedule.sender = login_user.member_code.id
     if @construction_schedule.save(context: :normal_commit)
       @responce = "success"
-      @construction_schedules = @matter.construction_schedules.order_start_date
+      @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
+      @construction_schedules = @matter.construction_schedules.order_start_date.includes(:materials, :supplier)
     else
       @responce = "failure"
     end

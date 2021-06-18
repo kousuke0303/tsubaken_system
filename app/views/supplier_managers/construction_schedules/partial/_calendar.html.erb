@@ -1,16 +1,27 @@
-<%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @target_construction_schedules) do |date, schedules| %>
+<%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @construction_schedules) do |date, schedules| %>
   <span class="pl-10"><%= date.day %></span>
-  
-  <% schedules.each do |schedule| %>
-    <% ganttchart_for_constrcution(schedule) %>
-    <div class="ganttchart-construction mt-5 <%= schedule.id %>">
-      <div class="status-<%= schedule.status %>"></div>
-    </div>
+  <% @schedule_date_ids = schedules.pluck(:id) %>
+  <% @construction_schedules.each do |construction_schedule| %>
+          
+    <% if @schedule_date_ids.include?(construction_schedule.id) %>
+      <div class="ganttchart-construction mt-5 <%= construction_schedule.id %>">
+        <div class="status-<%= construction_schedule.status %>">
+          <% if construction_schedule.start_date == date %>
+            <span class="ml-10"><%= construction_schedule.title[0..6] %></span>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="ganttchart-construction mt-5">
+        <div style="height: 1.5em;"></div>
+      </div>
+    <% end %>
+        
   <% end %>
 <% end %>
 
 <script>
-  <% @target_construction_schedules.each do |schedule| %>
+  <% @construction_schedules.each do |schedule| %>
     $('.<%= schedule.id %>').on('click', function(){
       var day = $(this).parent().attr('id');
       $.ajax({

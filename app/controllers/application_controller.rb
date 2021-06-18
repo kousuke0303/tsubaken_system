@@ -369,12 +369,19 @@ class ApplicationController < ActionController::Base
     
   def set_notifications
     @notifications = login_user.recieve_notifications
-    @creation_notification_for_schedule = @notifications.creation_notification_for_schedule
-    @updation_notification_for_schedule = @notifications.updation_notification_for_schedule
-    @delete_notification_for_schedule = @notifications.delete_notification_for_schedule
-    @creation_notification_for_task = @notifications.creation_notification_for_task
-    @updation_notification_for_task = @notifications.updation_notification_for_task
-    @delete_notification_for_task = @notifications.delete_notification_for_task
+    unless current_supplier_manager || current_external_staff
+      @creation_notification_for_schedule = @notifications.creation_notification_for_schedule
+      @updation_notification_for_schedule = @notifications.updation_notification_for_schedule
+      @delete_notification_for_schedule = @notifications.delete_notification_for_schedule
+      @creation_notification_for_task = @notifications.creation_notification_for_task
+      @updation_notification_for_task = @notifications.updation_notification_for_task
+      @delete_notification_for_task = @notifications.delete_notification_for_task
+    end
+    if current_external_staff || current_supplier_manager
+      @creation_notification_for_construction_schedule = @notifications.creation_notification_for_construction_schedule
+      @updation_notification_for_construction_schedule = @notifications.updation_notification_for_construction_schedule
+      @delete_notification_for_construction_schedule = @notifications.delete_notification_for_construction_schedule
+    end
     @creation_notification_for_report = @notifications.creation_notification_for_report
   end
   
@@ -397,6 +404,18 @@ class ApplicationController < ActionController::Base
       @construction_schedules_for_today = ConstructionSchedule.includes(:matter, :materials).where('construction_schedules.end_date >= ? and ? >= construction_schedules.start_date', Date.current, Date.current)
                                                               .where(member_code_id: login_user.member_code.id)
     end
+  end
+  
+  def construction_schedules_for_calendar(first_day, last_day)
+    if current_supplier_manager
+      construction_schedules = current_supplier_manager.supplier.construction_schedules
+      @construction_schedules = construction_schedules.where(start_date: first_day..last_day).or(construction_schedules.where(end_date: first_day..last_day))
+    end
+  end
+  
+  def construction_schedules_for_matter_calender(matter, first_day, last_day)
+    construction_schedules = matter.construction_schedules
+    @construction_schedules = construction_schedules.where(start_date: first_day..last_day).or(construction_schedules.where(end_date: first_day..last_day))
   end
   
   #--------------------------------------------------------

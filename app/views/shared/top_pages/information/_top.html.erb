@@ -16,12 +16,18 @@
       <div id="construction_report_notification_list">
         <%= render 'shared/top_pages/information/notifications/report_notification_lists' %>
       </div>
-      <div id="schedule_notification_lists">
-        <%= render 'shared/top_pages/information/notifications/schedule_notification_lists' %>
-      </div>
-      <div id="task_notification_lists">
-        <%= render 'shared/top_pages/information/notifications/task_notification_lists' %>
-      </div>
+      <% unless current_external_staff || current_supplier_manager %>
+        <div id="schedule_notification_lists">
+          <%= render 'shared/top_pages/information/notifications/schedule_notification_lists' %>
+        </div>
+        <div id="task_notification_lists">
+          <%= render 'shared/top_pages/information/notifications/task_notification_lists' %>
+        </div>
+      <% else %>
+        <div id="construction_schedule_notification_lists">
+          <%= render 'shared/top_pages/information/notifications/construction_schedule_notification_lists' %>
+        </div>
+      <% end %>
     <% end %>
     
     <% unless @applicate_schedules || @notifications %>

@@ -510,7 +510,9 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "construction_report_id"
+    t.bigint "construction_schedule_id"
     t.index ["construction_report_id"], name: "index_notifications_on_construction_report_id"
+    t.index ["construction_schedule_id"], name: "index_notifications_on_construction_schedule_id"
     t.index ["schedule_id"], name: "index_notifications_on_schedule_id"
     t.index ["task_id"], name: "index_notifications_on_task_id"
   end
@@ -773,6 +775,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "member_codes", "supplier_managers"
   add_foreign_key "messages", "matters"
   add_foreign_key "notifications", "construction_reports"
+  add_foreign_key "notifications", "construction_schedules"
   add_foreign_key "notifications", "schedules"
   add_foreign_key "notifications", "tasks"
   add_foreign_key "plan_names", "label_colors"

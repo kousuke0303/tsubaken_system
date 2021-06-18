@@ -105,8 +105,15 @@ class Employees::MattersController < Employees::EmployeesController
   end
   
   def calendar
-    @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
-    @type = "construction_schedule_for_matter"
+    if params[:start_date].present?
+      @object_day = params[:start_date].to_date
+    else
+      @object_day = Date.current
+    end
+    @calendar_span = Span.new
+    @calendar_span.simple_calendar(@object_day)
+    construction_schedules_for_matter_calender(@matter, @calendar_span.first_day, @calendar_span.last_day)
+    @calendar_type = "construction_schedule_for_matter"
   end
 
   private

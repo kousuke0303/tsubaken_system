@@ -5,10 +5,6 @@ class Schedule < ApplicationRecord
   after_destroy :destroy_notification
   before_save :member_name_update
   
-  # belongs_to :admin, optional: true
-  # belongs_to :manager, optional: true
-  # belongs_to :staff, optional: true
-  # belongs_to :external_staff, optional: true
   belongs_to :sales_status, optional: true
   belongs_to :member_code
   
@@ -30,6 +26,7 @@ class Schedule < ApplicationRecord
   scope :origins, -> { where(schedule_id: nil)}
   scope :edit_applications, -> { where.not(schedule_id: nil)}
   
+  # notification用変数
   attr_accessor :sender #member_code_id
   attr_accessor :before_member_code
   attr_accessor :before_scheduled_date
