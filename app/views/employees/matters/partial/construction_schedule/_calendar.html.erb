@@ -1,0 +1,46 @@
+<div class="modal-dialog non-card-modal wide_modal">
+  <div id="schedule-detail" class="modal fade" role="dialog"></div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <%= @matter.title %>スケジュール
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @construction_schedules) do |date, schedules| %>
+        <span class="pl-10"><%= date.day %></span>
+        <% @schedule_date_ids = schedules.pluck(:id) %>
+        <% @construction_schedules.each do |construction_schedule| %>
+          
+          <% if @schedule_date_ids.include?(construction_schedule.id) %>
+            <div class="ganttchart-construction mt-5 <%= construction_schedule.id %>">
+              <div class="status-<%= construction_schedule.status %>">
+                <% if construction_schedule.start_date == date %>
+                  <%= construction_schedule.title[0..6] %>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="ganttchart-construction mt-5">
+              <div style="height: 1.5em;"></div>
+            </div>
+          <% end %>
+            
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+    
+
+<script>
+  <% @construction_schedules.each do |schedule| %>
+    $('.<%= schedule.id %>').on('click', function(){
+      var day = $(this).parent().attr('id');
+      $.ajax({
+        type: "GET",
+        url: "<%= employees_matter_construction_schedule_path(@matter, schedule.id) %>",
+        data: {day: day}
+      });
+    });
+  <% end %>
+</script>

@@ -1,0 +1,69 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content" id="construction_schedule_detail">
+    <div class="modal-header status-<%= @construction_schedule.status %>">
+      <h5>スケジュール詳細</h5>
+    </div>
+    
+    <div class="modal-body bg-white pa-2e">
+            
+      <div class="table-responsive">
+        <table class="table table-bordered common-table text-nowrap">
+          <tr>
+            <th>案件名</th>
+            <td><%= @construction_schedule.matter.title %></td>
+          </tr>
+          <tr>
+            <th>作業内容</th>
+            <td><%= @construction_schedule.title %></td>
+          </tr>
+          <tr>
+            <th>担当者</th>
+            <td><%= member_name_from_member_code_id(@construction_schedule.member_code_id) %></td>
+          </tr>
+        </table>
+      </div>
+      
+      <% if @construction_report.present? %>
+        <div class="table-responsive">
+          <table class="table table-bordered common-table">
+            <tr>
+              <th>報告</th>
+              <td><%= @construction_report.report_i18n%></td>
+            </tr>
+            <tr>
+              <th>備考</th>
+              <td><%= safe_join(@construction_report.memo.split("\n"),tag(:br)) %></td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
+      
+      <div class="col-12 text-center">
+        <button id="close_btn" class="btn btn-dark">閉じる</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  $('#close_btn').on('click', function(){
+    $('#schedule-detail').modal('hide');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $(document).on('show.bs.modal', '.modal', e => {
+      const $currentModal = $(e.currentTarget);
+      var zIndex = 1040 + (10 * $('.modal:visible').length);
+      $currentModal.css('z-index', zIndex);
+      setTimeout(function() {
+        $('.modal-backdrop')
+          .not('.modal-stack')
+          .css('z-index', zIndex - 1)
+          .addClass('modal-stack');
+      }, 0);
+    });
+  });
+</script>

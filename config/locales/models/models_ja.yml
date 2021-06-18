@@ -86,6 +86,9 @@ ja:
           scheduled_finished_on: 終了予定日
           started_on: 着工日
           finished_on: 完了日
+        construction_report:
+          start_time: 開始時間
+          end_time: 終了時間
         estimate_matter:
           title: 案件名
           status: 進行状況                              

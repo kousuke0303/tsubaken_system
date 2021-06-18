@@ -1,0 +1,14 @@
+<% if @creation_notification_for_report.present? %>
+  <p><i class="fas fa-exclamation-circle fa-purple"></i>
+    <% unless current_supplier_manager %> 
+      <%= link_to employees_construction_reports_path(type: "uncheck") do %>
+        <span>作業報告が<%= @creation_notification_for_report.count %>件あります</span>
+      <% end %>
+    <% end %>
+    <% if current_supplier_manager %>
+      <%= link_to supplier_managers_construction_reports_path(type: "uncheck") do %>
+        <span>作業報告が<%= @creation_notification_for_report.count %>件あります</span>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>

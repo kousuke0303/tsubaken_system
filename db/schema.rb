@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_092503) do
+ActiveRecord::Schema.define(version: 2021_06_17_114001) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,21 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.index ["login_id"], name: "index_clients_on_login_id", unique: true
   end
 
+  create_table "construction_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "work_date", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "report", default: 0
+    t.integer "reason", default: 0
+    t.text "memo"
+    t.boolean "admin_check", default: false
+    t.boolean "sm_check", default: false
+    t.bigint "construction_schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["construction_schedule_id"], name: "index_construction_reports_on_construction_schedule_id"
+  end
+
   create_table "construction_schedule_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "construction_schedule_id", null: false
     t.bigint "image_id"
@@ -158,7 +173,10 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.date "scheduled_finished_on"
     t.date "started_on"
     t.date "finished_on"
+    t.date "start_date"
+    t.date "end_date"
     t.string "matter_id"
+    t.boolean "report_count"
     t.boolean "disclose", default: true, null: false
     t.bigint "supplier_id"
     t.bigint "member_code_id"
@@ -491,6 +509,8 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
     t.bigint "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "construction_report_id"
+    t.index ["construction_report_id"], name: "index_notifications_on_construction_report_id"
     t.index ["schedule_id"], name: "index_notifications_on_schedule_id"
     t.index ["task_id"], name: "index_notifications_on_task_id"
   end
@@ -711,6 +731,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
   add_foreign_key "category_materials", "categories"
   add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
+  add_foreign_key "construction_reports", "construction_schedules"
   add_foreign_key "construction_schedule_images", "construction_schedules"
   add_foreign_key "construction_schedule_images", "images"
   add_foreign_key "construction_schedule_materials", "construction_schedules"
@@ -751,6 +772,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_092503) do
   add_foreign_key "member_codes", "staffs"
   add_foreign_key "member_codes", "supplier_managers"
   add_foreign_key "messages", "matters"
+  add_foreign_key "notifications", "construction_reports"
   add_foreign_key "notifications", "schedules"
   add_foreign_key "notifications", "tasks"
   add_foreign_key "plan_names", "label_colors"

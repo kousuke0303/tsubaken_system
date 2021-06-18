@@ -1,0 +1,45 @@
+<label class="form-control text-white" style="background:#787a7b;">日付</label>
+<span class="ml-1e"><%= Date.current.strftime("%-m月%-d日") %></span>
+
+<label class="form-control text-white" style="background:#787a7b;">担当者</label>
+<span class="ml-1e"><%= @construction_schedule.person_in_charge %></span>
+  
+<label class="form-control text-white" style="background:#787a7b;">延期理由</label>
+<% @reasons_hash.each do |reason| %>
+  <div class="form-check">
+    <%= f.radio_button :reason, reason[0], class: "report_check", required: true %>
+    <%= f.label ConstructionReport.reasons_i18n[reason[0]], class: "form-check-label"%>
+  </div>
+<% end %>
+
+<div>
+  <%= f.label "天候不良以外の場合は、こちらに理由をご記入ください" %>
+  <div class="FlexTextarea">
+  <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+    <%= f.text_area :memo, class: "FlexTextarea__textarea" %>
+  </div>
+</div>
+
+<script>
+  var checkedsum; //チェックが入っている個数
+   $('.report_check').on("click",function(){
+      checkedsum = $('.report_check:checked').length; //チェックが入っているチェックボックスの取得
+      if( checkedsum > 0 ){
+        $('.report_check').prop("required",false); //required属性の解除
+      }else{
+        $('.report_check').prop("required",true); //required属性の付与
+      }
+   });
+</script>
+
+<script>
+  function flexTextarea(el) {
+    const dummy = el.querySelector('.FlexTextarea__dummy')
+    el.querySelector('.FlexTextarea__textarea').addEventListener('input', e => {
+      dummy.textContent = e.target.value + '\u200b'
+    })
+  }
+  
+  document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
+</script>
+        

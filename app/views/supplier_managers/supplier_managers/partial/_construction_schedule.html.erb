@@ -1,0 +1,67 @@
+<div class="table-responsible">
+  <table class="table table-bordered text-nowrap table-column-type">
+    <tr>
+      <th rowspan="2" style="border-bottom: 1px solid black">報告</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">担当者</th>
+      <th>タイトル</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">材料</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">写真/詳細</th>
+      <th rowspan="2" style="border-bottom: 1px solid black">完了予定日</th>
+    </tr>
+    <tr>
+      <th style="border-bottom: 1px solid black">作業名称</th>
+    </tr>
+    <% construction_schedules.each_with_index do |construction, index| %>
+      <tr>
+        <td rowspan="2" style="border-bottom: 1px solid black">
+          <div><%= start_of_construction_btn(construction) %></div>
+          <div><%= postponement_of_work(construction) %></div>
+        </td>
+        <td rowspan="2" style="border-bottom: 1px solid black"><%= construction.person_in_charge if construction.member_code %></td>
+        <td>
+          <%= link_to supplier_managers_matter_path(construction.matter) do %>
+            <%= construction.matter.title %>
+          <% end %>
+        </td>
+        
+        <td rowspan="2" style="border-bottom: 1px solid black">
+          <% if construction.materials.present? %>
+            <% construction.materials.each do |material| %>
+              <%= content_tag(:div, "#{material.name}", class: "text-left") %>
+            <% end %>
+          <% end %>
+        </td>
+        <td rowspan="2" class="text-center" style="border-bottom: 1px solid black">
+          <div>
+            <%= link_to "表示", picture_supplier_managers_construction_schedule_path(construction), remote: true, class: "btn btn-dark" %>
+          </div>
+        </td>
+        <td rowspan="2" style="border-bottom: 1px solid black" class="text-center"><%= construction.scheduled_finished_on_disp %></td>
+      </tr>
+      <tr>
+        <td style="border-bottom: 1px solid black"><%= construction.title %></td>
+      </tr>
+    <% end %>
+  </table>
+  
+</div>
+
+<script>
+  <% construction_schedules.each do |construction| %>
+    $('#started_on_for_<%= construction.id %>').on('click', function(){
+      $.ajax({
+        type: "PATCH",
+        url: "<%= external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
+        data: { object: "started_on"}
+      });
+    });
+    
+    $('#finished_on_for_<%= construction.id %>').on('click', function(){
+      $.ajax({
+        type: "PATCH",
+        url: "<%=external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
+        data: { object: "finished_on"}
+      }); 
+    });
+  <% end %>
+</script>

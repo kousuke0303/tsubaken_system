@@ -42,6 +42,8 @@
   color: white!important;
   font-size: 1.3em;
   margin-top: 1em;
+  background-image: url(/assets/images/f1408_0.png);
+  background-repeat: no-repeat;
 }
 
 .attendance_tab {
@@ -80,7 +82,44 @@
   color: #28a745;
 }
 
+.fa-yellow {
+  color: #ffc107;
+}
+
+.fa-purple {
+  color: #6f42c1;
+}
+
 .btn-attendance {
   width: 10em;
   margin-top: 0.5em;
 }
+
+
+.top-header h4 {
+  font-family: cursive;
+  color: white;
+  padding: 0.3em 2em;
+}
+
+.top-header .alert-title {
+  background-image: url(/assets/images/alert_header.png);
+  background-repeat: no-repeat;
+}
+
+.top-header .info-title {
+  background-image: url(/assets/images/info_header.png);
+  background-repeat: no-repeat;
+}
+
+.top-header a { color: #343a40;}
+.top-header p { margin-bottom: 0!important;}
+
+.info-container {
+  margin: auto 2em;
+  padding: 1em;
+  border: 2px solid black;
+}
+
+#top-page .nav-link { display: inline; }
+#top-page section { margin-top: 2em; }

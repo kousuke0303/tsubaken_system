@@ -7,8 +7,12 @@
     <div class="modal-body text-center bg-white">
       
       <div class="content_container">
-        <h5><i class="fas fa-pencil-alt"> 作業内容</i></h5>
-        <p><%= @construction_schedule.content_disp %></p>
+        <% if @construction_schedule.content.present? %>
+          <h5><i class="fas fa-pencil-alt"> 作業内容</i></h5>
+          <div style="border: 2px solid #343a40;" class="pa-1e">
+            <%= safe_join(@construction_schedule.content.split("\n"),tag(:br)) %>
+          </div>
+        <% end %>
       </div>
       
       <% if @construction_schedule.images.present? %>

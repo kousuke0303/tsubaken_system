@@ -23,33 +23,31 @@ class MemberCode < ApplicationRecord
   has_one :task
   has_one :construction_schedule, dependent: :destroy
   
-  scope :sort_auth, -> { order(:external_staff_id, :staff_id, :manager_id, :admin_id) }
+  scope :sort_auth, -> { order(:staff_id, :manager_id, :admin_id) }
   
   # 利用できるメンバーの全コード
   def self.all_member_code_of_avaliable
     remove_ids = []
     if Manager.where(avaliable: false).present?
-      remove_manager_codes = MemberCode.includes(:manager).where(managers: { avaliable: false })
-      remove_manager_code_ids = remove_manager_codes.ids
+      remove_manager_ids = Manager.where(avaliable: false).ids
+      remove_manager_code_ids = MemberCode.where(manager_id: remove_manager_ids).ids
       remove_ids.push(remove_manager_code_ids).flatten
     end
     if Staff.where(avaliable: false).present? 
-      remove_staff_codes = MemberCode.joins(:staff).where(staffs: { avaliable: false })
-      remove_staff_code_ids = remove_staff_codes.ids
+      remove_staff_ids = Staff.where(avaliable: false).ids
+      remove_staff_code_ids = MemberCode.where(staff_id: remove_staff_ids).ids
       remove_ids.push(remove_staff_code_ids).flatten
     end
-    if ExternalStaff.where(avaliable: false).present? 
-      remove_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: { avaliable: false })
-      remove_external_staff_code_ids = remove_external_staff_codes.ids
-      remove_ids.push(remove_external_staff_code_ids).flatten
-    end
+  
     unless remove_ids.empty?
       remove_ids = remove_ids.flatten
       MemberCode.left_joins(:admin, :manager, :staff, :external_staff)
                 .where.not(id: remove_ids)
                 .sort_auth
     else
-      MemberCode.all.sort_auth
+      MemberCode.where(external_staff_id: nil)
+                .where(supplier_manager_id: nil)
+                .where(client_id: nil).sort_auth
     end
   end
   
@@ -85,7 +83,6 @@ class MemberCode < ApplicationRecord
     end
   end
   
-  # 親インスタンスの名前
   def member_name_from_member_code
     self.parent.name
   end

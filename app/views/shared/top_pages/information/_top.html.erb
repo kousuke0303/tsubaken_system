@@ -1,11 +1,6 @@
-<ul class="nav nav-tabs title_tab_bar">
-  <li class="nav-item">
-    <a class="nav-link info_tab">新着情報</a>
-  </li>
-</ul>
-  
-<div class="news_container">
-  <div class="top_page_contents">
+<div class="top-header">
+  <h4 class="info-title">INFORMATION</h4>
+  <div class="info-container">
     <% if current_admin || current_manager %>
       <% if @applicate_schedules.present? %>
         <p>
@@ -18,6 +13,9 @@
     <% end %>
     
     <% if @notifications %>
+      <div id="construction_report_notification_list">
+        <%= render 'shared/top_pages/information/notifications/report_notification_lists' %>
+      </div>
       <div id="schedule_notification_lists">
         <%= render 'shared/top_pages/information/notifications/schedule_notification_lists' %>
       </div>

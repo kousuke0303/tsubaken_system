@@ -1,0 +1,119 @@
+// Place all the styles related to the SupplierManagers::ConstructionSchedules controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#construction_schedule_calendar table {
+  background-color: #47494a;
+  color: white;
+}
+
+#construction_schedule_calendar th {
+  text-align: center;
+}
+
+#construction_schedule_calendar td {
+  padding-right: 0!important;
+  padding-left: 0!important;
+}
+
+#construction_schedule_calendar .simple_calendar td {
+  padding-right: 0!important;
+  padding-left: 0!important;
+}
+
+#construction_schedule_calendar .calendar_year {
+  font-size: 1.2em;
+  color: #343a40;
+}
+
+#construction_schedule_calendar .calendar_month {
+  margin-left: 0.5em;
+  font-size: 1.7em;
+  color: white;
+  border: 1px solid #87888a;
+  border-radius: 50%;
+  background: #87888a;
+  padding: 5px 10px;
+}
+
+#construction_schedule_calendar .calendar-heading a {
+  color: #87888a;
+}
+
+
+#construction_schedule_calendar {
+  .saturday_disp {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+    border: 1px solid #4b8bda;
+    border-radius: 20%;
+    background: #4b8bda;
+    color: white;
+  }
+  
+  .sunday_disp {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+    border: 1px solid #da4b86;
+    border-radius: 20%;
+    background: #da4b86;
+    color: white;
+  }
+  .normal_week {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+    color: white;
+  }
+  .prev-month, .today{
+    background-color: #47494a;
+  }
+}
+
+
+.ganttchart-construction {
+  
+  .status-completed {
+    border: 1px solid #28a745;
+    height: 1.5em;  
+    background-color: #28a745;
+  }
+  .status-progress {
+    border: 1px solid #dc3545;
+    height: 1.5em;  
+    background-color: #dc3545;
+  }
+  .status-progress:hover {
+    background-color: #eca4ab;
+    border-color: #eca4ab;
+    cursor: pointer;
+  }
+  
+  .status-not_started {
+    border: 1px solid #17a2b8;
+    height: 1.5em;  
+    background-color: #17a2b8;
+  }
+  .status-not_started:hover {
+    background-color: #b4e5ec;
+    border-color: #b4e5ec;
+    cursor: pointer;
+  }
+}
+
+#construction_schedule_detail {
+  .status-completed {
+    background-color: #28a745;
+    color: white;
+  }
+  .status-progress {
+    background-color: #dc3545;
+    color: white;
+  }
+  .status-not_started {
+    background-color: #17a2b8;
+    color: white;
+  }
+}

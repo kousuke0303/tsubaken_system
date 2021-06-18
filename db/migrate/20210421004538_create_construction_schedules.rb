@@ -8,7 +8,10 @@ class CreateConstructionSchedules < ActiveRecord::Migration[5.2]
       t.date :scheduled_finished_on
       t.date :started_on
       t.date :finished_on
+      t.date :start_date
+      t.date :end_date
       t.string :matter_id
+      t.boolean :report_count
       t.boolean :disclose,  null: false, default: true
       t.references :supplier, foreign_key: true
       t.references :member_code, foreign_key: true

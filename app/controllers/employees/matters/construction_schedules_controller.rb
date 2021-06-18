@@ -11,10 +11,15 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     @construction_schedule = @matter.construction_schedules.new(construction_schedule_params)
     if @construction_schedule.save(context: :normal_commit)
       @responce = "success"
-      @construction_schedules = @matter.construction_schedules.order_reference_date
+      @construction_schedules = @matter.construction_schedules.order_start_date
     else
       @responce = "failure"
     end
+  end
+  
+  def show
+    date = params[:day].to_date
+    @construction_report = @construction_schedule.construction_reports.find_by(work_date: date)
   end
   
   def picture
@@ -36,7 +41,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     params[:construction_schedule][:image_ids].each do |params_image|
       @construction_schedule.construction_schedule_images.create(image_id: params_image[:image_id])
     end
-    @construction_schedules = @matter.construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.order_start_date
   end
   
   def set_estimate_category
@@ -61,7 +66,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
         end
       end
     end
-    @construction_schedules = @matter.construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
   end
   
   def edit
@@ -73,7 +78,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     if @construction_schedule.save(context: :normal_commit)
       @responce = "success"
       @matter = Matter.find(params[:matter_id])
-      @construction_schedules = @matter.construction_schedules.order_reference_date
+      @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
     else
       @responce = "failure"
     end
@@ -86,7 +91,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
   def update_for_materials
     if @construction_schedule.update(construction_schedule_material_params)
       @responce = "success"
-      @construction_schedules = @matter.construction_schedules.order_reference_date
+      @construction_schedules = @matter.construction_schedules.order_start_date
     else
       @responce = "failure"
     end
@@ -95,7 +100,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
   def destroy
     if @construction_schedule.destroy
       @responce = "success"
-      @construction_schedules = @matter.construction_schedules.order_reference_date
+      @construction_schedules = @matter.construction_schedules.order_start_date
     else
       @responce = "failure"
     end
@@ -114,17 +119,5 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     def set_construction_schedule
       @construction_schedule = ConstructionSchedule.find(params[:id])
     end
-  
-    # def update_for_matter_attribute(matter)
-    #   construction_schedules = ConstructionSchedule.where(matter_id: matter.id).order_reference_date
-    #   if construction_schedules.first.status == "progress"
-    #     date =  construction_schedules.first.started_on
-    #     matter.update(started_on: date)
-    #   end
-    #   if construction_schedule.last.status == "completed"
-    #     date = construction_schedule.last.finished_on
-    #     matter.update(finished_on: date)
-    #   end
-    # end
   
 end

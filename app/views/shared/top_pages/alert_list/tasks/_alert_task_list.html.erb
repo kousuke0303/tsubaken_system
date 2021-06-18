@@ -1,6 +1,6 @@
 <% if @alert_tasks_count > 0 %>
   <p>
     <i class="fas fa-exclamation-circle fa-orange"></i>
-    <span><%= link_to "警告タスク：#{ @alert_tasks_count }件", alert_path, remote: true %></span>
+    <span><%= link_to "警告タスク：#{ @alert_tasks_count }件", alert_task_path, remote: true %></span>
   </p>
 <% end %>

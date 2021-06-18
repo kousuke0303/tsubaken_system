@@ -1,4 +1,11 @@
-<div class="col-12 text-right pr-0 mb-1e pc_type">
+<!--<div class="calendar_container mt-05e">-->
+<!--  <!%= render 'employees/matters/partial/construction_schedule/calendar' %>-->
+<!--</div>-->
+<div class="row pc_type">
+  <div class="col-6">
+    <%= link_to "CALENDAR", calendar_employees_matter_path(@matter), class: "btn btn-info", remote: true %>
+  </div>
+  <div class="col-6 text-right pr-0 mb-1e">
   <%= link_to "見積項目セット", set_estimate_category_employees_matter_construction_schedules_path(@matter), remote: true, class: "btn btn-dark" %>
   
   <%= link_to new_employees_matter_construction_schedule_path(@matter), remote: true, class: "btn btn-primary" do %>

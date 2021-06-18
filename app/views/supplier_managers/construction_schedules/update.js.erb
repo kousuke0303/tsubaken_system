@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $('#modal-container').modal('hide');
+  $('.construction-schedules-index').html('<%= escape_javascript( render partial: "supplier_managers/matters/partial/construction_schedule",
+                                                                         locals: {construction_schedules: @construction_schedules}) %>');
+  toastr.success('<%= @construction_schedule.title %>の担当者を変更しました');
+  $('#modal-container').empty();
+<% end %>
+  

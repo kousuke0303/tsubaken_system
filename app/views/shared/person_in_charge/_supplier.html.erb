@@ -11,7 +11,7 @@
           <td><%= supplier.name %></td>
           <td><%= supplier.person_in_charge_for_matter(object) %></td>
           <td class="text-center">
-            <% if own_staff? && supplier.external_staffs.present? %>
+            <% if own_staff? %>
               <%= link_to "担当者編集", send(path, id: object.id, supplier_id: supplier.id, edit_type: "supplier_staff"), remote: true, class: "btn btn-dark" %>
             <% elsif current_supplier_manager.supplier == supplier %>
               <%= link_to "担当者編集", send(path, id: object.id, supplier_id: supplier.id, edit_type: "supplier_staff"), remote: true, class: "btn btn-dark" %>

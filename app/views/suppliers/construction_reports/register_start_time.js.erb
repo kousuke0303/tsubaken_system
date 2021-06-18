@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $('#schedule-today').html('<%= escape_javascript(render partial: "supplier_managers/supplier_managers/partial/construction_schedule",
+                                                          locals: {construction_schedules: @construction_schedules_for_today }) %>');
+  toastr.success('本日もよろしくお願いいたします');
+<% else %>
+<% end %>

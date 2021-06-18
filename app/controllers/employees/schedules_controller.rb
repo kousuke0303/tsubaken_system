@@ -1,6 +1,6 @@
 class Employees::SchedulesController < Employees::EmployeesController
-  before_action :all_member, only: [:new, :edit, :change_member]
-  before_action :all_member_code
+  # before_action :all_member, only: [:new, :edit, :change_member]
+  before_action :all_member_code, only: [:new, :edit]
   before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application, :show_for_top_page]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]
   before_action :set_staff, if: :object_is_staff?, only: [:change_member]

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   
   get "badge_count", to: "badges#count"
   get "postcode_search", to: "addresses#search_postcode"
-  get "alert", to: "alerts#index"
+  
+  get "alert_task", to: "alerts#alert_task_index"
+  get "alert_report", to: "alerts#alert_report_index"
   
   resources :notifications, only: :index do
     get :schedule_index, on: :collection
@@ -124,6 +126,7 @@ Rails.application.routes.draw do
     resources :supplier_managers, only: :index do
       collection do
         get :top
+        get :information
         get :default_password_user_index
         post :avator_change
         get :avator_destroy
@@ -132,8 +135,16 @@ Rails.application.routes.draw do
   end
   
   namespace :supplier_managers do
-    resources :matters 
-    resources :suppliers
+    resources :matters, only: [:index, :show, :edit, :update] 
+    resources :suppliers, only: :update
+    resources :construction_schedules, only: [:index, :show, :edit, :update] do
+      member do
+        get :picture
+      end
+    end
+    resources :construction_reports do
+      patch :confirmation, on: :collection
+    end
   end
 
   # ExternalStaff関係
@@ -165,7 +176,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # 従業員が行う操作
+  # 従業員が行う操作 ##################################################
   namespace :employees do
     
     resources :avators, only: :create do
@@ -272,6 +283,8 @@ Rails.application.routes.draw do
       get :reload, on: :collection
     end
     
+    ######## ▼ 営業案件 ▼ ###################################
+    
     resources :estimate_matters do
       member do
         get :change_member
@@ -284,7 +297,6 @@ Rails.application.routes.draw do
         get :prev_progress_table
         get :next_progress_table
       end
-      
       
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
@@ -336,12 +348,14 @@ Rails.application.routes.draw do
     #   end
     # end
     
-
+    ######## ▼ 着工案件 ▼ ###################################
+    
     resources :matters do
       member do
         patch :change_estimate
         get :change_member
         patch :update_member
+        get :calendar
       end
       
       scope module: :matters do
@@ -365,7 +379,7 @@ Rails.application.routes.draw do
         get :change_member, on: :member
         patch :update_member, on: :member
       end
-      resources :construction_schedules, except: [:index, :show], controller: "matters/construction_schedules" do
+      resources :construction_schedules, except: [:index], controller: "matters/construction_schedules" do
         get :set_estimate_category, on: :collection
         get :edit_for_materials, on: :member
         patch :update_for_materials, on: :member
@@ -373,6 +387,7 @@ Rails.application.routes.draw do
         get :edit_for_picture, on: :member
         patch :update_for_picture, on: :member
       end
+      
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
       end
@@ -392,6 +407,10 @@ Rails.application.routes.draw do
       get :move_span_for_progress, on: :collection
       get :move_span_for_ganttchart, on: :collection
       get :change_span, on: :collection
+    end
+    
+    resources :construction_reports do
+      patch :confirmation, on: :collection
     end
     
     namespace :settings do
@@ -443,6 +462,24 @@ Rails.application.routes.draw do
       resources :reports, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
+  
+  ########################################### ▲ employee ▲ #######
+  
+  ##### supplier ##################################################
+  
+  namespace :suppliers do
+    resources :construction_schedules do
+      resources :construction_reports do
+        get :register_start_time, on: :collection
+        get :register_postponement, on: :collection
+        member do
+          get :register_end_time
+          get :report
+        end
+      end
+    end
+  end
+  
   
   # API関連
   namespace :api do

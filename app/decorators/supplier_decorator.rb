@@ -13,11 +13,13 @@ module SupplierDecorator
         external_staffs = target_external_staffs.joins(member_code: :estimate_matters)
                                                 .where(member_codes: {estimate_matters: {id: matter_or_estimate_matter.id}})
       end
+      
       if external_staffs.present?
         external_staffs.pluck(:name).join(' ')
       else
         content_tag(:p, "未登録", class: "mg-0")
       end
+      
     else
       return self.supplier_manager.name
     end
@@ -28,4 +30,6 @@ module SupplierDecorator
       content_tag(:span, "可能", class: "badge badge-success")
     end
   end
+  
+  
 end

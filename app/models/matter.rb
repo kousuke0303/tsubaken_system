@@ -46,32 +46,12 @@ class Matter < ApplicationRecord
     Matter.find(id).title
   end
   
-  def started_on_display
-    if self.started_on.present?
-      self.started_on.strftime("%Y年%-m月%-d日")
-    end
-  end
-  
-  def finished_on_display
-    if self.finished_on.present?
-      self.finished_on.strftime("%Y年%-m月%-d日")
-    end
-  end
-  
-  def scheduled_started_on_display
-    if self.scheduled_started_on.present?
-      self.scheduled_started_on.strftime("%Y年%-m月%-d日")
-    end
-  end
-  
-  def scheduled_finished_on_display
-    if self.scheduled_finished_on.present?
-      self.scheduled_finished_on.strftime("%Y年%-m月%-d日")
-    end
-  end
-  
   def staffs_in_charge
     Staff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}})
+  end
+  
+  def external_staffs
+    ExternalStaff.joins(member_code: :matters).where(member_codes: {matters: {id: self.id}})
   end
   
   def external_staffs_in_charge_for_group_by_supplier
@@ -104,10 +84,25 @@ class Matter < ApplicationRecord
     return member_arrey
   end
   
+  # 自社スタッフの担当者
+  def member_ids_in_charge
+    member_ids = []
+    # admin/managerのid追加
+    admin_code_id = Admin.first.member_code.id
+    manager_ids = Manager.all.avaliable.ids
+    manager_code_ids = MemberCode.joins(:manager).where(managers: {id: manager_ids}).ids
+    member_ids.push(admin_code_id)
+    member_ids.push(manager_code_ids)
+    # 担当staffのid追加
+    staff_ids = self.member_codes.joins(:staff).where(staffs: { avaliable: true}).ids
+    member_ids.push(staff_ids)
+    return member_ids.flatten
+  end
+  
   # matter_status変更
   def change_matter_status
     if self.construction_schedules.present?
-      construction_schedules = self.construction_schedules.order_reference_date
+      construction_schedules = self.construction_schedules.order_start_date
       if construction_schedules.first.status != "not_started"
         date = construction_schedules.first.started_on
         self.update(status: 1, started_on: date)

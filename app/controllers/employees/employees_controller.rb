@@ -156,9 +156,6 @@ class Employees::EmployeesController < ApplicationController
       Staff.all.each do |staff|
         @members << { auth: staff.auth, id: staff.id, name: staff.name }
       end
-      ExternalStaff.all.each do |external_staff|
-        @members << { auth: external_staff.auth, id: external_staff.id, name: external_staff.name }
-      end
       return @members
     end
   
@@ -241,6 +238,20 @@ class Employees::EmployeesController < ApplicationController
         true
       else
         false
+      end
+    end
+    
+    #---------------------------------------------------------
+       # redirect
+    #---------------------------------------------------------
+    
+    def redirect_to_top
+      if current_admin
+        redirect_to admins_top_path
+      elsif current_manager
+        redirect_to managers_top_path
+      elsif current_staff
+        redirect_to staffs_top_path
       end
     end
     

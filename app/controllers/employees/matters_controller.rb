@@ -1,6 +1,8 @@
 class Employees::MattersController < Employees::EmployeesController
-  before_action :authenticate_employee_except_external_staff!
   before_action :set_matter, except: [:new, :create, :index]
+  # アクセス制限
+  before_action ->{can_access_only_of_member(@matter)}, except: :index
+  
   before_action :set_reports_of_matter, only: :show
   before_action :set_employees, only: [:new, :edit, :change_member]
   before_action ->{set_menbers_code_for(@matter)}, only: :show
@@ -50,7 +52,7 @@ class Employees::MattersController < Employees::EmployeesController
     @report_cover = @matter.report_cover    
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
-    @construction_schedules = @matter.construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
   end
 
   def edit
@@ -102,29 +104,10 @@ class Employees::MattersController < Employees::EmployeesController
     end
   end
   
-  # def change_member
-  #   if params[:staff_id].present?
-  #     set_staff
-  #   elsif params[:external_staff_id].present?
-  #     target_external_staff
-  #   end
-  #   @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
-  #   @external_staff_codes =  @matter.member_codes.joins(:external_staff).select('member_codes.*')
-  # end
-  
-  # def update_member
-  #   params[:matter][:member_code_ids] = params[:matter][:staff_ids].push(params[:matter][:external_staff_ids])
-  #   params[:matter][:member_code_ids].flatten!
-  #   @matter.update(matter_params)
-  #   flash[:success] = "#{ @matter.title }の担当者を変更しました"
-  #   if params[:matter][:staff_id].present?
-  #     @staff = Staff.find(params[:matter][:staff_id])
-  #     redirect_to retirement_process_employees_staff_url(@staff)
-  #   elsif params[:matter][:external_staff_id].present?
-  #     @external_staff = ExternalStaff.find(params[:matter][:external_staff_id])
-  #     redirect_to retirement_process_employees_external_staff_url(@external_staff)
-  #   end
-  # end
+  def calendar
+    @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
+    @type = "construction_schedule_for_matter"
+  end
 
   private
     def matter_params

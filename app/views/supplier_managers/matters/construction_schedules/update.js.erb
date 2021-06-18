@@ -1,3 +1,0 @@
-$('.construction-schedules-index').html('<%= escape_javascript(render partial: 'external_staffs/matters/partial/construction_schedule', locals: {construction_schedules: @construction_schedules}) %>');
-$('#sub-title-container').html('<%= escape_javascript(render partial: 'shared/employees/sub_title', locals: {object: @matter, status: status_disp(@matter.status)}) %>');
-toastr.success('<%= @construction_schedule.title %>を作成しました');

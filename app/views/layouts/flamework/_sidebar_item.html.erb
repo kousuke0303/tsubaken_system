@@ -4,16 +4,31 @@
       <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
+  
   <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-paint-roller"></i><span class="ml-1e">着工案件管理</span>
+    <%= link_to "#matter-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+      <i class="fas fa-building"></i><span class="ml-1e">着工管理</span>
     <% end %>
+    <ul class="collapse list-unstyled" id="matter-menu">
+      <li>
+        <%= link_to employees_matters_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">着工案件一覧</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_construction_reports_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">作業報告</span>
+        <% end %>
+      </li>
+    </ul>
   </li>
+  
   <li>
     <%= link_to employees_clients_path do %>
-     <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
-   <% end %>
+      <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
+    <% end %>
   </li>
+  
   <li>
     <%= link_to "#supplier-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
       <i class="fas fa-building"></i><span class="ml-1e">外注先管理</span>
@@ -67,21 +82,24 @@
       </li>
     </ul>
   </li>
+  
   <li>
     <%= link_to employees_schedules_path do %>
      <i class="fas fa-calendar-alt"></i><span class="ml-1e">スケジュール管理</span>
     <% end %>
-  </li>  
+  </li>
+  
   <li>
     <%= link_to employees_inquiries_path do %>
       <i class="fa fa-question-circle"></i><span class="ml-1e">お問合せ管理</span>
     <% end %>
   </li>
+  
   <li>
     <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
       <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
     <% end %>
-    <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
+    
     <ul class="collapse list-unstyled" id="settings-menu">
       <li>
         <%= link_to employees_settings_companies_path do %>

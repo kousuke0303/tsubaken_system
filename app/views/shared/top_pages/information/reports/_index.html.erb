@@ -1,0 +1,64 @@
+<% @uncheck_reports.group_by{|report| report.work_date }.each do |date, reports| %>
+  
+  <h5><%= date.strftime("%-m月%-d日") %>の報告書</h5>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>確認済</th>
+        <th>タイトル</th>
+        <th>担当会社</th>
+        <th>作業開始</th>
+        <th>備考</th>
+      </tr>
+      <tr>
+        <th style="border-bottom: 1px solid black">現況</th>
+        <th style="border-bottom: 1px solid black">作業内容</th>
+        <th style="border-bottom: 1px solid black">担当者</th>
+        <th style="border-bottom: 1px solid black">作業終了</th>
+        <th style="border-bottom: 1px solid black">編集</th>
+      </tr>
+        <% reports.each do |report| %>
+        <tr>
+          <td class="text-center creation_schedule">
+            <input type="checkbox" name="confirmation" value=<%= report.id %> checked="checked">
+          </td>
+          <td><%= report.matter_title %></td>
+          <td></td>
+          <td><%= report.start_time_disp %></td>
+          <td class="text-center"><%= report.memo_disp %></td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid black"><%= report.report_i18n %></td>
+          <td style="border-bottom: 1px solid black"><%= report.construction_schedule.title %></td>
+          <td style="border-bottom: 1px solid black"><%= report.construction_schedule.person_in_charge %></td>
+          <td style="border-bottom: 1px solid black"><%= report.end_time_disp %></td>
+          <td style="border-bottom: 1px solid black; vertical-align: middle;" class="text-center">
+            <%= link_to "編集", "#", class: "btn btn-success" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+<div class="text-center">
+  <button class="btn btn-primary col-12" id="confirmation_btn">確認</button>  
+</div>
+
+<script>
+  $('#confirmation_btn').on('click', function(){
+    var checked_notification_array = [];
+    $('#construction_report_index input').each( function(index, element){
+      if($(element).prop('checked')){
+        var val = $(this).val();
+        checked_notification_array.push(val);
+      }
+    });
+    $.ajax({
+      type: "PATCH",
+      url: "<%= confirmation_suppliers_construction_schedule_construction_reports_path %>",
+      cache: false,
+      data: { notification_ids: checked_notification_array },
+    })
+  });
+</script>

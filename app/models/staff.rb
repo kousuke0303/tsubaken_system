@@ -33,6 +33,8 @@ class Staff < ApplicationRecord
 
   scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current) }
   scope :retired, -> { where('resigned_on <= ?', Date.current) }
+  scope :avaliable, -> { where(avaliable: true)}
+  scope :not_avaliable, -> { where(avaliable: false)}
   scope :with_departments, -> { 
     left_joins(:department).
     select(

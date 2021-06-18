@@ -1,15 +1,18 @@
-<ul class="nav nav-tabs title_tab_bar">
-  <li class="nav-item">
-    <a class="nav-link warning_tab">警告事項</a>
-  </li>
-</ul>
-  
-<div class="news_container">
-  <div class="top_page_contents">
+<div class="top-header">
+  <h4 class="alert-title">ALERT</h4>
+  <div class="info-container">
   <!--タスク勧告-->
     <div id="alert_task_list">
       <%= render 'shared/top_pages/alert_list/tasks/alert_task_list' %>
     </div>
+    
+  <!--作業報告-->
+    <% if @no_reports_construction_schedules.present? %>
+      <p>
+        <i class="fas fa-exclamation-circle fa-orange"></i>
+        <span><%= link_to "未報告作業があります：#{ @no_reports_construction_schedules.count }件", alert_report_path, remote: true %></span>
+      </p>
+    <% end %>
     
   <!--出退勤関係-->
     <% if current_admin || current_manager %>

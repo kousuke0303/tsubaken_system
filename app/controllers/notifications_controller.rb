@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
+  before_action :my_notifications, except: :update
   
   def schedule_index
-    @recieve_notifications = login_user.recieve_notifications
     if params[:action_type] == "create"
       notification_ids = @recieve_notifications.creation_notification_for_schedule.ids
       @creation_schedules = Schedule.joins(:notifications).where(notifications: {id: notification_ids})
@@ -20,7 +20,6 @@ class NotificationsController < ApplicationController
   end
     
   def task_index
-     @recieve_notifications = login_user.recieve_notifications
     if params[:action_type] == "create"
       notification_ids = @recieve_notifications.creation_notification_for_task.ids
       @creation_tasks = Task.joins(:notifications).where(notifications: {id: notification_ids})
@@ -41,4 +40,9 @@ class NotificationsController < ApplicationController
     end
     redirect_to send("#{ login_user.auth }s_top_url")
   end
+  
+  private
+    def my_notifications
+      @recieve_notifications = login_user.recieve_notifications
+    end
 end

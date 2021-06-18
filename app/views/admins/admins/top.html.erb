@@ -1,20 +1,29 @@
-<div class="col-12 mt-1e">
+<div class="col-12 mt-1e" id="top-page">
   
   <!--▼--alert--▼-->
-  <%= render 'shared/top_pages/alert_list/top' %>
+  <section>
+    <% if @alert_result == true %> 
+      <%= render 'shared/top_pages/alert_list/top' %>
+    <% end %>
+  </section>
   
   <!--▼--information--▼-->
-  <%= render 'shared/top_pages/information/top' %>
+  <section>
+    <% if information_present?%>
+      <%= render 'shared/top_pages/information/top' %>
+    <% end %>
+  </section>
   
-  <!--▼--construction_schedule--▼-->
-  <%= render 'shared/top_pages/construction_schedule/top' %>
+  <section>
+    <!--▼--construction_schedule--▼-->
+    <%= render 'shared/top_pages/construction_schedule/top' %>
   
-  <!--▼--schedule--▼-->
-  <%= render 'shared/top_pages/schedule/top' %>
-    
-  <!--▼--task--▼-->
-  <%= render 'shared/top_pages/tasks/top' %>
-    
+    <!--▼--schedule--▼-->
+    <%= render 'shared/top_pages/schedule/top' %>
+      
+    <!--▼--task--▼-->
+    <%= render 'shared/top_pages/tasks/top' %>
+  </section>
 </div>
 
 <script>

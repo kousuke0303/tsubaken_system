@@ -2,6 +2,7 @@ require 'employees_helper.rb'
 
 module ApplicationHelper
   include EmployeesHelper
+  include SuppliersHelper
   
   def admin_name(id)
     Admin.find(id).name

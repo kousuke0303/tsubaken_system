@@ -1,0 +1,14 @@
+<div class="modal-dialog non-card-modal wide_modal">
+  <div class="modal-content">
+    <div class="modal-header bg-danger">
+      未報告作業一覧
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body bg-white">
+      <%= render 'shared/top_pages/alert_list/reports/table' %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "tr_link.js" %>

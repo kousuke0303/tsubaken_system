@@ -2,6 +2,10 @@
 
 module ConstructionScheduleDecorator
   
+  def person_in_charge
+    MemberCode.find(self.member_code_id).parent.name
+  end
+  
   def supplier_disp(supplier)
     if supplier.present?
       supplier.name
@@ -106,6 +110,36 @@ module ConstructionScheduleDecorator
       content_tag(:span, "完了")
     elsif self.status == "progress"
       content_tag(:span, "着工中", class: "text-danger font-bold")
+    end
+  end
+  
+  def today_status
+    if today_schedule = self.construction_reports.find_by(work_date: Date.today)
+      if today_schedule.reason != "no_select"
+        content_tag(:h5) do
+          content_tag(:span, "本日作業休工", class: "badge badge-danger")
+        end
+      elsif today_schedule.report != "no_set"
+        content_tag(:h5) do
+          content_tag(:span, "報告あり", class: "badge badge-info")
+        end
+      elsif today_schedule.end_time.present?
+        content_tag(:h5) do
+          content_tag(:span, "本日作業終了", class: "badge badge-success")
+        end
+      elsif today_schedule.start_time.present?
+        content_tag(:h5) do
+          content_tag(:span, "本日作業中", class: "badge badge-primary")
+        end
+      else
+        content_tag(:h5) do
+          content_tag(:span, "本日未施工", class: "badge badge-warning")
+        end
+      end
+    else
+      content_tag(:h5) do
+        content_tag(:span, "本日未施工", class: "badge badge-warning")
+      end
     end
   end
   

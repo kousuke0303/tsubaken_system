@@ -22,8 +22,7 @@ class SupplierManagers::MattersController < ApplicationController
     @message = true if params[:type] == "success"
     @images = @matter.images.select{ |image| image.image.attached? }
     gon.matter_id = @matter.id
-    @construction_schedules = @matter.construction_schedules
-    @construction_schedules = @construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
   end
   
   def edit
@@ -42,13 +41,13 @@ class SupplierManagers::MattersController < ApplicationController
   def registor_started_on
     @construction_schedule = ConstructionSchedule.find(params[:construction_schedule_id])
     @construction_schedule.update(started_on: Date.current)
-    @construction_schedules = @matter.construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.order_start_date
   end
   
   def registor_finished_on
     @construction_schedule = ConstructionSchedule.find(params[:construction_schedule_id])
     @construction_schedule.update(finished_on: Date.current)
-    @construction_schedules = @matter.construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.order_start_date
   end
   
   private

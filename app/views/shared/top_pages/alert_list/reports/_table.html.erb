@@ -1,0 +1,36 @@
+<div class="table-responsible">
+  <table class="table table-bordered text-nowrap table-column-type">
+    <tr>
+      <th>案件タイトル</th>
+      <th>作業名称</th>
+      <th>請負会社</th>
+      <th>担当者</th>
+      <th></th>
+    </tr>
+    <% @no_reports_construction_schedules.each_with_index do |construction, index| %>
+      <tr>
+        <td>
+          <% unless current_supplier_manager %>
+            <%= link_to employees_matter_path(construction.matter) do %>
+              <%= construction.matter.title %>
+            <% end %>
+          <% else %>
+            <%= link_to supplier_managers_matter_path(construction.matter) do %>
+              <%= construction.matter.title %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= construction.title %></td>
+        <td><%= construction.supplier_disp(construction.supplier) %></td>
+        <td><%= construction.member_code.member_name_from_member_code if construction.member_code %></td>
+        <td>
+          <% unless current_supplier_manager %>
+            <%= link_to "報告書一覧", employees_construction_reports_path(construction_schedule_id: construction.id, type: "no_report") %></td>
+          <% else %>
+            <%= link_to "報告書一覧", supplier_managers_construction_reports_path(construction_schedule_id: construction.id, type: "no_report") %></td>
+          <% end %>
+      </tr>
+    <% end %>
+  </table>
+  
+</div>
