@@ -12,8 +12,9 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     @construction_schedule.sender = login_user.member_code.id
     if @construction_schedule.save(context: :normal_commit)
       @responce = "success"
+      @construction_schedule.set_start_date_and_end_date
       @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
-      @construction_schedules = @matter.construction_schedules.order_start_date.includes(:materials, :supplier)
+      @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
     else
       @responce = "failure"
     end
@@ -22,6 +23,36 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
   def show
     date = params[:day].to_date
     @construction_report = @construction_schedule.construction_reports.find_by(work_date: date)
+  end
+  
+  def edit
+    @suppliers = @matter.suppliers
+  end
+  
+  def update
+    attr_set_for_update
+    @construction_schedule.attributes = construction_schedule_params
+    if @construction_schedule.save(context: :normal_commit)
+      @responce = "success"
+      @construction_schedule.set_start_date_and_end_date
+      @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
+      @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
+    else
+      @responce = "failure"
+    end
+  end
+  
+  def destroy
+    if @construction_schedule.member_code_id.present?
+      @construction_schedule.sender = login_user.member_code.id
+    end
+    if @construction_schedule.destroy
+      @responce = "success"
+      @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
+      @construction_schedules = @matter.construction_schedules.order_start_date
+    else
+      @responce = "failure"
+    end
   end
   
   def picture
@@ -43,7 +74,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     params[:construction_schedule][:image_ids].each do |params_image|
       @construction_schedule.construction_schedule_images.create(image_id: params_image[:image_id])
     end
-    @construction_schedules = @matter.construction_schedules.order_start_date
+    @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
   end
   
   def set_estimate_category
@@ -71,36 +102,12 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
   end
   
-  def edit
-    @suppliers = @matter.suppliers
-  end
-  
-  def update
-    @construction_schedule.attributes = construction_schedule_params
-    if @construction_schedule.save(context: :normal_commit)
-      @responce = "success"
-      @matter = Matter.find(params[:matter_id])
-      @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
-    else
-      @responce = "failure"
-    end
-  end
-  
   def edit_for_materials
     @all_Materials = Material.all
   end
   
   def update_for_materials
     if @construction_schedule.update(construction_schedule_material_params)
-      @responce = "success"
-      @construction_schedules = @matter.construction_schedules.order_start_date
-    else
-      @responce = "failure"
-    end
-  end
-  
-  def destroy
-    if @construction_schedule.destroy
       @responce = "success"
       @construction_schedules = @matter.construction_schedules.order_start_date
     else
@@ -120,6 +127,23 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     
     def set_construction_schedule
       @construction_schedule = ConstructionSchedule.find(params[:id])
+    end
+    
+    def attr_set_for_update
+      @construction_schedule.sender = login_user.member_code.id
+      @construction_schedule.before_title = @construction_schedule.title
+      if params[:construction_schedule][:member_code_id].to_i != @construction_schedule.member_code_id
+        @construction_schedule.before_member_code = @construction_schedule.member_code_id
+      end
+      if params[:construction_schedule][:scheduled_started_on] != @construction_schedule.scheduled_started_on
+        @construction_schedule.before_scheduled_started_on = @construction_schedule.scheduled_started_on
+      end
+      if params[:construction_schedule][:scheduled_finished_on] != @construction_schedule.scheduled_finished_on
+        @construction_schedule.before_scheduled_finisied_on = @construction_schedule.scheduled_finished_on
+      end
+      if params[:construction_schedule][:content] != @construction_schedule.content
+        @construction_schedule.before_content = @construction_schedule.content
+      end
     end
   
 end

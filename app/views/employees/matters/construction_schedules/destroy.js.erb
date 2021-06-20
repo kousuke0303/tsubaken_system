@@ -1,8 +1,14 @@
 <% if @responce == "success" %>
-  $('#construction-schedule-modal').modal('hide');
+  $('#modal-container').modal('hide');
   $('#construction_schedule_table').html('<%= escape_javascript(render 'employees/matters/construction_schedules/partial/table') %>');
-  $('#construction-schedule-modal').empty();
+  $('#modal-container').empty();
   toastr.warning('<%= @construction_schedule.title %>を削除しました');
+  var totalCount = <%= Notification.all.count %>;
+  var reciever = <%= @construction_schedule.member_code_id %>
+  var recieverCount = <%= @reciever_notification_count %>;
+  var countArrey = [totalCount, reciever, recieverCount]
+  localStorage.setItem('totalNotificationCount', totalCount);
+  App.badge.speak(countArrey);
 <% else %>
   toastr.error('<%= @construction_schedule.title %>は削除できません')
 <% end %>

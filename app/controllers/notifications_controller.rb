@@ -33,12 +33,32 @@ class NotificationsController < ApplicationController
     end
   end
   
+  def construction_schedule_index
+    if params[:action_type] == "create"
+      notification_ids = @recieve_notifications.creation_notification_for_construction_schedule.ids
+      @creation_construction_schedules = ConstructionSchedule.joins(:notifications).where(notifications: {id: notification_ids})
+                                                             .order_start_date
+                                                             .select('construction_schedules.*, notifications.id AS notification_id, notifications.sender_id AS sender_code')
+    elsif params[:action_type] == "update"
+      notification_ids = @recieve_notifications.updation_notification_for_construction_schedule.ids
+      @updation_construction_schedules = ConstructionSchedule.joins(:notifications).where(notifications: {id: notification_ids})
+                                                .order_start_date
+                                                .select('construction_schedules.*, notifications.*, notifications.id AS notification_id')
+    elsif params[:action_type] == "delete"
+      @deletion_notification_for_construction_schedules = @recieve_notifications.delete_notification_for_construction_schedule
+    end
+  end
+  
   def updates
     params[:notification_ids].each do |n_id|
       notification = Notification.find(n_id.to_i)
       notification.update(status: 1)
     end
-    redirect_to send("#{ login_user.auth }s_top_url")
+    if current_supplier_manager
+      redirect_to top_supplier_managers_path
+    else
+      redirect_to send("#{ login_user.auth }s_top_url")
+    end
   end
   
   private

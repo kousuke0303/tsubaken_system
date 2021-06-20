@@ -3,7 +3,11 @@
 module ConstructionScheduleDecorator
   
   def person_in_charge
-    MemberCode.find(self.member_code_id).parent.name
+    if self.member_name
+      return self.member_name
+    else 
+      MemberCode.find(self.member_code_id).parent.name
+    end
   end
   
   def supplier_disp(supplier)

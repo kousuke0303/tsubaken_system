@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.date "start_date"
     t.date "end_date"
     t.string "matter_id"
+    t.string "member_name"
     t.boolean "report_count"
     t.boolean "disclose", default: true, null: false
     t.bigint "supplier_id"

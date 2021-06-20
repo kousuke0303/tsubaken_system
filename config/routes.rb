@@ -11,9 +11,12 @@ Rails.application.routes.draw do
   get "alert_report", to: "alerts#alert_report_index"
   
   resources :notifications, only: :index do
-    get :schedule_index, on: :collection
-    get :task_index, on: :collection
-    patch :updates, on: :collection
+    collection do
+      get :schedule_index
+      get :task_index
+      get :construction_schedule_index
+      patch :updates
+    end
   end
   
   # deviseのAdminログイン関係
