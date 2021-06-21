@@ -1,4 +1,4 @@
-<% if @matter.band_connection.nil? %>
+<% unless @matter.band_connection.present? %>
   <% unless current_external_staff || current_supplier_manager %>
     <%= link_to "BAND連結", employees_band_connections_path(matter_id: @matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
   <% else %>
@@ -11,7 +11,7 @@
       <div class="band_name"><%= @matter.band_connection.band_name %></div>
       
       <% unless current_external_staff || current_supplier_manager %>
-        <%= link_to "選択解除", employees_band_connection_path(@matter.band_connection, estimate_matter_id: @estimate_matter.id), remote: true, method: :delete, class: "btn btn-dark band_delete_btn" %>
+        <%= link_to "選択解除", employees_band_connection_path(@matter.band_connection, matter_id: @matter.id), remote: true, method: :delete, class: "btn btn-dark band_delete_btn" %>
         <%= link_to "変更", employees_band_connections_path(estimate_matter_id: @matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
       <% end %>
     </div>

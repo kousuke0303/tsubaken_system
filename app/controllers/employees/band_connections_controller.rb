@@ -2,22 +2,28 @@ class Employees::BandConnectionsController < Employees::EmployeesController
   before_action :get_band, only: :index
 
   def index
-    if current_estimate_matter
-      unless current_estimate_matter.band_connection.present?
+    if params[:estimate_matter_id].present?
+      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+      unless @estimate_matter.band_connection.present?
         @band = current_estimate_matter.build_band_connection
-        @type = "new_for_estimate_matter"
+        @band.object = "estimate_matter"
+        @band.action_type = "new"
       else
         @band = current_estimate_matter.band_connection
-        @type = "edit_for_estimate_matter"
+        @band.object = "estimate_matter"
+        @band.action_type = "edit"
       end
     end
-    if current_matter
-      unless current_matter.band_connection.present?
+    if params[:matter_id].present?
+      @matter = Matter.find(params[:matter_id])
+      unless @matter.band_connection.present?
         @band = current_matter.build_band_connection
-        @type = "new_for_matter"
+        @band.object = "matter"
+        @band.action_type = "new"
       else
-        @band = current_matter.band_connection
-        @type = "edit_for_matter"
+        @band = @matter.band_connection
+        @band.object = "matter"
+        @band.action_type = "edit"
       end
     end
   end
@@ -31,32 +37,51 @@ class Employees::BandConnectionsController < Employees::EmployeesController
   end
   
   def connect
-    if params[:type] == "new_for_estimate_matter"
-      @band = current_estimate_matter.create_band_connection(band_key: params[:band_key], 
-                                                      band_name: params[:band_name],
-                                                      band_icon: params[:band_cover])
-    elsif params[:type] == "edit_for_estimate_matter"
-      @band = current_estimate_matter.band_connection
-      @band.update_attributes(band_key: params[:band_key], 
-                              band_name: params[:band_name],
-                              band_icon: params[:band_cover])
-    elsif params[:type] == "new_for_matter"
-      @band = current_matter.create_band_connection(band_key: params[:band_key], 
-                                                    band_name: params[:band_name],
-                                                    band_icon: params[:band_cover])
-    elsif params[:type] == "edit_for_matter"
-      @band = current_matter.band_connection
-      @band.update_attributes(band_key: params[:band_key], 
-                              band_name: params[:band_name],
-                              band_icon: params[:band_cover])
+    if params[:matter_id].present?
+      @matter = Matter.find(params[:matter_id])
+      
+      if params[:action_type] == "new"
+        @band = @matter.create_band_connection(band_key: params[:band_key], 
+                                               band_name: params[:band_name],
+                                               band_icon: params[:band_cover])
+        
+      elsif params[:action_type] == "edit"
+        @band = @matter.band_connection
+        @band.update_attributes(band_key: params[:band_key], 
+                                band_name: params[:band_name],
+                                band_icon: params[:band_cover])
+        
+      end
+      @band.object = "matter"
+    end
+      
+    if params[:estimate_matter_id].present?
+      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+      
+      if params[:action_type] == "new"
+        @band = @estimate_matter.create_band_connection(band_key: params[:band_key], 
+                                                               band_name: params[:band_name],
+                                                               band_icon: params[:band_cover])
+      
+      elsif params[:action_type] == "edit"
+        @band = @estimate_matter.band_connection
+        @band.update_attributes(band_key: params[:band_key], 
+                                band_name: params[:band_name],
+                                band_icon: params[:band_cover])
+      
+      end
+      @band.object = "estimate_matter"
     end
   end
   
   def destroy
     @band = BandConnection.find(params[:id])
     @band.destroy
-    current_matter if current_matter
-    current_estimate_matter if current_estimate_matter
+    if params[:matter_id].present?
+      @matter = Matter.find(params[:matter_id])
+    elsif params[:estimate_matter_id].present?
+      @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
+    end
   end
   
   def get_album
@@ -80,4 +105,5 @@ class Employees::BandConnectionsController < Employees::EmployeesController
     
     # {"result_code"=>1, "result_data"=>{"bands"=>[{"name"=>"TEST1", "cover"=>"https://coresos-phinf.pstatic.net/a/2ih0ci/c_f6hUd018adm7mwzpvy4ulla_uxw4v2.jpg", "member_count"=>1, "band_key"=>"AAABszO1LYjWg-X6anf2MF77"}, {"name"=>"TEST2", "cover"=>"https://coresos-phinf.pstatic.net/a/2ih056/d_06hUd018adm8osncr0bs9ap_8xhqph.jpg", "member_count"=>1, "band_key"=>"AADuGicBbeCnwSxRTMrfmAnl"}]}}
     end
+      
 end
