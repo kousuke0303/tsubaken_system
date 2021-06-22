@@ -3,6 +3,7 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "着工案件", title_2: "#{ @matter.title } 詳細", icon: "fa-clipboard"} %>
   </div>
   <div class="col-md-6 text-right">
+    <%= link_to "見積案件", employees_estimate_matter_path(@estimate_matter), class: "btn btn-dark" %>
     <%= link_to "この着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 </div>

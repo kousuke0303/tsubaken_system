@@ -13,7 +13,7 @@
           <td class="text-center">
             <% if own_staff? %>
               <%= link_to "担当者編集", send(path, id: object.id, supplier_id: supplier.id, edit_type: "supplier_staff"), remote: true, class: "btn btn-dark" %>
-            <% elsif current_supplier_manager.supplier == supplier %>
+            <% elsif current_supplier_manager && current_supplier_manager.supplier == supplier %>
               <%= link_to "担当者編集", send(path, id: object.id, supplier_id: supplier.id, edit_type: "supplier_staff"), remote: true, class: "btn btn-dark" %>
             <% else %>
               <span>不可</span>

@@ -19,7 +19,7 @@
         </td>
         <td rowspan="2" style="border-bottom: 1px solid black"><%= construction.person_in_charge if construction.member_code %></td>
         <td>
-          <%= link_to supplier_managers_matter_path(construction.matter) do %>
+          <%= link_to send(matter_path, construction.matter) do %>
             <%= construction.matter.title %>
           <% end %>
         </td>
@@ -33,7 +33,7 @@
         </td>
         <td rowspan="2" class="text-center" style="border-bottom: 1px solid black">
           <div>
-            <%= link_to "表示", picture_supplier_managers_construction_schedule_path(construction), remote: true, class: "btn btn-dark" %>
+            <%= link_to "表示", suppliers_construction_schedule_path(construction), remote: true, class: "btn btn-dark" %>
           </div>
         </td>
         <td rowspan="2" style="border-bottom: 1px solid black" class="text-center"><%= construction.scheduled_finished_on_disp %></td>
@@ -45,23 +45,3 @@
   </table>
   
 </div>
-
-<script>
-  <% construction_schedules.each do |construction| %>
-    $('#started_on_for_<%= construction.id %>').on('click', function(){
-      $.ajax({
-        type: "PATCH",
-        url: "<%= external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
-        data: { object: "started_on"}
-      });
-    });
-    
-    $('#finished_on_for_<%= construction.id %>').on('click', function(){
-      $.ajax({
-        type: "PATCH",
-        url: "<%=external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
-        data: { object: "finished_on"}
-      }); 
-    });
-  <% end %>
-</script>

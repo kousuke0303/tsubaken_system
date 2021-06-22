@@ -6,7 +6,7 @@
     <span></span>
     <span></span>
   </button>
-  <% unless current_external_staff %>
+  <% unless current_external_staff || current_supplier_manager %>
     <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
   <% end %>
 </div>

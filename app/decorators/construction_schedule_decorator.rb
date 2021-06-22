@@ -64,10 +64,6 @@ module ConstructionScheduleDecorator
   def started_on_display_for_external_staff(external_staff)
     if self.started_on.present?
       self.started_on.strftime("%-m月%-d日")
-    elsif self.construction_schedule_of_current_external_staff?(external_staff)
-      content_tag(:button, class: "btn btn-success", id: "started_on_for_#{self.id}") do
-        concat '着工開始'
-      end
     else
       "未設定"
     end

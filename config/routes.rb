@@ -167,6 +167,11 @@ Rails.application.routes.draw do
     resources :attendances, only: [:index, :update] do
       get :change_month, on: :collection
     end
+    resources :construction_schedules, only: [:index, :show, :edit, :update] do
+      member do
+        get :picture
+      end
+    end
     resources :schedules do
       post :applicate, on: :member
       get :show_for_top_page
@@ -473,7 +478,7 @@ Rails.application.routes.draw do
   ##### supplier ##################################################
   
   namespace :suppliers do
-    resources :construction_schedules do
+    resources :construction_schedules, only: :show do
       resources :construction_reports do
         get :register_start_time, on: :collection
         get :register_postponement, on: :collection
@@ -483,7 +488,6 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :construction_schedules
   end
   
   

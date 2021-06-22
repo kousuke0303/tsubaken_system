@@ -25,10 +25,13 @@ class SupplierManagers::ConstructionSchedulesController < ApplicationController
     @supplier_staff_codes_ids = @supplier.supplier_member_ids_for_matter_select(@construction_schedule.matter)
   end
   
+  # 担当者のみ変更可
   def update
+    attr_set_for_update
     if @construction_schedule.update(update_params)
-      @construction_schedules = @construction_schedule.matter.construction_schedules.includes(:materials, :supplier).order_reference_date
       @responce = "success"
+      @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
+      @construction_schedules = @construction_schedule.matter.construction_schedules.includes(:materials).order_start_date
     end
   end
   
@@ -44,6 +47,14 @@ class SupplierManagers::ConstructionSchedulesController < ApplicationController
     
     def update_params
       params.require(:construction_schedule).permit(:member_code_id)
+    end
+    
+    def attr_set_for_update
+      @construction_schedule.sender = login_user.member_code.id
+      @construction_schedule.sender_auth = login_user.auth
+      if params[:construction_schedule][:member_code_id].to_i != @construction_schedule.member_code_id
+        @construction_schedule.before_member_code = @construction_schedule.member_code_id
+      end
     end
     
 end

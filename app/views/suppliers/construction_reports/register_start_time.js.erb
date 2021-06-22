@@ -1,6 +1,13 @@
 <% if @responce == "success" %>
-  $('#schedule-today').html('<%= escape_javascript(render partial: "supplier_managers/supplier_managers/partial/construction_schedule",
-                                                          locals: {construction_schedules: @construction_schedules_for_today }) %>');
+  <% if current_supplier_manager %>
+    $('#schedule-today').html('<%= escape_javascript(render partial: "suppliers/construction_schedules/partial/construction_schedule", 
+                                                            locals: {construction_schedules: @construction_schedules_for_today, 
+                                                                     matter_path: :supplier_managers_matter_path }) %>');
+  <% end %>
+  <% if current_external_staff %>
+     $('#schedule-today').html('<%= escape_javascript(render partial: "suppliers/construction_schedules/partial/construction_schedule", 
+                                                             locals: {construction_schedules: @construction_schedules_for_today, 
+                                                                      matter_path: :external_staffs_matter_path }) %>');
+  <% end %>
   toastr.success('本日もよろしくお願いいたします');
-<% else %>
 <% end %>

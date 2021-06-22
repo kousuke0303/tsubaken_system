@@ -66,21 +66,25 @@ class ExternalStaff < ApplicationRecord
     Matter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
   
-  def estimate_matters
-    EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
+  def construction_schedules
+    ConstructionSchedule.where(member_code_id: self.member_code.id)
   end
   
-  def schedules
-    Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
-  end
+  # def estimate_matters
+  #   EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
+  # end
+  
+  # def schedules
+  #   Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  # end
   
   def tasks
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
   
-  def attendances
-    Attendance.joins(:member_code).where(member_codes: {id: self.member_code.id})
-  end
+  # def attendances
+  #   Attendance.joins(:member_code).where(member_codes: {id: self.member_code.id})
+  # end
   
   def recieve_notifications
     self.member_code.recieve_notifications.where(status: 0)

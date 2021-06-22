@@ -24,8 +24,9 @@
     
     <% if @construction_schedules_for_today.present? %>
       <div class="mt-1e text-center overflow-auto" id="schedule-today">
-        <%= render partial: "supplier_managers/supplier_managers/partial/construction_schedule",
-                   locals: {construction_schedules: @construction_schedules_for_today } %>
+        <%= render partial: "suppliers/construction_schedules/partial/construction_schedule",
+                   locals: {construction_schedules: @construction_schedules_for_today,
+                            matter_path: :supplier_managers_matter_path } %>
       </div>
     <% else %>
       <p class="ml-1e mt-1e">本日の作業はありません</p>
@@ -43,4 +44,3 @@
     $('#default_password_user_index').empty();
   });
 </script>
-

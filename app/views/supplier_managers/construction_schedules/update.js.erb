@@ -3,6 +3,12 @@
   $('.construction-schedules-index').html('<%= escape_javascript( render partial: "supplier_managers/matters/partial/construction_schedule",
                                                                          locals: {construction_schedules: @construction_schedules}) %>');
   toastr.success('<%= @construction_schedule.title %>の担当者を変更しました');
+  var totalCount = <%= Notification.all.count %>;
+  var reciever = <%= @construction_schedule.member_code_id %>
+  var recieverCount = <%= @reciever_notification_count %>;
+  var countArrey = [totalCount, reciever, recieverCount]
+  localStorage.setItem('totalNotificationCount', totalCount);
+  App.badge.speak(countArrey);
   $('#modal-container').empty();
 <% end %>
   

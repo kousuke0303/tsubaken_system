@@ -40,19 +40,20 @@ class ConstructionSchedule < ApplicationRecord
   attr_accessor :before_scheduled_finisied_on
   attr_accessor :before_content
   attr_accessor :before_title
+  attr_accessor :sender_auth
   
   
   # calendar
   def set_start_date_and_end_date
     if self.started_on.present? && self.start_date != self.started_on
-      self.update(start_date: self.started_on)
+      self.update_column(:start_date, self.started_on)
     elsif self.scheduled_started_on.present? && self.start_date != self.scheduled_started_on
-      self.update(start_date: self.scheduled_started_on)
+      self.update_column(:start_date, self.scheduled_started_on)
     end
     if self.finished_on.present? && self.end_date != self.finished_on
-      self.update(end_date: self.finished_on)
+      self.update_column(:end_date, self.finished_on)
     elsif self.scheduled_finished_on.present? && self.end_date != self.scheduled_finished_on
-      self.update(end_date: self.scheduled_finished_on)
+      self.update_column(:end_date, self.scheduled_finished_on)
     end
   end
   
@@ -119,33 +120,49 @@ class ConstructionSchedule < ApplicationRecord
     def create_notification
       set_member_code
       if self.member_code_id.present?
-        Notification.create(category: 4, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id)
+        Notification.create(create_notification_attributes)
       end
     end
     
     def update_notification
-      set_member_code
-      if self.before_member_code.present?
-        if self.member_code_id != self.before_member_code
-          Notification.create(category: 4, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id)
-          Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code, construction_schedule_id: self.id,
-                              before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
-                              before_value_3: self.before_title, before_value_4: self.matter.title)
-        else
-          Notification.create(category: 4, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id,
-                              before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
-                              before_value_3: self.before_title)
+      # 外部managerによる更新通知
+      if self.sender_auth == "supplier_manager"
+        Notification.create(create_notification_attributes)
+        # 外部managerから外部スタッフに変更以外の場合は削除通知
+        if self.before_member_code != self.sender
+          change_attributes = destroy_notification_attributes.merge(reciever_id: self.before_member_code)
+          Notification.create(change_attributes)
         end
+      # employeeによる更新通知
       else
-        Notification.create(category: 4, action_type: 0, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id)
+        set_member_code
+        if self.before_member_code.present?
+          if self.member_code_id != self.before_member_code
+            Notification.create(create_notification_attributes)
+            Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code, construction_schedule_id: self.id,
+                                before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
+                                before_value_3: self.before_title, before_value_4: self.matter.title)
+          else
+            Notification.create(category: 4, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id,
+                                before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
+                                before_value_3: self.before_title)
+          end
+        else
+          Notification.create(create_notification_attributes)
+        end
       end
     end
     
     def destroy_notification
+      # 既に担当者が設定されている場合
       if self.member_code_id.present?
-        Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.member_code_id,
-                            before_value_1: self.start_date, before_value_2: self.end_date,
-                            before_value_3: self.title, before_value_4: self.matter.title)
+        Notification.create(destroy_notification_attributes)
+        # 担当者が外部manager以外の場合
+        if self.member_code_id != self.supplier.supplier_manager.member_code.id
+          supplier_manager_id = self.supplier.supplier_manager.member_code.id
+          change_attributes = destroy_notification_attributes.merge(reciever_id: supplier_manager_id)
+          Notification.create(change_attributes)
+        end
       end
     end
     
@@ -155,6 +172,25 @@ class ConstructionSchedule < ApplicationRecord
         member_code_id = supplier.supplier_manager.member_code.id
         self.update_column(:member_code_id, member_code_id)
       end  
+    end
+    
+    def create_notification_attributes
+      { category: 4,
+        action_type: 0,
+        sender_id: self.sender,
+        reciever_id: self.member_code_id,
+        construction_schedule_id: self.id }
+    end
+    
+    def destroy_notification_attributes
+      { category: 4,
+        action_type: 2,
+        sender_id: self.sender,
+        reciever_id: self.member_code_id,
+        before_value_1: self.start_date,
+        before_value_2: self.end_date,
+        before_value_3: self.title,
+        before_value_4: self.matter.title }
     end
     
     
@@ -182,3 +218,4 @@ class ConstructionSchedule < ApplicationRecord
     end
   
 end
+

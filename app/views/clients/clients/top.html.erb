@@ -1,27 +1,34 @@
-<div class="col-lg-12 col-md-12">
+<div class="col-l2" id="top-page">
   
   <div class="pc_type">
-    <h1 id="client-name"><span>WELCOME</span><%= current_client.name %> 様</h1>
+    <h1 id="client-name">
+      <span>WELCOME</span><%= current_client.name %> 様
+    </h1>
+     <p class="ml-1e">ご依頼誠にありがとうございます</p>
   </div>
   
   <div class="mobile_type">
-    <h3 id="client-name"><%= current_client.name %> 様</h3>
+    <h3 id="client-name" class="ml-1e"><%= current_client.name %> 様</h3>
+    <p class="ml-1e">ご依頼誠にありがとうございます</p>
   </div>
   
-  
-  <div id="index-container">
-    <ul class="nav nav-tabs title_tab_bar mt-2e">
-      <li class="nav-item">
-        <a class="nav-link title_tab_grey">ご依頼一覧</a>
-      </li>
-    </ul>
-    <div class="table-responsive mt-1e">
-      <%= render 'clients/clients/partial/index_table' %>
+  <section class="mg-2e">
+    <div id="index-container">
+      <ul class="nav nav-tabs title_tab_bar mt-2e">
+        <li class="nav-item">
+          <a class="nav-link title_tab_grey">ご依頼一覧</a>
+        </li>
+      </ul>
+      <div class="table-responsive">
+        <%= render 'clients/clients/partial/index_table' %>
+      </div>
     </div>
-  </div>
+  </section>
   
-  <div id="detail-container"></div>
-  
+  <section class="mg-2e">
+    <div id="detail-container"></div>
+  </section>
+
 </div>
 
 <script>

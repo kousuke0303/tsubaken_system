@@ -44,7 +44,10 @@
     </div>
     
     <div class="mt-2e">
-      <h4>担当業者様</h4>
+      <h4 class="text-primary">担当業者様</h4>
+      <span class="ml-2e">
+        <i class="fas fa-exclamation-circle fa-orange"></i> 本件につき、御社スタッフをご担当者とする場合は、こちらから選択してください
+      </span>
       <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_supplier_managers_matter_path} %>
     </div>
       

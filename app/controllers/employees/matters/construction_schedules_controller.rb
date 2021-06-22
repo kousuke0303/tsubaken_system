@@ -48,8 +48,11 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     end
     if @construction_schedule.destroy
       @responce = "success"
-      @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
       @construction_schedules = @matter.construction_schedules.order_start_date
+      if @construction_schedule.member_code_id.present?
+        @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
+        @notification = true
+      end
     else
       @responce = "failure"
     end

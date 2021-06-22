@@ -409,8 +409,10 @@ class ApplicationController < ActionController::Base
   def construction_schedules_for_calendar(first_day, last_day)
     if current_supplier_manager
       construction_schedules = current_supplier_manager.supplier.construction_schedules
-      @construction_schedules = construction_schedules.where(start_date: first_day..last_day).or(construction_schedules.where(end_date: first_day..last_day))
+    elsif current_external_staff
+      construction_schedules = current_external_staff.construction_schedules
     end
+    @construction_schedules = construction_schedules.where(start_date: first_day..last_day).or(construction_schedules.where(end_date: first_day..last_day))
   end
   
   def construction_schedules_for_matter_calender(matter, first_day, last_day)
@@ -435,6 +437,8 @@ class ApplicationController < ActionController::Base
       @alert_result = true if @alert_tasks_count > 0 || @own_error_attendances.present? || login_user.password_condition 
     when current_supplier_manager
       @alert_result = true if @alert_tasks_count > 0 || @no_reports_construction_schedules.present? || !login_user.password_condition 
+    when current_external_staff
+      @alert_result = true if @alert_tasks_count > 0 || !login_user.password_condition 
     end
 
   end

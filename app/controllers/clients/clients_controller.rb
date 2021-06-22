@@ -5,6 +5,8 @@ class Clients::ClientsController < ApplicationController
   
   
   def top
+    @matters = current_client.matters
+    @estimate_matters = current_client.estimate_matters
   end
   
   def detail
@@ -15,7 +17,7 @@ class Clients::ClientsController < ApplicationController
       @matter = current_client.matters.find(target[1])
       @construction_schedules = @matter.construction_schedules
                                        .where(disclose: true)
-                                       .order_reference_date
+                                       .order_start_date
     end
   end
   

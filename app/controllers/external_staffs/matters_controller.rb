@@ -21,8 +21,7 @@ class ExternalStaffs::MattersController < ApplicationController
     @message = true if params[:type] == "success"
     @images = @matter.images.select{ |image| image.image.attached? }
     gon.matter_id = @matter.id
-    @construction_schedules = @matter.construction_schedules
-    @construction_schedules = @construction_schedules.order_reference_date
+    @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
   end
   
   def registor_started_on

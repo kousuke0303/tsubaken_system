@@ -1,0 +1,2 @@
+module ExternalStaffs::ConstructionSchedulesHelper
+end
