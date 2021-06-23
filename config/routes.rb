@@ -18,47 +18,6 @@ Rails.application.routes.draw do
       patch :updates
     end
   end
-  
-  # deviseのAdminログイン関係
-  devise_for :admins, controllers: {
-    sessions:      "admins/sessions",
-    passwords:     "admins/passwords",
-    registrations: "admins/registrations",
-  }
-
-  # deviseのManagerログイン関係
-  devise_for :managers, controllers: {
-    sessions:      "managers/sessions",
-    passwords:     "managers/passwords",
-    registrations: "managers/registrations"
-  }
-
-  # deviseのStaffログイン関係
-  devise_for :staffs, controllers: {
-    sessions:      "staffs/sessions",
-    passwords:     "staffs/passwords",
-    registrations: "staffs/registrations"
-  }
-
-  # deviseのClientログイン関係
-  devise_for :clients, controllers: {
-    sessions:      "clients/sessions",
-    passwords:     "clients/passwords",
-    registrations: "clients/registrations"
-  }
-  
-  devise_for :supplier_managers, controllers: {
-    sessions:      "supplier_managers/sessions",
-    passwords:     "supplier_managers/passwords",
-    registrations: "supplier_managers/registrations"
-  }
-
-  # deviseのExternalStaffログイン関係
-  devise_for :external_staffs, controllers: {
-    sessions:      "external_staffs/sessions",
-    passwords:     "external_staffs/passwords",
-    registrations: "external_staffs/registrations"
-  }
 
   # Admin関係
   scope module: :admins do
@@ -94,10 +53,7 @@ Rails.application.routes.draw do
   # Client関係
   scope module: :clients do
     namespace :clients do
-      get :top
-      get :detail
-      get :estimate
-      get :invoice
+      get :top, :certificate, :estimate, :detail, :schedule, :invoice, :report
     end
   end
 
@@ -491,7 +447,53 @@ Rails.application.routes.draw do
   end
   
   
-  # API関連
+  ######## ▼ DEVICE LOGIN ########################################
+  
+  # deviseのAdminログイン関係
+  devise_for :admins, controllers: {
+    sessions:      "admins/sessions",
+    passwords:     "admins/passwords",
+    registrations: "admins/registrations",
+  }
+
+  # deviseのManagerログイン関係
+  devise_for :managers, controllers: {
+    sessions:      "managers/sessions",
+    passwords:     "managers/passwords",
+    registrations: "managers/registrations"
+  }
+
+  # deviseのStaffログイン関係
+  devise_for :staffs, controllers: {
+    sessions:      "staffs/sessions",
+    passwords:     "staffs/passwords",
+    registrations: "staffs/registrations"
+  }
+
+  # deviseのClientログイン関係
+  devise_for :clients, controllers: {
+    sessions:      "clients/sessions",
+    passwords:     "clients/passwords",
+    registrations: "clients/registrations"
+  }
+  
+  devise_for :supplier_managers, controllers: {
+    sessions:      "supplier_managers/sessions",
+    passwords:     "supplier_managers/passwords",
+    registrations: "supplier_managers/registrations"
+  }
+
+  # deviseのExternalStaffログイン関係
+  devise_for :external_staffs, controllers: {
+    sessions:      "external_staffs/sessions",
+    passwords:     "external_staffs/passwords",
+    registrations: "external_staffs/registrations"
+  }
+  
+  ################################# DEVICE LOGIN ▲ ##############
+  
+  #### API関連 #################################################
+  
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"

@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   create_table "band_connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id"
     t.string "matter_id"
-    t.string "object_type", default: "0"
     t.string "band_key", null: false
     t.string "band_name", null: false
     t.string "band_icon"
@@ -521,6 +520,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
 
   create_table "plan_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.text "content"
     t.integer "position"
     t.bigint "label_color_id"
     t.datetime "created_at", null: false

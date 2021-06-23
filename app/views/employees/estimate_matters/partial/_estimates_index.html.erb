@@ -68,10 +68,10 @@
               <% end %>
             </td>
             <td><%= details[0].service_life %></td>
-            <td class="money_type"><%= details[0].price %></td>
+            <td class="money-type"><%= details[0].price %></td>
             <td><%= details[0].unit %></td>
             <td><%= details[0].amount %></td>
-            <td class="money_type"><%= details[0].total %></td>
+            <td class="money-type"><%= details[0].total %></td>
           <% else %>
             <%= empty_td(6) %>
           <% end %>
@@ -91,10 +91,10 @@
                 <% end %>
               </td>
               <td><%= detail.service_life %></td>
-              <td class="money_type"><%= detail.price %></td>
+              <td class="money-type"><%= detail.price %></td>
               <td><%= detail.unit %></td>
               <td><%= detail.amount %></td>
-              <td class="money_type"><%= detail.total %></td>
+              <td class="money-type"><%= detail.total %></td>
             <% else %>
               <%= empty_td(6) %>
             <% end %>
@@ -103,15 +103,15 @@
       <% end %>
       <tr>        
         <th colspan="5">合計</th>
-        <th colspan="2" class="money_type text-right"><%= estimate.total_price %>円</th>
+        <th colspan="2" class="money-type text-right"><%= estimate.total_price %>円</th>
       </tr>
       <tr>        
         <td colspan="5">端数値引</td>
-        <td colspan="2" class="money_type text-right"><%= estimate.discount %>円</td>
+        <td colspan="2" class="money-type text-right"><%= estimate.discount %>円</td>
       </tr>
       <tr>        
         <th colspan="5">値引後合計</th>
-        <th colspan="2" class="money_type text-right"><%= estimate.after_discount %>円</th>
+        <th colspan="2" class="money-type text-right"><%= estimate.after_discount %>円</th>
       </tr>
     </table>
   </div>

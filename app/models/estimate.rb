@@ -26,10 +26,6 @@ class Estimate < ApplicationRecord
       "estimate_details.*"
     )
   }
-  
-  def name
-    PlanName.find(self.plan_name_id).name
-  end
 
   # 合計金額を計算
   def calc_total_price

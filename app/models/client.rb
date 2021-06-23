@@ -97,9 +97,9 @@ class Client < ApplicationRecord
   #                                       .where(sales_statuses: {status: 4})
   # end
   
-  def certificates
-    Certificate.joins(:estimate_matter).where(estimate_matters: {client_id: self.id})
-  end
+  # def certificates
+  #   Certificate.joins(:estimate_matter).where(estimate_matters: {client_id: self.id})
+  # end
   
   def reports
     Report.joins(:matter).where(matters: {client_id: self.id})

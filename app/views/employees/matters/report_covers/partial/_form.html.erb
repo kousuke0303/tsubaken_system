@@ -3,7 +3,7 @@
     <h4 class="mb-0 text-center">案件情報</h4>
     <div class="matter-of-report-cover-errors"></div>
   </div>  
-  <%= f.fields_for :matter do |i| %>
+  <%= f.fields_for(:matter, @matter) do |i| %>
     <div class="col-lg-6 col-12">
       <%= i.label :started_on %>
       <%= i.date_field :started_on, required: true, class: "form-control" %>
@@ -27,7 +27,7 @@
   </div>
     <div class="col-lg-6 col-12">
     <%= f.label :created_on %>
-    <%= f.date_field :created_on, required: true, class: "form-control" %>                
+    <%= f.date_field :created_on, value: Date.current ,required: true, class: "form-control" %>                
   </div>
 </div>
 

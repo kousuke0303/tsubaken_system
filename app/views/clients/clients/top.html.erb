@@ -1,47 +1,108 @@
-<div class="col-l2" id="top-page">
-  
-  <div class="pc_type">
-    <h1 id="client-name">
-      <span>WELCOME</span><%= current_client.name %> 様
-    </h1>
-     <p class="ml-1e">ご依頼誠にありがとうございます</p>
-  </div>
-  
-  <div class="mobile_type">
-    <h3 id="client-name" class="ml-1e"><%= current_client.name %> 様</h3>
-    <p class="ml-1e">ご依頼誠にありがとうございます</p>
-  </div>
-  
-  <section class="mg-2e">
-    <div id="index-container">
-      <ul class="nav nav-tabs title_tab_bar mt-2e">
-        <li class="nav-item">
-          <a class="nav-link title_tab_grey">ご依頼一覧</a>
-        </li>
-      </ul>
-      <div class="table-responsive">
-        <%= render 'clients/clients/partial/index_table' %>
+<div class="row justify-content-md-center">
+  <div class="col-md-10" id="client-top">
+    
+    <h2>
+      <span class="ribon">
+        <span style="font-size: 2.3rem;">WELCOME</span>
+        <span class="ml-1e"><%= current_client.name %> 様</span>
+      </span>
+    </h2>
+    
+    <!--<div class="pc_type">-->
+    <!--  <h1 id="client-name">-->
+    <!--    <span>WELCOME</span><!%= current_client.name %> 様-->
+    <!--  </h1>-->
+       
+    <!--</div>-->
+    
+    <!--<div class="mobile_type">-->
+    <!--  <h3 id="client-name" class="ml-1e"><!%= current_client.name %> 様</h3>-->
+    <!--</div>-->
+    
+    <section>
+      <div class="text-center mt-1e">
+        <h4 class="ml-1e" style="color: #a5a7a9;">ご依頼誠にありがとうございます</h4>
       </div>
-    </div>
-  </section>
+    </section>
+    
+    <section class="col-md-12">
+      <div class="client-menu text-center">
+        
+        <div class="client-certificate">
+          <%= link_to clients_certificate_path do %>
+            <i class="far fa-clipboard fa-9x text-white"></i>
+            <p>診断書</p>
+          <% end %>
+        </div>
+        
+        <div class="client-estimate">
+          <%= link_to clients_estimate_path do %>
+            <i class="fas fa-calculator fa-9x text-white"></i>
+            <p>御見積書</p>
+          <% end %>
+        </div>
+        
+        <div class="client-schedule">
+          <%= link_to clients_schedule_path do %>
+            <i class="far fa-calendar-alt fa-9x text-white"></i>
+            <p>スケジュール</p>
+          <% end %>
+        </div>
+        
+        <div class="client-report">
+          <%= link_to clients_report_path do %>
+            <i class="fas fa-book-open fa-9x text-white"></i>
+            <p>報告書</p>
+          <% end %>
+        </div>
+        
+        <div class="client-invoice">
+          <%= link_to clients_invoice_path do %>
+            <i class="fas fa-file-invoice-dollar fa-9x text-white"></i>
+            <p>請求書</p>
+          <% end %>
+        </div>
+        
+        <div class="client-info">
+          <i class="far fa-envelope fa-9x text-white"></i>
+          <p>お知らせ</p>
+        </div>  
+      </div>
+    </section>
   
-  <section class="mg-2e">
-    <div id="detail-container"></div>
-  </section>
-
+  </div>
 </div>
+  
+<!--  <section class="mg-2e">-->
+<!--    <div id="index-container">-->
+<!--      <ul class="nav nav-tabs title_tab_bar mt-2e">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link title_tab_grey">ご依頼一覧</a>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <div class="table-responsive">-->
+<!--        <!%= render 'clients/clients/partial/index_table' %>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+  
+<!--  <section class="mg-2e">-->
+<!--    <div id="detail-container"></div>-->
+<!--  </section>-->
 
-<script>
-  $(".checkbox").on("click", function(){
-    $('.checkbox').prop('checked', false);
-    $(this).prop('checked', true);
-    var val = $(this).val();
-    $.ajax({
-      type: "GET",
-      url: "<%= clients_detail_path %>",
-      data: {target: val}
-    });
-  });
-</script>
+<!--</div>-->
+
+<!--<script>-->
+<!--  $(".checkbox").on("click", function(){-->
+<!--    $('.checkbox').prop('checked', false);-->
+<!--    $(this).prop('checked', true);-->
+<!--    var val = $(this).val();-->
+<!--    $.ajax({-->
+<!--      type: "GET",-->
+<!--      url: "<!%= clients_detail_path %>",-->
+<!--      data: {target: val}-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 
 

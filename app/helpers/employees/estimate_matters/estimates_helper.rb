@@ -17,4 +17,5 @@ module Employees::EstimateMatters::EstimatesHelper
   def estimate_color(estimate)
     estimate.plan_name_id.present? ? estimate.plan_name.label_color.color_code : LabelColor.first.color_code
   end
+  
 end
