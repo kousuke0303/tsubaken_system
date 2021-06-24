@@ -1,4 +1,6 @@
-$('#flash_container').html('<%= escape_javascript(render 'shared/flash') %>');
+toastr.success('チェックした写真を取り込みました');
 $("#image_index").html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>');
-$("#band_album").html('<%= escape_javascript(render 'employees/matters/images/partial/band_album') %>');
+$("#band_album").html('<%= escape_javascript(render partial: 'shared/images/band_images',
+                                                    locals: {path: :save_for_band_image_employees_matter_images_path,
+                                                    model: @matter}) %>');
 window.opener.location.reload();

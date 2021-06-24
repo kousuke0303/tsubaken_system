@@ -23,7 +23,7 @@
         <table class="mt-05e">
           <tr>
             <% photo_info["photo"].each_with_index do |photo_url, index| %> 
-              <% if previously_saved_image?(@images, photo_url) %>
+              <% if previously_saved_image?(@all_images, photo_url) %>
                 <td>取込済</td>
               <% else %>
                 <%= f.fields_for "images[]", current_matter.images.new do |fi| %>

@@ -6,7 +6,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
 
   def new
     @report_cover = @matter.build_report_cover
-    @images = @matter.images
+    @images = @matter.images.where(report_cover: true)
   end
 
   def create
@@ -16,7 +16,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def edit
-    @images = @matter.images
+    @images = @matter.images.where(report_cover: true)
   end
 
   def update

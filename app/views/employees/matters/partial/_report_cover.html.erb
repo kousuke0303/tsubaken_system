@@ -1,11 +1,7 @@
-<h5 class="text-right">
-  <span class="float-l">表紙</span>
-  <% if @report_cover.present? %>
-    <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark" %>
-  <% else %>
-    <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark" %>
-  <% end %>
-</h5>
+<div class="double-line">
+  <h4>表紙</h4>
+</div>
+
 <div id="report-cover-flash"></div>
 
 <% if @report_cover.present? %>
@@ -39,4 +35,6 @@
     <% end %>
     </div>
   </div>
+<% else %>
+  <div class="text-center"><p>登録がありません</p></div>
 <% end %>

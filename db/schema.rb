@@ -307,16 +307,18 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.string "author"
     t.string "default_file_path"
     t.date "shooted_on"
-    t.integer "admin_id"
-    t.integer "manager_id"
-    t.integer "staff_id"
-    t.integer "external_staff_id"
     t.string "estimate_matter_id"
     t.string "matter_id"
+    t.boolean "cover"
+    t.boolean "certificate"
+    t.boolean "report_cover"
+    t.boolean "report"
+    t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_images_on_estimate_matter_id"
     t.index ["matter_id"], name: "index_images_on_matter_id"
+    t.index ["member_code_id"], name: "index_images_on_member_code_id"
   end
 
   create_table "industries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -755,6 +757,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "external_staffs", "suppliers"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
+  add_foreign_key "images", "member_codes"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
   add_foreign_key "invoice_details", "categories"

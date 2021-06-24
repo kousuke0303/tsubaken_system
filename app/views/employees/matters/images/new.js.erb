@@ -1,2 +1,2 @@
-$("#image-new").html('<%= escape_javascript(render "/employees/matters/images/new", image: @image) %>'); 
-$("#image-new").modal();
+$("#modal-container").html('<%= escape_javascript(render "employees/matters/images/partial/new", image: @image) %>'); 
+$("#modal-container").modal();

@@ -41,15 +41,13 @@ class Employees::MattersController < Employees::EmployeesController
   end
 
   def show
+    @message = true if params[:type] == "success"
     set_matter_detail_valiable
-    @client = @matter.client
-    @estimate_matter = @matter.estimate_matter
     set_classified_tasks(@matter)
     set_estimates_with_plan_names_and_label_colors
     set_invoice_valiable
-    @message = true if params[:type] == "success"
-    @images = @matter.images.select{ |image| image.image.attached? }
-    @report_cover = @matter.report_cover    
+    @images = @matter.images.where(report: true).select{ |image| image.image.attached? }
+    @report_cover = @matter.report_cover
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
     @construction_schedules = @matter.construction_schedules.includes(:materials, :supplier).order_start_date
@@ -126,6 +124,8 @@ class Employees::MattersController < Employees::EmployeesController
     def set_matter_detail_valiable
       @address = "#{ @matter.prefecture_code }#{ @matter.address_city }#{ @matter.address_street }"
       @suppliers = @matter.suppliers
+      @client = @matter.client
+      @estimate_matter = @matter.estimate_matter
     end
     
     def set_invoice_valiable

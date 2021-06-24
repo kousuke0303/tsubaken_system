@@ -1,0 +1,59 @@
+<section>
+  <div class="col-md-6">  
+    <%= form_with(url: send(path), method: :get, local: true) do |f| %>
+      <div class="input-group">
+        <%= f.select :content, @image_tags, {include_blank: "全ての写真"}, {class: "form-control"} %>
+        <div class="input-group-append">        
+          <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section>
+  <div class="table-responsive">
+    <table class="table table-bordered common-table">
+      <thead>
+        <tr>
+          <th>表紙LIST</th>
+          <th>項目LIST</th>
+          <th>写真</th>
+          <th>投函者</th>
+          <th>内容</th>
+          <th>撮影日</th>
+          <th>画像編集・削除</th>
+        </tr>
+      </thead>
+      <% @target_images.each do |image| %>
+        <tr>
+          <td class="text-center text-danger"><%= image.report_cover_disp %></td>
+          <td class="text-center text-success"><%= image.report_disp %></td>
+          <td style="vertical-align: middle" class="text-center pc_type">
+            <%= image_tag url_for(image.image.variant(resize: "150x150")) %>
+          </td>
+              
+          <td style="vertical-align: middle" class="text-center mobile_type">
+            <%= image_tag url_for(image.image.variant(resize: "120x120")) %>
+          </td>
+              
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.poster || image.author %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.content %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <%= image.shooted_on %>
+          </td>
+          <td style="vertical-align: middle" class="text-center">
+            <% if current_matter %>
+              <%= link_to "編集", edit_employees_matter_image_path(current_matter, image.id), remote: true, class: "btn btn-dark" %>
+              <%= link_to "削除", employees_matter_image_path(@matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger", remote: true %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+$('#modal-container').modal('hide');
+$('#image_index').html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>')
+window.opener.location.reload();
+$('#modal-container').empty();
+toastr.warning('削除しました');

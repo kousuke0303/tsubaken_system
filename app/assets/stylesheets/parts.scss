@@ -117,3 +117,50 @@
     font-size: 20px;  
   }
 }
+
+/* -----------------------------------------------------
+ CHECKBOX SWITCH
+-----------------------------------------------------*/
+
+.switch-check-box {
+  width: 5.5rem;
+  height: 2.5rem;
+  position: relative;
+
+  input { opacity: 0; }
+  label {
+    position: absolute;
+    background-color: #bfbfbe;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    border-radius: 3.125rem;
+    margin: 0 auto;
+    -webkit-transition: background-color .2s ease-in-out;
+            transition: background-color .2s ease-in-out;
+  }
+  label:after {
+    content: "";
+    display: block;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 3.125rem;
+    cursor: pointer;
+    position: absolute;
+    top: .3125rem;
+    z-index: 1;
+    left: .5rem;
+    background-color: #FFFFFD;
+    -webkit-transition: left .2s ease-in-out;
+            transition: left .2s ease-in-out;
+  }
+  input[type=checkbox]:checked ~ label {
+    background-color: #be4fa6;
+  }
+
+  input[type=checkbox]:checked ~ label:after {
+    left: 3.125rem;
+  }
+
+}

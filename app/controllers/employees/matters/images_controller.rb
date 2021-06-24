@@ -8,31 +8,51 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
   end
 
   def create
-    @image = @matter.images.new(image_params)
-    if @image.save
-      @image.update("#{login_user.auth}_id".to_sym => login_user.id)
-      flash[:success] = "写真を作成しました"
-      redirect_to employees_matter_images_url(@matter, @image)
+    if params[:image][:image].nil?
+      flash[:alert] = "画像の取り込みに失敗しました"
+      redirect_to employees_matter_images_path(@matter)
+    else
+      @image = @matter.images.new(image_params)
+      if @image.save
+        @responce = "success"
+        flash[:success] = "画像を取り込みました"
+        redirect_to employees_matter_images_path(@matter)
+      end
     end
   end
 
   def index
-    @images = @matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
+    @images = @matter.images
+    @all_images = @images.where(content: params[:content]).order(shooted_on: "DESC").select { |image| image.image.attached? }
+    if params[:content].present?
+      @target_images = @images.where(content: params[:content]).order(shooted_on: "DESC").select { |image| image.image.attached? }
+    else
+      @target_images = @images.order(shooted_on: "DESC", created_at: "DESC").select { |image| image.image.attached? }
+    end
+    @image_tags = @images.pluck(:content).uniq
+    @band_key = @matter.band_connection.band_key
+    search_image(@band_key)
   end
   
   def edit
   end
   
   def update
+    unless params[:image][:report_cover].present?
+      params[:image][:report_cover] = false
+    end
+    unless params[:image][:report].present?
+      params[:image][:report] = false
+    end
     if @image.update(image_content_and_shooted_on_params)
-      flash[:success] = "写真を編集しました。"
-      redirect_to employees_matter_images_url(@matter, @image)
+      @responce = "success"
+      set_index_variable
     end
   end
   
   def destroy
     @image.destroy
-    redirect_to employees_matter_images_url(@matter, @image)
+    set_index_variable
   end
   
   def save_for_band_image
@@ -49,9 +69,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
         image_model.save!
         File.delete(@file_path) # ファイル削除
       end
-      @images = @matter.images.order(shooted_on: "DESC").select { |image| image.image.attached? }
-      search_image(@matter.band_connection.band_key)
-      flash.now[:success] = "BAND画像を取り込みました。"
+      set_index_variable
     end
   rescue
     @images = @matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
@@ -64,14 +82,23 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     end
     
     def image_params
-      params.require(:image).permit(:content, :shooted_on, :image, :matter_id)
+      params.require(:image).permit(:content, :shooted_on, :image, :matter_id, :report_cover, :report)
     end
     
     def image_content_and_shooted_on_params
-      params.require(:image).permit(:content, :shooted_on)
+      params.require(:image).permit(:content, :shooted_on, :report_cover, :report)
     end
     
     def set_image
       @image = Image.find(params[:id])
+    end
+    
+    def set_index_variable
+      @images = @matter.images
+      @all_images = @images.where(content: params[:content]).order(shooted_on: "DESC").select { |image| image.image.attached? }
+      @target_images = @images.order(shooted_on: "DESC").select { |image| image.image.attached? }
+      @image_tags = @images.pluck(:content).uniq
+      @band_key = @matter.band_connection.band_key
+      search_image(@band_key)
     end
 end

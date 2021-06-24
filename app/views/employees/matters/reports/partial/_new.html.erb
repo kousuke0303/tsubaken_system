@@ -1,19 +1,17 @@
-<div class="modal-dialog modal-lg">
+<div class="modal-dialog non-card-modal wide-modal">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-header">
+      報告書作成
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
     <div class="modal-body pa-2e">
-      <div class="card mb-3">
-        <h5 class="card-header">報告書作成</h5>
-        <div class="card-body">
-        <%= form_with(model: @report, url: employees_matter_reports_path, method: :post) do |f| %>
-            <div class="report-create-errors"></div>
-            <%= render "employees/matters/reports/partial/form", f: f %>
-            <div class="btn-area">
-              <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
-            </div>
-          <% end %>
+      <%= form_with(model: @report, url: employees_matter_reports_path, method: :post) do |f| %>
+        <div class="report-create-errors"></div>
+        <%= render "employees/matters/reports/partial/form", f: f %>
+        <div class="btn-area">
+          <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

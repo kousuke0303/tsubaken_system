@@ -1,0 +1,61 @@
+<div class="modal-dialog non-card-modal">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+      画像詳細編集
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body bg-white pa-2e">
+    
+      <% if @image.image.attached? %>
+        <div class="text-center">
+          <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
+        </div>
+      <% end %>  
+      
+      <%= form_with(model: @image, url: employees_matter_image_path(@matter, @image.id), method: :patch, remote: true) do |f| %>
+        <div class="image-update-errors"></div>
+        
+        <div class="row">
+          <label class="form-control text-white" style="background:#787a7b;">タグ：撮影日</label>
+          <div class="col-12">
+            <%= f.label "タグ名" %>
+            <%= f.text_field :content, class: "form-control", required: true %>
+          </div>
+          
+          <div class="col-12">
+            <%= f.label :shooted_on %>
+            <%= f.date_field :shooted_on, class: "form-control", required: true %>
+          </div>
+          
+          <label class="form-control text-white" style="background:#787a7b;">報告書関連</label>
+          <div class="col-md-6 text-center" >
+            <%= f.label "報告書表紙候補" %>
+            <div class="switch-check-box">
+              <%= f.check_box :report_cover, {id: "rounded"}, true, false %>
+              <label for="rounded"></label>
+            </div>
+          </div>
+          
+          <div class="col-md-6 text-center" >
+            <%= f.label "報告書項目候補" %>
+            <div class="switch-check-box">
+              <%= f.check_box :report, {id: "rounded_2"}, true, false %>
+              <label for="rounded_2"></label>
+            </div>
+          </div>
+        
+        
+          <div class="col-12 btn-area">
+            <%= f.submit "更新", class: "btn btn-md btn-success reset-errors" %>
+            <%= link_to "戻る", employees_matter_images_path, class: "btn btn-md btn-dark" %>
+          </div>
+        </div>
+
+      <% end %> 
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "reset_errors.js" %>
