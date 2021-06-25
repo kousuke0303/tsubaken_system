@@ -1,5 +1,5 @@
 <% if @response == "success" %>
-  $("#sales-status-edit").modal("hide");
+  $("#modal-container").modal("hide");
   toastr.success('<%= @sales_status.status_i18n %>を更新しました')
   <!--スケジュールから飛んできた場合の処理-->
   <% if @origin == "schedule" %>
@@ -17,6 +17,7 @@
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   });
+  $('#modal-container').empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".sales-status-update-errors", model: @sales_status, object: "sales_status"} %>
 <% end %>

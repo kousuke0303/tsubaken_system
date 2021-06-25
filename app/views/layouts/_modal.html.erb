@@ -142,12 +142,6 @@
     <div id="client-edit" class="modal fade" role="dialog"></div>
   <% end %>
   
-  <!--診断書new・edit-->
-  <!--<div id="certificate-new" class="modal fade" role="dialog"></div>-->
-  <!--<div id="certificate-edit" class="modal fade" role="dialog"></div>-->
-  <!--<div id="certificate-cover-new" class="modal fade" role="dialog" ></div>-->
-  <!--<div id="certificate-cover-edit" class="modal fade" role="dialog" ></div>-->
-  
   <!--見積案件に紐づいている写真に対しての診断書new・edit-->
   <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
   <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
@@ -174,13 +168,6 @@
 
 <!--アドミン・マネージャー・スタッフ・外部スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? || external_staff_signed_in? %>
-  
-  <% if controller_name == "estimate_matters" && action_name == "show" %> 
-    <!--営業ステータスnew・edit-->
-    <div id="sales-status-new" class="modal fade" role="dialog"></div>
-    <div id="sales-status-show" class="modal fade" role="dialog"></div>
-    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
-  <% end %>
   
   <!-- 見積案件から案件設定の際に、担当者を選択するモーダル -->
   <div id="person_in_charge" class="modal fade" role="dialog"></div>

@@ -298,7 +298,7 @@ Rails.application.routes.draw do
         post :save_for_band_image, on: :collection
       end
       resources :messages, only: [:index], controller: "estimate_matters/messages"
-      resources :sales_statuses, only: [:new, :create, :edit, :update, :destroy], controller: "estimate_matters/sales_statuses"
+      resources :sales_statuses, controller: "estimate_matters/sales_statuses"
       resources :certificates, controller: "estimate_matters/certificates" do
         get :select_title, on: :collection
         patch :sort, on: :collection
