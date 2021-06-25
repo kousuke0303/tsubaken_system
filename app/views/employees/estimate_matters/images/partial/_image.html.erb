@@ -1,7 +1,22 @@
+<section>
+  <div class="col-md-6">  
+    <%= form_with(url: employees_estimate_matter_images_path, method: :get, local: true) do |f| %>
+      <div class="input-group">
+        <%= f.select :content, @image_tags, {include_blank: "全ての写真"}, {class: "form-control", id: "search"} %>
+        <div class="input-group-append">        
+          <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+
 <div class="table-responsive">
-  <table class="table table-bordered text-nowrap table_line_type">
+  <table class="table table-bordered text-nowrap common-table">
     <thead>
       <tr>
+        <th>診断書LIST</th>
         <th class="text-center">写真</th>
         <th class="text-center">投函者</th>
         <th class="text-center">画像内容</th>
@@ -9,30 +24,40 @@
         <th class="text-center">画像編集・削除</th>
       </tr>
     </thead>
-    <% @images.each do |image| %>
+    <% @target_images.each do |image| %>
         <tr>
-          <td style="vertical-align: middle" class="text-center pc_type">
-            <%= image_tag url_for(image.image.variant(resize: "200x200")) %>
+          <td class="text-center text-danger"><%= image.certificate_disp %></td>
+          <td class="text-center pc_type">
+            <%= image_tag url_for(image.image.variant(resize: "150x150")) %>
           </td>
           
-          <td style="vertical-align: middle" class="text-center mobile_type">
+          <td class="text-center mobile_type">
             <%= image_tag url_for(image.image.variant(resize: "120x120")) %>
           </td>
           
-          <td style="vertical-align: middle" class="text-center">
+          <td class="text-center">
             <%= image.poster || image.author %>
           </td>
-          <td style="vertical-align: middle" class="text-center">
+          <td class="text-center">
             <%= image.content %>
           </td>
-          <td style="vertical-align: middle" class="text-center">
+          <td class="text-center">
             <%= image.shooted_on %>
           </td>
-          <td style="vertical-align: middle" class="text-center">
+          <td class="text-center">
             <%= link_to "編集", edit_employees_estimate_matter_image_path(current_estimate_matter, image.id), remote: true, class: "btn btn-dark" %>
-            <%= link_to "削除", employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger" %>
+            <%= link_to "削除", employees_estimate_matter_image_path(current_estimate_matter, image.id), method: :delete, data: { confirm: 'この写真を削除してよろしいですか?' }, class: "btn btn-danger", remote: true %>
           </td>
         </tr>
     <% end %>
   </table>
 </div>
+
+<script>
+  <% if @serch_word.present? %>
+    $(function(){
+      var val = "<%= @serch_word %>";
+      $('#search').val(val);
+    });
+  <% end %>
+</script>

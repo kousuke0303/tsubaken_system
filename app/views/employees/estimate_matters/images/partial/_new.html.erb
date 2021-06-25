@@ -1,33 +1,41 @@
-<div class="modal-dialog">
+<div class="modal-dialog non-card-modal">
   <div class="modal-content">
     <div class="modal-header">
+      画像取り込み
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body pa-2e">
       <div class="image-create-errors"></div>
       <%= form_with(model: @image, url: employees_estimate_matter_images_path(current_estimate_matter), method: :post) do |f| %>
-        <%= f.label :content %>
-        <div>
-          <%= f.text_area :content, maxlength: 300, class: "form-control" %>
-        </div>
         
-        <%= f.label :shooted_on %>
-        <div>
-          <%= f.date_field :shooted_on, class: "form-control" %>
-        </div>
-        
-        <div class="mt-1e">
-          <%= f.label :image, "画像を選択" %>
-          <%= f.file_field :image, accept: 'image/jpeg, image/png, image/gif, image/bmp, image/psd, image/tiff', class: "file-input", id: "lefile" %>
-          <div class="input-group">
-            <input type="text" id="photoCover" class="form-control" placeholder="ファイルを選択" style="height: 48px">
-            <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=lefile]').click();"><i class="fas fa-file-download fa-2x"></i></button></span>
+         <div class="row">
+          
+          <div class="mt-1e">
+            <%= f.label :image, "画像を選択" %>
+            <%= f.file_field :image, accept: 'image/jpeg, image/png, image/gif, image/bmp, image/psd, image/tiff', class: "file-input", id: "lefile" %>
+            <div class="input-group">
+              <input type="text" id="photoCover" class="form-control" placeholder="ファイルを選択" style="height: 48px">
+              <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=lefile]').click();"><i class="fas fa-file-download fa-2x"></i></button></span>
+            </div>
           </div>
+          
+          <label class="form-control text-white" style="background:#787a7b;">タグ：撮影日</label>
+          <div class="col-12">
+            <%= f.label "タグ名" %>
+            <%= f.text_field :content, class: "form-control", required: true %>
+          </div>
+          
+          <div class="col-12">
+            <%= f.label :shooted_on %>
+            <%= f.date_field :shooted_on, class: "form-control", required: true %>
+          </div>
+        
         </div>
 
         <div class="text-center mt-1e">
           <%= f.submit class: "btn btn-dark reset-errors" %>
         </div>
+        
       <% end %>
     </div>
   </div>

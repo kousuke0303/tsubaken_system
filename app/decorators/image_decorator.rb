@@ -13,4 +13,11 @@ module ImageDecorator
       content_tag(:i, "", class: "fas fa-check fa-2x")
     end
   end
+  
+  def certificate_disp
+    if self.certificate
+      content_tag(:i, "", class: "fas fa-check fa-2x")
+    end
+  end
+
 end

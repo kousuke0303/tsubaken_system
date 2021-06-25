@@ -1,5 +1,6 @@
-$('#modal-container').modal('hide');
 $('#image_index').html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>')
+$("#band_album").html('<%= escape_javascript(render partial: 'shared/images/band_images',
+                                                    locals: {path: :save_for_band_image_employees_matter_images_path,
+                                                    model: @matter}) %>');
 window.opener.location.reload();
-$('#modal-container').empty();
 toastr.warning('削除しました');

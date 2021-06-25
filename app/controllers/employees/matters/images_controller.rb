@@ -25,6 +25,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     @images = @matter.images
     @all_images = @images.where(content: params[:content]).order(shooted_on: "DESC").select { |image| image.image.attached? }
     if params[:content].present?
+      @serch_word = params[:content].chomp
       @target_images = @images.where(content: params[:content]).order(shooted_on: "DESC").select { |image| image.image.attached? }
     else
       @target_images = @images.order(shooted_on: "DESC", created_at: "DESC").select { |image| image.image.attached? }
@@ -62,7 +63,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
         temporary_storage_for_image(params_image["image"], index, @matter)
         # 新規テーブル作成・保存
         image_model = @matter.images.new(author: params[:matter][:author],
-                                                        content: params[:matter][:content],
+                                                        content: params[:matter][:content].chomp,
                                                         shooted_on: params[:matter][:shooted_on],
                                                         default_file_path: params_image["image"])
         image_model.image.attach(io: File.open(@file_path), filename: @file_name, content_type: "image/jpeg")
@@ -72,7 +73,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
       set_index_variable
     end
   rescue
-    @images = @matter.images.order(shooted_on: "DESC").select { |image| image.images.attached? }
+    @images = @matter.images.order(shooted_on: "DESC", created_at: "DESC").select { |image| image.images.attached? }
   end
   
   private
@@ -82,7 +83,7 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
     end
     
     def image_params
-      params.require(:image).permit(:content, :shooted_on, :image, :matter_id, :report_cover, :report)
+      params.require(:image).permit(:content, :shooted_on, :image, :matter_id)
     end
     
     def image_content_and_shooted_on_params

@@ -3,6 +3,9 @@
     <%= render partial: 'layouts/page_title', locals: { title_1: "営業案件", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
   </div>
   <div class="col-md-6 text-right">
+    <% if @matter.present? %>
+      <%= link_to "着工案件に移動", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
+    <% end %>
     <%= link_to "この営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 </div>
@@ -67,9 +70,6 @@
   </div>
   
   <div class="btn-area mb-1e">
-    <% if @matter %>
-      <%= link_to "案件詳細", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
-    <% end %>
     <span class="to-create-matter">
       <% if @contracted_estimate_matter.present? && @matter.nil? %>      
         <%= link_to "案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-dark" %>

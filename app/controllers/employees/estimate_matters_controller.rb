@@ -50,18 +50,14 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def show
     gon.estimate_matter_id = @estimate_matter.id
-    @matter = @estimate_matter.matter
-    @publisher = @estimate_matter.publisher
-    @client = @estimate_matter.client
-    @suppliers = @estimate_matter.suppliers
+    set_estimate_matter_variable
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
     @cover = @estimate_matter.cover
     @certificates = @estimate_matter.certificates.order(position: :asc)
-    @images = @estimate_matter.images.select { |image| image.image.attached? }
+    @images = @estimate_matter.images.where(certificate: true).select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
-    @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
   end
 
   def edit
@@ -165,5 +161,12 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       delete_matter_member_codes.each do |matter_member_code|
         matter_member_code.destroy
       end
+    end
+    
+    def set_estimate_matter_variable
+      @matter = @estimate_matter.matter
+      @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
+      @publisher = @estimate_matter.publisher
+      @client = @estimate_matter.client
     end
 end

@@ -7,7 +7,6 @@ class CreateImages < ActiveRecord::Migration[5.2]
       t.date :shooted_on
       t.string :estimate_matter_id
       t.string :matter_id
-      t.boolean :cover
       t.boolean :certificate
       t.boolean :report_cover
       t.boolean :report

@@ -57,3 +57,12 @@
     </table>
   </div>
 </section>
+
+<script>
+  <% if @serch_word.present? %>
+    $(function(){
+      var val = "<%= @serch_word %>";
+      $('#search').val(val);
+    });
+  <% end %>
+</script>

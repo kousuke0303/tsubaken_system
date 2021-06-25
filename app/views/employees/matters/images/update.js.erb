@@ -3,7 +3,7 @@
   $('#image_index').html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>')
   window.opener.location.reload();
   $('#modal-container').empty();
-  toastr.success('編集しました')
+  toastr.success('編集しました');
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".image-update-errors", model: @image, object: "image"} %>
 <% end %>

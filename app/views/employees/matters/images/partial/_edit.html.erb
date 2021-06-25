@@ -12,6 +12,9 @@
         <div class="text-center">
           <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
         </div>
+        <div class="text-center mobile_type">
+          <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
+        </div>
       <% end %>  
       
       <%= form_with(model: @image, url: employees_matter_image_path(@matter, @image.id), method: :patch, remote: true) do |f| %>

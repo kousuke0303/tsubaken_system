@@ -86,16 +86,19 @@
         <div class="text-right">
           <%= link_to "プレビュー", preview_employees_estimate_matter_certificates_path(@estimate_matter), class: "btn btn-primary" %>
         </div>
-        <h5>画像一覧</h5>
+        
+        <div class="double-line"><h4>画像一覧</h4></div>
         <div class="image_flex">
           <%= render 'employees/estimate_matters/partial/certificates_images' %>
         </div>
-        <h5 class="mt-1e">表紙</h5>
+        
+        <div class="double-line mt-1e"><h4>表紙</h4></div>
         <div id="cover_update_flash"></div>
         <div class="certificates-cover">
           <%= render "employees/covers/partial/show" %>  
         </div>
-        <h5 class="mt-1e">診断書一覧</h5>
+        
+        <div class="double-line mt-1e"><h4>診断書項目</h4></div>
         <div id="certificate-update-flash"></div>
         <div class="certificates-index">
           <%= render "employees/estimate_matters/partial/certificates" %>
