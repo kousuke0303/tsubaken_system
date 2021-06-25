@@ -1,0 +1,2 @@
+module Vendors::ConstructionSchedulesHelper
+end

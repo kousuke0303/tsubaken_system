@@ -5,9 +5,9 @@ ja:
       manager: マネージャー
       staff: スタッフ
       client: 顧客
-      supplier_manager: 外注先管理者
+      vendor_manager: 外注先管理者
       external_staff: 外部スタッフ
-      supplier: 外注先
+      vendor: 外注先
       attendance: 勤怠
       schedule: スケジュール
       estimate_matter: 営業案件
@@ -32,22 +32,22 @@ ja:
         admin:
           name: 名前
         manager:
-          name: 名前        
+          name: 名前
           accept: 同意
         staff:
-          name: 名前                    
+          name: 名前
           accept: 同意
-        supplier_manager:
+        vendor_manager:
           name: 名前
         external_staff:
           name: 名前
-          supplier_id: 外注先
+          vendor_id: 外注先
           accept: 同意
         client:
           name: 名前
-          gender: 性別          
+          gender: 性別
           avaliable: ログインを許可
-        supplier:
+        vendor:
           name: 会社名
           representative: 代表者名
           industries: 業種
@@ -55,7 +55,7 @@ ja:
           started_at: 出勤時間
           finished_at: 退勤時間
           worked_on: 出勤日
-        schedule: 
+        schedule:
           title: タイトル
           scheduled_date: 日程
           scheduled_start_time: 開始予定時刻
@@ -81,7 +81,7 @@ ja:
         construction_schedule:
           title: タイトル
           content: 内容
-          supplier_id: 担当業者様
+          vendor_id: 担当業者様
           scheduled_started_on: 開始予定日
           scheduled_finished_on: 終了予定日
           started_on: 着工日
@@ -91,11 +91,11 @@ ja:
           end_time: 終了時間
         estimate_matter:
           title: 案件名
-          status: 進行状況                              
+          status: 進行状況
           attract_method_id: 集客方法
           publisher_id: 引受屋号
         estimate:
-          title: 見積名          
+          title: 見積名
         invoice:
           title: 見積名
           paid_on: 支払日
@@ -125,7 +125,7 @@ ja:
           estimate_id: 採用見積
           staff_ids: 担当Staff
           external_staff_ids: 担当外部Staff
-          supplier_ids: 担当外注先
+          vendor_ids: 担当外注先
         report:
           title: 報告書項目名
         report_cover:
@@ -152,7 +152,7 @@ ja:
           images: 写真
           shooted_on: 撮影日
         construction:
-          name: 工事名          
+          name: 工事名
           accept: 確認事項
         material:
           name: 素材名
@@ -164,7 +164,7 @@ ja:
           accept: 確認事項
         certificate:
           title: 診断書名
-          content: 内容          
+          content: 内容
           default: デフォルト
         cover:
           title: タイトル
@@ -180,7 +180,7 @@ ja:
           scheduled_start_time: 開始予定時刻（※任意）
           scheduled_end_time: 終了予定時刻（※任意）
           place: 場所（※任意）
-        inquiry: 
+        inquiry:
           name: 氏名
           kind: お問合せ内容
           reply_email: 返信用メールアドレス
@@ -216,7 +216,7 @@ ja:
     client: 顧客
     manager: Manager
     staff: Staff
-    supplier: 外注先
+    vendor: 外注先
     staff_id: Staff
     external_staff_id: 外部Staff
     label_color_id: カラー
