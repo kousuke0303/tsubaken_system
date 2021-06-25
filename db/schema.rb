@@ -337,6 +337,15 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
   end
 
+  create_table "industry_vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "industry_id"
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_industry_vendors_on_industry_id"
+    t.index ["vendor_id"], name: "index_industry_vendors_on_vendor_id"
+  end
+
   create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "kind", null: false
     t.string "name"
@@ -802,6 +811,8 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "images", "member_codes"
   add_foreign_key "industry_suppliers", "industries"
   add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "industry_vendors", "industries"
+  add_foreign_key "industry_vendors", "vendors"
   add_foreign_key "invoice_details", "categories"
   add_foreign_key "invoice_details", "constructions"
   add_foreign_key "invoice_details", "invoices"

@@ -1,0 +1,2 @@
+class IndustryVendor < ApplicationRecord
+end
