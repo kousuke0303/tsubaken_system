@@ -1,2 +1,0 @@
-module SupplierManagers::ConstructionReportsHelper
-end
