@@ -309,7 +309,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.date "shooted_on"
     t.string "estimate_matter_id"
     t.string "matter_id"
-    t.boolean "cover"
     t.boolean "certificate"
     t.boolean "report_cover"
     t.boolean "report"
@@ -730,6 +729,22 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["estimate_matter_id"], name: "index_tasks_on_estimate_matter_id"
     t.index ["matter_id"], name: "index_tasks_on_matter_id"
     t.index ["member_code_id"], name: "index_tasks_on_member_code_id"
+  end
+
+  create_table "vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "kana", null: false
+    t.string "postal_code"
+    t.string "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
+    t.string "representative"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
