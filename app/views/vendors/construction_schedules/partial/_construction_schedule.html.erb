@@ -23,7 +23,7 @@
             <%= construction.matter.title %>
           <% end %>
         </td>
-        
+
         <td rowspan="2" style="border-bottom: 1px solid black">
           <% if construction.materials.present? %>
             <% construction.materials.each do |material| %>
@@ -33,7 +33,7 @@
         </td>
         <td rowspan="2" class="text-center" style="border-bottom: 1px solid black">
           <div>
-            <%= link_to "表示", suppliers_construction_schedule_path(construction), remote: true, class: "btn btn-dark" %>
+            <%= link_to "表示", vendors_construction_schedule_path(construction), remote: true, class: "btn btn-dark" %>
           </div>
         </td>
         <td rowspan="2" style="border-bottom: 1px solid black" class="text-center"><%= construction.scheduled_finished_on_disp %></td>
@@ -43,5 +43,5 @@
       </tr>
     <% end %>
   </table>
-  
+
 </div>
