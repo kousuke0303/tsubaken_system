@@ -767,6 +767,15 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["vendor_id"], name: "index_vendor_managers_on_vendor_id"
   end
 
+  create_table "vendor_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_vendor_matters_on_matter_id"
+    t.index ["vendor_id"], name: "index_vendor_matters_on_vendor_id"
+  end
+
   create_table "vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "kana", null: false
@@ -851,4 +860,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "vendor_estimate_matters", "estimate_matters"
   add_foreign_key "vendor_estimate_matters", "vendors"
   add_foreign_key "vendor_managers", "vendors"
+  add_foreign_key "vendor_matters", "matters"
+  add_foreign_key "vendor_matters", "vendors"
 end
