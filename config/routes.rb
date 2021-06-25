@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :vendor_managers
   # mount ActionCable.server => '/cable'
   root "static_pages#top"
   post "sign_in", to: "static_pages#error"

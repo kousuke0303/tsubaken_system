@@ -1,15 +1,15 @@
-class DeviseCreateSupplierManagers < ActiveRecord::Migration[5.2]
+class DeviseCreateVendorManagers < ActiveRecord::Migration[5.2]
   def change
-    create_table :supplier_managers do |t|
+    create_table :vendor_managers do |t|
 
-      t.string :auth,               null: false, default: "supplier_manager"
+      t.string :auth,               null: false, default: "vendor_manager"
       t.string :name,               null: false
       t.string :kana
       t.string :phone
       t.string :email
       t.date :resigned_on
       t.boolean :avaliable,         null: false, default: true
-      t.references :supplier,       foreign_key: true
+      t.references :vendor,       foreign_key: true
 
       ## Database authenticatable
       t.string :login_id,           null: false, default: ""
@@ -18,6 +18,6 @@ class DeviseCreateSupplierManagers < ActiveRecord::Migration[5.2]
       t.datetime :remember_created_at
       t.timestamps null: false
     end
-    add_index :supplier_managers, :login_id,     unique: true
+    add_index :vendor_managers, :login_id,     unique: true
   end
 end

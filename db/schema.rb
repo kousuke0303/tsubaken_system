@@ -731,6 +731,24 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["member_code_id"], name: "index_tasks_on_member_code_id"
   end
 
+  create_table "vendor_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "vendor_manager", null: false
+    t.string "name", null: false
+    t.string "kana"
+    t.string "phone"
+    t.string "email"
+    t.date "resigned_on"
+    t.boolean "avaliable", default: true, null: false
+    t.bigint "vendor_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["login_id"], name: "index_vendor_managers_on_login_id", unique: true
+    t.index ["vendor_id"], name: "index_vendor_managers_on_vendor_id"
+  end
+
   create_table "vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "kana", null: false
@@ -810,4 +828,5 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "matters"
+  add_foreign_key "vendor_managers", "vendors"
 end
