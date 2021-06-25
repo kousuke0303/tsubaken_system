@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :vendor_managers
   # mount ActionCable.server => '/cable'
   root "static_pages#top"
   post "sign_in", to: "static_pages#error"
@@ -81,8 +80,8 @@ Rails.application.routes.draw do
   end
 
   # VendorManager関係
-  scope module: :supplier_managers do
-    resources :supplier_managers, only: :index do
+  scope module: :vendor_managers do
+    resources :vendor_managers, only: :index do
       collection do
         get :top
         get :information
@@ -93,11 +92,11 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :supplier_managers do
+  namespace :vendor_managers do
     resources :matters, except: [:create] do
       get :calendar, on: :member
     end
-    resources :suppliers, only: :update
+    resources :vendors, only: :update
     resources :construction_schedules, only: [:index, :show, :edit, :update] do
       member do
         get :picture
@@ -198,12 +197,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :supplier_managers, except: :edit do
+    resources :vendor_managers, except: :edit do
       patch :pass_update, on: :member
       patch :out_of_service, on: :member
       patch :restoration, on: :member
 
-      scope module: :supplier_managers do
+      scope module: :vendor_managers do
         resources :retirements, only: :index do
           get :change_member_for_task, on: :collection
           patch :update_member_for_task, on: :collection
@@ -219,7 +218,7 @@ Rails.application.routes.draw do
       post :search_index, on: :collection
       patch :reset_password, on: :member
     end
-    resources :suppliers
+    resources :vendors
 
     resources :attendances, only: [:new, :create, :edit, :update, :destroy] do
       collection do
@@ -272,7 +271,7 @@ Rails.application.routes.draw do
         resource :members, only: :edit do
           collection do
             patch :member_change_for_staff
-            patch :member_change_for_supplier_staff
+            patch :member_change_for_vendor_staff
           end
         end
       end
@@ -328,7 +327,7 @@ Rails.application.routes.draw do
         resource :members, only: :edit do
           collection do
             patch :member_change_for_staff
-            patch :member_change_for_supplier_staff
+            patch :member_change_for_vendor_staff
           end
         end
       end
@@ -477,10 +476,10 @@ Rails.application.routes.draw do
     registrations: "clients/registrations"
   }
 
-  devise_for :supplier_managers, controllers: {
-    sessions:      "supplier_managers/sessions",
-    passwords:     "supplier_managers/passwords",
-    registrations: "supplier_managers/registrations"
+  devise_for :vendor_managers, controllers: {
+    sessions:      "vendor_managers/sessions",
+    passwords:     "vendor_managers/passwords",
+    registrations: "vendor_managers/registrations"
   }
 
   # deviseのExternalStaffログイン関係
@@ -542,10 +541,10 @@ Rails.application.routes.draw do
         post "destroy_client", to: "clients#destroy"
 
         # 外注先CRUD
-        post "index_suppliers", to: "suppliers#index"
-        post "create_supplier", to: "suppliers#create"
-        post "update_supplier", to: "suppliers#update"
-        post "destroy_supplier", to: "suppliers#destroy"
+        post "index_vendors", to: "vendors#index"
+        post "create_vendor", to: "vendors#create"
+        post "update_vendor", to: "vendors#update"
+        post "destroy_vendor", to: "vendors#destroy"
 
         # 案件CRUD
         post "create_matter", to: "matters#create"
