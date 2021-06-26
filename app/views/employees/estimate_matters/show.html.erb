@@ -31,3 +31,9 @@
     window.open( '<%= employees_estimate_matter_images_path(@estimate_matter) %>', 'new', "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no");
   });
 </script>
+
+<script>
+  $('#to_image_index_for_mobile').on('click', function(){
+    window.location.herf = '<%= employees_estimate_matter_images_path(@estimate_matter) %>';
+  });
+</script>

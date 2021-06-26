@@ -51,11 +51,9 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   def show
     gon.estimate_matter_id = @estimate_matter.id
     set_estimate_matter_variable
+    set_certificate_variable
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
-    @cover = @estimate_matter.cover
-    @certificates = @estimate_matter.certificates.order(position: :asc)
-    @images = @estimate_matter.images.where(certificate: true).select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
   end
@@ -168,5 +166,12 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
       @publisher = @estimate_matter.publisher
       @client = @estimate_matter.client
+    end
+    
+    def set_certificate_variable
+      @estimate_matter.cover.present? ?  @cover = @estimate_matter.cover :  @cover = @estimate_matter.build_cover
+      @certificates = @estimate_matter.certificates.order(position: :asc)
+      @images = @estimate_matter.images.where(certificate_list: true).select { |image| image.image.attached? }
+      @cover_image = @estimate_matter.images.find_by(cover_list: true)
     end
 end

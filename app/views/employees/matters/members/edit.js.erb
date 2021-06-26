@@ -1,6 +1,6 @@
 <% if @staff.present? %>
-  $('#retirement-modal').html('<%= escape_javascript(render 'employees/staffs/retirements/partial/form/change_staff_for_matter') %>');
+  $('#modal-container').html('<%= escape_javascript(render 'employees/staffs/retirements/partial/form/change_staff_for_matter') %>');
 <% elsif @external_staff.present? %>
-  $('#retirement-modal').html('<%= escape_javascript(render 'employees/external_staffs/retirements/partial/form/change_external_staff_for_matter') %>');
+  $('#modal-container').html('<%= escape_javascript(render 'employees/external_staffs/retirements/partial/form/change_external_staff_for_matter') %>');
 <% end %>
-$('#retirement-modal').modal();
+$('#modal-container').modal();

@@ -46,7 +46,7 @@ class Employees::MattersController < Employees::EmployeesController
     set_classified_tasks(@matter)
     set_estimates_with_plan_names_and_label_colors
     set_invoice_valiable
-    @images = @matter.images.where(report: true).select{ |image| image.image.attached? }
+    @images = @matter.images.where(report_list: true).select{ |image| image.image.attached? }
     @report_cover = @matter.report_cover
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id

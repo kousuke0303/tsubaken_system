@@ -36,8 +36,9 @@
   </div>
   
   <div class="mt-2e">
-    <%= render partial: 'shared/employees/band_select/band_select',
-               locals: { path: "employees/estimate_matters/partial/select_band_display"} %>
+    <%= render partial: 'shared/employees/band_select/band_select_for_mobile',
+               locals: { image_path: 'employees_estimate_matter_images_path',
+                         path: "employees/estimate_matters/partial/select_band_display"} %>
   </div>
   
 </div>

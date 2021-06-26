@@ -35,9 +35,16 @@
           
           <label class="form-control text-white" style="background:#787a7b;">報告書関連</label>
           <div class="col-6">
+            <%= f.label "表紙" %>
+            <div class="switch-check-box">
+              <%= f.check_box :cover_list, {id: "rounded_2"}, true, false %>
+              <label for="rounded_2"></label>
+            </div>
+          </div>
+          <div class="col-6">
             <%= f.label "診断書LIST" %>
             <div class="switch-check-box">
-              <%= f.check_box :certificate, {id: "rounded"}, true, false %>
+              <%= f.check_box :certificate_list, {id: "rounded"}, true, false %>
               <label for="rounded"></label>
             </div>
           </div>

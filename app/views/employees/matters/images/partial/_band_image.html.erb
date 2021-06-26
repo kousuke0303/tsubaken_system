@@ -1,0 +1,23 @@
+<section>
+  <div class="col-md-6">  
+    <%= form_with(url: employees_matter_images_path, method: :get, local: true) do |f| %>
+      <div class="input-group">
+        <%= f.select :band_content, @band_tags, {include_blank: "全ての写真"}, {class: "form-control", id: "band_search"} %>
+        <div class="input-group-append">        
+          <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<div class="pc_type">
+  <%= render partial: 'shared/images/band_images',
+             locals: {path: :save_for_band_image_employees_matter_images_path,
+                      model: @matter} %>
+</div>
+<div class="mobile_type">
+  <%= render partial: 'shared/images/band_images_for_mobile',
+             locals: {path: :save_for_band_image_employees_matter_images_path,
+                      model: @matter} %>
+</div>

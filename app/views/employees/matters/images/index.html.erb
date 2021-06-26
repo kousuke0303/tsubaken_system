@@ -6,7 +6,8 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "画像一覧", title_2: "#{ @matter.title }", icon: "fa-camera"} %>
   
     <div class="text-right">
-      <%= link_to '画像追加', new_employees_matter_image_path(@matter), remote: true, class: "btn btn-md btn-primary" %>
+      <%= link_to "着工案件に戻る", employees_matter_path(@matter), class: "btn btn-dark mobile_type" %>
+      <%= link_to '画像追加', new_employees_matter_image_path(@matter), remote: true, class: "btn btn-md btn-primary mt-1e" %>
     </div>
   </section>
   
@@ -19,12 +20,28 @@
       
       <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">BAND画像取込</label>
       <div class="tab-content" id="band_album">
-        <%= render partial: 'shared/images/band_images',
-                   locals: {path: :save_for_band_image_employees_matter_images_path,
-                            model: @matter} %>
+        <%= render 'employees/matters/images/partial/band_image' %>
       </div>
 
     </div>
   </section>
   
 </div>
+
+<script>
+  $(function(){
+    <% if params[:band_content].present? %>
+      $('#tab01').prop('checked', false);
+      $('#tab02').prop('checked', true);
+    <% end %>
+  });  
+</script>
+
+<script>
+  <% if @search_band_word.present? %>
+    $(function(){
+      var val = "<%= @search_band_word %>";
+      $('#band_search').val(val);
+    });
+  <% end %>
+</script>

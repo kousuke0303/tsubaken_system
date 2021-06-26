@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("##modal-container").modal("hide");
+  $("#modal-container").modal("hide");
   <%= render partial: "shared/javascript/flash", locals: {dom: "#certificate-create-flash", key: "success", value: "#{@cover.title}を作成しました。"} %>
   $(".certificates-cover").html('<%= escape_javascript(render "employees/covers/partial/show") %>');
-  $("##modal-container").empty();
+  $("#modal-container").empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".cover-create-errors", model: @cover, object: "cover"} %>
 <% end %>

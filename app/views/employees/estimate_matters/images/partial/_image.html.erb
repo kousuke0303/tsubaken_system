@@ -16,6 +16,7 @@
   <table class="table table-bordered text-nowrap common-table">
     <thead>
       <tr>
+        <th>表紙</th>
         <th>診断書LIST</th>
         <th class="text-center">写真</th>
         <th class="text-center">投函者</th>
@@ -26,7 +27,8 @@
     </thead>
     <% @target_images.each do |image| %>
         <tr>
-          <td class="text-center text-danger"><%= image.certificate_disp %></td>
+          <td class="text-center text-danger"><%= image.cover_disp %></td>
+          <td class="text-center text-success"><%= image.certificate_disp %></td>
           <td class="text-center pc_type">
             <%= image_tag url_for(image.image.variant(resize: "150x150")) %>
           </td>
@@ -54,9 +56,9 @@
 </div>
 
 <script>
-  <% if @serch_word.present? %>
+  <% if @search_word.present? %>
     $(function(){
-      var val = "<%= @serch_word %>";
+      var val = "<%= @search_word %>";
       $('#search').val(val);
     });
   <% end %>

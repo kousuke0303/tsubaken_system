@@ -1,4 +1,4 @@
-$("#estimate-matter-show-modal").modal("hide");
+$("#modal-container").modal("hide");
 <% if @type == "delete_category" %>
   toastr.warning('<%= @estimate_detail.category_name %>を削除しました');
 <% elsif @type == "delete_object" %>
@@ -8,4 +8,4 @@ $(".estimates-index").html('<%= escape_javascript(render "employees/estimate_mat
 $(function(){
   setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
 });
-$('#estimate-matter-show-modal').empty();
+$('#modal-container').empty();

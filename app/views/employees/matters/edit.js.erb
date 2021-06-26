@@ -1,6 +1,6 @@
 <% if @edit_type == "supplier_alert" %>
   $('#alert_container').html('<%= escape_javascript(render partial: "shared/person_in_charge/alert", locals: {object: @matter}) %>');
 <% else %>
-  $("#matter-show-modal").html('<%= escape_javascript(render "employees/matters/partial/edit/edit") %>'); 
-  $("#matter-show-modal").modal();
+  $("#modal-container").html('<%= escape_javascript(render "employees/matters/partial/edit/edit") %>'); 
+  $("#modal-container").modal();
 <% end %>

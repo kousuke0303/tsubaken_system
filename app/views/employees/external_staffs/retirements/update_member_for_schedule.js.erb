@@ -1,6 +1,6 @@
 <% if @responce == "success" %>
-  $('#retirement-modal').modal('hide');
-  $('#retirement-modal').empty();
+  $('#modal-container').modal('hide');
+  $('#modal-container').empty();
   $('#process').html('<%= escape_javascript(render 'employees/external_staffs/retirements/partial/process') %>');
   toastr.success("<%= @schedule.title %>の担当者を変更しました");
 <% else %>

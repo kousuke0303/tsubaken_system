@@ -1,37 +1,68 @@
 <%= render "shared/flash" %>
 
-<div class="estimate_matter_images_page" id="images-page">
+<section>
+  <%= render partial: "layouts/page_title", locals: { title_1: "画像一覧", title_2: "#{ @estimate_matter.title }", icon: "fa-camera"} %>
+
+  <div class="text-right">
+    <%= link_to "営業案件に戻る", employees_estimate_matter_path(@estimate_matter), class: "btn btn-dark mobile_type" %>
+    <%= link_to '画像追加', new_employees_estimate_matter_image_path(@estimate_matter), remote: true, class: "btn btn-md btn-primary mt-1e" %>
+  </div>
+</section>
+
+<section>
   
-  <section>
-    <%= render partial: "layouts/page_title", locals: { title_1: "画像一覧", title_2: "#{ @estimate_matter.title }", icon: "fa-camera"} %>
-  
-    <div class="text-right">
-      <%= link_to '画像追加', new_employees_estimate_matter_image_path(@estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">取込済画像一覧</label>
+    <div class="tab-content" id="image_index">
+      <%= render 'employees/estimate_matters/images/partial/image' %>
     </div>
-  </section>
-  
-  <section>
-    <div class="tab-wrap">
-      <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">取込済画像一覧</label>
-      <div class="tab-content" id="image_index">
-        <%= render 'employees/estimate_matters/images/partial/image' %>
-      </div>
+    
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">BAND画像取込</label>
+    <div class="tab-content" id="band_album">
       
-      <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">BAND画像取込</label>
-      <div class="tab-content" id="band_album">
-        <%= render partial: 'shared/images/band_images',
+      <section>
+        <div class="col-md-6">  
+          <%= form_with(url: employees_estimate_matter_images_path, method: :get, local: true) do |f| %>
+            <div class="input-group">
+              <%= f.select :band_content, @band_tags, {include_blank: "全ての写真"}, {class: "form-control", id: "band_search"} %>
+              <div class="input-group-append">        
+                <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+      
+      <div class="pc_type">
+      <%= render partial: 'shared/images/band_images',
+                 locals: {path: :save_for_band_image_employees_estimate_matter_images_path,
+                          model: @estimate_matter} %>
+      </div>
+      <div class="mobile_type">
+        <%= render partial: 'shared/images/band_images_for_mobile',
                    locals: {path: :save_for_band_image_employees_estimate_matter_images_path,
                             model: @estimate_matter} %>
       </div>
-
     </div>
-  </section>
   
-</div>
+  </div>
+    
+</section>
 
+<script>
+  $(function(){
+    <% if params[:band_content].present? %>
+      $('#tab01').prop('checked', false);
+      $('#tab02').prop('checked', true);
+    <% end %>
+  });  
+</script>
 
-<!--<script>-->
-<!--  $(document).ready(function(){-->
-<!--    window.opener.location.reload();-->
-<!--  });-->
-<!--</script>-->
+<script>
+  <% if @search_band_word.present? %>
+    $(function(){
+      var val = "<%= @search_band_word %>";
+      $('#band_search').val(val);
+    });
+  <% end %>
+</script>

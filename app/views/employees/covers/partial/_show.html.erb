@@ -9,21 +9,21 @@
         <th></th>
       </tr>
     </thead>
-    <% if current_estimate_matter.cover.present? %>
+    <% if @cover_image.present? %>
       <tbody>
         <tr>
-          <td>
-            <% if image = @cover.image %>
-              <%= image_tag url_for(image.image.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"})) %>
+          <td><%= image_tag url_for(@cover_image.image.variant(combine_options:{gravity: :center, resize:"50x50^",crop:"50x50+0+0"})) %></td>
+          <td><%= @cover.title if @cover.present? %></td>
+          <td><%= publisher_name(@cover.publisher_id) if @cover.publisher_id.present? %></td>
+          <td><%= content_display(@cover.content, 30) if @cover.content.present? %></td>
+          <td class="text-center">
+            <% if @cover.id.present? %>
+              <%= link_to "編集", edit_employees_estimate_matter_cover_path(@estimate_matter, @cover),remote: true, class: "btn btn-sm btn-dark" %>
+              <%= link_to "削除", employees_estimate_matter_cover_path(@estimate_matter, @cover), method: :delete, remote: true,
+                                  data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
+            <% else %>
+              <%= link_to "作成", new_employees_estimate_matter_cover_path(@estimate_matter, image_id: @cover_image.id), remote: true, class: "btn btn-dark" %>
             <% end %>
-          </td>
-          <td><%= @cover.title %></td>
-          <td><%= publisher_name(@cover.publisher_id) %></td>
-          <td><%= content_display(@cover.content, 30) %></td>
-          <td>
-            <%= link_to "編集", edit_employees_estimate_matter_cover_path(current_estimate_matter, @cover),remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_estimate_matter_cover_path(current_estimate_matter, @cover), method: :delete, remote: true,
-                                data: { confirm: "この診断書を削除してよろしいですか？" }, class: "btn btn-sm btn-danger" %>  
           </td>
         </tr>
       </tbody>

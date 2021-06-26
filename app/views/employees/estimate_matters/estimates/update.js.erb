@@ -1,9 +1,9 @@
 <% if @response == "success" %>
-  $("#estimate-matter-show-modal").modal("hide");
+  $("#modal-container").modal("hide");
   toastr.success('<%= @estimate.name %>プランを更新しました');
   $(".estimates-index").html('<%= escape_javascript(render partial: "employees/estimate_matters/partial/estimates_index", locals: {estimates: @estimates, estimate_matter: @estimate_matter}) %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   });
-  $('#estimate-matter-show-modal').empty();
+  $('#modal-container').empty();
 <% end %>

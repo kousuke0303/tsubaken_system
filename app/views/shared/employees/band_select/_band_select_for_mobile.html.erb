@@ -1,0 +1,17 @@
+<% unless current_external_staff %>
+  <div class="text-center"><h4>画像取込設定</h4></div>
+  <%= link_to "画像一覧", send(image_path, @estimate_matter), class: "btn btn-dark" %>
+<% else %>
+  <div class="text-center"><h4>BAND</h4></div>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap mt-5">
+    <tr>
+      <th style="width: 8em;">BAND選択</th>
+      <td colspan="2" id="select_band">
+        <%= render path %>
+      </td>
+    </tr>
+  </table>
+</div>

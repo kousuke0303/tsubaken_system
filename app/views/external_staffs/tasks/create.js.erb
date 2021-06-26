@@ -1,6 +1,6 @@
 <% if @responce == "success" %>
-  $('#top-page-modal').empty();
-  $('#top-page-modal').modal('hide');
+  $('#modal-container').empty();
+  $('#modal-container').modal('hide');
   $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/tasks/alert_task_list') %>');
   $('#task_notification_lists').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/task_notification_lists') %>');
   $('.tasks-index').html('<%= escape_javascript(render 'external_staffs/tasks/partial/tasks_index') %>');

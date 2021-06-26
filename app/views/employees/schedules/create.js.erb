@@ -1,7 +1,7 @@
 <% if @result == "success" %>
   $(".calendar_container").html('<%= escape_javascript( render "employees/schedules/partial/calendar" ) %>'); 
   $("#schedules_detail").html('<%= escape_javascript( render "employees/schedules/partial/schedules_detail" ) %>'); 
-  $("#schedule-new").modal("hide");
+  $("#modal-container").modal("hide");
   toastr.success("<%= @schedule.title %>を登録しました");
   var totalCount = <%= Notification.all.count %>;
   var reciever = <%= @schedule.member_code_id %>
@@ -9,6 +9,7 @@
   var countArrey = [totalCount, reciever, recieverCount]
   localStorage.setItem('totalNotificationCount', totalCount);
   App.badge.speak(countArrey);
+  $("#modal-container").empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".schedule-create-errors", model: @schedule, object: "schedule"} %>
 <% end %>

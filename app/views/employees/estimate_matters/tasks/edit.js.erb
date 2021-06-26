@@ -1,2 +1,2 @@
-$("#estimate-matter-show-modal").html('<%= escape_javascript(render "employees/estimate_matters/tasks/partial/edit", esatimate_matter: @estimate_matter, task: @task, staffs: @staffs, external_staffs: @external_staffs) %>'); 
-$("#estimate-matter-show-modal").modal();
+$("#modal-container").html('<%= escape_javascript(render "employees/estimate_matters/tasks/partial/edit", esatimate_matter: @estimate_matter, task: @task, staffs: @staffs, external_staffs: @external_staffs) %>'); 
+$("#modal-container").modal();

@@ -128,7 +128,7 @@ class Employees::EmployeesController < ApplicationController
       target_schedules = @schedules.joins(:member_code).where(scheduled_date: day)
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
-                                          .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
+                                          .sort_by{|key, value| MemberCode.ids.index(key)}.to_h
     
     end
     
@@ -190,8 +190,8 @@ class Employees::EmployeesController < ApplicationController
       result["result_data"]["items"].each do |item|
         if item["photos"] != []
           photo_info = Hash.new()
-          photo_info.store("author", item["author"]["name"])
-          photo_info.store("content", item["content"])
+          photo_info.store("author", item["author"]["name"].strip)
+          photo_info.store("content", item["content"].strip)
           photo_info.store("created_at", Time.at(item["created_at"] / 1000, in: "+09:00"))
           photo_url_arrey = []
           item["photos"].each do |photo|
