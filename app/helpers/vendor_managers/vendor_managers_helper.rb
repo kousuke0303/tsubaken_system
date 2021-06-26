@@ -1,2 +1,0 @@
-module VendorManagers::VendorManagersHelper
-end

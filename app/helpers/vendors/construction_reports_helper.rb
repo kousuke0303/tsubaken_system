@@ -1,2 +1,0 @@
-module Vendors::ConstructionReportsHelper
-end

@@ -1,12 +1,12 @@
 class Employees::Matters::ConstructionSchedulesController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
   before_action :set_construction_schedule, except: [:new, :create, :set_estimate_category]
-  
+
   def new
     @construction_schedule = @matter.construction_schedules.new
-    @suppliers = @matter.suppliers
+    @vendors = @matter.vendors
   end
-  
+
   def create
     @construction_schedule = @matter.construction_schedules.new(construction_schedule_params)
     @construction_schedule.sender = login_user.member_code.id
@@ -19,16 +19,16 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
       @responce = "failure"
     end
   end
-  
+
   def show
     date = params[:day].to_date
     @construction_report = @construction_schedule.construction_reports.find_by(work_date: date)
   end
-  
+
   def edit
-    @suppliers = @matter.suppliers
+    @vendors = @matter.vendors
   end
-  
+
   def update
     attr_set_for_update
     @construction_schedule.attributes = construction_schedule_params
@@ -41,7 +41,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
       @responce = "failure"
     end
   end
-  
+
   def destroy
     if @construction_schedule.member_code_id.present?
       @construction_schedule.sender = login_user.member_code.id
@@ -57,11 +57,11 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
       @responce = "failure"
     end
   end
-  
+
   def picture
     @construction_schedule_pictures = @construction_schedule.images
   end
-  
+
   def edit_for_picture
     estimate_matter = @matter.estimate_matter
     @pictures = estimate_matter.images
@@ -71,7 +71,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
       @type = "failure"
     end
   end
-  
+
   def update_for_picture
     @construction_schedule.construction_schedule_images.destroy_all
     params[:construction_schedule][:image_ids].each do |params_image|
@@ -79,7 +79,7 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     end
     @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
   end
-  
+
   def set_estimate_category
     estimate = @matter.estimate
     @estimate_info = estimate.estimate_details.left_joins(:material, :construction)
@@ -104,11 +104,11 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     end
     @construction_schedules = @matter.construction_schedules.includes(:materials).order_start_date
   end
-  
+
   def edit_for_materials
     @all_Materials = Material.all
   end
-  
+
   def update_for_materials
     if @construction_schedule.update(construction_schedule_material_params)
       @responce = "success"
@@ -117,21 +117,21 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
       @responce = "failure"
     end
   end
-  
+
   private
     def construction_schedule_params
-      params.require(:construction_schedule).permit(:title, :content, :scheduled_started_on, :scheduled_finished_on, :supplier_id,
+      params.require(:construction_schedule).permit(:title, :content, :scheduled_started_on, :scheduled_finished_on, :vendor_id,
                                                     :disclose, :started_on, :finished_on)
     end
-    
+
     def construction_schedule_material_params
       params.require(:construction_schedule).permit(material_ids: [])
     end
-    
+
     def set_construction_schedule
       @construction_schedule = ConstructionSchedule.find(params[:id])
     end
-    
+
     def attr_set_for_update
       @construction_schedule.sender = login_user.member_code.id
       @construction_schedule.before_title = @construction_schedule.title
@@ -148,5 +148,5 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
         @construction_schedule.before_content = @construction_schedule.content
       end
     end
-  
+
 end

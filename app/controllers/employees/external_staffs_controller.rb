@@ -1,6 +1,6 @@
 class Employees::ExternalStaffsController < Employees::EmployeesController
   before_action :authenticate_admin_or_manager!
-  before_action :set_suppliers, only: [:new, :show, :update, :pass_update]
+  before_action :set_vendors, only: [:new, :show, :update, :pass_update]
   before_action :set_external_staff, except: [:new, :create, :index]
 
   def new
@@ -20,12 +20,12 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
   end
 
   def show
-    @supplier = @external_staff.supplier
+    @vendor = @external_staff.vendor
   end
 
   def edit
   end
-  
+
   def update
     if update_resource(@external_staff, external_staff_params)
       flash[:success] = "外部Staffを更新しました"
@@ -34,7 +34,7 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
       render :show
     end
   end
-  
+
   def pass_update
     if @external_staff.update(external_staff_pass_params)
       flash[:success] = "パスワードを更新しました"
@@ -43,7 +43,7 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
       render :show
     end
   end
-  
+
   def out_of_service
     if @external_staff.update(resigned_on: Date.current)
       flash[:notice] = "#{ @external_staff.name }のアカウントを停止しました"
@@ -58,7 +58,7 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
       redirect_to employees_external_staffs_url
     end
   end
-  
+
   def restoration
     @external_staff.update(resigned_on: "", avaliable: true)
     flash[:success] = "#{ @external_staff.name }のアカウントが利用できるようになりました"
@@ -67,9 +67,9 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
 
   private
     def external_staff_params
-      params.require(:external_staff).permit(:name, :kana, :login_id, :phone, :email, :supplier_id)
+      params.require(:external_staff).permit(:name, :kana, :login_id, :phone, :email, :vendor_id)
     end
-    
+
     def external_staff_pass_params
       params.require(:external_staff).permit(:password, :password_confirmation)
     end
