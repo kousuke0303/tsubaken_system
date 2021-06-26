@@ -94,6 +94,7 @@ ja:
           status: 進行状況
           attract_method_id: 集客方法
           publisher_id: 引受屋号
+          supplier_id: 紹介元業者
         estimate:
           title: 見積名
         invoice:

@@ -26,6 +26,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   def new
     @estimate_matter = EstimateMatter.new
     @clients = Client.all
+    @suppliers = Vendor.all
     @attract_methods = AttractMethod.order(position: :asc)
     if params[:client_id]
       client = Client.find(params[:client_id])
@@ -62,6 +63,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def edit
     @attract_methods = AttractMethod.order(position: :asc)
+    @suppliers = Vendor.all
     # @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
     when "basic"
@@ -131,7 +133,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :publisher_id, :client_id, { member_code_ids: [] }, { vendor_ids: []})
+                                              :address_street, :publisher_id, :client_id, :supplier_id, { member_code_ids: [] }, { vendor_ids: []})
     end
 
     def current_person_in_charge

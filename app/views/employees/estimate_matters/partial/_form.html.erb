@@ -8,7 +8,7 @@
     <%= f.label :attract_method_id %>
     <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
   </div>
-  
+
   <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
@@ -22,7 +22,7 @@
     <%= f.label :content %>
     <%= f.text_field :content, required: true, class: "form-control", maxlength: 300 %>
   </div>
-  
+
   <label class="form-control text-white" style="background: #787a7b;">現場住所</label>
   <div class="col-12">
     <%= f.label :postal_code %>
@@ -42,12 +42,20 @@
       <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
     </div>
   </div>
-  
+
   <label class="form-control text-white" style="background: #787a7b;">担当者</label>
   <div class="col-12">
     <%= f.label "当社担当スタッフ" %>
     <div>
       <%= f.select :staff_ids, options_for_select(@all_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, multiple: true, class: "form-control select-members", id: "select_staff" %>
+    </div>
+  </div>
+
+  <label class="form-control text-white" style="background: #787a7b;">紹介元</label>
+  <div class="col-12">
+    <%= f.label :supplier_id %>
+    <div>
+      <%= f.collection_select :supplier_id, @suppliers, :id, :name, { prompt: "選択してください" }, class: "form-control" %>
     </div>
   </div>
 </div>
