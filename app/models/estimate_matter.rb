@@ -85,7 +85,6 @@ class EstimateMatter < ApplicationRecord
     return member_arrey
   end
 
-
   private
 
   # ----------------------------------------------

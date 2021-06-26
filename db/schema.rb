@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.string "address_city"
     t.string "address_street"
     t.string "content"
+    t.bigint "supplier_id"
     t.bigint "client_id"
     t.bigint "attract_method_id"
     t.bigint "publisher_id"
@@ -270,6 +271,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
     t.index ["publisher_id"], name: "index_estimate_matters_on_publisher_id"
+    t.index ["supplier_id"], name: "fk_rails_3ee54d7166"
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -752,6 +754,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "estimate_matters", "publishers"
+  add_foreign_key "estimate_matters", "vendors", column: "supplier_id"
   add_foreign_key "estimates", "plan_names"
   add_foreign_key "external_staffs", "vendors"
   add_foreign_key "images", "estimate_matters"
