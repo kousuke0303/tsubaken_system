@@ -101,7 +101,7 @@ puts "CREATE! Vendor"
 3.times do |n|
 VendorManager.create!(name: "取引先代表#{ n + 1 }",
                       kana: "トリヒキサキダイヒョウ",
-                      login_id: "SM-manager-#{ n + 1 }",
+                      login_id: "VM-manager-#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
                       vendor_id: n + 1,

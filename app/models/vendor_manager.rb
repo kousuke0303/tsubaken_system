@@ -84,9 +84,9 @@ class VendorManager < ApplicationRecord
      # VALIDATE_METHOD
   #---------------------------------------------------
 
-    # ログインIDは「SP(外注先ID)-」から始めさせる
+    # ログインIDは「VM(外注先ID)-」から始めさせる
     def vendor_manager_login_id_is_correct?
-      errors.add(:login_id, "は「SM-」から始めてください") if login_id.present? && !login_id.start_with?("SM-")
+      errors.add(:login_id, "は「VM-」から始めてください") if login_id.present? && !login_id.start_with?("VM-")
     end
 
   #---------------------------------------------------

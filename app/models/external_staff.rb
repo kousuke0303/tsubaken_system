@@ -126,7 +126,7 @@ class ExternalStaff < ApplicationRecord
      # VALIDATE_METHOD
     #---------------------------------------------------
 
-    # ログインIDは「SP(外注先ID)-」から始めさせる
+    # ログインIDは「ES(外注先ID)-」から始めさせる
     def external_staff_login_id_is_correct?
       errors.add(:login_id, "は「ES-」から始めてください") if login_id.present? && !login_id.start_with?("ES-")
     end
