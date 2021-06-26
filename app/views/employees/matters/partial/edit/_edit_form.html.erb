@@ -48,28 +48,28 @@
       </div>
     </div>
   <% end %>
-  
+
   <% if @edit_type == "staff" %>
     <label class="form-control text-white" style="background: #787a7b;">当社担当スタッフ</label>
     <div class="col-12">
       <%= f.collection_select :staff_ids, @all_staff_codes, :id, :staff_name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "staff_select" } %>
     </div>
   <% end %>
-  
-  <% if @edit_type == "supplier" %>
-    <%= render 'employees/matters/partial/edit/edit_supplier', f: f %>
+
+  <% if @edit_type == "vendor" %>
+    <%= render 'employees/matters/partial/edit/edit_vendor', f: f %>
   <% end %>
-  
-  <% if @edit_type == "supplier_staff" %>
-    <label class="form-control text-white" style="background: #787a7b;"><%= @supplier.name %>のご担当者</label>
+
+  <% if @edit_type == "vendor_staff" %>
+    <label class="form-control text-white" style="background: #787a7b;"><%= @vendor.name %>のご担当者</label>
     <div class="col-12">
       <div>
-        <%= f.collection_select :member_code_ids, @supplier_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "supplier_staff_select" } %>
-        <%= f.hidden_field :supplier_id, value: @supplier.id %>
+        <%= f.collection_select :member_code_ids, @vendor_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "vendor_staff_select" } %>
+        <%= f.hidden_field :vendor_id, value: @vendor.id %>
       </div>
     </div>
   <% end %>
-  
+
 </div>
 
 <script>
@@ -77,7 +77,7 @@
     $('#postcode').val('<%= @matter.postal_code %>');
     $('#prefecture_code').val('<%= @matter.prefecture_code %>');
     $('#address_city').val('<%= @matter.address_city %>');
-    $('#address_street').val('<%= @matter.address_street %>');    
+    $('#address_street').val('<%= @matter.address_street %>');
   });
 </script>
 

@@ -1,16 +1,16 @@
-<%= form_with(model: @supplier_manager, url: pass_update_employees_supplier_manager_path(@supplier_manager), method: :patch, remote: true) do |f| %>
+<%= form_with(model: @vendor_manager, url: pass_update_employees_vendor_manager_path(@vendor_manager), method: :patch, remote: true) do |f| %>
   <div class="row">
-    <% unless @supplier_manager.password_condition %>
+    <% unless @vendor_manager.password_condition %>
       <label class="form-control text-white" style="background:#dc3545">PASSWORD</label>
     <% else %>
       <label class="form-control text-white" style="background:#17a2b8">PASSWORD</label>
     <% end %>
-    
+
     <div class="pass-word-errors col-12"></div>
-    
+
     <div class="col-md-6 col-12">
       <%= f.label :password %>
-      <% unless @supplier_manager.password_condition %>
+      <% unless @vendor_manager.password_condition %>
         <span class="precautionary_statement">※PASSWORDが初期値のままです</span>
       <% end %>
       <%= f.password_field :password, maxlength: 12, class: "form-control", id: "password" %>
@@ -27,7 +27,7 @@
 
 <script>
 $(document).ready(function(){
-  <% unless @supplier_manager.password_condition %>
+  <% unless @vendor_manager.password_condition %>
     $('#password').attr('placeholder', 'password');
     $('#password').css('border-color', '#dc3545');
     $('#password_confirmation').attr('placeholder', 'password');
@@ -38,6 +38,3 @@ $(document).ready(function(){
   <% end %>
 });
 </script>
-    
-
-  

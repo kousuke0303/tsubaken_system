@@ -18,7 +18,7 @@
   <div class="mt-1e">
     <h4>基本情報</h4>
     <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
-    
+
     <div class="table-responsive">
       <table class="table table-bordered text-nowrap mt-5">
         <tr>
@@ -37,7 +37,7 @@
       </table>
     </div>
   </div>
-  
+
   <div class="mt-2e">
     <div class="row">
       <div class="col-md-6">
@@ -58,20 +58,20 @@
     <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
                locals: { object: @estimate_matter } %>
   </div>
-  
+
   <div class="mt-2e">
     <h4>担当業者様</h4>
-    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "supplier"), remote: true, class: "btn btn-success float-r" %>
-    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @estimate_matter, path: :edit_employees_estimate_matter_path} %>
+    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "vendor"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @estimate_matter, path: :edit_employees_estimate_matter_path} %>
   </div>
-  
+
   <div class="mt-2e">
     <%= render partial: 'shared/employees/band_select/band_select', locals: { path: "employees/estimate_matters/partial/select_band_display" } %>
   </div>
-  
+
   <div class="btn-area mb-1e">
     <span class="to-create-matter">
-      <% if @contracted_estimate_matter.present? && @matter.nil? %>      
+      <% if @contracted_estimate_matter.present? && @matter.nil? %>
         <%= link_to "案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-dark" %>
       <% end %>
     </span>

@@ -5,15 +5,15 @@
     <div class="sidebar-header">
       <%= image_tag "abb_d.png", size: "250x50", alt:"ロゴ" %>
     </div>
-    
+
     <div class="user-panel">
       <div class="avator_container_for_sidebar">
-        <%= sidebar_avator(current_supplier_manager) %><span>Manager</span>
+        <%= sidebar_avator(current_vendor_manager) %><span>Manager</span>
       </div>
     </div>
 
     <ul class="components">
-      <%= render 'layouts/authority/sidebar_item/supplier_manager' %>
+      <%= render 'layouts/authority/sidebar_item/vendor_manager' %>
     </ul>
 
     <ul class="list-unstyled CTAs">
@@ -26,13 +26,13 @@
   <!-- Page Content -->
   <div id="content">
     <div class="container-fluid">
-        
+
       <!-- Header -->
-      <%= render partial: "layouts/flamework/header", locals: {home_path: :top_supplier_managers_path,
-                                                               edit_path: :edit_supplier_manager_registration_path,
-                                                               logout_path: :destroy_supplier_manager_session_path} %>
+      <%= render partial: "layouts/flamework/header", locals: {home_path: :top_vendor_managers_path,
+                                                               edit_path: :edit_vendor_manager_registration_path,
+                                                               logout_path: :destroy_vendor_manager_session_path} %>
     </div>
-          
+
     <!-- Main-content -->
     <%= render "shared/flash" %>
     <%= yield %>

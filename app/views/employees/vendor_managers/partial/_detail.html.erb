@@ -1,10 +1,10 @@
 <div class="card">
   <div class="card-body">
-    <%= form_with(model: @supplier_manager, url: employees_supplier_manager_path(@supplier_manager), remote: true) do |f| %>
-      <div id="supplier-manager-update-errors"></div>
-      <%= render 'supplier_managers/registrations/partial/form', f: f %>
+    <%= form_with(model: @vendor_manager, url: employees_vendor_manager_path(@vendor_manager), remote: true) do |f| %>
+      <div id="vendor-manager-update-errors"></div>
+      <%= render 'vendor_managers/registrations/partial/form', f: f %>
 
-      <% if current_admin || current_manager || self_supplier_manager %>
+      <% if current_admin || current_manager || self_vendor_manager %>
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark" %>
         </div>
@@ -13,11 +13,11 @@
   </div>
 </div>
 
-<% if current_admin || current_manager || self_supplier_manager %>
+<% if current_admin || current_manager || self_vendor_manager %>
   <div class="card mt-1e">
     <div class="card-body">
       <div id="pass-form">
-      <%= render 'employees/supplier_managers/partial/pass_form' %>
+      <%= render 'employees/vendor_managers/partial/pass_form' %>
       </div>
     </div>
   </div>

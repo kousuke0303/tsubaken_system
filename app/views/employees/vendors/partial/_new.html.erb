@@ -5,9 +5,9 @@
       <div class="card mb-3">
         <h5 class="card-header">外注先作成</h5>
         <div class="card-body">
-          <%= form_with(model: @supplier, url: employees_suppliers_path, method: :post, remote: true) do |f| %>
-            <div class="supplier-create-errors"></div>
-            <%= render "employees/suppliers/partial/form", f: f, industries: @industries %>
+          <%= form_with(model: @vendor, url: employees_vendors_path, method: :post, remote: true) do |f| %>
+            <div class="vendor-create-errors"></div>
+            <%= render "employees/vendors/partial/form", f: f, industries: @industries %>
             <div class="btn-area"><%= f.submit "作成", class: "btn btn-dark reset-errors" %></div>
           <% end %>
         </div>

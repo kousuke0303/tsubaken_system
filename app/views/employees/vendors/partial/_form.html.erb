@@ -6,7 +6,7 @@
       <%= f.collection_select :industry_ids, @industries, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "industries_select" } %>
     </div>
   </div>
-  
+
   <div class="col-md-6 col-12">
     <%= f.label :name %>
     <%= f.text_field :name, maxlength: 30, class: "form-control" %>
@@ -15,7 +15,7 @@
     <%= f.label :kana %>
     <%= f.text_field :kana, maxlength: 30, required: true, class: "form-control" %>
   </div>
-  
+
   <label class="form-control text-white" style="background:#787a7b;">住所</label>
   <div class="col-md-6 col-12">
     <%= f.label :postal_code %>
@@ -33,7 +33,7 @@
     <%= f.label :address_street %>
     <%= f.text_field :address_street, autocomplete: "address_street", id: "address_street", class: "form-control" %>
   </div>
-  
+
   <label class="form-control text-white" style="background:#787a7b;">連絡先</label>
   <div class="col-md-6 col-12">
     <%= f.label :phone_1 %>
@@ -61,10 +61,10 @@
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= javascript_include_tag "select_members.js" %>
 
-<% if @supplier.industries.present? %>
+<% if @vendor.industries.present? %>
   <script>
     $(document).ready( function(){
-      $('#industries_select').val(<%= @supplier.industries.ids %>).trigger('change');
+      $('#industries_select').val(<%= @vendor.industries.ids %>).trigger('change');
     });
   </script>
 <% end %>

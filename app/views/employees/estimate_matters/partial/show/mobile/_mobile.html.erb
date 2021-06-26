@@ -10,9 +10,9 @@
 <!--  <button id="to_image_index" class="btn btn-dark">画像一覧</button>-->
   <!--<!%= link_to "チャットルーム", "#", target: :_blank, rel: [:noopener, :noreferrer], class: "btn btn-primary" %>-->
 <!--</div>-->
-  
+
   <%= render "employees/estimate_matters/partial/show/mobile/detail" %>
-  
+
   <div class="clients-matter-index mt-2e">
     <div class="text-center"><h4>お客様情報</h4></div>
     <h5 class="text-center"><%= @client.avaliable_disp %></h5>
@@ -28,16 +28,16 @@
       <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
                  locals: { object: @estimate_matter } %>
   </div>
-  
+
   <div class="mt-2e">
     <div class="text-center"><h4>担当業者様</h4></div>
-    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "supplier"), remote: true, class: "btn btn-success float-r" %>
-    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @estimate_matter, path: :edit_employees_estimate_matter_path} %>
+    <%= link_to "編集", edit_employees_estimate_matter_path(@estimate_matter, edit_type: "vendor"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @estimate_matter, path: :edit_employees_estimate_matter_path} %>
   </div>
-  
+
   <div class="mt-2e">
     <%= render partial: 'shared/employees/band_select/band_select',
                locals: { path: "employees/estimate_matters/partial/select_band_display"} %>
   </div>
-  
+
 </div>
