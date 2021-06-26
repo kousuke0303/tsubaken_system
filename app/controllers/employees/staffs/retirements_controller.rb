@@ -41,8 +41,11 @@ class Employees::Staffs::RetirementsController < Employees::EmployeesController
   def resigned_registor
     if @staff.update(resigned_on: params[:staff][:resigned_on])
       flash[:success] = "退職日を登録しました"
+      redirect_to employees_staff_retirements_url(@staff)
+    else
+      retirement_process_variable
+      render "index"
     end
-    redirect_to employees_staff_retirements_url(@staff)
   end
   
   def confirmation_for_destroy

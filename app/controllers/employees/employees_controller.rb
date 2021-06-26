@@ -128,13 +128,8 @@ class Employees::EmployeesController < ApplicationController
       target_schedules = @schedules.joins(:member_code).where(scheduled_date: day)
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
-<<<<<<< HEAD
                                           .sort_by{|key, value| MemberCode.ids.index(key)}.to_h
     
-=======
-                                          .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
-
->>>>>>> 47bb034ccc7d15da8ddf0c7367c1b4ea940f5e62
     end
 
 

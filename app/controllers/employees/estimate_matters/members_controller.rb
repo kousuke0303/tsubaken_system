@@ -6,7 +6,7 @@ class Employees::EstimateMatters::MembersController < Employees::EmployeesContro
   def edit
     if params[:retire_staff_id].present?
       @staff = Staff.find(params[:retire_staff_id])
-      @staff_codes = @matter.member_codes.joins(:staff).select('member_codes.*')
+      @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
     elsif params[:retire_external_staff_id].present?
       @external_staff = ExternalStaff.find(params[:retire_external_staff_id])
       @vendor = @external_staff.vendor

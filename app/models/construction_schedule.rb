@@ -1,11 +1,6 @@
 class ConstructionSchedule < ApplicationRecord
-<<<<<<< HEAD
   
-  after_touch :set_attr
-=======
-
   after_find :set_attr
->>>>>>> 47bb034ccc7d15da8ddf0c7367c1b4ea940f5e62
   before_save :member_name_update
   after_commit :create_notification, on: :create
   after_commit :update_notification, on: :update

@@ -1,12 +1,13 @@
-$('#top_page_modal').empty();
+$('#modal-container').modal('hide');
+$('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/tasks/alert_task_list') %>');
+$('#task_notification_lists').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/task_notification_lists') %>');
 $('.tasks-index').html('<%= escape_javascript(render 'shared/top_pages/tasks/index') %>');
-$('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
-$('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/alert_task_list') %>');
 $('#radio2').prop('checked', true);
 $('#own').hide();
 $('#others').show();
 $('#tab04').prop('checked', true);
 removeLoading();
+$('#modal-container').empty();
 <!--バッジ変更-->
 <% if @reciever_notification_count %>
   var totalCount = <%= Notification.all.count %>;

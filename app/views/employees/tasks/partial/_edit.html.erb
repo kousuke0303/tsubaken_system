@@ -7,7 +7,7 @@
     <div class="modal-body">
       <%= form_with(model: @task, url: employees_task_path(@task), method: :patch, remote: true) do |f| %>
         <div class="task-update-errors"></div>
-        <%= render 'common_layouts/tops/tasks/form', f: f %>
+        <%= render 'shared/top_pages/tasks/form', f: f %>
         <div class="btn-area">
           <%= f.submit "編集", class: "btn btn-dark reset-errors" %>
           <%= link_to "削除", employees_task_path(@task), method: :delete, data: {confirm: "#{@task}を削除しますか？"}, remote: true, class: "btn btn-danger" %>

@@ -2,12 +2,11 @@ class Employees::TasksController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_task, except: [:new, :create]
   
-
   def new
+    employees_member_code
     @task = Task.new
     @default_tasks = Task.are_default_individual
     @title_content_array = @default_tasks.map{|task| [task.title, task.content]}
-    all_member_code
   end
   
   def create
@@ -26,9 +25,9 @@ class Employees::TasksController < Employees::EmployeesController
   end
   
   def edit
+    employees_member_code
     @default_tasks = Task.are_default_individual
     @title_content_array = @default_tasks.map{|task| [task.title, task.content]}
-    all_member_code
   end
   
   def update

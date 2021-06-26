@@ -70,6 +70,7 @@
   <div class="news_container">
     <div>
       <%= form_with model: @staff, url: resigned_registor_employees_staff_retirements_path(@staff), local: true do |f| %>
+        <%= render 'shared/error_messages', resource: @staff %>
         <div class="input-group col-md-6">
           <%= f.date_field :resigned_on, required: true, class: "form-control" %>
           <div class="input-group-append">        
@@ -83,7 +84,7 @@
 
 <% if @staff.resigned_on.present? && @staff.avaliable == false %>
   <div class="text-center">
-    <%= link_to "削除", confirmation_for_destroy_employees_staff_retirements_path(@staff), remote: true, class: "btn btn-danger" %>
+    <%= link_to "#{@staff.name}を削除する", confirmation_for_destroy_employees_staff_retirements_path(@staff), remote: true, class: "btn btn-danger" %>
   </div>
 <% end %>
 

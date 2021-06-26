@@ -35,6 +35,13 @@ class ApplicationController < ActionController::Base
   def all_member_code
     @all_member_codes = MemberCode.all_member_code_of_avaliable
   end
+  
+  # 自社の従業員
+  def employees_member_code
+      @member_codes = all_member_code.where(external_staff_id: nil)
+                                     .where(vendor_manager_id: nil)
+                                     .where(client_id:nil)
+  end
 
   # vendorの全memberコード
   def vendor_members_member_code_ids(vendor)

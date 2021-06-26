@@ -99,31 +99,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     redirect_to employees_estimate_matters_url
   end
 
-  # def change_member
-  #   if params[:staff_id].present?
-  #     set_staff
-  #   elsif params[:external_staff_id].present?
-  #     target_external_staff
-  #   end
-  #   @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
-  #   @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')
-  # end
-
-  # def update_member
-  #   params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
-  #   params[:estimate_matter][:member_code_ids].flatten!
-  #   @estimate_matter.update(estimate_matter_params)
-  #   # delete_estimate_matter_relation_table
-  #   flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
-  #   if params[:estimate_matter][:staff_id].present?
-  #     @staff = Staff.find(params[:estimate_matter][:staff_id])
-  #     redirect_to retirement_process_employees_staff_url(@staff)
-  #   elsif params[:estimate_matter][:external_staff_id].present?
-  #     @external_staff = ExternalStaff.find(params[:estimate_matter][:external_staff_id])
-  #     redirect_to retirement_process_employees_external_staff_url(@external_staff)
-  #   end
-  # end
-
   private
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:id])

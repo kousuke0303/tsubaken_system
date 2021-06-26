@@ -150,6 +150,8 @@ class Staff < ApplicationRecord
         if Date.current >= self.joined_on
           self.update(avaliable: true)
         end
+      elsif self.avaliable == false && self.resigned_on > Date.current
+        self.update(avaliable: true)
       end
     end
     

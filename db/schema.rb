@@ -311,16 +311,10 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.date "shooted_on"
     t.string "estimate_matter_id"
     t.string "matter_id"
-<<<<<<< HEAD
     t.boolean "certificate_list", default: false
     t.boolean "cover_list", default: false
     t.boolean "report_cover_list", default: false
     t.boolean "report_list", default: false
-=======
-    t.boolean "certificate"
-    t.boolean "report_cover"
-    t.boolean "report"
->>>>>>> 47bb034ccc7d15da8ddf0c7367c1b4ea940f5e62
     t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
