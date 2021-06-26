@@ -1,0 +1,2 @@
+module VendorManagers::ConstructionSchedulesHelper
+end

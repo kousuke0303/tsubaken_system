@@ -1,0 +1,2 @@
+class VendorManagers::ConstructionSchedulesController < ApplicationController
+end

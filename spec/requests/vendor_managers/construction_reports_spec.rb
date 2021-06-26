@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Suppliers::ConstructionReports", type: :request do
+RSpec.describe "VendorManagers::ConstructionReports", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end

@@ -1,0 +1,2 @@
+module VendorManagers::ConstructionReportsHelper
+end

@@ -1,0 +1,2 @@
+class VendorManagers::ConstructionReportsController < ApplicationController
+end
