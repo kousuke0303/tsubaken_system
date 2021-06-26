@@ -4,12 +4,12 @@
     <div class="mt-1e double-line">
       <h4>作業報告</h4>
     </div>
-    
+
     <div class="col-12">
       <% reports.group_by{|report| report.work_date }.each do |date, reports| %>
-        
+
         <h5 class="mt-1e"><i class="fas fa-calendar-alt"></i> <%= date.strftime("%-m月%-d日") %>の報告書</h5>
-        
+
         <div class="table-responsive">
           <table class="table table-bordered text-nowrap common-table">
             <tr>
@@ -38,7 +38,7 @@
                   <% end %>
                 </td>
                 <td><%= report.matter_title %></td>
-                <td><%= report.construction_schedule.supplier.name %></td>
+                <td><%= report.construction_schedule.vendor.name %></td>
                 <td><%= report.start_time_disp %></td>
                 <td class="text-center"><%= report.memo_disp %></td>
               </tr>
@@ -48,7 +48,7 @@
                 <td style="border-bottom: 1px solid black"><%= report.construction_schedule.person_in_charge %></td>
                 <td style="border-bottom: 1px solid black"><%= report.end_time_disp %></td>
                 <td style="border-bottom: 1px solid black; vertical-align: middle;" class="text-center">
-                  <%= link_to "編集", edit_supplier_managers_construction_report_path(report), remote: true, class: "btn btn-success" %>
+                  <%= link_to "編集", edit_vendor_managers_construction_report_path(report), remote: true, class: "btn btn-success" %>
                 </td>
               </tr>
             <% end %>
@@ -56,13 +56,13 @@
         </div>
       <% end %>
     </div>
-  
+
     <% if @type == "uncheck" %>
       <div class="text-center">
-        <button class="btn btn-primary col-12" id="confirmation_btn">チェック項目を確認処理</button>  
+        <button class="btn btn-primary col-12" id="confirmation_btn">チェック項目を確認処理</button>
       </div>
     <% end %>
-    
+
     <% if @type == "uncheck" %>
       <script>
         $('#confirmation_btn').on('click', function(){

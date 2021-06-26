@@ -21,33 +21,33 @@
     <%= render "layouts/head/shim" %>
     <%= render "layouts/head/apple_touch_icon" %>
     <%= favicon_link_tag '/appicon/favicon.ico' %>
-    
-    
+
+
   </head>
-  
+
   <!--ログイン画面のレイアウト-->
   <% if @type == "log_in" %>
     <%= render "layouts/modal" %>
     <body class="login-wrapper">
       <%= render "layouts/layout_type/login_layout" %>
     </body>
-    
+
   <% elsif @type == "other_tab" %>
     <%= render "layouts/modal" %>
-    
+
     <body>
       <div class="container-fluid mt-1e">
         <%= yield %>
       </div>
     </body>
-    
+
   <% elsif @type == "current_situations" %>
     <body>
       <div class="progress_container">
         <%= yield %>
       </div>
     </body>
-    
+
   <% elsif @type == "preview" %>
     <body class="print-layout">
       <%= yield %>
@@ -67,7 +67,7 @@
           setLocalStorage(memberCode, myCount, totalCount);
         });
       </script>
-      
+
       <% if admin_signed_in? %>
         <%= render "layouts/authority/admin_layout" %>
       <% elsif manager_signed_in? %>
@@ -76,8 +76,8 @@
         <%= render "layouts/authority/staff_layout" %>
       <% elsif client_signed_in? %>
         <%= render "layouts/authority/client_layout" %>
-      <% elsif supplier_manager_signed_in? %>
-        <%= render "layouts/authority/supplier_manager_layout" %>
+      <% elsif vendor_manager_signed_in? %>
+        <%= render "layouts/authority/vendor_manager_layout" %>
       <% elsif external_staff_signed_in? %>
         <%= render "layouts/authority/external_staff_layout" %>
       <% end %>

@@ -86,7 +86,7 @@ Material.all.last(7).each do |material|
 end
 
 CategoryMaterial.create(category_id: 2, material_id: 6)
-  
+
 puts "CREATE! MATERIAL"
 
 # 集客方法

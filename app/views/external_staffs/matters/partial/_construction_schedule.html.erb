@@ -40,14 +40,14 @@
         <tr>
           <td style="border-bottom: 1px solid black"><%= construction.status_i18n %></td>
           <td style="border-bottom: 1px solid black"><%= construction.title %></td>
-          <td style="border-bottom: 1px solid black"><%= construction.supplier_disp(construction.supplier) %></td>
+          <td style="border-bottom: 1px solid black"><%= construction.vendor_disp(construction.vendor) %></td>
           <td class="text-center" style="border-bottom: 1px solid black"><%= construction.started_on_display_for_external_staff(current_external_staff) %></td>
           <td class="text-center" style="border-bottom: 1px solid black"><%= construction.finished_on_display_for_external_staff(current_external_staff) %></td>
         </tr>
       <% end %>
     <% end %>
   </table>
-  
+
 </div>
 
 <script>
@@ -59,13 +59,13 @@
         data: { object: "started_on"}
       });
     });
-    
+
     $('#finished_on_for_<%= construction.id %>').on('click', function(){
       $.ajax({
         type: "PATCH",
         url: "<%=external_staffs_matter_construction_schedule_path(construction.matter, construction) %>",
         data: { object: "finished_on"}
-      }); 
+      });
     });
   <% end %>
 </script>

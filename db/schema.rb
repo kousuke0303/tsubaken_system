@@ -179,13 +179,13 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.string "member_name"
     t.boolean "report_count"
     t.boolean "disclose", default: true, null: false
-    t.bigint "supplier_id"
+    t.bigint "vendor_id"
     t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matter_id"], name: "index_construction_schedules_on_matter_id"
     t.index ["member_code_id"], name: "index_construction_schedules_on_member_code_id"
-    t.index ["supplier_id"], name: "index_construction_schedules_on_supplier_id"
+    t.index ["vendor_id"], name: "index_construction_schedules_on_vendor_id"
   end
 
   create_table "constructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.string "address_city"
     t.string "address_street"
     t.string "content"
+    t.bigint "supplier_id"
     t.bigint "client_id"
     t.bigint "attract_method_id"
     t.bigint "publisher_id"
@@ -270,6 +271,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["attract_method_id"], name: "index_estimate_matters_on_attract_method_id"
     t.index ["client_id"], name: "index_estimate_matters_on_client_id"
     t.index ["publisher_id"], name: "index_estimate_matters_on_publisher_id"
+    t.index ["supplier_id"], name: "fk_rails_3ee54d7166"
   end
 
   create_table "estimates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -292,14 +294,14 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.string "email"
     t.date "resigned_on"
     t.boolean "avaliable", default: false, null: false
-    t.bigint "supplier_id"
+    t.bigint "vendor_id"
     t.string "login_id", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_external_staffs_on_login_id", unique: true
-    t.index ["supplier_id"], name: "index_external_staffs_on_supplier_id"
+    t.index ["vendor_id"], name: "index_external_staffs_on_vendor_id"
   end
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -309,10 +311,16 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.date "shooted_on"
     t.string "estimate_matter_id"
     t.string "matter_id"
+<<<<<<< HEAD
     t.boolean "certificate_list", default: false
     t.boolean "cover_list", default: false
     t.boolean "report_cover_list", default: false
     t.boolean "report_list", default: false
+=======
+    t.boolean "certificate"
+    t.boolean "report_cover"
+    t.boolean "report"
+>>>>>>> 47bb034ccc7d15da8ddf0c7367c1b4ea940f5e62
     t.bigint "member_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -329,13 +337,13 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["name"], name: "index_industries_on_name", unique: true
   end
 
-  create_table "industry_suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "industry_vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "industry_id"
-    t.bigint "supplier_id"
+    t.bigint "vendor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["industry_id"], name: "index_industry_suppliers_on_industry_id"
-    t.index ["supplier_id"], name: "index_industry_suppliers_on_supplier_id"
+    t.index ["industry_id"], name: "index_industry_vendors_on_industry_id"
+    t.index ["vendor_id"], name: "index_industry_vendors_on_vendor_id"
   end
 
   create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -476,13 +484,13 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "supplier_manager_id"
+    t.bigint "vendor_manager_id"
     t.index ["admin_id"], name: "index_member_codes_on_admin_id"
     t.index ["client_id"], name: "index_member_codes_on_client_id"
     t.index ["external_staff_id"], name: "index_member_codes_on_external_staff_id"
     t.index ["manager_id"], name: "index_member_codes_on_manager_id"
     t.index ["staff_id"], name: "index_member_codes_on_staff_id"
-    t.index ["supplier_manager_id"], name: "index_member_codes_on_supplier_manager_id"
+    t.index ["vendor_manager_id"], name: "index_member_codes_on_vendor_manager_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -656,58 +664,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["login_id"], name: "index_staffs_on_login_id", unique: true
   end
 
-  create_table "supplier_estimate_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "estimate_matter_id", null: false
-    t.bigint "supplier_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["estimate_matter_id"], name: "index_supplier_estimate_matters_on_estimate_matter_id"
-    t.index ["supplier_id"], name: "index_supplier_estimate_matters_on_supplier_id"
-  end
-
-  create_table "supplier_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "auth", default: "supplier_manager", null: false
-    t.string "name", null: false
-    t.string "kana"
-    t.string "phone"
-    t.string "email"
-    t.date "resigned_on"
-    t.boolean "avaliable", default: true, null: false
-    t.bigint "supplier_id"
-    t.string "login_id", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["login_id"], name: "index_supplier_managers_on_login_id", unique: true
-    t.index ["supplier_id"], name: "index_supplier_managers_on_supplier_id"
-  end
-
-  create_table "supplier_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "matter_id", null: false
-    t.bigint "supplier_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["matter_id"], name: "index_supplier_matters_on_matter_id"
-    t.index ["supplier_id"], name: "index_supplier_matters_on_supplier_id"
-  end
-
-  create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "kana", null: false
-    t.string "postal_code"
-    t.string "prefecture_code"
-    t.string "address_city"
-    t.string "address_street"
-    t.string "representative"
-    t.string "phone_1"
-    t.string "phone_2"
-    t.string "fax"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "category"
     t.string "title", default: "", null: false
@@ -732,6 +688,58 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.index ["member_code_id"], name: "index_tasks_on_member_code_id"
   end
 
+  create_table "vendor_estimate_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "estimate_matter_id", null: false
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_vendor_estimate_matters_on_estimate_matter_id"
+    t.index ["vendor_id"], name: "index_vendor_estimate_matters_on_vendor_id"
+  end
+
+  create_table "vendor_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth", default: "vendor_manager", null: false
+    t.string "name", null: false
+    t.string "kana"
+    t.string "phone"
+    t.string "email"
+    t.date "resigned_on"
+    t.boolean "avaliable", default: true, null: false
+    t.bigint "vendor_id"
+    t.string "login_id", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["login_id"], name: "index_vendor_managers_on_login_id", unique: true
+    t.index ["vendor_id"], name: "index_vendor_managers_on_vendor_id"
+  end
+
+  create_table "vendor_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "matter_id", null: false
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matter_id"], name: "index_vendor_matters_on_matter_id"
+    t.index ["vendor_id"], name: "index_vendor_matters_on_vendor_id"
+  end
+
+  create_table "vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "kana", null: false
+    t.string "postal_code"
+    t.string "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
+    t.string "representative"
+    t.string "phone_1"
+    t.string "phone_2"
+    t.string "fax"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attendances", "member_codes"
   add_foreign_key "category_materials", "categories"
@@ -743,7 +751,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "construction_schedule_materials", "construction_schedules"
   add_foreign_key "construction_schedule_materials", "materials"
   add_foreign_key "construction_schedules", "member_codes"
-  add_foreign_key "construction_schedules", "suppliers"
+  add_foreign_key "construction_schedules", "vendors"
   add_foreign_key "constructions", "categories"
   add_foreign_key "estimate_details", "categories"
   add_foreign_key "estimate_details", "constructions"
@@ -753,13 +761,14 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "estimate_matters", "attract_methods"
   add_foreign_key "estimate_matters", "clients"
   add_foreign_key "estimate_matters", "publishers"
+  add_foreign_key "estimate_matters", "vendors", column: "supplier_id"
   add_foreign_key "estimates", "plan_names"
-  add_foreign_key "external_staffs", "suppliers"
+  add_foreign_key "external_staffs", "vendors"
   add_foreign_key "images", "estimate_matters"
   add_foreign_key "images", "matters"
   add_foreign_key "images", "member_codes"
-  add_foreign_key "industry_suppliers", "industries"
-  add_foreign_key "industry_suppliers", "suppliers"
+  add_foreign_key "industry_vendors", "industries"
+  add_foreign_key "industry_vendors", "vendors"
   add_foreign_key "invoice_details", "categories"
   add_foreign_key "invoice_details", "constructions"
   add_foreign_key "invoice_details", "invoices"
@@ -777,7 +786,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "member_codes", "external_staffs"
   add_foreign_key "member_codes", "managers"
   add_foreign_key "member_codes", "staffs"
-  add_foreign_key "member_codes", "supplier_managers"
+  add_foreign_key "member_codes", "vendor_managers"
   add_foreign_key "messages", "matters"
   add_foreign_key "notifications", "construction_reports"
   add_foreign_key "notifications", "construction_schedules"
@@ -788,11 +797,11 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   add_foreign_key "sales_status_editors", "sales_statuses"
   add_foreign_key "staffs", "departments"
   add_foreign_key "staffs", "label_colors"
-  add_foreign_key "supplier_estimate_matters", "estimate_matters"
-  add_foreign_key "supplier_estimate_matters", "suppliers"
-  add_foreign_key "supplier_managers", "suppliers"
-  add_foreign_key "supplier_matters", "matters"
-  add_foreign_key "supplier_matters", "suppliers"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "matters"
+  add_foreign_key "vendor_estimate_matters", "estimate_matters"
+  add_foreign_key "vendor_estimate_matters", "vendors"
+  add_foreign_key "vendor_managers", "vendors"
+  add_foreign_key "vendor_matters", "matters"
+  add_foreign_key "vendor_matters", "vendors"
 end

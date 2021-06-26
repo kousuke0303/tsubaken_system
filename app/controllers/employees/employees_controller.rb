@@ -1,30 +1,30 @@
 class Employees::EmployeesController < ApplicationController
   before_action :authenticate_employee!
-  
+
   private
-  
+
     # -------------------------------------------------------
         # set
     # -------------------------------------------------------
-    
+
     def set_staff
       @staff = Staff.find(params[:staff_id])
     end
-    
+
     def set_manager
       @manager = Manager.find(params[:manager_id])
     end
-    
+
     def target_external_staff
       @external_staff = ExternalStaff.find(params[:external_staff_id])
     end
-    
+
     def set_employees
       @managers = Manager.all
       @staffs = Staff.all
       @external_staffs = ExternalStaff.all
     end
-    
+
     # 担当メンベーのcode_idの配列化
     def set_menbers_code_for(estimate_matter_or_matter)
       @member_name_arrey = []
@@ -40,23 +40,23 @@ class Employees::EmployeesController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     end
-    
+
     def set_publishers
       @publishers = Publisher.order(position: :asc)
     end
-    
+
     def set_attract_methods
       @attract_methods = AttractMethod.order(position: :asc)
     end
 
-    def set_suppliers
-      @suppliers = Supplier.all
+    def set_vendors
+      @vendors = Vendor.all
     end
 
     def set_industries
       @industries = Industry.order(position: :asc)
     end
-    
+
     def set_categories
       @categories = Category.order(position: :asc)
     end
@@ -64,11 +64,11 @@ class Employees::EmployeesController < ApplicationController
     def set_plan_names
       @plan_names = PlanName.order(position: :asc)
     end
-    
+
     def set_estimate_matter
       @estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
     end
-    
+
     def set_matter
       @matter = Matter.find(params[:id])
     end
@@ -110,7 +110,7 @@ class Employees::EmployeesController < ApplicationController
     def set_color_code_of_invoice
       @color_code = @plan_name.label_color.color_code
     end
-    
+
     def set_reports_of_matter
       @reports = @matter.reports.order(created_at: "ASC")
     end
@@ -121,29 +121,34 @@ class Employees::EmployeesController < ApplicationController
       @cover_img_3 = Image.find_by(id: @report_cover.img_3_id)
       @cover_img_4 = Image.find_by(id: @report_cover.img_4_id)
     end
-    
+
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
       @schedules = Schedule.origins
       target_schedules = @schedules.joins(:member_code).where(scheduled_date: day)
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
+<<<<<<< HEAD
                                           .sort_by{|key, value| MemberCode.ids.index(key)}.to_h
     
+=======
+                                          .sort_by{|key, value| @member_codes.ids.index(key)}.to_h
+
+>>>>>>> 47bb034ccc7d15da8ddf0c7367c1b4ea940f5e62
     end
-    
-    
+
+
     # -------------------------------------------------------
         # その他
     # -------------------------------------------------------
-    
+
     def all_staff_and_external_staff_code
       @all_staff_codes = MemberCode.joins(:staff).where(staffs: {avaliable: true})
                                    .select('member_codes.*, staffs.name AS staff_name')
       @all_external_staff_codes = MemberCode.joins(:external_staff).where(external_staffs: {avaliable: true})
                                             .select('member_codes.*, external_staffs.name AS external_staff_name')
     end
-    
+
     # 全メンバー(配列)
     def all_member
       @members = []
@@ -158,27 +163,27 @@ class Employees::EmployeesController < ApplicationController
       end
       return @members
     end
-  
+
     # 営業管理案件の担当者（配列）
     def group_for(estimate_matter_or_matter)
       @group = []
       @group << Admin.first.member_code.id
-      
+
       Manager.where(avaliable: true).each do |manager|
         @group << manager.member_code.id
       end
-      
+
       estimate_matter_or_matter.member_codes.sort_auth.each do |member_code|
         @group << member_code.id
       end
       return @group
     end
-    
-   
+
+
     # -------------------------------------------------------
         # BAND
     # -------------------------------------------------------
-    
+
     def search_image(band_key)
       submit_params = URI.encode_www_form({ access_token: "ZQAAAUd9_L9isVXMSdRleMreMjkmBnAltSU__WC3Y-eeseqhAdzzJklawBFw2iF_ffgTFMqG_-fv1dOB3Jzd9sqCZEHhiWJ0vBlRA3xhfthxneay",
                                             band_key: band_key,
@@ -203,7 +208,7 @@ class Employees::EmployeesController < ApplicationController
       end
       return @photo_arrey
     end
-    
+
     # 画像を取り込み一旦ローカルファルダに保存
     def temporary_storage_for_image(params_url, index, object)
       url = open(params_url)
@@ -212,11 +217,11 @@ class Employees::EmployeesController < ApplicationController
       file = open(@file_path, "wb")
       file.write(url.read)
     end
-    
+
     # -------------------------------------------------------
         # BEFORE_ACTION 条件
     # -------------------------------------------------------
-    
+
     def object_is_staff?
       if params[:staff_id]
         true
@@ -224,7 +229,7 @@ class Employees::EmployeesController < ApplicationController
         false
       end
     end
-    
+
     def object_is_manager?
       if params[:manager_id]
         true
@@ -232,7 +237,7 @@ class Employees::EmployeesController < ApplicationController
         false
       end
     end
-    
+
     def object_is_external_staff?
       if params[:external_staff_id]
         true
@@ -240,11 +245,11 @@ class Employees::EmployeesController < ApplicationController
         false
       end
     end
-    
+
     #---------------------------------------------------------
        # redirect
     #---------------------------------------------------------
-    
+
     def redirect_to_top
       if current_admin
         redirect_to admins_top_path
@@ -254,5 +259,5 @@ class Employees::EmployeesController < ApplicationController
         redirect_to staffs_top_path
       end
     end
-    
+
 end

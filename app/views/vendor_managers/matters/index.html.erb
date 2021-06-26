@@ -1,0 +1,41 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-8 col-12">
+      <h2><i class="fas fa-paint-roller"></i> 案件一覧</h2>
+    </div>
+    <div class="col-md-4 col-12">
+      <%= form_with(url: vendor_managers_matters_path, method: :get, local: true) do |f| %>
+        <div class="input-group">
+          <%= f.select :status, options_for_select(Matter.statuses.keys.map {|k| [I18n.t("enums.matter.status.#{ k }"), k]},params[:status]), { include_blank: "全ての進行状況" }, { class: "form-control" } %>
+          <div class="input-group-append">
+            <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <input type="hidden" name="estimate_matter_id" value="<%= params[:estimate_matter_id] %>" id="estimate_matter_id">
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <tr>
+        <th>タイトル</th>
+        <th>着工予定日</th>
+        <th>完了予定日</th>
+        <th>進行状況</th>
+      </tr>
+
+      <% @matters.each do |matter| %>
+        <tr class="tr-link" data-link="<%= vendor_managers_matter_path(matter) %>">
+          <td><%= matter.title %></td>
+          <td><%= matter.scheduled_started_on %></td>
+          <td><%= matter.scheduled_finished_on %></td>
+          <td><%= matter.status_i18n %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<%= javascript_include_tag "tr_link.js" %>

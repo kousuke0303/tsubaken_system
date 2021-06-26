@@ -30,7 +30,7 @@ class Api::V1::Employees::ExternalStaffsController < Api::V1::ApplicationControl
 
   private
     def external_staff_params
-      params.permit(:name, :kana, :phone, :email, :login_id, :supplier_id)
+      params.permit(:name, :kana, :phone, :email, :login_id, :vendor_id)
     end
 
     def set_external_staff

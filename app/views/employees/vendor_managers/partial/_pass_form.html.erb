@@ -1,0 +1,40 @@
+<%= form_with(model: @vendor_manager, url: pass_update_employees_vendor_manager_path(@vendor_manager), method: :patch, remote: true) do |f| %>
+  <div class="row">
+    <% unless @vendor_manager.password_condition %>
+      <label class="form-control text-white" style="background:#dc3545">PASSWORD</label>
+    <% else %>
+      <label class="form-control text-white" style="background:#17a2b8">PASSWORD</label>
+    <% end %>
+
+    <div class="pass-word-errors col-12"></div>
+
+    <div class="col-md-6 col-12">
+      <%= f.label :password %>
+      <% unless @vendor_manager.password_condition %>
+        <span class="precautionary_statement">※PASSWORDが初期値のままです</span>
+      <% end %>
+      <%= f.password_field :password, maxlength: 12, class: "form-control", id: "password" %>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= f.label :password_confirmation, class: "float-l" %>
+      <%= f.password_field :password_confirmation, maxlength: 12, class: "form-control", id: "password_confirmation" %>
+    </div>
+  </div>
+  <div class="btn-area">
+    <%= f.submit "パスワード更新", class: "btn btn-dark" %>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function(){
+  <% unless @vendor_manager.password_condition %>
+    $('#password').attr('placeholder', 'password');
+    $('#password').css('border-color', '#dc3545');
+    $('#password_confirmation').attr('placeholder', 'password');
+    $('#password_confirmation').css('border-color', '#dc3545');
+  <% else %>
+    $('#password').attr('placeholder', '※※※※※※※※※');
+    $('#password_confirmation').attr('placeholder', '※※※※※※※※※');
+  <% end %>
+});
+</script>

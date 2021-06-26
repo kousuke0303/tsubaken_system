@@ -14,7 +14,7 @@ class CreateConstructionSchedules < ActiveRecord::Migration[5.2]
       t.string :member_name
       t.boolean :report_count
       t.boolean :disclose,  null: false, default: true
-      t.references :supplier, foreign_key: true
+      t.references :vendor, foreign_key: true
       t.references :member_code, foreign_key: true
       t.timestamps
     end

@@ -7,32 +7,32 @@
   <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <i class="fas fa-align-justify"></i>
   </button>
-  
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    
+
     <ul class="nav navbar-nav ml-auto navi-custom">
-      
+
       <li class="nav-item">
         <%= link_to send(home_path, id: login_user), class: "nav-link" do %>
           <i class="fas fa-home"> HOME</i>
         <% end %>
       </li>
-    
+
       <li class="nav-item" id="header-notification">
         <%= link_to send(home_path, id: login_user), class: "nav-link notifi" do %>
           <%= render 'layouts/flamework/parts/notification' %>
         <% end %>
       </li>
-      
+
       <div class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle session-name text-<%= @condition %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <% if current_supplier_manager %>
-            <%= login_user.supplier.name %> 様
+          <% if current_vendor_manager %>
+            <%= login_user.vendor.name %> 様
           <% elsif current_external_staff %>
             <%= login_user.name %> 様
           <% else %>
             <%= login_user.name %>
-          <% end %> 
+          <% end %>
         </a>
         <div class="dropdown-menu dropdown-position header-dropdown-menu">
           <%= link_to send(edit_path), class: "dropdown-item item-link" do %>

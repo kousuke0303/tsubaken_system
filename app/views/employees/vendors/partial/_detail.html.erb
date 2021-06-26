@@ -1,0 +1,40 @@
+<div class="text-right">
+  <%= link_to "編集", edit_employees_vendor_path(@vendor), remote: true, class: "btn btn-dark" %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap common-table">
+    <tr>
+      <th style="width: 10em;">会社名</th>
+      <td><%= @vendor.name %><span>（<%= @vendor.kana %>）</span></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= postal_code_display(@vendor.postal_code) %></td>
+    </tr>
+    <tr>
+      <th>本店</th>
+      <td><%= @vendor.prefecture_code %><%= @vendor.address_city %><%= @vendor.address_street %></td>
+    </tr>
+    <tr>
+      <th>代表者名</th>
+      <td><%= @vendor.representative %></td>
+    </tr>
+    <tr>
+      <th>電話番号①</th>
+      <td><%= phone_formatted(@vendor.phone_1) %></td>
+    </tr>
+    <tr>
+      <th>電話番号②</th>
+      <td><%= phone_formatted(@vendor.phone_2) %></td>
+    </tr>
+    <tr>
+      <th>FAX</th>
+      <td><%= @vendor.fax %></td>
+    </tr>
+    <tr>
+      <th>MAIL</th>
+      <td><%= @vendor.email %></td>
+    </tr>
+  </table>
+</div>

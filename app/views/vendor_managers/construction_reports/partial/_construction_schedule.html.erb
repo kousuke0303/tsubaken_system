@@ -1,0 +1,49 @@
+<table class="table table-bordered common-table">
+  <tr>
+    <th>案件名</th>
+    <td>
+      <% unless current_vendor_manager %>
+        <%= link_to employees_matter_path(@construction_schedule.matter) do %>
+          <%= @construction_schedule.matter.title %>
+        <% end %>
+      <% else %>
+        <%= link_to vendor_managers_matter_path(@construction_schedule.matter) do %>
+          <%= @construction_schedule.matter.title %>
+        <% end %>
+      <% end %>
+    </td>
+    <th>作業名</th>
+    <td><%= @construction_schedule.title %></td>
+    <th>担当者</th>
+    <td><%= @construction_schedule.person_in_charge %></td>
+  </tr>
+</table>
+
+
+
+<div class="table-responsive">
+  <table class="table table-bordered common-table text-nowrap">
+    <tr>
+      <th>日付</th>
+      <th>報告状況</th>
+      <th></th>
+    </tr>
+    <% [*@construction_schedule.scheduled_started_on..@construction_schedule.end_date].each do |date| %>
+      <tr>
+        <% if date > Date.current %>
+          <td><%= date.strftime("%-m月%-d日") %></td>
+          <td>報告不可</td>
+          <td></td>
+        <% elsif @construction_schedule.construction_reports.where(work_date: date).present? %>
+          <td><%= date.strftime("%-m月%-d日") %></td>
+          <td>報告済</td>
+          <td></td>
+        <% else %>
+          <td><%= date.strftime("%-m月%-d日") %></td>
+          <td>未報告</td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

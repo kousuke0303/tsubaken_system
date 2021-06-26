@@ -8,10 +8,10 @@
     <div class="modal-body">
       <%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @construction_schedules) do |date, schedules| %>
         <span class="pl-10"><%= date.day %></span>
-        
+
         <% @schedule_date_ids = schedules.pluck(:id) %>
         <% @construction_schedules.each do |construction_schedule| %>
-          
+
           <% if @schedule_date_ids.include?(construction_schedule.id) %>
             <div class="ganttchart-construction mt-5 <%= construction_schedule.id %>">
               <div class="status-<%= construction_schedule.status %>">
@@ -25,19 +25,19 @@
               <div style="height: 1.5em;"></div>
             </div>
           <% end %>
-            
+
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
-    
+
 
 <script>
   <% @construction_schedules.each do |schedule| %>
     $('.<%= schedule.id %>').on('click', function(){
       var day = $(this).parent().attr('id');
-      <% unless current_supplier_manager %>
+      <% unless current_vendor_manager %>
         $.ajax({
           type: "GET",
           url: "<%= employees_matter_construction_schedule_path(@matter, schedule.id) %>",

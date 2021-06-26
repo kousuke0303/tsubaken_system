@@ -5,7 +5,7 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body bg-white pa-2e">
-      <% if @edit_type == "basic" || @edit_type == "supplier" %>
+      <% if @edit_type == "basic" || @edit_type == "vendor" %>
         <%= form_with(model: @matter, url: employees_matter_path(@matter, type: @edit_type), method: :patch, remote: true) do |f| %>
           <div class="matter-update-errors"></div>
           <%= render 'employees/matters/partial/edit/edit_form', f: f %>
@@ -21,8 +21,8 @@
             <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
           </div>
         <% end %>
-      <% elsif @edit_type == "supplier_staff" %>
-        <%= form_with(model: @matter, url: member_change_for_supplier_staff_employees_matter_members_path(@matter), method: :patch, remote: true) do |f| %>
+      <% elsif @edit_type == "vendor_staff" %>
+        <%= form_with(model: @matter, url: member_change_for_vendor_staff_employees_matter_members_path(@matter), method: :patch, remote: true) do |f| %>
           <div class="matter-update-errors"></div>
           <%= render 'employees/matters/partial/edit/edit_form', f: f %>
           <div class="btn-area">

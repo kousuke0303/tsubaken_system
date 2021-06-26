@@ -13,5 +13,5 @@
 <%= f.label :email %>
 <%= f.email_field :email, maxlength: 254, class: "form-control" %>
 
-<%= f.label :supplier_id %>
-<%= f.collection_select :supplier_id, @suppliers, :id, :name, { include_blank: "外注先を選択" }, class: "form-control" %>
+<%= f.label :vendor_id %>
+<%= f.collection_select :vendor_id, @vendors, :id, :name, { include_blank: "外注先を選択" }, class: "form-control" %>

@@ -5,10 +5,10 @@
       <th>会社名</th>
       <th>本件担当者</th>
     </tr>
-    <% @alert_suppliers.each do |supplier| %>
+    <% @alert_vendors.each do |vendor| %>
       <tr>
-        <td><%= supplier.name %></td>
-        <td><%= supplier.person_in_charge_for_matter(object) %></td>
+        <td><%= vendor.name %></td>
+        <td><%= vendor.person_in_charge_for_matter(object) %></td>
       </tr>
     <% end %>
   </table>

@@ -1,13 +1,13 @@
-<%= form_with(model: @client, url: pass_update_employees_supplier_manager_path(@client), method: :patch, remote: true) do |f| %>
+<%= form_with(model: @client, url: pass_update_employees_vendor_manager_path(@client), method: :patch, remote: true) do |f| %>
   <div class="row">
     <% unless @client.password_condition %>
       <label class="form-control text-white" style="background:#dc3545">PASSWORD</label>
     <% else %>
       <label class="form-control text-white" style="background:#17a2b8">PASSWORD</label>
     <% end %>
-    
+
     <div class="pass-word-errors col-12"></div>
-    
+
     <div class="col-md-6 col-12">
       <%= f.label :password %>
       <% unless @client.password_condition %>
@@ -38,6 +38,3 @@ $(document).ready(function(){
   <% end %>
 });
 </script>
-    
-
-  

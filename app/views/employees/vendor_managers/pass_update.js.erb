@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $('#pass-form').html('<%= escape_javascript(render 'employees/vendor_managers/partial/pass_form') %>');
+  toastr.success('#{@vendor_manager.name}のパスワードを更新しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".pass-word-errors", model: @vendor_manager, object: "vendor_manager"} %>
+<% end %>

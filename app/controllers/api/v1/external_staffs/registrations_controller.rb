@@ -13,6 +13,6 @@ class Api::V1::ExternalStaffs::RegistrationsController < Api::V1::ApplicationCon
 
   private
     def external_staff_params
-      params.permit(:name, :kana, :phone, :email, :login_id, :supplier_id)
+      params.permit(:name, :kana, :phone, :email, :login_id, :vendor_id)
     end
 end

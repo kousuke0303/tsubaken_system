@@ -45,14 +45,14 @@
 <label class="form-control text-white" style="background:#787a7b;">担当者</label>
 <h6 class="mt-1e">担当者</h6>
 <div>
-  <%= f.select :supplier_id, options_for_select(@suppliers.map{|supplier| [supplier.name, supplier.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "supplier_select" %>
+  <%= f.select :vendor_id, options_for_select(@vendors.map{|vendor| [vendor.name, vendor.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "vendor_select" %>
 </div>
 
 <script>
-  <% if @construction_schedule.supplier_id.present? %>
+  <% if @construction_schedule.vendor_id.present? %>
     $(function(){
-      var value = <%=  @construction_schedule.supplier_id %>
-      $('#supplier_select').val(value);
+      var value = <%=  @construction_schedule.vendor_id %>
+      $('#vendor_select').val(value);
     });
   <% end %>
 </script>
@@ -71,9 +71,6 @@
       dummy.textContent = e.target.value + '\u200b'
     })
   }
-  
+
   document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
 </script>
-        
-
-

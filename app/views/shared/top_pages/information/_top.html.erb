@@ -11,12 +11,12 @@
         </p>
       <% end %>
     <% end %>
-    
+
     <% if @notifications %>
       <div id="construction_report_notification_list">
         <%= render 'shared/top_pages/information/notifications/report_notification_lists' %>
       </div>
-      <% unless current_external_staff || current_supplier_manager %>
+      <% unless current_external_staff || current_vendor_manager %>
         <div id="schedule_notification_lists">
           <%= render 'shared/top_pages/information/notifications/schedule_notification_lists' %>
         </div>
@@ -29,7 +29,7 @@
         </div>
       <% end %>
     <% end %>
-    
+
     <% unless @applicate_schedules || @notifications %>
       <p>新着情報はありません</p>
     <% end %>

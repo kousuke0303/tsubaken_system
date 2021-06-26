@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-
   # mount ActionCable.server => '/cable'
   root "static_pages#top"
   post "sign_in", to: "static_pages#error"
-  
+
   get "badge_count", to: "badges#count"
   get "postcode_search", to: "addresses#search_postcode"
-  
+
   get "alert_task", to: "alerts#alert_task_index"
   get "alert_report", to: "alerts#alert_report_index"
-  
+
   resources :notifications, only: :index do
     collection do
       get :schedule_index
@@ -32,7 +31,7 @@ Rails.application.routes.draw do
       get :change_span, on: :collection
     end
   end
-  
+
   # Manager関係
   scope module: :managers do
     namespace :managers do
@@ -49,7 +48,7 @@ Rails.application.routes.draw do
       get :change_month, on: :collection
     end
   end
-  
+
   # Client関係
   scope module: :clients do
     namespace :clients do
@@ -79,10 +78,10 @@ Rails.application.routes.draw do
       patch :change_status, on: :collection
     end
   end
-  
-  # SupplierManager関係
-  scope module: :supplier_managers do
-    resources :supplier_managers, only: :index do
+
+  # VendorManager関係
+  scope module: :vendor_managers do
+    resources :vendor_managers, only: :index do
       collection do
         get :top
         get :information
@@ -92,12 +91,12 @@ Rails.application.routes.draw do
       end
     end
   end
-  
-  namespace :supplier_managers do
+
+  namespace :vendor_managers do
     resources :matters, except: [:create] do
       get :calendar, on: :member
     end
-    resources :suppliers, only: :update
+    resources :vendors, only: :update
     resources :construction_schedules, only: [:index, :show, :edit, :update] do
       member do
         get :picture
@@ -116,7 +115,7 @@ Rails.application.routes.draw do
       post :avator_change
       get :avator_destroy
     end
-    
+
   end
 
   namespace :external_staffs do
@@ -132,7 +131,7 @@ Rails.application.routes.draw do
       post :applicate, on: :member
       get :show_for_top_page
     end
-    resources :tasks do 
+    resources :tasks do
       patch :change_status, on: :collection
     end
     resources :matters, only: [:index, :show] do
@@ -144,15 +143,15 @@ Rails.application.routes.draw do
 
   # 従業員が行う操作 ##################################################
   namespace :employees do
-    
+
     resources :avators, only: :create do
       delete :avator_delete, on: :collection
     end
-    
+
     resources :managers, except: :edit do
       patch :pass_update, on: :member
       patch :restoration, on: :member
-      
+
       scope module: :managers do
         resources :retirements, only: :index do
           get :change_member_for_task, on: :collection
@@ -164,11 +163,11 @@ Rails.application.routes.draw do
         end
       end
     end
-    
+
     resources :staffs, except: :edit do
       patch :pass_update, on: :member
       patch :restoration, on: :member
-      
+
       scope module: :staffs do
         resources :retirements, only: :index do
           get :change_member_for_task, on: :collection
@@ -180,12 +179,12 @@ Rails.application.routes.draw do
         end
       end
     end
-    
+
     resources :external_staffs, except: :edit do
       patch :pass_update, on: :member
       patch :out_of_service, on: :member
       patch :restoration, on: :member
-      
+
       scope module: :external_staffs do
         resources :retirements, only: :index do
           get :change_member_for_task, on: :collection
@@ -197,13 +196,13 @@ Rails.application.routes.draw do
         end
       end
     end
-    
-    resources :supplier_managers, except: :edit do
+
+    resources :vendor_managers, except: :edit do
       patch :pass_update, on: :member
       patch :out_of_service, on: :member
       patch :restoration, on: :member
-      
-      scope module: :supplier_managers do
+
+      scope module: :vendor_managers do
         resources :retirements, only: :index do
           get :change_member_for_task, on: :collection
           patch :update_member_for_task, on: :collection
@@ -214,13 +213,13 @@ Rails.application.routes.draw do
         end
       end
     end
-    
+
     resources :clients do
       post :search_index, on: :collection
       patch :reset_password, on: :member
     end
-    resources :suppliers
-    
+    resources :vendors
+
     resources :attendances, only: [:new, :create, :edit, :update, :destroy] do
       collection do
         get :daily
@@ -235,27 +234,27 @@ Rails.application.routes.draw do
       get :application_detail, on: :member
       patch :commit_application, on: :member
     end
-    
+
     resources :tasks do
       patch :change_status, on: :member
       get :registor_member, on: :member
       get :change_member, on: :member
       patch :update_member, on: :member
     end
-    
+
     resources :band_connections, only: [:index, :destroy] do
       get :connect, on: :collection
       get :get_album, on: :member
       get :reload, on: :collection
     end
-    
+
     ######## ▼ 営業案件 ▼ ###################################
-    
+
     resources :estimate_matters do
       member do
         get :change_member
         patch :update_member
-      end 
+      end
       collection do
         get :progress_table
         get :progress_table_for_six_month
@@ -263,20 +262,20 @@ Rails.application.routes.draw do
         get :prev_progress_table
         get :next_progress_table
       end
-      
+
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
       # end
-      
+
       scope module: :estimate_matters do
         resource :members, only: :edit do
           collection do
             patch :member_change_for_staff
-            patch :member_change_for_supplier_staff
+            patch :member_change_for_vendor_staff
           end
         end
       end
-      
+
       resources :clients, only: [:edit, :update], controller: "estimate_matters/clients"
       resources :tasks, only: [:edit, :update, :destroy], controller: "estimate_matters/tasks" do
         post :move, on: :collection
@@ -284,7 +283,7 @@ Rails.application.routes.draw do
         get :change_member, on: :member
         patch :update_member, on: :member
       end
-      
+
       resources :estimates, only: [:new, :create, :index, :edit, :update, :destroy], controller: "estimate_matters/estimates" do
         get :change_label_color, on: :collection
         get :copy, on: :member
@@ -306,16 +305,16 @@ Rails.application.routes.draw do
       end
       resources :covers, except: [:index]
     end
-    
+
     # scope module: :estimate_matters do
     #   resources :current_situations, only: :index do
     #     get :move_span, on: :collection
     #     get :change_span, on: :collection
     #   end
     # end
-    
+
     ######## ▼ 着工案件 ▼ ###################################
-    
+
     resources :matters do
       member do
         patch :change_estimate
@@ -323,16 +322,16 @@ Rails.application.routes.draw do
         patch :update_member
         get :calendar
       end
-      
+
       scope module: :matters do
         resource :members, only: :edit do
           collection do
             patch :member_change_for_staff
-            patch :member_change_for_supplier_staff
+            patch :member_change_for_vendor_staff
           end
         end
       end
-      
+
       resources :invoices, only: [:show, :edit, :update], controller: "matters/invoices"
       resources :invoice_details, only: [:edit, :update, :destroy], controller: "matters/invoice_details" do
         get :detail_object_edit, on: :member
@@ -353,7 +352,7 @@ Rails.application.routes.draw do
         get :edit_for_picture, on: :member
         patch :update_for_picture, on: :member
       end
-      
+
       resources :images, controller: "matters/images" do
         post :save_for_band_image, on: :collection
       end
@@ -368,17 +367,17 @@ Rails.application.routes.draw do
     end
 
     resources :inquiries, only: [:index, :show, :edit, :update, :destroy]
-    
+
     resources :current_situations, only: :index do
       get :move_span_for_progress, on: :collection
       get :move_span_for_ganttchart, on: :collection
       get :change_span, on: :collection
     end
-    
+
     resources :construction_reports do
       patch :confirmation, on: :collection
     end
-    
+
     namespace :settings do
       resources :companies, only: :index
       namespace :companies do
@@ -397,7 +396,7 @@ Rails.application.routes.draw do
           patch :sort, on: :collection
         end
       end
-      
+
       resources :estimates, only: :index do
         get :search_category, on: :collection
         get :search_construction, on: :collection
@@ -413,7 +412,7 @@ Rails.application.routes.draw do
           patch :sort, on: :collection
         end
       end
-      
+
       resources :others, only: :index do
       end
       namespace :others do
@@ -421,19 +420,19 @@ Rails.application.routes.draw do
           patch :sort, on: :collection
         end
       end
-      
+
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :certificates, only: [:create, :new, :edit, :index, :update, :destroy]
       resources :covers, only: [:create, :new, :edit, :update, :destroy]
       resources :reports, only: [:create, :new, :edit, :index, :update, :destroy]
     end
   end
-  
+
   ########################################### ▲ employee ▲ #######
-  
-  ##### supplier ##################################################
-  
-  namespace :suppliers do
+
+  ##### vendor ##################################################
+
+  namespace :vendors do
     resources :construction_schedules, only: :show do
       resources :construction_reports do
         get :register_start_time, on: :collection
@@ -445,10 +444,10 @@ Rails.application.routes.draw do
       end
     end
   end
-  
-  
+
+
   ######## ▼ DEVICE LOGIN ########################################
-  
+
   # deviseのAdminログイン関係
   devise_for :admins, controllers: {
     sessions:      "admins/sessions",
@@ -476,11 +475,11 @@ Rails.application.routes.draw do
     passwords:     "clients/passwords",
     registrations: "clients/registrations"
   }
-  
-  devise_for :supplier_managers, controllers: {
-    sessions:      "supplier_managers/sessions",
-    passwords:     "supplier_managers/passwords",
-    registrations: "supplier_managers/registrations"
+
+  devise_for :vendor_managers, controllers: {
+    sessions:      "vendor_managers/sessions",
+    passwords:     "vendor_managers/passwords",
+    registrations: "vendor_managers/registrations"
   }
 
   # deviseのExternalStaffログイン関係
@@ -489,11 +488,11 @@ Rails.application.routes.draw do
     passwords:     "external_staffs/passwords",
     registrations: "external_staffs/registrations"
   }
-  
+
   ################################# DEVICE LOGIN ▲ ##############
-  
+
   #### API関連 #################################################
-  
+
   namespace :api do
     namespace :v1 do
       post "sign_in", to: "sessions#create"
@@ -542,10 +541,10 @@ Rails.application.routes.draw do
         post "destroy_client", to: "clients#destroy"
 
         # 外注先CRUD
-        post "index_suppliers", to: "suppliers#index"
-        post "create_supplier", to: "suppliers#create"
-        post "update_supplier", to: "suppliers#update"
-        post "destroy_supplier", to: "suppliers#destroy"
+        post "index_vendors", to: "vendors#index"
+        post "create_vendor", to: "vendors#create"
+        post "update_vendor", to: "vendors#update"
+        post "destroy_vendor", to: "vendors#destroy"
 
         # 案件CRUD
         post "create_matter", to: "matters#create"
@@ -564,7 +563,7 @@ Rails.application.routes.draw do
           post "update_task", to: "tasks#update"
           post "destroy_task", to: "tasks#destroy"
         end
-        
+
         # 外部スタッフCRUD
         post "create_external_staff", to: "external_staffs#create"
         post "update_external_staff", to: "external_staffs#update"
@@ -589,6 +588,6 @@ Rails.application.routes.draw do
       end
     end
   end
-  
-  
+
+
 end

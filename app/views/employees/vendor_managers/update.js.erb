@@ -1,0 +1,6 @@
+<% if @responce == "success" %>
+  $('#vendor-manager-detail').html('<%= escape_javascript(render "/employees/vendor_managers/partial/detail") %>');
+  toastr.success('#{@vendor_manager.name}の情報を更新しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: "#vendor-manager-update-errors", model: @vendor_manager, object: "vendor_manager"} %>
+<% end %>

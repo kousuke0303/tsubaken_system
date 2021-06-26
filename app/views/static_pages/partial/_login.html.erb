@@ -1,4 +1,4 @@
-<div id="login-modal-grid"> 
+<div id="login-modal-grid">
   <%= form_with(url: "#", local: true, class: "login-form") do |f| %>
     <p class="login-text">
       <span class="fa-stack fa-lg">
@@ -8,30 +8,30 @@
     </p>
     <%= f.text_field :login_id, maxlength: 12, required: true, placeholder: "Login_id", class: "login-username" %>
     <%= f.password_field :password, maxlength: 12, required: true, placeholder: "Password", class: "login-password" %>
-    
+
     <div class="text-center mt-1e">
       <%= f.submit "ログイン", id: "login-submit", class: "btn btn-dark", style: "z-index: 5;" %>
     </div>
-    
+
   <% end %>
   <div><%= link_to "ログインID・パスワードを忘れた場合", new_clients_inquiry_path, remote: true, class: "login-forgot-pass" %></div>
   <div class="underlay-photo"></div>
   <div class="underlay-black"></div>
-  
+
   <!--<h2><i class="fa fa-lock mr-1e"></i>ログイン</h2>    -->
   <!--<fieldset>-->
   <!--  <!%= form_with(url: "#", local: true) do |f| %>            -->
   <!--    <!%= f.label :login_id, "ログインID" %>-->
   <!--    <!%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control mt-05e" %>-->
-        
+
   <!--    <!%= f.label :password, "パスワード", class: "mt-1e" %>-->
   <!--    <!%= f.password_field :password, maxlength: 12, required: true, class: "form-control mt-05e mb-05e" %>-->
-        
+
   <!--    <!%= f.check_box :remember_me %>-->
   <!--    <!%= f.label :remember_me, "ログイン状態を維持する" %>-->
 
   <!--    <div><!%= link_to "ログインID・パスワードを忘れた場合", new_clients_inquiry_path, remote: true %></div>-->
-        
+
   <!--    <div class="text-center mt-1e"><!%= f.submit "ログイン", id: "login-submit", class: "btn", style: "z-index: 5;" %></div>-->
   <!--  <!% end %>     -->
   <!--</fieldset>-->
@@ -67,11 +67,11 @@
       loginId.attr("name", "client[login_id]");
       password.attr("name", "client[password]");
       rememberMe.attr("name", "client[remember_me]");
-    } else if(idType == "SM") {
-      form.attr("action", "/supplier_managers/sign_in");
-      loginId.attr("name", "supplier_manager[login_id]");
-      password.attr("name", "supplier_manager[password]");
-      rememberMe.attr("name", "supplier_manager[remember_me]");
+    } else if(idType == "VM") {
+      form.attr("action", "/vendor_managers/sign_in");
+      loginId.attr("name", "vendor_manager[login_id]");
+      password.attr("name", "vendor_manager[password]");
+      rememberMe.attr("name", "vendor_manager[remember_me]");
     } else if(idType == "ES") {
       form.attr("action", "/external_staffs/sign_in");
       loginId.attr("name", "external_staff[login_id]");

@@ -1,0 +1,35 @@
+<% if @vendor_manager.present? %>
+
+  <div class="avator_container">
+    <%= render partial: 'shared/avator/edit', locals:{target_user: @vendor_manager} %>
+  </div>
+
+  <div id="vendor-manager-detail">
+    <%= render "/employees/vendor_managers/partial/detail" %>
+  </div>
+
+<% elsif current_admin || current_manager  %>
+  <div class="text-center mg-2e">
+    <div id="new-btn">
+      <p>代表者を登録してください</p>
+      <%= link_to "代表者登録", new_employees_vendor_manager_path(id: @vendor.id), remote: true, class: "btn btn-dark" %>
+    </div>
+    <button id="close-btn" class="btn btn-dark" style= "display: none">キャンセル</button>
+  </div>
+
+  <div id="vendor-manager-create-form"></div>
+
+<% else %>
+  <div class="text-center mg-2e">
+    <p>未登録</p>
+  </div>
+
+<% end %>
+
+<script>
+  $('#close-btn').on('click', function(){
+    $(this).hide();
+    $('#vendor-manager-create-form').empty();
+    $('#new-btn').show();
+  });
+</script>

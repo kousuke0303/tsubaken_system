@@ -2,19 +2,21 @@
 estimate_matters_for_matter = EstimateMatter.all.order(:created_at).each_slice(3).map(&:first)
 estimate_matters_for_matter.each do |est|
   estimate_id = est.estimates.first.id
-  Matter.create!(est.attributes.merge(
+  attributes = est.attributes
+  attributes.delete("supplier_id")
+  Matter.create!(attributes.merge(
                              scheduled_started_on: Date.today,
                              scheduled_finished_on: Date.today + 7.day,
                              created_at: est.created_at + 7.day,
                              estimate_id: estimate_id,
                              estimate_matter_id: est.id
                              ))
-  contract_status = est.sales_statuses.new(status: 6, 
+  contract_status = est.sales_statuses.new(status: 6,
                                            member_code_id: est.member_codes.first.id,
                                            scheduled_date: est.matter.created_at)
   contract_status.login_user = Admin.first
   contract_status.save!
-  
+
 end
 
 puts "CREATE! MATTER"
