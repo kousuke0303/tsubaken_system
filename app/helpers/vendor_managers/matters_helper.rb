@@ -1,0 +1,2 @@
+module VendorManagers::MattersHelper
+end
