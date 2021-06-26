@@ -1,7 +1,7 @@
 <label class="form-control text-white" style="background: #787a7b;">担当業者</label>
 <div class="col-12">
   <div>
-    <%= f.collection_select :supplier_ids, @suppliers, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "supplier_select" } %>
+    <%= f.collection_select :vendor_ids, @vendors, :id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "vendor_select" } %>
   </div>
 </div>
 
@@ -9,10 +9,10 @@
 <div id="alert_container" class="mt-1e col-sm-8 offset-sm-2"></div>
 
 <script>
-  $('#supplier_select').on('change', function(){
-    var registed_suppliers = <%= @estimate_matter.suppliers.ids %>;
-    var update_suppliers = $(this).val().map(Number);
-    var difference = registed_suppliers.filter(i => update_suppliers.indexOf(i) == -1 );
+  $('#vendor_select').on('change', function(){
+    var registed_vendors = <%= @estimate_matter.vendors.ids %>;
+    var update_vendors = $(this).val().map(Number);
+    var difference = registed_vendors.filter(i => update_vendors.indexOf(i) == -1 );
     if(difference.length > 0){
       $.ajax({
         type: 'GET',
