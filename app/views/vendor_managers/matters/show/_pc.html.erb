@@ -4,11 +4,11 @@
     <%= render partial: 'shared/employees/sub_title',
                locals: { object: @matter, status: status_disp(@matter.status)}%>
   </div>
-    
+
   <div id="matter_show" class="pa-1e double-line">
     <div class="mt-1e">
       <h4>基本情報</h4>
-      
+
       <div class="table-responsive">
         <table class="table table-bordered text-nowrap mt-5">
           <tr>
@@ -32,27 +32,27 @@
         </table>
       </div>
     </div>
-      
+
     <div class="mt-2e">
       <%= render partial: 'external_staffs/matters/partial/client_detail' %>
     </div>
-    
+
     <div class="mt-2e">
       <h4>担当者</h4>
       <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
                  locals: { object: @matter } %>
     </div>
-    
+
     <div class="mt-2e">
       <h4 class="text-primary">担当業者様</h4>
       <span class="ml-2e">
         <i class="fas fa-exclamation-circle fa-orange"></i> 本件につき、御社スタッフをご担当者とする場合は、こちらから選択してください
       </span>
-      <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_supplier_managers_matter_path} %>
+      <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @matter, path: :edit_vendor_managers_matter_path} %>
     </div>
-      
+
     <div class="mt-2e">
-      <%= render partial: 'shared/employees/band_select/band_select', 
+      <%= render partial: 'shared/employees/band_select/band_select',
                  locals: { path: "employees/matters/partial/select_band_display" } %>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <% @uncheck_reports.group_by{|report| report.work_date }.each do |date, reports| %>
-  
+
   <h5><%= date.strftime("%-m月%-d日") %>の報告書</h5>
-  
+
   <div class="table-responsive">
     <table class="table table-bordered text-nowrap common-table">
       <tr>
@@ -42,7 +42,7 @@
   </div>
 <% end %>
 <div class="text-center">
-  <button class="btn btn-primary col-12" id="confirmation_btn">確認</button>  
+  <button class="btn btn-primary col-12" id="confirmation_btn">確認</button>
 </div>
 
 <script>
@@ -56,7 +56,7 @@
     });
     $.ajax({
       type: "PATCH",
-      url: "<%= confirmation_suppliers_construction_schedule_construction_reports_path %>",
+      url: "<%= confirmation_vendors_construction_schedule_construction_reports_path %>",
       cache: false,
       data: { notification_ids: checked_notification_array },
     })

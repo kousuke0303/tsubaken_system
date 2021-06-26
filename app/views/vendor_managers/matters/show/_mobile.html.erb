@@ -6,9 +6,9 @@
 </div>
 
 <div id="matter_show" class="double-line mt-2e">
-  
+
   <%= render "employees/matters/partial/show/mobile/detail" %>
-  
+
   <div class="clients-matter-index mt-2e">
     <div class="text-center"><h4>お客様情報</h4></div>
     <%= render "employees/matters/clients/partial/client_table" %>
@@ -24,11 +24,11 @@
 
   <div class="mt-2e">
     <div class="text-center"><h4>担当業者様</h4></div>
-    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_employees_matter_path} %>
+    <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @matter, path: :edit_employees_matter_path} %>
   </div>
 
   <div class="mt-2e">
-    <%= render partial: 'shared/employees/band_select/band_select', 
+    <%= render partial: 'shared/employees/band_select/band_select',
                locals: { path: "employees/matters/partial/select_band_display" } %>
   </div>
 </div>

@@ -15,7 +15,7 @@ LabelColor.create(name: "グレー", color_code: "#b7b7b7")
 # -------------------------------------------------
   Industry.create!(name: "塗装関係")
   Industry.create!(name: "足場関係")
-  
+
   puts "CREATE! INDUSTRY"
 
 # --------------------------------------------------
@@ -85,32 +85,32 @@ end
 puts "CREATE! STAFF"
 
 3.times do |n|
-  Supplier.create!(name: "テスト外注先#{ n + 1 }",
+  Vendor.create!(name: "テスト外注先#{ n + 1 }",
                   kana: "テストガイチュウサキ",
                   phone_1: "08054545454",
-                  email: "testsupplier-#{ n + 1 }@email.com",
+                  email: "testvendor-#{ n + 1 }@email.com",
                   postal_code: "5940088",
                   prefecture_code: "神奈川県",
                   address_city: "テスト市テスト町",
                   address_street: "1-1-1")
 end
 
-puts "CREATE! Supplier"
+puts "CREATE! Vendor"
 
 
 3.times do |n|
-SupplierManager.create!(name: "取引先代表#{ n + 1 }",
+VendorManager.create!(name: "取引先代表#{ n + 1 }",
                       kana: "トリヒキサキダイヒョウ",
                       login_id: "SM-manager-#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
-                      supplier_id: n + 1,
+                      vendor_id: n + 1,
                       avaliable: true,
                       password: "password",
                       password_confirmation: "password")
 end
 
-puts "CREATE! SupplierManager"
+puts "CREATE! VendorManager"
 
 
 3.times do |n|
@@ -119,7 +119,7 @@ ExternalStaff.create!(name: "外部スタッフ#{ n + 1 }",
                       login_id: "ES-exstaff-#{ n + 1 }",
                       phone: "08054545454",
                       email: "testexternal-a@email.com",
-                      supplier_id: 1,
+                      vendor_id: 1,
                       avaliable: true,
                       password: "password",
                       password_confirmation: "password")
@@ -148,7 +148,7 @@ str_array = %w[山 川 田 森 林 木]
                  address_city: str_array[rand(6)],
                  address_street: "1-1-#{ n + 1 }",
                  password: "password",
-                 password_confirmation: "password")                 
+                 password_confirmation: "password")
 end
 
 puts "CREATE! CLIENT"
@@ -162,7 +162,7 @@ puts "CREATE! CLIENT"
       # 見積
 # -----------------------------------------------------
   require "./db/seeds/estimate.rb"
-  
+
 # ----------------------------------------------------
       # 着工案件
 # ----------------------------------------------------

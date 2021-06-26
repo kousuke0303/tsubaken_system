@@ -2,7 +2,7 @@
   <span class="pl-10"><%= date.day %></span>
   <% @schedule_date_ids = schedules.pluck(:id) %>
   <% @construction_schedules.each do |construction_schedule| %>
-          
+
     <% if @schedule_date_ids.include?(construction_schedule.id) %>
       <div class="ganttchart-construction mt-5 <%= construction_schedule.id %>">
         <div class="status-<%= construction_schedule.status %>">
@@ -16,7 +16,7 @@
         <div style="height: 1.5em;"></div>
       </div>
     <% end %>
-        
+
   <% end %>
 <% end %>
 
@@ -26,7 +26,7 @@
       var day = $(this).parent().attr('id');
       $.ajax({
         type: "GET",
-        url: "<%= supplier_managers_construction_schedule_path(id: schedule.id) %>",
+        url: "<%= vendor_managers_construction_schedule_path(id: schedule.id) %>",
         data: {day: day}
       });
     });

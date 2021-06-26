@@ -3,10 +3,10 @@ class ExternalStaff < ApplicationRecord
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
   after_find :set_password_condition
-  
+
   has_one :member_code, dependent: :destroy
-  belongs_to :supplier, optional: true
-  
+  belongs_to :vendor, optional: true
+
   has_one_attached :avator
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -21,19 +21,19 @@ class ExternalStaff < ApplicationRecord
   # --------------------------------------------------
     # DEVISE関連
   # --------------------------------------------------
-  
+
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
-  
+
   # ログイン条件追加
   def active_for_authentication?
     super && self.avaliable
   end
-  
+
   # 上記エラーメッセージ変更
   def inactive_message
     self.avaliable ? super : :not_avaliable
   end
-  
+
   # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -57,51 +57,51 @@ class ExternalStaff < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
-  
+
   #---------------------------------------------------
      # INSTANCE_METHOD
   #---------------------------------------------------
-  
+
   def matters
     Matter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
-  
+
   def construction_schedules
     ConstructionSchedule.where(member_code_id: self.member_code.id)
   end
-  
+
   # def estimate_matters
   #   EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   # end
-  
+
   # def schedules
   #   Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
   # end
-  
+
   def tasks
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
-  
+
   # def attendances
   #   Attendance.joins(:member_code).where(member_codes: {id: self.member_code.id})
   # end
-  
+
   def recieve_notifications
     self.member_code.recieve_notifications.where(status: 0)
   end
-  
+
   private
-  
+
     #---------------------------------------------------
      # CALLBACK_METHOD
     #---------------------------------------------------
-    
+
     def create_member_code
       unless MemberCode.find_by(external_staff_id: self.id)
         MemberCode.create(external_staff_id: self.id)
       end
     end
-    
+
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
         if Date.current >= self.resigned_on
@@ -113,7 +113,7 @@ class ExternalStaff < ApplicationRecord
         end
       end
     end
-    
+
     def set_password_condition
       if self.valid_password?("password")
         self.password_condition = false
@@ -121,11 +121,11 @@ class ExternalStaff < ApplicationRecord
         self.password_condition = true
       end
     end
-    
+
     #---------------------------------------------------
      # VALIDATE_METHOD
     #---------------------------------------------------
-    
+
     # ログインIDは「SP(外注先ID)-」から始めさせる
     def external_staff_login_id_is_correct?
       errors.add(:login_id, "は「ES-」から始めてください") if login_id.present? && !login_id.start_with?("ES-")

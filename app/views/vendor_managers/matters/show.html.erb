@@ -1,13 +1,13 @@
 <div class="col-12">
 
   <div class="pc_type">
-    <%= render 'supplier_managers/matters/show/pc' %>
+    <%= render 'vendor_managers/matters/show/pc' %>
   </div>
 
   <div class="mobile_type">
-    <%= render 'supplier_managers/matters/show/mobile' %>
+    <%= render 'vendor_managers/matters/show/mobile' %>
   </div>
-  
+
   <div class="mt-1e">
     <div class="accordion" id="accordion-construction_schedules">
       <div class="card">
@@ -19,21 +19,21 @@
             </button>
           </h5>
         </div>
-        
+
         <div id="collapse-construction_schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-construction_schedules">
-          
+
           <div class="card-body">
-            <%= link_to "CALENDAR", calendar_supplier_managers_matter_path(@matter), class: "btn btn-info mb-1e", remote: true %>
+            <%= link_to "CALENDAR", calendar_vendor_managers_matter_path(@matter), class: "btn btn-info mb-1e", remote: true %>
             <div class="ml-1e">
               <i class="fas fa-exclamation-circle fa-orange"></i> 担当者の初期値は、御社代表者に設定されています。変更される場合はこちらから変更してください
             </div>
             <div class="construction-schedules-index overflow-auto">
-              <%= render partial: "supplier_managers/matters/partial/construction_schedule",
+              <%= render partial: "vendor_managers/matters/partial/construction_schedule",
                          locals: {construction_schedules: @construction_schedules} %>
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 

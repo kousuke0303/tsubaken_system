@@ -1,13 +1,13 @@
 <table class="table table-bordered common-table">
   <tr>
-    <th>案件名</the>
+    <th>案件名</th>
     <td>
-      <% unless current_supplier_manager %>
+      <% unless current_vendor_manager %>
         <%= link_to employees_matter_path(@construction_schedule.matter) do %>
           <%= @construction_schedule.matter.title %>
         <% end %>
       <% else %>
-        <%= link_to supplier_managers_matter_path(@construction_schedule.matter) do %>
+        <%= link_to vendor_managers_matter_path(@construction_schedule.matter) do %>
           <%= @construction_schedule.matter.title %>
         <% end %>
       <% end %>

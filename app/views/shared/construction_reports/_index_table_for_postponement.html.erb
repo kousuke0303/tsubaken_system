@@ -4,12 +4,12 @@
     <div class="mt-1e double-line">
       <h4>未作業報告</h4>
     </div>
-    
+
     <div class="col-12">
       <% reports.group_by{|report| report.work_date }.each do |date, reports| %>
-        
+
         <h5 class="mt-1e"><i class="fas fa-calendar-alt"></i> <%= date.strftime("%-m月%-d日") %>の報告書</h5>
-        
+
         <div class="table-responsive">
           <table class="table table-bordered text-nowrap common-table">
             <tr>
@@ -31,7 +31,7 @@
                   <% end %>
                 </td>
                 <td><%= report.matter_title %></td>
-                <td><%= report.construction_schedule.supplier.name %></td>
+                <td><%= report.construction_schedule.vendor.name %></td>
                 <td><%= report.reason_i18n %></td>
                 <td class="text-center"><%= report.memo_disp %></td>
               </tr>
@@ -40,13 +40,13 @@
         </div>
       <% end %>
     </div>
-    
+
     <% if @type == "uncheck" %>
       <div class="text-center">
-        <button class="btn btn-primary col-12" id="confirmation_btn">チェック項目を確認処理</button>  
+        <button class="btn btn-primary col-12" id="confirmation_btn">チェック項目を確認処理</button>
       </div>
     <% end %>
-    
+
     <% if @type == "uncheck" %>
       <script>
         $('#confirmation_btn').on('click', function(){

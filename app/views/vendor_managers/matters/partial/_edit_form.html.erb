@@ -6,22 +6,22 @@
     </div>
     <div class="modal-body bg-white pa-2e">
 
-      <%= form_with(model: @matter, url: supplier_managers_matter_path(@matter), method: :patch, remote: true) do |f| %>
+      <%= form_with(model: @matter, url: vendor_managers_matter_path(@matter), method: :patch, remote: true) do |f| %>
         <div class="matter-update-errors"></div>
-        
-        <label class="form-control text-white" style="background: #787a7b;"><%= @supplier.name %>のご担当者</label>
+
+        <label class="form-control text-white" style="background: #787a7b;"><%= @vendor.name %>のご担当者</label>
         <div class="col-12">
           <div>
-            <%= f.collection_select :member_code_ids, @supplier_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "supplier_staff_select" } %>
-            <%= f.hidden_field :supplier_id, value: @supplier.id %>
+            <%= f.collection_select :member_code_ids, @vendor_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "vendor_staff_select" } %>
+            <%= f.hidden_field :vendor_id, value: @vendor.id %>
           </div>
         </div>
-        
+
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
         </div>
       <% end %>
-    
+
     </div>
   </div>
 </div>

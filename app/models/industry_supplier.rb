@@ -1,4 +1,4 @@
 class IndustrySupplier < ApplicationRecord
   belongs_to :industry
-  belongs_to :supplier
+  belongs_to :vendor
 end

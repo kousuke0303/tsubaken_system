@@ -19,7 +19,7 @@
         <li>外注先</li>
       </ul>
     </nav>
-    
+
     <div class="table_content text-nowrap">
       <div class="content"><%= @matter.title %></div>
       <div class="content"><%= person_in_charge_for(@member_name_arrey) %></div>
@@ -27,9 +27,9 @@
       <div class="content"><%= @matter.scheduled_started_on.strftime("%y年%m月%d日") %></div>
       <div class="content"><%= @matter.scheduled_finished_on.strftime("%y年%m月%d日") %></div>
       <div class="content">
-        <% if @suppliers.exists? %>
-          <% @suppliers.each_with_index do |supplier, index| %>
-            <span class="mr-05e"><%= supplier.name %></span>
+        <% if @vendors.exists? %>
+          <% @vendors.each_with_index do |vendor, index| %>
+            <span class="mr-05e"><%= vendor.name %></span>
           <% end %>
         <% else %>
           <span>登録なし</span>

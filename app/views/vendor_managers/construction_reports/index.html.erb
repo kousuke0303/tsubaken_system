@@ -2,32 +2,32 @@
   <% if @type == "uncheck" %>
     <%= render "layouts/page_title", title_1: "報告書", title_2: "未確認報告書", icon: "fa-file-alt" %>
     <div class="mt-1e" id="construction_report_index">
-      <%= render partial: 'supplier_managers/construction_reports/partial/index_table',
+      <%= render partial: 'vendor_managers/construction_reports/partial/index_table',
                  locals: { reports: @uncheck_for_run } %>
-      <%= render partial: 'supplier_managers/construction_reports/partial/index_table_for_postponement',
+      <%= render partial: 'vendor_managers/construction_reports/partial/index_table_for_postponement',
                  locals: { reports: @uncheck_for_postponement } %>
     </div>
   <% elsif @type == "no_report" %>
     <%= render "layouts/page_title", title_1: "報告書", title_2: "報告書一覧", icon: "fa-file-alt" %>
     <div class="mt-1e" id="construction_report_index">
-      <%= render 'supplier_managers/construction_reports/partial/construction_schedule' %>
+      <%= render 'vendor_managers/construction_reports/partial/construction_schedule' %>
     </div>
   <% else %>
     <%= render "layouts/page_title", title_1: "報告書", title_2: "報告書一覧", icon: "fa-file-alt" %>
     <div class="row">
-      <div class="col-md-4 mt-1e">  
-        <%= form_with(url: supplier_managers_construction_reports_path, method: :get, local: true) do |f| %>
+      <div class="col-md-4 mt-1e">
+        <%= form_with(url: vendor_managers_construction_reports_path, method: :get, local: true) do |f| %>
           <div class="input-group">
             <%= f.date_field :work_date, placeholder: "日付検索", class: "form-control" %>
             <%= f.hidden_field :type, value: "date" %>
-            <div class="input-group-append">        
+            <div class="input-group-append">
               <input type="submit" value="&#xf002;" class="fas btn btn-primary">
             </div>
           </div>
         <% end %>
       </div>
     </div>
-    
+
     <div class="mt-1e" id="construction_report_index">
       <%= render partial: 'shared/construction_reports/index_table',
                  locals: { reports: @reports_for_run } %>
