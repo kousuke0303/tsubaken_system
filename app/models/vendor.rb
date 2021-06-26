@@ -13,6 +13,7 @@ class Vendor < ApplicationRecord
 
   has_many :vendor_estimate_matters, dependent: :destroy
   has_many :estimate_matters, through: :vendor_estimate_matters
+  has_many :referral_matters, class_name: "EstimateMatter", foreign_key: "supplier_id"
 
   has_many :vendor_matters, dependent: :destroy
   has_many :matters, through: :vendor_matters
