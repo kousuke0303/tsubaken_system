@@ -124,6 +124,15 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+  
+  # 管理者権限 + vendor_manager
+  def authenticate_admin_or_manager_or_In_house_charge(object)
+    @boss = object.vendor.vendor_manager
+    unless current_admin || current_manager || @boss
+      flash[:alert] = "アクセス権限がありません"
+      redirect_to root_url
+    end
+  end
 
   # ---------------------------------------------------------
         # FORMAT関係

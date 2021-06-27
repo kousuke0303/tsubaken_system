@@ -1,6 +1,7 @@
 class VendorManagers::ConstructionSchedulesController < ApplicationController
-  before_action :authenticate_vendor_manager!
   before_action :set_construction_schedule, except: :index
+  before_action -> {authenticate_admin_or_manager_or_In_house_charge(@construction_schedule)}, except: :index
+  before_action :authenticate_vendor_manager!, only: :index
 
   def index
     @calendar_type = "vendors_schedule"
@@ -20,7 +21,11 @@ class VendorManagers::ConstructionSchedulesController < ApplicationController
   end
 
   def edit
-    @vendor = current_vendor_manager.vendor
+    if current_vendor_manager
+      @vendor = current_vendor_manager.vendor
+    else
+      @vendor = @boss.vendor
+    end
     @vendor_staff_codes_ids = @vendor.vendor_member_ids_for_matter_select(@construction_schedule.matter)
     # 退職処理の場合
     if params[:retire_external_staff_id].present?

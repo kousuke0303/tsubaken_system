@@ -21,10 +21,8 @@
   
   <div class="news_container">
     <% if @process == 2 %>
-      <% if current_vendor_manager %>
-        <%= render partial: "vendor_managers/matters/partial/construction_schedule",
-                             locals: {construction_schedules: @construction_schedules, retire_external_staff_id: @external_staff.id} %>
-      <% end %>
+      <%= render partial: "vendor_managers/matters/partial/construction_schedule",
+                 locals: {construction_schedules: @construction_schedules, retire_external_staff_id: @external_staff.id} %>
     <% else %>
       <p>現状、未着手・着工中の担当案件はありません</p>
     <% end %>
