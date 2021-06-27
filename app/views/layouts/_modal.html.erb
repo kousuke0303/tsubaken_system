@@ -1,13 +1,6 @@
+<div id="modal-container" class="modal fade" role="dialog"></div>
+
 <% if admin_signed_in? || manager_signed_in? %>
-  <!--アドミン・マネージャー用-->
-  <!--外部スタッフCRUD-->
-  <% if controller_name == "external_staffs" %>
-    <% if action_name == "index" %>
-      <div id="external-staff-new" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "show" %>
-      <div id="external-staff-edit" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
 
   <!--勤怠new・edit-->
   <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
@@ -61,13 +54,6 @@
     <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <% if controller_name == "external_staffs" && action_name == "retirement_process" %>
-    <div id="change-member-for-matter" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-estimate_matter" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
-  <% end %>
-
-
   <!--お問合せedit-->
   <% if controller_name == "inquiries" && action_name == "show" %>
     <div id="inquiry-edit" class="modal fade" role="dialog"></div>
@@ -78,33 +64,8 @@
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
 
-  <!--顧客new・edit-->
-  <% if controller_name == "clients" && action_name == "index" %>
-    <div id="client-new" class="modal fade" role="dialog"></div>
-  <% elsif controller_name == "clients" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
-  <% if controller_name == "clients" && action_name == "show" %>
-    <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--外注先new・edit-->
-  <% if controller_name == "vendors" && action_name == "index" %>
-    <div id="vendor-new" class="modal fade" role="dialog"></div>
-  <% elsif controller_name == "vendors" && action_name == "show" %>
-    <div id="vendor-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-
-  <% if controller_name == "estimate_matters" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
   <!--着工案件関連-->
   <% if controller_name == "matters" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-
     <!--ここまで確認済み-->
     <!--請求書関連-->
     <div id="invoice-edit" class="modal fade" role="dialog"></div>
@@ -133,19 +94,8 @@
 
 <!--共通-->
 
-<div id="modal-container" class="modal fade" role="dialog"></div>
-
 <% if controller_name == "static_pages" && action_name == "top" %>
   <div id="inquiry-new" class="modal fade" role="dialog"></div>
-<% end %>
-
-<!--アドミン・マネージャー用-->
-<% if admin_signed_in? || manager_signed_in? %>
-  <% if controller_name == "retirements" %>
-    <% if action_name == "index" %>
-      <div id="retirement-modal" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
 <% end %>
 
 <% if vendor_manager_signed_in? %>

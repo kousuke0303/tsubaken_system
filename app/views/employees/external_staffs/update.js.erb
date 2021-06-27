@@ -1,8 +1,2 @@
-$(".external-staff-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @external_staff) %>');
-<% @external_staff.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="external_staff[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="external_staff[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
-<% end %>
+<%= render "shared/javascript/modal_error", dom: ".external-staff-update-errors", model: @external_staff, object: "external_staff" %>
   
