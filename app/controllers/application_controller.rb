@@ -71,9 +71,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
-  end
+  # def configure_permitted_parameters
+  #   devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
+  # end
 
   # 変更時PASS不要
   def update_resource(resource, params)
@@ -92,10 +92,6 @@ class ApplicationController < ActionController::Base
 
   # 従業員以外はアクセス制限
   def authenticate_employee!
-    redirect_to root_url unless current_admin || current_manager || current_staff
-  end
-
-  def authenticate_employee_except_external_staff!
     redirect_to root_url unless current_admin || current_manager || current_staff
   end
 

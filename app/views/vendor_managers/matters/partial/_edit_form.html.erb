@@ -14,6 +14,9 @@
           <div>
             <%= f.collection_select :member_code_ids, @vendor_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "vendor_staff_select" } %>
             <%= f.hidden_field :vendor_id, value: @vendor.id %>
+            <% if @retire_external_staff_id.present? %>
+              <%= f.hidden_field :retire_external_staff_id, value: @retire_external_staff_id %>
+            <% end %>
           </div>
         </div>
 

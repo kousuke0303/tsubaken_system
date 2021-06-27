@@ -42,7 +42,13 @@
       <tr>
         <td style="border-bottom: 1px solid black"><%= construction.status_i18n %></td>
         <td style="border-bottom: 1px solid black"><%= construction.title %></td>
-        <td style="border-bottom: 1px solid black" class="text-center"><%= memebr_change_disp(construction) %></td>
+        <td style="border-bottom: 1px solid black" class="text-center">
+          <% unless retire_external_staff_id.present? %>
+            <%= memebr_change_disp(construction) %>
+          <% else %>
+            <%= memebr_change_disp(construction, retire_external_staff_id) %>
+          <% end %>
+        </td>
         <td class="text-center" style="border-bottom: 1px solid black"><%=  %></td>
         <td class="text-center" style="border-bottom: 1px solid black"><%=  %></td>
       </tr>

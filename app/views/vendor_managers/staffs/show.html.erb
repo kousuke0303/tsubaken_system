@@ -1,0 +1,20 @@
+<div class="col-12">
+  <%= render partial: 'layouts/page_title', locals: { title_1: "アカウント", title_2: "#{@external_staff.name} の編集", icon: "fa-user-edit"} %>
+  
+  <div class="avator_container">
+    <%= render partial: 'shared/avator/edit', locals:{target_user: @external_staff} %>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= link_to "退職処理", employees_external_staff_retirements_path(@external_staff), class: "btn btn-destroy" %>
+      <% if @external_staff.avaliable == false %>
+        <%= link_to "アカウント利用許可", restoration_employees_external_staff_path(@external_staff), method: :patch, class: "btn btn-success" %>
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <%= out_of_service(@external_staff) %>
+    </div>
+  </div>
+  
+  <%= render "/employees/external_staffs/partial/detail" %> 
+</div>

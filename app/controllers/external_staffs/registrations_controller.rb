@@ -10,7 +10,7 @@ class ExternalStaffs::RegistrationsController < Devise::RegistrationsController
       params[:external_staff].delete(:password_confirmation)
     end
     if @external_staff.update(external_staff_params)
-      sign_in(@external_staff, :bypass => true)
+      bypass_sign_in(@external_staff)
       flash[:notice] = "アカウント情報を更新しました。"
       redirect_to external_staffs_top_url
     else

@@ -1,9 +1,11 @@
 class ExternalStaff < ApplicationRecord
+  
+  after_initialize :default_set, on: :create
   before_save { self.email = email.downcase if email.present? }
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
   after_find :set_password_condition
-
+  
   has_one :member_code, dependent: :destroy
   belongs_to :vendor, optional: true
 
@@ -17,6 +19,11 @@ class ExternalStaff < ApplicationRecord
   validate :external_staff_login_id_is_correct?
 
   attr_accessor :password_condition
+  
+  scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current) }
+  scope :retired, -> { where('resigned_on <= ?', Date.current) }
+  scope :avaliable, -> { where(avaliable: true)}
+  scope :not_avaliable, -> { where(avaliable: false)}
 
   # --------------------------------------------------
     # DEVISE関連
@@ -107,10 +114,8 @@ class ExternalStaff < ApplicationRecord
         if Date.current >= self.resigned_on
           self.update(avaliable: false)
         end
-      elsif self.avaliable == false && self.resigned_on.nil? && self.joined_on.present?
-        if Date.current >= self.joined_on
-          self.update(avaliable: true)
-        end
+      elsif self.avaliable == false && self.resigned_on.nil?
+        self.update(avaliable: true)
       end
     end
 
@@ -119,6 +124,12 @@ class ExternalStaff < ApplicationRecord
         self.password_condition = false
       else
         self.password_condition = true
+      end
+    end
+    
+    def default_set
+      if self.login_id == nil || self.login_id.empty? 
+        self.login_id = "ES-" + "#{SecureRandom.hex(3)}"
       end
     end
 
@@ -130,4 +141,5 @@ class ExternalStaff < ApplicationRecord
     def external_staff_login_id_is_correct?
       errors.add(:login_id, "は「ES-」から始めてください") if login_id.present? && !login_id.start_with?("ES-")
     end
+    
 end

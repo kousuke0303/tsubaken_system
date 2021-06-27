@@ -65,6 +65,10 @@ class VendorManager < ApplicationRecord
   def matters
     self.vendor.matters
   end
+  
+  def staffs
+    ExternalStaff.where(vendor_id: self.vendor.id)
+  end
 
   def tasks
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})

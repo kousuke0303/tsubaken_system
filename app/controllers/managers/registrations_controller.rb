@@ -14,7 +14,7 @@ class Managers::RegistrationsController < Devise::RegistrationsController
       params[:manager].delete(:password_confirmation)
     end
     if @manager.update(manager_params)
-      sign_in(@manager, :bypass => true)
+      bypass_sign_in(@manager)
       flash[:alert] = "アカウント情報を更新しました"
       redirect_to managers_top_url
     else

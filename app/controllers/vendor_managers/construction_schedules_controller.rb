@@ -22,6 +22,10 @@ class VendorManagers::ConstructionSchedulesController < ApplicationController
   def edit
     @vendor = current_vendor_manager.vendor
     @vendor_staff_codes_ids = @vendor.vendor_member_ids_for_matter_select(@construction_schedule.matter)
+    # 退職処理の場合
+    if params[:retire_external_staff_id].present?
+      @retire_external_staff_id = params[:retire_external_staff_id]
+    end
   end
 
   # 担当者のみ変更可
@@ -31,6 +35,11 @@ class VendorManagers::ConstructionSchedulesController < ApplicationController
       @responce = "success"
       @reciever_notification_count = @construction_schedule.member_code.recieve_notifications.count
       @construction_schedules = @construction_schedule.matter.construction_schedules.includes(:materials).order_start_date
+      # 退職処理の場合
+      if params[:construction_schedule][:retire_external_staff_id].present?
+        @external_staff = ExternalStaff.find(params[:construction_schedule][:retire_external_staff_id])
+        redirect_to employees_external_staff_retirements_url(@external_staff)
+      end
     end
   end
 

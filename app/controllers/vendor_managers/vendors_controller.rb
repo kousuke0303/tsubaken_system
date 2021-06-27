@@ -4,9 +4,15 @@ class VendorManagers::VendorsController < ApplicationController
 
 
   def update
+    @industries = Industry.order(position: :asc)
+    @vendor_manager = current_vendor_manager
     if @vendor.update(vendor_params)
       flash[:success] = "外注先を更新しました"
       redirect_to edit_vendor_manager_registration_path(@vendor.vendor_manager)
+    else
+      flash.now[:alert] = "会社情報の更新に失敗しました"
+      @error_type = "vendor"
+      render "vendor_managers/registrations/edit"
     end
   end
 

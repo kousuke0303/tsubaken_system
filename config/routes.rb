@@ -88,6 +88,7 @@ Rails.application.routes.draw do
         get :default_password_user_index
         post :avator_change
         get :avator_destroy
+        patch :pass_update
       end
     end
   end
@@ -105,6 +106,10 @@ Rails.application.routes.draw do
     resources :construction_reports do
       patch :confirmation, on: :collection
     end
+    resources :staffs, except: :edit do
+      patch :pass_update, on: :member
+      patch :restoration, on: :member
+    end
   end
 
   # ExternalStaff関係
@@ -114,6 +119,7 @@ Rails.application.routes.draw do
       get :index
       post :avator_change
       get :avator_destroy
+      patch :pass_update
     end
 
   end
@@ -251,17 +257,6 @@ Rails.application.routes.draw do
     ######## ▼ 営業案件 ▼ ###################################
 
     resources :estimate_matters do
-      member do
-        get :change_member
-        patch :update_member
-      end
-      collection do
-        get :progress_table
-        get :progress_table_for_six_month
-        get :progress_table_for_three_month
-        get :prev_progress_table
-        get :next_progress_table
-      end
 
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection

@@ -41,7 +41,7 @@ ja:
           name: 名前
         external_staff:
           name: 名前
-          vendor_id: 外注先
+          vendor_id: 所属
           accept: 同意
         client:
           name: 名前

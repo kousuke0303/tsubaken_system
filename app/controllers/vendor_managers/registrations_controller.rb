@@ -13,7 +13,7 @@ class VendorManagers::RegistrationsController < Devise::RegistrationsController
       params[:vendor_manager].delete(:password_confirmation)
     end
     if @vendor_manager.update(vendor_manager_params)
-      sign_in(@vendor_manager, :bypass => true)
+      bypass_sign_in(@vendor_manager)
       flash[:notice] = "アカウント情報を更新しました。"
       redirect_to top_vendor_managers_path
     else

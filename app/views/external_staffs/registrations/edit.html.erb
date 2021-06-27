@@ -10,13 +10,25 @@
   <div class="card">
     <div class="card-body">
       <%= form_with(model: @external_staff, url: external_staff_registration_path(@external_staff), local: true) do |f| %>
-        <%= render "shared/error_messages", resource: resource %>
+        <% unless @error_type.present? %>
+          <%= render "shared/error_messages", resource: @external_staff %>
+        <% end %>
         <%= render 'external_staffs/registrations/partial/form', f: f %>
        
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
         </div>
       <% end %>
+    </div>
+  </div>
+  
+  <div class="card mt-1e">
+    <div class="card-body">
+      <% if @error_type.present? %>
+        <%= render "shared/error_messages", resource: @external_staff %>
+      <% end %>
+      <%= render partial: 'common_layouts/registrations/pass_form', 
+                 locals: {target: current_external_staff, path: :external_staffs_pass_update_path} %>
     </div>
   </div>
 </div>

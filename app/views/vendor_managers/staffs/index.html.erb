@@ -1,0 +1,40 @@
+<div class="col-12">
+   <%= render "layouts/page_title", title_1: "STAFF一覧", title_2: nil, icon: "fa-user-tie" %>
+  
+  <div class="row">
+    <div class="col-md-5 col-12">
+      <div class="select-switch">
+        <input type="radio" name="switch" id="radio1" checked>
+        <label for="radio1" class="mt-0">在籍中</label>
+        <input type="radio" name="switch" id="radio2">
+        <label for="radio2" class="mt-0">退職済</label>
+      </div>
+    </div>
+    <div class="col-md-7 col-12">
+      <%= link_to new_vendor_managers_staff_path, remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> 新規Staff
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap common-table">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>ログインID</th>
+          <th>電話番号</th>
+          <th>利用可否</th>
+        </tr>
+      </thead>
+      <tbody id="tab1">
+        <%= render "vendor_managers/staffs/partial/index_table", objects: @enrolled_staffs %>
+      </tbody>
+      <tbody id="tab2" style="display: none;">
+        <%= render "vendor_managers/staffs/partial/index_table", objects: @retired_staffs %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= javascript_include_tag "switch_tab.js" %>

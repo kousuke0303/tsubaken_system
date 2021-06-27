@@ -13,11 +13,20 @@
   </div>
 </div>
 
-<% if current_admin || current_manager || self_external_staff %>
+<% if current_admin || current_manager %>
   <div class="card mt-1e">
     <div class="card-body">
       <%= render partial: 'common_layouts/registrations/pass_form', 
                  locals: {target: @external_staff, path: :pass_update_employees_external_staff_path} %>
+    </div>
+  </div>
+<% end %>
+
+<% if current_vendor_manager %>
+  <div class="card mt-1e">
+    <div class="card-body">
+      <%= render partial: 'common_layouts/registrations/pass_form', 
+                 locals: {target: @external_staff, path: :pass_update_vendor_managers_staff_path} %>
     </div>
   </div>
 <% end %>

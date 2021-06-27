@@ -12,7 +12,9 @@
     <div class="card">
       <div class="card-body">
         <%= form_with(model: @vendor, url: vendor_managers_vendor_path(@vendor), local: true, method: :patch) do |f| %>
-          <%= render "shared/error_messages", resource: @vendor %>
+          <% if @error_type.present? && @error_type == "vendor" %>
+            <%= render "shared/error_messages", resource: @vendor %>
+          <% end %>
           <%= render 'vendor_managers/registrations/partial/vendor_form', f: f %>
           <div class="btn-area">
             <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
@@ -25,12 +27,26 @@
     <div class="card">
       <div class="card-body">
         <%= form_with(model: @vendor_manager, url: vendor_manager_registration_path, local: true) do |f| %>
-          <%= render "shared/error_messages", resource: @vendor_manager %>
+          <% unless @error_type.present? %>
+            <%= render "shared/error_messages", resource: @vendor_manager %>
+          <% end %>
+          
           <%= render 'vendor_managers/registrations/partial/form', f: f %>
           <div class="btn-area">
             <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
           </div>
         <% end %>
+      </div>
+    </div>
+    
+    <div class="card mt-1e">
+      <div class="card-body">
+        <% if @error_type.present? && @error_type == "pass" %>
+          <%= render "shared/error_messages", resource: @vendor_manager %>
+        <% end %>
+        
+        <%= render partial: 'common_layouts/registrations/pass_form', 
+                   locals: {target: current_vendor_manager, path: :pass_update_vendor_managers_path} %>
       </div>
     </div>
 
@@ -39,7 +55,7 @@
 
 <%= javascript_include_tag "reset_errors.js" %>
 
-<% if @vendor_manager.errors.any? %>
+<% if @vendor.errors.any? %>
   <script>
     $(document).ready(function() {
       history.pushState("", "", location.href + "/edit")

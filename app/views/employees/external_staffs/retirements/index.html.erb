@@ -1,6 +1,10 @@
-<h4 class="title_layout">
-  <i class="fas fa-clipboard-list"></i> <%= @external_staff.name %>の引き継ぎ項目
-</h4>
+<section>
+  <% unless current_vendor_manager %>
+    <%= render partial: 'layouts/page_title', locals: { title_1: "外部STAFFの引き継ぎ設定", title_2: "#{@external_staff.name}", icon: "fa-user"} %>
+  <% else %>
+    <%= render partial: 'layouts/page_title', locals: { title_1: "#{@external_staff.name}の引き継ぎ設定", title_2: nil, icon: "fa-user"} %>
+  <% end %>
+</section>
 
 <%= out_of_service(@external_staff) %>
 

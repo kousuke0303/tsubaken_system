@@ -13,6 +13,9 @@
             <%= f.select :member_code_id, options_for_select(@vendor_staff_codes_ids.map{|code|[member_name_from_member_code_id(code), code]}), { include_blank: "選択してください" }, { class: "form-control" } %>
           </div>
         </div>
+        <% if @retire_external_staff_id.present? %>
+          <%= f.hidden_field :retire_external_staff_id, value: @retire_external_staff_id %>
+        <% end %>
         <div class="btn-area">
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
         </div>

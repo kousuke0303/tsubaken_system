@@ -1,0 +1,12 @@
+<% if objects.present? %>
+  <% objects.each do |staff| %>
+    <tr>
+      <td><%= link_to staff.name, vendor_managers_staff_path(staff) %></td>
+      <td><%= staff.login_id %></td>
+      <td><%= phone_formatted(staff.phone) %></td>
+      <td></td>
+    </tr>
+  <% end %>
+<% else %>
+  <tr><td colspan="4"><p>該当がありません</p></td></tr>
+<% end %>

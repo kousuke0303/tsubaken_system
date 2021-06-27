@@ -31,7 +31,7 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
       flash[:success] = "外部Staffを更新しました"
       redirect_to employees_external_staff_url(@external_staff)
     else
-      render :show
+      render "show"
     end
   end
 

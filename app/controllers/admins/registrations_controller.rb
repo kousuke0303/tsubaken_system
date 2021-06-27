@@ -10,10 +10,11 @@ class Admins::RegistrationsController < Devise::RegistrationsController
       params[:admin].delete(:password_confirmation)
     end
     if @admin.update(admin_params)
-      sign_in(@admin, :bypass => true)
+      bypass_sign_in(@admin)
       flash[:notice] = "アカウント情報を更新しました。"
-      redirect_to admins_top_url
+      redirect_to edit_admin_registration_url
     else
+      flash.now[:alert] = "パスワード更新に失敗しました"
       render :edit
     end
   end

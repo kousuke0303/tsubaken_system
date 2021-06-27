@@ -26,15 +26,25 @@ class VendorManagers::MattersController < ApplicationController
   end
 
   def edit
-    @vendor = Vendor.find(params[:vendor_id])
+    params[:vendor_id].present? ? @vendor = Vendor.find(params[:vendor_id]) : @vendor = current_vendor_manager.vendor
     @vendor_staff_codes_ids = @vendor.external_staffs.joins(:member_code)
-                                                         .select('external_staffs.*, member_codes.id AS member_code_id')
+                                                     .select('external_staffs.*, member_codes.id AS member_code_id')
+    # 退職処理の場合
+    if params[:retire_external_staff_id].present?
+      @retire_external_staff_id = params[:retire_external_staff_id]
+    end
   end
 
   def update
     if @matter.update(matter_params)
-      flash[:success] = "案件情報を更新しました"
-      redirect_to vendor_managers_matter_path(@matter)
+      flash[:success] = "担当者を更新しました"
+      # 退職処理の場合
+      if params[:matter][:retire_external_staff_id].present?
+        @external_staff = ExternalStaff.find(params[:matter][:retire_external_staff_id])
+        redirect_to employees_external_staff_retirements_path(@external_staff)
+      else
+        redirect_to vendor_managers_matter_path(@matter)
+      end
     end
   end
 
