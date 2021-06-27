@@ -5,7 +5,7 @@ class VendorManagers::StaffsController < ApplicationController
   def index
     staffs = current_vendor_manager.staffs
     @enrolled_staffs = staffs.enrolled
-    @reitired_staffs = staffs.retired
+    @retired_staffs = staffs.retired
   end
   
   def new
@@ -41,6 +41,12 @@ class VendorManagers::StaffsController < ApplicationController
     else
       render :show
     end
+  end
+  
+  def restoration
+    @external_staff.update(resigned_on: "", avaliable: true)
+    flash[:success] = "#{ @external_staff.name }のアカウントが利用できるようになりました"
+    redirect_to vendor_managers_staff_url(@external_staff)
   end
   
   private

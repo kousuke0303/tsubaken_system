@@ -10,16 +10,31 @@
       <% end %>
     </div>
   </div>
+  
+  <section class="mt-1e">
+    <div class="col-md-6">  
+      <%= form_with(url: employees_external_staffs_path, method: :get, local: true) do |f| %>
+        <div class="input-group">
+          <%= f.select :vendor_id, options_for_select(@vendors.map{|vendor| [vendor.name, vendor.id]}), {include_blank: "全てを表示"}, {class: "form-control", id: "select_vendor"} %>
+          <div class="input-group-append">        
+            <input type="submit" value="&#xf002;" class="fas btn btn-primary">
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
 
   <div class="table-responsive">
     <table class="table table-bordered text-nowrap common-table">
       <tr>
+        <th>状況</th>
         <th>名前</th>
         <th>ログインID</th>
         <th>電話番号</th>
       </tr>
       <% @external_staffs.each do |external_staff| %>
         <tr>
+          <td class="text-center"><%= avaliable_disp(external_staff) %></td>
           <td><%= link_to external_staff.name, employees_external_staff_path(external_staff) %></td>
           <td><%= external_staff.login_id %></td>
           <td><%= phone_formatted(external_staff.phone) %></td>
@@ -28,3 +43,12 @@
     </table>
   </div>
 </div>
+
+<% if @vendor.present? %>
+  <script>
+    $(function(){
+      var val = "<%= @vendor.id%>";
+      $('#select_vendor').val(val);
+    });
+  </script>
+<% end %>

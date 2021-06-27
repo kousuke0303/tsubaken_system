@@ -17,6 +17,11 @@ class Employees::ExternalStaffsController < Employees::EmployeesController
 
   def index
     @external_staffs = ExternalStaff.all
+    @vendors = Vendor.all
+    if params[:vendor_id].present?
+      @vendor = Vendor.find(params[:vendor_id])
+      @external_staffs = @vendor.external_staffs
+    end
   end
 
   def show

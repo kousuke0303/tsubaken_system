@@ -161,6 +161,18 @@ module ApplicationHelper
       content
     end
   end
+  
+  def avaliable_disp(user)
+    if user.avaliable
+      content_tag(:div, "") do
+        concat content_tag(:span, "利用可", class: "badge badge-success")
+      end
+    else
+      content_tag(:div, "") do
+        concat content_tag(:span, "ログイン不可", class: "badge badge-danger")
+      end
+    end
+  end
 
   # ---------------------------------------------------------
       # ATTENDANCE

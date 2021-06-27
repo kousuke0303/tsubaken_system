@@ -31,22 +31,6 @@
   </div>
 <% end %>
 
-<% if @process > 2 %>
-  <ul class="nav nav-tabs title_tab_bar mt-2e">
-    <li class="nav-item">
-      <a class="nav-link title_tab" id="process_3">③ 割振タスクの担当者変更</a>
-    </li>
-  </ul>
-  
-  <div class="news_container">
-    <% if @process == 3 %> 
-      <%= render "employees/external_staffs/retirements/partial/task" %>
-    <% else %>
-      <p>現状、未完了の担当タスクはありません</p>
-    <% end %>
-  </div>
-<% end %>
-
 <div id="resigned_on_form" style= "display: none">
   <ul class="nav nav-tabs title_tab_bar mt-2e">
     <li class="nav-item">
@@ -83,7 +67,7 @@
   });
 </script>
 
-<% if @external_staff.resigned_on.present? || @process > 3 %>
+<% if @external_staff.resigned_on.present? || @process > 2 %>
   <script>
     $('#resigned_on_form').show();
   </script>

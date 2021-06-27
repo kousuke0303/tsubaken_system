@@ -8,7 +8,7 @@
     <div class="col-sm-6">
       <%= link_to "退職処理", employees_external_staff_retirements_path(@external_staff), class: "btn btn-destroy" %>
       <% if @external_staff.avaliable == false %>
-        <%= link_to "アカウント利用許可", restoration_employees_external_staff_path(@external_staff), method: :patch, class: "btn btn-success" %>
+        <%= link_to "アカウント利用許可", restoration_vendor_managers_staff_path(@external_staff), method: :patch, class: "btn btn-success" %>
       <% end %>
     </div>
     <div class="col-sm-6">
