@@ -8,45 +8,6 @@
     <div id="attendance-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--デフォルトタスクnew・edit-->
-  <% if controller_name == "tasks" && action_name == "index" %>
-    <div id="default-task-new" class="modal fade" role="dialog"></div>
-    <div id="default-task-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--デフォルト報告書new・edit-->
-  <% if controller_name == "reports" && action_name == "index" %>
-    <div id="default-report-new" class="modal fade" role="dialog"></div>
-    <div id="default-report-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--屋号/部署/集客/取引先業種new・edit-->
-  <% if controller_name == "companies" && action_name == "index" %>
-    <div id="publisher-new" class="modal fade" role="dialog"></div>
-    <div id="publisher-edit" class="modal fade" role="dialog"></div>
-    <div id="department-edit" class="modal fade" role="dialog"></div>
-    <div id="attract-method-edit" class="modal fade" role="dialog"></div>
-    <div id="industry-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--プラン名/工事部位/工事種類/素材new・edit-->
-  <% if controller_name == "estimates" && action_name == "index" %>
-    <div id="plan-name-new" class="modal fade" role="dialog"></div>
-    <div id="plan-name-edit" class="modal fade" role="dialog"></div>
-    <div id="category-new" class="modal fade" role="dialog"></div>
-    <div id="category-edit" class="modal fade" role="dialog"></div>
-    <div id="construction-new" class="modal fade" role="dialog"></div>
-    <div id="construction-edit" class="modal fade" role="dialog"></div>
-    <div id="material-new" class="modal fade" role="dialog"></div>
-    <div id="material-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--カラーコードnew・edit-->
-  <% if controller_name == "others" && action_name == "index" %>
-    <div id="label-color-new" class="modal fade" role="dialog"></div>
-    <div id="label-color-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
   <!--matter/task担当者変更-->
   <% if controller_name == "staffs" && action_name == "retirement_process" %>
     <div id="change-member-for-matter" class="modal fade" role="dialog"></div>

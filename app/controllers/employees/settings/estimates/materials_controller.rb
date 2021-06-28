@@ -29,6 +29,7 @@ class Employees::Settings::Estimates::MaterialsController < Employees::Settings:
   def edit
     @categories_for_material = @categories.where(classification: 0)
                                           .or(@categories.where(classification: 2))
+    @plan_names = PlanName.with_colors
   end
 
   def update

@@ -67,6 +67,12 @@
           setLocalStorage(memberCode, myCount, totalCount);
         });
       </script>
+      
+      <script>
+        $(function(){
+          $('#modal-container').empty();
+        });
+      </script>
 
       <% if admin_signed_in? %>
         <%= render "layouts/authority/admin_layout" %>

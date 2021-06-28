@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#certificate-cover-new").modal("hide");
-  $("#certificate-cover-new").empty();
+  $("#modal-container").modal("hide");
   $('#certificate_cover').html('<%= escape_javascript(render 'employees/settings/certificates/partial/cover_index')%>');
   <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "表紙を登録しました" %>
+  $("#modal-container").empty();
 <% else %>
   <%= render "shared/javascript/modal_error", dom: ".cover-create-errors", model: @cover, object: "cover" %>
 <% end %>
