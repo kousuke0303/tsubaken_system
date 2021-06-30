@@ -1,0 +1,17 @@
+<div class="modal-dialog modal-lg non-card-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      説明書項目設定
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body pa-2e">
+      <%= form_with(model: @instruction, url: employees_estimate_matter_instruction_path(@estimate_matter, @instruction), method: :patch) do |f| %>
+        <div class="instruction-update-errors"></div>
+        <%= render "employees/estimate_matters/instructions/partial/form", f: f %>
+        <div class="btn-area">
+          <%= f.submit "作成", class: "btn btn-dark reset-errors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="modal-dialog modal-lg non-card-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      説明文
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body pa-2e">
+      <div class="instruction-show-container">
+        <%= safe_join(@instruction.content.split("\n"),tag(:br)) %>
+      </div>
+    </div>
+  </div>
+</div>

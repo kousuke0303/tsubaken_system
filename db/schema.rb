@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_114001) do
+ActiveRecord::Schema.define(version: 2021_06_29_062736) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
   create_table "construction_schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.integer "status"
-    t.string "content"
+    t.text "content"
     t.date "scheduled_started_on"
     t.date "scheduled_finished_on"
     t.date "started_on"
@@ -351,6 +351,17 @@ ActiveRecord::Schema.define(version: 2021_06_17_114001) do
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "instructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "content"
+    t.boolean "default"
+    t.integer "position"
+    t.string "estimate_matter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estimate_matter_id"], name: "index_instructions_on_estimate_matter_id"
   end
 
   create_table "invoice_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

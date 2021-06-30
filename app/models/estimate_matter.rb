@@ -20,6 +20,7 @@ class EstimateMatter < ApplicationRecord
 
   has_many :tasks, dependent: :destroy  # タスクと1対多
   has_many :estimates, -> { order(position: :asc) }, dependent: :destroy # 見積と1対多
+  has_many :instructions, dependent: :destroy
   has_many :images, dependent: :destroy #画像と1対多
   accepts_nested_attributes_for :images
   has_many :sales_statuses, dependent: :destroy

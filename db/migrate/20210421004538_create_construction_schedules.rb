@@ -3,7 +3,7 @@ class CreateConstructionSchedules < ActiveRecord::Migration[5.2]
     create_table :construction_schedules do |t|
       t.string :title,         null: false, default: ""
       t.integer :status
-      t.string :content
+      t.text :content
       t.date :scheduled_started_on
       t.date :scheduled_finished_on
       t.date :started_on

@@ -269,6 +269,10 @@ Rails.application.routes.draw do
             patch :member_change_for_vendor_staff
           end
         end
+        resources :instructions do
+          get :preview, on: :collection
+          patch :sort, on: :collection
+        end
       end
 
       resources :clients, only: [:edit, :update], controller: "estimate_matters/clients"
