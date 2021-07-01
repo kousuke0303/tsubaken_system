@@ -90,7 +90,7 @@ CategoryMaterial.create(category_id: 2, material_id: 6)
 puts "CREATE! MATERIAL"
 
 # 集客方法
-%w[web 訪問販売 チラシ広告 紹介 タウンページ].each do |name|
+%w[紹介案件 web 訪問販売 チラシ広告 紹介 タウンページ].each do |name|
   AttractMethod.create(name: name)
 end
 

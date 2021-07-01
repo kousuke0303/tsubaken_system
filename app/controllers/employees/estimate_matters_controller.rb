@@ -111,7 +111,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
     def current_person_in_charge
       if current_admin || current_manager
-        @estimate_matters = EstimateMatter.all.order(created_at: :desc)
+        @estimate_matters = EstimateMatter.all.order(created_at: :desc).eager_load(:client)
       elsif current_staff
         @estimate_matters = current_staff.estimate_matters.order(created_at: :desc)
       elsif current_external_staff
@@ -144,7 +144,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       @publisher = @estimate_matter.publisher
       @client = @estimate_matter.client
     end
-    
+
     def set_certificate_variable
       @estimate_matter.cover.present? ?  @cover = @estimate_matter.cover :  @cover = @estimate_matter.build_cover
       @certificates = @estimate_matter.certificates.order(position: :asc)
