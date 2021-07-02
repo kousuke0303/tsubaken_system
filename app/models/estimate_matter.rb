@@ -28,6 +28,9 @@ class EstimateMatter < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 300 }
+  with_options if: :is_external? do # 外部案件時のみ
+    validates :supplier_id, presence: true
+  end
 
   scope :get_id_by_name, ->(name) { where(client_id: (Client.joins(:estimate_matters).get_by_name "#{ name }").ids) }
   scope :get_by_created_at, ->(year, month) { where("created_at LIKE ?", "#{ year + "-" + format('%02d', month) }%") }
@@ -52,6 +55,10 @@ class EstimateMatter < ApplicationRecord
   scope :for_progress, -> {
     joins(:sales_statuses).where.not(sales_statuses: { status: 14})
   }
+
+  def is_external? # 外部案件か
+    attract_method_id.eql?(1)
+  end
 
   def staffs_in_charge
     Staff.joins(member_code: :estimate_matters).where(member_codes: {estimate_matters: {id: self.id}})

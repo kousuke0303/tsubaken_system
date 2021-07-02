@@ -1,5 +1,5 @@
 <div class="row">
-  <label class="form-control text-white" style="background:#787a7b;">依頼者：集客方法</label>
+  <label class="form-control text-white" style="background: #787a7b;">依頼者：集客方法</label>
   <div class="col-md-6 col-12">
     <%= f.label :client_id %>
     <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", id: "select_client", required: true %>
@@ -9,7 +9,7 @@
     <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
   </div>
 
-  <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
+  <label class="form-control text-white" style="background: s#787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
     <%= f.text_field :title, value: @title.present? ? @title : @estimate_matter.title, required: true, class: "form-control", maxlength: 30%>
@@ -51,21 +51,21 @@
     </div>
   </div>
 
-  <label class="form-control text-white" style="background: #787a7b;">紹介元</label>
-  <div class="col-12">
+  <label class="form-control text-white supplier-select" style="display: none; background: #787a7b;">紹介元</label>
+  <div class="col-12 supplier-select" style="display: none;">
     <%= f.label :supplier_id %>
     <div>
       <%= f.collection_select :supplier_id, @suppliers, :id, :name, { prompt: "選択してください" }, class: "form-control" %>
     </div>
   </div>
-</div>
 
 <%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= render "shared/javascript/auto_postcode" %>
 
 <script>
-  $('#select_client').on('change', function(){
+  // 顧客選択時、顧客情報をフォームに反映
+  $('#select_client').on('change', function() {
     var value = $('#select_client option:selected').val();
     $.ajax({
       type: "GET",
@@ -73,6 +73,17 @@
       cache: false,
       data: { client_id: value }
     });
+  });
+
+  // 集客方法が「紹介案件」時の、紹介元フォームの制御
+  $('[name="estimate_matter[attract_method_id]"]').on("change", function() {
+    if($(this).val() == "1") {
+      $(".supplier-select").show();
+      $('[name="estimate_matter[supplier_id]"]').prop("required", "true");
+    } else {
+      $(".supplier-select").hide();
+      $('[name="estimate_matter[supplier_id]"]').removeAttr("required");
+    }
   });
 </script>
 
