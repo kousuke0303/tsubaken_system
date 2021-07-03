@@ -75,7 +75,7 @@
     });
   });
 
-  // 集客方法が「紹介案件」時の、紹介元フォームの制御
+  // 集客方法が「他社受託」時の、紹介元フォームの制御
   $('[name="estimate_matter[attract_method_id]"]').on("change", function() {
     if($(this).val() == "1") {
       $(".supplier-select").show();
