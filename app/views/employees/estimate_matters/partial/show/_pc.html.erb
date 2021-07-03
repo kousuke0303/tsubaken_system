@@ -38,11 +38,26 @@
     </div>
   </div>
 
+  <% if @supplier %>
+    <div class="mt-2e">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="d-inline">紹介元情報</h4>
+          <%= content_tag(:h5, @client.avaliable_disp, class: "d-inline ml-2e") %>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= link_to "編集", "#", remote: true, class: "btn btn-success" %>
+        </div>
+      </div>
+      <%= render "employees/estimate_matters/suppliers/partial/supplier_table" %>
+    </div>
+  <% end %>
+
   <div class="mt-2e">
     <div class="row">
       <div class="col-md-6">
-        <h4 style="display: inline">お客様情報</h4>
-        <h5 style="display: inline" class="ml-2e"><%= @client.avaliable_disp %></h5>
+        <h4 class="d-inline">お客様情報</h4>
+        <h5 class="d-inline ml-2e"><%= @client.avaliable_disp %></h5>
       </div>
       <div class="col-md-6 text-right">
         <%= link_to "編集", edit_employees_estimate_matter_client_path(@estimate_matter, @client), remote: true, class: "btn btn-success" %>

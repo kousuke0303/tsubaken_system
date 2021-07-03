@@ -57,6 +57,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     set_classified_tasks(@estimate_matter)
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
+    @supplier = @estimate_matter.supplier
   end
 
   def edit
