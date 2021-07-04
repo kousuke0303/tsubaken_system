@@ -3,7 +3,7 @@
 
 <label class="form-control text-white" style="background:#787a7b;">担当者</label>
 <span class="ml-1e"><%= @construction_schedule.person_in_charge %></span>
-  
+
 <label class="form-control text-white" style="background:#787a7b;">延期理由</label>
 <% @reasons_hash.each do |reason| %>
   <div class="form-check">
@@ -39,7 +39,6 @@
       dummy.textContent = e.target.value + '\u200b'
     })
   }
-  
+
   document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
 </script>
-        
