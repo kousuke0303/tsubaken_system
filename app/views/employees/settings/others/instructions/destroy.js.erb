@@ -1,0 +1,8 @@
+<% if @responce == "success" %>
+  $("#modal-container").modal('hide');
+  $('#instruction-table').html('<%= escape_javascript(render 'employees/settings/others/instructions/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "info", value: "#{@instruction.title}を削除しました。"} %>
+  $("#modal-container").empty();
+<% else %>
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "alert", value: "#{@instruction.title}の削除に失敗しました。"} %>
+<% end %>

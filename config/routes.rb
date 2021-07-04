@@ -418,6 +418,7 @@ Rails.application.routes.draw do
         resources :label_colors, except: :index do
           patch :sort, on: :collection
         end
+        resources :instructions
       end
 
       resources :tasks, only: [:create, :new, :edit, :index, :update, :destroy]

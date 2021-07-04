@@ -12,6 +12,7 @@ ja:
       schedule: スケジュール
       estimate_matter: 営業案件
       estimate: 見積
+      instruction: 説明書
       matter: 案件
       task: タスク
       industry: 取引先業種
@@ -108,6 +109,8 @@ ja:
           price: 単価
           amount: 数量
           note: 摘要(仕様)
+        instruction:
+          title: タイトル
         invoice_detail:
           category_name: カテゴリ名
           material_name: 素材名称

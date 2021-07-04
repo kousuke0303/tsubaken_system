@@ -1,0 +1,13 @@
+<div class="col-12">
+  
+  <h4>見積補足説明書</h4>
+  <div class="text-right">
+    <%= link_to new_employees_settings_others_instruction_path, remote: true, class: "btn btn-dark float-r" do %>
+      <i class="fas fa-plus"></i> 新規項目追加
+    <% end %>
+  </div>
+
+  <div id="instruction-table">
+    <%= render 'employees/settings/others/instructions/partial/index_table' %>
+  </div>
+</div>

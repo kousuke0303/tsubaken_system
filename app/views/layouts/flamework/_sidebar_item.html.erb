@@ -6,7 +6,7 @@
   </li>
 
   <li>
-    <%= link_to "#matter-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#matter-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-building"></i><span class="ml-1e">着工管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="matter-menu">
@@ -30,7 +30,7 @@
   </li>
 
   <li>
-    <%= link_to "#vendor-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#vendor-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-building"></i><span class="ml-1e">外注先管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="vendor-menu">
@@ -48,7 +48,7 @@
   </li>
 
   <li>
-    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-user-tie"></i><span class="ml-1e">従業員管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="employees-menu">
@@ -66,7 +66,7 @@
   </li>
 
   <li>
-    <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="attendances-menu">
@@ -96,10 +96,9 @@
   </li>
 
   <li>
-    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
     <% end %>
-
     <ul class="collapse list-unstyled" id="settings-menu">
       <li>
         <%= link_to employees_settings_companies_path do %>
