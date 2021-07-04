@@ -1,6 +1,7 @@
 class EstimateMatter < ApplicationRecord
 
   before_create :identify
+  before_save { self.supplier_id = nil unless self.attract_method_id.eql?(1) }
   after_commit :create_sales_status_task_set, on: :create
 
   belongs_to :attract_method, optional: true

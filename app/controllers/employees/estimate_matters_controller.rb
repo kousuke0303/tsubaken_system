@@ -58,15 +58,19 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
     @supplier = @estimate_matter.supplier
+    @msg_to_switch_type = @estimate_matter.supplier_id ? "自社案件に切替" : "他社案件に切替"
   end
 
   def edit
-    @attract_methods = AttractMethod.order(position: :asc)
-    @suppliers = Vendor.all
+    # @supplier = @estimate_matter.supplier
+    @attract_methods = (@supplier = @estimate_matter.supplier) ?  AttractMethod.where.not(id: 1).order(position: :asc) : AttractMethod.where(id: 1)
     # @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
     when "basic"
       @edit_type = "basic"
+    when "side"
+      @edit_type = "side"
+      @suppliers = Vendor.all
     when "staff"
       @edit_type = "staff"
       @staff_codes_ids = @estimate_matter.member_codes.joins(:staff).ids

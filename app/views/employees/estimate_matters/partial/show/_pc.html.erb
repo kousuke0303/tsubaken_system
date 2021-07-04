@@ -6,6 +6,7 @@
     <% if @matter.present? %>
       <%= link_to "着工案件に移動", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-dark" %>
     <% end %>
+    <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side"), remote: true, class: "btn btn-primary" %>
     <%= link_to "この営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
   </div>
 </div>
@@ -41,12 +42,9 @@
   <% if @supplier %>
     <div class="mt-2e">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-12">
           <h4 class="d-inline">紹介元情報</h4>
           <%= content_tag(:h5, @client.avaliable_disp, class: "d-inline ml-2e") %>
-        </div>
-        <div class="col-md-6 text-right">
-          <%= link_to "編集", "#", remote: true, class: "btn btn-success" %>
         </div>
       </div>
       <%= render "employees/estimate_matters/suppliers/partial/supplier_table" %>

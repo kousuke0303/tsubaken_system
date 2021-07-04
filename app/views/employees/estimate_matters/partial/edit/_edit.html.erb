@@ -13,6 +13,14 @@
             <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
           </div>
         <% end %>
+      <% elsif @edit_type == "side" %>
+        <%= form_with(model: @estimate_matter, url: employees_estimate_matter_path(@estimate_matter, type: @edit_type), method: :patch, remote: true) do |f| %>
+          <div class="estimate-matter-update-errors"></div>
+          <%= render 'employees/estimate_matters/partial/edit/edit_side', f: f %>
+          <div class="btn-area">
+            <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          </div>
+        <% end %>
       <% elsif @edit_type == "staff" %>
         <%= form_with(model: @estimate_matter, url: member_change_for_staff_employees_estimate_matter_members_path(@estimate_matter), method: :patch, remote: true) do |f| %>
           <div class="estimate-matter-update-errors"></div>

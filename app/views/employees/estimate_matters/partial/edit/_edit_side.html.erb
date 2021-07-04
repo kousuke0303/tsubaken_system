@@ -1,0 +1,18 @@
+<% if @supplier.present? %>
+  <label class="form-control text-white" style="background:#787a7b;">集客方法</label>
+  <div class="col-12">
+    <%= f.label :attract_method_id %>
+    <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "選択してください" }, class: "form-control", required: true %>
+  </div>
+<% else %>
+  <label class="form-control text-white" style="background:#787a7b;">集客方法</label>
+  <div class="col-12">
+    <%= f.label :attract_method_id %>
+    <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { selected: 1 }, class: "form-control" %>
+  </div>
+  <label class="form-control text-white" style="background:#787a7b;">紹介元業者</label>
+  <div class="col-12">
+    <%= f.label :supplier_id %>
+    <%= f.collection_select :supplier_id, @suppliers, :id, :name, { include_blank: "選択してください" }, class: "form-control", required: true %>
+  </div>
+<% end %>
