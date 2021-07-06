@@ -1,10 +1,20 @@
-<%= f.label :title %>
-<%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
-
-<%= f.label :content %>
-<div class="FlexTextarea">
-  <div class="FlexTextarea__dummy" aria-hidden="true"></div>
-  <%= f.text_area :content, class: "FlexTextarea__textarea", id: "construction-schedule-content" %>
+<div class="row">
+  <div class="col-12">
+    <%= f.select :select_title, options_for_select(@instructions.map{|instruction|[instruction.title, instruction.id]}), {include_blank: "登録されたタイトルから選択する"}, {class: "form-control", id: "select_title"} %>
+  </div>
+  
+  <div class="col-12">
+    <%= f.label :title %>
+    <%= f.text_field :title, required: true, class: "form-control", id: "title_field", maxlength: 30 %>
+  </div>
+  
+  <div class="col-12">
+    <%= f.label :content %>
+    <div class="FlexTextarea">
+      <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+      <%= f.text_area :content, class: "FlexTextarea__textarea", id: "construction-schedule-content" %>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -16,4 +26,15 @@
   }
 
   document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
+</script>
+
+<script>
+  $('#select_title').on('change', function(){
+    var val = $(this).val();
+    $.ajax({
+      type: 'GET',
+      url: "<%= new_employees_estimate_matter_instruction_path(@estimate_matter) %>",
+      data: {id: val}
+    });
+  });
 </script>

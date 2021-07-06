@@ -270,9 +270,13 @@ Rails.application.routes.draw do
           end
         end
         resources :instructions do
-          get :preview, on: :collection
-          patch :sort, on: :collection
+          collection do
+            get :preview
+            patch :sort
+            get :select_title
+          end
         end
+        
       end
 
       resources :clients, only: [:edit, :update], controller: "estimate_matters/clients"

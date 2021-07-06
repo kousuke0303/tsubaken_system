@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::InstructionsController < Employees::EmployeesController
   before_action :set_estimate_matter
-  before_action :set_instruction, only: [:show, :edit, :update, :destroy]
+  before_action :set_instruction, only: [:show, :edit, :update, :destroy, :select_title]
   before_action :preview_display, only: :preview
 
   def index
@@ -8,7 +8,12 @@ class Employees::EstimateMatters::InstructionsController < Employees::EmployeesC
   end
   
   def new
-    @instruction = @estimate_matter.instructions.new
+    if params[:id].present?
+      @instruction = Instruction.find(params[:id])
+    else
+      @instruction = @estimate_matter.instructions.new
+    end
+    @instructions = Instruction.where(default: true)
   end
   
   def create
@@ -36,6 +41,9 @@ class Employees::EstimateMatters::InstructionsController < Employees::EmployeesC
       flash[:alert] = "#{@instruction.title}を削除しました"
       redirect_to employees_estimate_matter_instructions_url(@estimate_matter)
     end
+  end
+  
+  def select_title
   end
   
   def preview

@@ -1,0 +1,2 @@
+$('#select_title').val("<%= @instruction.title %>");
+$('#construction-schedule-content').val("<%= safe_join(@instruction.content.split("\n"),tag(:br)) %>");
