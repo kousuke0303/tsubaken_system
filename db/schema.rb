@@ -354,7 +354,7 @@ ActiveRecord::Schema.define(version: 2021_06_29_062736) do
   end
 
   create_table "instructions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", default: "", null: false
+    t.text "title", null: false
     t.text "content"
     t.boolean "default"
     t.integer "position"
