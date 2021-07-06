@@ -4,7 +4,6 @@ class Employees::SchedulesController < Employees::EmployeesController
   before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application, :show_for_top_page]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]
   before_action :set_staff, if: :object_is_staff?, only: [:change_member]
-  # before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
   before_action :schedule_application, only: :application
   
   def index

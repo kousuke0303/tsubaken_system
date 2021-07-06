@@ -1,5 +1,4 @@
 class Employees::VendorsController < Employees::EmployeesController
-  before_action :authenticate_employee!
   before_action :set_vendors, only: [:index, :show]
   before_action :set_vendor, only: [:show, :edit, :update, :destroy]
   before_action :set_industries, only: [:new, :edit]

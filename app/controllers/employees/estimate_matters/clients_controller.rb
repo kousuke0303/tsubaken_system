@@ -1,5 +1,4 @@
-class Employees::EstimateMatters::ClientsController < Employees::EmployeesController
-  before_action :authenticate_employee_except_external_staff!
+class Employees::EstimateMatters::ClientsController < Employees::EstimateMatters::EstimateMattersController
   before_action :set_estimate_matter
   before_action :set_client
   
