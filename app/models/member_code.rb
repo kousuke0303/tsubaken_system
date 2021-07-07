@@ -23,8 +23,8 @@ class MemberCode < ApplicationRecord
   has_one :task
   has_one :construction_schedule, dependent: :destroy
 
-  scope :sort_auth, -> { order(:staff_id, :manager_id, :admin_id) }
-
+  scope :sort_auth, -> { order(:external_staff_id, :vendor_manager_id, :staff_id, :manager_id, :admin_id) }
+  
   # 利用できるメンバーの全コード
   def self.all_member_code_of_avaliable
     remove_ids = []

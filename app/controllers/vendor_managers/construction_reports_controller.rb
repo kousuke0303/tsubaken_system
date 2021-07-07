@@ -14,7 +14,7 @@ class VendorManagers::ConstructionReportsController < ApplicationController
     elsif params[:type] == "date"
       construction_reports = ConstructionReport.includes(construction_schedule: :matter)
                                                .where(work_date: params[:work_date])
-                                               .where(construction_schedules: {vendor_id: current_vendor_manager.id})
+                                               .where(construction_schedules: {vendor_id: login_user.vender.id})
       @reports_for_run = construction_reports.where.not(report: 0)
       @reports_for_postponement = construction_reports.where.not(reason: 0)
     end

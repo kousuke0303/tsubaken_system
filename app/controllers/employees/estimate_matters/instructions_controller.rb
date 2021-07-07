@@ -1,5 +1,6 @@
 class Employees::EstimateMatters::InstructionsController < Employees::EmployeesController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_instruction, only: [:show, :edit, :update, :destroy, :select_title]
   before_action :preview_display, only: :preview
 

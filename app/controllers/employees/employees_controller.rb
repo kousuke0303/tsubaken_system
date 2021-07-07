@@ -159,7 +159,7 @@ class Employees::EmployeesController < ApplicationController
       return @members
     end
 
-    # 営業管理案件の担当者（配列）
+    # 案件の当社担当者（配列）
     def group_for(estimate_matter_or_matter)
       @group = []
       @group << Admin.first.member_code.id
@@ -168,7 +168,7 @@ class Employees::EmployeesController < ApplicationController
         @group << manager.member_code.id
       end
 
-      estimate_matter_or_matter.member_codes.sort_auth.each do |member_code|
+      estimate_matter_or_matter.member_codes.where.not(staff_id: nil).sort_auth.each do |member_code|
         @group << member_code.id
       end
       return @group

@@ -1,5 +1,6 @@
 class Employees::EstimateMatters::TasksController < Employees::TasksController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_task, except: [:move, :create]
   before_action ->{ group_for(@estimate_matter) }, only: [:edit, :change_member]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]

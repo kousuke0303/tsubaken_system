@@ -2,8 +2,9 @@ class ExternalStaffs::ConstructionSchedulesController < ApplicationController
   
   before_action :authenticate_external_staff!
   before_action :set_construction_schedule, except: :index
+  before_action :own_construction_schedule!, except: :index
   
-   def index
+  def index
     @calendar_type = "vendors_schedule"
     if params[:start_date].present?
       @object_day = params[:start_date].to_date
@@ -27,6 +28,14 @@ class ExternalStaffs::ConstructionSchedulesController < ApplicationController
   private
     def set_construction_schedule
       @construction_schedule = ConstructionSchedule.find(params[:id])
+    end
+    
+    def own_construction_schedule!
+      unless @construction_schedule.member_codes.where(login_user.member_code.id)
+        sign_out(login_user)
+        flash[:alert] = "アクセス権限がありません"
+        redirect_to root_url
+      end
     end
 
 end

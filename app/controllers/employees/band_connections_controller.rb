@@ -1,4 +1,5 @@
 class Employees::BandConnectionsController < Employees::EmployeesController
+  before_action :authenticate_employee!
   before_action :get_band, only: :index
 
   def index

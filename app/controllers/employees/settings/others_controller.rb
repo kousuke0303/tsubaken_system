@@ -1,5 +1,5 @@
 class Employees::Settings::OthersController < Employees::EmployeesController
-  before_action :authenticate_admin_or_manager!
+  before_action :authenticate_employee!
   before_action :set_label_colors
 
   def index

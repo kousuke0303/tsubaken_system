@@ -1,5 +1,5 @@
 class Employees::Settings::ReportsController < Employees::EmployeesController
-  before_action :authenticate_admin_or_manager!
+  before_action :authenticate_employee!
   before_action :set_report, only: [:edit, :update, :destroy]
 
   def new

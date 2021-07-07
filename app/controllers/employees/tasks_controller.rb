@@ -1,6 +1,7 @@
 class Employees::TasksController < Employees::EmployeesController
   before_action :authenticate_employee!
   before_action :set_task, except: [:new, :create]
+  before_action ->{can_access_only_of_member(@task)}, only: [:edit, :update, :change_status, :destroy]
   
   def new
     employees_member_code

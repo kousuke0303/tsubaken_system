@@ -1,6 +1,6 @@
 class Employees::Matters::InvoiceDetailsController < Employees::EmployeesController
-  before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_invoice_detail
   before_action :set_invoice_of_invoice_detail, only: [:edit, :update, :detail_object_update, :destroy]
   

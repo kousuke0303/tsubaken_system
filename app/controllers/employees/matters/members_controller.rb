@@ -1,6 +1,7 @@
 class Employees::Matters::MembersController < Employees::EmployeesController
   
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :all_staff_and_external_staff_code, only: :edit
 
   def edit

@@ -1,6 +1,7 @@
 class ExternalStaffs::MattersController < ApplicationController
   before_action :authenticate_external_staff!
   before_action :set_matter, except: :index
+  before_action :self_vendor_matter!, except: :index
 
   def index
     @matters = Matter.joins(:member_codes).where(member_codes: { id: login_user.member_code.id })
@@ -44,6 +45,14 @@ class ExternalStaffs::MattersController < ApplicationController
 
     def set_matter
       @matter = Matter.find(params[:id])
+    end
+    
+    def self_vendor_matter!
+      unless @matter.member_codes.where(id: login_user.member_code.id).present?
+        sign_out(login_user)
+        flash[:alert] = "アクセス権限がありません"
+        redirect_to root_url
+      end
     end
 
 end

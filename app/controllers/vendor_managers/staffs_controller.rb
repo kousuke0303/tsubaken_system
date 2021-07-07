@@ -65,6 +65,7 @@ class VendorManagers::StaffsController < ApplicationController
     def authenticate_boss!
       @external_staff = ExternalStaff.find(params[:id])
       if @external_staff.vendor != login_user.vendor
+        sign_out(login_user)
         flash[:alert] = "アクセス権限がありません"
         redirect_to root_url
       end

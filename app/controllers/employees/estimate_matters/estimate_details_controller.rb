@@ -1,5 +1,6 @@
-class Employees::EstimateMatters::EstimateDetailsController < Employees::EstimateMatters::EstimateMattersController
+class Employees::EstimateMatters::EstimateDetailsController < Employees::EmployeesController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_estimate_detail
   before_action :set_default_color_code, only: [:update, :destroy, :detail_object_update]
   before_action :set_estimate_of_estimate_detail, only: [:edit, :update, :detail_object_update, :destroy]

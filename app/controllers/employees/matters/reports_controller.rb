@@ -1,6 +1,6 @@
 class Employees::Matters::ReportsController < Employees::EmployeesController
-  before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_report, only: [:edit, :update, :destroy]
   before_action :preview_display, only: :index
 
