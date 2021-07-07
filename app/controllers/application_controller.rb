@@ -87,12 +87,18 @@ class ApplicationController < ActionController::Base
 
   # AdminとManager以外はアクセス制限
   def authenticate_admin_or_manager!
-    redirect_to root_url unless current_admin || current_manager
+    unless current_admin || current_manager
+      sign_out(login_user)
+      redirect_to root_path
+    end
   end
 
   # 従業員以外はアクセス制限
   def authenticate_employee!
-    redirect_to root_url unless current_admin || current_manager || current_staff
+    unless current_admin || current_manager || current_staff
+      sign_out(login_user)
+      redirect_to root_path
+    end
   end
 
   def authenticate_admin_or_self_manager!
@@ -103,14 +109,16 @@ class ApplicationController < ActionController::Base
     else
       editable = false
     end
+    sign_out(login_user)
     redirect_to root_url if editable == false
   end
 
 
-  # 自分の担当している案件のみアクセス可能（staff_extrnal_staff）
+  # 自分の担当している案件のみアクセス可能
   def can_access_only_of_member(object)
     unless current_admin || current_manager
-      if object.member_codes.ids.include?(login_user.member_code)
+      unless object.member_codes.ids.include?(login_user.member_code.id)
+        sign_out(login_user)
         flash[:alert] = "アクセス権限がありません。"
         redirect_to root_path
       end
@@ -120,6 +128,7 @@ class ApplicationController < ActionController::Base
   # ログインstaff以外のページ非表示
   def not_current_staff_return_login!
     unless params[:id].to_i == current_staff.id || params[:staff_id].to_i == current_staff.id
+      sign_out(login_user)
       flash[:alert] = "アクセス権限がありません。"
       redirect_to root_path
     end
@@ -129,6 +138,7 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_or_manager_or_In_house_charge(object)
     @boss = object.vendor.vendor_manager
     unless current_admin || current_manager || @boss
+      sign_out(login_user)
       flash[:alert] = "アクセス権限がありません"
       redirect_to root_url
     end

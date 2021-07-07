@@ -77,12 +77,9 @@
   <div id="collapse-reports" class="collapse" aria-labelledby="headingFour" data-parent="#accordion-reports">
     <div class="card-body">
       <div class="text-right">
-        <% if @report_cover.present? %>
-          <%= link_to "表紙編集", edit_employees_matter_report_cover_path(@matter, @report_cover), remote: true, class: "btn btn-dark" %>
-        <% else %>
-          <%= link_to "表紙作成", new_employees_matter_report_cover_path(@matter), remote: true, class: "btn btn-dark" %>
-        <% end %>
-        <%= link_to "プレビュー", employees_matter_reports_path(@matter), class: "btn btn-primary" %>
+        <div id="button-disp">
+          <%= render 'employees/matters/report_covers/partial/button' %>
+        </div>
       </div>
       
       <!--▼表紙▼-->

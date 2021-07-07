@@ -1,5 +1,6 @@
-class Employees::EstimateMatters::ClientsController < Employees::EstimateMatters::EstimateMattersController
+class Employees::EstimateMatters::ClientsController < Employees::EmployeesController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_client
   
   def edit

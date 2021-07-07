@@ -1,4 +1,5 @@
 class Employees::CurrentSituationsController < Employees::EmployeesController
+  before_action :authenticate_employee!
   before_action :current_situations_display
   
   def index

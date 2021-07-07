@@ -1,7 +1,8 @@
 class Employees::Matters::ImagesController < Employees::EmployeesController
   before_action :other_tab_display, only: :index
+  before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_image, only: [:edit, :update, :destroy]
-  before_action :set_matter
 
   def new
     @image = Image.new
@@ -87,10 +88,6 @@ class Employees::Matters::ImagesController < Employees::EmployeesController
   end
   
   private
-  
-    def set_matter
-      @matter = Matter.find(params[:matter_id])
-    end
     
     def image_params
       params.require(:image).permit(:content, :shooted_on, :image, :matter_id)

@@ -1,5 +1,6 @@
 class Employees::Matters::ConstructionSchedulesController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_construction_schedule, except: [:new, :create, :set_estimate_category]
 
   def new

@@ -2,6 +2,7 @@ class Employees::EstimateMatters::ImagesController < Employees::EmployeesControl
   before_action :other_tab_display, only: :index
   before_action :set_image, only: [:edit, :update, :destroy]
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
 
   def new
     @image = Image.new

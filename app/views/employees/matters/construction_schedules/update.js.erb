@@ -9,7 +9,7 @@
   var countArrey = [totalCount, reciever, recieverCount]
   localStorage.setItem('totalNotificationCount', totalCount);
   App.badge.speak(countArrey);
-  $('modal-backdrop').removeClass('show');
+  $('.modal-backdrop').removeClass('show');
   $('#modal-container').empty();
 <% else %>
   <%= render "shared/javascript/modal_error", dom: ".construction-schedule-update-errors", model: @construction_schedule, object: "construction_schedule" %>

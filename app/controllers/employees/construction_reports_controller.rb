@@ -1,5 +1,6 @@
 class Employees::ConstructionReportsController < Employees::EmployeesController
-
+  before_action :authenticate_employee!
+  
   def index
     if params[:type] == "uncheck"
       @type = "uncheck"

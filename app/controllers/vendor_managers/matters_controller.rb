@@ -2,6 +2,7 @@ class VendorManagers::MattersController < ApplicationController
   before_action :authenticate_vendor_manager!
   before_action :set_matter, except: :index
   before_action :set_vendor
+  before_action :self_vendor_matter!, except: :index
 
   def index
     @matters = current_vendor_manager.matters
@@ -88,5 +89,13 @@ class VendorManagers::MattersController < ApplicationController
 
     def set_vendor
       @vendor = current_vendor_manager.vendor
+    end
+    
+    def self_vendor_matter!
+      unless @matter.vendors.where(id: login_user.vendor.id).present
+        sign_out(login_user)
+        flash[:alert] = "アクセス権限がありません"
+        redirect_to root_url
+      end
     end
 end
