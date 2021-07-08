@@ -23,6 +23,13 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     end
   end
 
+  def externals
+    current_person_in_charge
+    @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
+    @estimate_matters = @estimate_matters.get_id_by_name params[:name] if params[:name].present?
+    @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month] if params[:year].present? && params[:month].present?
+  end
+
   def new
     @estimate_matter = EstimateMatter.new
     @clients = Client.all

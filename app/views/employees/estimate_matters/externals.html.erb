@@ -1,11 +1,11 @@
 <div class="col-12">
-  <%= render partial: 'layouts/page_title', locals: { title_1: "営業管理案件", title_2: nil, icon: "fa-paste"} %>
+  <%= render "layouts/page_title", title_1: "営業管理案件", title_2: nil, icon: "fa-paste" %>
 
   <div class="tab-wrap">
-    <label class="tab-link text-white text-center text-nowrap position-relative impassive">自社案件</label>
     <label class="tab-link text-white text-center text-nowrap position-relative p-0">
-      <%= link_to "他社案件", externals_employees_estimate_matters_path, class: "d-block text-white text-decoration-none" %>
+      <%= link_to "自社案件", employees_estimate_matters_path, class: "d-block text-white text-decoration-none" %>
     </label>
+    <label class="tab-link text-white text-center text-nowrap position-relative impassive">他社案件</label>
   </div>
 
   <%= form_with(model: @clients, method: :get, local: true) do |f| %>
@@ -60,6 +60,7 @@
       <% end %>
     </table>
   </div>
+
 </div>
 
 <%= javascript_include_tag "tr_link.js" %>

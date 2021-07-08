@@ -257,6 +257,7 @@ Rails.application.routes.draw do
     ######## ▼ 営業案件 ▼ ###################################
 
     resources :estimate_matters do
+      get :externals, on: :collection
 
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
@@ -276,7 +277,7 @@ Rails.application.routes.draw do
             get :select_title
           end
         end
-        
+
       end
 
       resources :clients, only: [:edit, :update], controller: "estimate_matters/clients"
