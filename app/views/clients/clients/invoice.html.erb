@@ -4,92 +4,98 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "御請求書", title_2: "#{ @estimate_matter.title }", icon: "fa-file-invoice-dollar"} %>
   </section>
 
-    
-  <section>
-    
-    <div class="double-line">
-      <h4>ご請求書</h4>
-    </div>
-    
-    <div class="flex">
-      <div class= home_icon>
-        <div class="triangle" style="border-bottom-color: <%= @color_code %>"></div>
-        <div class="square" style="background: <%= @color_code %>">
-          <div class="window">
-            <div><p>■■</p><p>■■</p></div>
-          </div>
-          <div class="text"><%= @invoice.plan_name.name %></div>                
-        </div>      
-      </div>  
-    </div>
-
-    <div class="table-responsive">
-      <table class="table table-bordered text-nowrap table_line_type">
-        <tr>
-          <th>項目</th>
-          <th>工事名称・素材</th>
-          <th>耐用年数</th>
-          <th colspan="2">単価</th>
-          <th>数量</th>
-          <th>計(円)</th>
-        </tr>
-        <% @invoice_details.each do |category_id, details| %>
+  
+  <% if @invoice.present? %>
+    <section>
+      
+      <div class="double-line">
+        <h4>ご請求書</h4>
+      </div>
+      
+      <div class="flex">
+        <div class= home_icon>
+          <div class="triangle" style="border-bottom-color: <%= @color_code %>"></div>
+          <div class="square" style="background: <%= @color_code %>">
+            <div class="window">
+              <div><p>■■</p><p>■■</p></div>
+            </div>
+            <div class="text"><%= @invoice.plan_name.name %></div>                
+          </div>      
+        </div>  
+      </div>
+  
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap table_line_type">
           <tr>
-            <td rowspan="<%= details.size %>"><%= details[0].category_name %></td>
-            <% if details[0].material_id.present? || details[0].construction_id.present? %>
-              <td>
-                <% if details[0].material_id.present? %>
-                  <%= details[0].material_name %>
-                <% else %>
-                  <%= details[0].construction_name %>
-                <% end %>
-              </td>
-              <td><%= details[0].service_life %></td>
-              <td class="money-type"><%= details[0].price %></td>
-              <td><%= details[0].unit %></td>
-              <td><%= details[0].amount %></td>
-              <td class="money-type"><%= details[0].total %></td>
-            <% else %>
-              <%= empty_td(6) %>
-            <% end %>
+            <th>項目</th>
+            <th>工事名称・素材</th>
+            <th>耐用年数</th>
+            <th colspan="2">単価</th>
+            <th>数量</th>
+            <th>計(円)</th>
           </tr>
-          <% details.from(1).each do |detail| %>
+          <% @invoice_details.each do |category_id, details| %>
             <tr>
-              <% if detail.material_id.present? || detail.construction_id.present? %>
+              <td rowspan="<%= details.size %>"><%= details[0].category_name %></td>
+              <% if details[0].material_id.present? || details[0].construction_id.present? %>
                 <td>
-                  <% if detail.material_id.present? %>
-                    <%= detail.material_name %>
+                  <% if details[0].material_id.present? %>
+                    <%= details[0].material_name %>
                   <% else %>
-                    <%= detail.construction_name %>
+                    <%= details[0].construction_name %>
                   <% end %>
                 </td>
-                <td><%= detail.service_life %></td>
-                <td class="money-type"><%= detail.price %></td>
-                <td><%= detail.unit %></td>
-                <td><%= detail.amount %></td>
-                <td class="money-type"><%= detail.total %></td>
+                <td><%= details[0].service_life %></td>
+                <td class="money-type"><%= details[0].price %></td>
+                <td><%= details[0].unit %></td>
+                <td><%= details[0].amount %></td>
+                <td class="money-type"><%= details[0].total %></td>
               <% else %>
                 <%= empty_td(6) %>
               <% end %>
             </tr>
+            <% details.from(1).each do |detail| %>
+              <tr>
+                <% if detail.material_id.present? || detail.construction_id.present? %>
+                  <td>
+                    <% if detail.material_id.present? %>
+                      <%= detail.material_name %>
+                    <% else %>
+                      <%= detail.construction_name %>
+                    <% end %>
+                  </td>
+                  <td><%= detail.service_life %></td>
+                  <td class="money-type"><%= detail.price %></td>
+                  <td><%= detail.unit %></td>
+                  <td><%= detail.amount %></td>
+                  <td class="money-type"><%= detail.total %></td>
+                <% else %>
+                  <%= empty_td(6) %>
+                <% end %>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-        <tr>        
-          <th colspan="5">合計</th>
-          <th colspan="2" class="money-type text-right"><%= @invoice.total_price %>円</th>
-        </tr>
-        <tr>        
-          <td colspan="5">端数値引</td>
-          <td colspan="2" class="money-type text-right"><%= @invoice.discount %>円</td>
-        </tr>
-        <tr>        
-          <th colspan="5">値引後合計</th>
-          <th colspan="2" class="money-type text-right"><%= @invoice.after_discount %>円</th>
-        </tr>
-      </table>
-    </div>  
-
-  </section>
+          <tr>        
+            <th colspan="5">合計</th>
+            <th colspan="2" class="money-type text-right"><%= @invoice.total_price %>円</th>
+          </tr>
+          <tr>        
+            <td colspan="5">端数値引</td>
+            <td colspan="2" class="money-type text-right"><%= @invoice.discount %>円</td>
+          </tr>
+          <tr>        
+            <th colspan="5">値引後合計</th>
+            <th colspan="2" class="money-type text-right"><%= @invoice.after_discount %>円</th>
+          </tr>
+        </table>
+      </div>  
+  
+    </section>
+  <% else %>
+    <section>
+      <p>登録がありません</p>
+    </section>
+  <% end %>
   
 </div>
 

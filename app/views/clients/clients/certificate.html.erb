@@ -5,39 +5,44 @@
   </section>
 
   <div class="row justify-content-md-center">
-    
-    <section>
-      <div class="slide-container">
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="50000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> 表紙</h4>
-            <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"1000x700^",crop:"1000x700+0+0"})) %>
-            <div class="content-area">
-              <%= safe_join(@cover.content.split("\n"),tag(:br)) %>
-            </div>
-          </div>
-          <% @certificates.each do |certificate| %>
-            <div class="carousel-item">
-              <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= certificate.title %></h4>
-              <%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"1000x700^",crop:"1000x700+0+0"})) %>
-              <div class="certificate-content-area">
-                <%= safe_join(certificate.content.split("\n"),tag(:br)) %>
+    <% if @cover.present? && @certificates.present? %> 
+      <section>
+        <div class="slide-container">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="50000">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> 表紙</h4>
+              <%= image_tag url_for(@cover.image.image.variant(combine_options:{gravity: :center, resize:"1000x700^",crop:"1000x700+0+0"})) %>
+              <div class="content-area">
+                <%= safe_join(@cover.content.split("\n"),tag(:br)) %>
               </div>
             </div>
-          <% end %>
+            <% @certificates.each do |certificate| %>
+              <div class="carousel-item">
+                <h4 class="mt-1e"><i class="fas fa-thumbtack"></i> <%= certificate.title %></h4>
+                <%= image_tag url_for(certificate.image.image.variant(combine_options:{gravity: :center, resize:"1000x700^",crop:"1000x700+0+0"})) %>
+                <div class="certificate-content-area">
+                  <%= safe_join(certificate.content.split("\n"),tag(:br)) %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    <% else %>
+      <section>
+        <p>登録がありません</p>
+      </section>
+    <% end %>
     
   </div>
 </div>

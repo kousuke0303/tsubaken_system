@@ -4,7 +4,6 @@ class Clients::ClientsController < ApplicationController
   before_action :set_matter, only: [:schedule, :report, :invoice]
   # before_action :preview_display, only: [:invoice]
   
-  
   def top
   end
   
@@ -16,6 +15,7 @@ class Clients::ClientsController < ApplicationController
   def estimate
     @estimates = @estimate_matter.estimates.with_plan_names_and_label_colors
     @estimate_details = @estimates.with_estimate_details
+    @instructions = @estimate_matter.instructions.order(:position)
   end
   
   def detail
@@ -23,9 +23,21 @@ class Clients::ClientsController < ApplicationController
     @details_hash = @estimate.estimate_details.where(estimate_details: { estimate_id: @estimate.id }).order(:sort_number).group_by{ |detail| detail[:category_id] }
   end
   
+  def instruction
+    @instructions = @estimate_matter.instructions.order(:position)
+  end
+  
   def schedule
     @calendar_type = "vendors_schedule"
-    @construction_schedules = @matter.construction_schedules
+    if params[:start_date].present?
+      object_day = params[:start_date].to_date
+    else
+      object_day = Date.current
+    end
+    @span = Span.new
+    @span.simple_calendar(object_day)
+    @construction_schedules = @matter.construction_schedules.where(disclose: true)
+    @target_schedules = @construction_schedules.where(start_date: @span.first_day..@span.last_day)
   end
   
   def report

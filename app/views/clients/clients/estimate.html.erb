@@ -4,54 +4,65 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "御見積書", title_2: "#{ @estimate_matter.title }", icon: "fa-calculator"} %>
   </section>
 
+  <% if @estimates.present? %>
     
-  <section>
-    
-    <div class="double-line">
-      <h4>見積書一覧</h4>
-    </div>
-    
-    <div class="table-responsive">
-    <table class="table table-bordered common-table">
-      <tr>
-        <th>詳細</th>
-        <th>プラン名</th>
-        <th>プラン特徴</th>
-        <th>合計金額</th>
-      </tr>
-      <% @estimates.each do |estimate| %>
-      <tr>
-        <td class="text-center">
-          <input type="checkbox" id="<%= estimate.id %>" class="checkbox" value="<%= estimate.id %>"></input>
-        </td>
-        <td>
-          <div class= home_icon>
-            <div class="triangle" style="border-bottom-color: <%= estimate.color %>"></div>
-            <div class="square" style="background: <%= estimate.color %>">
-              <div class="window">
-                <div><p>■■</p><p>■■</p></div>
-              </div>
-              <div class="text">
-                <%= estimate.name %>
-              </div>                
-            </div>      
-          </div>
-        </td>
-        <td><%= estimate.try(:content) %></td>
-        <td class="money-type text-right"><%= estimate.total_price %> 円</td>
-      </tr>
-      <% end %>
-    </table>
-    </div>
-  </section>
-    
-  <section>
-    <div class="double-line">
-      <h4>見積書詳細</h4>
-    </div>
-    
-    <div id="estimate-detail"></div>
-  </section>
+    <% if @instructions.present? %> 
+      <div class="text-right">
+        <%= link_to "見積補足説明書", clients_instruction_path, class: "btn btn-dark" %>
+      </div>
+    <% end %>
+  
+    <section>
+      <div class="double-line">
+        <h4>見積書一覧</h4>
+      </div>
+      
+      <div class="table-responsive">
+      <table class="table table-bordered common-table">
+        <tr>
+          <th>詳細</th>
+          <th>プラン名</th>
+          <th>プラン特徴</th>
+          <th>合計金額</th>
+        </tr>
+        <% @estimates.each do |estimate| %>
+        <tr>
+          <td class="text-center">
+            <input type="checkbox" id="<%= estimate.id %>" class="checkbox" value="<%= estimate.id %>"></input>
+          </td>
+          <td>
+            <div class= home_icon>
+              <div class="triangle" style="border-bottom-color: <%= estimate.color %>"></div>
+              <div class="square" style="background: <%= estimate.color %>">
+                <div class="window">
+                  <div><p>■■</p><p>■■</p></div>
+                </div>
+                <div class="text">
+                  <%= estimate.name %>
+                </div>                
+              </div>      
+            </div>
+          </td>
+          <td><%= estimate.try(:content) %></td>
+          <td class="money-type text-right"><%= estimate.total_price %> 円</td>
+        </tr>
+        <% end %>
+      </table>
+      </div>
+    </section>
+      
+    <section>
+      <div class="double-line">
+        <h4>見積書詳細</h4>
+      </div>
+      
+      <div id="estimate-detail"></div>
+    </section>
+  <% else %>
+    <section>
+      <p>登録がありません</p>
+    </section>
+  <% end %>
   
 </div>
 

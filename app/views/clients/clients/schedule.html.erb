@@ -4,10 +4,16 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "スケジュール", title_2: "#{ @estimate_matter.title }", icon: "fa-calendar-alt"} %>
   </section>
   
-  <section>
-    <div class="calendar_container mt-05e">
-      <%= render 'clients/clients/partial/calendar' %>
-    </div>
-  </section>
+  <% if @construction_schedules.present? %>
+    <section>
+      <div class="calendar_container mt-05e">
+        <%= render 'clients/clients/partial/calendar' %>
+      </div>
+    </section>
+  <% else %>
+    <section>
+      <p>登録がありません</p>
+    </section>
+  <% end %>
 
 </div>

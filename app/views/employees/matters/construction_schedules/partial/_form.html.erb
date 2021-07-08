@@ -1,7 +1,8 @@
-<div class="check_boxes mt-1e">
+<label class="form-control text-white" style="background:#787a7b;">依頼人に公開・非公開</label>
+<div class="check_boxes mt-1e ml-1e">
   <div id="auto_set_select">
     <%= f.check_box :disclose, {id: "public"}, true, false %>
-    <label for="public">公開</label>
+    <label for="public" id="disclose-condition">公開</label>
   </div>
   <%= f.hidden_field :disclose, id: "disclose" %>
 </div>
@@ -58,9 +59,20 @@
 </script>
 
 <script>
+  $(function(){
+    <% if @construction_schedule.disclose == false %>
+      $('#disclose-condition').text('非公開');
+    <% end %>
+  });
+  
   $('#public').on('change', function(){
     var value = $(this).prop('checked');
     $('#disclose').val(value);
+    if(value){
+      $('#disclose-condition').text('公開');
+    } else {
+      $('#disclose-condition').text('非公開');
+    }
   });
 </script>
 

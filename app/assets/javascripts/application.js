@@ -13,9 +13,9 @@
 //= require jquery3
 //= require jquery_ujs
 //= require activestorage
-//= require bootstrap-sprockets
 //= require toastr
 //= require popper
+//= require bootstrap
 //= require jquery.jpostal
 //= require select2
 //= require chartkick
@@ -25,4 +25,8 @@
 //= require setbadge
 //= require cable
 //= require turbolinks
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 

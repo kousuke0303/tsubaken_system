@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   # Client関係
   scope module: :clients do
     namespace :clients do
-      get :top, :certificate, :estimate, :detail, :schedule, :invoice, :report
+      get :top, :certificate, :estimate, :detail, :instruction, :schedule, :invoice, :report
     end
   end
 
