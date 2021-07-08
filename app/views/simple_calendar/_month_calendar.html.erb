@@ -114,7 +114,7 @@
 
 <% else %>
 
-  <div id="calendar_for_schedule" class="table-responsive">
+  <div class="calendar_for_schedule table-responsive">
     <div class="simple-calendar">
       <div class="calendar-heading">
         <%= link_to calendar.url_for_previous_view, class: "mr-05e" do %>
@@ -125,8 +125,8 @@
           <i class="fas fa-angle-double-right fa-2x"></i>
         <% end %>
       </div>
-    
-      <table class="table text-nowrap event_index mt-1e">
+      
+      <table class="table table-bordered text-nowrap mt-1e">
         <thead>
           <tr>
             <% date_range.slice(0, 7).each do |day| %>

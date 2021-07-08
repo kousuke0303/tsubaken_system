@@ -1,3 +1,92 @@
+/* -----------------------------------------------------------------------------------
+    CALENDER
+----------------------------------------------------- */
+
+.calendar_for_schedule {
+  .calendar-heading {
+    height: 3em;
+    line-height: 3em;
+  }
+  
+  .calendar_year {
+    font-size: 1.2em;
+    color: #343a40;
+  }
+  
+  .calendar_month {
+    margin-left: 0.5em;
+    font-size: 1.7em;
+    color: white;
+    border: 1px solid #87888a;
+    border-radius: 50%;
+    background: #87888a;
+    padding: 5px 10px;
+  }
+  
+  a { color: #87888a; }
+  
+  .schedule_target {
+    background: #0c651f;
+  }
+}
+
+.calendar_for_schedule .calendar-count {
+  text-align: center;
+  a { color: #c7ccd6;}
+}
+
+.calendar_for_schedule table {
+  background-color: #47494a;
+  color: white;
+}
+
+.calendar_for_schedule th {
+  height: 1.2em;
+  text-align: center;
+}
+
+.calendar_for_schedule {
+  .normal_week {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+  }
+  .saturday_disp {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+    border: 1px solid #4b8bda;
+    border-radius: 20%;
+    background: #4b8bda;
+    color: white;
+  }
+  .sunday_disp {
+    text-align: center;
+    width: 4em;
+    padding: 0.2em 2em;
+    border: 1px solid #da4b86;
+    border-radius: 20%;
+    background: #da4b86;
+    color: white;
+  }
+  .prev-month, .next-month {
+    background: #9d9da2!important;
+    color: #343a40;
+  }
+  .today {
+    background: #35759a!important;
+  }
+  .wday-0 {
+    color: #da4b86;
+  }
+  .wday-6 {
+    color: #4b8bda;
+  }
+}
+
+
+/* construction 関係 */
+
 #construction_schedule_calendar table {
   background-color: #47494a;
   color: white;

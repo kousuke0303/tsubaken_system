@@ -124,7 +124,9 @@ class Employees::EmployeesController < ApplicationController
 
     # schedule/sales_statusで使用
     def set_basic_schedules(day)
-      @schedules = Schedule.origins
+      @span = Span.new
+      @span.simple_calendar(day)
+      @schedules = Schedule.origins.where(scheduled_date: @span.first_day..@span.last_day)
       target_schedules = @schedules.joins(:member_code).where(scheduled_date: day)
       @schedules_of_day = target_schedules.sort_by{|schedule| schedule.scheduled_start_time.to_s(:time)}
                                           .group_by{|schedule| schedule[:member_code_id]}
