@@ -13,21 +13,11 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   before_action ->{set_menbers_code_for(@estimate_matter)}, only: :show
 
   def index
-    @sales_statuses = SalesStatus.order(created_at: "DESC")
-    current_person_in_charge
-    if params[:name].present?
-      @estimate_matters = @estimate_matters.get_id_by_name params[:name]
-    end
-    if params[:year].present? && params[:month].present?
-      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month]
-    end
+    current_person_in_charge(params)
   end
 
   def externals
-    current_person_in_charge
-    @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
-    @estimate_matters = @estimate_matters.get_id_by_name params[:name] if params[:name].present?
-    @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month] if params[:year].present? && params[:month].present?
+    current_person_in_charge(params)
   end
 
   def new
@@ -121,7 +111,8 @@ class Employees::EstimateMattersController < Employees::EmployeesController
                                               :address_street, :publisher_id, :client_id, :supplier_id, { member_code_ids: [] }, { vendor_ids: []})
     end
 
-    def current_person_in_charge
+    def current_person_in_charge(params)
+      @sales_statuses = SalesStatus.order(created_at: "DESC")
       if current_admin || current_manager
         @estimate_matters = EstimateMatter.all.order(created_at: :desc).eager_load(:client)
       elsif current_staff
@@ -129,6 +120,13 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       elsif current_external_staff
         @estimate_matters = current_external_staff.estimate_matters.order(created_at: :desc)
       end
+      if action_name.eql?("externals")
+        @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
+      else
+        @estimate_matters = @estimate_matters.where(supplier_id: nil)
+      end
+      @estimate_matters = @estimate_matters.get_id_by_name params[:name] if params[:name].present?
+      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month] if params[:year].present? && params[:month].present?
     end
 
     def delete_estimate_matter_relation_table

@@ -9,7 +9,7 @@
     <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
   </div>
 
-  <label class="form-control text-white" style="background: s#787a7b;">タイトル：内容</label>
+  <label class="form-control text-white" style="background: #787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
     <%= f.text_field :title, value: @title.present? ? @title : @estimate_matter.title, required: true, class: "form-control", maxlength: 30%>

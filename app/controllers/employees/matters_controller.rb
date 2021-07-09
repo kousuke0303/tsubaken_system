@@ -19,7 +19,7 @@ class Employees::MattersController < Employees::EmployeesController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(estimate_id: params[:matter][:estimate_id].to_i,
+    @matter = estimate_matter.build_matter(estimate_matter.attributes.except("supplier_id").merge(estimate_id: params[:matter][:estimate_id].to_i,
                                                                             scheduled_started_on: params[:matter][:scheduled_started_on],
                                                                             scheduled_finished_on: params[:matter][:scheduled_finished_on]))
     @matter.save ? @responce = "success" : @responce = "failure"
