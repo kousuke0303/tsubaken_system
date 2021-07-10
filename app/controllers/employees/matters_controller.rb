@@ -51,6 +51,7 @@ class Employees::MattersController < Employees::EmployeesController
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
     @construction_schedules = @matter.construction_schedules.includes(:materials, :vendor).order_start_date
+    @supplier = @estimate_matter.supplier
   end
 
   def edit

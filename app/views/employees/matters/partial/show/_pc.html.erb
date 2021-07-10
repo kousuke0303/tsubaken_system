@@ -41,6 +41,13 @@
     </div>
   </div>
 
+  <% if @supplier %>
+    <div class="mt-2e">
+      <h4>紹介元情報</h4>
+      <%= render "employees/estimate_matters/suppliers/partial/supplier_table" %>
+    </div>
+  <% end %>
+
   <div class="mt-2e">
     <div class="row">
       <div class="col-md-6">
