@@ -19,6 +19,7 @@
     <% if @contracted_estimate_matter.present? && @matter.nil? %>
       <%= link_to "着工案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-success mt-1e col-12" %>
     <% end %>
+     <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side"), remote: true, class: "btn btn-primary mt-1e col-12" %>
   </div>
 
   <%= link_to "本営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger mt-1e col-12" %>
