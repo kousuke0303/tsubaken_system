@@ -3,12 +3,32 @@
   $('#construction_schedule_table').html('<%= escape_javascript(render 'employees/matters/construction_schedules/partial/table') %>');
   $('#sub-title-container').html('<%= escape_javascript(render partial: 'shared/employees/sub_title', locals: {object: @matter, status: status_disp(@matter.status)}) %>');
   toastr.success('<%= @construction_schedule.title %>を作成しました');
+  
+  <!--通知処理-->
   var totalCount = <%= Notification.all.count %>;
   var reciever = <%= @construction_schedule.member_code_id %>
   var recieverCount = <%= @reciever_notification_count %>;
   var countArrey = [totalCount, reciever, recieverCount]
   localStorage.setItem('totalNotificationCount', totalCount);
   App.badge.speak(countArrey);
+  
+  <% if @construction_schedule.reciever_auth == "external_staff" %>
+    var reciever = <%= @construction_schedule.reciever_boss %>
+    var recieverCount = <%= @reciever_notification_count %>;
+    var countArrey = [totalCount, reciever, recieverCount]
+    localStorage.setItem('totalNotificationCount', totalCount);
+    App.badge.speak(countArrey);
+  <% end %>
+  
+  <!--削除通知-->
+  <% if @update_type == "member_change" %>
+    var reciever = <%= @construction_schedule.before_member_code %>
+    var recieverCount = <%= @reciever_notification_count %>;
+    var countArrey = [totalCount, reciever, recieverCount]
+    localStorage.setItem('totalNotificationCount', totalCount);
+    App.badge.speak(countArrey);
+  <% end %>
+  
   $('.modal-backdrop').removeClass('show');
   $('#modal-container').empty();
 <% else %>

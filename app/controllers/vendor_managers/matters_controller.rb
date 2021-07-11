@@ -92,7 +92,7 @@ class VendorManagers::MattersController < ApplicationController
     end
     
     def self_vendor_matter!
-      unless @matter.vendors.where(id: login_user.vendor.id).present
+      unless @matter.vendors.where(id: login_user.vendor.id).present?
         sign_out(login_user)
         flash[:alert] = "アクセス権限がありません"
         redirect_to root_url

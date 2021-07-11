@@ -41,6 +41,8 @@ class ConstructionSchedule < ApplicationRecord
   attr_accessor :before_content
   attr_accessor :before_title
   attr_accessor :sender_auth
+  attr_accessor :reciever_auth
+  attr_accessor :reciever_boss
 
 
   # calendar
@@ -137,15 +139,27 @@ class ConstructionSchedule < ApplicationRecord
       else
         set_member_code
         if self.before_member_code.present?
+          # 担当者変更
           if self.member_code_id != self.before_member_code
             Notification.create(create_notification_attributes)
             Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.before_member_code, construction_schedule_id: self.id,
                                 before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
                                 before_value_3: self.before_title, before_value_4: self.matter.title)
+            if self.reciever_auth == "external_staff"
+              Notification.create(category: 4, action_type: 2, sender_id: self.sender, reciever_id: self.reciever_boss, construction_schedule_id: self.id,
+                                before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
+                                before_value_3: self.before_title, before_value_4: self.matter.title)
+            end
+          # 担当者変更以外
           else
             Notification.create(category: 4, action_type: 1, sender_id: self.sender, reciever_id: self.member_code_id, construction_schedule_id: self.id,
                                 before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
                                 before_value_3: self.before_title)
+            if self.reciever_auth == "external_staff"
+              Notification.create(category: 4, action_type: 1, sender_id: self.sender, reciever_id: self.reciever_boss, construction_schedule_id: self.id,
+                                before_value_1: self.before_scheduled_started_on, before_value_2: self.scheduled_finished_on,
+                                before_value_3: self.before_title, before_value_4: self.matter.title)
+            end
           end
         else
           Notification.create(create_notification_attributes)
@@ -167,10 +181,11 @@ class ConstructionSchedule < ApplicationRecord
     end
 
     def set_member_code
-      if self.member_code.nil? && vendor_id.present?
+      if vendor_id.present? && MemberCode.find(self.member_code_id).parent.vendor_id != self.vendor_id
         vendor = Vendor.find(self.vendor_id)
         member_code_id = vendor.vendor_manager.member_code.id
         self.update_column(:member_code_id, member_code_id)
+        self.update_column(:member_name, vendor.vendor_manager.name)
       end
     end
 
