@@ -7,16 +7,18 @@
   <div class="mobile_type">
     <%= render 'employees/matters/partial/show/mobile/mobile' %>
   </div>
-  
+
   <div>
     <%= render 'employees/matters/partial/show/menu' %>
   </div>
-  
+
   <div class="mobile_type text-center mt-2e mb-1e">
     <%= link_to "見積案件", employees_estimate_matter_path(@estimate_matter), class: "btn btn-success col-12" %>
-    <%= link_to "本着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger col-12 mt-1e" %>
+    <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side", redirect: "matter"), remote: true, class: "btn btn-primary mt-1e col-12" %>
   </div>
-    
+
+  <%= link_to "本着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger col-12 mt-1e" %>
+
 </div>
 
 <% if @message %>

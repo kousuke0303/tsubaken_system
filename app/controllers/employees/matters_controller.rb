@@ -19,9 +19,9 @@ class Employees::MattersController < Employees::EmployeesController
   # 見積案件から案件を作成
   def create
     estimate_matter = EstimateMatter.find(params[:estimate_matter_id])
-    @matter = estimate_matter.build_matter(estimate_matter.attributes.merge(estimate_id: params[:matter][:estimate_id].to_i,
-                                                                            scheduled_started_on: params[:matter][:scheduled_started_on],
-                                                                            scheduled_finished_on: params[:matter][:scheduled_finished_on]))
+    @matter = estimate_matter.build_matter(estimate_matter.attributes.except("supplier_id").merge(estimate_id: params[:matter][:estimate_id].to_i,
+                                                                                                  scheduled_started_on: params[:matter][:scheduled_started_on],
+                                                                                                  scheduled_finished_on: params[:matter][:scheduled_finished_on]))
     @matter.save ? @responce = "success" : @responce = "failure"
   end
 
@@ -51,6 +51,8 @@ class Employees::MattersController < Employees::EmployeesController
     set_images_of_report_cover if @report_cover.present?
     gon.matter_id = @matter.id
     @construction_schedules = @matter.construction_schedules.includes(:materials, :vendor).order_start_date
+    @supplier = @estimate_matter.supplier
+    @msg_to_switch_type = @estimate_matter.supplier_id ? "自社案件に切替" : "他社案件に切替"
   end
 
   def edit
