@@ -4,6 +4,7 @@
   </div>
   <div class="col-md-6 text-right">
     <%= link_to "見積案件", employees_estimate_matter_path(@estimate_matter), class: "btn btn-dark" %>
+     <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side"), remote: true, class: "btn btn-primary" %>
   </div>
 </div>
 

@@ -52,6 +52,7 @@ class Employees::MattersController < Employees::EmployeesController
     gon.matter_id = @matter.id
     @construction_schedules = @matter.construction_schedules.includes(:materials, :vendor).order_start_date
     @supplier = @estimate_matter.supplier
+    @msg_to_switch_type = @estimate_matter.supplier_id ? "自社案件に切替" : "他社案件に切替"
   end
 
   def edit
