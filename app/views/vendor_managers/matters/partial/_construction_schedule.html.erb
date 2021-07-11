@@ -1,7 +1,6 @@
 <div class="table-responsible">
   <table class="table table-bordered text-nowrap table-column-type">
     <tr>
-      <th rowspan="2" style="border-bottom: 1px solid black"></th>
       <th colspan="2">タイトル</th>
       <th rowspan="2" style="border-bottom: 1px solid black">担当者</th>
       <th rowspan="2" style="border-bottom: 1px solid black">材料</th>
@@ -17,7 +16,6 @@
     </tr>
     <% construction_schedules.each_with_index do |construction, index| %>
       <tr>
-        <td rowspan="2" style="border-bottom: 1px solid black"></td>
         <td colspan="2">
           <%= link_to vendor_managers_matter_path(construction.matter) do %>
             <%= construction.matter.title %>

@@ -136,17 +136,36 @@ class Employees::Matters::ConstructionSchedulesController < Employees::Employees
     def attr_set_for_update
       @construction_schedule.sender = login_user.member_code.id
       @construction_schedule.before_title = @construction_schedule.title
+      # 担当者変更
       if params[:construction_schedule][:member_code_id].to_i != @construction_schedule.member_code_id
         @construction_schedule.before_member_code = @construction_schedule.member_code_id
+        @update_type = "member_change"
       end
+      # 着工予定日変更
       if params[:construction_schedule][:scheduled_started_on] != @construction_schedule.scheduled_started_on
         @construction_schedule.before_scheduled_started_on = @construction_schedule.scheduled_started_on
       end
+      # 完了予定日変更
       if params[:construction_schedule][:scheduled_finished_on] != @construction_schedule.scheduled_finished_on
         @construction_schedule.before_scheduled_finisied_on = @construction_schedule.scheduled_finished_on
       end
+      # 内容変更
       if params[:construction_schedule][:content] != @construction_schedule.content
         @construction_schedule.before_content = @construction_schedule.content
+      end
+      # 上司に通知
+      if @update_type.present?
+        before_member = MemberCode.find(@construction_schedule.member_code_id)
+        if before_member.parent.auth == "external_staff"
+          @construction_schedule.reciever_auth = "external_staff"
+          @construction_schedule.reciever_boss =  before_member.parent.boss.member_code.id
+        end
+      else
+        member = MemberCode.find(@construction_schedule.member_code_id)
+        if member.parent.auth == "external_staff"
+          @construction_schedule.reciever_auth = "external_staff"
+          @construction_schedule.reciever_boss =  before_member.parent.boss.member_code.id
+        end
       end
     end
 

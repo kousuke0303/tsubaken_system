@@ -68,7 +68,11 @@ class ExternalStaff < ApplicationRecord
   #---------------------------------------------------
      # INSTANCE_METHOD
   #---------------------------------------------------
-
+  
+  def boss
+    VendorManager.find_by(vendor_id: self.vendor_id)
+  end
+  
   def matters
     Matter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
