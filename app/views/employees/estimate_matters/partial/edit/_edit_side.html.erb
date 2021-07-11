@@ -16,3 +16,4 @@
     <%= f.collection_select :supplier_id, @suppliers, :id, :name, { include_blank: "選択してください" }, class: "form-control", required: true %>
   </div>
 <% end %>
+<%= content_tag(:input, "", class: "d-none", name: "redirect", type: "text", value: "matter") if params["redirect"].eql?("matter") %>

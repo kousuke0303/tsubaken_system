@@ -91,8 +91,13 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       if params[:estimate_matter][:vendor_ids].present?
         delete_vendor_staff_for_delete_vendor
       end
-      flash[:success] = "見積案件を更新しました"
-      redirect_to employees_estimate_matter_url(@estimate_matter)
+      if params["redirect"].eql?("matter") #着工案件showから編集時は、着工案件showページにリダイレクト
+        flash[:success] = "着工案件を更新しました"
+        redirect_to employees_matter_url(@estimate_matter.matter)
+      else #営業案件showから編集時は、営業案件showページにリダイレクト
+        flash[:success] = "見積案件を更新しました"
+        redirect_to employees_estimate_matter_url(@estimate_matter)
+      end
     end
   end
 
