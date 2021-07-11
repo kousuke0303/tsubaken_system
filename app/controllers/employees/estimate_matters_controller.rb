@@ -59,7 +59,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
   end
 
   def edit
-    # @supplier = @estimate_matter.supplier
     @attract_methods = (@supplier = @estimate_matter.supplier) ?  AttractMethod.where.not(id: 1).order(position: :asc) : AttractMethod.where(id: 1)
     # @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
@@ -77,8 +76,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     when "vendor_staff"
       @edit_type = "vendor_staff"
       @vendor = Vendor.find(params[:vendor_id])
-      @vendor_staff_codes_ids = @vendor.external_staffs.joins(:member_code)
-                                                           .select('external_staffs.*, member_codes.id AS member_code_id')
+      @vendor_staff_codes_ids = @vendor.external_staffs.joins(:member_code).select('external_staffs.*, member_codes.id AS member_code_id')
     when "alert"
       @edit_type = "vendor_alert"
       difference_ids = params[:difference].map{|id| id.to_i }
@@ -119,7 +117,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     def current_person_in_charge(params)
       @sales_statuses = SalesStatus.order(created_at: "DESC")
       if current_admin || current_manager
-        @estimate_matters = EstimateMatter.all.order(created_at: :desc).eager_load(:client)
+        @estimate_matters = EstimateMatter.page(params[:page]).per(20).order(created_at: :desc).eager_load(:client)
       elsif current_staff
         @estimate_matters = current_staff.estimate_matters.order(created_at: :desc)
       elsif current_external_staff
@@ -145,8 +143,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
     def delete_vendor_staff_for_delete_vendor
       vendors_ids = @estimate_matter.vendors.ids
-      delete_vendor_staffs = @estimate_matter.member_codes.joins(:external_staff)
-                                               .where.not(external_staffs: {vendor_id: vendors_ids})
+      delete_vendor_staffs = @estimate_matter.member_codes.joins(:external_staff).where.not(external_staffs: { vendor_id: vendors_ids })
       delete_matter_member_codes = @estimate_matter.estimate_matter_member_codes.where(member_code_id: delete_vendor_staffs)
       delete_matter_member_codes.each do |matter_member_code|
         matter_member_code.destroy
@@ -161,7 +158,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     end
 
     def set_certificate_variable
-      @estimate_matter.cover.present? ?  @cover = @estimate_matter.cover :  @cover = @estimate_matter.build_cover
+      @estimate_matter.cover.present? ? @cover = @estimate_matter.cover : @cover = @estimate_matter.build_cover
       @certificates = @estimate_matter.certificates.order(position: :asc)
       @images = @estimate_matter.images.where(certificate_list: true).select { |image| image.image.attached? }
       @cover_image = @estimate_matter.images.find_by(cover_list: true)
