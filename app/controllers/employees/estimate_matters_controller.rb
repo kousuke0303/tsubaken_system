@@ -1,7 +1,7 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
 
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy, :change_member, :update_member]
-  before_action ->{can_access_only_of_member(@estimate_matter)}, except: :index
+  before_action ->{can_access_only_of_member(@estimate_matter)}, except: [:index, :externals]
 
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_employees, only: [:new, :show, :edit, :change_member, :update_member]
@@ -119,9 +119,7 @@ class Employees::EstimateMattersController < Employees::EmployeesController
       if current_admin || current_manager
         @estimate_matters = EstimateMatter.page(params[:page]).per(20).order(created_at: :desc).eager_load(:client)
       elsif current_staff
-        @estimate_matters = current_staff.estimate_matters.order(created_at: :desc)
-      elsif current_external_staff
-        @estimate_matters = current_external_staff.estimate_matters.order(created_at: :desc)
+        @estimate_matters = EstimateMatter.page(params[:page]).per(20).eager_load(:member_codes).where(member_codes: { id: current_staff.member_code.id }).order(created_at: :desc)
       end
       if action_name.eql?("externals")
         @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
