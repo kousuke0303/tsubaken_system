@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_29_062736) do
+ActiveRecord::Schema.define(version: 2021_07_14_234001) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -693,6 +693,15 @@ ActiveRecord::Schema.define(version: 2021_06_29_062736) do
     t.index ["member_code_id"], name: "index_tasks_on_member_code_id"
   end
 
+  create_table "user_devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "instance_id", null: false
+    t.string "platform"
+    t.bigint "member_code_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_code_id"], name: "index_user_devices_on_member_code_id"
+  end
+
   create_table "vendor_estimate_matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estimate_matter_id", null: false
     t.bigint "vendor_id"
@@ -804,6 +813,7 @@ ActiveRecord::Schema.define(version: 2021_06_29_062736) do
   add_foreign_key "staffs", "label_colors"
   add_foreign_key "tasks", "estimate_matters"
   add_foreign_key "tasks", "matters"
+  add_foreign_key "user_devices", "member_codes"
   add_foreign_key "vendor_estimate_matters", "estimate_matters"
   add_foreign_key "vendor_estimate_matters", "vendors"
   add_foreign_key "vendor_managers", "vendors"

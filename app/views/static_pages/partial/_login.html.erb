@@ -8,7 +8,7 @@
     </p>
     <%= f.text_field :login_id, maxlength: 12, required: true, placeholder: "Login_id", class: "login-username" %>
     <%= f.password_field :password, maxlength: 12, required: true, placeholder: "Password", class: "login-password" %>
-
+    <%= f.hidden_field :instance_id, id: "instance_id" %>
     <div class="text-center mt-1e">
       <%= f.submit "ログイン", id: "login-submit", class: "btn btn-dark", style: "z-index: 5;" %>
     </div>
@@ -36,6 +36,8 @@
   <!--  <!% end %>     -->
   <!--</fieldset>-->
 </div>
+
+<%= javascript_include_tag 'userDeviceId.js' %>
 
 <script>
   // 入力された従業員IDに合わせてログインフォームを、管理者、マネージャー、スタッフ、外部スタッフ、顧客に変更

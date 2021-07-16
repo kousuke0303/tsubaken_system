@@ -53,6 +53,8 @@ gem 'phonelib'
 gem 'gon'
 # PWA
 gem 'serviceworker-rails'
+# fcm
+gem 'googleauth'
 
 group :development, :test do
   gem 'mysql2'

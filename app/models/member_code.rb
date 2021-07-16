@@ -17,6 +17,8 @@ class MemberCode < ApplicationRecord
   has_many :send_notifications, class_name: "Notification", foreign_key: "sender_id", dependent: :destroy
   has_many :recieve_notifications, class_name: "Notification", foreign_key: "reciever_id", dependent: :destroy
 
+  has_many :user_devices, dependent: :destroy
+
   has_one :schedule
   has_one :sales_status
   has_one :sales_status_editor
