@@ -55,6 +55,10 @@ gem 'gon'
 gem 'serviceworker-rails'
 # fcm
 gem 'googleauth'
+# ページネーション
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+
 
 group :development, :test do
   gem 'mysql2'
@@ -74,7 +78,7 @@ end
 group :test do
   gem 'capybara'
   gem 'webdrivers'
-  gem 'rspec_junit_formatter'  
+  gem 'rspec_junit_formatter'
 end
 
 group :production do
