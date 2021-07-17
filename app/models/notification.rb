@@ -46,8 +46,9 @@ class Notification < ApplicationRecord
         message: {
           token: reciever_user_devices.first.instance_id,
           notification: {
-            title: 'test push notification',
-            body: 'notification message from fcm.'
+            title: 'Emperor-Paint',
+            body: '新着情報があります',
+            # icon: File.expand_path("appicon/icon-72x72.png")
           },
           # android: {
           #   notification: {

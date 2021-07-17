@@ -1,6 +1,8 @@
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
+  navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: './' })
     .then(function(reg) {
-      console.log('[Companion]', 'Service worker registered!');
+      console.log('firebase-messaging-sw.js registration successful with scope: ', reg.scope);
+    }, function (err) {
+      console.log('firebase-messaging-sw.js registration failed: ', err);
     });
 }

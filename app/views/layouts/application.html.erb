@@ -63,6 +63,7 @@
     <%= javascript_include_tag 'setLocalStorage' %>
     <body>
       <!--localStorage-->
+      <%= javascript_include_tag 'recievePushNotification' %>
       <script>
         $(function(){
           var memberCode = <%= login_user.member_code.id %>;
