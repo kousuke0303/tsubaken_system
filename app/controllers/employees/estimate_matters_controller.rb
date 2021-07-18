@@ -25,15 +25,11 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @clients = Client.all
     @suppliers = Vendor.all
     @attract_methods = AttractMethod.order(position: :asc)
-    if params[:client_id]
-      client = Client.find(params[:client_id])
-      @id = client.id
-      @title = "#{ client.name } 様邸"
-      @postal_code = client.postal_code
-      @prefecture_code = client.prefecture_code
-      @address_city = client.address_city
-      @address_street = client.address_street
-    end
+  end
+
+  # 顧客の選択時、顧客情報をフォームに反映
+  def apply_client
+    @client = Client.find(params[:client_id])
   end
 
   def create

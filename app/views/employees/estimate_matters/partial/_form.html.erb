@@ -2,7 +2,7 @@
   <label class="form-control text-white" style="background: #787a7b;">依頼者：集客方法</label>
   <div class="col-md-6 col-12">
     <%= f.label :client_id %>
-    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", id: "select_client", required: true %>
+    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", required: true %>
   </div>
   <div class="col-md-6 col-12">
     <%= f.label :attract_method_id %>
@@ -12,7 +12,7 @@
   <label class="form-control text-white" style="background: #787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
-    <%= f.text_field :title, value: @title.present? ? @title : @estimate_matter.title, required: true, class: "form-control", maxlength: 30%>
+    <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
   </div>
   <div class="col-md-6">
     <%= f.label :publisher_id %>
@@ -26,20 +26,20 @@
   <label class="form-control text-white" style="background: #787a7b;">現場住所</label>
   <div class="col-12">
     <%= f.label :postal_code %>
-    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
   </div>
   <div class="col-12 row">
     <div class="col-md-6">
       <%= f.label :prefecture_code %>
-      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, id: "prefecture_code", class: "form-control" %>
+      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, class: "form-control" %>
     </div>
     <div class="col-md-6">
       <%= f.label :address_city %>
-      <%= f.text_field :address_city, value: @address_city, id: "address_city", class: "form-control" %>
+      <%= f.text_field :address_city, class: "form-control" %>
     </div>
     <div class="col-12">
       <%= f.label :address_street %>
-      <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
+      <%= f.text_field :address_street, class: "form-control" %>
     </div>
   </div>
 
@@ -65,11 +65,11 @@
 
 <script>
   // 顧客選択時、顧客情報をフォームに反映
-  $('#select_client').on('change', function() {
-    var value = $('#select_client option:selected').val();
+  $('[name="estimate_matter[client_id]"]').on("change", function() {
+    var value = $('[name="estimate_matter[client_id]"] option:selected').val();
     $.ajax({
       type: "GET",
-      url: "<%= new_employees_estimate_matter_path %>",
+      url: "<%= apply_client_employees_estimate_matters_path %>",
       cache: false,
       data: { client_id: value }
     });
@@ -89,9 +89,7 @@
 </script>
 
 <% if @staff_codes.present? %>
-  <script>
     $(document).ready( function(){
       $('#select_staff').val(<%= @staff_codes.ids %>).trigger('change');
     });
-  </script>
 <% end %>

@@ -258,6 +258,7 @@ Rails.application.routes.draw do
 
     resources :estimate_matters do
       get :externals, on: :collection
+      get :apply_client, on: :collection
 
       # resources :talkrooms, only: [:index, :create] do
       #   get :scroll_get_messages, on: :collection
