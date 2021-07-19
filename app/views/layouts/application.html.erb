@@ -22,6 +22,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.1.0/jquery.sidebar.min.js"></script>
     <%= javascript_include_tag "jquery.sliderPro.min.js" %>
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag 'recievePushNotification' %>
     <%= render "layouts/head/shim" %>
     <%= render "layouts/head/apple_touch_icon" %>
     <%= favicon_link_tag '/appicon/favicon.ico' %>
@@ -62,8 +63,6 @@
     <%= render "layouts/modal" %>
     <%= javascript_include_tag 'setLocalStorage' %>
     <body>
-      <!--localStorage-->
-      <%= javascript_include_tag 'recievePushNotification' %>
       <script>
         $(function(){
           var memberCode = <%= login_user.member_code.id %>;
