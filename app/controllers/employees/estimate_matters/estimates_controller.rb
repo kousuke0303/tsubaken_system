@@ -1,5 +1,6 @@
-class Employees::EstimateMatters::EstimatesController < Employees::EstimateMatters::EstimateMattersController
+class Employees::EstimateMatters::EstimatesController < Employees::EmployeesController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_categories, only: [:new, :edit]
   before_action :set_plan_names, only: [:new, :edit]
   before_action :set_estimates_with_plan_names_and_label_colors, only: :index

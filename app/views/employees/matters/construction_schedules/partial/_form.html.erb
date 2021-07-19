@@ -1,7 +1,8 @@
-<div class="check_boxes mt-1e">
+<label class="form-control text-white" style="background:#787a7b;">依頼人に公開・非公開</label>
+<div class="check_boxes mt-1e ml-1e">
   <div id="auto_set_select">
     <%= f.check_box :disclose, {id: "public"}, true, false %>
-    <label for="public">公開</label>
+    <label for="public" id="disclose-condition">公開</label>
   </div>
   <%= f.hidden_field :disclose, id: "disclose" %>
 </div>
@@ -11,7 +12,10 @@
 <%= f.text_field :title, required: true, class: "form-control", maxlength: 30, id: "task-title" %>
 
 <%= f.label :content %>
-<%= f.text_area :content, class: "form-control", maxlength: 3000, id: "task-content" %>
+<div class="FlexTextarea">
+  <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+  <%= f.text_area :content, class: "FlexTextarea__textarea", id: "construction-schedule-content" %>
+</div>
 
 <label class="form-control text-white" style="background:#787a7b;">予定</label>
 <div class="row">
@@ -42,25 +46,43 @@
 <label class="form-control text-white" style="background:#787a7b;">担当者</label>
 <h6 class="mt-1e">担当者</h6>
 <div>
-  <%= f.select :supplier_id, options_for_select(@suppliers.map{|supplier| [supplier.name, supplier.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "supplier_select" %>
+  <%= f.select :vendor_id, options_for_select(@vendors.map{|vendor| [vendor.name, vendor.id]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "vendor_select" %>
 </div>
 
 <script>
-  <% if @construction_schedule.supplier_id.present? %>
+  <% if @construction_schedule.vendor_id.present? %>
     $(function(){
-      var value = <%=  @construction_schedule.supplier_id %>
-      $('#supplier_select').val(value);
+      var value = <%=  @construction_schedule.vendor_id %>
+      $('#vendor_select').val(value);
     });
   <% end %>
 </script>
 
 <script>
+  $(function(){
+    <% if @construction_schedule.disclose == false %>
+      $('#disclose-condition').text('非公開');
+    <% end %>
+  });
+  
   $('#public').on('change', function(){
     var value = $(this).prop('checked');
     $('#disclose').val(value);
+    if(value){
+      $('#disclose-condition').text('公開');
+    } else {
+      $('#disclose-condition').text('非公開');
+    }
   });
 </script>
-        
-        
 
+<script>
+  function flexTextarea(el) {
+    const dummy = el.querySelector('.FlexTextarea__dummy')
+    el.querySelector('.FlexTextarea__textarea').addEventListener('input', e => {
+      dummy.textContent = e.target.value + '\u200b'
+    })
+  }
 
+  document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
+</script>

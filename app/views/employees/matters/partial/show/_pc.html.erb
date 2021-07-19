@@ -3,7 +3,8 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "着工案件", title_2: "#{ @matter.title } 詳細", icon: "fa-clipboard"} %>
   </div>
   <div class="col-md-6 text-right">
-    <%= link_to "この着工案件を削除", employees_matter_path(@matter), method: :delete, data: { confirm: "この案件を削除してよろしいですか？" }, class: "btn btn-danger" %>
+    <%= link_to "見積案件", employees_estimate_matter_path(@estimate_matter), class: "btn btn-dark" %>
+     <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side", redirect: "matter"), remote: true, class: "btn btn-primary" %>
   </div>
 </div>
 
@@ -16,7 +17,7 @@
   <div class="mt-1e">
     <h4>基本情報</h4>
     <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "basic"), remote: true, class: "btn btn-success float-r" %>
-    
+
     <div class="table-responsive">
       <table class="table table-bordered text-nowrap mt-5">
         <tr>
@@ -40,7 +41,14 @@
       </table>
     </div>
   </div>
-  
+
+  <% if @supplier %>
+    <div class="mt-2e">
+      <h4>紹介元情報</h4>
+      <%= render "employees/estimate_matters/suppliers/partial/supplier_table" %>
+    </div>
+  <% end %>
+
   <div class="mt-2e">
     <div class="row">
       <div class="col-md-6">
@@ -53,20 +61,20 @@
     </div>
     <%= render partial: 'employees/matters/clients/partial/client_table' %>
   </div>
-  
+
   <div class="mt-2e">
     <h4>当社担当者</h4>
     <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "staff"), remote: true, class: "btn btn-success float-r" %>
     <%= render partial: 'common_layouts/person_in_charge/person_in_charge',
                locals: { object: @matter } %>
   </div>
-  
+
   <div class="mt-2e">
     <h4>担当業者様</h4>
-    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "supplier"), remote: true, class: "btn btn-success float-r" %>
-    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_employees_matter_path} %>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "vendor"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @matter, path: :edit_employees_matter_path} %>
   </div>
-  
+
   <div class="mt-2e">
     <%= render partial: 'shared/employees/band_select/band_select',
                locals: { path: "employees/matters/partial/select_band_display"} %>

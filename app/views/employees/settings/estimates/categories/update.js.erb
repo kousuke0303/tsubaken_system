@@ -1,9 +1,9 @@
 <% if @responce == "success" %>
-  $("#category-edit").modal('hide');
-  $("#category-edit").empty();
+  $("#modal-container").modal('hide');
   $('.categories-index').html('<%= escape_javascript(render 'employees/settings/estimates/categories/partial/index_table') %>');
   toastr.success("<%= @category.name %>を更新しました");
   $('#classification_disp_check .checkbox').prop('checked', false);
+  $("#modal-container").empty();
 <% else @responce == "failure" %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".category-update-errors", model: @category, object: "category"} %>
 <% end %>

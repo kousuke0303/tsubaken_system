@@ -22,7 +22,10 @@
     <%= f.text_field :title, id: "title", maxlength: 30, class: "form-control" %>
     
     <%= f.label :content %>
-    <%= f.text_area :content, id: "certificate_content", maxlength: 300, class: "form-control", style: "height: 15em" %>
+    <div class="FlexTextarea">
+      <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+      <%= f.text_area :content, class: "FlexTextarea__textarea", id: "certificate_content" %>
+    </div>
     
     <%= f.hidden_field :image_id, value: @image.id %>
   </div>
@@ -39,4 +42,15 @@
               remote: true }
     });
   });
+</script>
+
+<script>
+  function flexTextarea(el) {
+    const dummy = el.querySelector('.FlexTextarea__dummy')
+    el.querySelector('.FlexTextarea__textarea').addEventListener('input', e => {
+      dummy.textContent = e.target.value + '\u200b'
+    })
+  }
+  
+  document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
 </script>

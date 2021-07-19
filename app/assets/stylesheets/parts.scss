@@ -7,7 +7,7 @@
 .tab-wrap {
   display: flex;
   flex-wrap: wrap;
-  margin:20px 0;
+  margin: 20px 0;
 }
 
 .tab-wrap:after {
@@ -68,19 +68,57 @@
 }
 
 .tab-label:after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    content: '';
-    width: 0;
-    border-width: 0 16px 16px 0;
-    border-style: solid;
-    border-color: #fff #fff #ddd #ddd;
-    box-shadow: -1px 1px 2px rgba(0, 0, 0, .1);
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  width: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: #fff #fff #ddd #ddd;
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, .1);
+}
+
+.tab-link {
+  font-weight: bold;
+  background: LightGray;
+  padding: 10px .5em;
+  order: -1;
+  z-index: 1;
+  border-radius: 5px 5px 0 0;
+  flex: 1;
+  a {
+    padding: 10px .5em;
+  }
+}
+
+.tab-link:not(:last-of-type) {
+  margin-right: 5px;
+}
+
+.tab-link.impassive {
+  background: #325A8C;
+  margin-top: -0.5rem;
+  transition: margin .3s;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-link:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  width: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: #fff #fff #ddd #ddd;
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, .1);
 }
 
 ////////////////////////////////////////////////////
- 
+
 /* -----------------------------------------------------
   DOUBLE-LINE 見出し
 -----------------------------------------------------*/
@@ -112,8 +150,55 @@
 }
 
 
-@media screen and (max-width: 480px) { 
+@media screen and (max-width: 480px) {
   .double-line h4 {
-    font-size: 20px;  
+    font-size: 20px;
   }
+}
+
+/* -----------------------------------------------------
+ CHECKBOX SWITCH
+-----------------------------------------------------*/
+
+.switch-check-box {
+  width: 5.5rem;
+  height: 2.5rem;
+  position: relative;
+
+  input { opacity: 0; }
+  label {
+    position: absolute;
+    background-color: #bfbfbe;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    border-radius: 3.125rem;
+    margin: 0 auto;
+    -webkit-transition: background-color .2s ease-in-out;
+            transition: background-color .2s ease-in-out;
+  }
+  label:after {
+    content: "";
+    display: block;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 3.125rem;
+    cursor: pointer;
+    position: absolute;
+    top: .3125rem;
+    z-index: 1;
+    left: .5rem;
+    background-color: #FFFFFD;
+    -webkit-transition: left .2s ease-in-out;
+            transition: left .2s ease-in-out;
+  }
+  input[type=checkbox]:checked ~ label {
+    background-color: #be4fa6;
+  }
+
+  input[type=checkbox]:checked ~ label:after {
+    left: 3.125rem;
+  }
+
 }

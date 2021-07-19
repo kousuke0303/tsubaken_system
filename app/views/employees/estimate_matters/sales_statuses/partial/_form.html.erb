@@ -1,15 +1,29 @@
-<%= f.label :status %>
-<%= f.select :status, @statuses, {}, required: true, class: "form-control" %>
-
-<h6 class="mt-1e">担当者</h6>
-<div>
-  <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
-</div>
-
-<%= f.label :scheduled_date %>
-<%= f.date_field :scheduled_date, required: true, class: "form-control" %>
-
 <div class="row">
+  <label class="form-control text-white" style="background:#787a7b;">営業記録</label>
+  <div class="col-md-6 col-12">
+    <%= f.label :status %>
+    <%= f.select :status, @statuses, {}, required: true, class: "form-control" %>
+  </div>
+  <div class="col-md-6 col-12">
+    <h6 class="mt-1e">担当者</h6>
+    <div>
+      <%= f.select :member_code_id, options_for_select(@group.map{|code|[member_name_from_member_code_id(code), code]}), {include_blank: "選択してください"}, required: true, class: "form-control", id: "member_select" %>
+    </div>
+  </div>
+  <div class="col-12">
+    <%= f.label :scheduled_date %>
+    <%= f.date_field :scheduled_date, required: true, class: "form-control" %>
+  </div>
+  <div class="col-12">
+    <%= f.label :place %>
+    <%= f.text_field :place, class: "form-control" %>
+  </div>
+  <div class="col-12">
+    <%= f.label :note %>
+    <%= f.text_area :note, maxlength: 300, class: "form-control" %>
+  </div>
+  
+  <label class="form-control text-white" style="background:#787a7b;">スケジュール登録</label>
   <div class="col-md-6">
     <%= f.label :scheduled_start_time %>
     <%= f.time_field :scheduled_start_time, class: "form-control" %>
@@ -19,12 +33,6 @@
     <%= f.time_field :scheduled_end_time, class: "form-control" %>
   </div>
 </div>
-
-<%= f.label :place %>
-<%= f.text_field :place, class: "form-control" %>
-
-<%= f.label :note %>
-<%= f.text_area :note, maxlength: 300, class: "form-control" %>
 
 <% if @type == "new" %>
   <%= f.check_box :register_for_schedule, {}, 1, 0 %>

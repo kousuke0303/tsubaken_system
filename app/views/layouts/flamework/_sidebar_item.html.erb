@@ -4,36 +4,51 @@
       <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
     <% end %>
   </li>
+
   <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-paint-roller"></i><span class="ml-1e">着工案件管理</span>
+    <%= link_to "#matter-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
+      <i class="fas fa-building"></i><span class="ml-1e">着工管理</span>
     <% end %>
-  </li>
-  <li>
-    <%= link_to employees_clients_path do %>
-     <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
-   <% end %>
-  </li>
-  <li>
-    <%= link_to "#supplier-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
-      <i class="fas fa-building"></i><span class="ml-1e">外注先管理</span>
-    <% end %>
-    <ul class="collapse list-unstyled" id="supplier-menu">
+    <ul class="collapse list-unstyled" id="matter-menu">
       <li>
-        <%= link_to employees_suppliers_path  do %>
-          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">企業登録</span>
+        <%= link_to employees_matters_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">着工案件一覧</span>
         <% end %>
       </li>
       <li>
-        <%= link_to employees_external_staffs_path do %>
-          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">外部STAFF登録</span>
+        <%= link_to employees_construction_reports_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span span class="ml-1e">作業報告</span>
         <% end %>
       </li>
     </ul>
   </li>
-  
+
   <li>
-    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to employees_clients_path do %>
+      <i class="fas fa-address-book"></i></i><span class="ml-1e">顧客管理</span>
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to "#vendor-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
+      <i class="fas fa-building"></i><span class="ml-1e">外注先管理</span>
+    <% end %>
+    <ul class="collapse list-unstyled" id="vendor-menu">
+      <li>
+        <%= link_to employees_vendors_path  do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">企業登録</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to employees_external_staffs_path do %>
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">外部STAFF登録</span>
+        <% end %>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <%= link_to "#employees-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-user-tie"></i><span class="ml-1e">従業員管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="employees-menu">
@@ -49,9 +64,9 @@
       </li>
     </ul>
   </li>
-  
+
   <li>
-    <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#attendances-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
     <% end %>
     <ul class="collapse list-unstyled" id="attendances-menu">
@@ -67,30 +82,32 @@
       </li>
     </ul>
   </li>
+
   <li>
     <%= link_to employees_schedules_path do %>
      <i class="fas fa-calendar-alt"></i><span class="ml-1e">スケジュール管理</span>
     <% end %>
-  </li>  
+  </li>
+
   <li>
     <%= link_to employees_inquiries_path do %>
       <i class="fa fa-question-circle"></i><span class="ml-1e">お問合せ管理</span>
     <% end %>
   </li>
+
   <li>
-    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false', class: "dropdown-toggle" do %>
+    <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
       <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
     <% end %>
-    <!--<a href="#settings-menu" data-toggle="collapse" aria-expanded="false" class="">設定</a>-->
     <ul class="collapse list-unstyled" id="settings-menu">
       <li>
         <%= link_to employees_settings_companies_path do %>
-          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">会社情報関連</span> 
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">会社情報関連</span>
         <% end %>
       </li>
       <li>
         <%= link_to employees_settings_estimates_path do %>
-          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">見積書作成関連</span> 
+          <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">見積書作成関連</span>
         <% end %>
       </li>
       <li>
@@ -105,7 +122,7 @@
       </li>
       <li>
         <%= link_to employees_settings_tasks_path do %>
-           <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">デフォルトタスク</span> 
+           <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">デフォルトタスク</span>
         <% end %>
       </li>
       <li>
@@ -115,39 +132,6 @@
       </li>
     </ul>
   </li>
-  
-<% elsif current_staff %>
-  <li>
-    <%= link_to employees_estimate_matters_path do %>
-      <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to employees_matters_path do %>
-      <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to employees_suppliers_path do %>
-      <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to employees_clients_path do %>
-      <i class="fas fa-address-book"></i><span class="ml-1e">顧客管理</span>
-   <% end %>
-  </li>
-  <li>
-    <%= link_to employees_schedules_path do %>
-     <i class="fas fa-calendar-alt"></i><span class="ml-1e">スケジュール管理</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to staffs_attendances_path do %>
-      <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
-    <% end %>
-  </li>
-
 <% elsif current_client %>
   <li>
     <%= link_to clients_estimate_matters_path do %>

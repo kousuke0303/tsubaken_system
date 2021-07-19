@@ -1,41 +1,35 @@
 class Employees::EstimateMattersController < Employees::EmployeesController
-  
+
   before_action :set_estimate_matter, only: [:show, :edit, :update, :destroy, :change_member, :update_member]
-  before_action ->{can_access_only_of_member(@estimate_matter)}, except: :index
-  
+  before_action ->{can_access_only_of_member(@estimate_matter)}, except: [:index, :externals]
+
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_employees, only: [:new, :show, :edit, :change_member, :update_member]
   before_action :all_staff_and_external_staff_code, only: [:new, :edit, :change_member]
-  
+
   before_action :set_estimates_with_plan_names_and_label_colors, only: :show
   before_action :set_estimate_details, only: :show
   before_action :set_matter_of_estimate_matter, only: :show
   before_action ->{set_menbers_code_for(@estimate_matter)}, only: :show
-  
+
   def index
-    @sales_statuses = SalesStatus.order(created_at: "DESC")
-    current_person_in_charge
-    if params[:name].present?
-      @estimate_matters = @estimate_matters.get_id_by_name params[:name]
-    end
-    if params[:year].present? && params[:month].present?
-      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month]
-    end
+    current_person_in_charge(params)
+  end
+
+  def externals
+    current_person_in_charge(params)
   end
 
   def new
     @estimate_matter = EstimateMatter.new
     @clients = Client.all
+    @suppliers = Vendor.all
     @attract_methods = AttractMethod.order(position: :asc)
-    if params[:client_id]
-      client = Client.find(params[:client_id])
-      @id = client.id
-      @title = "#{ client.name } 様邸" 
-      @postal_code = client.postal_code
-      @prefecture_code = client.prefecture_code
-      @address_city = client.address_city
-      @address_street = client.address_street
-    end
+  end
+
+  # 顧客の選択時、顧客情報をフォームに反映
+  def apply_client
+    @client = Client.find(params[:client_id])
   end
 
   def create
@@ -50,51 +44,54 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
   def show
     gon.estimate_matter_id = @estimate_matter.id
-    @matter = @estimate_matter.matter
-    @publisher = @estimate_matter.publisher
-    @client = @estimate_matter.client
-    @suppliers = @estimate_matter.suppliers
+    set_estimate_matter_variable
+    set_certificate_variable
     @sales_statuses = @estimate_matter.sales_statuses.order(created_at: "DESC")
     set_classified_tasks(@estimate_matter)
-    @cover = @estimate_matter.cover
-    @certificates = @estimate_matter.certificates.order(position: :asc)
-    @images = @estimate_matter.images.select { |image| image.image.attached? }
     @contracted_estimate_matter = SalesStatus.contracted_estimate_matter(@estimate_matter.id)
     @estimate_details = @estimates.with_estimate_details
-    @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
+    @supplier = @estimate_matter.supplier
+    @msg_to_switch_type = @estimate_matter.supplier_id ? "自社案件に切替" : "他社案件に切替"
   end
 
   def edit
-    @attract_methods = AttractMethod.order(position: :asc)
+    @attract_methods = (@supplier = @estimate_matter.supplier) ?  AttractMethod.where.not(id: 1).order(position: :asc) : AttractMethod.where(id: 1)
     # @external_staff_codes_ids = @estimate_matter.member_codes.joins(:external_staff).ids
     case params[:edit_type]
     when "basic"
       @edit_type = "basic"
+    when "side"
+      @edit_type = "side"
+      @suppliers = Vendor.all
     when "staff"
       @edit_type = "staff"
       @staff_codes_ids = @estimate_matter.member_codes.joins(:staff).ids
-    when "supplier"
-      @edit_type = "supplier"
-      @suppliers = Supplier.all
-    when "supplier_staff"
-      @edit_type = "supplier_staff"
-      @supplier = Supplier.find(params[:supplier_id])
-      @supplier_staff_codes_ids = @supplier.external_staffs.joins(:member_code)
-                                                           .select('external_staffs.*, member_codes.id AS member_code_id')
+    when "vendor"
+      @edit_type = "vendor"
+      @vendors = Vendor.all
+    when "vendor_staff"
+      @edit_type = "vendor_staff"
+      @vendor = Vendor.find(params[:vendor_id])
+      @vendor_staff_codes_ids = @vendor.external_staffs.joins(:member_code).select('external_staffs.*, member_codes.id AS member_code_id')
     when "alert"
-      @edit_type = "supplier_alert"
+      @edit_type = "vendor_alert"
       difference_ids = params[:difference].map{|id| id.to_i }
-      @alert_suppliers = Supplier.where(id: difference_ids)
+      @alert_vendors = Vendor.where(id: difference_ids)
     end
   end
 
   def update
     if @estimate_matter.update(estimate_matter_params)
-      if params[:estimate_matter][:supplier_ids].present?
-        delete_supplier_staff_for_delete_supplier
+      if params[:estimate_matter][:vendor_ids].present?
+        delete_vendor_staff_for_delete_vendor
       end
-      flash[:success] = "見積案件を更新しました"
-      redirect_to employees_estimate_matter_url(@estimate_matter)
+      if params["redirect"].eql?("matter") #着工案件showから編集時は、着工案件showページにリダイレクト
+        flash[:success] = "着工案件を更新しました"
+        redirect_to employees_matter_url(@estimate_matter.matter)
+      else #営業案件showから編集時は、営業案件showページにリダイレクト
+        flash[:success] = "見積案件を更新しました"
+        redirect_to employees_estimate_matter_url(@estimate_matter)
+      end
     end
   end
 
@@ -102,31 +99,6 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     @estimate_matter.destroy ? flash[:success] = "見積案件を削除しました" : flash[:alert] = "見積案件を削除できませんでした"
     redirect_to employees_estimate_matters_url
   end
-  
-  # def change_member
-  #   if params[:staff_id].present?
-  #     set_staff
-  #   elsif params[:external_staff_id].present?
-  #     target_external_staff
-  #   end
-  #   @staff_codes = @estimate_matter.member_codes.joins(:staff).select('member_codes.*')
-  #   @external_staff_codes =  @estimate_matter.member_codes.joins(:external_staff).select('member_codes.*')
-  # end
-  
-  # def update_member
-  #   params[:estimate_matter][:member_code_ids] = params[:estimate_matter][:staff_ids].push(params[:estimate_matter][:external_staff_ids])
-  #   params[:estimate_matter][:member_code_ids].flatten!
-  #   @estimate_matter.update(estimate_matter_params)
-  #   # delete_estimate_matter_relation_table
-  #   flash[:success] = "#{ @estimate_matter.title }の担当者を変更しました"
-  #   if params[:estimate_matter][:staff_id].present?
-  #     @staff = Staff.find(params[:estimate_matter][:staff_id])
-  #     redirect_to retirement_process_employees_staff_url(@staff)
-  #   elsif params[:estimate_matter][:external_staff_id].present?
-  #     @external_staff = ExternalStaff.find(params[:estimate_matter][:external_staff_id])
-  #     redirect_to retirement_process_employees_external_staff_url(@external_staff)
-  #   end
-  # end
 
   private
     def set_estimate_matter
@@ -135,35 +107,54 @@ class Employees::EstimateMattersController < Employees::EmployeesController
 
     def estimate_matter_params
       params.require(:estimate_matter).permit(:title, :content, :postal_code, :prefecture_code, :address_city, :attract_method_id,
-                                              :address_street, :publisher_id, :client_id, { member_code_ids: [] }, { supplier_ids: []})
+                                              :address_street, :publisher_id, :client_id, :supplier_id, { member_code_ids: [] }, { vendor_ids: []})
     end
-    
-    def current_person_in_charge
+
+    def current_person_in_charge(params)
+      @sales_statuses = SalesStatus.order(created_at: "DESC")
       if current_admin || current_manager
-        @estimate_matters = EstimateMatter.all.order(created_at: :desc)
+        @estimate_matters = EstimateMatter.page(params[:page]).per(20).order(created_at: :desc).eager_load(:client)
       elsif current_staff
-        @estimate_matters = current_staff.estimate_matters.order(created_at: :desc)
-      elsif current_external_staff
-        @estimate_matters = current_external_staff.estimate_matters.order(created_at: :desc)
+        @estimate_matters = EstimateMatter.page(params[:page]).per(20).eager_load(:member_codes).where(member_codes: { id: current_staff.member_code.id }).order(created_at: :desc)
       end
+      if action_name.eql?("externals")
+        @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
+      else
+        @estimate_matters = @estimate_matters.where(supplier_id: nil)
+      end
+      @estimate_matters = @estimate_matters.get_id_by_name params[:name] if params[:name].present?
+      @estimate_matters = @estimate_matters.get_by_created_at params[:year], params[:month] if params[:year].present? && params[:month].present?
     end
-    
+
     def delete_estimate_matter_relation_table
       unless params[:estimate_matter][:staff_ids].present?
         @estimate_matter.estimate_matter_staffs.delete_all
       end
       unless params[:estimate_matter][:external_staff_ids].present?
-        @estimate_matter.estimate_matter_external_staffs.delete_all    
+        @estimate_matter.estimate_matter_external_staffs.delete_all
       end
     end
-    
-    def delete_supplier_staff_for_delete_supplier
-      suppliers_ids = @estimate_matter.suppliers.ids
-      delete_supplier_staffs = @estimate_matter.member_codes.joins(:external_staff)
-                                               .where.not(external_staffs: {supplier_id: suppliers_ids})
-      delete_matter_member_codes = @estimate_matter.estimate_matter_member_codes.where(member_code_id: delete_supplier_staffs)
+
+    def delete_vendor_staff_for_delete_vendor
+      vendors_ids = @estimate_matter.vendors.ids
+      delete_vendor_staffs = @estimate_matter.member_codes.joins(:external_staff).where.not(external_staffs: { vendor_id: vendors_ids })
+      delete_matter_member_codes = @estimate_matter.estimate_matter_member_codes.where(member_code_id: delete_vendor_staffs)
       delete_matter_member_codes.each do |matter_member_code|
         matter_member_code.destroy
       end
+    end
+
+    def set_estimate_matter_variable
+      @matter = @estimate_matter.matter
+      @address = "#{ @estimate_matter.prefecture_code }#{ @estimate_matter.address_city }#{ @estimate_matter.address_street }"
+      @publisher = @estimate_matter.publisher
+      @client = @estimate_matter.client
+    end
+
+    def set_certificate_variable
+      @estimate_matter.cover.present? ? @cover = @estimate_matter.cover : @cover = @estimate_matter.build_cover
+      @certificates = @estimate_matter.certificates.order(position: :asc)
+      @images = @estimate_matter.images.where(certificate_list: true).select { |image| image.image.attached? }
+      @cover_image = @estimate_matter.images.find_by(cover_list: true)
     end
 end

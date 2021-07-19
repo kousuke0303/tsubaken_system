@@ -1,0 +1,53 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <h2><i class="fas fa-building"></i> 外注先企業一覧</h2>
+    </div>
+    <div class="col-md-6 col-12">
+      <%= link_to new_employees_vendor_path, remote: true, class: "btn btn-dark float-r" do %>
+        <i class="fas fa-plus"></i> 新規外注先
+      <% end %>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap clients-table">
+      <tr>
+        <th>ログイン</th>
+        <th>名前</th>
+        <th>業種</th>
+        <th>電話番号①</th>
+        <th>郵便番号</th>
+        <th>会社住所</th>
+        <th>代表者</th>
+      </tr>
+      <% @vendors.each do |vendor| %>
+        <tr class="tr-link" data-link="<%= employees_vendor_path(vendor) %>">
+          <td class="text-center"><%= vendor.avaliable_disp %></td>
+          <td><%= vendor.name %></td>
+          <td>
+            <% if vendor.industries %>
+              <% vendor.industries.pluck(:name).each do |name| %>
+                <div><%= name %></div>
+              <% end %>
+            <% else %>
+              <span>未設定</span>
+            <% end %>
+          </td>
+          <td><%= phone_formatted(vendor.phone_1) %></td>
+          <td><%= postal_code_display(vendor.postal_code) %></td>
+          <td><%= vendor.prefecture_code %><%= vendor.address_city %><%= vendor.address_street %></td>
+          <td>
+            <% if vendor.vendor_manager %>
+              <%= vendor.vendor_manager.name %>
+            <% else %>
+              <%= link_to "代表者登録", "#" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<%= javascript_include_tag "tr_link.js" %>

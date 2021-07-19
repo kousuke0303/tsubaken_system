@@ -5,7 +5,7 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body">
-      <%= form_with(model: @estimate_matter, url: update_member_employees_estimate_matter_path(@estimate_matter), method: :patch, local: true) do |f| %>
+      <%= form_with(model: @estimate_matter, url: member_change_for_staff_employees_estimate_matter_members_path(@estimate_matter), method: :patch, local: true) do |f| %>
         <div class="matter-update-errors"></div>
           <div class="col-md-12">
             <%= f.label "担当スタッフ" %>
@@ -13,17 +13,7 @@
               <%= f.select :staff_ids, options_for_select(@all_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, multiple: true, class: "form-control select-members", id: "select_staff" %>
             </div>
           </div>
-          <div class="col-md-12">
-            <%= f.label "担当外部スタッフ" %>
-            <div>
-              <%= f.select :external_staff_ids, options_for_select(@all_external_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, multiple: true, class: "form-control select-members", id: "select_external_staff" %>
-            </div>
-          </div>
-          <% if @staff.present? %>
-            <%= f.hidden_field :staff_id, value: @staff.id %>
-          <% elsif @external_staff.present? %>
-            <%= f.hidden_field :external_staff_id, value: @external_staff.id %>
-          <% end %>
+          <%= f.hidden_field :redirect_staff_id, value: @staff.id %>
           <div class="btn-area">
             <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
           </div>

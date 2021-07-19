@@ -1,0 +1,8 @@
+<% if @creation_construction_schedules %>
+  $('#modal-container').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/construction_schedule/creation_notification') %>');
+<% elsif @updation_construction_schedules %>
+  $('#modal-container').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/construction_schedule/updation_notification') %>');
+<% elsif @deletion_notification_for_construction_schedules %>
+  $('#modal-container').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/construction_schedule/deletion_notification') %>');
+<% end %>
+$('#modal-container').modal();

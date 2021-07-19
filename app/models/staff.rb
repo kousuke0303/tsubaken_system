@@ -1,22 +1,22 @@
 class Staff < ApplicationRecord
-  
+
   before_save { self.email = email.downcase if email.present? }
   after_initialize :set_joined_on, on: :create
   after_initialize :default_set, on: :create
   after_commit :create_member_code, on: :create
   after_find :update_for_avaliable
   after_find :set_password_condition
-  
+
   has_one :member_code, dependent: :destroy
-  
+
   belongs_to :department
   belongs_to :label_color
-  
+
   has_many :staff_events, dependent: :destroy
   has_many :staff_event_titles, dependent: :destroy
-  
+
   has_one_attached :avator
-  
+
   validates :name, presence: true, length: { maximum: 30 }
   validates :login_id, presence: true, length: { in: 8..12 }, uniqueness: true
   validates :phone, format: { with: VALID_PHONE_REGEX }, allow_blank: true
@@ -28,12 +28,14 @@ class Staff < ApplicationRecord
   validate :staff_login_id_is_correct?
   validate :joined_with_resigned
   validate :resigned_is_since_joined
-  
+
   attr_accessor :password_condition
 
   scope :enrolled, -> { where('resigned_on IS ? OR resigned_on > ?', nil, Date.current) }
   scope :retired, -> { where('resigned_on <= ?', Date.current) }
-  scope :with_departments, -> { 
+  scope :avaliable, -> { where(avaliable: true)}
+  scope :not_avaliable, -> { where(avaliable: false)}
+  scope :with_departments, -> {
     left_joins(:department).
     select(
       "staffs.*",
@@ -41,23 +43,23 @@ class Staff < ApplicationRecord
       "departments.position"
     ).order(position: :asc)
   }
-  
+
   #---------------------------------------------------
     # DEVISE関連
   #---------------------------------------------------
-  
+
   devise :database_authenticatable, :registerable, :rememberable, :validatable, authentication_keys: [:login_id]
-  
+
   # ログイン条件追加
   def active_for_authentication?
     super && self.avaliable
   end
-  
+
   # 上記エラーメッセージ変更
   def inactive_message
     self.avaliable ? super : :not_avaliable
   end
-  
+
   # emailでなくlogin_idを認証キーにする
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -81,63 +83,59 @@ class Staff < ApplicationRecord
   def will_save_change_to_login_id?
     false
   end
-  
-  
+
+
   #---------------------------------------------------
     # INSTANCE_METHOD
   #---------------------------------------------------
-  
+
   def matters
     Matter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
   end
-  
-  def estimate_matters
-    EstimateMatter.joins(:member_codes).where(member_codes: {id: self.member_code.id})
-  end
-  
+
   def schedules
     Schedule.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
-  
+
   def tasks
     Task.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
-  
+
   def attendances
     Attendance.joins(:member_code).where(member_codes: {id: self.member_code.id})
   end
-  
+
   def recieve_notifications
     self.member_code.recieve_notifications.where(status: 0)
   end
-  
+
   private
-  
+
   #---------------------------------------------------
       # CALLBACK_METHOD
   #---------------------------------------------------
-    
+
     def set_joined_on
       unless self.joined_on
         self.joined_on = Date.current
       end
     end
-    
+
     def default_set
-      if self.login_id == nil || self.login_id.empty? 
+      if self.login_id == nil || self.login_id.empty?
         self.login_id = "ST-" + "#{SecureRandom.hex(3)}"
       end
       if self.department_id == nil
         self.department_id = 1
       end
     end
-    
+
     def create_member_code
       unless MemberCode.find_by(staff_id: self.id)
         MemberCode.create(staff_id: self.id)
       end
     end
-    
+
     # 利用不可にする
     def update_for_avaliable
       if self.avaliable == true && self.resigned_on.present?
@@ -148,9 +146,11 @@ class Staff < ApplicationRecord
         if Date.current >= self.joined_on
           self.update(avaliable: true)
         end
+      elsif self.avaliable == false && self.resigned_on > Date.current
+        self.update(avaliable: true)
       end
     end
-    
+
     def set_password_condition
       if self.valid_password?("password")
         self.password_condition = false
@@ -158,16 +158,16 @@ class Staff < ApplicationRecord
         self.password_condition = true
       end
     end
-    
+
   #---------------------------------------------------
      # VALIDATE_METHOD
   #---------------------------------------------------
-    
+
     # スタッフの従業員IDは「ST-」から始めさせる
     def staff_login_id_is_correct?
       errors.add(:login_id, "は「ST-」から始めてください") if login_id.present? && !login_id.start_with?("ST-")
     end
-    
+
     # 退社日は入社日がないとNG
     def joined_with_resigned
       errors.add(:joined_on, "を入力してください") if !self.joined_on.present? && self.resigned_on.present?
@@ -179,5 +179,5 @@ class Staff < ApplicationRecord
         errors.add(:resigned_on, "は入社日以降にしてください")
       end
     end
-  
+
 end

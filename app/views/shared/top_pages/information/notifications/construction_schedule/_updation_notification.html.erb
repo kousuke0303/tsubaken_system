@@ -1,0 +1,67 @@
+<div class="modal-dialog non-card-modal wide-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      変更されたスケジュール
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body bg-white">
+      <p>詳細は案件名からご確認ください</p>
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap table-column-type">
+          <tr>
+            <th rowspan="2">確認済</th>
+            <th rowspan="2">案件名</th>
+            <th>変更後</th>
+            <th rowspan="2">作業名</th>
+            <th rowspan="2">開始予定日</th>
+            <th rowspan="2">終了予定日</th>
+            <th rowspan="2">通知人</th>
+          </tr>
+          <tr>
+            <th>変更前</th>
+          </tr>
+          <% @updation_construction_schedules.each do |schedule| %>
+            <tr>
+              <td rowspan="2" class="text-center updation_schedule" style="vertical-align: middle;">
+                <input type="checkbox" name="confirmation" value=<%= schedule.notification_id %> checked="checked">
+              </td>
+              <td rowspan="2"><%= schedule.title_disp %></td>
+              <td>変更後</td>
+              <td><%= schedule.title %></td>
+              <td><%= schedule.scheduled_started_on_disp %></td>
+              <td><%= schedule.scheduled_finished_on_disp %></td>
+              <td rowspan="2"><%= member_name_from_member_code_id(schedule.sender_id) %></td>
+            </tr>
+            <tr>
+              <td>変更前</td>
+              <td><%= schedule.before_value_3 %></td>
+              <td><%= schedule.before_value_1.to_date.strftime("%-m月%-d日") %></td>
+              <td><%= schedule.before_value_2.to_date.strftime("%-m月%-d日") %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-dark" id="confirmation_btn">確認</button>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#confirmation_btn').on('click', function(){
+    var checked_notification_array = [];
+    $('.updation_schedule input').each( function(index, element){
+      if($(element).prop('checked')){
+        var val = $(this).val();
+        checked_notification_array.push(val);
+      }
+    });
+    $.ajax({
+      type: "PATCH",
+      url: "<%= updates_notifications_path %>",
+      cache: false,
+      data: { notification_ids: checked_notification_array },
+    })
+  });
+</script>

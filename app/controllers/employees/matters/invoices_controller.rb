@@ -1,9 +1,9 @@
 class Employees::Matters::InvoicesController < Employees::EmployeesController
-  before_action :authenticate_employee!
+  before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_categories, only: :edit
   before_action :set_plan_names, only: [:show, :edit]
   before_action :set_default_color_code, only: :edit
-  before_action :set_matter_by_matter_id
   before_action :set_invoice
   before_action :refactor_params_category_ids, only: :update
   before_action :preview_display, only: :show

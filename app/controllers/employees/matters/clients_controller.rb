@@ -1,6 +1,6 @@
 class Employees::Matters::ClientsController < Employees::EmployeesController
-  before_action :authenticate_employee_except_external_staff!
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}, except: :index
   before_action :set_client
   
   def edit

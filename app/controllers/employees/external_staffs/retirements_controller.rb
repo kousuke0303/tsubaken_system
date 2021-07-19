@@ -1,6 +1,6 @@
-class Employees::ExternalStaffs::RetirementsController < Employees::EmployeesController
-  before_action :authenticate_admin_or_manager!
-  before_action :target_external_staff
+class Employees::ExternalStaffs::RetirementsController < ApplicationController
+  before_action :set_external_staff
+  before_action :authenticate_admin_or_manager_or_boss!
   
   def index
     retirement_process_variable
@@ -49,6 +49,18 @@ class Employees::ExternalStaffs::RetirementsController < Employees::EmployeesCon
   end
   
   private
+    def set_external_staff
+      @external_staff = ExternalStaff.find(params[:external_staff_id])
+    end
+    
+    def authenticate_admin_or_manager_or_boss!
+      boss = @external_staff.vendor.vendor_manager
+      unless current_admin || current_manager || current_vendor_manager == boss
+        flash[:alert] = "アクセス権限がありません"
+        redirect_to root_url
+      end
+    end
+    
     def set_external_staff_task
       @tasks = @external_staff.tasks.where.not(status: 3)
       @tasks_for_estimate_matter = @tasks.joins(:estimate_matter)
@@ -80,20 +92,18 @@ class Employees::ExternalStaffs::RetirementsController < Employees::EmployeesCon
     end
     
     def retirement_process_variable
-      @matters = @external_staff.matters.where.not(status:2)
-      @estimate_matters = @external_staff.estimate_matters.left_joins(:matter).where(matters: {estimate_matter_id: nil})
+      @matters = @external_staff.matters.where.not(status: 2)
+      @construction_schedules = @external_staff.construction_schedules.where.not(status: 2)
       set_external_staff_task
       @schedules = Schedule.where(member_code_id: @external_staff.member_code.id).where('scheduled_date >= ?', Date.today)
-      if @estimate_matters.present?
+      if @matters.present?
         @process = 1
-      elsif @matters.present?
+      elsif @construction_schedules.present?
         @process = 2
       elsif @tasks.present?
         @process = 3
-      elsif @schedules.present?
-        @process = 4
       else
-        @process = 5
+        @process = 4
       end
     end
 end

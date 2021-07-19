@@ -14,7 +14,7 @@
       <td><%= est_matter.prefecture_code %><%= est_matter.address_city %><%= est_matter.address_street %></td>
       <td><%= est_matter.sales_statuses.last.status_i18n %></td>
       <td class="text-center">
-        <%= link_to "担当者変更", change_member_employees_estimate_matter_path(est_matter, staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
+        <%= link_to "担当者変更", edit_employees_estimate_matter_members_path(est_matter, retire_staff_id: @staff.id), remote: true, class: "btn btn-dark" %> 
       </td>
     </tr>
   <% end %>

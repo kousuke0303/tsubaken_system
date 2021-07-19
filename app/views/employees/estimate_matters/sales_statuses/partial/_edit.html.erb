@@ -1,29 +1,27 @@
-<div class="modal-dialog">
+<div class="modal-dialog non-card-modal">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-header">
+      営業ステータス編集
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
     <div class="modal-body pa-2e">
-      <div class="card mb-3">
-        <h5 class="card-header">営業ステータス編集</h5>
-        <div class="card-body">
-          <% if @origin == "schedule" %>
-            <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status, origin: "schedule"), method: :patch, remote: true) do |f| %>
-              <div class="sales-status-update-errors"></div>
-              <%= render "employees/estimate_matters/sales_statuses/partial/form", f: f %>
-              <div class="btn-area">
-                <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              </div>
-            <% end %>
-          <% else %>
-            <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status), method: :patch, remote: true) do |f| %>
-              <div class="sales-status-update-errors"></div>
-              <%= render "employees/estimate_matters/sales_statuses/partial/form", f: f %>
-              <div class="btn-area">
-                <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
+      <% if @origin == "schedule" %>
+        <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status, origin: "schedule"), method: :patch, remote: true) do |f| %>
+          <div class="sales-status-update-errors"></div>
+          <%= render "employees/estimate_matters/sales_statuses/partial/form", f: f %>
+          <div class="btn-area">
+            <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          </div>
+        <% end %>
+      <% else %>
+        <%= form_with(model: @sales_status, url: employees_estimate_matter_sales_status_path(@estimate_matter, @sales_status), method: :patch, remote: true) do |f| %>
+          <div class="sales-status-update-errors"></div>
+          <%= render "employees/estimate_matters/sales_statuses/partial/form", f: f %>
+          <div class="btn-area">
+            <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

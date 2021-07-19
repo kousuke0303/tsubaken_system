@@ -4,5 +4,5 @@
   $("#schedule-show").empty();
 <% end %>
 <!--共通-->
-$("#sales-status-edit").html('<%= escape_javascript(render "employees/estimate_matters/sales_statuses/partial/edit") %>'); 
-$("#sales-status-edit").modal();
+$("#modal-container").html('<%= escape_javascript(render "employees/estimate_matters/sales_statuses/partial/edit") %>'); 
+$("#modal-container").modal();

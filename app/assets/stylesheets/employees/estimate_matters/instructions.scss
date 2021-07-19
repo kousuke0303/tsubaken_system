@@ -1,0 +1,61 @@
+// Place all the styles related to the Employees::EstimateMatters::Instructions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* ---------------------------------------------------
+    SHOW
+----------------------------------------------------- */
+
+.instruction-show-container {
+  border: 1px solid #343a40;;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+/* ---------------------------------------------------
+    PREVIEW
+----------------------------------------------------- */
+
+.instruction-preview h2 {
+  padding: 1rem 2rem;
+  border-top: 6px double #000;
+  border-bottom: 6px double #000;
+}
+
+.instruction-preview h4 {
+  position: relative;
+  padding: 1rem 2rem;
+  text-align: center;
+  color: #0075a9;
+  border-radius: 0 10px 10px 10px;
+  background: #d8ecf5;
+}
+
+.instruction-preview h4:before {
+  font-family: 'Font Awesome 5 Free';
+  font-size: 1.5rem;
+  position: absolute;
+  top: -26px;
+  left: 0;
+  height: 26px;
+  padding: 0 1em;
+  content: '\f0a4  POINT';
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  background: #0075a9;
+}
+
+.instruction-container {
+  margin-top: 4em;
+}
+
+.instruction-content {
+  padding: 1em;
+}
+
+.instruction-preview .preview-container{
+  padding: 4em 2em 2em 3em;
+  background: white;
+  width: 172mm;
+  margin: 1em auto;
+}

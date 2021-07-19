@@ -1,6 +1,7 @@
-class Employees::EstimateMatters::CertificatesController < Employees::EstimateMatters::EstimateMattersController
+class Employees::EstimateMatters::CertificatesController < Employees::EmployeesController
   before_action :preview_display, only: :preview
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_certificate, only: [:edit, :update, :destroy]
   
   def sort

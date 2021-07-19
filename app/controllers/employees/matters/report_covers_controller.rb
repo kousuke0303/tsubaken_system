@@ -1,12 +1,12 @@
 class Employees::Matters::ReportCoversController < Employees::EmployeesController
-  before_action :authenticate_employee!
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_publishers, only: [:new, :edit]
   before_action :set_report_cover, only: [:edit, :update, :destroy]
 
   def new
     @report_cover = @matter.build_report_cover
-    @images = @matter.images
+    @images = @matter.images.where(report_cover_list: true)
   end
 
   def create
@@ -16,7 +16,7 @@ class Employees::Matters::ReportCoversController < Employees::EmployeesControlle
   end
 
   def edit
-    @images = @matter.images
+    @images = @matter.images.where(report_cover_list: true)
   end
 
   def update

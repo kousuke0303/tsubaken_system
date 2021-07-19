@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#construction-edit").modal('hide');
-  $("#construction-edit").empty();
+  $("#modal-container").modal('hide');
   $('#construction_table').html('<%= escape_javascript(render 'employees/settings/estimates/constructions/partial/index_table') %>');
   toastr.success("<%= @construction.name %>を更新しました");
+  $("#modal-container").empty();
 <% else @responce == "failure" %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".construction-update-errors", model: @construction, object: "construction"} %>
 <% end %>

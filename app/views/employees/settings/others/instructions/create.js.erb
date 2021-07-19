@@ -1,0 +1,9 @@
+<% if @responce == "success" %>
+  $("#modal-container").modal('hide');
+  $('#instruction-table').html('<%= escape_javascript(render 'employees/settings/others/instructions/partial/index_table') %>');
+  <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@instruction.title}を作成しました。"} %>
+  $("#modal-container").empty();
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".instruction-create-errors", model: @instruction, object: "instruction"} %>
+<% end %>
+  

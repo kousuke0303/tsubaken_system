@@ -9,7 +9,7 @@ schedules_arrey.each do |schedule|
                     scheduled_start_time: setting_time,
                     scheduled_end_time: setting_time + 1.hour,
                     place: place,
-                    member_code_id: rand(1..10)
+                    member_code_id: rand(1..7)
                     )
     schedule_1.sender = MemberCode.first.id
     schedule_1.save
@@ -18,7 +18,7 @@ schedules_arrey.each do |schedule|
                     scheduled_start_time: setting_time,
                     scheduled_end_time: setting_time + 1.hour,
                     place: place,
-                    member_code_id: rand(1..10)
+                    member_code_id: rand(1..7)
                     )
     schedule_2.sender = MemberCode.first.id
     schedule_2.save

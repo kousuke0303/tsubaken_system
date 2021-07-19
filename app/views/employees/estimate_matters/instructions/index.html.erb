@@ -1,0 +1,71 @@
+<div class="col-12" id="industries-pages">
+  
+  <section>
+    <%= render partial: 'layouts/page_title', locals: { title_1: "見積詳細説明書", title_2: "#{current_estimate_matter.title} 詳細", icon: "fa-clipboard"} %>
+  </section>
+  
+  <section>
+    <div class="text-right">
+      <%= link_to "新規作成", new_employees_estimate_matter_instruction_path(@estimate_matter), remote: true, class: "btn btn-dark" %>
+      <%= link_to "プレビュー", preview_employees_estimate_matter_instructions_path(@estimate_matter), target: :_blank, rel: "noopener noreferrer", class: "btn btn-primary" %>
+    </div>
+  </section>
+  
+  <section>
+    <div class="table-responsible">
+      <table class="table table-bordered common-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>見出し</th>
+            <th>内容</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="sortable-instructions">
+          <% @instructions.each.with_index(1) do |instruction, index| %>
+            <tr class="tr-sortable">
+              <td><%= index %></td>
+              <td><%= instruction.title %></td>
+              <td>
+                <%= link_to employees_estimate_matter_instruction_path(@estimate_matter, instruction), remote: true do %>
+                  <%= instruction.content[0..20] %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <%= link_to "編集", edit_employees_estimate_matter_instruction_path(@estimate_matter, instruction), remote: true, class: "btn btn-success" %>
+                <%= link_to "削除", employees_estimate_matter_instruction_path(@estimate_matter, instruction), method: :delete, data: {confirm: "#{instruction.title}を削除しますか？"}, class: "btn btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+    </div>
+  </section>
+  
+</div>
+
+<%= javascript_include_tag "sortable/Sortable.min.js" %>
+
+<script>
+  $(function() {
+  var el = document.getElementById("sortable-instructions");
+  if (el != null) {
+    var sortable = Sortable.create(el, {
+      animation: 150,
+      delay: 100,
+      onUpdate: function(evt) {
+        $.ajax({
+          type: "PATCH",
+          url: "<%= sort_employees_estimate_matter_instructions_path(@estimate_matter) %>",
+          cache: false,
+          data: { from: evt.oldIndex, 
+                  to: evt.newIndex, 
+                  remote: true }
+        });
+      }
+    });
+  }
+});
+</script>

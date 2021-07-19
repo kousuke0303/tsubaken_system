@@ -1,7 +1,7 @@
-$("#estimate-matter-show-modal").modal("hide");
+$("#modal-container").modal("hide");
 toastr.success('<%= @estimate_detail.category_name %>を更新しました');
 $(".estimates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/estimates_index") %>');
 $(function(){
   setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
 });
-$('#estimate-matter-show-modal').empty();
+$('#modal-container').empty();

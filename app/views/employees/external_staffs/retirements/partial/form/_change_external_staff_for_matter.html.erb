@@ -5,13 +5,13 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body bg-white">
-      <%= form_with(model: @matter, url: member_change_for_supplier_staff_employees_matter_members_path(@matter), method: :patch, remote: true) do |f| %>
+      <%= form_with(model: @matter, url: member_change_for_vendor_staff_employees_matter_members_path(@matter), method: :patch, remote: true) do |f| %>
         <div class="matter-update-errors"></div>
-        <label class="form-control text-white" style="background: #787a7b;"><%= @supplier.name %>のご担当者</label>
+        <label class="form-control text-white" style="background: #787a7b;"><%= @vendor.name %>のご担当者</label>
         <div class="col-12">
           <div>
-            <%= f.collection_select :member_code_ids, @supplier_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "supplier_staff_select" } %>
-            <%= f.hidden_field :supplier_id, value: @supplier.id %>
+            <%= f.collection_select :member_code_ids, @vendor_staff_codes_ids, :member_code_id, :name, { include_hidden: false }, { class: "form-control select-members", multiple: true, id: "vendor_staff_select" } %>
+            <%= f.hidden_field :vendor_id, value: @vendor.id %>
             <%= f.hidden_field :redirect_external_staff_id, value: @external_staff.id %>
           </div>
         </div>
@@ -19,9 +19,9 @@
           <%= f.submit "更新", class: "btn btn-dark reset-errors" %>
         </div>
       <% end %>
-      
+
       <div class="mt-1e text-center">
-        <span><%= @supplier.name %>ごと変更する場合はこちらから</span>
+        <span><%= @vendor.name %>ごと変更する場合はこちらから</span>
         <p><%= link_to "案件詳細ページ", employees_matter_path(@matter) %></p>
       </div>
     </div>

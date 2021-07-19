@@ -1,14 +1,17 @@
 class Employees::SchedulesController < Employees::EmployeesController
-  before_action :all_member, only: [:new, :edit, :change_member]
-  before_action :all_member_code
+  before_action :authenticate_employee!
+  before_action :all_member_code, only: [:new, :edit]
   before_action :set_schedule, except: [:new, :index, :create, :application, :commit_application, :show_for_top_page]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]
   before_action :set_staff, if: :object_is_staff?, only: [:change_member]
-  before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
   before_action :schedule_application, only: :application
   
   def index
-    @object_day = Date.current
+    if params[:start_date].present?
+      @object_day = params[:start_date].to_date
+    else
+      @object_day = Date.current
+    end
     set_basic_schedules(@object_day)
   end
   
@@ -20,12 +23,11 @@ class Employees::SchedulesController < Employees::EmployeesController
     @schedule = Schedule.new(schedule_params)
     @schedule.sender = login_user.member_code.id
     if @schedule.save
+      @responce = "success"
       @reciever_notification_count = @schedule.member_code.recieve_notifications.count
       @object_day = @schedule.scheduled_date
-      set_basic_schedules(@object_day)
-      @result = "success"
     else
-      @result = "failure"
+      @responce = "failure"
     end
   end
   
@@ -51,20 +53,23 @@ class Employees::SchedulesController < Employees::EmployeesController
   def update
     attr_set_for_update
     if @schedule.update(schedule_params)
+      @responce = "success"
       @reciever_notification_count = @schedule.member_code.recieve_notifications.count
       @object_day = @schedule.scheduled_date
-      set_basic_schedules(@object_day)
-      @result = "success"
     else
-      @result = "failure"
+      @responce = "failure"
     end
   end
   
   def destroy
     @schedule.sender = login_user.member_code.id
-    @schedule.destroy
-    @object_day = @schedule.scheduled_date
-    set_basic_schedules(@object_day)
+    if @schedule.destroy
+      @responce = "success"
+      @object_day = @schedule.scheduled_date
+      @reciever_notification_count = @schedule.member_code.recieve_notifications.count
+    else
+      @responce = "failure"
+    end
   end
   
   def apllication

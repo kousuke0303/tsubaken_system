@@ -1,6 +1,6 @@
 class Employees::CurrentSituationsController < Employees::EmployeesController
+  before_action :authenticate_employee!
   before_action :current_situations_display
-  # before_action :set_span
   
   def index
     @staffs = Staff.enrolled
@@ -43,9 +43,6 @@ class Employees::CurrentSituationsController < Employees::EmployeesController
   end
   
   private
-    def set_span
-      @span= Span.new
-    end
     
     def month_matters(first_day, last_day)
       matters = Matter.all

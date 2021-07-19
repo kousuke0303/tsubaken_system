@@ -36,6 +36,15 @@ ja:
         not_started: "未着手"
         progress: "着工中"
         completed: "完了"
+    construction_report:
+      report:
+        good: "予定通り"
+        delay: "若干遅れている"
+        re_scuedule: "工期延長要"
+        completed: "工事完了"
+      reason:
+        rain: "天候不良"
+        other: "その他"
     task:
       status:
         default: "デフォルト"

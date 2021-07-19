@@ -1,35 +1,63 @@
-<div class="modal-dialog">
+<div class="modal-dialog non-card-modal">
   <div class="modal-content">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-    <div class="modal-body pa-2e">
-      <div class="image-update-errors"></div>
-        <%= form_with(model: @image, url: employees_estimate_matter_image_path(current_estimate_matter, @image), method: :patch, remote: true) do |f| %>
-          <div class="edit-image-content-position">
-            <%= f.label :content %>
-            <div>
-              <%= f.text_area :content, maxlength: 300, class: "form-control" %>
-            </div>
-            
-            <%= f.label :shooted_on %>
-            <div>
-              <%= f.date_field :shooted_on, class: "form-control" %>
-            </div>
+    
+    <div class="modal-header">
+      画像詳細編集
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    
+    <div class="modal-body bg-white pa-2e">
+      
+      <% if @image.image.attached? %>
+        <div class="text-center pc_type">
+          <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
+        </div>
+        <div class="text-center mobile_type">
+          <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
+        </div>
+      <% end %>  
+      
+      
+      <%= form_with(model: @image, url: employees_estimate_matter_image_path(current_estimate_matter, @image), method: :patch, remote: true) do |f| %>
+        <div class="image-update-errors"></div>
+        
+        <div class="row">
+          <label class="form-control text-white" style="background:#787a7b;">タグ：撮影日</label>
+          <div class="col-12">
+            <%= f.label "タグ名" %>
+            <%= f.text_field :content, class: "form-control", required: true %>
           </div>
           
-          <div class="text-center">
-            <%= f.submit "更新", class: "btn btn-md btn-dark reset-errors" %>
-            <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
+          <div class="col-12">
+            <%= f.label :shooted_on %>
+            <%= f.date_field :shooted_on, class: "form-control", required: true %>
+          </div>
+          
+          <label class="form-control text-white" style="background:#787a7b;">報告書関連</label>
+          <div class="col-6">
+            <%= f.label "表紙" %>
+            <div class="switch-check-box">
+              <%= f.check_box :cover_list, {id: "rounded_2"}, true, false %>
+              <label for="rounded_2"></label>
+            </div>
+          </div>
+          <div class="col-6">
+            <%= f.label "診断書LIST" %>
+            <div class="switch-check-box">
+              <%= f.check_box :certificate_list, {id: "rounded"}, true, false %>
+              <label for="rounded"></label>
+            </div>
           </div>
         
-          <figure class="mt-20 text-center pc_type">
-            <%= image_tag url_for(@image.image.variant(resize: "400x400")) %>
-          </figure>
+        </div>
           
-          <figure class="mt-20 text-center mobile_type">
-            <%= image_tag url_for(@image.image.variant(resize: "300x300")) %>
-          </figure>
-        <% end %> 
-      </div>
+          
+        <div class="text-center mt-1e">
+          <%= f.submit "更新", class: "btn btn-md btn-dark reset-errors" %>
+          <%= link_to "戻る", employees_estimate_matter_images_path, class: "btn btn-dark" %>
+        </div>
+        
+      <% end %> 
     </div>
   </div>
 </div>

@@ -1,0 +1,33 @@
+<div class="col-12">
+
+  <div class="pc_type">
+    <div class="row">
+      <div class="col-md-6">
+        <%= render partial: "layouts/page_title", locals: { title_1: "登録企業", title_2: "#{ @vendor.name} 詳細", icon: "fa-clipboard"} %>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "削除", employees_vendor_path(@vendor), method: :delete, data: { confirm: "この外注先を削除してよろしいですか？" }, class: "btn btn-destroy" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01" id="label_1">企業情報</label>
+    <div class="tab-content">
+      <%= render "employees/vendors/partial/detail" %>
+    </div>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">代表者情報</label>
+    <div class="tab-content" id="manager">
+      <%= render "employees/vendors/partial/manager" %>
+    </div>
+    <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">従業員情報</label>
+    <div class="tab-content">
+      <%= render "employees/vendors/partial/external_staff" %>
+    </div>
+    <input id="tab04" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab04">関連案件</label>
+    <div class="tab-content">
+      <%= render "employees/vendors/partial/matters" %>
+    </div>
+  </div>
+
+</div>

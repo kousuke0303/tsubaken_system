@@ -11,8 +11,10 @@
         <tr class="tr-sortable">
           <td><%= attract_method.name %></td>
           <td>
-            <%= link_to "編集", edit_employees_settings_companies_attract_method_path(attract_method), remote: true, class: "btn btn-sm btn-dark" %>
-            <%= link_to "削除", employees_settings_companies_attract_method_path(attract_method), method: :delete, data: { confirm: "この集客方法を削除してよろしいですか？", remote: true}, class: "btn btn-sm btn-danger" %>
+            <% unless attract_method.id.eql?(1) %>
+              <%= link_to "編集", edit_employees_settings_companies_attract_method_path(attract_method), remote: true, class: "btn btn-sm btn-dark" %>
+              <%= link_to "削除", employees_settings_companies_attract_method_path(attract_method), method: :delete, data: { confirm: "この集客方法を削除してよろしいですか？", remote: true}, class: "btn btn-sm btn-danger" %>
+            <% end %>
           </td>
         </tr>
       <% end %>

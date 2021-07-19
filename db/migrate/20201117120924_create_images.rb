@@ -5,12 +5,13 @@ class CreateImages < ActiveRecord::Migration[5.2]
       t.string :author
       t.string :default_file_path
       t.date :shooted_on
-      t.integer :admin_id
-      t.integer :manager_id
-      t.integer :staff_id
-      t.integer :external_staff_id
       t.string :estimate_matter_id
       t.string :matter_id
+      t.boolean :certificate_list, default: false
+      t.boolean :cover_list, default: false
+      t.boolean :report_cover_list, default: false
+      t.boolean :report_list, default: false
+      t.references :member_code, foreign_key: true
 
       t.timestamps
     end

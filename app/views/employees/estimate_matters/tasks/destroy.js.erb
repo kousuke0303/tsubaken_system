@@ -1,6 +1,6 @@
-$("#estimate-matter-show-modal").modal("hide");
+$("#modal-container").modal("hide");
 $(".tasks-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/tasks") %>');
-$("#estimate-matter-show-modal").empty();
+$("#modal-container").empty();
 <!--バッジ変更-->
 <% if @reciever_notification_count %>
   var totalCount = <%= Notification.all.count %>;

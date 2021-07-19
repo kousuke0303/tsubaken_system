@@ -1,6 +1,6 @@
 <% if @responce == "success" %>
-  $('#matter-new').modal('hide');
-  $('#matter-new').empty();
+  $('#modal-container').modal('hide');
+  $('#modal-container').empty();
   window.location.href = "<%= employees_matter_path(@matter, type: "success") %>";
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".matter-create-errors", model: @matter, object: "matter"} %>

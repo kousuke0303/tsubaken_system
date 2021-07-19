@@ -1,0 +1,55 @@
+<div class="modal-dialog non-card-modal wide-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      新規スケジュール
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+        <table class="table table-bordered text-nowrap table-column-type">
+          <tr>
+            <th>確認済</th>
+            <th>案件名</th>
+            <th>工事内容</th>
+            <th>開始日</th>
+            <th>終了日</th>
+            <th>通知人</th>
+          </tr>
+          <% @creation_construction_schedules.each do |schedule| %>
+            <tr>
+              <td class="text-center creation_schedule">
+                <input type="checkbox" name="confirmation" value=<%= schedule.notification_id %> checked="checked">
+              </td>
+              <td><%= schedule.title_disp %></td>
+              <td><%= schedule.title %></td>
+              <td><%= schedule.scheduled_started_on_disp %></td>
+              <td><%= schedule.scheduled_finished_on_disp %></td>
+              <td><%= member_name_from_member_code_id(schedule.sender_code.to_i) if schedule.sender_code.present? %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-dark" id="confirmation_btn">確認</button>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#confirmation_btn').on('click', function(){
+    var checked_notification_array = [];
+    $('.creation_schedule input').each( function(index, element){
+      if($(element).prop('checked')){
+        var val = $(this).val();
+        checked_notification_array.push(val);
+      }
+    });
+    $.ajax({
+      type: "PATCH",
+      url: "<%= updates_notifications_path %>",
+      cache: false,
+      data: { notification_ids: checked_notification_array },
+    })
+  });
+</script>

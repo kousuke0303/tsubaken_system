@@ -1,18 +1,18 @@
 <div class="row">
-  <label class="form-control text-white" style="background:#787a7b;">依頼者：集客方法</label>
+  <label class="form-control text-white" style="background: #787a7b;">依頼者：集客方法</label>
   <div class="col-md-6 col-12">
     <%= f.label :client_id %>
-    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", id: "select_client", required: true %>
+    <%= f.collection_select :client_id, @clients, :id, :name, { selected: @id, include_blank: "選択してください" }, class: "form-control", required: true %>
   </div>
   <div class="col-md-6 col-12">
     <%= f.label :attract_method_id %>
     <%= f.collection_select :attract_method_id, @attract_methods, :id, :name, { include_blank: "集客方法を選択" }, class: "form-control" %>
   </div>
-  
-  <label class="form-control text-white" style="background:#787a7b;">タイトル：内容</label>
+
+  <label class="form-control text-white" style="background: #787a7b;">タイトル：内容</label>
   <div class="col-md-6">
     <%= f.label :title %>
-    <%= f.text_field :title, value: @title.present? ? @title : @estimate_matter.title, required: true, class: "form-control", maxlength: 30%>
+    <%= f.text_field :title, required: true, class: "form-control", maxlength: 30 %>
   </div>
   <div class="col-md-6">
     <%= f.label :publisher_id %>
@@ -22,27 +22,27 @@
     <%= f.label :content %>
     <%= f.text_field :content, required: true, class: "form-control", maxlength: 300 %>
   </div>
-  
+
   <label class="form-control text-white" style="background: #787a7b;">現場住所</label>
   <div class="col-12">
     <%= f.label :postal_code %>
-    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", value: @postal_code, id: "postcode", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
+    <%= f.text_field :postal_code, maxlength: 7, pattern: "^[0-9]{7}$", placeholder: "半角数字(ハイフンなし)", class: "form-control" %>
   </div>
   <div class="col-12 row">
     <div class="col-md-6">
       <%= f.label :prefecture_code %>
-      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, id: "prefecture_code", class: "form-control" %>
+      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { prompt: "選択してください", selected: @prefecture_code }, class: "form-control" %>
     </div>
     <div class="col-md-6">
       <%= f.label :address_city %>
-      <%= f.text_field :address_city, value: @address_city, id: "address_city", class: "form-control" %>
+      <%= f.text_field :address_city, class: "form-control" %>
     </div>
     <div class="col-12">
       <%= f.label :address_street %>
-      <%= f.text_field :address_street, value: @address_street, id: "address_street", class: "form-control" %>
+      <%= f.text_field :address_street, class: "form-control" %>
     </div>
   </div>
-  
+
   <label class="form-control text-white" style="background: #787a7b;">担当者</label>
   <div class="col-12">
     <%= f.label "当社担当スタッフ" %>
@@ -50,28 +50,46 @@
       <%= f.select :staff_ids, options_for_select(@all_staff_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, multiple: true, class: "form-control select-members", id: "select_staff" %>
     </div>
   </div>
-</div>
+
+  <label class="form-control text-white supplier-select" style="display: none; background: #787a7b;">紹介元</label>
+  <div class="col-12 supplier-select" style="display: none;">
+    <%= f.label :supplier_id %>
+    <div>
+      <%= f.collection_select :supplier_id, @suppliers, :id, :name, { prompt: "選択してください" }, class: "form-control" %>
+    </div>
+  </div>
 
 <%= javascript_include_tag "select_members.js" %>
 <%= javascript_include_tag "postal_code_to_address.js" %>
 <%= render "shared/javascript/auto_postcode" %>
 
 <script>
-  $('#select_client').on('change', function(){
-    var value = $('#select_client option:selected').val();
+  // 顧客選択時、顧客情報をフォームに反映
+  $('[name="estimate_matter[client_id]"]').on("change", function() {
+    var value = $('[name="estimate_matter[client_id]"] option:selected').val();
     $.ajax({
       type: "GET",
-      url: "<%= new_employees_estimate_matter_path %>",
+      url: "<%= apply_client_employees_estimate_matters_path %>",
       cache: false,
       data: { client_id: value }
     });
   });
+
+  // 集客方法が「他社受託」時の、紹介元フォームの制御
+  $('[name="estimate_matter[attract_method_id]"]').on("change", function() {
+    if($(this).val() == "1") {
+      $(".supplier-select").show();
+      $('[name="estimate_matter[supplier_id]"]').prop("required", "true");
+    } else {
+      $(".supplier-select").hide();
+      $('[name="estimate_matter[supplier_id]"]').removeAttr("required");
+      $('[name="estimate_matter[supplier_id]"]').val("");
+    }
+  });
 </script>
 
 <% if @staff_codes.present? %>
-  <script>
     $(document).ready( function(){
       $('#select_staff').val(<%= @staff_codes.ids %>).trigger('change');
     });
-  </script>
 <% end %>

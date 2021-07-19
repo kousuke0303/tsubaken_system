@@ -3,7 +3,7 @@
    
 <% if current_admin || current_manager %>
   <%= f.label :member_code_id %>
-  <%= f.select :member_code_id, options_for_select(@member_codes.map{ |code|[member_name_from_member_code(code), code.id]}), {include_blank: "選択してください" }, required: true, class: "form-control" %>
+  <%= f.select :member_code_id, options_for_select(@all_member_codes.map{ |code|[code.parent.name, code.id]}), {include_blank: "選択してください" }, required: true, class: "form-control" %>
 <% else %>
   <%= f.label "担当者" %>
   <div>

@@ -1,6 +1,0 @@
-<% if @responce == "success" %>
-  $('#supplier-manager-detail').html('<%= escape_javascript(render "/employees/supplier_managers/partial/detail") %>');
-  toastr.success('#{@supplier_manager.name}の情報を更新しました');
-<% else %>
-  <%= render partial: 'shared/javascript/modal_error', locals: {dom: "#supplier-manager-update-errors", model: @supplier_manager, object: "supplier_manager"} %>
-<% end %>

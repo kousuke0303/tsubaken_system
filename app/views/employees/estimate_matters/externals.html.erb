@@ -1,0 +1,35 @@
+<div class="col-12">
+  <%= render "layouts/page_title", title_1: "営業管理案件", title_2: nil, icon: "fa-paste" %>
+
+  <div class="tab-wrap">
+    <label class="tab-link text-white text-center text-nowrap position-relative p-0">
+      <%= link_to "自社案件", employees_estimate_matters_path, class: "d-block text-white text-decoration-none" %>
+    </label>
+    <label class="tab-link text-white text-center text-nowrap position-relative impassive">他社案件</label>
+  </div>
+
+  <%= form_with(model: @clients, method: :get, local: true) do |f| %>
+    <div class="row mt-05e">
+      <div class="col-lg-2 col-6 pr-0">
+        <%= f.text_field :name, class: "form-control", placeholder: "顧客名検索", value: params[:name] %>
+      </div>
+      <div class="col-lg-2 col-6 pl-0">
+        <%= f.select :status, SalesStatus.statuses.keys.map{ |k| [I18n.t("enums.sales_status.status.#{ k }"), k] }, { include_blank: "ステータス別検索", selected: params[:status] }, class: "form-control" %>
+      </div>
+      <div class="col-lg-2 col-6 pr-0">
+        <%= f.select :year, (2000..Time.now.year).reverse_each, { include_blank: "作成月別検索(年)", selected: params[:year] }, class: "form-control" %>
+      </div>
+      <div class="col-lg-2 col-6 pl-0">
+        <%= f.select :month, 1..12, { include_blank: "作成月別検索(月)", selected: params[:month] }, class: "form-control" %>
+      </div>
+      <div class="col-lg-4 col-12">
+        <%= f.submit "検索", class: "btn btn-primary" %>
+        <%= link_to new_employees_estimate_matter_path, remote: true, class: "btn btn-dark float-r" do %>
+          <i class="fas fa-plus"></i> 新規営業案件
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render "employees/estimate_matters/partial/index" %>
+</div>

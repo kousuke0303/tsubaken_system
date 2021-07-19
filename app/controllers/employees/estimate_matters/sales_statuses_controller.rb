@@ -1,5 +1,6 @@
-class Employees::EstimateMatters::SalesStatusesController < Employees::EstimateMatters::EstimateMattersController
+class Employees::EstimateMatters::SalesStatusesController < Employees::EmployeesController
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_sales_status, only: [:show, :edit, :update, :destroy]
   before_action :set_statuses, only: [:new, :edit]
   before_action ->{ group_for(@estimate_matter) }, only: [:new, :edit]

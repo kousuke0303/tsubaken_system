@@ -1,6 +1,6 @@
 class Employees::EstimateMatters::ClientsController < Employees::EmployeesController
-  before_action :authenticate_employee_except_external_staff!
   before_action :set_estimate_matter
+  before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_client
   
   def edit

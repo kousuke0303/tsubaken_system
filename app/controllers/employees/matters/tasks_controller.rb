@@ -1,10 +1,10 @@
 class Employees::Matters::TasksController < Employees::TasksController
   before_action :set_matter_by_matter_id
+  before_action ->{can_access_only_of_member(@matter)}
   before_action :set_task, except: [:move, :create]
   before_action ->{ group_for(@matter) }, only: [:edit, :change_member]
   before_action :set_manager, if: :object_is_manager?, only: [:change_member]
   before_action :set_staff, if: :object_is_staff?, only: [:change_member]
-  before_action :target_external_staff, if: :object_is_external_staff?, only: [:change_member]
 
   def move
     #パラメーターからenum数値抽出

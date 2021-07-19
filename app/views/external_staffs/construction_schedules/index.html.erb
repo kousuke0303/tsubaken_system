@@ -1,0 +1,12 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <%= render partial: 'layouts/page_title', locals: { title_1: "スケジュール管理", title_2: nil, icon: "fa-calendar-alt"} %>
+    </div>
+  </div>
+
+  <div class="calendar_container mt-05e">
+    <%= render 'vendor_managers/construction_schedules/partial/calendar' %>
+  </div>
+
+</div>

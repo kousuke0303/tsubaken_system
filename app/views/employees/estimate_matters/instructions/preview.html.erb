@@ -1,0 +1,33 @@
+<div class="text-center mr-1e">
+  <button class="btn btn-primary" id="print">印刷</button>
+</div>
+
+<div id="preview_area" class="instruction-preview">
+  <div class="preview-container">
+    <h2>お見積もり補足説明</h2>
+    <% @instructions.each do |instruction| %>
+      <div class="instruction-container">
+        <h4><%= instruction.title %></h4>
+        <div class="instruction-content">
+          <%= safe_join(instruction.content.split("\n"),tag(:br)) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="print-area" class="instruction-preview" style="display: none">
+  <div class="a4-print-container">
+    <h2>お見積もり補足説明</h2>
+    <% @instructions.each do |instruction| %>
+      <div class="instruction-container">
+        <h4><%= instruction.title %></h4>
+        <div class="instruction-content">
+          <%= safe_join(instruction.content.split("\n"),tag(:br)) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_include_tag "print.js" %>

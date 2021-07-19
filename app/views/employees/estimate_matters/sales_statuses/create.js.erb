@@ -1,8 +1,9 @@
 <% if @response == "success" %>
-  $("#sales-status-new").modal("hide");
+  $("#modal-container").modal("hide");
   $('#sales-status-new').empty();
   $(".sales-statuses-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/sales_statuses") %>');
   toastr.success("営業記録に<%= @sales_status.status_i18n %>を追加しました");
+  $("#modal-container").empty();
   <!--成約案件があるか否か-->
   <% if @contracted_estimate_matter.present? %>
     $(".to-create-matter").html('<%= escape_javascript(render "employees/estimate_matters/partial/new_matter_btn") %>');

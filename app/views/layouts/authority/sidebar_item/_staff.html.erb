@@ -1,0 +1,52 @@
+<li>
+  <%= link_to employees_estimate_matters_path do %>
+    <i class="fas fa-paste"></i><span class="ml-1e">営業管理</span>
+  <% end %>
+</li>
+<li>
+  <%= link_to employees_matters_path do %>
+    <i class="fas fa-clipboard"></i><span class="ml-1e">着工案件管理</span>
+  <% end %>
+</li>
+<li>
+  <%= link_to employees_vendors_path do %>
+    <i class="fas fa-user-tie"></i><span class="ml-1e">外注先管理</span>
+  <% end %>
+</li>
+<li>
+  <%= link_to employees_clients_path do %>
+    <i class="fas fa-address-book"></i><span class="ml-1e">顧客管理</span>
+ <% end %>
+</li>
+<li>
+  <%= link_to employees_schedules_path do %>
+   <i class="fas fa-calendar-alt"></i><span class="ml-1e">スケジュール管理</span>
+  <% end %>
+</li>
+<li>
+  <%= link_to staffs_attendances_path do %>
+    <i class="fas fa-clock"></i><span class="ml-1e">勤怠管理</span>
+  <% end %>
+</li>
+<li>
+  <%= link_to "#settings-menu", 'data-toggle': :collapse, 'aria-expanded': :'false' do %>
+    <i class="fas fa-cog"></i><span class="ml-1e">設定</span>
+  <% end %>
+  <ul class="collapse list-unstyled" id="settings-menu">
+    <li>
+      <%= link_to employees_settings_certificates_path do %>
+         <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">診断書関連</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to employees_settings_reports_path do %>
+         <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">報告書関連</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to employees_settings_others_path do %>
+        <i class="fas fa-angle-right ml-1e"></i><span class="ml-1e">その他設定</span>
+      <% end %>
+    </li>
+  </ul>
+</li>

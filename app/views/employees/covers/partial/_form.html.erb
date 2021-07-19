@@ -10,16 +10,19 @@
     <%= f.select :publisher_id, @publishers.map{|pub| [pub.name, pub.id]}, {include_blank: "選択する", required: true}, class: "form-control" %>
     
     <%= f.label :title %>
-    <%= f.text_field :title, value: "#{ current_estimate_matter.title } 写真説明", maxlength: 30, class: "form-control" %>
+    <%= f.text_field :title, value: "#{ @estimate_matter.title } 写真説明", maxlength: 30, class: "form-control" %>
     
     <%= f.label "メッセージ選択" %>
     <%= f.select :select_content, @covers.map{|cover| ["#{cover.title}" + " " +":" + "#{cover.content[0, 10]}", cover.id]}, {include_blank: "選択する"}, class: "form-control", id: "select_content" %> 
     
     <%= f.label :content %>
-    <%= f.text_area :content, id: "cover_content", value: @cover.content, style: "height: 15em", class: "form-control" %>
+    <div class="FlexTextarea">
+      <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+      <%= f.text_area :content, class: "FlexTextarea__textarea", id: "cover-content" %>
+    </div>
     
     <% unless submit_type == "edit" %>
-      <%= f.hidden_field :image_id, value: params[:image_id] %>
+      <%= f.hidden_field :image_id, value: @image.id %>
     <% end %>
   </div>
 </div>
@@ -33,4 +36,16 @@
     var replace_value = eval("content_" + value);
     $('#cover_content').val(replace_value.replace(/(<br>|<br \/>)/gi, '\n'));
   })
+</script>
+
+<script>
+  function flexTextarea(el) {
+    const dummy = el.querySelector('.FlexTextarea__dummy')
+    el.querySelector('.FlexTextarea__textarea').addEventListener('input', e => {
+      dummy.textContent = e.target.value + '\u200b'
+    })
+  }
+  $(function(){
+    document.querySelectorAll('.FlexTextarea').forEach(flexTextarea);
+  });
 </script>

@@ -1,9 +1,9 @@
 <% if @responce == "success" %>
-  $("#category-new").modal('hide');
-  $("#category-new").empty();
+  $("#modal-container").modal('hide');
   $('#classification_disp_check .checkbox').prop('checked', false);
   $('.categories-index').html('<%= escape_javascript(render 'employees/settings/estimates/categories/partial/index_table') %>');
   <%= render partial: "shared/javascript/flash", locals: {dom: ".flash-wrapper", key: "success", value: "#{@category.name}を作成しました。"} %>
+  $("#modal-container").empty();
 <% else %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".category-create-errors", model: @category, object: "category"} %>
 <% end %> 

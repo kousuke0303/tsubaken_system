@@ -33,6 +33,7 @@
 
 .common-table {
   margin-top: 1em;
+  th, td {vertical-align: middle;}
   th {
     background-color: #f5f5f5;
   }

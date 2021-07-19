@@ -6,9 +6,16 @@
 </div>
 
 <div id="matter_show" class="double-line mt-2e">
-  
+
   <%= render "employees/matters/partial/show/mobile/detail" %>
-  
+
+  <% if @supplier %>
+    <div class="mt-2e">
+      <div class="text-center"><h4>紹介元情報</h4></div>
+      <%= render "employees/estimate_matters/suppliers/partial/supplier_table" %>
+    </div>
+  <% end %>
+
   <div class="clients-matter-index mt-2e">
     <div class="text-center"><h4>お客様情報</h4></div>
     <h5 class="text-center"><%= @client.avaliable_disp %></h5>
@@ -26,16 +33,17 @@
                  locals: { object: @matter } %>
     </div>
   </div>
-  
+
   <div class="mt-2e">
     <div class="text-center"><h4>担当業者様</h4></div>
-    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "supplier"), remote: true, class: "btn btn-success float-r" %>
-    <%= render partial: 'shared/person_in_charge/supplier', locals: { object: @matter, path: :edit_employees_matter_path} %>
+    <%= link_to "編集", edit_employees_matter_path(@matter, edit_type: "vendor"), remote: true, class: "btn btn-success float-r" %>
+    <%= render partial: 'shared/person_in_charge/vendor', locals: { object: @matter, path: :edit_employees_matter_path} %>
   </div>
-  
+
   <div class="mt-2e">
     <%= render partial: 'shared/employees/band_select/band_select',
-               locals: { path: "employees/matters/partial/select_band_display"} %>
+               locals: {image_path: "employees_matter_images_path",
+                        path: "employees/matters/partial/select_band_display"} %>
   </div>
-  
+
 </div>

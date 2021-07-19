@@ -1,11 +1,11 @@
 <% if @response == "success" %>
-  $("#estimate-matter-show-modal").modal("hide");
+  $("#modal-container").modal("hide");
   toastr.success('<%= @estimate.name %>プランを作成しました');
   $(".estimates-index").html('<%= escape_javascript(render "employees/estimate_matters/partial/estimates_index", estimates: @estimates, estimate_matter: @estimate_matter) %>');
   $(function(){
     setTimeout("$('.time-limit').fadeOut('slow')", 3000) 
   });
-  $("#estimate-matter-show-modal").empty();
+  $("#modal-container").empty();
 <% else %>
   <%= render "shared/javascript/modal_error", dom: ".estimate-create-errors", model: @estimate, object: "estimate" %>
 <% end %>

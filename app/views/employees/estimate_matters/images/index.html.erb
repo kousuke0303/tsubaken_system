@@ -1,53 +1,48 @@
-<div class="estimate_matter_images_page">
-  
-  <!--タイトル-->
-  <div class="pc_type">
-    <h2 class="title_layout"><i class="fas fa-camera"></i> 画像一覧／ <%= current_estimate_matter.title %></h2>
+<%= render "shared/flash" %>
+
+<section>
+  <%= render partial: "layouts/page_title", locals: { title_1: "画像一覧", title_2: "#{ @estimate_matter.title }", icon: "fa-camera"} %>
+
+  <div class="text-right">
+    <%= link_to "営業案件に戻る", employees_estimate_matter_path(@estimate_matter), class: "btn btn-dark mobile_type" %>
+    <%= link_to '画像追加', new_employees_estimate_matter_image_path(@estimate_matter), remote: true, class: "btn btn-md btn-primary mt-1e" %>
   </div>
-  
-  <div class="mobile_type">
-    <h4 class="title_layout"><i class="fas fa-camera"></i> <%= current_estimate_matter.title %> 画像一覧</h4>
-  </div>
-  
-  <div class="text-center">
-    <div class="row mb-10">
-      <div id="close_band_album" class="text-right col-md-6" style="display: none;">
-        <button class="btn btn-dark">CLOSE</button>
-      </div>
-      <div class="col-sm-12 text-right" id="default_btn_container">
-        <% if current_estimate_matter.band_connection.present? %>
-          <%= link_to 'BANDアルバム', get_album_employees_band_connection_path(current_estimate_matter.band_connection, estimate_matter_id: current_estimate_matter.id), remote: true, class: "btn btn-md btn-primary", id: "open_band_album" %>
-        <% end %>
-        <%= link_to '画像追加', new_employees_estimate_matter_image_path(current_estimate_matter), remote: true, class: "btn btn-md btn-primary" %>
-      </div>
+</section>
+
+<section>
+  <div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">取込済画像一覧</label>
+    <div class="tab-content" id="image_index">
+      <%= render 'employees/estimate_matters/images/partial/image' %>
     </div>
     
-    <div class="row mt-1e">
-      <div id="band_album" class="col-md-6"></div>
-      <div class="col-md-12" id="image_container">
-        <h5>取込済画像</h5>
-        <div id="image_index">
-          <%= render 'employees/estimate_matters/images/partial/image' %>
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">BAND画像取込</label>
+    <div class="tab-content" id="band_album">
+      <% if @estimate_matter.band_connection.present? %>
+        <%= render 'employees/estimate_matters/images/partial/band_image' %>
+      <% else %>
+        <div class="text-center">
+          <p>BANDが選択されていません</p>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
-</div>
+</section>
 
 <script>
-  $('#close_band_album').on('click', function(){
-    $('#band_album').empty();
-    $('#open_band_album').show();
-    $('#close_band_album').hide();
-    $('#image_container').addClass('col-md-12');
-    $('#image_container').removeClass('col-md-6');
-    $('#default_btn_container').addClass('col-sm-12');
-    $('#default_btn_container').removeClass('col-md-6');
-  });
+  $(function(){
+    <% if params[:band_content].present? %>
+      $('#tab01').prop('checked', false);
+      $('#tab02').prop('checked', true);
+    <% end %>
+  });  
 </script>
 
 <script>
-  $(document).ready(function(){
-    window.opener.location.reload();
-  });
+  <% if @search_band_word.present? %>
+    $(function(){
+      var val = "<%= @search_band_word %>";
+      $('#band_search').val(val);
+    });
+  <% end %>
 </script>

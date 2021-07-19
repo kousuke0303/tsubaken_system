@@ -22,7 +22,7 @@
             <p><%= construction.status_of_public %></p>
           </td>
           <td rowspan="2"><%= construction.title %></td>
-          <td rowspan="2"><%= construction.supplier_disp(construction.supplier) %></td>
+          <td><%= construction.vendor_disp(construction.vendor) %></td>
           <td rowspan="2">
             <% if construction.construction_schedule_materials.present? %>
               <% construction.construction_schedule_materials.each do |construction_schedule_material| %>
@@ -46,11 +46,12 @@
           </td>
         </tr>
         <tr>
+          <td><%= construction.member_code.member_name_from_member_code if construction.member_code %></td>
           <td><%= construction.started_on_disp %></td>
           <td><%= construction.finished_on_disp %></td>
         </tr>
       <% end %>
     <% end %>
   </table>
-  
+
 </div>

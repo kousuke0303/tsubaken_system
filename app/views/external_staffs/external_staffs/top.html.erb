@@ -1,38 +1,37 @@
-<div class="col-12 mt-1e">
-  
-  
+<div class="col-12" id="top-page">
+
   <!--▼--alert--▼-->
-  <% if alert_present?(@alert_tasks_count, @own_error_attendances) %> 
-    <%= render 'shared/top_pages/alert_list/top' %>
-  <% end %>
-  
+  <section>
+    <% if @alert_result == true %>
+      <%= render 'shared/top_pages/alert_list/top' %>
+    <% end %>
+  </section>
+
   <!--▼--information--▼-->
-  <% if information_present?(@notifications) %>
-    <%= render 'shared/top_pages/information/top' %>
-  <% end %>
-  
+  <section>
+    <% if information_present? %>
+      <%= render 'shared/top_pages/information/top' %>
+    <% end %>
+  </section>
+
   <!--▼--construction_schedule--▼-->
-  <div id="today-construction-schedule">
-    <ul class="nav nav-tabs title_tab_bar">
-      <li class="nav-item">
-        <a class="nav-link title_tab">本日の作業</a>
-      </li>
-    </ul>
-  
-    <div class="mt-1e text-center">
-      <%= render partial: "common_layouts/attendances/top_attendance", locals: { target: current_external_staff, attendance: @attendance, path: :external_staffs_attendance_path } %>
-    </div>
-  
-    <div class="mt-1e text-center overflow-auto">
-      <%= render partial: "external_staffs/matters/partial/construction_schedule",
-                 locals: {construction_schedules: @construction_schedules_for_today } %>
-    </div>
-  </div>
-  
-  <!--▼--schedule--▼-->
-  <%= render 'external_staffs/external_staffs/partial/construction_schedules_table' %>
-  
-  <!--▼--task--▼-->
-  <%= render 'shared/top_pages/tasks/top' %>
+  <section>
+    <div id="today-construction-schedule">
+      <ul class="nav nav-tabs title_tab_bar">
+        <li class="nav-item">
+          <a class="nav-link title_tab">本日の作業</a>
+        </li>
+      </ul>
+
+      <% if @construction_schedules_for_today.present? %>
+        <div class="mt-1e text-center overflow-auto" id="schedule-today">
+          <%= render partial: "vendors/construction_schedules/partial/construction_schedule",
+                     locals: {construction_schedules: @construction_schedules_for_today,
+                              matter_path: :external_staffs_matter_path } %>
+        </div>
+      <% else %>
+        <p class="ml-1e mt-1e">本日の作業はありません</p>
+      <% end %>
+  </section>
 
 </div>

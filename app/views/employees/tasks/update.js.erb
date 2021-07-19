@@ -1,10 +1,10 @@
 <% if @responce == "success" %>
-  $('#top_page_modal').empty();
-  $('#top_page_modal').modal('hide');
-  $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/alert_task_list') %>');
-  $('#task_notification_lists').html('<%= escape_javascript(render 'common_layouts/notifications/task_notification_lists') %>');
-  $('.tasks-index').html('<%= escape_javascript(render 'common_layouts/tops/tasks/tasks_index') %>');
+  $('#modal-container').modal('hide');
+  $('#alert_task_list').html('<%= escape_javascript(render 'shared/top_pages/alert_list/tasks/alert_task_list') %>');
+  $('#task_notification_lists').html('<%= escape_javascript(render 'shared/top_pages/information/notifications/task_notification_lists') %>');
+  $('.tasks-index').html('<%= escape_javascript(render 'shared/top_pages/tasks/index') %>');
   toastr.success('<%= @task.title%>を変更しました');
+  $('#modal-container').empty();
   <!--バッジ変更-->
   <% if @reciever_notification_count %>
     var totalCount = <%= Notification.all.count %>;

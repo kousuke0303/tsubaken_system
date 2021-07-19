@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#label-color-edit").modal('hide');
-  $("#label-color-edit").empty();
+  $("#modal-container").modal('hide');
   $('.label-colors-index').html('<%= escape_javascript(render 'employees/settings/others/label_colors/partial/index_table') %>');
   toastr.success("<%= @label_color.name %>を更新しました");
+  $("#modal-container").empty();
 <% else @responce == "failure" %>
   <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".label-color-update-errors", model: @label_color, object: "label_color"} %>
 <% end %>

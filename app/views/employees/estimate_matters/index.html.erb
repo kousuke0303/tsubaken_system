@@ -1,6 +1,13 @@
 <div class="col-12">
   <%= render partial: 'layouts/page_title', locals: { title_1: "営業管理案件", title_2: nil, icon: "fa-paste"} %>
-  
+
+  <div class="tab-wrap">
+    <label class="tab-link text-white text-center text-nowrap position-relative impassive">自社案件</label>
+    <label class="tab-link text-white text-center text-nowrap position-relative p-0">
+      <%= link_to "他社案件", externals_employees_estimate_matters_path, class: "d-block text-white text-decoration-none" %>
+    </label>
+  </div>
+
   <%= form_with(model: @clients, method: :get, local: true) do |f| %>
     <div class="row mt-05e">
       <div class="col-lg-2 col-6 pr-0">
@@ -23,36 +30,6 @@
       </div>
     </div>
   <% end %>
-  
-  <div class="table-responsive">
-    <table class="table table-bordered text-nowrap common-table tr-bold">
-      <tr>
-        <th>タイトル</th>
-        <th>顧客</th>
-        <th>最新ステータス／担当者</th>
-      </tr>
-      <% @estimate_matters.each do |estimate_matter| %>
-        <% sales_status = @sales_statuses.where(estimate_matter_id: estimate_matter.id).first %>
-        <% if !params[:status].present? || sales_status.status == params[:status] %>
-          <% if params[:id] == estimate_matter.id %>
-            <tr class="tr-link table-success" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
-          <% else %>
-            <tr class="tr-link" data-link="<%= employees_estimate_matter_path(estimate_matter) %>">
-          <% end %>
-            <td><%= estimate_matter.title %></td>
-            <td><%= estimate_matter.client.name %></td>
-            <% if sales_status.status == "not_set" %>
-              <td><%= sales_status.status_i18n %></td>
-            <% elsif sales_status %>
-              <td><%= sales_status.status_i18n %>／<%= member_name(sales_status) %></td>
-            <% else %>
-              <td></td>
-            <% end %>
-          </tr>
-        <% end %>
-      <% end %>
-    </table>
-  </div>
-</div>
 
-<%= javascript_include_tag "tr_link.js" %>
+  <%= render "employees/estimate_matters/partial/index" %>
+</div>

@@ -1,7 +1,11 @@
 class AlertsController < ApplicationController
-  before_action :authenticate_employee!
-  before_action :alert_tasks
   
-  def index
+  
+  def alert_task_index
+    alert_tasks
+  end
+  
+  def alert_report_index
+    non_report_construction_schedule
   end
 end

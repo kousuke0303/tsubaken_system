@@ -1,0 +1,59 @@
+<label class="form-control text-white" style="background:#787a7b;">担当者</label>
+<span class="ml-1e"><%= @construction_schedule.person_in_charge %></span>
+  
+<label class="form-control text-white" style="background:#787a7b;">作業時間</label>
+<table class="table common-table table-bordered">
+  <tr>
+    <th>開始時間</th>
+  </tr>
+  <tr>
+    <td>
+      <%= f.datetime_select :start_time, class: "form-control" %>
+    </td>
+  </tr>
+  <tr>
+    <th>終了時間</th>
+  </tr>
+  <tr>
+    <td><%= f.datetime_select :end_time, required: true, class: "form-control" %></td>
+  </tr>
+</table>
+
+<label class="form-control text-white" style="background:#787a7b;">現状報告</label>
+<% @reports_hash.each do |report| %>
+  <div class="form-check">
+    <%= f.radio_button :report, report[1], class: "report_check", required: true %>
+    <%= f.label ConstructionReport.reports_i18n[report[0]], class: "form-check-label"%>
+  </div>
+<% end %>
+
+<div>
+  <%= f.label "他に報告事項があればご記入ください" %>
+  <div class="FlexTextarea">
+  <div class="FlexTextarea__dummy" aria-hidden="true"></div>
+    <%= f.text_area :memo, class: "FlexTextarea__textarea" %>
+  </div>
+</div>
+
+<script>
+  var checkedsum; //チェックが入っている個数
+   $('.report_check').on("click",function(){
+      checkedsum = $('.report_check:checked').length; //チェックが入っているチェックボックスの取得
+      if( checkedsum > 0 ){
+        $('.report_check').prop("required",false); //required属性の解除
+      }else{
+        $('.report_check').prop("required",true); //required属性の付与
+      }
+   });
+</script>
+
+<script>
+  function flexTextarea(el) {
+    const dummy = el.querySelector('.FlexTextarea__dummy')
+    el.querySelector('.FlexTextarea__textarea').addEventListener('input', e => {
+      dummy.textContent = e.target.value + '\u200b'
+    })
+  }
+  
+  document.querySelectorAll('.FlexTextarea').forEach(flexTextarea)
+</script>

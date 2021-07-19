@@ -1,14 +1,21 @@
-<h5>スケジュール詳細</h5>
+<div class="double-line">
+  <h4>スケジュール詳細</h4>
+</div>
 
-<div>
-  <span class="calendar_month"><%= @object_day.month %></span>月
-  <span class="calendar_month"><%= @object_day.day %></span>日
+<div class="calendar_for_schedule mt-1e">
+  <span style="font-size: 1.7em;"><%= @object_day.month %></span> 月
+  <span class="calendar_month"><%= @object_day.day %></span> 日
 </div>
 
 <div class="mt-1e">
   <% if @schedules_of_day.present? %>
     <% @schedules_of_day.each do |code_id, schedules_arrey| %>
-      <span><%= member_name_from_member_code_id(code_id) %></span>
+      <table>
+        <tr>
+          <td><%= task_avator(MemberCode.find(code_id).parent) %></td>
+          <td><span class="ml-1e"><%= member_name_from_member_code_id(code_id) %></span></td>
+        </tr>
+      </table>
       <%= render partial: 'employees/schedules/partial/schedule_detail_table',
                  locals: { schedules_arrey: schedules_arrey } %>
     <% end %>

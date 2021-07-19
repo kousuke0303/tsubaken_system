@@ -1,4 +1,9 @@
 class SalesStatus < ApplicationRecord
+  
+  before_save :member_name_update
+  after_commit :create_editor, on: :create
+  after_commit :update_editor, on: :update
+  
   belongs_to :estimate_matter
   belongs_to :member_code, optional: true
   
@@ -17,9 +22,6 @@ class SalesStatus < ApplicationRecord
   validates :scheduled_start_time, presence: true, on: [:schedule_register, :schedule_update]
   validates :scheduled_end_time, presence: true, on: [:schedule_register, :schedule_update]
   
-  before_save :member_name_update
-  after_commit :create_editor, on: :create
-  after_commit :update_editor, on: :update
   
   # 成約見積案件
   scope :contracted_estimate_matter, -> (estimate_matter_id) { joins(:estimate_matter)

@@ -1,17 +1,17 @@
 <div class="col-12">
-  
+
   <div class="pc_type">
     <%= render 'employees/estimate_matters/partial/show/pc' %>
   </div>
-  
+
   <div class="mobile_type">
     <%= render 'employees/estimate_matters/partial/show/mobile/mobile' %>
   </div>
-  
+
   <div>
     <%= render 'employees/estimate_matters/partial/show/menu' %>
   </div>
-  
+
   <div class="mobile_type text-center">
     <% if @matter.present? %>
       <%= link_to "着工案件に移動", employees_matter_path(@estimate_matter.matter), data: {"turbolinks" => false}, class: "btn btn-primary mt-1e col-12" %>
@@ -19,9 +19,11 @@
     <% if @contracted_estimate_matter.present? && @matter.nil? %>
       <%= link_to "着工案件作成", new_employees_matter_path(estimate_matter_id: @estimate_matter.id), remote: true, class: "btn btn-success mt-1e col-12" %>
     <% end %>
-    <%= link_to "本営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger mt-1e col-12" %>
+     <%= link_to @msg_to_switch_type, edit_employees_estimate_matter_path(@estimate_matter, edit_type: "side"), remote: true, class: "btn btn-primary mt-1e col-12" %>
   </div>
-    
+
+  <%= link_to "本営業案件を削除", employees_estimate_matter_path(@estimate_matter), method: :delete, data: { confirm: "この見積案件を削除してよろしいですか？" }, class: "btn btn-danger mt-1e col-12" %>
+
 </div>
 
 <%= javascript_include_tag "tableCollapse.js" %>
@@ -29,5 +31,11 @@
 <script>
   $('#to_image_index').on('click', function(){
     window.open( '<%= employees_estimate_matter_images_path(@estimate_matter) %>', 'new', "width=820,height=600,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no");
+  });
+</script>
+
+<script>
+  $('#to_image_index_for_mobile').on('click', function(){
+    window.location.herf = '<%= employees_estimate_matter_images_path(@estimate_matter) %>';
   });
 </script>

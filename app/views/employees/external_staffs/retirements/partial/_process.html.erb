@@ -1,12 +1,12 @@
 <ul class="nav nav-tabs title_tab_bar mt-2e">
   <li class="nav-item">
-    <a class="nav-link title_tab" id="process_1">① 営業案件の担当者変更</a>
+    <a class="nav-link title_tab" id="process_1">① 担当案件の担当者変更</a>
   </li>
 </ul>
   
 <div class="news_container">
   <% if @process == 1 %>
-    <%= render "employees/external_staffs/retirements/partial/estimate_matter" %>
+    <%= render "employees/external_staffs/retirements/partial/matter" %>
   <% else %>
     <p>現状、未着手・着工中の担当案件はありません</p>
   <% end %>
@@ -15,47 +15,16 @@
 <% if @process > 1 %>
   <ul class="nav nav-tabs title_tab_bar mt-2e">
     <li class="nav-item">
-      <a class="nav-link title_tab" id="process_2">② 着工案件の担当者変更</a>
+      <a class="nav-link title_tab" id="process_2">② 担当作業の担当者変更</a>
     </li>
   </ul>
   
   <div class="news_container">
     <% if @process == 2 %>
-      <%= render "employees/external_staffs/retirements/partial/matter" %>
+      <%= render partial: "vendor_managers/matters/partial/construction_schedule",
+                 locals: {construction_schedules: @construction_schedules, retire_external_staff_id: @external_staff.id} %>
     <% else %>
       <p>現状、未着手・着工中の担当案件はありません</p>
-    <% end %>
-  </div>
-<% end %>
-
-<% if @process > 2 %>
-  <ul class="nav nav-tabs title_tab_bar mt-2e">
-    <li class="nav-item">
-      <a class="nav-link title_tab" id="process_3">③ 割振タスクの担当者変更</a>
-    </li>
-  </ul>
-  
-  <div class="news_container">
-    <% if @process == 3 %> 
-      <%= render "employees/external_staffs/retirements/partial/task" %>
-    <% else %>
-      <p>現状、未完了の担当タスクはありません</p>
-    <% end %>
-  </div>
-<% end %>
-
-<% if @process > 3 %>
-  <ul class="nav nav-tabs title_tab_bar mt-2e">
-    <li class="nav-item">
-      <a class="nav-link title_tab" id="process_4">④ 本日以降のスケジュール担当者変更</a>
-    </li>
-  </ul>
-    
-  <div class="news_container">
-    <% if @process == 4 %>
-      <%= render "employees/external_staffs/retirements/partial/schedule" %>
-    <% else %>
-      <p>本日以降のスケジュールはありません</p>
     <% end %>
   </div>
 <% end %>
@@ -63,7 +32,7 @@
 <div id="resigned_on_form" style= "display: none">
   <ul class="nav nav-tabs title_tab_bar mt-2e">
     <li class="nav-item">
-      <a class="nav-link title_tab" id="process_5">⑤ 退職日登録</a>
+      <a class="nav-link title_tab" id="process_4">④ 退職日登録</a>
     </li>
   </ul>
 
@@ -81,10 +50,12 @@
   </div>
 </div>
 
-<% if @external_staff.resigned_on.present? && @external_staff.avaliable == false %>
-  <div class="text-center">
-    <%= link_to "削除", confirmation_for_destroy_employees_external_staff_retirements_path(@external_staff), remote: true, class: "btn btn-danger" %>
-  </div>
+<% unless current_vendor_manager %>
+  <% if @external_staff.resigned_on.present? && @external_staff.avaliable == false %>
+    <div class="text-center">
+      <%= link_to "削除", confirmation_for_destroy_employees_external_staff_retirements_path(@external_staff), remote: true, class: "btn btn-danger" %>
+    </div>
+  <% end %>
 <% end %>
 
 <script>
@@ -94,7 +65,7 @@
   });
 </script>
 
-<% if @external_staff.resigned_on.present? || @process > 4 %>
+<% if @external_staff.resigned_on.present? || @process > 2 %>
   <script>
     $('#resigned_on_form').show();
   </script>

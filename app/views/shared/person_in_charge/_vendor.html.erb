@@ -1,0 +1,37 @@
+<% if @vendors.present? %>
+  <div class="table-responsive">
+    <table class="table table-bordered text-nowrap mt-5">
+      <tr>
+        <th style="width: 18em;">外注先会社</th>
+        <th>担当者</th>
+        <th>編集</th>
+      </tr>
+      <% @vendors.each do |vendor| %>
+        <tr>
+          <td><%= vendor.name %></td>
+          <td><%= vendor.person_in_charge_for_matter(object) %></td>
+          <td class="text-center">
+            <% if own_staff? %>
+              <%= link_to "担当者編集", send(path, id: object.id, vendor_id: vendor.id, edit_type: "vendor_staff"), remote: true, class: "btn btn-dark" %>
+            <% elsif current_vendor_manager && current_vendor_manager.vendor == vendor %>
+              <%= link_to "担当者編集", send(path, id: object.id, vendor_id: vendor.id, edit_type: "vendor_staff"), remote: true, class: "btn btn-dark" %>
+            <% else %>
+              <span>不可</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% else %>
+  <p>登録がありません</p>
+<% end %>
+
+<!--<!% object.external_staffs_in_charge_for_group_by_vendor.each do |vendor_id, external_staffs| %>-->
+<!--  <tr>-->
+<!--    <td><!%= vendor.find(vendor_id).name %></td>-->
+<!--    <!% external_staffs.each do |external_staff| %>-->
+<!--      <td><!%= external_staff.name %></td>-->
+<!--    <!% end %>-->
+<!--  </tr>-->
+<!--<!% end %>-->

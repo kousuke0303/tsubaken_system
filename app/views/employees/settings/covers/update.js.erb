@@ -1,8 +1,8 @@
 <% if @responce == "success" %>
-  $("#certificate-cover-edit").modal("hide");
-  $("#certificate-cover-edit").empty();
+  $("#modal-container").modal("hide");
   $('#certificate_cover').html('<%= escape_javascript(render "employees/settings/certificates/partial/cover_index")%>');
   <%= render "shared/javascript/flash", dom: ".flash-wrapper", key: "success", value: "#{ @cover.title }を更新しました" %>
+  $("#modal-container").empty();
 <% else %>
   <%= render "shared/javascript/modal_error", dom: ".cover-update-errors", model: @cover, object: "cover" %>
 <% end %>

@@ -22,7 +22,7 @@
              <div class="gantt_task">
                <% ganttchart(matter) %>
                  <% if @matter_work_day_arrey.include?(day) %>
-                   <div id="<%= @gantt_type %>"></div>
+                   <div class="<%= @gantt_type %>"></div>
                  <% end %>
              </div>
           </td>

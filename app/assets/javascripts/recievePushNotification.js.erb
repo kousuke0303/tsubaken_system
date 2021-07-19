@@ -1,0 +1,32 @@
+var firebaseConfig = {
+  apiKey: "AIzaSyAhVjjuRBAnlQUppvd5tkcmpGCyig5M8mo",
+  authDomain: "emperor-paint-18f69.firebaseapp.com",
+  projectId: "emperor-paint-18f69",
+  storageBucket: "emperor-paint-18f69.appspot.com",
+  messagingSenderId: "819397810288",
+  appId: "1:819397810288:web:38e7e0fd1256cbbecbbcb5",
+  measurementId: "G-3D5Z4MM02E"
+};
+
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+
+messaging.onMessage((payload) => {
+  console.log('Message received. ', payload);
+  const { title, body } = payload.notification
+  <!--// const url = payload.data.url-->
+  navigator.serviceWorker.getRegistration('/firebase-cloud-messaging-push-scope').then(registration => {
+    registration.showNotification(
+      title,
+      {
+        body,
+        icon: "<%= image_path "/appicon/icon-72x72.png" %>",
+        <!--// data: {-->
+        <!--//   FCM_MSG: {-->
+        <!--//     data: { url }-->
+        <!--//   }-->
+        <!--// }-->
+      }
+    )
+  });
+});

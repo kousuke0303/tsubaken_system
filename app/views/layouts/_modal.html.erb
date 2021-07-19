@@ -1,48 +1,6 @@
-<!--アドミン用-->
-<% if admin_signed_in? %>
-  
-  <!--マネージャーCRUD-->
-  <% if controller_name == "managers" %>
-    <% if action_name == "index" %>
-      <div id="manager-new" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "show" %>
-      <div id="manager-edit" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "retirement_process" %>
-      <div id="change-member-for-task" class="modal fade" role="dialog"></div>
-      <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
-      <div id="manager-confirm-for-destroy" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
-  
-<% end %>
+<div id="modal-container" class="modal fade" role="dialog"></div>
 
-<!--アドミン・マネージャー用-->
 <% if admin_signed_in? || manager_signed_in? %>
-
-  <!--スタッフCRUD-->
-  <% if controller_name == "staffs" %>
-    <% if action_name == "index" %>
-      <div id="staff-new" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "show" %>
-      <div id="staff-edit" class="modal fade" role="dialog"></div>
-      <div id="staff_delete_alert" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "retirement_process" %>
-      <div id="staff-confirm-for-destroy" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
-  
-  
-  
-  <!--外部スタッフCRUD-->
-  <% if controller_name == "external_staffs" %>
-    <% if action_name == "index" %>
-      <div id="external-staff-new" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "show" %>
-      <div id="external-staff-edit" class="modal fade" role="dialog"></div>
-    <% elsif action_name == "retirement_process" %>
-      <div id="external-staff-confirm-for-destroy" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
 
   <!--勤怠new・edit-->
   <% if controller_name == "attendances" && action_name == "individual" || controller_name == "attendances" && action_name == "daily" %>
@@ -50,163 +8,43 @@
     <div id="attendance-edit" class="modal fade" role="dialog"></div>
   <% end %>
 
-  <!--デフォルトタスクnew・edit-->
-  <% if controller_name == "tasks" && action_name == "index" %>
-    <div id="default-task-new" class="modal fade" role="dialog"></div>
-    <div id="default-task-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--デフォルト報告書new・edit-->
-  <% if controller_name == "reports" && action_name == "index" %>
-    <div id="default-report-new" class="modal fade" role="dialog"></div>
-    <div id="default-report-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--屋号/部署/集客/取引先業種new・edit-->
-  <% if controller_name == "companies" && action_name == "index" %>
-    <div id="publisher-new" class="modal fade" role="dialog"></div>
-    <div id="publisher-edit" class="modal fade" role="dialog"></div>
-    <div id="department-edit" class="modal fade" role="dialog"></div>
-    <div id="attract-method-edit" class="modal fade" role="dialog"></div>
-    <div id="industry-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
-  <!--プラン名/工事部位/工事種類/素材new・edit-->
-  <% if controller_name == "estimates" && action_name == "index" %>
-    <div id="plan-name-new" class="modal fade" role="dialog"></div>
-    <div id="plan-name-edit" class="modal fade" role="dialog"></div>
-    <div id="category-new" class="modal fade" role="dialog"></div>
-    <div id="category-edit" class="modal fade" role="dialog"></div>
-    <div id="construction-new" class="modal fade" role="dialog"></div>
-    <div id="construction-edit" class="modal fade" role="dialog"></div>
-    <div id="material-new" class="modal fade" role="dialog"></div>
-    <div id="material-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--カラーコードnew・edit-->
-  <% if controller_name == "others" && action_name == "index" %>
-    <div id="label-color-new" class="modal fade" role="dialog"></div>
-    <div id="label-color-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
   <!--matter/task担当者変更-->
   <% if controller_name == "staffs" && action_name == "retirement_process" %>
     <div id="change-member-for-matter" class="modal fade" role="dialog"></div>
     <div id="change-member-for-estimate_matter" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-task" class="modal fade" role="dialog"></div>
     <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
   <% end %>
-  
-  <% if controller_name == "external_staffs" && action_name == "retirement_process" %>
-    <div id="change-member-for-matter" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-estimate_matter" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-task" class="modal fade" role="dialog"></div>
-    <div id="change-member-for-schedule" class="modal fade" role="dialog"></div>
-  <% end %>
-  
 
   <!--お問合せedit-->
   <% if controller_name == "inquiries" && action_name == "show" %>
     <div id="inquiry-edit" class="modal fade" role="dialog"></div>
   <% end %>
+  
 <% end %>
 
 <!--アドミン・マネージャー・スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? %>
-  
-  <!--顧客new・edit-->
-  <% if controller_name == "clients" && action_name == "index" %>
-    <div id="client-new" class="modal fade" role="dialog"></div>
-  <% elsif controller_name == "clients" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  <% if controller_name == "clients" && action_name == "show" %>
-    <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--外注先new・edit-->
-  <% if controller_name == "suppliers" && action_name == "index" %>
-    <div id="supplier-new" class="modal fade" role="dialog"></div>
-  <% elsif controller_name == "suppliers" && action_name == "show" %>
-    <div id="supplier-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-
-  <!--営業案件new・edit-->
-  <% if controller_name == "estimate_matters" || controller_name == "clients" %>
-    <% if action_name == "index" %>
-      <div id="estimate-matter-new" class="modal fade" role="dialog"></div>
-    <% end %>
-  <% end %>
-  
-  <% if controller_name == "estimate_matters" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-    <div id="bands-index" class="modal fade" role="dialog"></div>
-  <% end %>
-  
-  <!--診断書new・edit-->
-  <div id="certificate-new" class="modal fade" role="dialog"></div>
-  <div id="certificate-edit" class="modal fade" role="dialog"></div>
-  <div id="certificate-cover-new" class="modal fade" role="dialog" ></div>
-  <div id="certificate-cover-edit" class="modal fade" role="dialog" ></div>
-  
-  <!--見積案件に紐づいている写真に対しての診断書new・edit-->
-  <div id="estimate-matter-certificate-new" class="modal fade" role="dialog"></div>
-  <div id="estimate-matter-certificate-edit" class="modal fade" role="dialog"></div>
 
   <!--着工案件関連-->
   <% if controller_name == "matters" && action_name == "show" %>
-    <div id="client-edit" class="modal fade" role="dialog"></div>
-    <div id="bands-index" class="modal fade" role="dialog"></div>
-    
-    <!----TASK_EDIT---->
-    <!--<div id="task-edit" class="modal fade" role="dialog"></div>-->
-    
     <!--ここまで確認済み-->
     <!--請求書関連-->
     <div id="invoice-edit" class="modal fade" role="dialog"></div>
     <div id="invoice-detail-edit" class="modal fade" role="dialog"></div>
     <div id="invoice-object-edit" class="modal fade" role="dialog"></div>
-    <!--報告書new・edit-->
-    <div id="report-new" class="modal fade" role="dialog"></div>
-    <div id="report-edit" class="modal fade" role="dialog"></div>
-    <!--報告書表紙new・edit-->
-    <div id="report-cover-new" class="modal fade" role="dialog"></div>
-    <div id="report-cover-edit" class="modal fade" role="dialog"></div>
   <% end %>
-  
+
   <% if controller_name == "schedules" && action_name == "application" %>
     <div id="schedule-application" class="modal fade" role="dialog"></div>
   <% end %>
+  
 <% end %>
 
 
 <!--アドミン・マネージャー・スタッフ・外部スタッフ用-->
 <% if admin_signed_in? || manager_signed_in? || staff_signed_in? || external_staff_signed_in? %>
-  
-  <% if controller_name == "estimate_matters" && action_name == "show" %> 
-    <!--営業ステータスnew・edit-->
-    <div id="sales-status-new" class="modal fade" role="dialog"></div>
-    <div id="sales-status-show" class="modal fade" role="dialog"></div>
-    <div id="sales-status-edit" class="modal fade" role="dialog"></div>
-  <% end %>
-  
-  <!-- 見積案件から案件設定の際に、担当者を選択するモーダル -->
-  <div id="person_in_charge" class="modal fade" role="dialog"></div>
-  <div id="matter-new" class="modal fade" role="dialog"></div>
-  
-  
-  <!--タスクindex-->
-  <div id="task-index" class="modal fade" role="dialog"></div>
-
-  <!--写真new・edit-->
-  <div id="image-new" class="modal fade" role="dialog"></div>
-  <div id="image-edit" class="modal fade" role="dialog"></div>
-  
   <!--SCHEDULEnew・edit-->
   <% if controller_name == "schedules" && action_name == "index" %>
-    <div id="schedule-new" class="modal fade" role="dialog"></div>
-    <div id="schedule-show" class="modal fade" role="dialog"></div>
-    <div id="schedule-edit" class="modal fade" role="dialog"></div>
     <div id="sales-status-edit" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>
@@ -221,26 +59,8 @@
   <div id="inquiry-new" class="modal fade" role="dialog"></div>
 <% end %>
 
-<% if action_name == "top" %>
-  <div id="top-page-modal" class="modal fade" role="dialog"></div>
-  <div id="construction-schedule-modal" class="modal fade" role="dialog"></div>
-<% end %>
-
-<% if controller_name == "matters" && action_name == "show" %>
-  <div id="matter-show-modal" class="modal fade" role="dialog"></div>
-  <div id="construction-schedule-modal" class="modal fade" role="dialog"></div>
-<% end %>
-
-<% if controller_name == "estimate_matters" && action_name == "show" %>
-  <div id="estimate-matter-show-modal" class="modal fade" role="dialog"></div>
-<% end %>
-
-<!--アドミン・マネージャー用-->
-<% if admin_signed_in? || manager_signed_in? %>
-  <% if controller_name == "retirements" %>
-    <% if action_name == "index" %>
-      <div id="retirement-modal" class="modal fade" role="dialog"></div>
-    <% end %>
+<% if vendor_manager_signed_in? %>
+  <% if controller_name == "construction_schedules" && action_name == "index" %>
+    <div id="schedule-detail" class="modal fade" role="dialog"></div>
   <% end %>
 <% end %>
-  

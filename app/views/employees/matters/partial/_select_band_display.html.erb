@@ -1,12 +1,19 @@
-<% if current_matter.band_connection.nil? %>
-  <%= link_to "BAND連結", employees_band_connections_path(matter_id: current_matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
+<% unless @matter.band_connection.present? %>
+  <% unless current_external_staff || current_vendor_manager %>
+    <%= link_to "BAND連結", employees_band_connections_path(matter_id: @matter.id, type: "new"), remote: true, class: "btn btn-primary" %>
+  <% else %>
+    未設定
+  <% end %>
 <% else %>
   <div class="boxes">
     <div class="label-container ml-05e">
-      <%= image_tag current_matter.band_connection.band_icon, :size =>"50x50" %>
-      <div class="band_name"><%= current_matter.band_connection.band_name %></div>
-      <%= link_to "選択解除", employees_band_connection_path(current_matter.band_connection, matter_id: current_matter.id), remote: true, method: :delete, class: "btn btn-dark band_delete_btn" %>
-      <%= link_to "変更", employees_band_connections_path(matter_id: current_matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+      <%=image_tag @matter.band_connection.band_icon, :size =>'50x50' %>
+      <div class="band_name"><%= @matter.band_connection.band_name %></div>
+
+      <% unless current_external_staff || current_vendor_manager %>
+        <%= link_to "選択解除", employees_band_connection_path(@matter.band_connection, matter_id: @matter.id), remote: true, method: :delete, class: "btn btn-dark band_delete_btn" %>
+        <%= link_to "変更", employees_band_connections_path(estimate_matter_id: @matter.id, type: "edit"), remote: true, class: "btn btn-primary band_edit_btn" %>
+      <% end %>
     </div>
   </div>
-<% end %> 
+<% end %>

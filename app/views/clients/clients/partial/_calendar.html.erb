@@ -1,0 +1,28 @@
+<%= month_calendar(attribute: :start_date, end_attribute: :end_date, events: @target_schedules) do |date, schedules| %>
+  <span class="pl-10"><%= date.day %></span>
+  <% @schedule_date_ids = schedules.pluck(:id) %>
+  <% @target_schedules.each do |construction_schedule| %>
+          
+    <% if @schedule_date_ids.include?(construction_schedule.id) %>
+      <div class="ganttchart-construction mt-5">
+        <div class="status-<%= construction_schedule.status %>">
+          <% if construction_schedule.start_date == date %>
+            <span id="<%= construction_schedule.id %>" class="ml-10" data-toggle="popover" title="<%= construction_schedule.title %>" data-content="<%= construction_schedule.start_date.strftime('%-m/%-d') %>〜<%= construction_schedule.end_date.strftime('%-m/%-d') %>">
+              <%= construction_schedule.title[0..6] %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="ganttchart-construction mt-5">
+        <div style="height: 1.5em;"></div>
+      </div>
+    <% end %>
+        
+  <% end %>
+<% end %>
+
+<% @target_schedules.each do |construction_schedule| %>
+  <script>
+  </script>
+<% end %>

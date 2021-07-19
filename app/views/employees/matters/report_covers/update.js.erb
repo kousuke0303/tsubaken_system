@@ -1,7 +1,9 @@
 <% if @responce == "success" %>
-  $("#report-cover-edit").modal("hide");
+  $("#modal-container").modal("hide");
   $(".report-cover").html('<%= escape_javascript(render "employees/matters/partial/report_cover") %>');
+  $('#button-disp').html('<%= escape_javascript(render 'employees/matters/report_covers/partial/button') %>');
   <%= render "shared/javascript/flash", dom: "#report-cover-flash", key: "success", value: "報告書表紙を更新しました。" %>
+  $("#modal-container").empty();
 <% else %>
   $(".matter-of-report-cover-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @matter) %>');
   <% @matter.errors.messages.keys.each do |key_attribute| %>

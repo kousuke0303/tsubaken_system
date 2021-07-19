@@ -29,7 +29,7 @@
       <td>
         <%= sales_status.register_for_schedule_i18n %>
       </td>
-      <td>
+      <td class="text-center">
         <% unless sales_status.status == "not_set" %>
           <%= link_to "編集", edit_employees_estimate_matter_sales_status_path(@estimate_matter, sales_status), 
                               remote: true, class: "btn btn-sm btn-dark" %>

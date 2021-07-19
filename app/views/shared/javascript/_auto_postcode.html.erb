@@ -1,6 +1,6 @@
 <script>
   $("#address_city").change(function() {
-    if(!$("#postcode").val()){
+    // if(!$("#postcode").val()){
       var address = $(this).val();
       $.ajax({
         type: "GET",
@@ -8,6 +8,6 @@
         cache: false,
         data: { address_city: address, remote: true }
       })  
-    }
+    // }
   });
 </script>

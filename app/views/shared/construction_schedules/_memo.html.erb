@@ -1,0 +1,11 @@
+<div class="modal-dialog non-card-modal">
+  <div class="modal-content">
+    <div class="modal-header bg-dark">
+      <%= @construction_schedule.title %>の報告書備考
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <%= safe_join(@construction_report.memo.split("\n"),tag(:br)) %>
+    </div>
+  </div>
+</div>

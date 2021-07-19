@@ -1,0 +1,18 @@
+<div class="table-responsive">
+  <table class="table table-bordered text-nowrap mt-5">
+    <tr>
+      <th style="width: 8em;">業者名</th>
+      <td><%= @supplier.name %></td>
+      <th>フリガナ</th>
+      <td><%= @supplier.kana %></td>
+      <th>連絡先１</th>
+      <td><%= phone_formatted(@supplier.phone_1) %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td colspan="3"><%= @supplier.prefecture_code %><%= @supplier.address_city %><%= @supplier.address_street %></td>
+      <th>連絡先２</th>
+      <td><%= phone_formatted(@supplier.phone_2) %></td>
+    </tr>
+  </table>
+</div>

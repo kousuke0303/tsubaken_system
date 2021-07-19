@@ -1,7 +1,9 @@
-$(".image-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @image) %>');
-<% @image.errors.messages.keys.each do |key_attribute| %>
-  var addDiv = $('<div class="field-with-errors">');
-  var addLabel = $('[name="image[<%= key_attribute.intern.to_s %>]"]').prev();
-  $('[name="image[<%= key_attribute.intern.to_s %>]"]').wrap(addDiv);
-  addLabel.wrap(addDiv);
+<% if @responce == "success" %>
+  $('#modal-container').modal('hide');
+  $('#image_index').html('<%= escape_javascript(render 'employees/matters/images/partial/image') %>')
+  window.opener.location.reload();
+  $('#modal-container').empty();
+  toastr.success('編集しました');
+<% else %>
+  <%= render partial: 'shared/javascript/modal_error', locals: {dom: ".image-update-errors", model: @image, object: "image"} %>
 <% end %>
