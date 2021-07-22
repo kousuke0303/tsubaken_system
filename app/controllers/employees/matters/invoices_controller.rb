@@ -1,6 +1,6 @@
 class Employees::Matters::InvoicesController < Employees::EmployeesController
   before_action :set_matter_by_matter_id
-  before_action ->{can_access_only_of_member(@matter)}
+  before_action ->{ can_access_only_of_member(@matter) }
   before_action :set_categories, only: :edit
   before_action :set_plan_names, only: [:show, :edit]
   before_action :set_default_color_code, only: :edit
@@ -30,15 +30,16 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
     if @invoice.update(invoice_params)
       if @after_category_array.present?
         comparison_for_category # 差分比較
-        # ①パターン：カテゴリ初登録及びカテゴリ増加        
-        register_categories(@add_categories) if @add_category_array != "nil"        
+        # ①パターン：カテゴリ初登録及びカテゴリ増加
+        register_categories(@add_categories) if @add_category_array != "nil"
         # ②パターン：カテゴリ削除
-        decrease_category(@delete_categories) if @delete_category_array != "nil"              
+        decrease_category(@delete_categories) if @delete_category_array != "nil"
         # 順番変更
         change_category_order
       end
       @response = "success"
       @invoice.calc_total_price
+      @estimates = @matter.estimate_matter.estimates
       set_plan_name_of_invoice
       set_color_code_of_invoice
       set_invoice_details
@@ -68,7 +69,7 @@ class Employees::Matters::InvoicesController < Employees::EmployeesController
       before_category_array = @invoice.invoice_details.pluck(:category_id)
       # カテゴリが増えている場合
       (@after_category_array - before_category_array) == [nil] || @after_category_array == before_category_array ?
-      @add_category_array = "nil" : @add_categories = @after_category_array - before_category_array      
+      @add_category_array = "nil" : @add_categories = @after_category_array - before_category_array
       # カテゴリが減っている場合
       (before_category_array - @after_category_array) == [nil] || before_category_array == @after_category_array ?
       @delete_category_array = "nil" : @delete_categories = before_category_array - @after_category_array

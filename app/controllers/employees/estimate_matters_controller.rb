@@ -113,9 +113,9 @@ class Employees::EstimateMattersController < Employees::EmployeesController
     def current_person_in_charge(params)
       @sales_statuses = SalesStatus.order(created_at: "DESC")
       if current_admin || current_manager
-        @estimate_matters = EstimateMatter.page(params[:page]).per(20).order(created_at: :desc).eager_load(:client)
+        @estimate_matters = EstimateMatter.paginate(page: params[:page], per_page: 20).order(created_at: :desc).eager_load(:client)
       elsif current_staff
-        @estimate_matters = EstimateMatter.page(params[:page]).per(20).eager_load(:member_codes).where(member_codes: { id: current_staff.member_code.id }).order(created_at: :desc)
+        @estimate_matters = EstimateMatter.paginate(page: params[:page], per_page: 20).eager_load(:member_codes).where(member_codes: { id: current_staff.member_code.id }).order(created_at: :desc)
       end
       if action_name.eql?("externals")
         @estimate_matters = @estimate_matters.where.not(supplier_id: nil)
