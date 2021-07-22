@@ -1,4 +1,4 @@
-class Employees::CoversController < Employees::EstimateMatters::EstimateMattersController
+class Employees::CoversController < Employees::EmployeesController
   before_action :set_estimate_matter
   before_action ->{can_access_only_of_member(@estimate_matter)}
   before_action :set_publishers, only: [:new, :edit]
