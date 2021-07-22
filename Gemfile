@@ -55,10 +55,6 @@ gem 'gon'
 gem 'serviceworker-rails'
 # fcm
 gem 'googleauth'
-# ページネーション
-gem 'kaminari'
-gem 'bootstrap4-kaminari-views'
-
 
 group :development, :test do
   gem 'mysql2'
