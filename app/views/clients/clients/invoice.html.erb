@@ -5,7 +5,7 @@
   </section>
 
   
-  <% if @invoice.present? %>
+  <% if @condition.invoice && @invoice.present? %>
     <section>
       
       <div class="double-line">
@@ -92,7 +92,7 @@
   
     </section>
   <% else %>
-    <section>
+    <section class="text-center">
       <p>登録がありません</p>
     </section>
   <% end %>

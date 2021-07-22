@@ -3,10 +3,12 @@ class Client < ApplicationRecord
   before_save { self.email = email.downcase if email.present? }
   after_find :set_password_condition
   after_commit :create_member_code, on: :create
+  after_commit :management_client_show_condition, on: :create
   
   has_many :estimate_matters, dependent: :destroy
   has_many :matters, dependent: :destroy
   has_one :member_code, dependent: :destroy
+  has_one :client_show_condition, dependent: :destroy
   
   # has_one_attached :avator
   
@@ -28,11 +30,11 @@ class Client < ApplicationRecord
   # 名前検索
   scope :get_by_name, ->(name) { where("name like ?", "%#{ name }%") }
   # 成約顧客
-  scope :has_matter, ->{ joins(:matters).order(created_at: :desc).group_by{|client| client.id}} 
+  # scope :has_matter, ->{ joins(:matters).order(created_at: :desc).group_by{|client| client.id}}
+  scope :has_matter, ->{ joins(:matters).distinct.order(created_at: :desc) }
   # 未成約顧客
   scope :not_have_matter, ->{ left_joins(:matters).order(created_at: :desc)
-                                                  .where( matters: { id: nil })
-                                                  .group_by{|client| client.id}}
+                                                  .select('clients.*').where( matters: { id: nil })}
   # お問合せから絞込
   scope :search_by_inquiry, ->(name, kana, phone, email){
     where("name like ?", "%#{ name }%").
@@ -125,6 +127,12 @@ class Client < ApplicationRecord
     def create_member_code
       unless MemberCode.find_by(client_id: self.id)
         MemberCode.create(client_id: self.id)
+      end
+    end
+    
+    def management_client_show_condition
+      unless self.client_show_condition.present?
+        ClientShowCondition.create(client_id: self.id)
       end
     end
   

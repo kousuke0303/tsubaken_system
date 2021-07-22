@@ -2,7 +2,6 @@ class Matter < ApplicationRecord
 
   before_create :identify
   after_commit :staff_external_staff_connection_and_task_set, on: :create
-  after_find :change_matter_status
 
   belongs_to :estimate_matter
   belongs_to :estimate
@@ -97,22 +96,6 @@ class Matter < ApplicationRecord
     staff_ids = self.member_codes.joins(:staff).where(staffs: { avaliable: true}).ids
     member_ids.push(staff_ids)
     return member_ids.flatten
-  end
-
-  # matter_status変更
-  def change_matter_status
-    if self.construction_schedules.present?
-      construction_schedules = self.construction_schedules.order_start_date
-      if construction_schedules.first.status != "not_started"
-        date = construction_schedules.first.started_on
-        self.update(status: 1, started_on: date)
-      elsif construction_schedules.last.status == "complete"
-        date = construction_schedules.last.finished_on
-        self.update(status: 2, finished_on: date)
-      else
-        self.update(status: 0, started_on: nil, finished_on: nil)
-      end
-    end
   end
 
   def change_invoice(estimate_id)

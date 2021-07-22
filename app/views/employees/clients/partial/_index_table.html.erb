@@ -1,10 +1,13 @@
-<% objects.each do |id, clients| %>
-  <tr class="tr-link" data-link="<%= employees_client_path(id: id) %>">
-    <td><%= clients[0].name %></td>
-    <td><%= clients[0].login_id %></td>
-    <td><%= phone_formatted(clients[0].phone_1) %></td>
-    <td><%= clients[0].email %></td>
-    <td><%= clients[0].last_update_for_estimate_matter_or_matter %></td>
+<section class="mt-1e pagenation_area">
+  <%= will_paginate objects, :params=>{type: type} %>
+<section>
+
+<% objects.each do |client| %>
+  <tr class="tr-link" data-link="<%= employees_client_path(client) %>">
+    <td><%= client.name %></td>
+    <td><%= client.login_id %></td>
+    <td><%= phone_formatted(client.phone_1) %></td>
+    <td><%= client.email %></td>
   </tr>
 <% end %>
 

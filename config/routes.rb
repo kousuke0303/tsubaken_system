@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # mount ActionCable.server => '/cable'
+  
   root "static_pages#top"
   post "sign_in", to: "static_pages#error"
 
@@ -202,6 +203,8 @@ Rails.application.routes.draw do
         end
       end
     end
+    
+    resources :vendors
 
     resources :vendor_managers, except: :edit do
       patch :pass_update, on: :member
@@ -221,10 +224,14 @@ Rails.application.routes.draw do
     end
 
     resources :clients do
+      get :index_for_no_matter, on: :collection
       post :search_index, on: :collection
       patch :reset_password, on: :member
     end
-    resources :vendors
+    
+    namespace :clients do
+      resources :conditions, only: :update
+    end
 
     resources :attendances, only: [:new, :create, :edit, :update, :destroy] do
       collection do

@@ -4,7 +4,7 @@
     <%= render partial: "layouts/page_title", locals: { title_1: "御見積書", title_2: "#{ @estimate_matter.title }", icon: "fa-calculator"} %>
   </section>
 
-  <% if @estimates.present? %>
+  <% if @condition.estimate && @estimates.present? %>
     
     <% if @instructions.present? %> 
       <div class="text-right">
@@ -59,7 +59,7 @@
       <div id="estimate-detail"></div>
     </section>
   <% else %>
-    <section>
+    <section class="text-center">
       <p>登録がありません</p>
     </section>
   <% end %>

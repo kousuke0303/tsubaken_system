@@ -10,13 +10,16 @@ module ClientDecorator
     end
   end
   
-  def last_update_for_estimate_matter_or_matter
-    if self.matters.present?
-      self.matters.order(updated_at: "DESC").first.updated_at.strftime("%y年%-m月%-d日")
-    elsif self.estimate_matters.present?
-      self.estimate_matters.order(updated_at: "DESC").first.updated_at.strftime("%y年%-m月%-d日")
+  def avaliable_for_show_disp
+    if self.avaliable
+      content_tag(:h4, "") do 
+        concat content_tag(:span, "ログイン承認中", class: "badge badge-success")
+      end
     else
-      content_tag(:p, "案件未登録")
+      content_tag(:h4, "") do 
+        concat content_tag(:span, "ログイン未承認中", class: "badge badge-danger")
+      end
     end
   end
+  
 end

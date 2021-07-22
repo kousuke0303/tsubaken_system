@@ -1,0 +1,40 @@
+<% if @client.avaliable %>
+<div class="card mt-1e">
+  <div class="card-body">
+    <div class="table-responsive">
+      <%= form_with model: @condition, url: employees_clients_condition_path(@condition), method: :patch do |f| %>
+        <table class="table table-bordered common-table">
+          <tr>
+            <th>チェック</th>
+            <th>項目</th>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :certificate, {}, true, false %></td>
+            <td>診断書の表示を許可する</td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :estimate, {}, true, false %></td>
+            <td>見積書の表示を許可する</td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :construction_schedule, {}, true, false %></td>
+            <td>作業工程スケジュールの表示を許可する</td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :report, {}, true, false %></td>
+            <td>報告書の表示を許可する</td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :invoice, {}, true, false %></td>
+            <td>請求書の表示を許可する</td>
+          </tr>
+        </table>
+      
+        <div class="text-center">
+          <%= f.submit "更新", class: "btn btn-dark" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

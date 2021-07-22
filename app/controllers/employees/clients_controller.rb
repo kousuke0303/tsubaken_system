@@ -28,14 +28,24 @@ class Employees::ClientsController < Employees::EmployeesController
                              .where(estimate_matters: { client_id: @client.id })
                              .order(updated_at: "DESC")
                              .select("matters.*, estimate_matters.*")
+    @condition = @client.client_show_condition
   end
 
   def edit
   end
 
   def index
-    @clients = Client.has_matter
-    @no_matter_clients = Client.not_have_matter
+    if params[:type] == "has_matter"
+      has_matter_page = params[:page] || 1
+    end
+    @clients_has_matter = Client.has_matter.paginate(page: has_matter_page, per_page: 10)
+  end
+  
+  def index_for_no_matter
+    if params[:type] == "no_matter"
+      no_matter_page = params[:page] || 1
+    end
+    @clients_no_matter = Client.not_have_matter.paginate(page: no_matter_page, per_page: 10)
   end
   
   def search_index
@@ -45,7 +55,12 @@ class Employees::ClientsController < Employees::EmployeesController
   end
 
   def update
-    @client.update(client_params) ? @responce = "success" : @responce = "failed"
+    if @client.update(client_params)
+      @responce = "success"
+      @condition = @client.client_show_condition
+    else
+      @responce = "failed"
+    end
   end
 
   def destroy
@@ -62,7 +77,7 @@ class Employees::ClientsController < Employees::EmployeesController
 
   private
     def client_params
-      params.require(:client).permit(:name, :kana, :gender, :login_id, :avaliable, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street)
+      params.require(:client).permit(:name, :kana, :gender, :login_id, :avaliable, :phone_1, :phone_2, :email, :birthed_on, :postal_code, :prefecture_code, :address_city, :address_street, :avaliable)
     end
 
     def set_client

@@ -49,8 +49,8 @@
     <%= f.label :address_street %>
     <%= f.text_field :address_street, id: "address_street", class: "form-control" %>
   </div>
-  <label class="form-control text-white" style="background:#787a7b;">その他</label>
-  <% if action_name == "edit" %>
+  <% if action_name == "show" %>
+    <label class="form-control text-white" style="background:#787a7b;">その他</label>
     <div class="col-md-6 col-12">
       <%= f.label :login_id %>
       <%= f.text_field :login_id, maxlength: 12, required: true, class: "form-control" %>
@@ -64,8 +64,6 @@
       <%= f.label :avaliable, "しない", value: false %>
     </div>
   <% end %>
-  
-  
   
 </div>
 

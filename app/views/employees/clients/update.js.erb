@@ -3,6 +3,7 @@
   $(".flash-wrapper").html('<div class="flash flash-success">顧客情報を更新しました。</div>')
   $(".clients-matter-index").html('<%= escape_javascript(render "employees/clients/partial/detail") %>');
   $(".clients-index").html('<%= escape_javascript(render "employees/clients/partial/detail") %>');
+  $('#select_view_item').html('<%= escape_javascript(render "employees/clients/partial/select_show_item") %>');
 <% else %>
   $(".client-update-errors").html('<%= escape_javascript(render "shared/error_messages", resource: @client) %>');
   <% @client.errors.messages.keys.each do |key_attribute| %>

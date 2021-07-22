@@ -1,8 +1,12 @@
 <div class="card">
   <div class="card-body">
+    <div class="text-right">
+      <%= @client.avaliable_for_show_disp %>
+    </div>
+      
     <%= form_with(model: @client, url: employees_client_path(@client), remote: true) do |f| %>
       <div id="vendor-manager-update-errors"></div>
-      <%= render 'clients/registrations/partial/form', f: f %>
+      <%= render 'employees/clients/partial/form', f: f %>
 
       <% if current_admin || current_manager || self_vendor_manager %>
         <div class="btn-area">
@@ -17,11 +21,16 @@
   <div class="card mt-1e">
     <div class="card-body">
       <div id="pass-form">
-      <%= render 'employees/clients/partial/pass_form' %>
+        <%= render 'employees/clients/partial/pass_form' %>
       </div>
     </div>
   </div>
 <% end %>
+
+<div id="select_view_item">
+<%= render 'employees/clients/partial/select_show_item' %>
+</div>
+
 
 
 <%= javascript_include_tag 'tableCollapse.js' %>

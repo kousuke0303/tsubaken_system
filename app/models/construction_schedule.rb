@@ -4,6 +4,7 @@ class ConstructionSchedule < ApplicationRecord
   before_save :member_name_update
   after_commit :create_notification, on: :create
   after_commit :update_notification, on: :update
+  after_commit :change_matter_status
   after_destroy :destroy_notification
 
   belongs_to :matter
@@ -116,6 +117,21 @@ class ConstructionSchedule < ApplicationRecord
       if self.member_code.present?
         member_code = MemberCode.find(self.member_code_id)
         self.member_name = member_code.member_name_from_member_code
+      end
+    end
+    
+    # matter_status変更
+    def change_matter_status
+      matter = self.matter
+      relation_construction_schedule = matter.construction_schedules.order_start_date
+      if construction_schedules.first.status != "not_started"
+        date = construction_schedules.first.started_on
+        self.update(status: 1, started_on: date)
+      elsif construction_schedules.last.status == "complete"
+        date = construction_schedules.last.finished_on
+        self.update(status: 2, finished_on: date)
+      else
+        self.update(status: 0, started_on: nil, finished_on: nil)
       end
     end
 

@@ -16,7 +16,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-12">
+    <div class="col-md-6" style="margin-left: -1em;">
       <%= form_with(url: search_index_employees_clients_path, method: :post, remote: true) do |f| %>
         <div class="input-group">
           <%= f.text_field :name, class: "form-control", id: "search_name", placeholder: "名前検索", required: true %>
@@ -36,29 +36,18 @@
           <th>顧客ID</th>
           <th>電話番号①</th>
           <th>メールアドレス</th>
-          <th>最終更新日</th>
         </tr>
       </thead>
       <tbody id="search_clients"></tbody>
       <tbody id="tab1">
-        <%= render "/employees/clients/partial/index_table", objects: @clients, display_type: @display_type %>
-      </tbody>
-      <tbody id="tab2" style="display: none;">
-        <%= render "/employees/clients/partial/index_table", objects: @no_matter_clients, display_type: @display_type %>
+        <%= render "/employees/clients/partial/index_table", objects: @clients_has_matter, type: "has_matter", display_type: @display_type %>
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  $("#radio1").click(function(){
-    $('#search_clients').empty();
-    $("#tab2").hide();
-    $("#tab1").show();
-  });
-  $("#radio2").click(function(){
-    $('#search_clients').empty();
-    $("#tab2").show();
-    $("#tab1").hide();
+  $("#radio2").on('click', function(){
+    window.location.href = "<%= index_for_no_matter_employees_clients_path %>";
   });
 </script>

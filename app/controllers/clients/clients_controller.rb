@@ -2,6 +2,7 @@ class Clients::ClientsController < ApplicationController
   before_action :authenticate_client!
   before_action :set_estimate_matter, except: [:top, :detail]
   before_action :set_matter, only: [:schedule, :report, :invoice]
+  before_action :set_condition
   # before_action :preview_display, only: [:invoice]
   
   def top
@@ -43,7 +44,9 @@ class Clients::ClientsController < ApplicationController
   def report
     @reports = @matter.reports
     @report_cover = @matter.report_cover
-    @report_cover_images = [@report_cover.img_1_id, @report_cover.img_2_id, @report_cover.img_3_id, @report_cover.img_4_id]
+    if @report_cover.present?
+      @report_cover_images = [@report_cover.img_1_id, @report_cover.img_2_id, @report_cover.img_3_id, @report_cover.img_4_id]
+    end
   end
   
   def invoice
@@ -62,6 +65,10 @@ class Clients::ClientsController < ApplicationController
     
     def set_matter
       @matter = Matter.find_by(estimate_matter_id: @estimate_matter.id)
+    end
+    
+    def set_condition
+      @condition = current_client.client_show_condition
     end
       
 end

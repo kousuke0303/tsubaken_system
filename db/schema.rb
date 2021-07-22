@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_234001) do
+ActiveRecord::Schema.define(version: 2021_07_21_110036) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -105,6 +105,18 @@ ActiveRecord::Schema.define(version: 2021_07_14_234001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estimate_matter_id"], name: "index_certificates_on_estimate_matter_id"
+  end
+
+  create_table "client_show_conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "certificate", default: false
+    t.boolean "estimate", default: false
+    t.boolean "construction_schedule", default: false
+    t.boolean "report", default: false
+    t.boolean "invoice", default: false
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_client_show_conditions_on_client_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -759,6 +771,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_234001) do
   add_foreign_key "category_materials", "categories"
   add_foreign_key "category_materials", "materials"
   add_foreign_key "certificates", "estimate_matters"
+  add_foreign_key "client_show_conditions", "clients"
   add_foreign_key "construction_reports", "construction_schedules"
   add_foreign_key "construction_schedule_images", "construction_schedules"
   add_foreign_key "construction_schedule_images", "images"
